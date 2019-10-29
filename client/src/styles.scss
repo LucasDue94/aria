@@ -1,0 +1,20 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'assets/colors';
+@import 'fonts/roboto';
+@import 'fonts/Manjari';
+
+* {
+  padding: 0;
+  margin: 0;
+  font-size: 100%;
+  font-family: 'Roboto', sans-serif;
+  text-decoration: none;
+  color: inherit;
+  border: none;
+  vertical-align: baseline;
+  outline: transparent;
+
+  &::selection {
+    background-color: $gray-70;
+  }
+}
