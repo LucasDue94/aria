@@ -4,6 +4,11 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {MultipleSelectModule} from "./multiple-select/multiple-select.module";
+import {HeaderModule} from "./header/header.module";
+import {AlertModule} from "./alert/alert.module";
+import {SpinnerModule} from "./spinner/spinner.module";
+import {MenuModule} from "./menu/menu.module";
+import {MainModule} from "./main/main.module";
 
 @NgModule({
   declarations: [
@@ -13,7 +18,12 @@ import {MultipleSelectModule} from "./multiple-select/multiple-select.module";
     BrowserModule,
     AppRoutingModule,
     FontAwesomeModule,
-    MultipleSelectModule
+    MultipleSelectModule,
+    HeaderModule,
+    AlertModule,
+    SpinnerModule,
+    MenuModule,
+    MainModule
   ],
   providers: [],
   bootstrap: [AppComponent]

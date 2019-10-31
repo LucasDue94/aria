@@ -1,0 +1,77 @@
+@import '../../assets/colors';
+@import '../../assets/device-sizes';
+@import '../../fonts/manjari';
+
+$transition-links: 0.3s;
+$header-height: 70px;
+
+.container-header {
+  display: flex;
+  position: relative;
+  z-index: 4;
+  align-items: center;
+  height: $header-height;
+  align-content: space-between;
+  justify-content: space-between;
+
+  ::selection {
+    background-color: transparent;
+  }
+
+  & {
+    background-color: $green-default;
+    color: $white;
+    box-shadow: 0 3px 6px $gray-90;
+  }
+
+  #exit {
+    text-align: right;
+  }
+
+  #barsIcon {
+    display: flex;
+  }
+
+  #barsIcon, #exit {
+    flex: 1;
+    padding: 0 20px;
+
+    & {
+      color: rgba($white, 0.7);
+      transition: $transition-links;
+    }
+
+    &:hover {
+      cursor: pointer;
+      color: $white;
+    }
+
+    @media screen and (max-width: $smartphone-width) {
+      font-size: 15px;
+      color: $white;
+    }
+
+    @media screen and (max-width: $tablet-width) {
+      color: $white;
+    }
+  }
+
+  .system-name {
+    display: flex;
+    justify-content: center;
+    flex: 2;
+
+    & {
+      text-shadow: 2px 2px 5px $gray-100;
+      font-family: 'manjari-Bold', sans-serif;
+      letter-spacing: 4px;
+      text-align: center;
+      font-size: 35px;
+    }
+  }
+
+  .user-info {
+    margin-left: 22px;
+    font-weight: 500;
+  }
+}

@@ -1,0 +1,68 @@
+@import '../../assets/colors';
+
+.menu {
+  display: flex;
+  height: 100%;
+  width: 70px;
+  background-color: $gray-50;
+  color: $gray-70;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 10px;
+  z-index: 3;
+
+  & {
+    font-size: 35px;
+    box-shadow: 1px 5px 6px $gray-90;
+    background-color: $gray-50;
+  }
+
+  .menu-item {
+    color: $gray-70;
+    margin: 10px auto;
+
+    &:hover {
+      color: $gray-100;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+  }
+}
+
+.menu-container {
+  display: flex;
+  flex-direction: row;
+  height: calc(100% - 10px);
+}
+
+$animation-time:300ms;
+.hide {
+  width: 0;
+  -webkit-animation: hide-menu $animation-time;
+  -o-animation: hide-menu $animation-time;
+  animation: hide-menu $animation-time;
+  @-webkit-keyframes hide-menu {
+    0% {
+      width: 70px;
+    }
+    100% {
+      width: 0;
+    }
+  }
+}
+
+.show {
+  width: 70px;
+  -webkit-animation: show-menu $animation-time;
+  -o-animation: show-menu $animation-time;
+  animation: show-menu $animation-time;
+  @-webkit-keyframes show-menu {
+    0% {
+      width: 0;
+    }
+    100% {
+      width: 70px;
+    }
+  }
+}
+

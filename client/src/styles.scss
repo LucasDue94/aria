@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'fonts/roboto';
 @import 'fonts/Manjari';
-@import 'colors.scss';
+@import 'assets/colors';
 
 * {
   padding: 0;
@@ -19,7 +19,17 @@
   }
 }
 
-app-root{
+app-root {
   width: 100%;
   height: 100vh;
+}
+
+body, app-main {
+  height: 100vh;
+  background-color: $white;
+}
+
+app-main{
+  display: flex;
+  flex-direction: column;
 }

@@ -1,0 +1,4 @@
+<section *ngIf="alert != undefined" class="hidden" #container>
+  <h1 class="message">{{alert?.message}}</h1>
+  <fa-icon *ngIf="alert?.icon != undefined" class="icon" [icon]="['fas',alert?.icon]" size="2x"></fa-icon>
+</section>

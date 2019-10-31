@@ -1,0 +1,59 @@
+@import '../../assets/colors';
+
+.show {
+  position: absolute;
+  opacity: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 200px;
+  min-height: 70px;
+  padding: 8px;
+  -webkit-transition: 1s;
+  -moz-transition: 1s;
+  -o-transition: 1s;
+  transition: 1s;
+
+  & {
+    color: $white;
+    border-radius: 5px 5px 0 0;
+    box-shadow: 1px 1px 10px $gray-100;
+    animation: 3s show-alert;
+  }
+
+  @keyframes show-alert {
+    20% {
+      opacity: 1;
+    }
+    80% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+.icon, .message {
+  margin: 5px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.error {
+  background-color: $danger;
+}
+
+.warning {
+  background-color: $warning;
+}
+
+.success {
+  background-color: $success;
+}

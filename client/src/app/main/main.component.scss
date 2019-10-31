@@ -1,0 +1,71 @@
+@import '../../assets/colors';
+@import '../../assets/device-sizes';
+
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: calc(100% - 20px);
+  width: calc(100% - 20px);
+  margin: 10px;
+
+  & {
+    border-radius: 5px;
+    background-color: $white;
+    box-shadow: 1px 1px 10px $gray-100;
+    color: $gray-100;
+    font-size: 18px;
+    z-index: 44;
+  }
+
+  @media screen and (max-width: $smartphone-width) {
+    background-color: transparent;
+    box-shadow: none;
+  }
+}
+
+.main-content {
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+}
+
+.aria-nav {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  width: calc(100% - 20px);
+  margin: 10px 10px 0 10px;
+
+  ::selection {
+    background-color: transparent;
+  }
+
+  & {
+    color: $gray-90;
+  }
+
+  .module-name {
+    margin-left: 10px;
+    letter-spacing: 1px;
+    font-size: 25px;
+
+    @media screen and (max-width: $smartphone-width) {
+      font-size: 18px;
+    }
+  }
+}
+
+
+.flex-row, .flex-colum {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.flex-colum {
+  flex-direction: column;;
+}
+

@@ -1,0 +1,16 @@
+<app-header (menuStatus)="getStatusMenu($event)"></app-header>
+<section class="flex-row">
+  <app-menu [menuStatus]="menuStatus"></app-menu>
+  <section class="flex-colum">
+    <nav class="aria-nav">
+      <h1 class="module-name">{{moduleName}}</h1>
+    </nav>
+    <main class="main-container">
+      <section class="main-content">
+        <router-outlet></router-outlet>
+        <spinner></spinner>
+      </section>
+    </main>
+  </section>
+  <app-alert [alert]="alert"></app-alert>
+</section>

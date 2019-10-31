@@ -1,0 +1,57 @@
+@import '../../assets/colors';
+
+.container-spinner {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  z-index: 2;
+
+  & {
+    background-color: $white;
+  }
+
+  .loading {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-size: 30px;
+
+    .heart {
+      color: $light-danger;
+      animation: heart-animation 300ms alternate infinite;
+
+      @keyframes heart-animation {
+        0% {
+          transform: rotateY(-15deg);
+        }
+        100% {
+          color: $danger;
+        }
+      }
+    }
+
+    .loading-message {
+      letter-spacing: 1px;
+      font-weight: 300 !important;
+      animation: pulse 1s  infinite;
+      color: $gray-90;
+      font-size: 25px;
+
+      &::selection {
+        background-color: transparent;
+        cursor: pointer !important;
+      }
+
+      @keyframes pulse {
+        100% {
+          color: $gray-60;
+        }
+      }
+    }
+  }
+}
