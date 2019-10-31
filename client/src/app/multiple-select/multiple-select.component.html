@@ -1,0 +1,13 @@
+<main class="container-select">
+  <section (click)="showSelect()" class="select" #select>Selecione</section>
+  <article class="container-selected-items" *ngIf="this.selectedItems?.length > 0" #containerSelectedItems>
+    <div (click)="removeSelectedOfDom($event)" class="item" *ngFor="let item of selectedItems">
+      <fa-icon class="icon" [icon]="faTimesCircle"></fa-icon>
+      <h3>{{getType(item) == 'string' ? item : item[keyPropery]}}</h3>
+    </div>
+  </article>
+  <article *ngIf="show" class="container-options" #containerOptions>
+    <section (click)="setOption($event)" [ngClass]="[isSelected(item) ? 'option selected' : 'option']"
+             *ngFor="let item of items">{{getType(item) == 'string' ? item : item[keyPropery]}}</section>
+  </article>
+</main>
