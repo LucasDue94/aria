@@ -9,10 +9,12 @@ import {AlertModule} from "./alert/alert.module";
 import {SpinnerModule} from "./spinner/spinner.module";
 import {MenuModule} from "./menu/menu.module";
 import {MainModule} from "./main/main.module";
+import { PerfilDashboardComponent } from './perfil-dashboard/perfil-dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    PerfilDashboardComponent,
   ],
   imports: [
     BrowserModule,

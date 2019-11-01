@@ -1,7 +1,10 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from "@angular/router";
+import {PerfilDashboardComponent} from "../perfil-dashboard/perfil-dashboard.component";
 
-const routes: Routes = [];
+const routes: Routes = [
+  {path: 'perfil', component: PerfilDashboardComponent}
+];
 
 @NgModule({
   declarations: [],

@@ -1,0 +1,56 @@
+@import '../../assets/colors';
+@import '../../assets/device-sizes';
+
+
+.container-perfil {
+  display: flex;
+  box-shadow: 0 0 5px $gray-80;
+  margin: 5px;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+#filtro {
+  height: 15%;
+}
+
+#cid {
+  height: 85%;
+}
+
+#motivo-alta {
+  height: 50%;
+}
+
+.container-idade-sexo {
+  display: flex;
+  height: calc(50% - 20px);
+
+  #idade, #sexo {
+    height: calc(100% - 20px);
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .main-container-perfil {
+    display: flex;
+    flex-direction: column;
+  }
+  .flex-colum {
+    height: auto;
+  }
+  .container-idade-sexo {
+    flex-direction: column;
+    #idade,#sexo{
+      width: auto;
+    }
+  }
+
+  #filtro, #cid, #motivo-alta, #idade, #sexo {
+    height: auto;
+  }
+  .container-perfil {
+    height: auto;
+  }
+}

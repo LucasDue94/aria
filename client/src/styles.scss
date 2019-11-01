@@ -33,3 +33,13 @@ app-main{
   display: flex;
   flex-direction: column;
 }
+
+.flex-row, .flex-colum {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.flex-colum {
+  flex-direction: column;;
+}

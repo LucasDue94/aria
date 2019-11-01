@@ -1,5 +1,7 @@
 @import '../../assets/colors';
 
+$animation-time:300ms;
+
 .menu {
   display: flex;
   height: 100%;
@@ -35,7 +37,6 @@
   height: calc(100% - 10px);
 }
 
-$animation-time:300ms;
 .hide {
   width: 0;
   -webkit-animation: hide-menu $animation-time;
