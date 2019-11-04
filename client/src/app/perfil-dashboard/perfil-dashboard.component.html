@@ -1,13 +1,27 @@
 <main class="flex-row main-container-perfil">
-  <article class="flex-colum">
-    <section id="filtro" class="container-perfil">filtro</section>
-    <section id="cid" class="container-perfil">por cid</section>
+  <article class="flex-column">
+    <div class="container-graph filtro-container">
+      <section id="filtro" class="container-perfil">filtro</section>
+    </div>
+    <div class="container-graph cid-container">
+      <fa-icon class="expand-icon" [icon]="faExpand"></fa-icon>
+      <section id="cid" class="container-perfil">por cid</section>
+    </div>
   </article>
-  <article class="flex-colum">
-    <section id="motivo-alta" class="container-perfil">motivo de alta</section>
-    <article class="container-idade-sexo">
-      <section id="idade" class="container-perfil">por idade</section>
-      <section id="sexo" class="container-perfil">por sexo</section>
+  <article class="flex-column">
+    <div class="container-graph idade-container">
+      <fa-icon class="expand-icon" [icon]="faExpand"></fa-icon>
+      <section id="idade" class="container-perfil">idade</section>
+    </div>
+    <article class="container-sexo-motivo-alta">
+      <div class="container-graph sexo-container">
+        <fa-icon class="expand-icon" [icon]="faExpand"></fa-icon>
+        <section id="sexo" class="container-perfil">por sexo</section>
+      </div>
+      <div class="container-graph motivo-alta-container">
+        <fa-icon class="expand-icon" [icon]="faExpand"></fa-icon>
+        <section id="motivo-alta" class="container-perfil">motivo alta</section>
+      </div>
     </article>
   </article>
 </main>

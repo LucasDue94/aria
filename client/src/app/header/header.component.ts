@@ -1,5 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {faBars, faSignOutAlt} from "@fortawesome/free-solid-svg-icons";
+import {MenuService} from "../core/menu/menu.service";
 
 @Component({
   selector: 'app-header',
@@ -14,12 +15,13 @@ export class HeaderComponent implements OnInit {
   faSingOut = faSignOutAlt;
   showMenu = true;
 
-  constructor() {
+  constructor(private menuService: MenuService) {
   }
 
   ngOnInit() {
     this.systemName = 'hamb';
     this.usuarioLogado = localStorage;
+    this.menuService.setStatus(this.showMenu);
   }
 
   logout() {
@@ -28,6 +30,7 @@ export class HeaderComponent implements OnInit {
 
   changeStatus() {
     this.showMenu = !this.showMenu;
+    this.menuService.setStatus(this.showMenu);
     this.menuStatus.emit(this.showMenu)
   }
 }
