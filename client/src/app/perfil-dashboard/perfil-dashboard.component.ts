@@ -1,4 +1,4 @@
-import {Component, DoCheck, HostListener, OnInit} from '@angular/core';
+import {Component, DoCheck, OnInit, Renderer2} from '@angular/core';
 import * as Highcharts from 'highcharts';
 import {MenuService} from "../core/menu/menu.service";
 import {faExpand} from "@fortawesome/free-solid-svg-icons/faExpand";
@@ -19,7 +19,6 @@ noData(Highcharts);
   styleUrls: ['./perfil-dashboard.component.scss']
 })
 export class PerfilDashboardComponent implements OnInit, DoCheck {
-
   faExpand = faExpand;
   menuStatus: boolean;
   public optionsCid: any = {
@@ -36,10 +35,10 @@ export class PerfilDashboardComponent implements OnInit, DoCheck {
     xAxis: {
       type: 'category',
       labels: {
-        rotation: -45,
+        rotation: 0,
         style: {
           fontSize: '13px',
-          fontFamily: 'Verdana, sans-serif'
+          fontFamily: 'Roboto, sans-serif'
         }
       }
     },
@@ -71,11 +70,15 @@ export class PerfilDashboardComponent implements OnInit, DoCheck {
         format: '<b>{point.y:.1f}</b>%',
         y: 0, // 10 pixels down from the top
         style: {
-          fontSize: '13px',
-          fontFamily: 'Verdana, sans-serif'
+          fontSize: '14px',
+          fontFamily: 'Roboto, sans-serif'
         }
-      }
-    }]
+      },
+      color: '#C24D4D',
+    }],
+    credits: {
+      enabled: false
+    }
   };
   public optionsIdade: any = {
     chart: {
@@ -91,24 +94,24 @@ export class PerfilDashboardComponent implements OnInit, DoCheck {
     xAxis: {
       type: 'category',
       labels: {
-        rotation: -45,
+        rotation: 0,
         style: {
           fontSize: '13px',
-          fontFamily: 'Verdana, sans-serif'
+          fontFamily: 'Roboto, sans-serif'
         }
       }
     },
     yAxis: {
       min: 0,
       title: {
-        text: 'Population (millions)'
+        text: 'Número de pessoas'
       }
     },
     legend: {
       enabled: false
     },
     series: [{
-      name: 'Population',
+      name: 'Cids por paciente',
       data: [
         ['18 anos - 30 anos', 162],
         ['30 anos - 60 anos', 1056],
@@ -125,8 +128,12 @@ export class PerfilDashboardComponent implements OnInit, DoCheck {
           fontSize: '13px',
           fontFamily: 'Roboto, sans-serif'
         }
-      }
-    }]
+      },
+      color: '#149553'
+    }],
+    credits: {
+      enabled: false
+    }
   };
   public optionsMotivoAlta: any = {
     chart: {
@@ -139,15 +146,16 @@ export class PerfilDashboardComponent implements OnInit, DoCheck {
         fontWeight: '500'
       }
     },
+
     xAxis: {
       type: 'category',
       labels: {
-        rotation: -45,
+        rotation: 0,
         style: {
           fontSize: '13px',
-          fontFamily: 'Verdana, sans-serif'
+          fontFamily: 'Roboto, sans-serif'
         }
-      }
+      },
     },
     yAxis: {
       min: 0,
@@ -178,10 +186,14 @@ export class PerfilDashboardComponent implements OnInit, DoCheck {
         y: 0, // 10 pixels down from the top
         style: {
           fontSize: '13px',
-          fontFamily: 'Verdana, sans-serif'
+          fontFamily: 'Roboto, sans-serif'
         }
-      }
-    }]
+      },
+      color: '#d48c00',
+    }],
+    credits: {
+      enabled: false
+    }
   };
   public optionsSexo: any = {
     chart: {
@@ -205,11 +217,15 @@ export class PerfilDashboardComponent implements OnInit, DoCheck {
         allowPointSelect: true,
         cursor: 'pointer',
         dataLabels: {
-          // enabled: true,
           format: '<b>{point.name}</b><br>{point.percentage:.1f} %',
-          distance: -35,
+          distance: -45,
+          style: {
+            fontSize: '18px',
+            fontWeight: '500',
+            color: 'transparent',
+            textOutline:'0 contrast'
+          }
         },
-        // showInLegend: true
       }
     },
     series: [{
@@ -217,22 +233,28 @@ export class PerfilDashboardComponent implements OnInit, DoCheck {
       colorByPoint: true,
       data: [{
         name: 'Homem',
-        y: 53
+        y: 53,
+        color: '#2D9DD1'
       }, {
         name: 'Mulher',
-        y: 47
+        y: 47,
+        color: '#E83961'
       }]
-    }]
+    }],
+    credits: {
+      enabled: false
+    }
   };
 
-  constructor(private menuService: MenuService) {}
-
-  @HostListener('window:resize', ['$event']) onResize(event) {
-    this.reflowCharts()
+  constructor(private menuService: MenuService, private render: Renderer2) {
   }
 
+  /*  @HostListener('window:resize', ['$event']) onResize(event) {
+      this.reflowCharts()
+    }*/
+
   reflowCharts() {
-    Highcharts.chart('motivo-alta', this.optionsMotivoAlta).redraw()
+    Highcharts.chart('motivo-alta', this.optionsMotivoAlta).redraw();
     Highcharts.chart('sexo', this.optionsSexo).redraw();
     Highcharts.chart('idade', this.optionsIdade).redraw();
     Highcharts.chart('cid', this.optionsCid).redraw();
@@ -246,6 +268,7 @@ export class PerfilDashboardComponent implements OnInit, DoCheck {
         }, 300)
       }
       this.menuStatus = status
+
     });
   }
 
@@ -254,7 +277,7 @@ export class PerfilDashboardComponent implements OnInit, DoCheck {
       if (status != this.menuStatus) {
         this.reflowCharts()
       }
-      this.menuStatus = status
+      this.menuStatus = status;
     });
   }
 
