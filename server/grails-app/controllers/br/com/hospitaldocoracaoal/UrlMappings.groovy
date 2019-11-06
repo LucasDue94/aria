@@ -1,4 +1,4 @@
-package br.hospitaldocoracaoal.com.br.aria
+package br.com.hospitaldocoracaoal
 
 class UrlMappings {
 
