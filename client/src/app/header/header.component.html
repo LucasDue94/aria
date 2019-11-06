@@ -1,9 +1,9 @@
 <header class="container-header">
-  <a (click)="changeStatus()" id="barsIcon">
-    <fa-icon size="2x" [icon]="faBars"></fa-icon>
+  <a (click)="changeStatus()">
+    <fa-icon id="barsIcon" size="2x" [icon]="faBars"></fa-icon>
   </a>
   <h1 class="system-name">Aria</h1>
-  <a id="exit" (click)="logout()">
-    <fa-icon size="2x" [icon]=faSingOut></fa-icon>
+  <a (click)="logout()">
+    <fa-icon id="exit" size="2x" [icon]=faSingOut></fa-icon>
   </a>
 </header>

@@ -1,5 +1,6 @@
 import {AfterViewInit, Component, DoCheck, Input, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {SpinnerService} from "../core/spinner/spinner.service";
+import {faHeart} from "@fortawesome/free-solid-svg-icons/faHeart";
 
 
 @Component({
@@ -11,6 +12,7 @@ export class SpinnerComponent implements DoCheck, AfterViewInit {
 
 
   private status;
+  faHeart = faHeart
   @Input('width') width: string;
   @Input('height') height: string;
   @ViewChild('spinnerContainer', {static: false}) spinnerContainer;
