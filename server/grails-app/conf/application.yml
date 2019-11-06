@@ -2,7 +2,7 @@
 grails:
     profile: rest-api
     codegen:
-        defaultPackage: aria
+        defaultPackage: br.com.hospitaldocoracaoal.aria
     gorm:
         reactor:
             # Whether to translate GORM events into Reactor events
@@ -36,6 +36,14 @@ management:
 
 ---
 grails:
+    views:
+        json:
+            generator:
+                dateFormat: 'yyyy-MM-dd'
+    databinding:
+        date-formats:
+            - 'dd/MM/yyyy'
+            - 'yyyy-MM-dd'
     mime:
         disable:
             accept:

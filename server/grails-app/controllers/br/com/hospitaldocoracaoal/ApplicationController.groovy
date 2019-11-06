@@ -1,5 +1,4 @@
-package br.hospitaldocoracaoal.com.br.aria
-
+package br.com.hospitaldocoracaoal
 import grails.core.GrailsApplication
 import grails.plugins.*
 

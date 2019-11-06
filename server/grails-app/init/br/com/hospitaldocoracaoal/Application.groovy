@@ -1,4 +1,4 @@
-package br.hospitaldocoracaoal.com.br.aria
+package br.com.hospitaldocoracaoal
 
 import grails.boot.GrailsApp
 import grails.boot.config.GrailsAutoConfiguration
