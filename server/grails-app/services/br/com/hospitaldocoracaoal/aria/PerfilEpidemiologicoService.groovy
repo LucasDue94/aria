@@ -1,27 +1,76 @@
 package br.com.hospitaldocoracaoal.aria
 
 import br.com.hospitaldocoracaoal.integracao.RegistroAtendimento
+import br.com.hospitaldocoracaoal.integracao.Setor
+import org.grails.datastore.mapping.query.api.BuildableCriteria
+
 import java.time.LocalDate
 import java.time.Period
 import java.time.ZoneId
 
 class PerfilEpidemiologicoService {
 
-    def gerarPerfil(Date inicio, Date fim, Character[] tipos = null, boolean geral = true) {
+    private static final Closure FILTROS = { BuildableCriteria criteria, Date inicio, Date fim, Character[] tipos ->
+        if (inicio != null && fim != null) {
+            criteria.between 'dataAlta', inicio, fim
+        }
+
+        if (tipos != null) {
+            criteria.in 'tipo', tipos
+        }
+    }
+
+    private Set<RegistroAtendimento> examesPorSetor(Date inicio, Date fim, Character[] tipos, Collection<Setor> setores) {
         def criteria = RegistroAtendimento.createCriteria()
-        List<RegistroAtendimento> registroAtendimentoList = (List<RegistroAtendimento>) criteria.list() {
+        return criteria.listDistinct {
+            FILTROS(criteria, inicio, fim, tipos)
 
-            if (inicio && fim != null) {
-                between 'dataAlta', inicio, fim
+            exames {
+                'in' 'setor', setores
             }
+        } as Set<RegistroAtendimento>
+    }
 
-            if (tipos != null) {
-                'in' 'tipo', tipos
+    private Set<RegistroAtendimento> leitosPorSetor(Date inicio, Date fim, Character[] tipos, Collection<Setor> setores) {
+        def criteria = RegistroAtendimento.createCriteria()
+        return criteria.listDistinct {
+            createAlias 'registroAtendimentoLeitos', 'ral'
+            createAlias 'ral.leito', 'l'
+            'in' 'l.setor', setores
+
+            FILTROS(criteria, inicio, fim, tipos)
+        } as Set<RegistroAtendimento>
+    }
+
+    private Set<RegistroAtendimento> comandasPorSetor(Date inicio, Date fim, Character[] tipos, Collection<Setor> setores) {
+        def criteria = RegistroAtendimento.createCriteria()
+        return criteria.listDistinct {
+            FILTROS(criteria, inicio, fim, tipos)
+
+            comandas {
+                'in' 'setor', setores
+            }
+        } as Set<RegistroAtendimento>
+    }
+
+    def gerarPerfil(Date inicio, Date fim, Character[] tipos = null, Collection<Setor> setores = null, boolean geral = true) {
+        def criteria = RegistroAtendimento.createCriteria()
+        Set<RegistroAtendimento> registros = (Set<RegistroAtendimento>) criteria.listDistinct {
+            FILTROS(criteria, inicio, fim, tipos)
+
+            if (setores != null && !setores.empty) {
+                'in' 'setor', setores
             }
         }
 
-        def total = registroAtendimentoList.size()
-        def homens = registroAtendimentoList.count { it.paciente.sexo == 'M' }
+        if (setores != null && !setores.empty) {
+            registros.addAll examesPorSetor(inicio, fim, tipos, setores)
+            registros.addAll comandasPorSetor(inicio, fim, tipos, setores)
+            registros.addAll leitosPorSetor(inicio, fim, tipos, setores)
+        }
+
+        def total = registros.size()
+        def homens = registros.count { it.paciente.sexo == 'M' }
         def mulheres = total - homens
 
         def cids = []
@@ -45,7 +94,7 @@ class PerfilEpidemiologicoService {
                 ]
         ]
 
-        registroAtendimentoList.each { registro ->
+        registros.each { registro ->
             def cid = cids.find { it.codigo == registro.cid?.codigo }
             if (cid != null) {
                 cid.quantidade++
@@ -80,10 +129,12 @@ class PerfilEpidemiologicoService {
 
                     if (pertenceFaixa) it.quantidade++
                 }
-                println "Paciente ${registro.paciente.id} ${idade} anos e ${idadeDias} dias"
             }
+        }
 
-
+        cids = cids.sort { a, b -> b.quantidade <=> a.quantidade }
+        if (cids.size() > 10) {
+            cids = cids[0..9]
         }
 
         idades.each {
@@ -101,14 +152,11 @@ class PerfilEpidemiologicoService {
             it.faixaEtaria = faixa.toString()
         }
 
-
         idades*.remove 'limites'
-
-
 
         return [
                 sexo  : [Masculino: homens, Feminino: mulheres],
-                cids  : cids.sort { a, b -> b.quantidade <=> a.quantidade }[0..9],
+                cids  : cids,
                 idades: idades
         ]
     }

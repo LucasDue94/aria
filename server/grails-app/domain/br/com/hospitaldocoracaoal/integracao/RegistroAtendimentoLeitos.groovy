@@ -8,11 +8,8 @@ class RegistroAtendimentoLeitos implements Serializable {
 
     static belongsTo = [RegistroAtendimento, Leito]
 
-    static constraints = {
-    }
-
     static mapping = {
-        id composite: ['registroAtendimento', 'leito']
+        id composite: ['registroAtendimento', 'leito', 'dataEntrada']
         version false
     }
 
