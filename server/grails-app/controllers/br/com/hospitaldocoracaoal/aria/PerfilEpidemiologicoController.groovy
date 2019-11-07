@@ -1,5 +1,7 @@
 package br.com.hospitaldocoracaoal.aria
 
+import javax.xml.bind.ValidationException
+
 class PerfilEpidemiologicoController {
 
 	static responseFormats = ['json', 'xml']
@@ -8,7 +10,7 @@ class PerfilEpidemiologicoController {
     def index() {
         Date inicio
         Date fim
-        // TODO: check input
+        Character[] tipos = null as Character[]
 
         if (fim == null) {
             fim = new Date()
@@ -25,7 +27,13 @@ class PerfilEpidemiologicoController {
             inicio = calendar.time
         }
 
-        Map data = perfilEpidemiologicoService.gerarPerfil(inicio, fim)
-        return [data: data]
+        try {
+            Map data = perfilEpidemiologicoService.gerarPerfil(inicio, fim, tipos)
+            return [data: data]
+        } catch (ValidationException e){
+            respond e
+        }
     }
 }
+
+
