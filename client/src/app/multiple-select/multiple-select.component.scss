@@ -5,6 +5,7 @@
   display: flex;
   flex-direction: column;
   margin: 5px;
+  height: calc(100% - 20px);
 
   ::selection {
     background-color: transparent;
@@ -18,6 +19,9 @@
   justify-content: center;
   height: 20px;
   padding: 7px;
+  width: calc(100% - 14px) !important;
+  z-index: 99;
+
 
   & {
     background-color: $white;
@@ -78,18 +82,22 @@
   display: flex;
   flex-wrap: wrap;
   padding-top: 1px;
-  width: 100%;
+  width: 100% !important;
+  height: 100%;
+  overflow-y: scroll;
 
   .item {
     display: flex;
     align-items: center;
     margin: 1px;
     padding: 5px;
+    height: 25px;
 
     & {
       background-color: $white;
       color: $gray-70;
       font-weight: 400;
+      font-size: 14px;
       border: 1px solid $gray-70;
       border-radius: 5px;
     }

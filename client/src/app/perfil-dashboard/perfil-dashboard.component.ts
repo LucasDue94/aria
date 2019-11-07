@@ -1,7 +1,7 @@
-import {AfterViewInit, Component, DoCheck, OnInit, Renderer2} from '@angular/core';
+import {AfterViewInit, Component, DoCheck, OnInit, Renderer2, ViewChild} from '@angular/core';
 import * as Highcharts from 'highcharts';
 import {MenuService} from "../core/menu/menu.service";
-import {faExpand, faSearch} from "@fortawesome/free-solid-svg-icons/";
+import {faBabyCarriage, faExpand, faFemale, faMale} from "@fortawesome/free-solid-svg-icons/";
 import {SpinnerService} from "../core/spinner/spinner.service";
 
 declare var require: any;
@@ -20,8 +20,12 @@ noData(Highcharts);
   styleUrls: ['./perfil-dashboard.component.scss']
 })
 export class PerfilDashboardComponent implements OnInit, DoCheck, AfterViewInit {
+  @ViewChild('buttonPediatrico', {static: false}) buttonPediatrico;
+  @ViewChild('buttonAdulto', {static: false}) buttonAdulto;
   faExpand = faExpand;
-  faSearch = faSearch
+  faMale = faMale;
+  faFemale = faFemale;
+  faBabyCarriage = faBabyCarriage;
   menuStatus: boolean;
   defaultPlotOptions = {
     series: {
@@ -386,5 +390,19 @@ export class PerfilDashboardComponent implements OnInit, DoCheck, AfterViewInit 
       }
       this.menuStatus = status;
     });
+  }
+
+  toggle(element) {
+    if (element == this.buttonAdulto.nativeElement) {
+      this.render.addClass(this.buttonAdulto.nativeElement, 'active');
+      this.render.removeClass(this.buttonPediatrico.nativeElement, 'active');
+    } else {
+      this.render.addClass(this.buttonPediatrico.nativeElement, 'active');
+      this.render.removeClass(this.buttonAdulto.nativeElement, 'active');
+    }
+  }
+
+  getItemsSelected(event) {
+    console.log(event)
   }
 }
