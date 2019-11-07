@@ -1,7 +1,8 @@
-import {Component, DoCheck, OnInit, Renderer2} from '@angular/core';
+import {AfterViewInit, Component, DoCheck, OnInit, Renderer2} from '@angular/core';
 import * as Highcharts from 'highcharts';
 import {MenuService} from "../core/menu/menu.service";
-import {faExpand} from "@fortawesome/free-solid-svg-icons/faExpand";
+import {faExpand, faSearch} from "@fortawesome/free-solid-svg-icons/";
+import {SpinnerService} from "../core/spinner/spinner.service";
 
 declare var require: any;
 let Boost = require('highcharts/modules/boost');
@@ -18,179 +19,187 @@ noData(Highcharts);
   templateUrl: './perfil-dashboard.component.html',
   styleUrls: ['./perfil-dashboard.component.scss']
 })
-export class PerfilDashboardComponent implements OnInit, DoCheck {
+export class PerfilDashboardComponent implements OnInit, DoCheck, AfterViewInit {
   faExpand = faExpand;
+  faSearch = faSearch
   menuStatus: boolean;
+  defaultPlotOptions = {
+    series: {
+      labels: {
+        style: {
+          fontSize: '14px',
+          fontFamily: 'Roboto, sans-serif',
+          color: '#5A5B5B'
+        },
+      }, dataLabels: {
+        style: {
+          fontSize: '14px',
+          fontFamily: 'Roboto, sans-serif',
+          color: '#5A5B5B'
+        },
+      }
+    }
+  };
+  defaultLabels = {
+    rotation: 0,
+    style: {
+      fontSize: '13px',
+      fontFamily: 'Roboto, sans-serif'
+    },
+  };
   public optionsCid: any = {
     chart: {
-      type: 'column'
+      zoomType: 'xy'
     },
+    plotOptions: this.defaultPlotOptions,
     title: {
       text: 'PACIENTES POR CID',
       style: {
         fontSize: '18px',
-        fontWeight: '500'
+        fontWeight: '500',
+        color: '#5A5B5B'
+
       }
     },
     xAxis: {
-      type: 'category',
+      categories: ['CID 1', 'CID 2', 'CID 3', 'CID 4', 'CID 5', 'CID 6', 'CID 7'],
+      type: 'Tipos de cid',
+      labels: this.defaultLabels,
+    },
+    yAxis: [{
       labels: {
-        rotation: 0,
-        style: {
-          fontSize: '13px',
-          fontFamily: 'Roboto, sans-serif'
-        }
-      }
-    },
-    yAxis: {
-      min: 0,
+        format: '{value}'
+      },
       title: {
-        text: ''
+        text: 'Número de cids',
       }
-    },
-    legend: {
+    }, {
+      labels: {
+        format: '{value} %'
+      },
+      title: {
+        text: 'Porcentagem',
+      },
+      opposite: true
+    }],
+    tooltip: {
+      shared: true,
+      formatter: function () {
+        return this.points.reduce(function (s, point) {
+          if (point.series.name == 'Porcentagem') {
+            return s + '<br/>' + point.series.name + ': ' +
+              '<b>' + point.y + '%' + '</b>';
+          } else {
+            return s + '<br/>' + point.series.name + ': ' +
+              '<b>' + point.y + '</b>';
+          }
+        }, '<b>' + this.x + '</b>');
+      }
+    }, credits: {
       enabled: false
     },
+
     series: [{
-      name: 'Population',
-      data: [
-        ['Cid 1', 24.2],
-        ['Cid 2', 20.8],
-        ['Cid 3', 14.9],
-        ['Cid 4', 13.7],
-        ['Cid 5', 8.1],
-        ['Cid 6', 4.7],
-        ['Cid 7', 0.4],
-      ],
+      name: 'Quantidade',
+      type: 'column',
+      data: [['CID 1', 400], ['CID 2', 200], ['CID 3', 150], ['CID 4', 100], ['CID 5', 50], ['CID 6', 35], ['CID 7', 15]],
+      color: '#C24D4D',
+    }, {
+      yAxis: 1,
+      name: 'Porcentagem',
+      type: 'spline',
+      dashStyle: 'shortdot',
+      color: '#5A5B5B',
+      marker: {
+        lineWidth: 2,
+        lineColor: 'black',
+        fillColor: 'white'
+      },
+      data: [40, 20, 15, 10, 5, 3, 1],
       dataLabels: {
         enabled: true,
-        rotation: 0,
-        color: '#000',
-        align: 'center',
-        format: '<b>{point.y:.1f}</b>%',
-        y: 0, // 10 pixels down from the top
-        style: {
-          fontSize: '14px',
-          fontFamily: 'Roboto, sans-serif'
-        }
+        format: '<b>{point.y:.lf}%</b>',
+        y: 0,
       },
-      color: '#C24D4D',
-    }],
-    credits: {
-      enabled: false
-    }
+    }]
   };
   public optionsIdade: any = {
-    chart: {
-      type: 'column'
-    },
+    plotOptions: this.defaultPlotOptions,
     title: {
       text: 'INTERVALOS DE IDADES',
       style: {
         fontSize: '18px',
-        fontWeight: '500'
-      }
-    },
-    xAxis: {
-      type: 'category',
-      labels: {
-        rotation: 0,
-        style: {
-          fontSize: '13px',
-          fontFamily: 'Roboto, sans-serif'
-        }
-      }
-    },
-    yAxis: {
-      min: 0,
-      title: {
-        text: 'Número de pessoas'
-      }
-    },
-    legend: {
-      enabled: false
-    },
-    series: [{
-      name: 'Cids por paciente',
-      data: [
-        ['18 anos - 30 anos', 162],
-        ['30 anos - 60 anos', 1056],
-        ['60 anos - 79 anos', 1111],
-        ['Maior que 80 anos', 277],
-      ],
-      dataLabels: {
-        enabled: true,
-        rotation: 0,
-        color: '#000',
-        align: 'center',
-        y: 0, // 10 pixels down from the top
-        style: {
-          fontSize: '13px',
-          fontFamily: 'Roboto, sans-serif'
-        }
-      },
-      color: '#149553'
-    }],
-    credits: {
-      enabled: false
-    }
-  };
-  public optionsMotivoAlta: any = {
-    chart: {
-      type: 'column'
-    },
-    title: {
-      text: 'MOTIVOS DE ALTA',
-      style: {
-        fontSize: '18px',
-        fontWeight: '500'
-      }
-    },
+        fontWeight: '500',
+        color: '#5A5B5B'
 
-    xAxis: {
-      type: 'category',
-      labels: {
-        rotation: 0,
-        style: {
-          fontSize: '13px',
-          fontFamily: 'Roboto, sans-serif'
-        }
-      },
-    },
-    yAxis: {
-      min: 0,
-      title: {
-        text: 'Número de altas'
       }
     },
+    xAxis: {
+      categories: ['18 anos - 30 anos', '30 anos - 60 anos', '60 anos - 79 anos', 'Maior que 80 anos'],
+      type: 'Tipos de cid',
+      labels: this.defaultLabels,
+    }, yAxis: [{
+      labels: {
+        format: '{value}'
+      },
+      title: {
+        text: 'Número de pessoas',
+      }
+    }, {
+      labels: {
+        format: '{value} %'
+      },
+      title: {
+        text: 'Porcentagem',
+      },
+      opposite: true
+    }],
     legend: {
       enabled: false
     },
     tooltip: {
-      pointFormat: 'Population in 2017: <b>{point.y:.1f} millions</b>'
+      shared: true,
+      formatter: function () {
+        return this.points.reduce(function (s, point) {
+          if (point.series.name == 'Porcentagem') {
+            return s + '<br/>' + point.series.name + ': ' +
+              '<b>' + point.y + '%' + '</b>';
+          } else {
+            return s + '<br/>' + point.series.name + ': ' +
+              '<b>' + point.y + '</b>';
+          }
+        }, '<b>' + this.x + '</b>');
+      }
     },
     series: [{
-      name: 'Population',
+      type: 'column',
+      name: 'Pessoas',
       data: [
-        ['motivo 1', 201],
-        ['motivo 2', 100],
-        ['motivo 3', 50],
-        ['motivo 4', 24],
-        ['motivo 5', 10],
+        ['18 anos - 30 anos', 162],
+        ['30 anos - 60 anos', 900],
+        ['60 anos - 79 anos', 1111],
+        ['Maior que 80 anos', 277],
       ],
-      dataLabels: {
-        enabled: true,
-        rotation: 0,
-        color: '#000',
-        align: 'center',
-        y: 0, // 10 pixels down from the top
-        style: {
-          fontSize: '13px',
-          fontFamily: 'Roboto, sans-serif'
+      color: '#149553'
+    },
+      {
+        yAxis: 1,
+        name: 'Porcentagem',
+        type: 'spline',
+        dashStyle: 'shortdot',
+        color: '#5A5B5B',
+        marker: {
+          lineWidth: 2,
+          lineColor: 'black',
+          fillColor: 'white'
+        },
+        data: [6, 34, 43, 11],
+        dataLabels: {
+          enabled: true,
+          format: '<b>{point.y:.lf}%</b>',
+          y: 0,
         }
-      },
-      color: '#d48c00',
-    }],
+      }],
     credits: {
       enabled: false
     }
@@ -206,38 +215,40 @@ export class PerfilDashboardComponent implements OnInit, DoCheck {
       text: 'PACIENTES POR SEXO',
       style: {
         fontSize: '18px',
-        fontWeight: '500'
+        fontWeight: '500',
+        color: '#5A5B5B'
+
       }
     },
     tooltip: {
-      pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+      pointFormat: 'Porcentagem: <b>{point.percentage:.1lf}%</b><br>{series.name}: <b>{point.y}'
     },
     plotOptions: {
       pie: {
         allowPointSelect: true,
         cursor: 'pointer',
         dataLabels: {
-          format: '<b>{point.name}</b><br>{point.percentage:.1f} %',
+          format: '<b>{point.name}</b><br>{point.percentage:.1f}%',
           distance: -45,
           style: {
-            fontSize: '18px',
-            fontWeight: '500',
+            fontSize: '16px',
+            fontWeight: '400',
             color: 'transparent',
-            textOutline:'0 contrast'
+            textOutline: '0 contrast'
           }
         },
       }
     },
     series: [{
-      name: 'Brands',
+      name: 'Quantidade',
       colorByPoint: true,
       data: [{
-        name: 'Homem',
-        y: 53,
+        name: 'Masculino',
+        y: 1025,
         color: '#2D9DD1'
       }, {
-        name: 'Mulher',
-        y: 47,
+        name: 'Feminino',
+        y: 1354,
         color: '#E83961'
       }]
     }],
@@ -245,13 +256,100 @@ export class PerfilDashboardComponent implements OnInit, DoCheck {
       enabled: false
     }
   };
+  public optionsMotivoAlta: any = {
+    chart: {
+      type: 'column'
+    },
+    plotOptions: this.defaultPlotOptions,
+    title: {
+      text: 'MOTIVOS DE ALTA',
+      style: {
+        fontSize: '18px',
+        fontWeight: '500',
+        color: '#5A5B5B'
+      }
+    },
+    xAxis: {
+      categories: ['MOTIVO 1', 'MOTIVO 2', 'MOTIVO 3', 'MOTIVO 4', 'MOTIVO 5'],
+      labels: {
+        rotation: -45,
+        style: {
+          fontSize: '13px',
+          fontFamily: 'Roboto, sans-serif'
+        }
+      },
+    },
+    yAxis: [{
+      labels: {
+        format: '{value}'
+      },
+      title: {
+        text: 'Número de altas',
+      }
+    }, {
+      labels: {
+        format: '{value} %'
+      },
+      title: {
+        text: 'Porcentagem',
+      },
+      opposite: true
+    }],
+    legend: {
+      enabled: false
+    },
+    tooltip: {
+      shared: true,
+      formatter: function () {
+        return this.points.reduce(function (s, point) {
+          if (point.series.name == 'Porcentagem') {
+            return s + '<br/>' + point.series.name + ': ' +
+              '<b>' + point.y + '%' + '</b>';
+          } else {
+            return s + '<br/>' + point.series.name + ': ' +
+              '<b>' + point.y + '</b>';
+          }
+        }, '<b>' + this.x + '</b>');
+      }
+    },
+    series: [{
+      name: 'Quantidade',
+      data: [
+        ['motivo 1', 201],
+        ['motivo 2', 100],
+        ['motivo 3', 50],
+        ['motivo 4', 24],
+        ['motivo 5', 10],
+      ],
+      color: '#d48c00',
+    }, {
+      yAxis: 1,
+      name: 'Porcentagem',
+      type: 'spline',
+      dashStyle: 'shortdot',
+      color: '#5A5B5B',
+      marker: {
+        lineWidth: 2,
+        lineColor: 'black',
+        fillColor: 'white'
+      },
+      data: [50, 25, 12, 6, 3],
+      dataLabels: {
+        enabled: true,
+        format: '<b>{point.y:.lf}%</b>',
+        y: 0,
+      },
+    }],
+    credits: {
+      enabled: false
+    }
+  };
 
-  constructor(private menuService: MenuService, private render: Renderer2) {
+
+  constructor(private menuService: MenuService, private render: Renderer2,
+              private spinner: SpinnerService) {
+
   }
-
-  /*  @HostListener('window:resize', ['$event']) onResize(event) {
-      this.reflowCharts()
-    }*/
 
   reflowCharts() {
     Highcharts.chart('motivo-alta', this.optionsMotivoAlta).redraw();
@@ -261,15 +359,24 @@ export class PerfilDashboardComponent implements OnInit, DoCheck {
   }
 
   ngOnInit() {
+    this.spinner.show();
+    if (window.innerWidth < 400) this.defaultLabels.rotation = -45;
     this.menuService.getStatus().subscribe(status => {
       if (status != this.menuStatus) {
         setTimeout(() => {
-          this.reflowCharts();
-        }, 300)
+          this.reflowCharts()
+        }, 300);
+        this.menuStatus = status;
       }
-      this.menuStatus = status
-
     });
+  }
+
+  ngAfterViewInit(): void {
+    Highcharts.chart('motivo-alta', this.optionsMotivoAlta);
+    Highcharts.chart('sexo', this.optionsSexo);
+    Highcharts.chart('idade', this.optionsIdade);
+    Highcharts.chart('cid', this.optionsCid);
+    this.spinner.hide();
   }
 
   ngDoCheck(): void {
@@ -280,5 +387,4 @@ export class PerfilDashboardComponent implements OnInit, DoCheck {
       this.menuStatus = status;
     });
   }
-
 }

@@ -29,7 +29,7 @@ body, app-main {
   background-color: $white;
 }
 
-app-main{
+app-main {
   display: flex;
   flex-direction: column;
 }
@@ -42,4 +42,33 @@ app-main{
 
 .flex-column {
   flex-direction: column;;
+}
+
+.form-group {
+  display: flex;
+  justify-content: space-between;
+  color: $gray-90;
+  align-items: center;
+
+  .form-label {
+    margin: 2px 5px;
+    cursor: pointer;
+  }
+
+  .form-date {
+    margin: 5px;
+    padding-left: 10px;
+    text-align: center;
+    border-bottom: 1px solid $gray-80;
+  }
+
+  .form-check {
+    height: 16px;
+    width: 16px;
+    margin: 5px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
 }

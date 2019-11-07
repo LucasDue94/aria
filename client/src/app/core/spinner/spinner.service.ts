@@ -14,7 +14,6 @@ export class SpinnerService {
   hide() {
     this.status = false;
     this.subject.next(this.status);
-
   }
 
   show() {
