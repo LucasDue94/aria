@@ -1,5 +1,7 @@
 package br.com.hospitaldocoracaoal.aria
 
+import br.com.hospitaldocoracaoal.integracao.Setor
+
 class PerfilEpidemiologicoController {
 
 	static responseFormats = ['json', 'xml']
@@ -8,6 +10,7 @@ class PerfilEpidemiologicoController {
     def index() {
         Date inicio
         Date fim
+
         // TODO: check input
 
         if (fim == null) {
@@ -25,7 +28,7 @@ class PerfilEpidemiologicoController {
             inicio = calendar.time
         }
 
-        Map data = perfilEpidemiologicoService.gerarPerfil(inicio, fim)
+        Map data = perfilEpidemiologicoService.gerarPerfil(inicio, fim, null, [Setor.load('0032')])
         return [data: data]
     }
 }

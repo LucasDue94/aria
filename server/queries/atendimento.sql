@@ -13,8 +13,3 @@ CREATE FOREIGN TABLE  atendimento (
     conteudo                text
     )
 SERVER ambcor_dev OPTIONS (table_name 'atendimento');
-
-select *
-from registro_atendimento ra
-    inner join registro_atendimento_leitos ral on ra.id = ral.registro_atendimento_id
-order by registro_atendimento_id, ral.data_entrada;

@@ -1,15 +1,15 @@
 package br.com.hospitaldocoracaoal.integracao
 
-class Leito {
-
+class Exame {
     String id
-    String descricao
+    RegistroAtendimento registro
     Setor setor
 
-    static hasMany = [registroAtendimentoLeitos: RegistroAtendimentoLeitos]
+    static belongsTo = RegistroAtendimento
 
     static mapping = {
         id generator: 'assigned'
         version false
     }
+
 }

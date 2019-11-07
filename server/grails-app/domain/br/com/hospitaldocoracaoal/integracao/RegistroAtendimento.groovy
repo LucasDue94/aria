@@ -11,10 +11,12 @@ class RegistroAtendimento {
     Character tipo
     Paciente paciente
 
-    static hasMany = [registroAtendimentoLeitos: RegistroAtendimentoLeitos]
-
-    static constraints = {
-    }
+    static hasMany = [
+            comandas: Comanda,
+            atendimentos: Atendimento,
+            exames: Exame,
+            registroAtendimentoLeitos: RegistroAtendimentoLeitos
+    ]
 
     static mapping = {
         id generator: 'assigned'
