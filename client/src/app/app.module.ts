@@ -9,9 +9,13 @@ import {AlertModule} from "./alert/alert.module";
 import {SpinnerModule} from "./spinner/spinner.module";
 import {MenuModule} from "./menu/menu.module";
 import {MainModule} from "./main/main.module";
-import { PerfilDashboardComponent } from './perfil-dashboard/perfil-dashboard.component';
+import {PerfilDashboardComponent} from './perfil-dashboard/perfil-dashboard.component';
+import {ReactiveFormsModule} from "@angular/forms";
+import {CoreModule} from "./core/core.module";
 
 @NgModule({
+  exports: [
+  ],
   declarations: [
     AppComponent,
     PerfilDashboardComponent,
@@ -25,7 +29,9 @@ import { PerfilDashboardComponent } from './perfil-dashboard/perfil-dashboard.co
     AlertModule,
     SpinnerModule,
     MenuModule,
-    MainModule
+    MainModule,
+    ReactiveFormsModule,
+    CoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]

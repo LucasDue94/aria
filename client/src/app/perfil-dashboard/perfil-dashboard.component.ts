@@ -1,8 +1,18 @@
 import {AfterViewInit, Component, DoCheck, OnInit, Renderer2, ViewChild} from '@angular/core';
 import * as Highcharts from 'highcharts';
 import {MenuService} from "../core/menu/menu.service";
-import {faBabyCarriage, faExpand, faFemale, faMale} from "@fortawesome/free-solid-svg-icons/";
+import {
+  faBabyCarriage,
+  faExpand,
+  faFemale,
+  faFrown,
+  faHandMiddleFinger,
+  faMale
+} from "@fortawesome/free-solid-svg-icons/";
 import {SpinnerService} from "../core/spinner/spinner.service";
+import {FormArray, FormBuilder} from "@angular/forms";
+import {PerfilService} from "../core/perfil/perfil.service";
+import {AlertService} from "../core/alert/alert.service";
 
 declare var require: any;
 let Boost = require('highcharts/modules/boost');
@@ -348,10 +358,27 @@ export class PerfilDashboardComponent implements OnInit, DoCheck, AfterViewInit 
       enabled: false
     }
   };
-
+  perfilForm = this.fb.group({
+    dataInicio: [''],
+    dataFinal: [''],
+    tipoAtendimento: this.fb.group({
+      interno: [true],
+      externo: [true],
+      urgencia: [true],
+      ambulatorial: [true],
+    }),
+  });
+  perfil = {
+    dataInicio: '',
+    dataFinal: '',
+    setores: [],
+    tipoAtendimento: [],
+    perfilAdulto: true
+  };
 
   constructor(private menuService: MenuService, private render: Renderer2,
-              private spinner: SpinnerService) {
+              private spinner: SpinnerService, private fb: FormBuilder,
+              private perfilService: PerfilService, private alertService: AlertService) {
 
   }
 
@@ -364,12 +391,15 @@ export class PerfilDashboardComponent implements OnInit, DoCheck, AfterViewInit 
 
   ngOnInit() {
     this.spinner.show();
-    if (window.innerWidth < 400) this.defaultLabels.rotation = -45;
+    if (window.innerWidth < 500) {
+      this.defaultLabels.rotation = -45;
+      this.optionsCid.xAxis.labels.style.fontSize = '10px';
+    }
     this.menuService.getStatus().subscribe(status => {
       if (status != this.menuStatus) {
         setTimeout(() => {
           this.reflowCharts()
-        }, 300);
+        }, 500);
         this.menuStatus = status;
       }
     });
@@ -392,8 +422,8 @@ export class PerfilDashboardComponent implements OnInit, DoCheck, AfterViewInit 
     });
   }
 
-  toggle(element) {
-    if (element == this.buttonAdulto.nativeElement) {
+  toggle() {
+    if (this.perfil.perfilAdulto) {
       this.render.addClass(this.buttonAdulto.nativeElement, 'active');
       this.render.removeClass(this.buttonPediatrico.nativeElement, 'active');
     } else {
@@ -402,7 +432,98 @@ export class PerfilDashboardComponent implements OnInit, DoCheck, AfterViewInit 
     }
   }
 
+  getControl(controlName) {
+    const tipoAtendimento = this.perfilForm.get('tipoAtendimento');
+    return this.perfilForm.get(controlName) != null ? this.perfilForm.get(controlName) : tipoAtendimento.get(controlName);
+  }
+
+  setValues() {
+    const interno = this.getControl('interno').value;
+    const externo = this.getControl('externo').value;
+    const ambulatorial = this.getControl('ambulatorial').value;
+    const urgencia = this.getControl('urgencia').value;
+    this.perfil.tipoAtendimento.push(interno ? 'I' : '');
+    this.perfil.tipoAtendimento.push(externo ? 'E' : '');
+    this.perfil.tipoAtendimento.push(ambulatorial ? 'A' : '');
+    this.perfil.tipoAtendimento.push(urgencia ? 'U' : '');
+    const dataInicio = this.getControl('dataInicio').value;
+    const dataFinal = this.getControl('dataFinal').value;
+    if ((new Date(dataInicio)).getTime() > (new Date(dataFinal)).getTime()) {
+      this.alertService.send({
+        message: 'Ops...A data inicial não pode ser maior que a final',
+        type: 'error',
+        icon: faFrown
+      })
+    }
+    this.perfil.dataInicio =
+      this.perfil.dataFinal = this.getControl('dataFinal').value;
+  }
+
+  send(flag: boolean) {
+    this.perfil.perfilAdulto = flag;
+    this.toggle();
+    this.setValues();
+    this.perfilService.list(this.perfil);
+  }
+
   getItemsSelected(event) {
-    console.log(event)
+    this.perfil.setores = event;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

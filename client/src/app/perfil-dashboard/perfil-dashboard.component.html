@@ -1,37 +1,37 @@
 <main class="flex-row main-container-perfil">
   <article class="flex-column container-column">
-    <div class="container-graph filtro-container">
+    <form [formGroup]="perfilForm" class="container-graph filtro-container">
       <section id="filtro" class="container-perfil">
         <article class="flex-column">
           <section class="form-card">
             <div class="form-group card-date">
               <label class="form-label" for="inicio">Início:</label>
-              <input class="form-date" id="inicio" type="date">
+              <input formControlName="dataInicio" class="form-date" id="inicio" type="date">
             </div>
             <div class="form-group card-date">
               <label class="form-label" for="final">Final:</label>
-              <input class="form-date" id="final" type="date">
+              <input formControlName="dataFinal" class="form-date" id="final" type="date">
             </div>
           </section>
-          <section class="form-card flex-row">
+          <section formGroupName="tipoAtendimento" class="form-card flex-row">
             <section class="flex-column">
               <div class="form-group">
                 <label class="form-label" for="interno">Interno</label>
-                <input class="form-check" id="interno" type="checkbox">
+                <input formControlName="interno" class="form-check" id="interno" value="I" type="checkbox">
               </div>
               <div class="form-group">
                 <label class="form-label" for="urgencia">Urgência</label>
-                <input class="form-check" id="urgencia" type="checkbox">
+                <input formControlName="urgencia" class="form-check" id="urgencia" value="U" type="checkbox">
               </div>
             </section>
             <section class="flex-column">
               <div class="form-group">
                 <label class="form-label" for="externo">Externo</label>
-                <input class="form-check" id="externo" type="checkbox">
+                <input formControlName="externo" class="form-check" id="externo" value="E" type="checkbox">
               </div>
               <div class="form-group">
                 <label class="form-label" for="ambulatorial">Ambulatorial</label>
-                <input class="form-check" id="ambulatorial" type="checkbox">
+                <input formControlName="ambulatorial" class="form-check" id="ambulatorial" value="A" type="checkbox">
               </div>
             </section>
           </section>
@@ -44,19 +44,19 @@
             </multiple-select>
           </section>
           <section class="button-container">
-            <button (click)="toggle($event.currentTarget)" class="search-button" #buttonAdulto>
+            <button (click)="send(true)" class="search-button" #buttonAdulto>
               <fa-icon class="search-icon" [icon]="faMale"></fa-icon>
               <fa-icon class="search-icon" [icon]="faFemale"></fa-icon>
               Adulto
             </button>
-            <button (click)="toggle($event.currentTarget)" class="search-button" #buttonPediatrico>
+            <button (click)="send(false)" class="search-button" #buttonPediatrico>
               <fa-icon class="search-icon" [icon]="faBabyCarriage"></fa-icon>
               Pediátrico
             </button>
           </section>
         </article>
       </section>
-    </div>
+    </form>
     <div class="container-graph cid-container">
       <fa-icon class="expand-icon" id="expand-cid" [icon]="faExpand"></fa-icon>
       <section id="cid" class="container-perfil">por cid</section>
