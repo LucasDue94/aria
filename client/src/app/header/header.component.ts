@@ -21,6 +21,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.systemName = 'hamb';
     this.usuarioLogado = localStorage;
+    if (window.innerWidth <= 1200) this.showMenu = false;
     this.menuService.setStatus(this.showMenu);
   }
 

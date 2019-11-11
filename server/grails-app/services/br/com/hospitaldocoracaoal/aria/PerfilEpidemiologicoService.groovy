@@ -1,29 +1,86 @@
 package br.com.hospitaldocoracaoal.aria
 import br.com.hospitaldocoracaoal.integracao.RegistroAtendimento
+import br.com.hospitaldocoracaoal.integracao.Setor
+import org.grails.datastore.mapping.query.api.BuildableCriteria
+
 
 class PerfilEpidemiologicoService {
 
-    def gerarPerfil(Date inicio, Date fim, Character[] tipos, boolean geral = true) {
+
+    private static final Closure FILTROS = { BuildableCriteria criteria, Date inicio, Date fim, Character[] tipos ->
+        if (inicio != null && fim != null) {
+            criteria.between 'dataAlta', inicio, fim
+        }
+
+        if (tipos != null) {
+            criteria.in 'tipo', tipos
+        }
+    }
+
+    private Set<RegistroAtendimento> examesPorSetor(Date inicio, Date fim, Character[] tipos, Collection<Setor> setores) {
         def criteria = RegistroAtendimento.createCriteria()
-        List<RegistroAtendimento> registroAtendimentoList = (List<RegistroAtendimento>) criteria.list() {
+        return criteria.listDistinct {
+            FILTROS(criteria, inicio, fim, tipos)
 
-            if (inicio && fim != null) {
-                between 'dataAlta', inicio, fim
+            exames {
+                'in' 'setor', setores
             }
+        } as Set<RegistroAtendimento>
+    }
 
-            if (tipos != null) {
-                'in' 'tipo', tipos
+    private Set<RegistroAtendimento> leitosPorSetor(Date inicio, Date fim, Character[] tipos, Collection<Setor> setores) {
+        def criteria = RegistroAtendimento.createCriteria()
+        return criteria.listDistinct {
+            createAlias 'registroAtendimentoLeitos', 'ral'
+            createAlias 'ral.leito', 'l'
+            'in' 'l.setor', setores
+
+            FILTROS(criteria, inicio, fim, tipos)
+        } as Set<RegistroAtendimento>
+    }
+
+    private Set<RegistroAtendimento> comandasPorSetor(Date inicio, Date fim, Character[] tipos, Collection<Setor> setores) {
+        def criteria = RegistroAtendimento.createCriteria()
+        return criteria.listDistinct {
+            FILTROS(criteria, inicio, fim, tipos)
+
+            comandas {
+                'in' 'setor', setores
+            }
+        } as Set<RegistroAtendimento>
+    }
+
+    def gerarPerfil(Date inicio, Date fim, Character[] tipos = null, Collection<Setor> setores = null, Boolean geral = true) {
+        def criteria = RegistroAtendimento.createCriteria()
+        Set<RegistroAtendimento> registros = (Set<RegistroAtendimento>) criteria.listDistinct {
+            FILTROS(criteria, inicio, fim, tipos)
+
+            if (setores != null && !setores.empty) {
+                'in' 'setor', setores
             }
         }
 
-        def total = registroAtendimentoList.size()
-        def homens = registroAtendimentoList.count { it.paciente.sexo == 'M' }
-        def mulheres = total - homens
-
-        def cids = []
+        if (setores != null && !setores.empty) {
+            registros.addAll examesPorSetor(inicio, fim, tipos, setores)
+            registros.addAll comandasPorSetor(inicio, fim, tipos, setores)
+            registros.addAll leitosPorSetor(inicio, fim, tipos, setores)
+        }
 
         final long UM_DIA_MILIS = 24l * 60 * 60 * 1000
         final long UM_ANO = 365
+
+        if (!geral) {
+            registros = registros.findAll { registro ->
+                Math.floorDiv(registro.dataEntrada.time - registro.paciente.nascimento.time, UM_ANO * UM_DIA_MILIS) < 18
+            }
+        }
+
+        def total = registros.size()
+        def homens = registros.count { it.paciente.sexo == 'M' }
+        def mulheres = total - homens
+
+        def cids = []
+        def motivosAltas = []
 
         def idades
         if (geral) {
@@ -33,17 +90,21 @@ class PerfilEpidemiologicoService {
                             limites    : [max: 15 * UM_ANO],
                             quantidade : 0
                     ], [
-                            limites   : [min: 15 * UM_ANO, max: 30 * UM_ANO],
-                            quantidade: 0
+                            faixaEtaria: 'De 15 a 30 anos',
+                            limites    : [min: 15 * UM_ANO, max: 30 * UM_ANO],
+                            quantidade : 0
                     ], [
-                            limites   : [min: 31 * UM_ANO, max: 60 * UM_ANO],
-                            quantidade: 0
+                            faixaEtaria: 'De 31 a 60 anos',
+                            limites    : [min: 31 * UM_ANO, max: 60 * UM_ANO],
+                            quantidade : 0
                     ], [
-                            limites   : [min: 61 * UM_ANO, max: 79 * UM_ANO],
-                            quantidade: 0
+                            faixaEtaria: 'De 61 a 79 anos',
+                            limites    : [min: 61 * UM_ANO, max: 79 * UM_ANO],
+                            quantidade : 0
                     ], [
-                            limites   : [min: 80 * UM_ANO],
-                            quantidade: 0
+                            faixaEtaria: 'Maior que 80 anos',
+                            limites    : [min: 80 * UM_ANO],
+                            quantidade : 0
                     ]
             ]
         } else {
@@ -73,7 +134,21 @@ class PerfilEpidemiologicoService {
         }
 
 
-        registroAtendimentoList.each { registro ->
+        registros.each { registro ->
+
+            def motivoAlta = motivosAltas.find {it.motivoAltaId == registro.motivoAlta.id}
+            if (motivoAlta != null) {
+                motivoAlta.quantidade++
+            } else {
+                String motivoAltaId = null
+                String descricao = "Não cadastrado"
+                if (registro.motivoAlta != null) {
+                    motivoAltaId = registro.motivoAlta.id
+                    descricao = registro.motivoAlta.descricao
+                }
+                motivosAltas << [motivoAltaId: motivoAltaId, descricao: descricao, quantidade: 1]
+            }
+
             def cid = cids.find { it.codigo == registro.cid?.codigo }
             if (cid != null) {
                 cid.quantidade++
@@ -88,59 +163,45 @@ class PerfilEpidemiologicoService {
                 cids << [codigo: codigo, diagnostico: diagnostico, quantidade: 1]
             }
 
-            long idade = (registro.dataEntrada.time - registro.paciente.nascimento.time) / UM_DIA_MILIS
+            long idade = Math.floorDiv(registro.dataEntrada.time - registro.paciente.nascimento.time, UM_DIA_MILIS)
 
-            if (idade >= 0 * UM_ANO && idade <= 15 * UM_ANO) {
-                println "${idade} dias | pac - ${registro.paciente.id}"
+            def faixa = idades.find {
+                boolean pertenceFaixa = true
+                if (it.limites.containsKey('min')) {
+                    pertenceFaixa &= idade >= it.limites.min
+                }
+
+                if (it.limites.containsKey('max')) {
+                    pertenceFaixa &= idade <= it.limites.max
+                }
+
+                return pertenceFaixa
             }
 
-            if (geral) {
-                def faixa = idades.find {
-                    boolean pertenceFaixa = true
-                    if (it.limites.containsKey('min')) {
-                        pertenceFaixa &= idade >= it.limites.min
-                    }
-
-                    if (it.limites.containsKey('max')) {
-                        pertenceFaixa &= idade <= it.limites.max
-                    }
-
-                    return pertenceFaixa
-                }
-
-                if (faixa != null) {
-                    faixa.quantidade++
-                }
-            } else {
-                def faixa = idades.find {
-                    boolean pertenceFaixa = true
-                    if (it.limites.containsKey('min')) {
-                        pertenceFaixa &= idade >= it.limites.min
-                    }
-
-                    if (it.limites.containsKey('max')) {
-                        pertenceFaixa &= idade <= it.limites.max
-                    }
-                    return pertenceFaixa
-                }
-
-                if (faixa != null) {
-                    faixa.quantidade++
-                }
+            if (faixa != null) {
+                faixa.quantidade++
             }
         }
+
+        cids = cids.sort {
+            a, b -> b.quantidade <=> a.quantidade
+        }
+        if (cids.size() > 10) {
+            cids = cids[0..9]
+        }
+
 
         idades.removeIf { it.quantidade == 0 }
         idades*.remove 'limites'
 
         return [
-                sexo  : [Masculino: homens, Feminino: mulheres],
-                cids  : cids.sort { a, b -> b.quantidade <=> a.quantidade },
-                idades: idades
+                sexo       : [Masculino: homens, Feminino: mulheres],
+                cids       : cids,
+                idades     : idades,
+                motivoAltas: motivosAltas
         ]
-    }
 
-    private enum UnidadeTempo {
-        DIAS, ANOS
     }
 }
+
+

@@ -29,7 +29,11 @@ body, app-main {
   background-color: $white;
 }
 
-app-main{
+multiple-select {
+  height: calc(100% - 25px);
+}
+
+app-main {
   display: flex;
   flex-direction: column;
 }
@@ -40,6 +44,40 @@ app-main{
   height: 100%;
 }
 
+.flex-row {
+  flex-direction: row !important;
+}
+
 .flex-column {
-  flex-direction: column;;
+  flex-direction: column!important;
+}
+
+.form-group {
+  display: flex;
+  justify-content: space-between;
+  color: $gray-90;
+  align-items: center;
+
+  .form-label {
+    margin: 2px 5px;
+    cursor: pointer;
+  }
+
+  .form-date {
+    font-size: 14px;
+    width: 150px;
+    margin: 5px;
+    text-align: center;
+    border-bottom: 1px solid $gray-80;
+  }
+
+  .form-check {
+    height: 18px;
+    width: 18px;
+    margin: 5px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
 }

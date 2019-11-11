@@ -7,18 +7,11 @@
   width: 100%;
 
 
-  .container-column {
-    display: flex;
-    flex-direction: column;
-    //align-content: space-between;
-    width: 50% !important;
-
-  }
-
   .container-perfil {
     position: relative;
     display: flex;
     margin: 7px;
+
     & {
       border-radius: 5px;
       box-shadow: 0 0 5px $gray-80;
@@ -33,6 +26,7 @@
   }
 
   .expand-icon, #expand-cid, #expand-idade {
+    visibility: hidden;
     position: absolute;
     top: 12px;
     right: 12px;
@@ -53,16 +47,25 @@
 
   .filtro-container {
     margin-top: 7px;
-    height: 15%;
+    height: 30%;
+
+    @media screen and (min-width: $desktop-full-hd-width) {
+      height: 25%;
+    }
 
     #filtro {
+      display: flex;
+      flex-direction: row;
       flex: 1;
     }
   }
 
   .cid-container {
-    margin-bottom: 7px ;
-    height: 85%;
+    margin-bottom: 7px;
+    height: 70%;
+    @media screen and (min-width: $desktop-full-hd-width) {
+      height: 75%;
+    }
 
     #cid {
       flex: 1;
@@ -79,7 +82,7 @@
   }
 
   .container-sexo-motivo-alta {
-    margin-bottom: 7px ;
+    margin-bottom: 7px;
     position: relative;
     display: flex;
     flex: 1;
@@ -97,31 +100,187 @@
   }
 }
 
+
+.form-card {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  justify-content: center;
+  justify-items: flex-start;
+  height: 70%;
+  margin: 5px;
+  width: auto;
+  flex: 1;
+
+  & {
+    border: 1px solid $gray-70;
+    border-radius: 5px;
+  }
+
+  .card-date {
+    margin: 2px;
+    align-items: center;
+    justify-items: center;
+
+    .form-label, .form-date {
+      width: 50%;
+    }
+  }
+
+  .form-group {
+    justify-content: flex-start;
+  }
+
+  .flex-column {
+    justify-content: center;
+    align-items: center;
+    margin: 2px;
+
+    .form-group {
+      justify-content: space-between;
+      justify-items: center;
+      width: 100%;
+      margin: 5px;
+    }
+  }
+}
+
+.container-select-search {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  #select-multiple-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    max-height: 150px;
+    height: 70%;
+    margin: 5px;
+
+    & {
+      border: 1px solid $gray-70;
+      border-radius: 5px;
+    }
+  }
+
+  .button-container {
+    display: flex;
+    align-items: center;
+    height: 30%;
+
+    .active{
+      transition: 0.3s;
+      cursor: pointer;
+      background-color: $blue-default;
+    }
+
+    .search-button {
+      margin: 5px;
+      height: 35px;
+      flex: 1;
+
+      & {
+        text-align: center;
+        color: $white;
+        border-radius: 5px;
+        background-color: rgba($blue-default, 0.7);
+      }
+
+      &:hover {
+        transition: 0.3s;
+        cursor: pointer;
+        background-color: $blue-default;
+      }
+
+      .search-icon {
+        margin-right: 5px;
+      }
+    }
+  }
+}
+
+
 @media screen and (max-width: 1200px) {
   .main-container-perfil {
-    flex-direction: column;
+    flex-direction: column !important;
+    width: 100%;
     overflow-y: scroll;
     justify-items: flex-start;
     justify-content: flex-start;
 
     .container-column {
       width: 100% !important;
-      //width: calc(100% - 20px) !important;
-      height: auto;
+    }
 
-      .sexo-container, .idade-container, .cid-container {
-        height: auto !important;
-        margin: 0;
+    .sexo-container, .idade-container, .cid-container, .filtro-container {
+      height: auto !important;
+      margin: 0;
+    }
+
+    #filtro {
+      display: flex;
+      width: 50% !important;
+      flex-direction: column;
+    }
+
+    .container-sexo-motivo-alta {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+
+      .sexo-container, .motivo-alta-container {
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .main-container-perfil {
+    flex-direction: column !important;
+    width: 100%;
+    overflow-y: scroll;
+    justify-items: flex-start;
+    justify-content: flex-start;
+
+    .container-column {
+      height: auto;
+      width: 100% !important;
+    }
+
+    .sexo-container, .idade-container, .cid-container, .filtro-container {
+      height: auto !important;
+      margin: 0;
+    }
+
+    #filtro {
+      flex-direction: column !important;
+
+      .flex-column {
+        width: 100% !important;
+        height: auto;
       }
 
-      .container-sexo-motivo-alta {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-
-        .sexo-container, .motivo-alta-container {
-          width: 100%;
+      .form-card {
+        .form-label {
+          margin-left: 0;
+          margin-right: 0;
         }
+      }
+
+      .container-select-search {
+        height: 200px;
+      }
+    }
+
+    .container-sexo-motivo-alta {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+
+      .sexo-container, .motivo-alta-container {
+        width: 100%;
       }
     }
   }

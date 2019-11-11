@@ -27,6 +27,7 @@ create foreign table registro_atendimento
     FROM ADMWPD.FAPACCAD PAC
          LEFT JOIN ADMWPD.MOTIVO_ALTA ALTA ON PAC.COD_MOT_ALTA = ALTA.COD_MOT_ALTA
          LEFT JOIN ADMWPD.FAPACCOM CO ON CO.COD_PAC = PAC.COD_PAC
+         INNER JOIN ADMWPD.FAPRTCAD PRT ON PAC.COD_PRT = PRT.COD_PRT
          LEFT JOIN ADMWPD.URCIDCAD CID ON PAC.FK_UR_CID = CID.PK_UR_CID)', readonly 'true');
 
 alter foreign table registro_atendimento owner to aria;
@@ -34,13 +35,13 @@ alter foreign table registro_atendimento owner to aria;
 
 
 /*LEITO*/
-create foreign table leito
-    (
+create foreign table leito(
         id varchar(9) options (key 'true') not null,
-        descricao varchar(70) not null
-        )
+        descricao varchar(70) not null,
+        setor_id varchar(9) not null
+    )
     server wpd
-    options (table '(select LEI.LEITO, LEI.DESCRICAO from ADMWPD.FALEICAD LEI)', readonly 'true');
+    options (table '(select LEI.LEITO, LEI.DESCRICAO, APT.COD_SET from ADMWPD.FALEICAD LEI inner join ADMWPD.FAAPTCAD APT on LEI.COD_APT = APT.COD_APT)', readonly 'true');
 
 alter foreign table leito owner to aria;
 
@@ -118,8 +119,6 @@ FROM ADMWPD.FAPRTCAD PRT)', readonly 'true');
 
 alter foreign table paciente owner to aria;
 
-
-
 /*MOTIVO DA ALTA*/
 create foreign table motivo_alta
     (
@@ -130,3 +129,17 @@ create foreign table motivo_alta
     options (table '(select ALTA.COD_MOT_ALTA, ALTA.DSC_MOT_ALTA from ADMWPD.MOTIVO_ALTA ALTA)', readonly 'true');
 
 alter foreign table motivo_alta owner to aria;
+
+/*MOTIVO DA ALTA*/
+create foreign table exame (
+    id varchar(9) options (key 'true') not null,
+    registro_id varchar(9),
+    setor_id varchar(4) not null
+) server wpd options (table '(select exa.COD_PRT_PROV,
+       exa.COD_PAC,
+       sal.SETOR_COMANDA
+from ADMWPD.IMAGNEXA exa
+    inner join ADMWPD.IMAGNCAD agn on agn.COD_AGENDA = exa.COD_AGENDA
+    inner join ADMWPD.IMSALCAD sal on agn.COD_UNI = sal.COD_UNI and agn.COD_SALA = sal.COD_SALA)', readonly 'true');
+
+alter foreign table exame owner to aria;

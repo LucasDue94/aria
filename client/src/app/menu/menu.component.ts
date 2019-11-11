@@ -9,7 +9,7 @@ import {MenuService} from "../core/menu/menu.service";
 export class MenuComponent implements OnInit, OnChanges {
 
   @ViewChild('menuContainer', {static: false}) menuContainer;
-  @Input() menuStatus = true;
+  @Input() menuStatus: boolean;
 
   constructor(private render: Renderer2, private menuService: MenuService) {
   }
