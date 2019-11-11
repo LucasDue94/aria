@@ -154,8 +154,7 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    max-height: 150px;
-    height: 70%;
+    height: 100%;
     margin: 5px;
 
     & {
@@ -166,17 +165,11 @@
 
   .button-container {
     display: flex;
-    align-items: center;
-    height: 30%;
+    margin:5px 0;
 
-    .active{
-      transition: 0.3s;
-      cursor: pointer;
-      background-color: $blue-default;
-    }
 
     .search-button {
-      margin: 5px;
+      margin: 5px 5px 0 5px;
       height: 35px;
       flex: 1;
 
@@ -200,6 +193,11 @@
   }
 }
 
+.active {
+  transition: 0.3s;
+  cursor: pointer;
+  background-color: $blue-default;
+}
 
 @media screen and (max-width: 1200px) {
   .main-container-perfil {
@@ -236,7 +234,7 @@
   }
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 1000px) {
   .main-container-perfil {
     flex-direction: column !important;
     width: 100%;
@@ -257,12 +255,26 @@
     #filtro {
       flex-direction: column !important;
 
+      .button-container {
+        font-size: 15px;
+      }
+
       .flex-column {
         width: 100% !important;
         height: auto;
       }
 
+      .form-group {
+        width: 90%;
+        .form-date{
+          font-size: 14px;
+        }
+      }
+
       .form-card {
+        align-items: center;
+        flex-direction: column !important;
+
         .form-label {
           margin-left: 0;
           margin-right: 0;
