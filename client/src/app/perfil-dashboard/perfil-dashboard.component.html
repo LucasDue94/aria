@@ -59,22 +59,22 @@
     </form>
     <div class="container-graph cid-container">
       <fa-icon class="expand-icon" id="expand-cid" [icon]="faExpand"></fa-icon>
-      <section id="cid" class="container-perfil">por cid</section>
+      <section [chart]="cidChart"  id="cid" class="container-perfil">por cid</section>
     </div>
   </article>
   <article class="flex-column container-column">
     <div class="container-graph idade-container">
       <fa-icon class="expand-icon" id="expand-idade" [icon]="faExpand"></fa-icon>
-      <section id="idade" class="container-perfil">idade</section>
+      <section [chart]="idadeChart"  id="idade" class="container-perfil">idade</section>
     </div>
     <article class="container-sexo-motivo-alta">
       <div class="container-graph sexo-container">
         <fa-icon class="expand-icon" [icon]="faExpand"></fa-icon>
-        <section id="sexo" class="container-perfil">por sexo</section>
+        <section [chart]="sexoChart"  id="sexo" class="container-perfil">por sexo</section>
       </div>
       <div class="container-graph motivo-alta-container">
         <fa-icon class="expand-icon" [icon]="faExpand"></fa-icon>
-        <section id="motivo-alta" class="container-perfil">motivo alta</section>
+        <section [chart]="motivoAltaChart"  id="motivo-alta" class="container-perfil">motivo alta</section>
       </div>
     </article>
   </article>

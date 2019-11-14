@@ -6,7 +6,9 @@
   display: flex;
   width: 100%;
 
-
+  .container-column{
+    width: 50%;
+  }
   .container-perfil {
     position: relative;
     display: flex;
@@ -124,6 +126,10 @@
 
     .form-label, .form-date {
       width: 50%;
+    }
+
+    .form-date{
+      background-color: transparent;
     }
   }
 

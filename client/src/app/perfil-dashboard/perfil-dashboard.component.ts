@@ -1,35 +1,18 @@
 import {AfterViewInit, Component, DoCheck, OnInit, Renderer2, ViewChild} from '@angular/core';
-import * as Highcharts from 'highcharts';
 import {MenuService} from "../core/menu/menu.service";
-import {
-  faBabyCarriage,
-  faExpand,
-  faFemale,
-  faFrown,
-  faHandMiddleFinger,
-  faMale
-} from "@fortawesome/free-solid-svg-icons/";
+import {faBabyCarriage, faExpand, faFemale, faFrown, faMale} from "@fortawesome/free-solid-svg-icons/";
 import {SpinnerService} from "../core/spinner/spinner.service";
-import {FormArray, FormBuilder} from "@angular/forms";
+import {FormBuilder} from "@angular/forms";
 import {PerfilService} from "../core/perfil/perfil.service";
 import {AlertService} from "../core/alert/alert.service";
-
-declare var require: any;
-let Boost = require('highcharts/modules/boost');
-let noData = require('highcharts/modules/no-data-to-display');
-let More = require('highcharts/highcharts-more');
-
-Boost(Highcharts);
-noData(Highcharts);
-More(Highcharts);
-noData(Highcharts);
+import {Chart} from "angular-highcharts";
 
 @Component({
   selector: 'perfil-dashboard',
   templateUrl: './perfil-dashboard.component.html',
   styleUrls: ['./perfil-dashboard.component.scss']
 })
-export class PerfilDashboardComponent implements OnInit, DoCheck, AfterViewInit {
+export class PerfilDashboardComponent implements OnInit, DoCheck {
   @ViewChild('buttonPediatrico', {static: false}) buttonPediatrico;
   @ViewChild('buttonAdulto', {static: false}) buttonAdulto;
   faExpand = faExpand;
@@ -76,9 +59,14 @@ export class PerfilDashboardComponent implements OnInit, DoCheck, AfterViewInit 
       }
     },
     xAxis: {
-      categories: ['CID 1', 'CID 2', 'CID 3', 'CID 4', 'CID 5', 'CID 6', 'CID 7'],
       type: 'Tipos de cid',
-      labels: this.defaultLabels,
+      labels: {
+        rotation: -45,
+        style: {
+          fontSize: '13px',
+          fontFamily: 'Roboto, sans-serif'
+        },
+      },
     },
     yAxis: [{
       labels: {
@@ -116,7 +104,6 @@ export class PerfilDashboardComponent implements OnInit, DoCheck, AfterViewInit 
     series: [{
       name: 'Quantidade',
       type: 'column',
-      data: [['CID 1', 400], ['CID 2', 200], ['CID 3', 150], ['CID 4', 100], ['CID 5', 50], ['CID 6', 35], ['CID 7', 15]],
       color: '#C24D4D',
     }, {
       yAxis: 1,
@@ -129,7 +116,6 @@ export class PerfilDashboardComponent implements OnInit, DoCheck, AfterViewInit 
         lineColor: 'black',
         fillColor: 'white'
       },
-      data: [40, 20, 15, 10, 5, 3, 1],
       dataLabels: {
         enabled: true,
         format: '<b>{point.y:.lf}%</b>',
@@ -188,12 +174,6 @@ export class PerfilDashboardComponent implements OnInit, DoCheck, AfterViewInit 
     series: [{
       type: 'column',
       name: 'Pessoas',
-      data: [
-        ['18 anos - 30 anos', 162],
-        ['30 anos - 60 anos', 900],
-        ['60 anos - 79 anos', 1111],
-        ['Maior que 80 anos', 277],
-      ],
       color: '#149553'
     },
       {
@@ -207,7 +187,6 @@ export class PerfilDashboardComponent implements OnInit, DoCheck, AfterViewInit 
           lineColor: 'black',
           fillColor: 'white'
         },
-        data: [6, 34, 43, 11],
         dataLabels: {
           enabled: true,
           format: '<b>{point.y:.lf}%</b>',
@@ -327,17 +306,19 @@ export class PerfilDashboardComponent implements OnInit, DoCheck, AfterViewInit 
       }
     },
     series: [{
+      id: 'quantidade',
       name: 'Quantidade',
       data: [
-        ['motivo 1', 201],
-        ['motivo 2', 100],
-        ['motivo 3', 50],
-        ['motivo 4', 24],
-        ['motivo 5', 10],
+        [201],
+        [100],
+        [50],
+        [24],
+        [10],
       ],
       color: '#d48c00',
     }, {
       yAxis: 1,
+      id: 'porcentagem',
       name: 'Porcentagem',
       type: 'spline',
       dashStyle: 'shortdot',
@@ -375,6 +356,11 @@ export class PerfilDashboardComponent implements OnInit, DoCheck, AfterViewInit 
     tipoAtendimento: [],
     perfilAdulto: true
   };
+  data;
+  cidChart = new Chart(this.optionsCid);
+  idadeChart = new Chart(this.optionsIdade);
+  sexoChart = new Chart(this.optionsSexo);
+  motivoAltaChart = new Chart(this.optionsMotivoAlta);
 
   constructor(private menuService: MenuService, private render: Renderer2,
               private spinner: SpinnerService, private fb: FormBuilder,
@@ -382,41 +368,136 @@ export class PerfilDashboardComponent implements OnInit, DoCheck, AfterViewInit 
 
   }
 
-  reflowCharts() {
-    Highcharts.chart('motivo-alta', this.optionsMotivoAlta).redraw();
-    Highcharts.chart('sexo', this.optionsSexo).redraw();
-    Highcharts.chart('idade', this.optionsIdade).redraw();
-    Highcharts.chart('cid', this.optionsCid).redraw();
+
+  updateCharts() {
+    const arrayMotivo = this.getQuantityArray('motivoAltas');
+    this.motivoAltaChart.ref.update({
+      xAxis: {
+        categories: this.getLabelsArray('motivoAltas', 'descricao')
+      },
+      series: [{
+        type: 'column',
+        data: arrayMotivo,
+      }, {
+        type: 'spline',
+        data: this.getPercentageArray('motivoAltas', arrayMotivo),
+      }]
+    }, true, true);
+
+    const arrayCids = this.getQuantityArray('cids');
+    this.cidChart.ref.update({
+      xAxis: {
+        categories: this.getLabelsArray('cids', 'diagnostico')
+      },
+      series: [{
+        type: 'column',
+        data: this.getQuantityArray('cids'),
+      }, {
+        type: 'spline',
+        data: this.getPercentageArray('cids', arrayCids),
+      }]
+    }, true, true);
+
+    const arrayIdades = this.getQuantityArray('idades');
+    this.idadeChart.ref.update({
+      series: [{
+        type: 'column',
+        data: this.getQuantityArray('idades'),
+      }, {
+        type: 'spline',
+        data: this.getPercentageArray('idades', arrayIdades),
+      }]
+    }, true, true);
+
+    if (this.data != undefined)
+      var arraySexo = this.data['sexo'];
+
+    this.sexoChart.ref.update({
+      series: [{
+        type: 'pie',
+        name: 'Quantidade',
+        colorByPoint: true,
+        data: [{
+          name: 'Masculino',
+          y: arraySexo.Masculino,
+          color: '#2D9DD1'
+        }, {
+          name: 'Feminino',
+          y: arraySexo.Feminino,
+          color: '#E83961'
+        }]
+      }],
+    }, true, true);
+  }
+
+  redrawCharts() {
+    this.cidChart.ref.reflow();
+    this.idadeChart.ref.reflow();
+    this.sexoChart.ref.reflow();
+    this.motivoAltaChart.ref.reflow();
+  }
+
+  getQuantityArray(key) {
+    let array = [];
+    if (this.data != undefined) {
+      this.data[key].forEach(value => {
+        array.push(value.quantidade);
+      });
+      return array;
+    }
+    return [];
+  }
+
+  getLabelsArray(chartKey, property) {
+    let array = [];
+    if (this.data != undefined) {
+      this.data[chartKey].forEach(value => {
+        array.push(value[property].toUpperCase());
+      });
+      return array;
+    }
+    return [];
+  }
+
+  getPercentageArray(key, arrayQuantity) {
+    let array = [];
+    const sum = (total, value) => total + value;
+    if (this.data != undefined) {
+      const total = arrayQuantity.reduce(sum);
+      this.data[key].forEach(value => {
+        let percent = (value.quantidade * 100) / total;
+        percent = parseFloat(percent.toFixed(2));
+        array.push(percent);
+      });
+      return array;
+    }
+    return [];
   }
 
   ngOnInit() {
+    console.log('iniciou');
     this.spinner.show();
-    if (window.innerWidth < 500) {
-      this.defaultLabels.rotation = -45;
-      this.optionsCid.xAxis.labels.style.fontSize = '10px';
-    }
+    this.perfilService.list().subscribe(data => {
+      console.log(data);
+      this.data = data;
+      this.updateCharts();
+      this.spinner.hide();
+    });
+    if (window.innerWidth < 500) this.optionsCid.xAxis.labels.style.fontSize = '10px';
     this.menuService.getStatus().subscribe(status => {
       if (status != this.menuStatus) {
         setTimeout(() => {
-          this.reflowCharts()
+          this.redrawCharts();
         }, 500);
         this.menuStatus = status;
       }
     });
   }
 
-  ngAfterViewInit(): void {
-    Highcharts.chart('motivo-alta', this.optionsMotivoAlta);
-    Highcharts.chart('sexo', this.optionsSexo);
-    Highcharts.chart('idade', this.optionsIdade);
-    Highcharts.chart('cid', this.optionsCid);
-    this.spinner.hide();
-  }
-
   ngDoCheck(): void {
     this.menuService.getStatus().subscribe(status => {
       if (status != this.menuStatus) {
-        this.reflowCharts()
+        this.redrawCharts()
       }
       this.menuStatus = status;
     });
@@ -463,7 +544,11 @@ export class PerfilDashboardComponent implements OnInit, DoCheck, AfterViewInit 
     this.perfil.perfilAdulto = flag;
     this.toggle();
     this.setValues();
-    this.perfilService.list(this.perfil);
+    this.spinner.show();
+    this.perfilService.list(this.perfil).subscribe(res => {
+      this.data = res;
+      this.spinner.hide();
+    });
   }
 
   getItemsSelected(event) {

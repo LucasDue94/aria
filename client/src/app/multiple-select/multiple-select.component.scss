@@ -20,7 +20,7 @@
   height: 20px;
   padding: 7px;
   width: calc(100% - 14px) !important;
-  z-index: 99;
+  z-index: 90;
 
 
   & {
@@ -57,7 +57,7 @@
   .option {
     position: relative;
     padding: 7px;
-    z-index: 99;
+    z-index: 90;
 
     & {
       border: 1px solid $gray-80;

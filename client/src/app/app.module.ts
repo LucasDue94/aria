@@ -12,6 +12,7 @@ import {MainModule} from "./main/main.module";
 import {PerfilDashboardComponent} from './perfil-dashboard/perfil-dashboard.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {CoreModule} from "./core/core.module";
+import {ChartModule} from "angular-highcharts";
 
 @NgModule({
   exports: [
@@ -31,7 +32,8 @@ import {CoreModule} from "./core/core.module";
     MenuModule,
     MainModule,
     ReactiveFormsModule,
-    CoreModule
+    CoreModule,
+    ChartModule
   ],
   providers: [],
   bootstrap: [AppComponent]

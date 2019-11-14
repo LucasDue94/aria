@@ -79,6 +79,11 @@ grails:
         encoding: UTF-8
 
 ---
+grails:
+    cors:
+        enabled: true
+---
+
 hibernate:
     cache:
         queries: false

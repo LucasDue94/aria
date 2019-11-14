@@ -20,10 +20,24 @@ export class PerfilService {
   constructor(private http: HttpClient) {
   }
 
-  list(perfil): Observable<any[]> {
+  list(perfil?): Observable<any[]> {
+    let tipo = '';
+    let fullUrl = '';
+
+    if (perfil == undefined) {
+      fullUrl = this.baseUrl + `perfilEpidemiologico?dataInicio=` + '&dataFinal=' +
+        '&setores=0032' + '&tipo=' + tipo + '&perfilAdulto=true';
+    } else {
+      if (perfil.tipoAtendimento != undefined) {
+        tipo = perfil.tipoAtendimento.join('&tipo=');
+      }
+      fullUrl = this.baseUrl + `perfilEpidemiologico?dataInicio=` + perfil.dataInicio + '&dataFinal=' +
+        perfil.dataFinal + '&setores=' + perfil.setores + '&tipo=' + tipo + '&perfilAdulto=' +
+        perfil.perfilAdulto;
+    }
+
     let subject = new Subject<any>();
-    this.http.get(this.baseUrl + `perfil?dataInicio=` + perfil.dataInicio + '&dataFinal=' + perfil.dataFinal +
-      '&setores=' + perfil.setores + '&tipo=' + perfil.tipoAtendimento+ '&perfilAdulto=' + perfil.perfilAdulto, {headers: this.getDefaultHttpOptions()})
+    this.http.get(fullUrl, {headers: this.getDefaultHttpOptions()})
       .pipe(
         catchError(error => of({error})
         )).subscribe((json: any[]) => {
