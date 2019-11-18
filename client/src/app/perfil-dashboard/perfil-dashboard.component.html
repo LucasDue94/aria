@@ -39,7 +39,7 @@
         <article class="flex-column container-select-search">
           <section id="select-multiple-container">
             <multiple-select (itemsSelected)="getItemsSelected($event)"
-                             [items]="['uti','urte','cti','emergêcia','unidade 1','unidade 22','hemodinâmica','centro cirúrgico']">
+                             [items]="this.setores" [keyPropery]="'descricao'">
 
             </multiple-select>
           </section>
@@ -47,7 +47,7 @@
             <button (click)="send(true)" class="search-button" #buttonAdulto>
               <fa-icon class="search-icon" [icon]="faMale"></fa-icon>
               <fa-icon class="search-icon" [icon]="faFemale"></fa-icon>
-              Adulto
+              Geral
             </button>
             <button (click)="send(false)" class="search-button" #buttonPediatrico>
               <fa-icon class="search-icon" [icon]="faBabyCarriage"></fa-icon>

@@ -50,7 +50,7 @@ class PerfilEpidemiologicoService {
         } as Set<RegistroAtendimento>
     }
 
-    def gerarPerfil(Date inicio, Date fim, Character[] tipos = null, Collection<SetorWpd> setores = null, Boolean geral = true) {
+    def gerarPerfil(Date inicio, Date fim, Character[] tipos = null, Collection<SetorWpd> setores = null, Boolean perfilGeral = true) {
         def criteria = RegistroAtendimento.createCriteria()
         Set<RegistroAtendimento> registros = (Set<RegistroAtendimento>) criteria.listDistinct {
             FILTROS(criteria, inicio, fim, tipos)
@@ -69,7 +69,7 @@ class PerfilEpidemiologicoService {
         final long UM_DIA_MILIS = 24l * 60 * 60 * 1000
         final long UM_ANO = 365
 
-        if (!geral) {
+        if (!perfilGeral) {
             registros = registros.findAll { registro ->
                 Math.floorDiv(registro.dataEntrada.time - registro.paciente.nascimento.time, UM_ANO * UM_DIA_MILIS) < 18
             }
@@ -83,7 +83,7 @@ class PerfilEpidemiologicoService {
         def motivosAltas = []
 
         def idades
-        if (geral) {
+        if (perfilGeral) {
             idades = [
                     [
                             faixaEtaria: 'Até 15 anos',
@@ -184,6 +184,10 @@ class PerfilEpidemiologicoService {
         }
 
         cids = cids.sort {
+            a, b -> b.quantidade <=> a.quantidade
+        }
+
+        motivosAltas = motivosAltas.sort {
             a, b -> b.quantidade <=> a.quantidade
         }
         if (cids.size() > 10) {

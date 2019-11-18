@@ -5,6 +5,7 @@ import {SpinnerService} from "./spinner/spinner.service";
 import {MenuService} from "./menu/menu.service";
 import {PerfilService} from "./perfil/perfil.service";
 import {HttpClientModule} from "@angular/common/http";
+import {SetorService} from "./setor/setor.service";
 
 
 
@@ -18,7 +19,8 @@ import {HttpClientModule} from "@angular/common/http";
     AlertService,
     SpinnerService,
     MenuService,
-    PerfilService
+    PerfilService,
+    SetorService
   ]
 })
 export class CoreModule { }

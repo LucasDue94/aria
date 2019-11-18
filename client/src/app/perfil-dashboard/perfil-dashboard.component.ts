@@ -1,4 +1,4 @@
-import {Component, DoCheck, OnInit, Renderer2, ViewChild} from '@angular/core';
+import {AfterViewChecked, Component, DoCheck, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {MenuService} from "../core/menu/menu.service";
 import {faBabyCarriage, faExpand, faFemale, faFrown, faMale} from "@fortawesome/free-solid-svg-icons/";
 import {SpinnerService} from "../core/spinner/spinner.service";
@@ -6,13 +6,15 @@ import {FormBuilder} from "@angular/forms";
 import {PerfilService} from "../core/perfil/perfil.service";
 import {AlertService} from "../core/alert/alert.service";
 import {Chart} from "angular-highcharts";
+import {SetorService} from "../core/setor/setor.service";
+import {Setor} from "../core/setor/setor";
 
 @Component({
   selector: 'perfil-dashboard',
   templateUrl: './perfil-dashboard.component.html',
   styleUrls: ['./perfil-dashboard.component.scss']
 })
-export class PerfilDashboardComponent implements OnInit, DoCheck {
+export class PerfilDashboardComponent implements OnInit, DoCheck, AfterViewChecked {
   @ViewChild('buttonPediatrico', {static: false}) buttonPediatrico;
   @ViewChild('buttonAdulto', {static: false}) buttonAdulto;
   faExpand = faExpand;
@@ -84,6 +86,9 @@ export class PerfilDashboardComponent implements OnInit, DoCheck {
       },
       opposite: true
     }],
+      legend: {
+        enabled: false
+      },
     tooltip: {
       shared: true,
       formatter: function () {
@@ -135,7 +140,7 @@ export class PerfilDashboardComponent implements OnInit, DoCheck {
       }
     },
     xAxis: {
-      categories: ['18 anos - 30 anos', '30 anos - 60 anos', '60 anos - 79 anos', 'Maior que 80 anos'],
+      categories: ['Até 15 anos', '15 anos - 30 anos', '31 anos - 60 anos', '61 anos - 79 anos', 'Maior que 80 anos'],
       type: 'Tipos de cid',
       labels: this.defaultLabels,
     }, yAxis: [{
@@ -343,10 +348,10 @@ export class PerfilDashboardComponent implements OnInit, DoCheck {
     dataInicio: [this.getLastMonth()],
     dataFinal: [new Date().toISOString().slice(0, 10)],
     tipoAtendimento: this.fb.group({
-      interno: [true],
-      externo: [true],
-      urgencia: [true],
-      ambulatorial: [true],
+      interno: true,
+      externo: true,
+      urgencia: true,
+      ambulatorial: true,
     }),
   });
   perfil = {
@@ -354,55 +359,68 @@ export class PerfilDashboardComponent implements OnInit, DoCheck {
     dataFinal: '',
     setores: [],
     tipoAtendimento: [],
-    perfilAdulto: true
+    perfilGeral: true
   };
   data;
   cidChart = new Chart(this.optionsCid);
   idadeChart = new Chart(this.optionsIdade);
   sexoChart = new Chart(this.optionsSexo);
   motivoAltaChart = new Chart(this.optionsMotivoAlta);
+  setores: Setor[];
 
   constructor(private menuService: MenuService, private render: Renderer2,
               private spinner: SpinnerService, private fb: FormBuilder,
-              private perfilService: PerfilService, private alertService: AlertService) {
-
+              private perfilService: PerfilService, private alertService: AlertService,
+              private setorService: SetorService) {
   }
 
 
+  getLabelsIdadesChart() {
+    if (this.perfil != undefined && this.perfil.perfilGeral)
+      return ['Até 15 anos', '15 anos - 30 anos', '31 anos - 60 anos', '61 anos - 79 anos', 'Maior que 80 anos'];
+
+    return ['29 dias - <1 ano', '1 ano - <4 anos', '4 anos - <10 anos', '10 anos - <18 anos'];
+  }
+
   updateCharts() {
-    const arrayMotivo = this.getQuantityArray('motivoAltas');
+    console.log(this.data);
+    const arrayMotivo = this.getQuantityArray('motivoAltas').slice(0, 5);
     this.motivoAltaChart.ref.update({
       xAxis: {
-        categories: this.getLabelsArray('motivoAltas', 'descricao')
+        categories: this.getLabelsArray('motivoAltas', 'descricao').slice(0, 5)
       },
       series: [{
         type: 'column',
         data: arrayMotivo,
       }, {
         type: 'spline',
-        data: this.getPercentageArray('motivoAltas', arrayMotivo),
+        data: this.getPercentageArray('motivoAltas', arrayMotivo).slice(0, 5),
       }]
     }, true, true);
 
-    const arrayCids = this.getQuantityArray('cids');
+    const arrayCids = this.getQuantityArray('cids').slice(0, 7);
     this.cidChart.ref.update({
       xAxis: {
-        categories: this.getLabelsArray('cids', 'diagnostico')
+        categories: this.getLabelsArray('cids', 'diagnostico').slice(0, 7)
       },
       series: [{
         type: 'column',
-        data: this.getQuantityArray('cids'),
+        data: arrayCids,
       }, {
         type: 'spline',
-        data: this.getPercentageArray('cids', arrayCids),
+        data: this.getPercentageArray('cids', arrayCids).slice(0, 7),
       }]
     }, true, true);
 
     const arrayIdades = this.getQuantityArray('idades');
+
     this.idadeChart.ref.update({
+      xAxis: {
+        categories: this.getLabelsIdadesChart()
+      },
       series: [{
         type: 'column',
-        data: this.getQuantityArray('idades'),
+        data: arrayIdades,
       }, {
         type: 'spline',
         data: this.getPercentageArray('idades', arrayIdades),
@@ -439,7 +457,7 @@ export class PerfilDashboardComponent implements OnInit, DoCheck {
 
   getQuantityArray(key) {
     let array = [];
-    if (this.data != undefined) {
+    if (this.data != undefined && this.data[key] != undefined) {
       this.data[key].forEach(value => {
         array.push(value.quantidade);
       });
@@ -481,7 +499,10 @@ export class PerfilDashboardComponent implements OnInit, DoCheck {
   }
 
   ngOnInit() {
-    this.getLastMonth()
+    this.setorService.list().subscribe(setores => {
+      this.setores = setores;
+    });
+    this.getLastMonth();
     this.spinner.show();
     this.perfilService.list().subscribe(data => {
       this.data = data;
@@ -502,6 +523,10 @@ export class PerfilDashboardComponent implements OnInit, DoCheck {
     });
   }
 
+  ngAfterViewChecked(): void {
+    this.toggle();
+  }
+
   ngDoCheck(): void {
     this.menuService.getStatus().subscribe(status => {
       if (status != this.menuStatus) {
@@ -512,7 +537,7 @@ export class PerfilDashboardComponent implements OnInit, DoCheck {
   }
 
   toggle() {
-    if (this.perfil.perfilAdulto) {
+    if (this.perfil.perfilGeral) {
       this.render.addClass(this.buttonAdulto.nativeElement, 'active');
       this.render.removeClass(this.buttonPediatrico.nativeElement, 'active');
     } else {
@@ -531,24 +556,22 @@ export class PerfilDashboardComponent implements OnInit, DoCheck {
     const externo = this.getControl('externo').value;
     const ambulatorial = this.getControl('ambulatorial').value;
     const urgencia = this.getControl('urgencia').value;
-    this.perfil.tipoAtendimento.push(interno ? 'I' : '');
-    this.perfil.tipoAtendimento.push(externo ? 'E' : '');
-    this.perfil.tipoAtendimento.push(ambulatorial ? 'A' : '');
-    this.perfil.tipoAtendimento.push(urgencia ? 'U' : '');
-    this.perfil.perfilAdulto = perfilFlag;
-
+    let tipoArray = [];
+    tipoArray.push(interno ? 'I' : '');
+    tipoArray.push(externo ? 'E' : '');
+    tipoArray.push(ambulatorial ? 'A' : '');
+    tipoArray.push(urgencia ? 'U' : '');
+    this.perfil.tipoAtendimento = tipoArray.filter( (el) => el != '');
+    this.perfil.perfilGeral = perfilFlag;
     this.perfil.dataInicio = this.getControl('dataInicio').value;
     this.perfil.dataFinal = this.getControl('dataFinal').value;
   }
 
   resetFields() {
-    this.perfil = {
-      dataInicio: '',
-      dataFinal: '',
-      setores: [],
-      tipoAtendimento: [],
-      perfilAdulto: true
-    };
+    this.perfil.dataFinal = '';
+    this.perfil.dataInicio = '';
+    this.perfil.tipoAtendimento = [];
+    this.perfil.perfilGeral = true;
   }
 
   send(flag: boolean) {
@@ -566,14 +589,26 @@ export class PerfilDashboardComponent implements OnInit, DoCheck {
     } else {
       this.spinner.show();
       this.perfilService.list(this.perfil).subscribe(res => {
-        this.data = res;
+        if (this.data.hasOwnProperty('error')) {
+          this.alertService.send({
+            message: 'Desculpe... ocorreu um erro no servidor',
+            type: 'error',
+            icon: faFrown
+          })
+        } else {
+          this.data = res;
+          this.updateCharts();
+        }
         this.spinner.hide();
       });
     }
   }
 
   getItemsSelected(event) {
-    this.perfil.setores = event;
+    this.perfil.setores = [];
+    let itemsSet = new Set();
+    event.forEach(item => itemsSet.add(item.setorWpd.id));
+    this.perfil.setores = Array.from(itemsSet);
   }
 }
 

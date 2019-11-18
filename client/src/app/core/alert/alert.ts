@@ -6,7 +6,6 @@ export class Alert {
   type: string;
   constructor(object?) {
     for (var prop in object) {
-
       if (object.hasOwnProperty('icon')) {
         this.icon = object['icon'];
         delete object['icon'];

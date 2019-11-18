@@ -22,18 +22,22 @@ export class PerfilService {
 
   list(perfil?): Observable<any[]> {
     let tipo = '';
+    let setor = '';
     let fullUrl = '';
 
     if (perfil == undefined) {
       fullUrl = this.baseUrl + `perfilEpidemiologico?dataInicio=` + '&dataFinal=' +
-        '&setores=0032' + '&tipo=' + tipo + '&perfilAdulto=true';
+        '&setores=' + '&tipo=' + tipo + '&perfilGeral=true';
     } else {
-      if (perfil.tipoAtendimento != undefined) {
-        tipo = perfil.tipoAtendimento.join('&tipo=');
+      if (perfil.tipoAtendimento != undefined) tipo = perfil.tipoAtendimento.join('&tipo=');
+      if (perfil.setores != undefined){
+        setor = perfil.setores.join('&setores=');
+        console.log(perfil.setores)
       }
+
       fullUrl = this.baseUrl + `perfilEpidemiologico?dataInicio=` + perfil.dataInicio + '&dataFinal=' +
-        perfil.dataFinal + '&setores=' + perfil.setores + '&tipo=' + tipo + '&perfilAdulto=' +
-        perfil.perfilAdulto;
+        perfil.dataFinal + '&setores=' + setor + '&tipo=' + tipo + '&perfilGeral=' +
+        perfil.perfilGeral;
     }
 
     let subject = new Subject<any>();

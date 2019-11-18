@@ -14,7 +14,7 @@ class PerfilEpidemiologicoController {
         Date fim = entradas.fim
         Character[] tipos = entradas.tipos
         Collection<SetorWpd> setores = entradas.setores
-        Boolean geral = entradas.geral
+        Boolean perfilGeral = entradas.perfilGeral
 
         if (inicio == null && fim == null) {
             Map datas = datasPadroes()
@@ -22,14 +22,14 @@ class PerfilEpidemiologicoController {
             fim = datas.fim
         }
 
-        Map data = perfilEpidemiologicoService.gerarPerfil(inicio, fim, tipos, setores, geral)
+        Map data = perfilEpidemiologicoService.gerarPerfil(inicio, fim, tipos, setores, perfilGeral)
         return [data: data]
     }
 
     private Map carregarFiltros() {
         Date inicio = params.containsKey('inicio') ? params.date('inicio', FORMATOS_DATAS) : null
         Date fim = params.containsKey('fim') ? params.date('fim', FORMATOS_DATAS) : null
-        Boolean geral = params.containsKey('geral') ? params.boolean('geral') : true
+        Boolean perfilGeral = params.containsKey('perfilGeral') ? params.boolean('perfilGeral') : true
         Character[] tipos = null
         String[] setoresIds = null
 
@@ -50,7 +50,7 @@ class PerfilEpidemiologicoController {
         }
 
         List<SetorWpd> setores = setoresIds != null ? setoresIds.collect { SetorWpd.load(it) } : null
-        return [inicio: inicio, fim: fim, tipos: tipos, setores: setores, geral: geral]
+        return [inicio: inicio, fim: fim, tipos: tipos, setores: setores, perfilGeral: perfilGeral]
     }
 
     private static Map datasPadroes() {
