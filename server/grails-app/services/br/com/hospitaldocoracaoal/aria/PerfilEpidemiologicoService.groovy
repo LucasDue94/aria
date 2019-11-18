@@ -1,6 +1,6 @@
 package br.com.hospitaldocoracaoal.aria
 import br.com.hospitaldocoracaoal.integracao.RegistroAtendimento
-import br.com.hospitaldocoracaoal.integracao.Setor
+import br.com.hospitaldocoracaoal.integracao.SetorWpd
 import org.grails.datastore.mapping.query.api.BuildableCriteria
 
 
@@ -17,7 +17,7 @@ class PerfilEpidemiologicoService {
         }
     }
 
-    private Set<RegistroAtendimento> examesPorSetor(Date inicio, Date fim, Character[] tipos, Collection<Setor> setores) {
+    private Set<RegistroAtendimento> examesPorSetor(Date inicio, Date fim, Character[] tipos, Collection<SetorWpd> setores) {
         def criteria = RegistroAtendimento.createCriteria()
         return criteria.listDistinct {
             FILTROS(criteria, inicio, fim, tipos)
@@ -28,7 +28,7 @@ class PerfilEpidemiologicoService {
         } as Set<RegistroAtendimento>
     }
 
-    private Set<RegistroAtendimento> leitosPorSetor(Date inicio, Date fim, Character[] tipos, Collection<Setor> setores) {
+    private Set<RegistroAtendimento> leitosPorSetor(Date inicio, Date fim, Character[] tipos, Collection<SetorWpd> setores) {
         def criteria = RegistroAtendimento.createCriteria()
         return criteria.listDistinct {
             createAlias 'registroAtendimentoLeitos', 'ral'
@@ -39,7 +39,7 @@ class PerfilEpidemiologicoService {
         } as Set<RegistroAtendimento>
     }
 
-    private Set<RegistroAtendimento> comandasPorSetor(Date inicio, Date fim, Character[] tipos, Collection<Setor> setores) {
+    private Set<RegistroAtendimento> comandasPorSetor(Date inicio, Date fim, Character[] tipos, Collection<SetorWpd> setores) {
         def criteria = RegistroAtendimento.createCriteria()
         return criteria.listDistinct {
             FILTROS(criteria, inicio, fim, tipos)
@@ -50,7 +50,7 @@ class PerfilEpidemiologicoService {
         } as Set<RegistroAtendimento>
     }
 
-    def gerarPerfil(Date inicio, Date fim, Character[] tipos = null, Collection<Setor> setores = null, Boolean geral = true) {
+    def gerarPerfil(Date inicio, Date fim, Character[] tipos = null, Collection<SetorWpd> setores = null, Boolean geral = true) {
         def criteria = RegistroAtendimento.createCriteria()
         Set<RegistroAtendimento> registros = (Set<RegistroAtendimento>) criteria.listDistinct {
             FILTROS(criteria, inicio, fim, tipos)

@@ -1,13 +1,9 @@
 package br.com.hospitaldocoracaoal.integracao
 
-class Setor {
+class SetorWpd {
 
     String id
     String descricao
-    String tipo
-
-    static constraints = {
-    }
 
     static mapping = {
         id generator: 'assigned'

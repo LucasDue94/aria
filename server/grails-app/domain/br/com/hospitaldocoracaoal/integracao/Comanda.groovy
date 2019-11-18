@@ -6,7 +6,7 @@ class Comanda implements Serializable{
     String comanda
     RegistroAtendimento registroAtendimento
     String dataMovimento
-    Setor setor
+    SetorWpd setor
 
     static constraints = {
     }

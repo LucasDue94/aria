@@ -4,7 +4,7 @@ class Leito {
 
     String id
     String descricao
-    Setor setor
+    SetorWpd setor
 
     static hasMany = [registroAtendimentoLeitos: RegistroAtendimentoLeitos]
 
