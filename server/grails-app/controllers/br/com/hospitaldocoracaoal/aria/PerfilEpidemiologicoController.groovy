@@ -1,6 +1,6 @@
 package br.com.hospitaldocoracaoal.aria
 
-import br.com.hospitaldocoracaoal.integracao.Setor
+import br.com.hospitaldocoracaoal.integracao.SetorWpd
 
 class PerfilEpidemiologicoController {
     private static final Collection<String> FORMATOS_DATAS = ['yyyy-mm-dd', 'dd/mm/yyyy']
@@ -13,7 +13,7 @@ class PerfilEpidemiologicoController {
         Date inicio = entradas.inicio
         Date fim = entradas.fim
         Character[] tipos = entradas.tipos
-        Collection<Setor> setores = entradas.setores
+        Collection<SetorWpd> setores = entradas.setores
         Boolean geral = entradas.geral
 
         if (inicio == null && fim == null) {
@@ -49,7 +49,7 @@ class PerfilEpidemiologicoController {
             }
         }
 
-        List<Setor> setores = setoresIds != null ? setoresIds.collect { Setor.load(it) } : null
+        List<SetorWpd> setores = setoresIds != null ? setoresIds.collect { SetorWpd.load(it) } : null
         return [inicio: inicio, fim: fim, tipos: tipos, setores: setores, geral: geral]
     }
 

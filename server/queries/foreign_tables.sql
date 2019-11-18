@@ -6,29 +6,27 @@ create foreign table registro_atendimento
         data_alta timestamp not null,
         setor_id varchar(9),
         cid_id varchar(9),
-        diagnostico varchar(70),
         motivo_alta_id varchar(9) not null,
         tipo char(1) not null ,
         paciente_id varchar(9) not null
     )
     server wpd
-    options (table '(SELECT PAC.COD_PAC,
+    options (table '(select PAC.COD_PAC,
        TO_DATE(TO_CHAR(PAC.DATA_ENT, ''DD-MM-YYYY'') || '' '' || TO_CHAR(PAC.HORA_ENT, ''HH24:MI:SS''),
-               ''DD-MM-YYYY HH24:MI:SS'')         AS DATA_ENT,
-       DECODE(PAC.DATA_ALTA, NULL, NULL,
-              TO_DATE(TO_CHAR(PAC.DATA_ALTA, ''DD-MM-YYYY'') || '' '' || TO_CHAR(PAC.HORA_ALTA, ''HH24:MI:SS''),
-                      ''DD-MM-YYYY HH24:MI:SS'')) AS DATA_ALTA,
-       CO.COD_SET,
-       CID.PK_UR_CID,
-       CID.DIAGNOSTICO,
-       ALTA.COD_MOT_ALTA,
+               ''DD-MM-YYYY HH24:MI:SS'') AS DATA_ENT,
+       case
+           when pac.data_alta is not null then
+               TO_DATE(TO_CHAR(PAC.DATA_ALTA, ''DD-MM-YYYY'') || '' '' || TO_CHAR(PAC.HORA_ALTA, ''HH24:MI:SS''),
+                       ''DD-MM-YYYY HH24:MI:SS'')
+           else null
+       end                          AS DATA_ALTA,
+       COM.COD_SET,
+       PAC.FK_UR_CID,
+       PAC.COD_MOT_ALTA,
        PAC.TIPO_PAC,
        PAC.COD_PRT
-    FROM ADMWPD.FAPACCAD PAC
-         LEFT JOIN ADMWPD.MOTIVO_ALTA ALTA ON PAC.COD_MOT_ALTA = ALTA.COD_MOT_ALTA
-         LEFT JOIN ADMWPD.FAPACCOM CO ON CO.COD_PAC = PAC.COD_PAC
-         INNER JOIN ADMWPD.FAPRTCAD PRT ON PAC.COD_PRT = PRT.COD_PRT
-         LEFT JOIN ADMWPD.URCIDCAD CID ON PAC.FK_UR_CID = CID.PK_UR_CID)', readonly 'true');
+from ADMWPD.FAPACCAD PAC
+         LEFT JOIN ADMWPD.FAPACCOM COM ON COM.COD_PAC = PAC.COD_PAC)', readonly 'true');
 
 alter foreign table registro_atendimento owner to aria;
 

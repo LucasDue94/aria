@@ -3,7 +3,7 @@ package br.com.hospitaldocoracaoal.integracao
 class Exame {
     String id
     RegistroAtendimento registro
-    Setor setor
+    SetorWpd setor
 
     static belongsTo = RegistroAtendimento
 

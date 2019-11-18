@@ -5,7 +5,7 @@ class RegistroAtendimento {
     String id
     Date dataEntrada
     Date dataAlta
-    Setor setor
+    SetorWpd setor
     Cid cid
     MotivoAlta motivoAlta
     Character tipo
