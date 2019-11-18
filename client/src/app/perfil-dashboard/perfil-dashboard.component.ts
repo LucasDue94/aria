@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, DoCheck, OnInit, Renderer2, ViewChild} from '@angular/core';
+import {Component, DoCheck, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {MenuService} from "../core/menu/menu.service";
 import {faBabyCarriage, faExpand, faFemale, faFrown, faMale} from "@fortawesome/free-solid-svg-icons/";
 import {SpinnerService} from "../core/spinner/spinner.service";
@@ -340,8 +340,8 @@ export class PerfilDashboardComponent implements OnInit, DoCheck {
     }
   };
   perfilForm = this.fb.group({
-    dataInicio: [''],
-    dataFinal: [''],
+    dataInicio: [this.getLastMonth()],
+    dataFinal: [new Date().toISOString().slice(0, 10)],
     tipoAtendimento: this.fb.group({
       interno: [true],
       externo: [true],
@@ -459,6 +459,12 @@ export class PerfilDashboardComponent implements OnInit, DoCheck {
     return [];
   }
 
+  getLastMonth() {
+    const today = new Date();
+    const monthAgo = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate());
+    return monthAgo.toISOString().slice(0, 10);
+  }
+
   getPercentageArray(key, arrayQuantity) {
     let array = [];
     const sum = (total, value) => total + value;
@@ -475,15 +481,17 @@ export class PerfilDashboardComponent implements OnInit, DoCheck {
   }
 
   ngOnInit() {
-    console.log('iniciou');
+    this.getLastMonth()
     this.spinner.show();
     this.perfilService.list().subscribe(data => {
-      console.log(data);
       this.data = data;
       this.updateCharts();
       this.spinner.hide();
     });
-    if (window.innerWidth < 500) this.optionsCid.xAxis.labels.style.fontSize = '10px';
+    if (window.innerWidth < 500) {
+      this.optionsCid.xAxis.labels.style.fontSize = '10px';
+      this.defaultLabels.rotation = -45;
+    }
     this.menuService.getStatus().subscribe(status => {
       if (status != this.menuStatus) {
         setTimeout(() => {
@@ -518,7 +526,7 @@ export class PerfilDashboardComponent implements OnInit, DoCheck {
     return this.perfilForm.get(controlName) != null ? this.perfilForm.get(controlName) : tipoAtendimento.get(controlName);
   }
 
-  setValues() {
+  setValues(perfilFlag: boolean) {
     const interno = this.getControl('interno').value;
     const externo = this.getControl('externo').value;
     const ambulatorial = this.getControl('ambulatorial').value;
@@ -527,6 +535,26 @@ export class PerfilDashboardComponent implements OnInit, DoCheck {
     this.perfil.tipoAtendimento.push(externo ? 'E' : '');
     this.perfil.tipoAtendimento.push(ambulatorial ? 'A' : '');
     this.perfil.tipoAtendimento.push(urgencia ? 'U' : '');
+    this.perfil.perfilAdulto = perfilFlag;
+
+    this.perfil.dataInicio = this.getControl('dataInicio').value;
+    this.perfil.dataFinal = this.getControl('dataFinal').value;
+  }
+
+  resetFields() {
+    this.perfil = {
+      dataInicio: '',
+      dataFinal: '',
+      setores: [],
+      tipoAtendimento: [],
+      perfilAdulto: true
+    };
+  }
+
+  send(flag: boolean) {
+    this.toggle();
+    this.resetFields();
+    this.setValues(flag);
     const dataInicio = this.getControl('dataInicio').value;
     const dataFinal = this.getControl('dataFinal').value;
     if ((new Date(dataInicio)).getTime() > (new Date(dataFinal)).getTime()) {
@@ -535,20 +563,13 @@ export class PerfilDashboardComponent implements OnInit, DoCheck {
         type: 'error',
         icon: faFrown
       })
+    } else {
+      this.spinner.show();
+      this.perfilService.list(this.perfil).subscribe(res => {
+        this.data = res;
+        this.spinner.hide();
+      });
     }
-    this.perfil.dataInicio =
-      this.perfil.dataFinal = this.getControl('dataFinal').value;
-  }
-
-  send(flag: boolean) {
-    this.perfil.perfilAdulto = flag;
-    this.toggle();
-    this.setValues();
-    this.spinner.show();
-    this.perfilService.list(this.perfil).subscribe(res => {
-      this.data = res;
-      this.spinner.hide();
-    });
   }
 
   getItemsSelected(event) {
