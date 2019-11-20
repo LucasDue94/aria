@@ -1,0 +1,7 @@
+import br.com.hospitaldocoracaoal.aria.Apache
+
+model {
+	Apache apache
+}
+
+json tmpl.apache(apache)
