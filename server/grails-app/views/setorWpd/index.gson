@@ -1,0 +1,8 @@
+import br.com.hospitaldocoracaoal.integracao.SetorWpd
+
+model {
+	Iterable<SetorWpd> setorWpdList
+}
+
+json tmpl.setorWpd(setorWpdList ?: [])
+
