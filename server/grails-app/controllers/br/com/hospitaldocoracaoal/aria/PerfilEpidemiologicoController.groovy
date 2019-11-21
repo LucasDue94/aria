@@ -35,7 +35,7 @@ class PerfilEpidemiologicoController {
 
         if (params.containsKey('tipo')) {
             if (params.tipo instanceof String) {
-                tipos = [!params.getChar('tipo')].empty ? [params.tipo] : null
+                tipos = ![params.getChar('tipo')].empty ? [params.tipo] : null
             } else {
                 tipos = params.tipo
             }

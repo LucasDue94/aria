@@ -9,7 +9,14 @@ class PerfilEpidemiologicoService {
 
     private static final Closure FILTROS = { BuildableCriteria criteria, Date inicio, Date fim, Character[] tipos ->
         if (inicio != null && fim != null) {
-            criteria.between 'dataAlta', inicio, fim
+            Calendar calendar = new GregorianCalendar()
+            calendar.time = fim
+            calendar.add Calendar.DATE, 1
+            fim = calendar.time
+
+
+            criteria.ge 'dataAlta', inicio
+            criteria.lt 'dataAlta', fim
         }
 
         if (tipos != null) {
@@ -115,19 +122,19 @@ class PerfilEpidemiologicoService {
                             quantidade : 0
                     ], [
                             faixaEtaria: 'De 29 dias a menor que 1 ano',
-                            limites    : [min: 29, max: 364],
+                            limites    : [min: 29, max: 365],
                             quantidade : 0
                     ], [
                             faixaEtaria: 'De 1 ano a menor que 4 anos',
-                            limites    : [min: 1 * UM_ANO, max: 3 * UM_ANO],
+                            limites    : [min: 1 * UM_ANO, max: 4 * UM_ANO],
                             quantidade : 0
                     ], [
                             faixaEtaria: 'De 4 anos a menor que 10 anos',
-                            limites    : [min: 4 * UM_ANO, max: 9 * UM_ANO],
+                            limites    : [min: 4 * UM_ANO, max: 10 * UM_ANO],
                             quantidade : 0
                     ], [
                             faixaEtaria: 'De 10 anos a menor que 18 anos',
-                            limites    : [min: 10 * UM_ANO, max: 17 * UM_ANO],
+                            limites    : [min: 10 * UM_ANO, max: 18 * UM_ANO],
                             quantidade : 0
                     ]
             ]
@@ -172,7 +179,7 @@ class PerfilEpidemiologicoService {
                 }
 
                 if (it.limites.containsKey('max')) {
-                    pertenceFaixa &= idade <= it.limites.max
+                    pertenceFaixa &= idade < it.limites.max
                 }
 
                 return pertenceFaixa
