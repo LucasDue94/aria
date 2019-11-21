@@ -4,7 +4,7 @@ class RegistroAtendimentoLeitos implements Serializable {
 
     RegistroAtendimento registroAtendimento
     Leito leito
-    String dataEntrada
+    Date dataEntrada
 
     static belongsTo = [RegistroAtendimento, Leito]
 

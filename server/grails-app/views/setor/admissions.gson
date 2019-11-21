@@ -1,0 +1,8 @@
+import br.com.hospitaldocoracaoal.integracao.RegistroAtendimentoLeitos
+
+model {
+	Iterable<RegistroAtendimentoLeitos> registroAtendimentoLeitosList
+}
+
+json tmpl.registroAtendimentoLeitos(registroAtendimentoLeitosList ?: [])
+

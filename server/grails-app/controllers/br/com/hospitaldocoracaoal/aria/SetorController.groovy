@@ -1,11 +1,11 @@
 package br.com.hospitaldocoracaoal.aria
 
+
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.CREATED
 import static org.springframework.http.HttpStatus.NOT_FOUND
 import static org.springframework.http.HttpStatus.NO_CONTENT
 import static org.springframework.http.HttpStatus.OK
-import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY
 
 import grails.gorm.transactions.ReadOnly
 import grails.gorm.transactions.Transactional
@@ -14,6 +14,7 @@ import grails.gorm.transactions.Transactional
 class SetorController {
 
     SetorService setorService
+    RegistroAtendimentoLeitosService registroAtendimentoLeitosService
 
     static responseFormats = ['json', 'xml']
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
@@ -25,6 +26,13 @@ class SetorController {
 
     def show(Long id) {
         respond setorService.get(id)
+    }
+
+    def admissions(Integer max) {
+        params.sort = 'dataEntrada'
+        params.order = 'desc'
+        params.max = Math.min(max ?: 10, 100)
+        respond registroAtendimentoLeitosService.list(params)
     }
 
     @Transactional
