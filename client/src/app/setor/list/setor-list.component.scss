@@ -1,0 +1,12 @@
+@import '../../../assets/colors';
+@import '../../../assets/device-sizes';
+
+.container-setor {
+  margin: 10px 20px;
+}
+
+@media screen and (max-width: $tablet-width) {
+  .sigla {
+    display: none;
+  }
+}

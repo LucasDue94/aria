@@ -49,7 +49,7 @@ app-main {
 }
 
 .flex-column {
-  flex-direction: column!important;
+  flex-direction: column !important;
 }
 
 .form-group {
@@ -81,3 +81,281 @@ app-main {
     }
   }
 }
+
+
+.search-container {
+  display: flex;
+  justify-content: flex-start;
+
+  #search-button {
+    font-size: 20px;
+    margin: auto 2px;
+    height: 40px;
+    width: 40px;
+    border-radius: 3px;
+    color: $white;
+    background-color: rgba(#2B517E, 0.5);
+
+    &:hover {
+      background-color: $blue-default;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+
+  }
+
+  #search-text {
+    & {
+      color: $gray-80;
+      padding-left: 7px;
+      font-size: 18px;
+      border-radius: 3px;
+      border: 1px solid $gray-70;
+    }
+
+    &::placeholder {
+      color: $gray-70;
+      font-size: 16px;
+    }
+
+    &:focus {
+      box-shadow: 0 0 6px $blue-default;
+    }
+  }
+}
+
+.button {
+  color: $gray-100;
+  font-weight: 600;
+  padding: 5px;
+  border-radius: 5px;
+
+  &:hover {
+    cursor: pointer;
+    transition: 0.3s;
+    background-color: $gray-70;
+  }
+}
+
+.button-blue {
+  color: $white;
+  background-color: rgba($blue-default, 0.8);
+
+  &:hover {
+    cursor: pointer;
+    transition: 0.3s;
+    background-color: $blue-default;
+  }
+}
+
+.button-add {
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba($green-default, 0.7);
+  color: $white;
+  height: 45px;
+  width: 45px;
+  border-radius: 100%;
+  border: 3px solid $green-default;
+  //box-shadow: 2px 2px 5px $gray-100;
+  transition: 0.3s;
+
+  &:hover {
+    border: 3px solid $green-dark-default;
+    background-color: $green-default;
+    cursor: pointer;
+    transition: 0.3s;
+    transform: rotate(90deg);
+  }
+
+  .icon {
+    font-size: 30px;
+  }
+
+}
+
+.form-container {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+  align-items: self-start;
+}
+
+.form-group {
+  display: flex;
+  margin: 5px;
+  flex-direction: column;
+  flex: 1;
+  text-transform: capitalize;
+
+  .form-label {
+    font-size: 15px;
+  }
+
+  .form-control {
+    padding: 8px;
+
+    & {
+      font-size: 18px;
+      border-radius: 5px;
+      border: 1px solid $gray-70;
+      box-shadow: 2px 2px 10px $gray-70;
+      text-transform: inherit;
+    }
+  }
+
+  .control-disable {
+    background-color: $gray-60;
+    pointer-events: none;
+    cursor: not-allowed;
+  }
+}
+
+
+.empty {
+  display: flex;
+  flex-direction: row;
+  align-self: flex-start;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  width: 200px;
+
+  & {
+    font-weight: 500;
+    font-size: 17px;
+    color: $gray-90;
+    background-color: $gray-20;
+    border-radius: 5px;
+    border: 1px solid $gray-60;
+    border-bottom: 4px solid rgba($blue-default,0.8);
+    box-shadow: 0 5px 10px $gray-90;
+  }
+
+  .icon {
+    color: rgba($blue-default,0.8);
+  }
+}
+
+.table, .thead, .tbody, .options, .row {
+  display: flex;
+}
+
+.table {
+  margin: 10px auto;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  color: $gray-100;
+  font-size: 17px;
+
+  .thead, .row {
+    margin-bottom: 6px;
+    padding: 5px 0;
+    background-color: $gray-60;
+    border-radius: 3px;
+    box-shadow: 1px 1px 5px $gray-80;
+  }
+
+  .thead {
+    border: 1px solid $gray-70;
+    font-weight: 600;
+
+    .options {
+      text-align: left;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .row {
+    align-items: center;
+    transition: 0.3s;
+    background-color: $white;
+
+    &:hover {
+      transition: 0.3s;
+      background-color: $gray-50;
+      box-shadow: 0 0 5px $gray-90;
+      cursor: pointer;
+    }
+  }
+
+  .tbody {
+    flex-direction: column;
+    color: $gray-100;
+
+    .options {
+      padding: 0 8px;
+
+      & {
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+      }
+
+      .icon {
+        margin: 0 7px;
+        color: $gray-80;
+
+        &:hover {
+          cursor: pointer;
+          transition: 0.3s;
+          color: $gray-100;
+        }
+      }
+    }
+  }
+
+  .th, .td {
+    flex: 1;
+    padding: 8px;
+    border-radius: 8px;
+    text-transform: uppercase;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
