@@ -9,4 +9,6 @@ class SetorWpd {
         id generator: 'assigned'
         version false
     }
+
+
 }

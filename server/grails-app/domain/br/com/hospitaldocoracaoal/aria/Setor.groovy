@@ -11,7 +11,7 @@ class Setor {
 
     static constraints = {
         descricao nullable: false, blank: false, unique: true
-        setorWpd nullable: false
+        setorWpd nullable: false, unique: true
     }
 
     static mapping = {
