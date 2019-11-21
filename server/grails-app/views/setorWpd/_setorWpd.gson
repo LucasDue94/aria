@@ -1,0 +1,7 @@
+import br.com.hospitaldocoracaoal.integracao.SetorWpd
+
+model {
+	SetorWpd setorWpd
+}
+
+json g.render(setorWpd, [resolveTemplate: false])
