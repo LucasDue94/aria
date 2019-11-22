@@ -7,7 +7,7 @@ import {FormBuilder} from "@angular/forms";
 
 
 @Component({
-  selector: 'app-setor-list',
+  selector: 'setor-list',
   templateUrl: './setor-list.component.html',
   styleUrls: ['./setor-list.component.scss']
 })

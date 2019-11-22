@@ -9,7 +9,7 @@
   </nav>
 
   <section [scrollWindow]="false" [hidden]="true" infinite-scroll (scrolled)="scrollDown()"
-           [ngStyle]="{'height':height}" class="content-default">
+           [ngStyle]="{'height':height}" class="content-search">
     <main class="table" infinite-scroll>
       <section *ngIf="dataArray!=null" class="tbody">
         <div *ngFor="let data of dataArray;" class="row">

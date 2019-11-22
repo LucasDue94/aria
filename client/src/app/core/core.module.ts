@@ -23,8 +23,8 @@ import {SetorWpdService} from "./setor-wpd/setorWpd.service";
     MenuService,
     PerfilService,
     SetorService,
+    SetorWpdService,
     ErrorService,
-    SetorWpdService
   ]
 })
 export class CoreModule { }

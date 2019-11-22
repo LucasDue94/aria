@@ -10,6 +10,7 @@ import static org.springframework.http.HttpStatus.*
 class SetorController {
 
     SetorService setorService
+    RegistroAtendimentoLeitosService registroAtendimentoLeitosService
 
     static responseFormats = ['json', 'xml']
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
@@ -21,6 +22,13 @@ class SetorController {
 
     def show(Long id) {
         respond setorService.get(id)
+    }
+
+    def admissions(Integer max) {
+        params.sort = 'dataEntrada'
+        params.order = 'desc'
+        params.max = Math.min(max ?: 10, 100)
+        respond registroAtendimentoLeitosService.list(params)
     }
 
     @Transactional

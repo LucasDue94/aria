@@ -1,18 +1,19 @@
 package br.com.hospitaldocoracaoal.aria
 
+
 import grails.gorm.services.Service
 
 @Service(Setor)
-interface SetorService {
+abstract class SetorService {
 
-    Setor get(Serializable id)
+    abstract Setor get(Serializable id)
 
-    List<Setor> list(Map args)
+    abstract List<Setor> list(Map args)
 
-    Long count()
+    abstract Long count()
 
-    void delete(Serializable id)
+    abstract void delete(Serializable id)
 
-    Setor save(Setor setor)
+    abstract Setor save(Setor setor)
 
 }

@@ -70,6 +70,7 @@ export class FastSearchComponent implements OnInit {
       })
     ).subscribe(res => {
       if (this.errorService.hasError(res)) this.errorService.sendError(res);
+      console.log(res);
       this.dataArray = res;
       this.loaded();
     });

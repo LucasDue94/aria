@@ -17,9 +17,9 @@ class SetorWpdController {
     static responseFormats = ['json', 'xml']
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    def index(Integer max) {
+    def index(Integer max, String termo) {
         params.max = Math.min(max ?: 30, 100)
-        respond setorWpdService.list(params), model:[setorWpdCount: setorWpdService.count()]
+        respond setorWpdService.list(params, termo), model: [setorWpdCount: setorWpdService.count()]
     }
 
     def show(Long id) {
@@ -45,7 +45,7 @@ class SetorWpdController {
             return
         }
 
-        respond setorWpd, [status: CREATED, view:"show"]
+        respond setorWpd, [status: CREATED, view: "show"]
     }
 
     @Transactional
@@ -67,7 +67,7 @@ class SetorWpdController {
             return
         }
 
-        respond setorWpd, [status: OK, view:"show"]
+        respond setorWpd, [status: OK, view: "show"]
     }
 
     @Transactional

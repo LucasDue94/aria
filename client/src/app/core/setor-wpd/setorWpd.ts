@@ -1,4 +1,4 @@
-export class Setor {
+export class SetorWpd {
 
   id: number;
   descricao: string;

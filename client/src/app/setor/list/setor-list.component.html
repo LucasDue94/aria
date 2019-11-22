@@ -12,7 +12,7 @@
       <span class="th sigla">SIGLA</span>
       <span class="th">DESCRIÇÃO</span>
     </section>
-    <section *ngIf="setores!=null" class="tbody">
+    <section *ngIf="setores!=null" class="tbody content-setor">
       <div [routerLink]="['/setor','edit',setor.id]" *ngFor="let setor of setores" class="row">
         <span class="td">{{setor.id}}</span>
         <span class="td sigla">{{setor.sigla}}</span>

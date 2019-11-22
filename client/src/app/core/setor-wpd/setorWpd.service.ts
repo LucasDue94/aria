@@ -30,4 +30,15 @@ export class SetorWpdService {
     });
     return subject.asObservable();
   }
+
+  search(termo: string, offset?: any, max?: any): Observable<any[]> {
+    let subject = new Subject<any>();
+    this.http.get(this.baseUrl + `setorWpd?` + 'offset=' + offset + '&max=' + max + '&termo=' + termo, {headers: this.getDefaultHttpOptions()})
+      .pipe(
+        catchError(error => of({error})
+        )).subscribe((json: any[]) => {
+      subject.next(json);
+    });
+    return subject.asObservable();
+  }
 }

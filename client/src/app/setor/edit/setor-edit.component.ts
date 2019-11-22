@@ -33,13 +33,18 @@ export class SetorEditComponent implements OnInit {
           console.log('deu ruim!');
         } else {
           this.setor = setor;
-          this.form.get('codWpd').setValue(this.setor.id);
-          this.form.get('descricao').setValue(this.setor.descricao);
-          this.form.get('sigla').setValue(this.setor.sigla);
-          this.form.get('tipo').setValue(this.setor.tipoSetor);
+          this.setForm();
         }
       });
     });
+  }
+
+  setForm() {
+    this.form.get('codWpd').setValue(this.setor.id);
+    this.form.get('descricao').setValue(this.setor.descricao);
+    this.form.get('sigla').setValue(this.setor.sigla);
+    this.form.get('tipo').setValue(this.setor.tipoSetor);
+
   }
 
   setValues() {

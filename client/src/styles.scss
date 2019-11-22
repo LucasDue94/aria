@@ -28,7 +28,11 @@ body, app-main {
   height: 100vh;
   background-color: $white;
 }
+setor-list{
+  position: relative;
+  height: 100%;
 
+}
 multiple-select {
   height: calc(100% - 25px);
 }
@@ -129,6 +133,7 @@ app-main {
   font-weight: 600;
   padding: 5px;
   border-radius: 5px;
+  transition: 0.3s;
 
   &:hover {
     cursor: pointer;
@@ -140,6 +145,7 @@ app-main {
 .button-blue {
   color: $white;
   background-color: rgba($blue-default, 0.8);
+  transition: 0.3s;
 
   &:hover {
     cursor: pointer;
@@ -161,7 +167,6 @@ app-main {
   width: 45px;
   border-radius: 100%;
   border: 3px solid $green-default;
-  //box-shadow: 2px 2px 5px $gray-100;
   transition: 0.3s;
 
   &:hover {
@@ -188,19 +193,19 @@ app-main {
 .form-group {
   display: flex;
   margin: 5px;
-  flex-direction: column;
+  flex-direction: row;
   flex: 1;
   text-transform: capitalize;
 
   .form-label {
-    font-size: 15px;
+    font-size: 18px;
   }
 
   .form-control {
     padding: 8px;
 
     & {
-      font-size: 18px;
+      font-size: 16px;
       border-radius: 5px;
       border: 1px solid $gray-70;
       box-shadow: 2px 2px 10px $gray-70;
@@ -232,12 +237,12 @@ app-main {
     background-color: $gray-20;
     border-radius: 5px;
     border: 1px solid $gray-60;
-    border-bottom: 4px solid rgba($blue-default,0.8);
+    border-bottom: 4px solid rgba($blue-default, 0.8);
     box-shadow: 0 5px 10px $gray-90;
   }
 
   .icon {
-    color: rgba($blue-default,0.8);
+    color: rgba($blue-default, 0.8);
   }
 }
 
@@ -246,6 +251,7 @@ app-main {
 }
 
 .table {
+  position: relative;
   margin: 10px auto;
   display: flex;
   flex-direction: column;
@@ -318,31 +324,6 @@ app-main {
     text-transform: uppercase;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

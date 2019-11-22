@@ -379,7 +379,7 @@ export class PerfilDashboardComponent implements OnInit, DoCheck, AfterViewCheck
     if (this.perfil != undefined && this.perfil.perfilGeral)
       return ['Até 15 anos', '15 anos - 30 anos', '31 anos - 60 anos', '61 anos - 79 anos', 'Maior que 80 anos'];
 
-    return ['29 dias - <1 ano', '1 ano - <4 anos', '4 anos - <10 anos', '10 anos - <18 anos'];
+    return ['0 - <29 dias', '29 dias - <1 ano', '1 ano - <4 anos', '4 anos - <10 anos', '10 anos - <18 anos'];
   }
 
   updateCharts() {

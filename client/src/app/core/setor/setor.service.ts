@@ -18,7 +18,8 @@ export class SetorService {
     })
   }
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   list(): Observable<any[]> {
     let subject = new Subject<any>();
@@ -68,11 +69,7 @@ export class SetorService {
       }).pipe(
         catchError(error => of({error}))
       ).subscribe((json: any) => {
-        if (json.hasOwnProperty('error')) {
-          subject.next(json)
-        } else {
-          subject.next(json.map((obj: any) => new Setor(obj)))
-        }
+        subject.next(json)
       });
     }
     return subject.asObservable()
