@@ -21,7 +21,7 @@ const routes: Routes = [
         path: 'list',
         component: SetorListComponent,
       }, {
-        path: 'edit',
+        path: 'edit/:id',
         component: SetorEditComponent,
       },{
         path: 'create',

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {SetorService} from "../../core/setor/setor.service";
 import {Setor} from "../../core/setor/setor";
 import {SpinnerService} from "../../core/spinner/spinner.service";
-import {faCog, faEdit, faFrown, faPlus, faPowerOff, faSearch} from "@fortawesome/free-solid-svg-icons";
+import {faFrown, faPlus, faSearch} from "@fortawesome/free-solid-svg-icons";
 import {FormBuilder} from "@angular/forms";
 
 

@@ -17,11 +17,12 @@ export class SetorWpdService {
     })
   }
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
-  list(): Observable<any[]> {
+  list(offset?: any, max?: any): Observable<any[]> {
     let subject = new Subject<any>();
-    this.http.get(this.baseUrl + `setorWpd`, {headers: this.getDefaultHttpOptions()})
+    this.http.get(this.baseUrl + `setorWpd?` + 'offset=' + offset + '&max=' + max, {headers: this.getDefaultHttpOptions()})
       .pipe(
         catchError(error => of({error})
         )).subscribe((json: any[]) => {

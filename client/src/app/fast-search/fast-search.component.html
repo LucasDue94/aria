@@ -3,7 +3,7 @@
     <div [formGroup]="searchForm" class="search-container">
       <input formControlName="searchControl" id="search-text" class="input-search" placeholder="Busca.." type="text">
       <button id="search-button">
-        <fa-icon [icon]="['fas','search']"></fa-icon>
+        <fa-icon [icon]="faSearch"></fa-icon>
       </button>
     </div>
   </nav>
@@ -18,11 +18,12 @@
         </div>
         <div class="withoutData" *ngIf="dataArray.length == 0">
           {{messageStatus}}
-          <fa-icon class="icon" [icon]="['fas','frown']" size="2x"></fa-icon>
+          <fa-icon class="icon" [icon]="faFrown" size="2x"></fa-icon>
         </div>
       </section>
     </main>
   </section>
-<spinner [height]="'calc(100% - 45px)'" *ngIf="spinner"></spinner>
+  <spinner [height]="'calc(100% - 45px)'" *ngIf="spinner"></spinner>
 </section>
+
 

@@ -21,6 +21,10 @@
 }
 
 .background-shadow {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
   position: absolute;
   width: 100%;
   height: calc(100% - 70px);
@@ -43,4 +47,11 @@
     letter-spacing: 1px;
     font-weight: 400 !important;
   }
+}
+
+.container-search {
+  position: absolute;
+  border: 1px solid red;
+  width: 350px;
+  height: 350px;
 }

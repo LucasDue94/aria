@@ -13,7 +13,7 @@
       <span class="th">DESCRIÇÃO</span>
     </section>
     <section *ngIf="setores!=null" class="tbody">
-      <div [routerLink]="['/setor','edit']" *ngFor="let setor of setores" class="row">
+      <div [routerLink]="['/setor','edit',setor.id]" *ngFor="let setor of setores" class="row">
         <span class="td">{{setor.id}}</span>
         <span class="td sigla">{{setor.sigla}}</span>
         <span class="td">{{setor.descricao}}</span>
@@ -24,7 +24,7 @@
       </div>
     </section>
   </section>
-  <div class="button-add">
+  <div [routerLink]="['/setor','create']" class="button-add">
     <fa-icon class="icon" [icon]="faPlus"></fa-icon>
   </div>
 </main>

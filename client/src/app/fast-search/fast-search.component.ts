@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
 import {debounceTime, switchMap} from "rxjs/operators";
 import {ErrorService} from "../core/error/error.service";
+import {faFrown, faSearch} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'fast-search',
@@ -9,7 +10,8 @@ import {ErrorService} from "../core/error/error.service";
   styleUrls: ['./fast-search.component.scss']
 })
 export class FastSearchComponent implements OnInit {
-
+  faFrown = faFrown;
+  faSearch = faSearch;
   @Input() service;
   /* Instância do service,passada pelo elemento pai cujo a busca será realizada  */
   @Input() fields: String[];
@@ -46,6 +48,7 @@ export class FastSearchComponent implements OnInit {
     this.service.list(this.max, this.offset).subscribe(res => {
       if (this.errorService.hasError(res)) this.errorService.sendError(res);
       this.dataArray = res;
+      console.log(res);
         this.loaded();
       });
     this.search()
