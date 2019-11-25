@@ -1,5 +1,6 @@
 package br.com.hospitaldocoracaoal.aria
 
+import br.com.hospitaldocoracaoal.integracao.RegistroAtendimentoLeitos
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.CREATED
 import static org.springframework.http.HttpStatus.NOT_FOUND
@@ -33,6 +34,7 @@ class ApacheController {
             render status: NOT_FOUND
             return
         }
+
         if (apache.hasErrors()) {
             transactionStatus.setRollbackOnly()
             respond apache.errors

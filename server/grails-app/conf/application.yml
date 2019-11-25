@@ -39,9 +39,11 @@ grails:
     views:
         json:
             generator:
-                dateFormat: 'yyyy-MM-dd'
+                dateFormat: 'yyyy-MM-dd HH:mm'
     databinding:
         date-formats:
+            - 'dd/MM/yyyy HH:mm'
+            - 'yyyy-MM-dd HH:mm'
             - 'dd/MM/yyyy'
             - 'yyyy-MM-dd'
     mime:
