@@ -1,8 +1,7 @@
 package br.com.hospitaldocoracaoal.aria
 
-import br.com.hospitaldocoracaoal.integracao.Paciente
+
 import grails.gorm.services.Service
-import grails.web.servlet.mvc.GrailsParameterMap
 
 @Service(Setor)
 abstract class SetorService {

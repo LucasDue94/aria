@@ -1,18 +1,31 @@
 package br.com.hospitaldocoracaoal.integracao
 
+
 import grails.gorm.services.Service
 
 @Service(SetorWpd)
-interface SetorWpdService {
+abstract class SetorWpdService {
 
-    SetorWpd get(Serializable id)
+    abstract SetorWpd get(Serializable id)
 
-    List<SetorWpd> list(Map args)
+    List<SetorWpd> list(Map args, String termo) {
+        def criteria = SetorWpd.createCriteria()
+        List<SetorWpd> setoresWpd = (List<SetorWpd>) criteria.list(args) {
+            if (termo != null && !termo.isEmpty()) {
+                or {
+                    ilike 'id',"%${termo}%"
+                    ilike 'descricao',"%${termo}%"
+                }
+            }
+            order "descricao","asc"
+        }
+        return setoresWpd
+    }
 
-    Long count()
+    abstract Long count()
 
-    void delete(Serializable id)
+    abstract void delete(Serializable id)
 
-    SetorWpd save(SetorWpd setorWpd)
+    abstract SetorWpd save(SetorWpd setorWpd)
 
 }

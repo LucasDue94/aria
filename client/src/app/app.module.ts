@@ -13,6 +13,10 @@ import {PerfilDashboardComponent} from './perfil-dashboard/perfil-dashboard.comp
 import {ReactiveFormsModule} from "@angular/forms";
 import {CoreModule} from "./core/core.module";
 import {ChartModule} from "angular-highcharts";
+import {SetorModule} from "./setor/setor.module";
+import {InfiniteScrollModule} from "ngx-infinite-scroll";
+import {FastSearchModule} from "./fast-search/fast-search.module";
+import {ErrorComponent} from "./error/error.component";
 
 @NgModule({
   exports: [
@@ -20,6 +24,7 @@ import {ChartModule} from "angular-highcharts";
   declarations: [
     AppComponent,
     PerfilDashboardComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +38,11 @@ import {ChartModule} from "angular-highcharts";
     MainModule,
     ReactiveFormsModule,
     CoreModule,
-    ChartModule
+    ChartModule,
+    SetorModule,
+    InfiniteScrollModule,
+    FastSearchModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,24 @@
+@import '../../../assets/colors';
+@import '../../../assets/device-sizes';
+
+.container-setor {
+  position: relative;
+  height: calc(100% - 20px);
+  margin: 10px 20px;
+}
+
+.content-setor {
+  position: relative;
+  overflow-y: scroll;
+  padding:0 2px;
+}
+
+.table {
+  height: calc(100% - 60px);
+}
+
+@media screen and (max-width: $tablet-width) {
+  .sigla {
+    display: none;
+  }
+}

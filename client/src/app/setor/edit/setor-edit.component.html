@@ -1,0 +1,23 @@
+<main class="container-setor-create">
+  <article class="card">
+    <form [formGroup]="form" action="#" class="form-container">
+      <div class="form-group flex-row">
+        <label class="form-label" for="cod-wpd">Código</label>
+        <input class="form-control" formControlName="codWpd" id="cod-wpd" type="text">
+      </div>
+      <div class="form-group flex-row">
+        <label class="form-label" for="descricao">Descrição</label>
+        <input class="form-control" formControlName="descricao" id="descricao" type="text">
+      </div>
+      <div class="form-group flex-row">
+        <label class="form-label" for="sigla">Sigla</label>
+        <input class="form-control" formControlName="sigla" id="sigla" type="text">
+      </div>
+      <div class="form-group flex-row">
+        <label class="form-label" for="tipo">Tipo</label>
+        <input class="form-control" formControlName="tipo" id="tipo" type="text">
+      </div>
+    </form>
+    <button (click)="save()" class="button button-blue btn-save">Salvar</button>
+  </article>
+</main>

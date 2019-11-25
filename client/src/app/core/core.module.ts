@@ -6,6 +6,8 @@ import {MenuService} from "./menu/menu.service";
 import {PerfilService} from "./perfil/perfil.service";
 import {HttpClientModule} from "@angular/common/http";
 import {SetorService} from "./setor/setor.service";
+import {ErrorService} from "./error/error.service";
+import {SetorWpdService} from "./setor-wpd/setorWpd.service";
 
 
 
@@ -20,7 +22,9 @@ import {SetorService} from "./setor/setor.service";
     SpinnerService,
     MenuService,
     PerfilService,
-    SetorService
+    SetorService,
+    SetorWpdService,
+    ErrorService,
   ]
 })
 export class CoreModule { }
