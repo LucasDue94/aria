@@ -47,7 +47,7 @@ alter foreign table leito owner to aria;
 /*REGISTRO ATENDIMENTO LEITOS*/
 create foreign table registro_atendimento_leitos (
     registro_atendimento_id varchar(9) options (key 'true') not null,
-    leito_id varchar(5) options (key 'true') not null,
+    leito_id varchar(9) options (key 'true') not null,
     data_entrada timestamp not null
 ) server wpd
 options (table '(select his.COD_PAC, his.LEITO,
@@ -121,10 +121,11 @@ alter foreign table paciente owner to aria;
 create foreign table motivo_alta
     (
         id varchar(9) options (key 'true') not null,
-        descricao varchar(70) not null
+        descricao varchar(70) not null,
+        classificacao varchar(1)
         )
     server wpd
-    options (table '(select ALTA.COD_MOT_ALTA, ALTA.DSC_MOT_ALTA from ADMWPD.MOTIVO_ALTA ALTA)', readonly 'true');
+    options (table '(select ALTA.COD_MOT_ALTA, ALTA.DSC_MOT_ALTA, ALTA.CLAS_MOT_ALTA from ADMWPD.MOTIVO_ALTA ALTA)', readonly 'true');
 
 alter foreign table motivo_alta owner to aria;
 
@@ -141,3 +142,9 @@ from ADMWPD.IMAGNEXA exa
     inner join ADMWPD.IMSALCAD sal on agn.COD_UNI = sal.COD_UNI and agn.COD_SALA = sal.COD_SALA)', readonly 'true');
 
 alter foreign table exame owner to aria;
+
+create foreign table cirurgia (
+    id varchar(6) options (key 'true') not null,
+    registro_atendimento_id varchar(9),
+    cancelada boolean
+) server wpd options (table '(select CD_CIRU_REALIZADA, COD_PAC, decode(MOT_CANCELAMENTO, null, 0, 1) as cancelada from admwpd.BLCIRU_REALIZADA)');

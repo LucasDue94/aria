@@ -1,18 +1,39 @@
 package br.com.hospitaldocoracaoal.aria
 
+import br.com.hospitaldocoracaoal.aria.utils.DataUtils
 import grails.gorm.services.Service
+import grails.web.servlet.mvc.GrailsParameterMap
+import org.hibernate.sql.JoinType
 
 @Service(Apache)
-interface ApacheService {
+abstract class ApacheService {
 
-    Apache get(Serializable id)
+    abstract Apache get(Serializable id)
 
-    List<Apache> list(Map args)
+    abstract List<Apache> list(Map args)
 
-    Long count()
+    Map<String, String> report(GrailsParameterMap args) {
+        Date dataInicio = DataUtils.getFormatterToDate(args.dataInicio)
+        Date dataFim = DataUtils.getFormatterToDate(args.dataFim)
 
-    void delete(Serializable id)
+        def criteria = Apache.createCriteria()
 
-    Apache save(Apache apache)
+        def result = criteria.list() {
+            createAlias 'registroAtendimentoLeito', 'ral', JoinType.INNER_JOIN
+            createAlias 'ral.leito', 'l', JoinType.INNER_JOIN
+            createAlias 'l.setor', 's', JoinType.INNER_JOIN
+
+            between 'ral.dataEntrada', dataInicio, dataFim
+            eq('s.id', args.setorId)
+        }
+
+        result
+    }
+
+    abstract Long count()
+
+    abstract void delete(Serializable id)
+
+    abstract Apache save(Apache apache)
 
 }

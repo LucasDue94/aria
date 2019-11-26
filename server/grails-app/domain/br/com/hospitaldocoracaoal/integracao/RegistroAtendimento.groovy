@@ -15,7 +15,8 @@ class RegistroAtendimento {
             comandas: Comanda,
             atendimentos: Atendimento,
             exames: Exame,
-            registroAtendimentoLeitos: RegistroAtendimentoLeitos
+            registroAtendimentoLeitos: RegistroAtendimentoLeitos,
+            cirurgias: Cirurgia
     ]
 
     static mapping = {
