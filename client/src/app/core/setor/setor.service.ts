@@ -56,11 +56,7 @@ export class SetorService {
       }).pipe(
         catchError(error => of({error}))
       ).subscribe((json: any) => {
-        if (json.hasOwnProperty('error')) {
-          subject.next(json)
-        } else {
-          subject.next(json.map((obj: any) => new Setor(obj)))
-        }
+        subject.next(json)
       });
     } else {
       this.http.post<Setor>(this.baseUrl + `setor/`, setor, {

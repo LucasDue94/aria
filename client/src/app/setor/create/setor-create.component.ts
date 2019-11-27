@@ -49,7 +49,6 @@ export class SetorCreateComponent implements OnInit, AfterViewInit {
 
   selectedData(event) {
     this.selectedSetor = event;
-    console.log(this.selectedSetor)
     this.render.setStyle(this.shadow.nativeElement, 'display', 'none');
     this.setForm();
   }
@@ -64,31 +63,39 @@ export class SetorCreateComponent implements OnInit, AfterViewInit {
     this.newSetor.descricao = this.form.get('descricao').value;
     this.newSetor.sigla = this.form.get('sigla').value;
     this.newSetor.tipoSetor = this.form.get('tipo').value;
-    console.log(this.newSetor)
   }
 
   save() {
     this.setValues();
     if (this.form.valid) {
       this.setorAriaService.save(this.newSetor).subscribe(res => {
-        console.log(res);
+        let messageError = '';
         if (res.hasOwnProperty('error')) {
-          // this.router.navigate(['/setor', 'list']);
-          console.log(res.json);
+          if (res.error.error.hasOwnProperty('_embedded')) {
+            res.error.error._embedded.errors.forEach(error => {
+              messageError += error.message + '. \n';
+            });
+          } else {
+            messageError = res.error.error.message;
+          }
           this.alertService.send({
-            message: 'Ops... não foi possível cadastrar este novo setor!',
+            message: messageError,
             type: 'error',
             icon: faFrown
           });
-        } else if (!res.hasOwnProperty('error')) {
+        } else {
           this.alertService.send({message: 'Novo setor cadastrado!', type: 'success', icon: faCheck});
           setTimeout(() => {
             this.router.navigate(['/setor', 'list']);
           }, 300);
         }
-      })
-    }else{
-      alert('opa')
+      });
+    } else {
+      this.alertService.send({
+        message: 'Preencha todos os campos',
+        type: 'warning',
+        icon: faFrown
+      });
     }
   }
 }
