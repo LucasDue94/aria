@@ -8,6 +8,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {SetorService} from "./setor/setor.service";
 import {ErrorService} from "./error/error.service";
 import {SetorWpdService} from "./setor-wpd/setorWpd.service";
+import {TitleService} from "./title/title.service";
 
 
 
@@ -25,6 +26,7 @@ import {SetorWpdService} from "./setor-wpd/setorWpd.service";
     SetorService,
     SetorWpdService,
     ErrorService,
+    TitleService
   ]
 })
 export class CoreModule { }

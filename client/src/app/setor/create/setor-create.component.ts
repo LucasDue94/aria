@@ -1,14 +1,14 @@
 import {AfterViewInit, Component, OnInit, Renderer2, ViewChild} from '@angular/core';
-import {SpinnerService} from "../../core/spinner/spinner.service";
 import {SetorService} from "../../core/setor/setor.service";
 import {FormBuilder, Validators} from "@angular/forms";
 import {SetorWpdService} from "../../core/setor-wpd/setorWpd.service";
 import {Location} from "@angular/common";
 import {Router} from "@angular/router";
-import {faArrowCircleLeft, faCheck, faFrown} from "@fortawesome/free-solid-svg-icons";
+import {faCheck, faChevronCircleLeft, faExclamationCircle, faFrown} from "@fortawesome/free-solid-svg-icons";
 import {SetorWpd} from "../../core/setor-wpd/setorWpd";
 import {Setor} from "../../core/setor/setor";
 import {AlertService} from "../../core/alert/alert.service";
+import {TitleService} from "../../core/title/title.service";
 
 @Component({
   selector: 'app-setor-create',
@@ -19,7 +19,7 @@ export class SetorCreateComponent implements OnInit, AfterViewInit {
 
   @ViewChild('shadow', {static: false}) shadow;
   selectedSetor: SetorWpd;
-  faArrowCircleLeft = faArrowCircleLeft;
+  faArrowCircleLeft = faChevronCircleLeft;
   form = this.fb.group({
     codWpd: ['', Validators.required],
     descricao: ['', Validators.required],
@@ -28,12 +28,14 @@ export class SetorCreateComponent implements OnInit, AfterViewInit {
   });
   newSetor = new Setor();
 
-  constructor(private spinner: SpinnerService, private setorAriaService: SetorService,
-              private render: Renderer2, private fb: FormBuilder, private setorWpdService: SetorWpdService,
-              private location: Location, private router: Router, private alertService: AlertService) {
+  constructor(private setorAriaService: SetorService, private render: Renderer2,
+              private fb: FormBuilder, private setorWpdService: SetorWpdService,
+              private location: Location, private router: Router,
+              private alertService: AlertService, private titleService: TitleService) {
   }
 
   ngOnInit() {
+    this.titleService.send('Setor - Novo setor');
   }
 
   ngAfterViewInit(): void {
@@ -49,7 +51,6 @@ export class SetorCreateComponent implements OnInit, AfterViewInit {
 
   selectedData(event) {
     this.selectedSetor = event;
-    console.log(this.selectedSetor)
     this.render.setStyle(this.shadow.nativeElement, 'display', 'none');
     this.setForm();
   }
@@ -64,31 +65,39 @@ export class SetorCreateComponent implements OnInit, AfterViewInit {
     this.newSetor.descricao = this.form.get('descricao').value;
     this.newSetor.sigla = this.form.get('sigla').value;
     this.newSetor.tipoSetor = this.form.get('tipo').value;
-    console.log(this.newSetor)
   }
 
   save() {
     this.setValues();
     if (this.form.valid) {
       this.setorAriaService.save(this.newSetor).subscribe(res => {
-        console.log(res);
+        let messageError = '';
         if (res.hasOwnProperty('error')) {
-          // this.router.navigate(['/setor', 'list']);
-          console.log(res.json);
+          if (res.error.error.hasOwnProperty('_embedded')) {
+            res.error.error._embedded.errors.forEach(error => {
+              messageError += error.message + '. \n';
+            });
+          } else {
+            messageError = res.error.error.message;
+          }
           this.alertService.send({
-            message: 'Ops... não foi possível cadastrar este novo setor!',
+            message: messageError,
             type: 'error',
             icon: faFrown
           });
-        } else if (!res.hasOwnProperty('error')) {
+        } else {
           this.alertService.send({message: 'Novo setor cadastrado!', type: 'success', icon: faCheck});
           setTimeout(() => {
             this.router.navigate(['/setor', 'list']);
           }, 300);
         }
-      })
-    }else{
-      alert('opa')
+      });
+    } else {
+      this.alertService.send({
+        message: 'Preencha todos os campos',
+        type: 'warning',
+        icon: faExclamationCircle
+      });
     }
   }
 }

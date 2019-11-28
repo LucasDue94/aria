@@ -4,6 +4,8 @@ import {Setor} from "../../core/setor/setor";
 import {SpinnerService} from "../../core/spinner/spinner.service";
 import {faFrown, faPlus, faSearch} from "@fortawesome/free-solid-svg-icons";
 import {FormBuilder} from "@angular/forms";
+import {AlertService} from "../../core/alert/alert.service";
+import {TitleService} from "../../core/title/title.service";
 
 
 @Component({
@@ -21,16 +23,32 @@ export class SetorListComponent implements OnInit {
     searchControl: ['']
   });
 
-  constructor(private setorService: SetorService, private spinner: SpinnerService, private fb: FormBuilder) {
+  constructor(private setorService: SetorService, private spinner: SpinnerService,
+              private fb: FormBuilder, private alertService: AlertService, private titleService: TitleService) {
   }
 
   ngOnInit() {
     this.spinner.show();
-    this.setorService.list().subscribe(setores => {
-      this.data = setores;
-      this.setores = this.data;
-      this.spinner.hide();
+    this.titleService.send('Lista de Setores');
+    this.setorService.list('', 10000).subscribe(setores => {
+      if (setores.hasOwnProperty('error')) {
+        this.alertService.send({message: 'Desculpe...ocorreu um erro.', type: 'error', icon: faFrown});
+      } else {
+        this.data = setores;
+        this.sortSetor();
+        this.setores = this.data;
+        this.spinner.hide();
+      }
     });
+  }
+
+  sortSetor() {
+    this.data.sort(function (a, b) {
+      if (a.descricao > b.descricao)
+        return 1;
+      else
+        return -1;
+    })
   }
 
   search() {

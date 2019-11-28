@@ -8,6 +8,7 @@ import {AlertService} from "../core/alert/alert.service";
 import {Chart} from "angular-highcharts";
 import {SetorService} from "../core/setor/setor.service";
 import {Setor} from "../core/setor/setor";
+import {TitleService} from "../core/title/title.service";
 
 @Component({
   selector: 'perfil-dashboard',
@@ -371,7 +372,7 @@ export class PerfilDashboardComponent implements OnInit, DoCheck, AfterViewCheck
   constructor(private menuService: MenuService, private render: Renderer2,
               private spinner: SpinnerService, private fb: FormBuilder,
               private perfilService: PerfilService, private alertService: AlertService,
-              private setorService: SetorService) {
+              private setorService: SetorService, private titleService: TitleService) {
   }
 
 
@@ -383,7 +384,6 @@ export class PerfilDashboardComponent implements OnInit, DoCheck, AfterViewCheck
   }
 
   updateCharts() {
-    console.log(this.data);
     const arrayMotivo = this.getQuantityArray('motivoAltas').slice(0, 5);
     this.motivoAltaChart.ref.update({
       xAxis: {
@@ -499,6 +499,7 @@ export class PerfilDashboardComponent implements OnInit, DoCheck, AfterViewCheck
   }
 
   ngOnInit() {
+    this.titleService.send('Perfil Epidemiológico');
     this.setorService.list().subscribe(setores => {
       this.setores = setores;
     });
