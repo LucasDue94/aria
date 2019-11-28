@@ -11,6 +11,7 @@ class UrlMappings {
         patch "/$controller/$id(.$format)?"(action:"patch")
 
         get '/setor/admissoes' (controller: "setor", action: 'admissions')
+        get '/apache/relatorio' (controller: "apache", action: 'report')
 
         "/"(controller: 'application', action:'index')
         "500"(view: '/error')

@@ -4,6 +4,7 @@ class MotivoAlta {
 
     String id
     String descricao
+    char classificacao
 
     static constraints = {
     }
