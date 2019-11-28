@@ -60,13 +60,13 @@
   display: flex;
   align-items: center;
   position: absolute;
-  padding: 5px 8px;
-  left: 70px;
-  top: 50px;
+  padding: 2px 5px;
+  left: 0;
+  top: 0;
   transition: 0.3s;
 
   & {
-    font-size: 25px;
+    font-size: 20px;
     box-shadow: 0 0 10px $gray-100;
     background-color: $white;
     color: $gray-100;
@@ -114,7 +114,7 @@
   font-size: 14px;
   position: absolute;
   text-transform: none;
-  right: 2px;
+  right: 8px;
   bottom: -21px;
   z-index: 2;
   padding: 3px;
@@ -126,9 +126,10 @@
     width: 280px;
   }
   .container-back {
-    top: 10px;
-    left: 20px;
-    font-size: 20px;
+    left: 0;
+    top: 0;
+    font-size: 18px;
+    height: 35px;
   }
 
   .card {
@@ -169,6 +170,10 @@
   .btn-save {
     position: absolute;
     right: 15px;
-    bottom: 10px;
+    bottom: 5px;
+  }
+
+  .errors{
+    right: 2px;
   }
 }

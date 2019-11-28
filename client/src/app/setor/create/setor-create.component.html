@@ -23,7 +23,8 @@
       </div>
       <div class="form-group flex-row">
         <label class="form-label" for="tipo">Tipo</label>
-        <select [ngStyle]="{'border' : this.form.get('tipo').invalid && selectedSetor != undefined ? '2px solid #c26267':''}"
+        <select
+          [ngStyle]="{'border' : this.form.get('tipo').invalid && selectedSetor != undefined ? '2px solid #c26267':''}"
           class="form-control" formControlName="tipo" id="tipo">
           <option value="">selecione</option>
           <option value="U">UTI</option>
@@ -41,9 +42,9 @@
   <div class="container-search" *ngIf="selectedSetor == undefined">
     <fast-search (getData)="selectedData($event)" [widthField]="['1','3']"
                  [service]="setorWpdService" [fields]="['id','descricao']"></fast-search>
-  </div>
-  <div (click)="back()" class="container-back">
-    <fa-icon (click)="back()" class="icon" [icon]="faArrowCircleLeft"></fa-icon>
-    <button (click)="back()" class="button btn-back">voltar</button>
+    <div (click)="back()" class="container-back">
+      <fa-icon (click)="back()" class="icon" [icon]="faArrowCircleLeft"></fa-icon>
+      <button (click)="back()" class="button btn-back">voltar</button>
+    </div>
   </div>
 </section>

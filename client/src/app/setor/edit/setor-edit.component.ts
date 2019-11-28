@@ -5,8 +5,9 @@ import {FormBuilder, Validators} from "@angular/forms";
 import {Location} from "@angular/common";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Setor} from "../../core/setor/setor";
-import {faCheck, faFrown} from "@fortawesome/free-solid-svg-icons";
+import {faCheck, faExclamationCircle, faFrown} from "@fortawesome/free-solid-svg-icons";
 import {AlertService} from "../../core/alert/alert.service";
+import {TitleService} from "../../core/title/title.service";
 
 @Component({
   selector: 'app-setor-edit',
@@ -34,18 +35,21 @@ export class SetorEditComponent implements OnInit {
   constructor(private spinner: SpinnerService, private setorAriaService: SetorService,
               private render: Renderer2, private fb: FormBuilder,
               private location: Location, private router: Router,
-              private route: ActivatedRoute, private alertService: AlertService) {
+              private route: ActivatedRoute, private alertService: AlertService,
+              private titleService: TitleService) {
   }
 
   ngOnInit() {
+    this.titleService.send('Setor - Editar');
+    this.spinner.show();
     this.route.params.subscribe(params => {
       this.setorAriaService.get(params['id']).subscribe(setor => {
         if (setor.hasOwnProperty('error')) {
-          console.log('deu ruim!');
+          this.alertService.send({message: 'Desculpe...ocorreu um erro.', type: 'error', icon: faFrown});
         } else {
           this.setor = setor;
-          console.log(this.setor);
           this.setForm();
+          this.spinner.hide();
         }
       });
     });
@@ -95,7 +99,7 @@ export class SetorEditComponent implements OnInit {
       this.alertService.send({
         message: 'Preencha todos os campos',
         type: 'warning',
-        icon: faFrown
+        icon: faExclamationCircle
       });
     }
   }

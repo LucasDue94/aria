@@ -1,14 +1,14 @@
 import {AfterViewInit, Component, OnInit, Renderer2, ViewChild} from '@angular/core';
-import {SpinnerService} from "../../core/spinner/spinner.service";
 import {SetorService} from "../../core/setor/setor.service";
 import {FormBuilder, Validators} from "@angular/forms";
 import {SetorWpdService} from "../../core/setor-wpd/setorWpd.service";
 import {Location} from "@angular/common";
 import {Router} from "@angular/router";
-import {faArrowCircleLeft, faCheck, faFrown} from "@fortawesome/free-solid-svg-icons";
+import {faCheck, faChevronCircleLeft, faExclamationCircle, faFrown} from "@fortawesome/free-solid-svg-icons";
 import {SetorWpd} from "../../core/setor-wpd/setorWpd";
 import {Setor} from "../../core/setor/setor";
 import {AlertService} from "../../core/alert/alert.service";
+import {TitleService} from "../../core/title/title.service";
 
 @Component({
   selector: 'app-setor-create',
@@ -19,7 +19,7 @@ export class SetorCreateComponent implements OnInit, AfterViewInit {
 
   @ViewChild('shadow', {static: false}) shadow;
   selectedSetor: SetorWpd;
-  faArrowCircleLeft = faArrowCircleLeft;
+  faArrowCircleLeft = faChevronCircleLeft;
   form = this.fb.group({
     codWpd: ['', Validators.required],
     descricao: ['', Validators.required],
@@ -28,12 +28,14 @@ export class SetorCreateComponent implements OnInit, AfterViewInit {
   });
   newSetor = new Setor();
 
-  constructor(private spinner: SpinnerService, private setorAriaService: SetorService,
-              private render: Renderer2, private fb: FormBuilder, private setorWpdService: SetorWpdService,
-              private location: Location, private router: Router, private alertService: AlertService) {
+  constructor(private setorAriaService: SetorService, private render: Renderer2,
+              private fb: FormBuilder, private setorWpdService: SetorWpdService,
+              private location: Location, private router: Router,
+              private alertService: AlertService, private titleService: TitleService) {
   }
 
   ngOnInit() {
+    this.titleService.send('Setor - Novo setor');
   }
 
   ngAfterViewInit(): void {
@@ -94,7 +96,7 @@ export class SetorCreateComponent implements OnInit, AfterViewInit {
       this.alertService.send({
         message: 'Preencha todos os campos',
         type: 'warning',
-        icon: faFrown
+        icon: faExclamationCircle
       });
     }
   }
