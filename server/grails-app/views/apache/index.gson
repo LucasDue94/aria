@@ -1,6 +1,8 @@
+import br.com.hospitaldocoracaoal.aria.Apache
+
 model {
-	Map data
+	Iterable<Apache> apacheList
 }
 
-json data
+json tmpl.apache(apacheList ?: [])
 

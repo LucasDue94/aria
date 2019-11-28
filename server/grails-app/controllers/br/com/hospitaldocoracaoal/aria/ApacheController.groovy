@@ -18,6 +18,11 @@ class ApacheController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
+        params.max = Math.min(max ?: 10, 100)
+        respond apacheService.list(params), model:[apacheCount: apacheService.count()]
+    }
+
+    def report(Integer max) {
         return [data: apacheService.report(params)]
     }
 
