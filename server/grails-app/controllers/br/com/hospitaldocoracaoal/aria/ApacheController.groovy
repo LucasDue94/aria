@@ -18,7 +18,7 @@ class ApacheController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
-        respond apacheService.report(params), model:[apacheCount: apacheService.count()]
+        return [data: apacheService.report(params)]
     }
 
     def show(Long id) {
