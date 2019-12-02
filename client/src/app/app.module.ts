@@ -17,10 +17,10 @@ import {SetorModule} from "./setor/setor.module";
 import {InfiniteScrollModule} from "ngx-infinite-scroll";
 import {FastSearchModule} from "./fast-search/fast-search.module";
 import {ErrorComponent} from "./error/error.component";
+import {ApacheModule} from "./apache/apache.module";
 
 @NgModule({
-  exports: [
-  ],
+  exports: [],
   declarations: [
     AppComponent,
     PerfilDashboardComponent,
@@ -39,11 +39,11 @@ import {ErrorComponent} from "./error/error.component";
     ReactiveFormsModule,
     CoreModule,
     ChartModule,
+    ApacheModule,
     SetorModule,
     InfiniteScrollModule,
     FastSearchModule
-
-  ],
+],
   providers: [],
   bootstrap: [AppComponent]
 })
