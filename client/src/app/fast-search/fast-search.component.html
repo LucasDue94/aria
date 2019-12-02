@@ -16,7 +16,7 @@
         <span (click)="emitData(data)" *ngFor="let field of fields; index as i" [ngStyle]="{'flex': widthField[i]}"
               class="td">{{data[field]}}</span>
         </div>
-        <div class="withoutData" *ngIf="dataArray.length == 0">
+        <div class="empty" *ngIf="dataArray.length == 0">
           {{messageStatus}}
           <fa-icon class="icon" [icon]="faFrown" size="2x"></fa-icon>
         </div>

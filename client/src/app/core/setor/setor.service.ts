@@ -21,9 +21,9 @@ export class SetorService {
   constructor(private http: HttpClient) {
   }
 
-  list(): Observable<any[]> {
+  list(offset?: any, max?: any): Observable<any[]> {
     let subject = new Subject<any>();
-    this.http.get(this.baseUrl + `setor`, {headers: this.getDefaultHttpOptions()})
+    this.http.get(this.baseUrl + `setor?` + 'offset=' + offset + '&max=' + max, {headers: this.getDefaultHttpOptions()})
       .pipe(
         catchError(error => of({error})
         )).subscribe((json: any[]) => {
@@ -56,11 +56,7 @@ export class SetorService {
       }).pipe(
         catchError(error => of({error}))
       ).subscribe((json: any) => {
-        if (json.hasOwnProperty('error')) {
-          subject.next(json)
-        } else {
-          subject.next(json.map((obj: any) => new Setor(obj)))
-        }
+        subject.next(json)
       });
     } else {
       this.http.post<Setor>(this.baseUrl + `setor/`, setor, {

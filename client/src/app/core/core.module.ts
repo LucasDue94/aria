@@ -13,6 +13,7 @@ import { CidService } from './cid/cid.service';
 import { PacienteService } from './paciente/paciente.service';
 import { RegistroAtendimentoService } from './registroAtendimento/registroAtendimento.service';
 import { LeitoService } from './leito/leito.service';
+import {TitleService} from "./title/title.service";
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { LeitoService } from './leito/leito.service';
     CidService,
     PacienteService,
     RegistroAtendimentoService,
-    LeitoService
+    LeitoService,
+    TitleService
 ]
 })
 export class CoreModule { }

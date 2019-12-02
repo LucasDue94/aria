@@ -12,5 +12,4 @@ class RegistroAtendimentoLeitos implements Serializable {
         id composite: ['registroAtendimento', 'leito', 'dataEntrada']
         version false
     }
-
 }

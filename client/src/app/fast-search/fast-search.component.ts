@@ -48,7 +48,6 @@ export class FastSearchComponent implements OnInit {
     this.service.list(this.max, this.offset).subscribe(res => {
       if (this.errorService.hasError(res)) this.errorService.sendError(res);
       this.dataArray = res;
-      console.log(res);
         this.loaded();
       });
     this.search()
@@ -70,7 +69,6 @@ export class FastSearchComponent implements OnInit {
       })
     ).subscribe(res => {
       if (this.errorService.hasError(res)) this.errorService.sendError(res);
-      console.log(res);
       this.dataArray = res;
       this.loaded();
     });

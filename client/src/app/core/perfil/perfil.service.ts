@@ -32,7 +32,6 @@ export class PerfilService {
       if (perfil.tipoAtendimento != undefined) tipo = perfil.tipoAtendimento.join('&tipo=');
       if (perfil.setores != undefined){
         setor = perfil.setores.join('&setores=');
-        console.log(perfil.setores)
       }
 
       fullUrl = this.baseUrl + `perfilEpidemiologico?dataInicio=` + perfil.dataInicio + '&dataFinal=' +
