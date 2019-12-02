@@ -1,0 +1,116 @@
+@import "../../../../assets/colors";
+@import "../../../../assets/device-sizes";
+
+.paciente {
+  flex: 3;
+}
+
+
+.text-overflow {
+  text-overflow: ellipsis;
+}
+
+.row-wrap {
+  flex-flow: row wrap;
+}
+
+.column-nowrap {
+  flex-flow: column nowrap;
+}
+
+.item {
+  flex: 1;
+}
+
+.basis-25 {
+  flex-basis: 25%;
+}
+
+.basis-50 {
+  flex-basis: 50%;
+}
+
+.basis-75 {
+  flex-basis: 75%;
+}
+
+.basis-100 {
+  flex-basis: 100%;
+}
+
+
+.search-selected {
+  position: absolute;
+  top: -20px;
+  left: 300px;
+
+  .label-selected {
+    margin-right: 10px;
+  }
+
+  .selected {
+    color: $gray-90;
+    font-size: 18px;
+    margin-top: 20px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid $gray-70;
+  }
+}
+
+.card-apache-list {
+  display: none;
+}
+
+@media screen and (max-width: $smartphone-max-width) {
+  .table {
+    display: none;
+  }
+
+  .container-search-multiple-collumn {
+    width: 90vw;
+    margin: 0 auto;
+
+    .label-selected {
+      margin-left: 30px;
+    }
+
+  }
+
+  .card-apache-list {
+    display: flex;
+    white-space: nowrap;
+    width: auto;
+    height: auto;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid $gray-70;
+    background: $white;
+    margin: 10px auto 10px auto;
+    line-height: 30px;
+
+    .label {
+      margin-right: 5px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .text {
+      font-size: 14px;
+      margin-right: 10px;
+    }
+
+    & :hover {
+      background: $gray-40;
+    }
+  }
+}
+
+
+@media screen and (max-width: 414px) {
+  .search-selected {
+    position: relative;
+    top: 0;
+    left: 0;
+  }
+}

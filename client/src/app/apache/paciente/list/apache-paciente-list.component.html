@@ -1,0 +1,55 @@
+<main class="container-setor">
+  <div class="selected">
+    <form [formGroup]="searchForm" class="search-container">
+      <input (focus)="search()" formControlName="searchControl" id="search-text"
+             placeholder="Procure: Descrição ou id..." type="text">
+      <button id="search-button">
+        <fa-icon [icon]=faSearch></fa-icon>
+      </button>
+    </form>
+    <div class="search-selected">
+      <label class="label-selected">Setor</label>
+      <select class="selected" (change)="listPaciente($event)">
+        <option *ngFor="let registro of arrayListSetor" value="{{registro.id}}">{{registro.sigla}}</option>
+      </select>
+    </div>
+  </div>
+  <section class="table">
+    <section class="thead">
+      <span class="th">REGISTRO</span>
+      <span class="th paciente">PACIENTE</span>
+      <span class="th">SEXO</span>
+      <span class="th sigla">DATA NASCIMENTO</span>
+      <span class="th sigla">NOME DA MÃE</span>
+    </section>
+    <section class="tbody content-setor">
+      <div class="row" *ngFor="let registro of admissoesPacSetor">
+        <span class="td">{{registro.registroAtendimento.id}}</span>
+        <span class="td paciente">{{registro.registroAtendimento.paciente.nome}}</span>
+        <span class="td">{{registro.registroAtendimento.paciente.sexo}}</span>
+        <span class="td">{{registro.registroAtendimento.paciente.nascimento | date: 'dd/MM/yyyy'}}</span>
+        <span class="td">{{registro.registroAtendimento.paciente.nomeMae}}</span>
+      </div>
+      <div class="empty" *ngIf="admissoesPacSetor?.length == 0">
+        <p>Nenhum setor encontrado!</p>
+        <fa-icon class="icon" [icon]="faFrown" size="2x"></fa-icon>
+      </div>
+    </section>
+  </section>
+  <article class="card-apache-list flex-column" *ngFor="let registro of admissoesPacSetor">
+      <div class="row-wrap">
+        <div class="basis-100">
+          <label class="label">PACIENTE:</label>
+          <span class="text">{{registro.registroAtendimento.paciente.nome}}</span>
+        </div>
+        <label class="label">SEXO:</label>
+        <span class="text text-overflow">{{registro.registroAtendimento.paciente.sexo}}</span>
+        <label class="label">NASCIMENTO:</label>
+        <span class="text text-overflow">{{registro.registroAtendimento.paciente.nascimento | date: 'dd/MM/yyyy'}}</span>
+        <div class="basis-100">
+          <label class="label">MÃE:</label>
+          <span class="text text-overflow">{{registro.registroAtendimento.paciente.nomeMae}}</span>
+        </div>
+      </div>
+  </article>
+</main>
