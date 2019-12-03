@@ -3,11 +3,13 @@ package br.com.hospitaldocoracaoal.aria
 import br.com.hospitaldocoracaoal.aria.utils.DataUtils
 import br.com.hospitaldocoracaoal.integracao.RegistroAtendimentoLeitos
 
+import java.time.ZoneId
+
 class Apache {
     RegistroAtendimentoLeitos registroAtendimentoLeito
     String temperatura
-    int pas
-    int pad
+    Integer pas
+    Integer pad
     String frequenciaCardiaca
     String frequenciaRespiratoria
     String aapo
@@ -17,7 +19,7 @@ class Apache {
     String creatininaSerica
     String hematocrito
     String leucocitos
-    int glasgow
+    Integer glasgow
     String problemasCronicos
 
     int escore
@@ -37,6 +39,16 @@ class Apache {
         leucocitos nullable: false, blank: false, inList: ['> 40', '20-39.9', '15-19.9', '3-14.9', '1-2.9', '< 1']
         glasgow nullable: false, blank: false, size: 3..15
         problemasCronicos nullable: false, blank: false, inList: ['Nenhuma', 'Não-Cirúrgico', 'Cirurgia de Emergência', 'Cirurgia Eletiva']
+        registroAtendimentoLeito validator: { val, obj, errors ->
+            def reg = RegistroAtendimentoLeitos.where {
+                registroAtendimento.id == val.registroAtendimentoId
+                leito.id == val.leitoId
+                dataEntrada == val.dataEntrada
+            }.count()
+            if (reg == 0) {
+                errors.rejectValue('registroAtendimentoLeito', 'apache.registroAtendimentoLeito.doesnt.exist')
+            }
+        }
     }
 
     def beforeValidate() {
@@ -96,9 +108,9 @@ class Apache {
         double paMedia = ((double) this.pas + (2 * (double) this.pad)) / 3
         int result = 0
 
-        if(paMedia >= 160) {
+        if (paMedia >= 160) {
             result = 4
-        } else if(paMedia >= 139 && paMedia <= 159) {
+        } else if (paMedia >= 139 && paMedia <= 159) {
             result = 3
         } else if (paMedia >= 110 && paMedia <= 129) {
             result = 2
@@ -313,6 +325,7 @@ class Apache {
         }
         result
     }
+
     def calculaEscoreHematocrito() {
         int result = 0
         switch (this.hematocrito) {
@@ -411,10 +424,10 @@ class Apache {
 
     def calculaEscoreIdade() {
         int idade = DataUtils.calculaIdadeEntreDatas(this.registroAtendimentoLeito.registroAtendimento
-                .paciente.nascimento.toLocalDateTime().toLocalDate(), this.registroAtendimentoLeito.dataEntrada.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate())
+                .paciente.nascimento.toLocalDateTime().toLocalDate(), this.registroAtendimentoLeito.dataEntrada.toInstant().atZone(ZoneId.systemDefault()).toLocalDate())
         int result = 0
 
-        if(idade >= 75) {
+        if (idade >= 75) {
             result = 6
         } else if (idade >= 65 && idade <= 74) {
             result = 5

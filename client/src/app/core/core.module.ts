@@ -8,8 +8,12 @@ import {HttpClientModule} from "@angular/common/http";
 import {SetorService} from "./setor/setor.service";
 import {ErrorService} from "./error/error.service";
 import {SetorWpdService} from "./setor-wpd/setorWpd.service";
+import { MotivoAltaService } from './motivoAlta/motivoAlta.service';
+import { CidService } from './cid/cid.service';
+import { PacienteService } from './paciente/paciente.service';
+import { RegistroAtendimentoService } from './registroAtendimento/registroAtendimento.service';
+import { LeitoService } from './leito/leito.service';
 import {TitleService} from "./title/title.service";
-
 
 
 @NgModule({
@@ -26,7 +30,12 @@ import {TitleService} from "./title/title.service";
     SetorService,
     SetorWpdService,
     ErrorService,
+    MotivoAltaService,
+    CidService,
+    PacienteService,
+    RegistroAtendimentoService,
+    LeitoService,
     TitleService
-  ]
+]
 })
 export class CoreModule { }
