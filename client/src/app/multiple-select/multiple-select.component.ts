@@ -32,7 +32,7 @@ export class MultipleSelectComponent implements OnInit, AfterViewChecked {
 
   showSelect() {
     this.show = !this.show;
-    if (this.containerOptions != undefined) {
+    if (this.containerOptions != undefined && this.containerSelectedItems != undefined) {
       this.render.setStyle(this.containerOptions.nativeElement, 'width', this.width);
       this.render.setStyle(this.containerSelectedItems.nativeElement, 'width', `calc(${this.width} + 14px`);
     }
