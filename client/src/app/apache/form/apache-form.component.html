@@ -1,0 +1,99 @@
+<main class="container-apache">
+  <article class="paciente-info">
+    <h1>info paciente</h1>
+  </article>
+  <form class="container-form-apache" [formGroup]="form">
+    <section class="container-pressao" [formGroup]="form.get('pressaoMedia')">
+      <h3 class="label-pressao">Pressão Arterial Média (mmHg):</h3>
+      <div class="form-group">
+        <label for="ps" class="form-label">PS</label>
+        <input id="ps" class="form-control " type="number" formControlName="ps">
+      </div>
+      <div class="form-group">
+        <label for="pd" class="form-label">PD</label>
+        <input id="pd" class="form-control" type="number" formControlName="pd">
+      </div>
+      <div class="form-group">
+        <label for="pm" class="form-label">PM</label>
+        <input id="pm" class="form-control control-disable" type="text" formControlName="pm">
+      </div>
+    </section>
+    <section class="flex-row">
+      <section class="left">
+        <div class="form-group">
+          <app-select [width]="'200px'" [labelPosition]="'left'" [labelName]="'Temperatura(ºC):'"
+                      (itemSelected)="getValue($event, 'temperatura')"
+                      [items]="temperatura"></app-select>
+        </div>
+
+        <div class="form-group">
+          <app-select [width]="'200px'" [labelPosition]="'left'" [labelName]="'Arterial pH ou HCO3:'"
+                      (itemSelected)="getValue($event, 'arterialPh')"
+                      [items]="arterialPh"></app-select>
+        </div>
+        <div class="form-group">
+          <app-select [width]="'200px'" [labelPosition]="'left'" [labelName]="'Na+ Sérico (meq/l):'"
+                      (itemSelected)="getValue($event, 'naSerico')"
+                      [items]="naSerico"></app-select>
+        </div>
+        <div class="form-group">
+          <app-select [width]="'200px'" [labelPosition]="'left'" [labelName]="'Leucócitos (10^3/£gl):'"
+                      (itemSelected)="getValue($event, 'leucocitos')"
+                      [items]="leucocitos"></app-select>
+        </div>
+        <div class="form-group">
+          <app-select [width]="'200px'" [labelPosition]="'left'" [labelName]="'Gasglow Com Escala:'"
+                      (itemSelected)="getValue($event,'gasglow')"
+                      [items]="gasglow"></app-select>
+        </div>
+        <div class="form-group">
+          <app-select [width]="'200px'" [labelPosition]="'left'" [labelName]="'Problemas Crônicos de Saúde:'"
+                      (itemSelected)="getValue($event, 'problemasCronicos')"
+                      [items]="problemasCronicos"></app-select>
+
+          <section class="problemas-cronicos">
+            <p class="item">1) Cirrose-Biópsia</p>
+            <p class="item">2) New York Heart Association Class IV</p>
+            <p class="item">3) Severa COPD: Hipercapnia,O2 Dependente, Hipertensão Pulmonar</p>
+            <p class="item">4) Diálise Crônica</p>
+            <p class="item">5) Imunocomprometido</p>
+          </section>
+        </div>
+      </section>
+      <section class="right">
+        <div class="form-group">
+          <app-select [width]="'200px'" [labelPosition]="'left'" [labelName]="'Frequência Cardíaca'"
+                      (itemSelected)="getValue($event,'frequenciaCardiaca')"
+                      [items]="frequenciaCardiaca"></app-select>
+        </div>
+
+        <div class="form-group">
+          <app-select [width]="'200px'" [labelPosition]="'left'" [labelName]="'Frequência Respiratória'"
+                      (itemSelected)="getValue($event, 'frequenciaRespiratoria')"
+                      [items]="frequenciaRespiratoria"></app-select>
+        </div>
+        <div class="form-group">
+          <app-select [width]="'200px'" [labelPosition]="'left'" [labelName]="'K+ Sérico (meq/l):'"
+                      (itemSelected)="getValue($event,'kaSerico')"
+                      [items]="kaSerico"></app-select>
+        </div>
+        <div class="form-group">
+          <app-select [width]="'200px'" [labelPosition]="'left'" [labelName]="'Hematócrito'"
+                      (itemSelected)="getValue($event,'hematocrito')"
+                      [items]="hematocrito"></app-select>
+        </div>
+        <div class="form-group">
+          <app-select [width]="'200px'" [labelPosition]="'left'"
+                      [labelName]="'A-aPO2 (FiO2 > 50%) ou PaO2 (FiO2 < 50%)'"
+                      (itemSelected)="getValue($event, 'aapo')"
+                      [items]="aapo"></app-select>
+        </div>
+        <div class="form-group">
+          <app-select [width]="'200px'" [labelPosition]="'left'" [labelName]="'Creatinina Sérica com ou sem IRA: '"
+                      (itemSelected)="getValue($event,'creatinina')"
+                      [items]="creatinina"></app-select>
+        </div>
+      </section>
+    </section>
+  </form>
+</main>

@@ -6,6 +6,7 @@ import {SetorListComponent} from "../setor/list/setor-list.component";
 import {SetorEditComponent} from "../setor/edit/setor-edit.component";
 import {SetorCreateComponent} from "../setor/create/setor-create.component";
 import {ApachePacienteListComponent} from "../apache/paciente/list/apache-paciente-list.component";
+import {ApacheFormComponent} from "../apache/form/apache-form.component";
 
 const routes: Routes = [
   {path: 'perfil', component: PerfilDashboardComponent},
@@ -41,6 +42,10 @@ const routes: Routes = [
       {
         path: 'list',
         component: ApachePacienteListComponent
+      },
+      {
+        path:'form',
+        component: ApacheFormComponent
       }
     ]
   }

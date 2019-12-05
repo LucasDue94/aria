@@ -1,0 +1,68 @@
+@import "~src/inputs";
+
+.container-apache {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .paciente-info {
+    height: 100px;
+    margin: 10px;
+
+    & {
+      background-color: $white;
+      box-shadow: 1px 1px 10px $gray-80;
+      border-radius: 3px;
+    }
+  }
+
+  .container-form-apache {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 10px;
+
+    & {
+      background-color: $white;
+      box-shadow: 1px 1px 10px $gray-80;
+    }
+  }
+
+  .container-pressao {
+    height: 80px;
+    color: $gray-80;
+
+    .label-pressao {
+      display: block;
+      margin: 10px;
+    }
+
+    .form-group {
+      display: inline;
+
+      .form-label {
+        font-size: 16px;
+        margin: 5px;
+      }
+
+      .form-control {
+        width: 100px;
+      }
+    }
+
+  }
+
+  .left, .right {
+    margin: 10px;
+    width: 50%;
+  }
+}
+
+
+.problemas-cronicos {
+  font-size: 14px;
+
+  .item {
+    margin: 2px 0;
+  }
+}

@@ -28,11 +28,13 @@ body, app-main {
   height: 100vh;
   background-color: $white;
 }
-setor-list{
+
+setor-list, apache-form {
   position: relative;
   height: 100%;
 
 }
+
 multiple-select {
   height: calc(100% - 25px);
 }
@@ -40,6 +42,10 @@ multiple-select {
 app-main {
   display: flex;
   flex-direction: column;
+}
+
+app-select {
+  width: 100%;
 }
 
 .flex-row, .flex-column {

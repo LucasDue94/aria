@@ -38,7 +38,7 @@
         </article>
         <article class="flex-column container-select-search">
           <section id="select-multiple-container">
-            <multiple-select (itemsSelected)="getItemsSelected($event)"
+            <multiple-select [width]="''" (itemsSelected)="getItemsSelected($event)"
                              [items]="this.setores" [keyPropery]="'descricao'">
 
             </multiple-select>
