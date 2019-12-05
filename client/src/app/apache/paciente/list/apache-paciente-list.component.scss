@@ -3,13 +3,6 @@
 @import "../../../setor/list/setor-list.component";
 
 
-.content-card {
-  position: fixed;
-  overflow-y: scroll;
-  height: 100%;
-  margin: 0;
-}
-
 .text-overflow {
   text-overflow: ellipsis;
 }
@@ -68,6 +61,13 @@
 @media screen and (max-width: $smartphone-max-width) {
   .table {
     display: none;
+  }
+
+  .content-card {
+    position: fixed;
+    overflow-y: scroll;
+    height: 100%;
+    margin: 0;
   }
 
   .card-apache-list {
