@@ -7,15 +7,17 @@
   margin: 10px 20px;
 }
 
-.content-setor {
-  position: relative;
-  overflow-y: scroll;
-  padding: 0 2px;
-}
 
 .table {
-  position: relative;
+  position: absolute;
   height: calc(100% - 60px);
+
+  .content-setor {
+    position: relative;
+    overflow-y: scroll;
+    padding: 0 2px;
+    height: 100%;
+  }
 }
 
 @media screen and (max-width: $tablet-width) {
