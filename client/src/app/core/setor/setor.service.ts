@@ -21,12 +21,12 @@ export class SetorService {
   constructor(private http: HttpClient) {
   }
 
-  list(offset?: any, max?: any): Observable<any[]> {
-    let subject = new Subject<any>();
-    this.http.get(this.baseUrl + `setor?` + 'offset=' + offset + '&max=' + max, {headers: this.getDefaultHttpOptions()})
+  list(tipoSetor?: string, offset?: any, max?: any): Observable<Setor[]> {
+    let subject = new Subject<Setor[]>();
+    this.http.get<Setor[]>(this.baseUrl + 'setor?' + 'tipoSetor=' + tipoSetor + '&offset=' + offset + '&max=' + max, {headers: this.getDefaultHttpOptions()})
       .pipe(
         catchError(error => of({error})
-        )).subscribe((json: any[]) => {
+        )).subscribe((json: Setor[]) => {
       subject.next(json);
     });
     return subject.asObservable();

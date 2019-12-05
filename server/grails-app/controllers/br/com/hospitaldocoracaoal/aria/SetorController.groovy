@@ -1,5 +1,6 @@
 package br.com.hospitaldocoracaoal.aria
 
+import br.com.hospitaldocoracaoal.aria.db.TipoSetor
 import grails.gorm.transactions.ReadOnly
 import grails.gorm.transactions.Transactional
 import grails.validation.ValidationException
@@ -15,20 +16,20 @@ class SetorController {
     static responseFormats = ['json', 'xml']
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    def index(Integer max) {
-        params.max = Math.min(max ?: 100, 100)
-        respond setorService.list(params), model:[setorCount: setorService.count()]
+    def index(Integer max, String tipoSetor) {
+        params.max = Math.min(max ?: 10, 100)
+        respond setorService.list(params, tipoSetor), model:[setorCount: setorService.count()]
     }
 
     def show(Long id) {
         respond setorService.get(id)
     }
 
-    def admissions(Integer max) {
+    def admissions(Integer max, String termo) {
         params.sort = 'dataEntrada'
         params.order = 'desc'
         params.max = Math.min(max ?: 10, 100)
-        respond registroAtendimentoLeitosService.list(params)
+        respond registroAtendimentoLeitosService.list(params, termo)
     }
 
     @Transactional

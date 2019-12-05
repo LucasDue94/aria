@@ -5,6 +5,8 @@ import {RouterModule} from "@angular/router";
 import {FastSearchModule} from "../fast-search/fast-search.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ApachePacienteListComponent} from "./paciente/list/apache-paciente-list.component";
+import {InfiniteScrollModule} from "ngx-infinite-scroll";
+import {SpinnerModule} from "../spinner/spinner.module";
 
 
 
@@ -18,7 +20,9 @@ import {ApachePacienteListComponent} from "./paciente/list/apache-paciente-list.
     RouterModule,
     FastSearchModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    InfiniteScrollModule,
+    SpinnerModule
   ]
 })
 export class ApacheModule { }
