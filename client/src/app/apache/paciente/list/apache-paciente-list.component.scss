@@ -1,9 +1,6 @@
 @import "../../../../assets/colors";
 @import "../../../../assets/device-sizes";
-
-.paciente {
-  flex: 3;
-}
+@import "../../../setor/list/setor-list.component";
 
 
 .text-overflow {
@@ -38,10 +35,9 @@
   flex-basis: 100%;
 }
 
-
 .search-selected {
   position: absolute;
-  top: -20px;
+  top: -15px;
   left: 300px;
 
   .label-selected {
@@ -67,26 +63,28 @@
     display: none;
   }
 
-  .container-search-multiple-collumn {
-    width: 90vw;
-    margin: 0 auto;
-
-    .label-selected {
-      margin-left: 30px;
-    }
-
+  .content-card {
+    position: fixed;
+    overflow-y: scroll;
+    height: 100%;
+    margin: 0;
   }
 
   .card-apache-list {
+    position: relative;
+    top:0;
+    right: 10px;
+    margin: 10px auto;
     display: flex;
-    white-space: nowrap;
-    width: auto;
+    color: $gray-100;
+    width: 80%;
     height: auto;
+    font-size: 17px;
+    white-space: normal;
     padding: 10px;
     border-radius: 10px;
     border: 1px solid $gray-70;
     background: $white;
-    margin: 10px auto 10px auto;
     line-height: 30px;
 
     .label {

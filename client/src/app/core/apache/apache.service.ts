@@ -16,16 +16,26 @@ export class ApacheService {
     return new HttpHeaders({
       "Cache-Control": "no-cache",
       "Content-Type": "application/json"
-    })
+    });
   }
 
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
-  get(id: number): Observable<Admissao[]> {
+  list(setorId: number, termo?: string, offset?: any, max?: any): Observable<Admissao[]> {
     let subject = new Subject<Admissao[]>();
-    this.http.get<Admissao[]>(`${this.baseUrl}setor/admissoes?setorId=${id}`, {headers: this.getDefaultHttpOptions()})
+    this.http.get<Admissao[]>(this.baseUrl + `setor/admissoes?` + 'setorId=' + setorId  + '&termo=' + termo + '&offset=' + offset + '&max=' + max, {headers: this.getDefaultHttpOptions()})
+      .pipe(
+        catchError(error => of({error})
+        )).subscribe((json: Admissao[]) => {
+      subject.next(json);
+    });
+    return subject.asObservable();
+  }
+
+  search(setorId:number, termo?: string, offset?: any, max?: any): Observable<Admissao[]> {
+    let subject = new Subject<Admissao[]>();
+    this.http.get(this.baseUrl + `setor/admissoes?` + 'setorId=' + setorId  + '&termo=' + termo + '&offset=' + offset + '&max=' + max , {headers: this.getDefaultHttpOptions()})
       .pipe(
         catchError(error => of({error})
         )).subscribe((json: Admissao[]) => {

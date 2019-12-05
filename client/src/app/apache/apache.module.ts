@@ -5,7 +5,9 @@ import {RouterModule} from "@angular/router";
 import {FastSearchModule} from "../fast-search/fast-search.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ApachePacienteListComponent} from "./paciente/list/apache-paciente-list.component";
-import { ApacheFormComponent } from './form/apache-form.component';
+import {InfiniteScrollModule} from "ngx-infinite-scroll";
+import {ApacheFormComponent} from "./form/apache-form.component";
+import {SpinnerModule} from "../spinner/spinner.module";
 import {SelectModule} from "../select/select.module";
 
 
@@ -22,6 +24,8 @@ import {SelectModule} from "../select/select.module";
     FastSearchModule,
     ReactiveFormsModule,
     FormsModule,
+    InfiniteScrollModule,
+    SpinnerModule,
     SelectModule
   ]
 })

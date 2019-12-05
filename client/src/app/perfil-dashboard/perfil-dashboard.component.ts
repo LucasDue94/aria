@@ -500,7 +500,7 @@ export class PerfilDashboardComponent implements OnInit, DoCheck, AfterViewCheck
 
   ngOnInit() {
     this.titleService.send('Perfil Epidemiológico');
-    this.setorService.list('',10000).subscribe(setores => {
+    this.setorService.list('','', '').subscribe(setores => {
       this.setores = setores;
     });
     this.getLastMonth();
