@@ -13,7 +13,7 @@ abstract class SetorService {
 
         def criteria = Setor.createCriteria()
         criteria.list(args) {
-            if (tipoSetor != null) {
+            if (tipoSetor != null && !tipoSetor.empty) {
                 eq 'tipoSetor', tipo
             }
         } as List<Setor>
