@@ -1,6 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {faBars, faSignOutAlt} from "@fortawesome/free-solid-svg-icons";
 import {MenuService} from "../core/menu/menu.service";
+import {AuthService} from "../core/auth/auth.service";
 
 @Component({
   selector: 'app-header',
@@ -15,7 +16,7 @@ export class HeaderComponent implements OnInit {
   faSingOut = faSignOutAlt;
   showMenu = true;
 
-  constructor(private menuService: MenuService) {
+  constructor(private menuService: MenuService,private authService: AuthService) {
   }
 
   ngOnInit() {
@@ -26,6 +27,7 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
+    this.authService.logout(localStorage.getItem('token'));
   }
 
 

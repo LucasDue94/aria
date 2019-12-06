@@ -24,7 +24,8 @@
       <span class="th sigla">NOME DA MÃE</span>
     </section>
     <section class="tbody content" [scrollWindow]="false" infinite-scroll (scrolled)="scrollDown()">
-      <div class="row" *ngFor="let registro of admissoesPacSetor">
+      <div class="row" *ngFor="let registro of admissoesPacSetor"
+           [routerLink]="['/apache','form', registro?.registroAtendimento?.id]">
         <span class="td">{{registro.registroAtendimento.id}}</span>
         <span class="td">{{registro.registroAtendimento.dataEntrada | date: 'dd/MM/yyyy'}}</span>
         <span class="td paciente">{{registro.registroAtendimento.paciente.nome}}</span>
@@ -49,7 +50,8 @@
         <label class="label">SEXO:</label>
         <span class="text text-overflow">{{registro.registroAtendimento.paciente.sexo}}</span>
         <label class="label">NASCIMENTO:</label>
-        <span class="text text-overflow">{{registro.registroAtendimento.paciente.nascimento | date: 'dd/MM/yyyy'}}</span>
+        <span
+          class="text text-overflow">{{registro.registroAtendimento.paciente.nascimento | date: 'dd/MM/yyyy'}}</span>
         <div class="basis-100">
           <label class="label">MÃE:</label>
           <span class="text text-overflow">{{registro.registroAtendimento.paciente.nomeMae}}</span>

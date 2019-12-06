@@ -1,4 +1,4 @@
-insert into permissao (id, version, authority, nome) values (nextval('permissao_id_seq'), 0, 'ROLE_APACHE_REPORT', 'Ver relatório apache');
+ insert into permissao (id, version, authority, nome) values (nextval('permissao_id_seq'), 0, 'ROLE_APACHE_REPORT', 'Ver relatório apache');
 insert into permissao (id, version, authority, nome) values (nextval('permissao_id_seq'), 0, 'ROLE_APACHE_SAVE', 'Salvar Apache');
 
 insert into permissao (id, version, authority, nome) values (nextval('permissao_id_seq'), 0, 'ROLE_GRUPO_INDEX', 'Listar grupos de usuários');
@@ -14,3 +14,12 @@ insert into permissao (id, version, authority, nome) values (nextval('permissao_
 insert into permissao (id, version, authority, nome) values (nextval('permissao_id_seq'), 0, 'ROLE_SETOR_DELETE', 'Excluir setor');
 
 insert into permissao (id, version, authority, nome) values (nextval('permissao_id_seq'), 0, 'ROLE_PERFIL_EPIDEMIOLOGICO_INDEX', 'Listar Perfis Epidemiológicos');
+
+insert into permissao (id, version, authority, nome) values (nextval('permissao_id_seq'), 0, 'ROLE_PACIENTE_INDEX', 'Listar Pacientes');
+insert into permissao (id, version, authority, nome) values (nextval('permissao_id_seq'), 0, 'ROLE_PACIENTE_SHOW', 'Ver Paciente');
+
+insert into permissao (id, version, authority, nome) values (nextval('permissao_id_seq'), 0, 'ROLE_REGISTRO_ATENDIMENTO_INDEX', 'Listar Registros de Atendimento');
+insert into permissao (id, version, authority, nome) values (nextval('permissao_id_seq'), 0, 'ROLE_REGISTRO_ATENDIMENTO_SHOW', 'Ver Registros de Atendimento');
+
+insert into permissao (id, version, authority, nome) values (nextval('permissao_id_seq'), 0, 'ROLE_SETOR_WPD_INDEX', 'Listar setores do wpd');
+insert into permissao (id, version, authority, nome) values (nextval('permissao_id_seq'), 0, 'ROLE_SETOR_WPD_SHOW', 'Ver setor do wpd');

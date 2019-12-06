@@ -1,51 +1,69 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from "@angular/router";
 import {PerfilDashboardComponent} from "../perfil-dashboard/perfil-dashboard.component";
-import {SpinnerComponent} from "../spinner/spinner.component";
 import {SetorListComponent} from "../setor/list/setor-list.component";
 import {SetorEditComponent} from "../setor/edit/setor-edit.component";
 import {SetorCreateComponent} from "../setor/create/setor-create.component";
 import {ApachePacienteListComponent} from "../apache/paciente/list/apache-paciente-list.component";
 import {ApacheFormComponent} from "../apache/form/apache-form.component";
+import {MainComponent} from "./main.component";
+import {AuthGuard} from "../core/guards/auth.guard";
+
 
 const routes: Routes = [
-  {path: 'perfil', component: PerfilDashboardComponent},
-  {path: 'spinner', component: SpinnerComponent},
   {
-    path: 'setor',
+    path: '',
+    component: MainComponent,
     children: [
+
       {
-        path: '',
-        redirectTo: 'list',
-        pathMatch: 'full'
+        path: 'perfil', pathMatch: 'full',
+        component: PerfilDashboardComponent, canActivate: [AuthGuard],
       },
       {
-        path: 'list',
-        component: SetorListComponent,
-      }, {
-        path: 'edit/:id',
-        component: SetorEditComponent,
-      },{
-        path: 'create',
-        component: SetorCreateComponent,
+        path: 'setor',
+        children: [
+          {
+            path: '',
+            redirectTo: 'list',
+            pathMatch: 'full',
+            canActivate: [AuthGuard],
+            data: {permissao: 'ROLE_SETOR_INDEX'}
+
+          },
+          {
+            path: 'list',
+            component: SetorListComponent,
+            canActivate: [AuthGuard]
+          }, {
+            path: 'edit/:id',
+            component: SetorEditComponent,
+            canActivate: [AuthGuard]
+          }, {
+            path: 'create',
+            component: SetorCreateComponent,
+            canActivate: [AuthGuard],
+          },
+        ]
       },
-    ]
-  },
-  {
-    path: 'apache',
-    children: [
       {
-        path: '',
-        redirectTo: 'list',
-        pathMatch: 'full'
-      },
-      {
-        path: 'list',
-        component: ApachePacienteListComponent
-      },
-      {
-        path:'form',
-        component: ApacheFormComponent
+        path: 'apache',
+        children: [
+          {
+            path: '',
+            redirectTo: 'list',
+            pathMatch: 'full',
+            canActivate: [AuthGuard]
+          }, {
+            path: 'list',
+            component: ApachePacienteListComponent,
+            canActivate: [AuthGuard]
+          }, {
+            path: 'form/:id',
+            component: ApacheFormComponent,
+            canActivate: [AuthGuard]
+          }
+        ]
       }
     ]
   }

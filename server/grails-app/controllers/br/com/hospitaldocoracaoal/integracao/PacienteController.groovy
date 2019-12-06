@@ -1,15 +1,7 @@
 package br.com.hospitaldocoracaoal.integracao
-
 import grails.converters.JSON
-import grails.validation.ValidationException
-import static org.springframework.http.HttpStatus.CREATED
-import static org.springframework.http.HttpStatus.NOT_FOUND
-import static org.springframework.http.HttpStatus.NO_CONTENT
-import static org.springframework.http.HttpStatus.OK
-import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY
-
 import grails.gorm.transactions.ReadOnly
-import grails.gorm.transactions.Transactional
+import grails.plugin.springsecurity.annotation.Secured
 
 @ReadOnly
 class PacienteController {
@@ -19,6 +11,7 @@ class PacienteController {
     static responseFormats = ['json', 'xml']
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+    @Secured('ROLE_PACIENTE_INDEX')
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         try {
@@ -28,63 +21,8 @@ class PacienteController {
         }
     }
 
-//    def show(Long id) {
-//        respond pacienteService.get(id)
-//    }
-//
-//    @Transactional
-//    def save(Paciente paciente) {
-//        if (paciente == null) {
-//            render status: NOT_FOUND
-//            return
-//        }
-//        if (paciente.hasErrors()) {
-//            transactionStatus.setRollbackOnly()
-//            respond paciente.errors
-//            return
-//        }
-//
-//        try {
-//            pacienteService.save(paciente)
-//        } catch (ValidationException e) {
-//            respond paciente.errors
-//            return
-//        }
-//
-//        respond paciente, [status: CREATED, view:"show"]
-//    }
-//
-//    @Transactional
-//    def update(Paciente paciente) {
-//        if (paciente == null) {
-//            render status: NOT_FOUND
-//            return
-//        }
-//        if (paciente.hasErrors()) {
-//            transactionStatus.setRollbackOnly()
-//            respond paciente.errors
-//            return
-//        }
-//
-//        try {
-//            pacienteService.save(paciente)
-//        } catch (ValidationException e) {
-//            respond paciente.errors
-//            return
-//        }
-//
-//        respond paciente, [status: OK, view:"show"]
-//    }
-//
-//    @Transactional
-//    def delete(Long id) {
-//        if (id == null) {
-//            render status: NOT_FOUND
-//            return
-//        }
-//
-//        pacienteService.delete(id)
-//
-//        render status: NO_CONTENT
-//    }
+    @Secured('ROLE_PACIENTE_SHOW')
+    def show(Long id) {
+        respond pacienteService.get(id)
+    }
 }

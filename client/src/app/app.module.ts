@@ -18,6 +18,9 @@ import {FastSearchModule} from "./fast-search/fast-search.module";
 import {ErrorComponent} from "./error/error.component";
 import {ApacheModule} from "./apache/apache.module";
 import {SelectModule} from "./select/select.module";
+import {LoginModule} from "./login/login.module";
+import {AuthGuard} from "./core/guards/auth.guard";
+import {HashLocationStrategy, LocationStrategy} from "@angular/common";
 
 @NgModule({
   exports: [],
@@ -43,8 +46,11 @@ import {SelectModule} from "./select/select.module";
     InfiniteScrollModule,
     FastSearchModule,
     SelectModule,
-],
-  providers: [],
+    LoginModule,
+  ],
+  providers: [
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
+    AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {

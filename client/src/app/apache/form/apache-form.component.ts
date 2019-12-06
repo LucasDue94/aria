@@ -3,6 +3,9 @@ import {SpinnerService} from "../../core/spinner/spinner.service";
 import {AlertService} from "../../core/alert/alert.service";
 import {TitleService} from "../../core/title/title.service";
 import {FormBuilder, Validators} from "@angular/forms";
+import {ActivatedRoute} from "@angular/router";
+import {ApacheService} from "../../core/apache/apache.service";
+import {RegistroAtendimento} from "../../core/registroAtendimento/registroAtendimento";
 
 @Component({
   selector: 'apache-form',
@@ -10,6 +13,7 @@ import {FormBuilder, Validators} from "@angular/forms";
   styleUrls: ['./apache-form.component.scss']
 })
 export class ApacheFormComponent implements OnInit {
+  paciente:RegistroAtendimento;
   temperatura = ['> 41', '39 - 40.9', '38.5 - 38.9', '36 - 38.4', '34 - 35.9', '32 - 33.9', '30 - 31.9', '< 29.9'];
   kaSerico = ['> 7', '6 - 6.9', '5.5 - 5.9', '3.5 - 5.4', '3 - 3.4', '2.5 - 2.9', '< 2.5'];
   naSerico = ['> 180', '160 - 179', '155 - 159', '150 - 154', '130 - 149', '120 - 129', '111 - 119', '< 110']
@@ -50,13 +54,23 @@ export class ApacheFormComponent implements OnInit {
   );
 
   constructor(private spinner: SpinnerService, private alert: AlertService,
-              private title: TitleService, private fb: FormBuilder) {
+              private title: TitleService, private fb: FormBuilder,
+              private route: ActivatedRoute, private apacheService:ApacheService) {
 
   }
 
   ngOnInit() {
     this.title.send('Apache - Formulário');
     this.calculaPressaoMedia();
+    this.route.params.subscribe(params=>{
+      const id = params['id'];
+      console.log(id)
+      this.apacheService.get(id).subscribe(res=> {
+        this.paciente = res;
+        console.log(this.paciente);
+      })
+    });
+
   }
 
   getValue = (event, controlName) => this.form.get(controlName).setValue(event);

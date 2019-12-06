@@ -2,11 +2,13 @@ package br.com.hospitaldocoracaoal.integracao
 
 import br.com.hospitaldocoracaoal.aria.Setor
 import br.com.hospitaldocoracaoal.integracao.RegistroAtendimento
+import grails.gorm.services.Service
 import grails.gorm.transactions.Transactional
 import grails.web.servlet.mvc.GrailsParameterMap
 
+@Service
 @Transactional
-class RegistroAtendimentoService {
+abstract class RegistroAtendimentoService {
 
     List<RegistroAtendimento> list(GrailsParameterMap args) {
         long setorId = args.long('setorId')
@@ -22,4 +24,5 @@ class RegistroAtendimentoService {
         }.list(args)
     }
 
+    abstract RegistroAtendimento get(Serializable id)
 }
