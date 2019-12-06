@@ -28,13 +28,6 @@ class BootStrap {
 
             }
         }
-        def user = Usuario.findByUsername 'admin'
-        if (user == null) {
-            Usuario.withTransaction {
-                user = new Usuario(username: 'admin', password: 'admin', grupo: admin)
-                user.save flush: true
-            }
-        }
     }
     def destroy = {
     }
