@@ -1,4 +1,4 @@
- insert into permissao (id, version, authority, nome) values (nextval('permissao_id_seq'), 0, 'ROLE_APACHE_REPORT', 'Ver relatório apache');
+insert into permissao (id, version, authority, nome) values (nextval('permissao_id_seq'), 0, 'ROLE_APACHE_REPORT', 'Ver relatório apache');
 insert into permissao (id, version, authority, nome) values (nextval('permissao_id_seq'), 0, 'ROLE_APACHE_SAVE', 'Salvar Apache');
 
 insert into permissao (id, version, authority, nome) values (nextval('permissao_id_seq'), 0, 'ROLE_GRUPO_INDEX', 'Listar grupos de usuários');
@@ -23,3 +23,7 @@ insert into permissao (id, version, authority, nome) values (nextval('permissao_
 
 insert into permissao (id, version, authority, nome) values (nextval('permissao_id_seq'), 0, 'ROLE_SETOR_WPD_INDEX', 'Listar setores do wpd');
 insert into permissao (id, version, authority, nome) values (nextval('permissao_id_seq'), 0, 'ROLE_SETOR_WPD_SHOW', 'Ver setor do wpd');
+
+
+insert into permissao (id, version, authority, nome) values (nextval('permissao_id_seq'), 0, 'ROLE_USUARIO_INDEX', 'Listar usuários');
+insert into permissao (id, version, authority, nome) values (nextval('permissao_id_seq'), 0, 'ROLE_USUARIO_UPDATE', 'Atualizar usuário');
