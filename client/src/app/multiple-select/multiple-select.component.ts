@@ -4,7 +4,7 @@ import {faTimesCircle} from "@fortawesome/free-solid-svg-icons/faTimesCircle";
 @Component({
   selector: 'multiple-select',
   templateUrl: './multiple-select.component.html',
-  styleUrls: ['./multiple-select.component.scss']
+  styleUrls: ['../select/select.component.scss']
 })
 export class MultipleSelectComponent implements OnInit, AfterViewChecked {
   @Input() items = [];
@@ -32,10 +32,7 @@ export class MultipleSelectComponent implements OnInit, AfterViewChecked {
 
   showSelect() {
     this.show = !this.show;
-    if (this.containerOptions != undefined) {
-      this.render.setStyle(this.containerOptions.nativeElement, 'width', this.width);
-      this.render.setStyle(this.containerSelectedItems.nativeElement, 'width', `calc(${this.width} + 14px`);
-    }
+
   }
 
   isSelected = (item) => this.selectedItems.find((value) => value == item) != undefined;

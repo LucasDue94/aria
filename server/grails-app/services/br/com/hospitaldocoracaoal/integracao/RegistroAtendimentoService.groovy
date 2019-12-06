@@ -1,4 +1,4 @@
-package br.com.hospitaldocoracaoal
+package br.com.hospitaldocoracaoal.integracao
 
 import br.com.hospitaldocoracaoal.aria.Setor
 import br.com.hospitaldocoracaoal.integracao.RegistroAtendimento

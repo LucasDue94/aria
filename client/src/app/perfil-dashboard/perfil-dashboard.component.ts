@@ -468,7 +468,7 @@ export class PerfilDashboardComponent implements OnInit, DoCheck, AfterViewCheck
 
   getLabelsArray(chartKey, property) {
     let array = [];
-    if (this.data != undefined) {
+    if (this.data != undefined && this.data[chartKey] != undefined) {
       this.data[chartKey].forEach(value => {
         array.push(value[property].toUpperCase());
       });
@@ -486,7 +486,7 @@ export class PerfilDashboardComponent implements OnInit, DoCheck, AfterViewCheck
   getPercentageArray(key, arrayQuantity) {
     let array = [];
     const sum = (total, value) => total + value;
-    if (this.data != undefined) {
+    if (this.data != undefined && this.data[key] != undefined) {
       const total = arrayQuantity.reduce(sum);
       this.data[key].forEach(value => {
         let percent = (value.quantidade * 100) / total;
@@ -500,7 +500,7 @@ export class PerfilDashboardComponent implements OnInit, DoCheck, AfterViewCheck
 
   ngOnInit() {
     this.titleService.send('Perfil Epidemiológico');
-    this.setorService.list().subscribe(setores => {
+    this.setorService.list('','', '').subscribe(setores => {
       this.setores = setores;
     });
     this.getLastMonth();
@@ -606,10 +606,12 @@ export class PerfilDashboardComponent implements OnInit, DoCheck, AfterViewCheck
   }
 
   getItemsSelected(event) {
+    console.log(event);
     this.perfil.setores = [];
     let itemsSet = new Set();
-    event.forEach(item => itemsSet.add(item.setorWpd.id));
+    event.forEach(item => itemsSet.add(item.id));
     this.perfil.setores = Array.from(itemsSet);
+    console.log(this.perfil.setores);
   }
 }
 

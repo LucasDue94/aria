@@ -12,7 +12,7 @@ class ConversorTipoSetor implements ValueConverter {
 
     @Override
     Object convert(Object value) {
-        TipoSetor.values().find { it.id == value}
+        TipoSetor.tipoSetorPorId value.toString()
     }
 
     @Override

@@ -5,12 +5,17 @@ import {RouterModule} from "@angular/router";
 import {FastSearchModule} from "../fast-search/fast-search.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ApachePacienteListComponent} from "./paciente/list/apache-paciente-list.component";
+import {InfiniteScrollModule} from "ngx-infinite-scroll";
+import {ApacheFormComponent} from "./form/apache-form.component";
+import {SpinnerModule} from "../spinner/spinner.module";
+import {SelectModule} from "../select/select.module";
 
 
 
 @NgModule({
   declarations: [
-    ApachePacienteListComponent
+    ApachePacienteListComponent,
+    ApacheFormComponent
   ],
   imports: [
     CommonModule,
@@ -18,7 +23,10 @@ import {ApachePacienteListComponent} from "./paciente/list/apache-paciente-list.
     RouterModule,
     FastSearchModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    InfiniteScrollModule,
+    SpinnerModule,
+    SelectModule
   ]
 })
 export class ApacheModule { }

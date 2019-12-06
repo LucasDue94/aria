@@ -17,9 +17,9 @@ class SetorController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     @Secured('ROLE_SETOR_INDEX')
-    def index(Integer max) {
+    def index(Integer max, String tipoSetor) {
         params.max = Math.min(max ?: 100, 100)
-        respond setorService.list(params), model:[setorCount: setorService.count()]
+        respond setorService.list(params, tipoSetor), model:[setorCount: setorService.count()]
     }
 
     @Secured('ROLE_SETOR_SHOW')
@@ -28,11 +28,11 @@ class SetorController {
     }
 
     @Secured('ROLE_SETOR_INDEX')
-    def admissions(Integer max) {
+    def admissions(Integer max, String termo) {
         params.sort = 'dataEntrada'
         params.order = 'desc'
         params.max = Math.min(max ?: 10, 100)
-        respond registroAtendimentoLeitosService.list(params)
+        respond registroAtendimentoLeitosService.list(params, termo)
     }
 
     @Secured('ROLE_SETOR_SAVE')

@@ -9,7 +9,7 @@
 
 .card {
   position: absolute;
-  background-color: $gray-50;
+  background-color: $white;
   margin: 15px;
   width: 400px;
   height: 290px;
@@ -173,7 +173,7 @@
     bottom: 5px;
   }
 
-  .errors{
+  .errors {
     right: 2px;
   }
 }

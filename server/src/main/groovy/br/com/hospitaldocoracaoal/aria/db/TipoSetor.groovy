@@ -11,5 +11,9 @@ enum TipoSetor {
     TipoSetor(String id) {
         this.id = id
     }
+
+    static TipoSetor tipoSetorPorId(String nome) {
+        values().find { it.id == nome}
+    }
 }
 

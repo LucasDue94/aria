@@ -14,9 +14,9 @@ export class FastSearchComponent implements OnInit {
   faSearch = faSearch;
   @Input() service;
   /* Instância do service,passada pelo elemento pai cujo a busca será realizada  */
-  @Input() fields: String[];
+  @Input() fields: String[] = [];
   /* Campos que serão mostrados da busca*/
-  @Input() widthField: String[];
+  @Input() widthField: String[] = [];
   /* Tamanho de cada campo que será apresentado
   * ex: fields = ['Nome','CPF'] -- widthField=['2','1']
   * Neste exemplo o campo nome, ocupará 2x mais espaço que o CPF
@@ -34,8 +34,7 @@ export class FastSearchComponent implements OnInit {
   offset = 0;
   spinner = false;
 
-  constructor(private errorService: ErrorService) {
-  }
+  constructor(private errorService: ErrorService) {}
 
   ngOnInit() {
     this.loading();

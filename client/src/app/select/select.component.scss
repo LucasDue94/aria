@@ -12,6 +12,24 @@
   }
 }
 
+.label-left {
+  margin:5px 0;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-between;
+  align-content: space-between;
+
+  .select-label {
+    width: auto;
+  }
+}
+
+.label-top{
+  .simple-select {
+    top: 60px;
+    left: 0;
+  }
+}
 .select {
   position: relative;
   display: flex;
@@ -19,20 +37,22 @@
   justify-content: center;
   height: 20px;
   padding: 7px;
-  width: calc(100% - 14px) !important;
+  width: calc(100% - 14px);
   z-index: 90;
 
 
   & {
     background-color: $white;
-    color: $gray-70;
-    border: 1px solid $gray-80;
+    color: $gray-80;
+    border: 1px solid $gray-70;
     padding: 7px;
     border-radius: 5px;
     text-align: center;
+    transition: 0.3s;
   }
 
   &:hover {
+    transition: 0.3s;
     cursor: pointer;
     background-color: $gray-30;
   }
@@ -51,10 +71,14 @@
   margin-top: 35px;
   flex-direction: column;
   z-index: 99;
+  max-height: 350px;
+  overflow-y: scroll;
   width: 100%;
+  transition: 0.3s;
 
 
   .option {
+    transition: 0.3s;
     position: relative;
     padding: 7px;
     z-index: 90;
@@ -96,7 +120,7 @@
     & {
       background-color: $white;
       color: $gray-70;
-      font-weight: 400;
+      font-weight: 300;
       font-size: 14px;
       border: 1px solid $gray-70;
       border-radius: 5px;
@@ -115,4 +139,20 @@
 
 .selected {
   background-color: $gray-60 !important;
+}
+
+.simple-select {
+  overflow-y: hidden;
+  margin: 0;
+  top: 35px;
+  right: 0;
+}
+
+.select-label {
+  font-weight: 500;
+  margin-bottom: 5px;
+  font-size: 16px;
+  color: $gray-80;
+  width: calc(100% - 14px);
+
 }

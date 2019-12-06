@@ -1,5 +1,6 @@
 package br.com.hospitaldocoracaoal
 
+import br.com.hospitaldocoracaoal.integracao.RegistroAtendimentoService
 import grails.testing.services.ServiceUnitTest
 import spock.lang.Specification
 
