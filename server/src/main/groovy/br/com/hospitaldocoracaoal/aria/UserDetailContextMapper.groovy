@@ -16,13 +16,15 @@ class UserDetailContextMapper implements UserDetailsContextMapper {
 
     @Override
     UserDetails mapUserFromContext(DirContextOperations ctx, String username, Collection<? extends GrantedAuthority> authorities) {
+        String nome = ctx.getStringAttribute('displayName')
 
         Usuario.withTransaction {
 
             Grupo grupo = Grupo.findByName('Padrão')
             def usuarioMap = [
                     username: username,
-                    grupo: grupo
+                    grupo: grupo,
+                    nome: nome
             ]
 
             Usuario usuario = Usuario.findOrCreateWhere usuarioMap
@@ -33,7 +35,7 @@ class UserDetailContextMapper implements UserDetailsContextMapper {
             })
 
 
-            new UserDetail(username, '', true, true, true, true, authorities, usuario?.id, usuario.grupo.name)
+            new UserDetail(username, '', true, true, true, true, authorities, usuario?.id, usuario.grupo.name, usuario.nome)
         }
     }
 

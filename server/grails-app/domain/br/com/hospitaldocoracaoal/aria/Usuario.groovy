@@ -12,6 +12,7 @@ class Usuario implements Serializable {
     private static final long serialVersionUID = 1
 
     String username
+    String nome
 //    String password
     boolean enabled = true
     boolean accountExpired
@@ -19,8 +20,8 @@ class Usuario implements Serializable {
     boolean passwordExpired
     Grupo grupo
 
-    Set<Grupo> getAuthorities() {
-        [grupo] as Set<Grupo>
+    Set<Permissao> getAuthorities() {
+        grupo.permissoes as Set<Permissao>
     }
 
     static constraints = {

@@ -1,5 +1,6 @@
 package spring
 
+import br.com.hospitaldocoracaoal.aria.CustomAccessTokenRenderer
 import br.com.hospitaldocoracaoal.aria.UserDetailService
 import br.com.hospitaldocoracaoal.aria.UsuarioPasswordEncoderListener
 
@@ -13,4 +14,5 @@ beans = {
     tipoSetorConverter ConversorTipoSetor
     userDetailsService(UserDetailService)
     ldapUserDetailsMapper(UserDetailContextMapper)
+    accessTokenJsonRenderer(CustomAccessTokenRenderer)
 }
