@@ -14,3 +14,6 @@ insert into permissao (id, version, authority, nome) values (nextval('permissao_
 insert into permissao (id, version, authority, nome) values (nextval('permissao_id_seq'), 0, 'ROLE_SETOR_DELETE', 'Excluir setor');
 
 insert into permissao (id, version, authority, nome) values (nextval('permissao_id_seq'), 0, 'ROLE_PERFIL_EPIDEMIOLOGICO_INDEX', 'Listar Perfis Epidemiológicos');
+
+insert into permissao (id, version, authority, nome) values (nextval('permissao_id_seq'), 0, 'ROLE_USUARIO_INDEX', 'Listar usuários');
+insert into permissao (id, version, authority, nome) values (nextval('permissao_id_seq'), 0, 'ROLE_USUARIO_UPDATE', 'Atualizar usuário');
