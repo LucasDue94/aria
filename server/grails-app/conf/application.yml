@@ -134,3 +134,19 @@ environments:
                 testOnReturn: false
                 jdbcInterceptors: ConnectionState
                 defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
+grails:
+    plugin:
+        springsecurity:
+            ldap:
+                context:
+                    managerDn: 'CN=Hsup,OU=SISTEMAS,OU=USUARIOS,OU=HCAL,DC=hcal,DC=lan'
+                    managerPassword: 'Musicacomidatrabalhoh$up'
+                    server: 'ldap://10.10.1.10'
+                authorities:
+                    ignorePartialResultException: true
+                search:
+                    base: 'dc=hcal,dc=lan'
+                    filter: 'sAMAccountName={0}'
+                    searchSubtree: true
+                auth:
+                    hideUserNotFoundExceptions: false

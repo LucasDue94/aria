@@ -1,6 +1,7 @@
 package br.com.hospitaldocoracaoal.aria
 
 import br.com.hospitaldocoracaoal.integracao.SetorWpd
+import grails.plugin.springsecurity.annotation.Secured
 
 class PerfilEpidemiologicoController {
     private static final Collection<String> FORMATOS_DATAS = ['yyyy-mm-dd', 'dd/mm/yyyy']
@@ -8,6 +9,7 @@ class PerfilEpidemiologicoController {
     static responseFormats = ['json', 'xml']
     PerfilEpidemiologicoService perfilEpidemiologicoService
 
+    @Secured('ROLE_PERFIL_EPIDEMIOLOGICO_INDEX')
     def index() {
         Map entradas = this.carregarFiltros()
         Date inicio = entradas.inicio

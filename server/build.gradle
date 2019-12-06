@@ -66,6 +66,11 @@ dependencies {
     testCompile "org.mockito:mockito-core"
     testCompile "io.micronaut:micronaut-http-client"
     testCompile "org.grails:grails-web-testing-support"
+    compile 'org.grails.plugins:spring-security-core:4.0.0.RC2'
+    compile "org.grails.plugins:spring-security-rest:2.0.0.RC1"
+    compile "org.grails.plugins:spring-security-rest-gorm:2.0.0.RC1"
+    compile "org.springframework.security:spring-security-ldap:5.1.6.RELEASE"
+    compile 'org.grails.plugins:spring-security-ldap:3.0.2'
 }
 
 bootRun {
