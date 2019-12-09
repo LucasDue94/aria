@@ -30,7 +30,7 @@ export class SetorListComponent implements OnInit {
   ngOnInit() {
     this.spinner.show();
     this.titleService.send('Lista de Setores');
-    this.setorService.list('', 10000).subscribe(setores => {
+    this.setorService.list('', '',10000).subscribe(setores => {
       if (setores.hasOwnProperty('error')) {
         this.alertService.send({message: 'Desculpe...ocorreu um erro.', type: 'error', icon: faFrown});
       } else {

@@ -15,6 +15,7 @@ export class SetorService {
     return new HttpHeaders({
       "Cache-Control": "no-cache",
       "Content-Type": "application/json",
+      "X-Auth-Token": localStorage.getItem('token')
     })
   }
 
@@ -23,7 +24,8 @@ export class SetorService {
 
   list(tipoSetor?: string, offset?: any, max?: any): Observable<Setor[]> {
     let subject = new Subject<Setor[]>();
-    this.http.get<Setor[]>(this.baseUrl + 'setor?' + 'tipoSetor=' + tipoSetor + '&offset=' + offset + '&max=' + max, {headers: this.getDefaultHttpOptions()})
+    this.http.get<Setor[]>(this.baseUrl + 'setor?' + 'tipoSetor=' + tipoSetor + '&offset=' + offset + '&max=' + max,
+      {headers: this.getDefaultHttpOptions()})
       .pipe(
         catchError(error => of({error})
         )).subscribe((json: Setor[]) => {

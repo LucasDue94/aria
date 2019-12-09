@@ -2,6 +2,7 @@ package br.com.hospitaldocoracaoal.aria
 
 import grails.gorm.transactions.ReadOnly
 import grails.gorm.transactions.Transactional
+import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
 
 import static org.springframework.http.HttpStatus.*
@@ -15,15 +16,18 @@ class SetorController {
     static responseFormats = ['json', 'xml']
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+    @Secured('ROLE_SETOR_INDEX')
     def index(Integer max, String tipoSetor) {
         params.max = Math.min(max ?: 100, 100)
         respond setorService.list(params, tipoSetor), model:[setorCount: setorService.count()]
     }
 
+    @Secured('ROLE_SETOR_SHOW')
     def show(Long id) {
         respond setorService.get(id)
     }
 
+    @Secured('ROLE_SETOR_INDEX')
     def admissions(Integer max, String termo) {
         params.sort = 'dataEntrada'
         params.order = 'desc'
@@ -31,6 +35,7 @@ class SetorController {
         respond registroAtendimentoLeitosService.list(params, termo)
     }
 
+    @Secured('ROLE_SETOR_SAVE')
     @Transactional
     def save(Setor setor) {
         if (setor == null) {
@@ -53,6 +58,7 @@ class SetorController {
         respond setor, [status: CREATED, view:"show"]
     }
 
+    @Secured('ROLE_SETOR_UPDATE')
     @Transactional
     def update(Setor setor) {
         if (setor == null) {
@@ -75,6 +81,7 @@ class SetorController {
         respond setor, [status: OK, view:"show"]
     }
 
+    @Secured('ROLE_SETOR_DELETE')
     @Transactional
     def delete(Long id) {
         if (id == null) {

@@ -1,0 +1,44 @@
+<main class="container">
+  <section class="login-container">
+    <section class="top">
+      <img class="img-login" src="../../assets/images/heart.png"/>
+      <div class="system-name">
+        <h1 class="bold">Aria</h1>
+      </div>
+      <h3 class="system-description">Sistema de acompanhamento de riscos assistenciais</h3>
+    </section>
+    <section [formGroup]="loginForm" class="bottom">
+      <div class="login-form-group">
+        <fa-icon class="login-icon" [icon]="faUser"></fa-icon>
+        <input class="login-form-control" formControlName="username" placeholder="login" type="text">
+      </div>
+      <div class="login-form-group">
+        <fa-icon class="login-icon" [icon]="faLock"></fa-icon>
+        <fa-icon (click)="showPass()" class="login-icon eye-icon"
+                 [icon]="visible ? faEye : faEyeSlash"></fa-icon>
+        <input [type]="[visible ? 'text': 'password']" class="login-form-control" formControlName="password"
+               placeholder="senha" #password>
+      </div>
+      <div class="login-form-group login-submit">
+        <fa-icon (click)="login()" class="login-icon send-icon" [icon]="faPaperPlane"></fa-icon>
+        <button (click)="login()" class="button-login">Entrar</button>
+        <div class="valid" #errorContainer>
+          {{messageError}}
+          <fa-icon class="icon-sad" [icon]="faFrown"></fa-icon>
+        </div>
+        <section class="container-alerts">
+          <div *ngIf="capsOn" [ngClass]="capsOn ? 'capsLockOn':''">
+            <p>Atenção: CapsLock ativo</p>
+          </div>
+          <div *ngIf="!numLock" [ngClass]="!numLock ? 'numLockOff':''">
+            <p>Atenção: O teclado numérico está desligado</p>
+          </div>
+        </section>
+      </div>
+      <div class="forget-pass">
+        <a [routerLink]="'/forgot'" class="recovery-pass">Esqueci a senha</a>
+        <fa-icon class="recovery-icon" [icon]="faQuestionCircle"></fa-icon>
+      </div>
+    </section>
+  </section>
+</main>

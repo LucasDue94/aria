@@ -1,0 +1,307 @@
+@import "../../assets/colors";
+@import "../../fonts/manjari";
+
+* {
+  ::selection {
+    background-color: transparent;
+  }
+}
+
+.container {
+  display: flex;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+
+  & {
+    color: $gray-100;
+    font-size: 18px;
+  }
+}
+
+.login-container {
+  position: relative;
+  display: flex;
+  width: 380px;
+  height: 440px;
+  flex-direction: column;
+
+  & .label-forgot {
+    position: relative;
+    top: -25px;
+    font-size: 12px;
+    margin-bottom: 150px;
+  }
+
+  & {
+    border-radius: 0 50px 20px 100px;
+    box-shadow: -5px 0 15px -7px, 5px 0 15px -7px;
+  }
+
+  .top, .bottom {
+    display: flex;
+    height: 45%;
+    flex-direction: column;
+  }
+
+  .top {
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+
+    & {
+      font-size: 35px;
+      background-color: $green-default;
+      border-radius: 0 50px 0 0;
+      color: $white;
+    }
+
+
+    .system-name, .system-description {
+      margin: 4px auto;
+
+      & {
+        text-shadow: 2px 2px 5px $gray-100;
+        letter-spacing: 1px;
+      }
+    }
+
+    .system-name {
+      display: flex;
+
+      .bold, .thin {
+        font-family: 'manjari-Bold', sans-serif;
+        letter-spacing: 4px;
+      }
+
+      .thin {
+        font-family: 'manjari-thin', sans-serif;
+        font-weight: 100;
+      }
+
+    }
+
+    .system-description {
+      text-align: center;
+      width: 250px;
+
+      & {
+        font-size: 15px;
+        font-weight: 400;
+      }
+    }
+
+    .img-login {
+      margin-top: 7px;
+      opacity: 1;
+      width: 100px;
+    }
+  }
+
+  .bottom {
+    height: 55%;
+    justify-content: center;
+    align-items: center;
+
+    .login-form-group {
+      display: flex;
+      align-items: center;
+      height: 35px;
+      width: 250px;
+
+      & {
+        margin-bottom: 30px;
+      }
+
+      .login-form-control {
+        width: 100%;
+        height: 50px;
+
+        & {
+          background-color: transparent;
+          text-align: center;
+          font-size: 18px;
+          color: $gray-80;
+          border-bottom: 1px solid $gray-70;
+        }
+
+        &::placeholder {
+          color: $gray-70;
+        }
+
+        &:focus {
+          transition: 0.4s;
+          border-bottom: 1px solid $gray-100;
+        }
+      }
+
+      .login-icon, .send-icon, .eye-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 5px;
+        width: 30px;
+        height: 30px;
+
+        & {
+          color: $gray-80;
+          background-color: $gray-60;
+          position: absolute;
+          border-radius: 100%;
+          box-shadow: 1px 1px 5px $gray-100;
+        }
+      }
+
+      .eye-icon {
+        background-color: transparent;
+        color: $gray-70;
+        box-shadow: 0 0 10px $gray-70;
+        position: absolute;
+        right: 70px;
+        align-self: center;
+        cursor: pointer;
+      }
+
+      .send-icon {
+        & {
+          cursor: pointer;
+          background-color: $gray-80;
+          color: $gray-60;
+        }
+      }
+
+      .button-login {
+        height: 50px;
+        width: 100%;
+
+        & {
+          cursor: pointer;
+          border-radius: 5px;
+          background-color: $gray-60;
+          box-shadow: 1px 1px 8px $gray-80;
+          color: $gray-100;
+          font-size: 16px;
+        }
+
+        &:hover {
+          transition: 0.1s;
+          box-shadow: 0 0 15px $gray-100;
+        }
+      }
+    }
+  }
+}
+
+.invalid {
+  text-align: center;
+  border-radius: 5px;
+  width: 240px;
+  justify-content: center;
+  position: absolute;
+  padding: 5px;
+  bottom: 5px;
+  z-index: 2;
+  background-color: $light-danger;
+  color: $white;
+  animation: invalid-login 500ms;
+  box-shadow: 1px 1px 5px $gray-100;
+
+
+  .icon-sad {
+    margin-left: 5px;
+  }
+
+  @keyframes invalid-login {
+    0% {
+      margin-left: -15px;
+      bottom: 30px;
+    }
+    35% {
+      bottom: 15px;
+    }
+    50% {
+      bottom: 20px;
+    }
+  }
+}
+
+.capsLockOn, .numLockOff {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  width: 240px;
+  padding: 5px;
+  background-color: $warning;
+  color: $white;
+  margin-top: 7px;
+  border-radius: 5px;
+  box-shadow: 1px 1px 5px $gray-100;
+
+}
+
+.container-alerts {
+  position: absolute;
+  display: flex;
+  height: 50px;
+  flex-direction: column;
+  bottom: 0;
+}
+
+.valid {
+  display: none;
+}
+
+.forget-pass {
+  display: flex;
+  padding: 5px;
+  transition: 0.6s;
+  width: 250px;
+  text-align: right;
+  justify-content: flex-end;
+  font-size: 14px;
+
+  .recovery-pass {
+    margin-right: 3px;
+    transition: 1s;
+
+    &:hover {
+      color: $blue-default;
+      font-weight: 400;
+      cursor: pointer;
+    }
+  }
+
+  &:hover {
+    border-radius: 5px;
+
+    .recovery-icon {
+      transition: 1s;
+      color: $blue-default;
+    }
+  }
+}
+
+.system-state-title {
+  padding: 8px;
+  width: 370px;
+  margin-bottom: 15px;
+
+  & {
+    text-align: center;
+    background-color: $white;
+    font-size: 25px;
+    color: $gray-80;
+    border: 1px solid $gray-50;
+    border-left: none;
+    border-right: none;
+  }
+}
+
+.login-submit {
+  margin-bottom: 15px !important;
+}

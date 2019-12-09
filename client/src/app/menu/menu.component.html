@@ -1,4 +1,17 @@
 <main class="menu-container" #menuContainer>
   <aside class="menu">
+
+    <a [routerLink]="['/perfil']" [routerLinkActive]="['active-link']" class="menu-item">
+      <fa-icon [icon]="faDiagnoses"></fa-icon>
+      <h3 class="description">Perfil</h3>
+    </a>
+    <a [routerLink]="['/apache']" [routerLinkActive]="['active-link']" class="menu-item">
+      <fa-icon [icon]="faNotesMedical"></fa-icon>
+      <h3 class="description">Apache</h3>
+    </a>
+    <a [routerLink]="['/setor']"  [routerLinkActive]="['active-link']" class="menu-item">
+      <fa-icon [icon]="faFolderOpen"></fa-icon>
+      <h3 class="description">Setores</h3>
+    </a>
   </aside>
 </main>

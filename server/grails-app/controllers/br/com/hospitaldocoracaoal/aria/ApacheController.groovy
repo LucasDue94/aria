@@ -1,5 +1,6 @@
 package br.com.hospitaldocoracaoal.aria
 
+import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.CREATED
 import static org.springframework.http.HttpStatus.NOT_FOUND
@@ -22,6 +23,7 @@ class ApacheController {
         respond apacheService.list(params), model:[apacheCount: apacheService.count()]
     }
 
+    @Secured('ROLE_APACHE_REPORT')
     def report(Integer max) {
         return [data: apacheService.report(params)]
     }
@@ -29,7 +31,7 @@ class ApacheController {
     def show(Long id) {
         respond apacheService.get(id)
     }
-
+    @Secured('ROLE_APACHE_SAVE')
     @Transactional
     def save(Apache apache) {
         if (apache == null) {

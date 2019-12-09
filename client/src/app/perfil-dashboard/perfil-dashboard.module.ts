@@ -7,7 +7,8 @@ import {ChartModule} from "angular-highcharts";
   declarations: [],
   imports: [
     CommonModule,
-    ChartModule
+    ChartModule,
   ]
 })
-export class PerfilDashboardModule { }
+export class PerfilDashboardModule {
+}
