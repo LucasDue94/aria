@@ -36,7 +36,7 @@ export class ApacheService {
     return subject.asObservable();
   }
 
-  get(id: number): Observable<any> {
+  get(id: string): Observable<any> {
     let subject = new Subject<RegistroAtendimento>();
     this.http.get(this.baseUrl + `registroAtendimento/` + id, {headers: this.getDefaultHttpOptions()})
       .pipe(
@@ -62,8 +62,6 @@ export class ApacheService {
     });
     return subject.asObservable();
   }
-
-
 
 }
 
