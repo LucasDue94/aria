@@ -16,6 +16,7 @@ import {LeitoService} from './leito/leito.service';
 import {TitleService} from "./title/title.service";
 import {AuthService} from "./auth/auth.service";
 import {AuthGuard} from "./guards/auth.guard";
+import {SelectService} from "./select/select.service";
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import {AuthGuard} from "./guards/auth.guard";
     TitleService,
     AuthService,
     AuthGuard,
+    SelectService
   ]
 })
 export class CoreModule {

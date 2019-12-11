@@ -44,7 +44,7 @@
     </section>
   </article>
   <form class="container-form-apache" [formGroup]="form">
-    <section class="container-pressao" [formGroup]="form.get('pressaoMedia')">
+    <section class="container-pressao" [formGroup]="getControl('pressaoMedia')">
       <h3 class="label-pressao">Pressão Arterial Média (mmHg):</h3>
       <div class="form-group">
         <label for="ps" class="form-label">PS</label>
@@ -58,11 +58,12 @@
         <label for="pm" class="form-label">PM</label>
         <input id="pm" class="form-control control-disable" type="text" formControlName="pm">
       </div>
+      <p *ngIf="getControl('pressaoMedia').invalid" class="errors ">Estes campos não podem ser vazios. Insira valores.</p>
     </section>
     <section class="flex-row">
       <section class="left">
         <div class="form-group">
-          <app-select [width]="'215px'" [labelPosition]="'left'" [labelName]="'Temperatura(ºC):'"
+          <app-select [reset]="resetForm" [width]="'215px'" [labelPosition]="'left'" [labelName]="'Temperatura(ºC):'"
                       (itemSelected)="getValue($event, 'temperatura')"
                       [items]="temperatura"></app-select>
           <p *ngIf="getControl('temperatura').invalid" class="errors">Este campo não pode ser vazio. Escolha uma
@@ -70,7 +71,8 @@
         </div>
 
         <div class="form-group">
-          <app-select [width]="'215px'" [labelPosition]="'left'" [labelName]="'Arterial pH ou HCO3:'"
+          <app-select [reset]="resetForm" [width]="'215px'" [labelPosition]="'left'"
+                      [labelName]="'Arterial pH ou HCO3:'"
                       (itemSelected)="getValue($event, 'arterialPh')"
                       [items]="arterialPh"></app-select>
           <p *ngIf="getControl('arterialPh').invalid" class="errors">Este campo não pode ser vazio. Escolha uma
@@ -78,14 +80,15 @@
 
         </div>
         <div class="form-group">
-          <app-select [width]="'215px'" [labelPosition]="'left'" [labelName]="'Na+ Sérico (meq/l):'"
+          <app-select [reset]="resetForm" [width]="'215px'" [labelPosition]="'left'" [labelName]="'Na+ Sérico (meq/l):'"
                       (itemSelected)="getValue($event, 'naSerico')"
                       [items]="naSerico"></app-select>
           <p *ngIf="getControl('naSerico').invalid" class="errors">Este campo não pode ser vazio. Escolha uma opção.</p>
 
         </div>
         <div class="form-group">
-          <app-select [width]="'215px'" [labelPosition]="'left'" [labelName]="'Leucócitos (10^3/£gl):'"
+          <app-select [reset]="resetForm" [width]="'215px'" [labelPosition]="'left'"
+                      [labelName]="'Leucócitos (10^3/£gl):'"
                       (itemSelected)="getValue($event, 'leucocitos')"
                       [items]="leucocitos"></app-select>
           <p *ngIf="getControl('leucocitos').invalid" class="errors">Este campo não pode ser vazio. Escolha uma
@@ -93,14 +96,15 @@
 
         </div>
         <div class="form-group">
-          <app-select [width]="'215px'" [labelPosition]="'left'" [labelName]="'Gasglow Com Escala:'"
+          <app-select [reset]="resetForm" [width]="'215px'" [labelPosition]="'left'" [labelName]="'Gasglow Com Escala:'"
                       (itemSelected)="getValue($event,'gasglow')"
                       [items]="gasglow"></app-select>
           <p *ngIf="getControl('gasglow').invalid" class="errors">Este campo não pode ser vazio. Escolha uma opção.</p>
 
         </div>
         <div class="form-group">
-          <app-select [width]="'215px'" [labelPosition]="'left'" [labelName]="'Problemas Crônicos de Saúde:'"
+          <app-select [reset]="resetForm" [width]="'215px'" [labelPosition]="'left'"
+                      [labelName]="'Problemas Crônicos de Saúde:'"
                       (itemSelected)="getValue($event, 'problemasCronicos')"
                       [items]="problemasCronicos"></app-select>
           <p *ngIf="getControl('problemasCronicos').invalid" class="errors">Este campo não pode ser vazio. Escolha uma
@@ -118,7 +122,8 @@
       </section>
       <section class="right">
         <div class="form-group">
-          <app-select [width]="'215px'" [labelPosition]="'left'" [labelName]="'Frequência Cardíaca:'"
+          <app-select [reset]="resetForm" [width]="'215px'" [labelPosition]="'left'"
+                      [labelName]="'Frequência Cardíaca:'"
                       (itemSelected)="getValue($event,'frequenciaCardiaca')"
                       [items]="frequenciaCardiaca"></app-select>
           <p *ngIf="getControl('frequenciaCardiaca').invalid" class="errors">Este campo não pode ser vazio. Escolha uma
@@ -127,7 +132,8 @@
         </div>
 
         <div class="form-group">
-          <app-select [width]="'215px'" [labelPosition]="'left'" [labelName]="'Frequência Respiratória:'"
+          <app-select [reset]="resetForm" [width]="'215px'" [labelPosition]="'left'"
+                      [labelName]="'Frequência Respiratória:'"
                       (itemSelected)="getValue($event, 'frequenciaRespiratoria')"
                       [items]="frequenciaRespiratoria"></app-select>
           <p *ngIf="getControl('frequenciaRespiratoria').invalid" class="errors">Este campo não pode ser vazio. Escolha
@@ -135,14 +141,14 @@
 
         </div>
         <div class="form-group">
-          <app-select [width]="'215px'" [labelPosition]="'left'" [labelName]="'K+ Sérico (meq/l):'"
+          <app-select [reset]="resetForm" [width]="'215px'" [labelPosition]="'left'" [labelName]="'K+ Sérico (meq/l):'"
                       (itemSelected)="getValue($event,'kaSerico')"
                       [items]="kaSerico"></app-select>
           <p *ngIf="getControl('kaSerico').invalid" class="errors">Este campo não pode ser vazio. Escolha uma opção.</p>
 
         </div>
         <div class="form-group">
-          <app-select [width]="'215px'" [labelPosition]="'left'" [labelName]="'Hematócrito:'"
+          <app-select [reset]="resetForm" [width]="'215px'" [labelPosition]="'left'" [labelName]="'Hematócrito:'"
                       (itemSelected)="getValue($event,'hematocrito')"
                       [items]="hematocrito"></app-select>
           <p *ngIf="getControl('hematocrito').invalid" class="errors">Este campo não pode ser vazio. Escolha uma
@@ -150,7 +156,7 @@
 
         </div>
         <div class="form-group">
-          <app-select [width]="'215px'" [labelPosition]="'left'"
+          <app-select [reset]="resetForm" [width]="'215px'" [labelPosition]="'left'"
                       [labelName]="'A-aPO2 (FiO2 > 50%) ou PaO2 (FiO2 < 50%):'"
                       (itemSelected)="getValue($event, 'aapo')"
                       [items]="aapo"></app-select>
@@ -158,7 +164,8 @@
 
         </div>
         <div class="form-group">
-          <app-select [width]="'215px'" [labelPosition]="'left'" [labelName]="'Creatinina Sérica com ou sem IRA: '"
+          <app-select [reset]="resetForm" [width]="'215px'" [labelPosition]="'left'"
+                      [labelName]="'Creatinina Sérica com ou sem IRA: '"
                       (itemSelected)="getValue($event,'creatinina')"
                       [items]="creatinina"></app-select>
           <p *ngIf="getControl('creatinina').invalid" class="errors">Este campo não pode ser vazio. Escolha uma

@@ -9,7 +9,8 @@ export class AlertService {
   private subject: Subject<Alert> = new Subject<Alert>();
   private alert: Alert = new Alert();
 
-  constructor() {}
+  constructor() {
+  }
 
   receive(): Observable<Alert> {
     this.subject.next(this.alert);

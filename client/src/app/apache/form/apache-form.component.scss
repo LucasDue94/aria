@@ -28,7 +28,6 @@
   }
 
   .container-form-apache {
-    border: 1px solid red;
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -41,6 +40,7 @@
   }
 
   .container-pressao {
+    position: relative;
     height: 80px;
     color: $gray-80;
 
@@ -61,6 +61,11 @@
         width: 100px;
       }
     }
+
+    .errors {
+      left: 10px;
+      bottom: -20px;
+    }
   }
 
   .left, .right {
@@ -69,7 +74,6 @@
 
     .form-group {
       margin: 15px 0;
-      //border: 1px solid black;
     }
   }
 }

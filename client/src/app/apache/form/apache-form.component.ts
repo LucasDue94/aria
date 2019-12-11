@@ -52,6 +52,7 @@ export class ApacheFormComponent implements OnInit {
       creatinina: ['', Validators.required],
     }
   );
+  resetForm = false;
 
   constructor(private spinner: SpinnerService, private alert: AlertService,
               private title: TitleService, private fb: FormBuilder,
@@ -102,6 +103,10 @@ export class ApacheFormComponent implements OnInit {
   }
 
   clear() {
+    this.resetForm = true;
     this.form.reset('');
+    setTimeout(() => {
+      this.resetForm = null;
+    }, 1000);
   }
 }
