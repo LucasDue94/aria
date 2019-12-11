@@ -1,7 +1,11 @@
 package br.com.hospitaldocoracaoal.aria
+
+import br.com.hospitaldocoracaoal.integracao.Atendimento
+import br.com.hospitaldocoracaoal.integracao.Cid
 import br.com.hospitaldocoracaoal.integracao.RegistroAtendimento
 import br.com.hospitaldocoracaoal.integracao.SetorWpd
 import org.grails.datastore.mapping.query.api.BuildableCriteria
+
 
 
 class PerfilEpidemiologicoService {
@@ -35,6 +39,7 @@ class PerfilEpidemiologicoService {
         } as Set<RegistroAtendimento>
     }
 
+
     private Set<RegistroAtendimento> leitosPorSetor(Date inicio, Date fim, Character[] tipos, Collection<SetorWpd> setores) {
         def criteria = RegistroAtendimento.createCriteria()
         return criteria.listDistinct {
@@ -57,8 +62,10 @@ class PerfilEpidemiologicoService {
         } as Set<RegistroAtendimento>
     }
 
+
     def gerarPerfil(Date inicio, Date fim, Character[] tipos = null, Collection<SetorWpd> setores = null, Boolean perfilGeral = true) {
         def criteria = RegistroAtendimento.createCriteria()
+
         Set<RegistroAtendimento> registros = (Set<RegistroAtendimento>) criteria.listDistinct {
             FILTROS(criteria, inicio, fim, tipos)
 
@@ -143,7 +150,7 @@ class PerfilEpidemiologicoService {
 
         registros.each { registro ->
 
-            def motivoAlta = motivosAltas.find {it.motivoAltaId == registro.motivoAlta.id}
+            def motivoAlta = motivosAltas.find { it.motivoAltaId == registro.motivoAlta.id }
             if (motivoAlta != null) {
                 motivoAlta.quantidade++
             } else {
@@ -156,7 +163,9 @@ class PerfilEpidemiologicoService {
                 motivosAltas << [motivoAltaId: motivoAltaId, descricao: descricao, quantidade: 1]
             }
 
-            def cid = cids.find { it.codigo == registro.cid?.codigo }
+            def cid = cids.find { c -> c.codigo == registro.cid?.codigo }
+
+
             if (cid != null) {
                 cid.quantidade++
             } else {
@@ -165,6 +174,10 @@ class PerfilEpidemiologicoService {
                 if (registro.cid != null) {
                     codigo = registro.cid.codigo
                     diagnostico = registro.cid.diagnostico
+                } else if (!registro.atendimentos.empty) {
+                    Cid atendimentoCid = registro.atendimentos.last().cid
+                    codigo = atendimentoCid.codigo
+                    diagnostico = atendimentoCid.diagnostico
                 }
 
                 cids << [codigo: codigo, diagnostico: diagnostico, quantidade: 1]
