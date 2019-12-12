@@ -96,8 +96,6 @@ dataSource:
     pooled: true
     jmxExport: true
     dialect: org.hibernate.dialect.PostgreSQL94Dialect
-    username: aria
-    password: 'aria@123-hcor'
 
 environments:
     development:
@@ -151,3 +149,14 @@ grails:
                     searchSubtree: true
                 auth:
                     hideUserNotFoundExceptions: false
+
+    mail:
+        host: "smtp.gmail.com"
+        port: 465
+        username: "tihcal248@gmail.com"
+        password: "tihcal123"
+        props:
+            mail.smtp.auth: "true"
+            mail.smtp.socketFactory.port: "465"
+            mail.smtp.socketFactory.class: "javax.net.ssl.SSLSocketFactory"
+            mail.smtp.socketFactory.fallback: "false"

@@ -4,7 +4,7 @@ import br.com.hospitaldocoracaoal.integracao.SetorWpd
 import grails.plugin.springsecurity.annotation.Secured
 
 class PerfilEpidemiologicoController {
-    private static final Collection<String> FORMATOS_DATAS = ['yyyy-mm-dd', 'dd/mm/yyyy']
+    private static final Collection<String> FORMATOS_DATAS = ['yyyy-MM-dd', 'dd/MM/yyyy']
 
     static responseFormats = ['json', 'xml']
     PerfilEpidemiologicoService perfilEpidemiologicoService

@@ -4,6 +4,7 @@ class Atendimento {
 
     Cid cid
     RegistroAtendimento registroAtendimento
+    Date dataAtendimento
     String conteudo
 
     static constraints = {
