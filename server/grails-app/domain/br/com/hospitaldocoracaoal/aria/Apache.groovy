@@ -1,12 +1,13 @@
 package br.com.hospitaldocoracaoal.aria
 
 import br.com.hospitaldocoracaoal.aria.utils.DataUtils
-import br.com.hospitaldocoracaoal.integracao.RegistroAtendimentoLeitos
+import br.com.hospitaldocoracaoal.integracao.RegistroAtendimentoLeito
 
+import java.time.LocalDate
 import java.time.ZoneId
 
 class Apache {
-    RegistroAtendimentoLeitos registroAtendimentoLeito
+    RegistroAtendimentoLeito registroAtendimentoLeito
     String temperatura
     Integer pas
     Integer pad
@@ -41,7 +42,7 @@ class Apache {
         glasgow nullable: false, blank: false, size: 3..15
         problemasCronicos nullable: false, blank: false, inList: ['Nenhuma', 'Não - Cirúrgico', 'Cirurgia de Emergência', 'Cirurgia Eletiva']
         registroAtendimentoLeito validator: { val, obj, errors ->
-            def reg = RegistroAtendimentoLeitos.where {
+            def reg = RegistroAtendimentoLeito.where {
                 registroAtendimento.id == val.registroAtendimentoId
                 leito.id == val.leitoId
                 dataEntrada == val.dataEntrada
@@ -425,7 +426,7 @@ class Apache {
 
     def calculaEscoreIdade() {
         int idade = DataUtils.calculaIdadeEntreDatas(this.registroAtendimentoLeito.registroAtendimento
-                .paciente.nascimento.toLocalDateTime().toLocalDate(), this.registroAtendimentoLeito.dataEntrada.toInstant().atZone(ZoneId.systemDefault()).toLocalDate())
+                .paciente.nascimento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), this.registroAtendimentoLeito.dataEntrada.toInstant().atZone(ZoneId.systemDefault()).toLocalDate())
         int result = 0
 
         if (idade >= 75) {

@@ -38,7 +38,7 @@
   height: 20px;
   padding: 7px;
   width: calc(100% - 14px);
-  z-index: 90;
+  z-index: 80;
 
 
   & {
@@ -71,10 +71,9 @@
   margin-top: 35px;
   flex-direction: column;
   z-index: 99;
-  max-height: 350px;
   overflow-y: scroll;
   width: 100%;
-  transition: 0.3s;
+  //transition: 0.3s;
 
 
   .option {
@@ -144,8 +143,6 @@
 .simple-select {
   overflow-y: hidden;
   margin: 0;
-  top: 35px;
-  right: 0;
 }
 
 .select-label {

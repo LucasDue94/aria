@@ -44,8 +44,8 @@ create foreign table leito(
 alter foreign table leito owner to aria;
 
 
-/*REGISTRO ATENDIMENTO LEITOS*/
-create foreign table registro_atendimento_leitos (
+/*REGISTRO ATENDIMENTO LEITO*/
+create foreign table registro_atendimento_leito (
     registro_atendimento_id varchar(9) options (key 'true') not null,
     leito_id varchar(9) options (key 'true') not null,
     data_entrada timestamp not null

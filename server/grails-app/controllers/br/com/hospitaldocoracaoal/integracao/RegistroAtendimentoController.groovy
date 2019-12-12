@@ -17,7 +17,7 @@ class RegistroAtendimentoController {
     }
 
     @Secured('ROLE_REGISTRO_ATENDIMENTO_SHOW')
-    def show(Long id) {
+    def show(String id) {
         respond registroAtendimentoService.get(id)
     }
 }

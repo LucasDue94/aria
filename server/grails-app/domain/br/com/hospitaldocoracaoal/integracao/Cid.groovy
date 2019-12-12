@@ -3,7 +3,6 @@ package br.com.hospitaldocoracaoal.integracao
 class Cid {
 
     String id
-    String codigo
     String diagnostico
 
     static constraints = {
