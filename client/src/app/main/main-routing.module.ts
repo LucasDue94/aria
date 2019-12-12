@@ -59,9 +59,9 @@ const routes: Routes = [
             component: ApachePacienteListComponent,
             canActivate: [AuthGuard]
           }, {
-            path: 'form/:id',
+            path: 'form',
             component: ApacheFormComponent,
-            canActivate: [AuthGuard]
+            canActivate: [AuthGuard],
           }
         ]
       }

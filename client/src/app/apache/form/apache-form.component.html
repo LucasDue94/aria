@@ -3,43 +3,44 @@
     <section class="flex-column">
       <section class="flex-row">
         <h3 class="label">Paciente:</h3>
-        <h4 class="info">{{registroAtendimento?.paciente?.nome.toLowerCase()}}</h4>
+        <h4 class="info">{{registroAtendimentoLeito?.registroAtendimento?.paciente?.nome.toLowerCase()}}</h4>
       </section>
       <section class="flex-row">
         <h3 class="label">Mãe:</h3>
-        <h4 class="info">{{registroAtendimento?.paciente?.nomeMae.toLowerCase()}}</h4>
+        <h4 class="info">{{registroAtendimentoLeito?.registroAtendimento?.paciente?.nomeMae.toLowerCase()}}</h4>
       </section>
       <section class="flex-row">
         <h3 class="label">Entrada:</h3>
-        <h4 class="info">{{registroAtendimento?.dataEntrada | date:'dd/MM/yy HH:mm'}}</h4>
+        <h4 class="info">{{registroAtendimentoLeito?.registroAtendimento?.dataEntrada | date:'dd/MM/yy,   HH:mm'}}</h4>
       </section>
     </section>
     <section class="flex-column">
       <section class="flex-row">
         <h3 class="label">Registro:</h3>
-        <h4 class="info">{{registroAtendimento?.id}}</h4>
+        <h4 class="info">{{registroAtendimentoLeito?.registroAtendimento?.id}}</h4>
       </section>
       <section class="flex-row">
         <h3 class="label">Motivo Alta:</h3>
-        <h4 class="info">{{registroAtendimento?.motivoAlta?.toLowerCase()}}</h4>
+        <h4 class="info">{{registroAtendimentoLeito?.registroAtendimento?.motivoAlta?.toLowerCase()}}</h4>
       </section>
       <section class="flex-row">
         <h3 class="label">Saída:</h3>
-        <h4 class="info">{{registroAtendimento?.dataAlta | date:'dd/MM/yy HH:mm'}}</h4>
+        <h4 class="info">{{registroAtendimentoLeito?.registroAtendimento?.dataAlta | date:'dd/MM/yy HH:mm'}}</h4>
       </section>
     </section>
     <section class="flex-column">
       <section class="flex-row">
         <h3 class="label">Nascimento:</h3>
-        <h4 class="info">{{registroAtendimento?.paciente?.nascimento | date:'dd/MM/yyyy'}}</h4>
+        <h4
+          class="info">{{registroAtendimentoLeito?.registroAtendimento?.paciente?.nascimento | date:'dd/MM/yyyy'}}</h4>
       </section>
       <section class="flex-row">
         <h3 class="label">Idade:</h3>
-        <h4 class="info">{{getIdade(registroAtendimento?.paciente?.nascimento)}} anos</h4>
+        <h4 class="info">{{getIdade(registroAtendimentoLeito?.registroAtendimento?.paciente?.nascimento)}} anos</h4>
       </section>
       <section class="flex-row">
         <h3 class="label">Setor:</h3>
-        <h4 class="info">{{registroAtendimento?.setor?.descricao}}</h4>
+        <h4 class="info">{{registroAtendimentoLeito?.registroAtendimento?.setor?.descricao}}</h4>
       </section>
     </section>
   </article>
@@ -58,7 +59,8 @@
         <label for="pm" class="form-label">PM</label>
         <input id="pm" class="form-control control-disable" type="text" formControlName="pm">
       </div>
-      <p *ngIf="getControl('pressaoMedia').invalid" class="errors ">Estes campos não podem ser vazios. Insira valores.</p>
+      <p *ngIf="getControl('pressaoMedia').invalid" class="errors ">Estes campos não podem ser vazios. Insira
+        valores.</p>
     </section>
     <section class="flex-row">
       <section class="left">
@@ -142,9 +144,9 @@
         </div>
         <div class="form-group">
           <app-select [reset]="resetForm" [width]="'215px'" [labelPosition]="'left'" [labelName]="'K+ Sérico (meq/l):'"
-                      (itemSelected)="getValue($event,'kaSerico')"
-                      [items]="kaSerico"></app-select>
-          <p *ngIf="getControl('kaSerico').invalid" class="errors">Este campo não pode ser vazio. Escolha uma opção.</p>
+                      (itemSelected)="getValue($event,'kSerico')"
+                      [items]="kSerico"></app-select>
+          <p *ngIf="getControl('kSerico').invalid" class="errors">Este campo não pode ser vazio. Escolha uma opção.</p>
 
         </div>
         <div class="form-group">
@@ -175,7 +177,7 @@
       </section>
     </section>
     <div class="container-button">
-      <button class="button button-blue">Salvar</button>
+      <button (click)="save()" class="button button-blue">Salvar</button>
       <button (click)="clear()" class="button">Limpar</button>
     </div>
   </form>

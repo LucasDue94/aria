@@ -17,6 +17,7 @@ import {TitleService} from "./title/title.service";
 import {AuthService} from "./auth/auth.service";
 import {AuthGuard} from "./guards/auth.guard";
 import {SelectService} from "./select/select.service";
+import {ApacheService} from './apache/apache.service';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import {SelectService} from "./select/select.service";
     TitleService,
     AuthService,
     AuthGuard,
-    SelectService
+    SelectService,
+    ApacheService
   ]
 })
 export class CoreModule {

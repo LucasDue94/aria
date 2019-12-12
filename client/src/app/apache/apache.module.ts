@@ -9,6 +9,7 @@ import {InfiniteScrollModule} from "ngx-infinite-scroll";
 import {ApacheFormComponent} from "./form/apache-form.component";
 import {SpinnerModule} from "../spinner/spinner.module";
 import {SelectModule} from "../select/select.module";
+import { CoreModule } from '../core/core.module';
 
 
 
@@ -26,7 +27,8 @@ import {SelectModule} from "../select/select.module";
     FormsModule,
     InfiniteScrollModule,
     SpinnerModule,
-    SelectModule
-  ]
+    SelectModule,
+    CoreModule
+]
 })
 export class ApacheModule { }

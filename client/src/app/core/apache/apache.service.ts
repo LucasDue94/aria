@@ -1,15 +1,17 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Observable, of, Subject} from 'rxjs';
 import {environment} from "../../../environments/environment.prod";
-import {catchError} from 'rxjs/operators';
+import {Observable, Subject, of} from "rxjs";
+import {map, catchError} from "rxjs/operators";
+import {HeadersHelper} from "../headersHelper";
+import {Apache} from "./apache";
 import {Admissao} from "../setor/admissao";
 import {RegistroAtendimento} from "../registroAtendimento/registroAtendimento";
+import {RegistroAtendimentoLeito} from "../registroAtendimentoLeitos/registroAtendimentoLeito";
 
-@Injectable({
-  providedIn: 'root'
-})
-export class ApacheService {
+
+@Injectable()
+export class ApacheService extends HeadersHelper {
 
   private baseUrl = environment.serverUrl;
 
@@ -18,22 +20,35 @@ export class ApacheService {
       "Cache-Control": "no-cache",
       "Content-Type": "application/json",
       "X-Auth-Token": localStorage.getItem('token')
-
-    });
+    })
   }
 
-
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    super()
+  }
 
   list(setorId: number, termo?: string, offset?: any, max?: any): Observable<Admissao[]> {
-    let subject = new Subject<Admissao[]>();
-    this.http.get<Admissao[]>(this.baseUrl + `setor/admissoes?` + 'setorId=' + setorId  + '&termo=' + termo + '&offset=' + offset + '&max=' + max, {headers: this.getDefaultHttpOptions()})
+    let subject = new Subject<RegistroAtendimentoLeito[]>();
+    this.http.get<RegistroAtendimentoLeito[]>(this.baseUrl + `setor/admissoes?` + 'setorId=' + setorId + '&termo=' + termo + '&offset=' + offset + '&max=' + max, {headers: this.getDefaultHttpOptions()})
       .pipe(
         catchError(error => of({error})
         )).subscribe((json: Admissao[]) => {
       subject.next(json);
     });
     return subject.asObservable();
+  }
+
+
+  count() {
+    let quantity: number;
+    return this.http.get<Apache[]>(this.baseUrl + `apache/`).pipe(
+      map(
+        data => {
+          quantity = data['total'];
+          return quantity;
+        }
+      )
+    )
   }
 
   get(id: string): Observable<any> {
@@ -52,9 +67,9 @@ export class ApacheService {
   }
 
 
-  search(setorId:number, termo?: string, offset?: any, max?: any): Observable<Admissao[]> {
+  search(setorId: number, termo?: string, offset?: any, max?: any): Observable<Admissao[]> {
     let subject = new Subject<Admissao[]>();
-    this.http.get(this.baseUrl + `setor/admissoes?` + 'setorId=' + setorId  + '&termo=' + termo + '&offset=' + offset + '&max=' + max , {headers: this.getDefaultHttpOptions()})
+    this.http.get(this.baseUrl + `setor/admissoes?` + 'setorId=' + setorId + '&termo=' + termo + '&offset=' + offset + '&max=' + max, {headers: this.getDefaultHttpOptions()})
       .pipe(
         catchError(error => of({error})
         )).subscribe((json: Admissao[]) => {
@@ -63,5 +78,35 @@ export class ApacheService {
     return subject.asObservable();
   }
 
-}
+  save(apache: Apache): Observable<any> {
+    let subject = new Subject<Apache>();
+    if (apache.id) {
+      this.http.put<Apache>(this.baseUrl + `apache/` + apache.id, apache, {
+        headers: this.getDefaultHttpOptions(),
+        responseType: 'json'
+      }).pipe(
+        catchError(error => of({error}))
+      ).subscribe((json: any) => {
+        subject.next(json)
+      });
+    } else {
+      this.http.post<Apache>(this.baseUrl + `apache/`, apache, {
+        headers: this.getDefaultHttpOptions(),
+        responseType: 'json'
+      }).pipe(
+        catchError(error => of({error}))
+      ).subscribe((json: any) => {
+        subject.next(json)
+      });
+    }
+    return subject.asObservable()
+  }
 
+
+  destroy(apache: Apache): Observable<Object> {
+    return this.http.delete(this.baseUrl + `apache/` + apache.id, {
+      headers: this.getDefaultHttpOptions(),
+      observe: 'response'
+    });
+  }
+}

@@ -1,6 +1,6 @@
 package br.com.hospitaldocoracaoal.aria
 
-import br.com.hospitaldocoracaoal.integracao.RegistroAtendimentoLeitos
+import br.com.hospitaldocoracaoal.integracao.RegistroAtendimentoLeito
 import grails.gorm.transactions.Transactional
 import grails.web.servlet.mvc.GrailsParameterMap
 import static org.hibernate.sql.JoinType.INNER_JOIN
@@ -9,11 +9,11 @@ import static org.hibernate.sql.JoinType.INNER_JOIN
 class RegistroAtendimentoLeitosService {
 
 
-    List<RegistroAtendimentoLeitos> list(GrailsParameterMap args, String termo) {
+    List<RegistroAtendimentoLeito> list(GrailsParameterMap args, String termo) {
         long setorId = args.long('setorId')
         Setor s = Setor.get(setorId)
 
-        def criteria = RegistroAtendimentoLeitos.createCriteria()
+        def criteria = RegistroAtendimentoLeito.createCriteria()
         return criteria.list(args) {
             createAlias 'leito', 'l', INNER_JOIN
             createAlias 'l.setor', 's', INNER_JOIN
@@ -30,6 +30,6 @@ class RegistroAtendimentoLeitosService {
             }
 
             eq 's.id', s.setorWpdId
-        } as List<RegistroAtendimentoLeitos>
+        } as List<RegistroAtendimentoLeito>
     }
 }

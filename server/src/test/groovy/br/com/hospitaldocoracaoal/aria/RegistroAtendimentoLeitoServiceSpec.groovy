@@ -3,7 +3,7 @@ package br.com.hospitaldocoracaoal.aria
 import grails.testing.services.ServiceUnitTest
 import spock.lang.Specification
 
-class RegistroAtendimentoLeitosServiceSpec extends Specification implements ServiceUnitTest<RegistroAtendimentoLeitosService>{
+class RegistroAtendimentoLeitoServiceSpec extends Specification implements ServiceUnitTest<RegistroAtendimentoLeitosService>{
 
     def setup() {
     }
