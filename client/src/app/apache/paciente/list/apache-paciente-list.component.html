@@ -25,12 +25,13 @@
     </section>
     <section class="tbody content" [scrollWindow]="false" infinite-scroll (scrolled)="scrollDown()">
       <div class="row" *ngFor="let registro of admissoesPacSetor"
-           [routerLink]="['/apache','form']" [queryParams]="{registro:registro.registroAtendimento.id, dataEntrada: registro.dataEntrada, leito:registro.leito.id}">
+           [routerLink]="['/apache','form']"
+           [queryParams]="{registro:registro.registroAtendimento.id, dataEntrada: registro.dataEntrada, leito:registro.leito.id}">
         <span class="td">{{registro.registroAtendimento.id}}</span>
-        <span class="td">{{registro.registroAtendimento.dataEntrada | date: 'dd/MM/yyyy'}}</span>
+        <span class="td">{{registro.registroAtendimento.dataEntrada | date: 'dd/MM/yyyy,  HH:mm'}}</span>
         <span class="td paciente">{{registro.registroAtendimento.paciente.nome}}</span>
         <span class="td">{{registro.registroAtendimento.paciente.sexo}}</span>
-        <span class="td">{{registro.registroAtendimento.paciente.nascimento | date: 'dd/MM/yyyy'}}</span>
+        <span class="td">{{registro.registroAtendimento.paciente.nascimento | date:'dd/MM/yy'}}</span>
         <span class="td">{{registro.registroAtendimento.paciente.nomeMae}}</span>
       </div>
       <div class="empty" *ngIf="admissoesPacSetor?.length == 0">

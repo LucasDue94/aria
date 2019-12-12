@@ -32,7 +32,8 @@ class SetorController {
         params.sort = 'dataEntrada'
         params.order = 'desc'
         params.max = Math.min(max ?: 10, 100)
-        respond registroAtendimentoLeitosService.list(params, termo)
+        def result = registroAtendimentoLeitosService.list(params, termo)
+        respond  result
     }
 
     @Secured('ROLE_SETOR_SAVE')

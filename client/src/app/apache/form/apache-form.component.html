@@ -3,44 +3,44 @@
     <section class="flex-column">
       <section class="flex-row">
         <h3 class="label">Paciente:</h3>
-        <h4 class="info">{{registroAtendimentoLeito?.registroAtendimento?.paciente?.nome.toLowerCase()}}</h4>
+        <h4 class="info">{{registroAtendimento?.paciente?.nome.toLowerCase()}}</h4>
       </section>
       <section class="flex-row">
         <h3 class="label">Mãe:</h3>
-        <h4 class="info">{{registroAtendimentoLeito?.registroAtendimento?.paciente?.nomeMae.toLowerCase()}}</h4>
+        <h4 class="info">{{registroAtendimento?.paciente?.nomeMae.toLowerCase()}}</h4>
       </section>
       <section class="flex-row">
         <h3 class="label">Entrada:</h3>
-        <h4 class="info">{{registroAtendimentoLeito?.registroAtendimento?.dataEntrada | date:'dd/MM/yy,   HH:mm'}}</h4>
+        <h4 class="info">{{registroAtendimento?.dataEntrada | date:'dd/MM/yy,   HH:mm'}}</h4>
       </section>
     </section>
     <section class="flex-column">
       <section class="flex-row">
         <h3 class="label">Registro:</h3>
-        <h4 class="info">{{registroAtendimentoLeito?.registroAtendimento?.id}}</h4>
+        <h4 class="info">{{registroAtendimento?.id}}</h4>
       </section>
       <section class="flex-row">
         <h3 class="label">Motivo Alta:</h3>
-        <h4 class="info">{{registroAtendimentoLeito?.registroAtendimento?.motivoAlta?.toLowerCase()}}</h4>
+        <h4 class="info">{{registroAtendimento?.motivoAlta?.descricao?.toLowerCase()}}</h4>
       </section>
       <section class="flex-row">
         <h3 class="label">Saída:</h3>
-        <h4 class="info">{{registroAtendimentoLeito?.registroAtendimento?.dataAlta | date:'dd/MM/yy HH:mm'}}</h4>
+        <h4 class="info">{{registroAtendimento?.dataAlta | date:'dd/MM/yy,   HH:mm'}}</h4>
       </section>
     </section>
     <section class="flex-column">
       <section class="flex-row">
         <h3 class="label">Nascimento:</h3>
         <h4
-          class="info">{{registroAtendimentoLeito?.registroAtendimento?.paciente?.nascimento | date:'dd/MM/yyyy'}}</h4>
+          class="info">{{registroAtendimento?.paciente?.nascimento | date:'dd/MM/yyyy'}}</h4>
       </section>
       <section class="flex-row">
         <h3 class="label">Idade:</h3>
-        <h4 class="info">{{getIdade(registroAtendimentoLeito?.registroAtendimento?.paciente?.nascimento)}} anos</h4>
+        <h4 class="info">{{getIdade(registroAtendimento?.paciente?.nascimento)}} anos</h4>
       </section>
       <section class="flex-row">
         <h3 class="label">Setor:</h3>
-        <h4 class="info">{{registroAtendimentoLeito?.registroAtendimento?.setor?.descricao}}</h4>
+        <h4 class="info">{{registroAtendimento?.setor?.descricao}}</h4>
       </section>
     </section>
   </article>
@@ -62,7 +62,7 @@
       <p *ngIf="getControl('pressaoMedia').invalid" class="errors ">Estes campos não podem ser vazios. Insira
         valores.</p>
     </section>
-    <section class="flex-row">
+    <section class="flex-row select-containers">
       <section class="left">
         <div class="form-group">
           <app-select [reset]="resetForm" [width]="'215px'" [labelPosition]="'left'" [labelName]="'Temperatura(ºC):'"

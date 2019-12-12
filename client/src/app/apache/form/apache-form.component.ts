@@ -9,6 +9,7 @@ import {faCheck, faExclamationCircle, faFrown} from "@fortawesome/free-solid-svg
 import {Apache} from "../../core/apache/apache";
 import {RegistroAtendimentoLeito} from "../../core/registroAtendimentoLeitos/registroAtendimentoLeito";
 import {Leito} from "../../core/leito/leito";
+import {RegistroAtendimento} from "../../core/registroAtendimento/registroAtendimento";
 
 @Component({
   selector: 'apache-form',
@@ -17,6 +18,7 @@ import {Leito} from "../../core/leito/leito";
 })
 export class ApacheFormComponent implements OnInit {
   newApache: Apache;
+  registroAtendimento: RegistroAtendimento;
   registroAtendimentoLeito: RegistroAtendimentoLeito = new RegistroAtendimentoLeito();
   temperatura = ['> 41', '39 - 40.9', '38.5 - 38.9', '36 - 38.4', '34 - 35.9', '32 - 33.9', '30 - 31.9', '< 29.9'];
   kSerico = ['> 7', '6 - 6.9', '5.5 - 5.9', '3.5 - 5.4', '3 - 3.4', '2.5 - 2.9', '< 2.5'];
@@ -67,11 +69,29 @@ export class ApacheFormComponent implements OnInit {
 
 
   ngOnInit() {
+    this.spinner.show();
     this.title.send('Apache - Formulário');
     this.calculaPressaoMedia();
     const id = this.route.snapshot.queryParamMap.get('registro');
     this.apacheService.get(id).subscribe(res => {
-      this.registroAtendimentoLeito.registroAtendimento = res;
+      let messageError = '';
+      if (res.hasOwnProperty('error')) {
+        if (res.error.error.hasOwnProperty('_embedded')) {
+          res.error.error._embedded.errors.forEach(error => {
+            messageError += error.message + '. \n';
+          });
+        } else {
+          messageError = res.error.error.message;
+        }
+        this.alertService.send({
+          message: messageError,
+          type: 'error',
+          icon: faFrown
+        });
+      } else {
+        this.registroAtendimento = res;
+      }
+      this.spinner.hide();
     });
     this.registroAtendimentoLeito.dataEntrada = this.route.snapshot.queryParamMap.get('dataEntrada');
     const leitoId = this.route.snapshot.queryParamMap.get('leito');
@@ -133,8 +153,8 @@ export class ApacheFormComponent implements OnInit {
     this.newApache.leucocitos = this.getControl('leucocitos').value;
     this.newApache.glasgow = this.getControl('gasglow').value;
     this.newApache.problemasCronicos = this.getControl('problemasCronicos').value;
+    this.registroAtendimentoLeito.registroAtendimento = new RegistroAtendimento({id: this.registroAtendimento.id});
     this.newApache.registroAtendimentoLeito = this.registroAtendimentoLeito;
-    console.log(this.newApache);
   }
 
   save() {

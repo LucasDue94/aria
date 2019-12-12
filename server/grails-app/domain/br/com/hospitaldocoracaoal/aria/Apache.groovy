@@ -3,7 +3,6 @@ package br.com.hospitaldocoracaoal.aria
 import br.com.hospitaldocoracaoal.aria.utils.DataUtils
 import br.com.hospitaldocoracaoal.integracao.RegistroAtendimentoLeito
 
-import java.time.LocalDate
 import java.time.ZoneId
 
 class Apache {
