@@ -1,3 +1,4 @@
+drop foreign table registro_atendimento;
 /*REGISTRO DE ATENDIMENTO*/
 create foreign table registro_atendimento
     (
@@ -21,12 +22,13 @@ create foreign table registro_atendimento
            else null
        end                          AS DATA_ALTA,
        COM.COD_SET,
-       PAC.FK_UR_CID,
+       CID.COD_CID,
        PAC.COD_MOT_ALTA,
        PAC.TIPO_PAC,
        PAC.COD_PRT
 from ADMWPD.FAPACCAD PAC
-         LEFT JOIN ADMWPD.FAPACCOM COM ON COM.COD_PAC = PAC.COD_PAC)', readonly 'true');
+         LEFT JOIN ADMWPD.FAPACCOM COM ON COM.COD_PAC = PAC.COD_PAC
+         LEFT JOIN ADMWPD.URCIDCAD CID ON CID.PK_UR_CID = PAC.FK_UR_CID)', readonly 'true');
 
 alter foreign table registro_atendimento owner to aria;
 
@@ -87,16 +89,15 @@ create foreign table comanda
 alter foreign table comanda owner to aria;
 
 
-
+drop foreign table cid;
 /*CID*/
 create foreign table cid
     (
         id varchar(9) options (key 'true') not null,
-        codigo varchar(9) not null,
         diagnostico varchar(250) not null
         )
     server wpd
-    options (table '(select CID.PK_UR_CID, CID.COD_CID, CID.DIAGNOSTICO from ADMWPD.URCIDCAD CID)', readonly 'true');
+    options (table '(select CID.COD_CID, CID.DIAGNOSTICO from ADMWPD.URCIDCAD CID)', readonly 'true');
 
 alter foreign table cid owner to aria;
 
