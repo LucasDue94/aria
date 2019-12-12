@@ -1,6 +1,6 @@
 package br.com.hospitaldocoracaoal.integracao
 
-class RegistroAtendimentoLeitos implements Serializable {
+class RegistroAtendimentoLeito implements Serializable {
 
     RegistroAtendimento registroAtendimento
     Leito leito

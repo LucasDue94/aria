@@ -29,7 +29,8 @@ export class ApachePacienteListComponent implements OnInit {
   max = 20;
   termo = '';
 
-  constructor(private apacheService: ApacheService, private setorService: SetorService, private titleService: TitleService, private fb: FormBuilder, private spinner: SpinnerService) {
+  constructor(private apacheService: ApacheService, private setorService: SetorService,
+              private titleService: TitleService, private fb: FormBuilder, private spinner: SpinnerService) {
   }
 
   ngOnInit() {
@@ -43,7 +44,6 @@ export class ApachePacienteListComponent implements OnInit {
 
       this.apacheService.list(this.setorId, this.termo, '', '').subscribe(registros => {
         this.admissoesPacSetor = registros;
-
         this.spinner.hide();
       });
     });

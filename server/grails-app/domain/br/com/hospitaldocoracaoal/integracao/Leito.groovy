@@ -6,7 +6,7 @@ class Leito {
     String descricao
     SetorWpd setor
 
-    static hasMany = [registroAtendimentoLeitos: RegistroAtendimentoLeitos]
+    static hasMany = [registroAtendimentoLeitos: RegistroAtendimentoLeito]
 
     static mapping = {
         id generator: 'assigned'

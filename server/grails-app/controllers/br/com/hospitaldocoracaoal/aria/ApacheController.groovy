@@ -31,6 +31,7 @@ class ApacheController {
     def show(Long id) {
         respond apacheService.get(id)
     }
+
     @Secured('ROLE_APACHE_SAVE')
     @Transactional
     def save(Apache apache) {

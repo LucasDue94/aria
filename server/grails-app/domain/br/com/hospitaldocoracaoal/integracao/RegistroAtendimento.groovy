@@ -15,7 +15,7 @@ class RegistroAtendimento {
             comandas: Comanda,
             atendimentos: Atendimento,
             exames: Exame,
-            registroAtendimentoLeitos: RegistroAtendimentoLeitos,
+            registroAtendimentoLeitos: RegistroAtendimentoLeito,
             cirurgias: Cirurgia
     ]
 
