@@ -589,7 +589,7 @@ export class PerfilDashboardComponent implements OnInit, DoCheck, AfterViewCheck
       })
     } else if (dataInicio == '' || dataFinal == '') {
       this.alertService.send({
-        message: 'Ops...A data não pode ser nula',
+        message: 'Ops...A data deve ser preenchida',
         type: 'warning',
         icon: faFrown
       });
