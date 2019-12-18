@@ -1,6 +1,6 @@
 import {Component, Input, OnChanges, OnInit, Renderer2, SimpleChanges, ViewChild} from '@angular/core';
 import {MenuService} from "../core/menu/menu.service";
-import {faDiagnoses, faFolderOpen, faNotesMedical} from "@fortawesome/free-solid-svg-icons";
+import {faDiagnoses, faFolderOpen, faNotesMedical, faChartPie} from "@fortawesome/free-solid-svg-icons";
 import {ActivatedRoute} from "@angular/router";
 
 @Component({
@@ -12,9 +12,11 @@ export class MenuComponent implements OnInit, OnChanges {
 
   @ViewChild('menuContainer', {static: false}) menuContainer;
   @Input() menuStatus: boolean;
+  faChartPie = faChartPie;
   faFolderOpen = faFolderOpen;
   faNotesMedical = faNotesMedical;
-  faDiagnoses= faDiagnoses;
+  faDiagnoses = faDiagnoses;
+
   constructor(private render: Renderer2, private menuService: MenuService, private activatedRoute: ActivatedRoute) {
   }
 

@@ -21,13 +21,14 @@ import {SelectModule} from "./select/select.module";
 import {LoginModule} from "./login/login.module";
 import {AuthGuard} from "./core/guards/auth.guard";
 import {HashLocationStrategy, LocationStrategy} from "@angular/common";
+import {RelatorioModule} from "./relatorio/relatorio.module";
 
 @NgModule({
   exports: [],
   declarations: [
     AppComponent,
     PerfilDashboardComponent,
-    ErrorComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -42,6 +43,7 @@ import {HashLocationStrategy, LocationStrategy} from "@angular/common";
     CoreModule,
     ChartModule,
     ApacheModule,
+    RelatorioModule,
     SetorModule,
     InfiniteScrollModule,
     FastSearchModule,
