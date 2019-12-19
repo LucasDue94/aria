@@ -486,7 +486,7 @@ export class PerfilDashboardComponent implements OnInit, DoCheck, AfterViewCheck
   getPercentageArray(key, arrayQuantity) {
     let array = [];
     const sum = (total, value) => total + value;
-    if (this.data != undefined && this.data[key] != undefined) {
+    if (this.data != undefined && this.data[key] != undefined && this.data[key].lenght > 0) {
       const total = arrayQuantity.reduce(sum);
       this.data[key].forEach(value => {
         let percent = (value.quantidade * 100) / total;
