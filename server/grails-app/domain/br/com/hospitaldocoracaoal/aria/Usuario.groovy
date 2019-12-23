@@ -13,23 +13,24 @@ class Usuario implements Serializable {
 
     String username
     String nome
-//    String password
     boolean enabled = true
     boolean accountExpired
     boolean accountLocked
     boolean passwordExpired
+    String email
     Grupo grupo
+
+    static hasMany = [setores: Setor]
+    static belongsTo = [Setor]
 
     Set<Permissao> getAuthorities() {
         grupo.permissoes as Set<Permissao>
     }
 
     static constraints = {
-//        password nullable: false, blank: false, password: true
         username nullable: false, blank: false, unique: true
+        email nullable: true
     }
 
-//    static mapping = {
-//	    password column: '`password`'
-//    }
+
 }

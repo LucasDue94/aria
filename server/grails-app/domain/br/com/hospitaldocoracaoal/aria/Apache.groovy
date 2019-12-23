@@ -24,8 +24,6 @@ class Apache {
     String problemasCronicos
     int escore
 
-    static hasMany = [notificacoes: Notificacao]
-
     static constraints = {
         temperatura nullable: false, blank: false, inList: ['> 41', '39 - 40.9', '38.5 - 38.9', '36 - 38.4', '34 - 35.9', '32 - 33.9', '30 - 31.9', '< 29.9']
         pas nullable: false, blank: false

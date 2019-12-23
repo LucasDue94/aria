@@ -10,6 +10,7 @@ class Setor {
     SetorWpd setorWpd
     String sigla
     TipoSetor tipoSetor
+    static hasMany = [usuarios: Usuario]
 
     static constraints = {
         descricao nullable: false, blank: false, unique: true

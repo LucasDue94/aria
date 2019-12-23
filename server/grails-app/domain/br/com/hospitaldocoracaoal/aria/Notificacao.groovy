@@ -1,11 +1,16 @@
 package br.com.hospitaldocoracaoal.aria
 
+import br.com.hospitaldocoracaoal.integracao.RegistroAtendimentoLeito
+
 class Notificacao {
-    String mensagem
-    Date data
-    Usuario destinatario
-    Apache apache
+
+    Date dateCreated
+    RegistroAtendimentoLeito registroAtendimentoLeito
+
+    static hasMany = [responsaveis: Usuario]
 
     static constraints = {
+        registroAtendimentoLeito nullable: false
+        responsaveis nullable: false, minSize: 1
     }
 }
