@@ -8,6 +8,8 @@ import {ApachePacienteListComponent} from "../apache/paciente/list/apache-pacien
 import {ApacheFormComponent} from "../apache/form/apache-form.component";
 import {MainComponent} from "./main.component";
 import {AuthGuard} from "../core/guards/auth.guard";
+import {RelatorioListComponent} from "../relatorio/relatorio-list/relatorio-list.component";
+import {ApacheReportComponent} from "../relatorio/relatorio-list/apache-report/apache-report.component";
 
 
 const routes: Routes = [
@@ -64,6 +66,27 @@ const routes: Routes = [
             canActivate: [AuthGuard],
           }
         ]
+      },
+      {
+        path: 'relatorio',
+        children: [
+          {
+            path: '',
+            redirectTo: 'list',
+            pathMatch: 'full',
+            canActivate: [AuthGuard]
+          },
+          {
+            path: 'list',
+            component: RelatorioListComponent,
+            canActivate: [AuthGuard]
+          }
+        ],
+      },
+      {
+        path: 'apache-report',
+        component: ApacheReportComponent,
+        canActivate: [AuthGuard]
       }
     ]
   }

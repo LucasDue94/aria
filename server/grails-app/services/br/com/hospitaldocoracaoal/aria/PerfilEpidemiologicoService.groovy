@@ -4,11 +4,22 @@ import br.com.hospitaldocoracaoal.integracao.Cid
 import br.com.hospitaldocoracaoal.integracao.RegistroAtendimento
 import br.com.hospitaldocoracaoal.integracao.SetorWpd
 import org.grails.datastore.mapping.query.api.BuildableCriteria
+import org.hibernate.FetchMode
+import org.hibernate.sql.JoinType
 
 class PerfilEpidemiologicoService {
 
 
     private static final Closure FILTROS = { BuildableCriteria criteria, Date inicio, Date fim, Character[] tipos ->
+        criteria.createAlias "atendimentos", "a", JoinType.LEFT_OUTER_JOIN
+        criteria.createAlias "a.cid", "ac", JoinType.LEFT_OUTER_JOIN
+        criteria.createAlias "cid", "c", JoinType.LEFT_OUTER_JOIN
+
+        criteria.fetchMode "a", FetchMode.JOIN
+        criteria.fetchMode "c", FetchMode.JOIN
+        criteria.fetchMode "paciente", FetchMode.JOIN
+        criteria.fetchMode "ac", FetchMode.JOIN
+
         if (inicio != null && fim != null) {
             Calendar calendar = new GregorianCalendar()
             calendar.time = fim

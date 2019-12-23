@@ -1,0 +1,25 @@
+<form action="" class="panel">
+  <div>
+    <label class="label-panel" for="inicio">Inicio:</label>
+    <input class="input-date" id="inicio" type="date">
+    <label class="label-panel" for="fim">Fim:</label>
+  </div>
+  <div>
+    <input class="input-date" id="fim" type="date">
+    <label class="label-panel" for="fim">Setor:</label>
+  </div>
+  <div>
+    <select class="panel-select" name="" id="">
+      <option value="">Selecione</option>
+      <option value="">CTI</option>
+      <option value="">UTI</option>
+    </select>
+    <button class="button-search-panel">
+      <fa-icon [icon]=faSearch></fa-icon>
+      Buscar
+    </button>
+  </div>
+</form>
+<section class="panel-chart">
+  <section [chart]="apacheChart" id="apache">Apache</section>
+</section>

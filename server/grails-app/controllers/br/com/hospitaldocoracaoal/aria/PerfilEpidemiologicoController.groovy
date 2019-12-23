@@ -2,6 +2,8 @@ package br.com.hospitaldocoracaoal.aria
 
 import br.com.hospitaldocoracaoal.integracao.SetorWpd
 import grails.plugin.springsecurity.annotation.Secured
+import org.springframework.http.HttpStatus
+import org.springframework.web.server.ResponseStatusException
 
 class PerfilEpidemiologicoController {
     private static final Collection<String> FORMATOS_DATAS = ['yyyy-MM-dd', 'dd/MM/yyyy']
@@ -22,6 +24,10 @@ class PerfilEpidemiologicoController {
             Map datas = datasPadroes()
             inicio = datas.inicio
             fim = datas.fim
+        }
+
+        if (inicio == null || fim == null) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR)
         }
 
         Map data = perfilEpidemiologicoService.gerarPerfil(inicio, fim, tipos, setores, perfilGeral)
