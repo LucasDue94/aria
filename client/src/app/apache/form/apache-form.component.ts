@@ -5,7 +5,7 @@ import {TitleService} from "../../core/title/title.service";
 import {FormBuilder, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ApacheService} from "../../core/apache/apache.service";
-import {faCheck, faExclamationCircle, faFrown} from "@fortawesome/free-solid-svg-icons";
+import {faCheck, faExclamationCircle, faFrown, faInfoCircle} from "@fortawesome/free-solid-svg-icons";
 import {Apache} from "../../core/apache/apache";
 import {RegistroAtendimentoLeito} from "../../core/registroAtendimentoLeitos/registroAtendimentoLeito";
 import {Leito} from "../../core/leito/leito";
@@ -17,6 +17,7 @@ import {RegistroAtendimento} from "../../core/registroAtendimento/registroAtendi
   styleUrls: ['./apache-form.component.scss']
 })
 export class ApacheFormComponent implements OnInit {
+  faInfoCircle = faInfoCircle
   newApache: Apache;
   registroAtendimento: RegistroAtendimento;
   registroAtendimentoLeito: RegistroAtendimentoLeito = new RegistroAtendimentoLeito();
@@ -44,21 +45,25 @@ export class ApacheFormComponent implements OnInit {
         pd: ['', Validators.required],
         pm: ['', Validators.required],
       }),
-      temperatura: ['', Validators.required],
-      arterialPh: ['', Validators.required],
-      naSerico: ['', Validators.required],
-      leucocitos: ['', Validators.required],
-      gasglow: ['', Validators.required],
-      problemasCronicos: ['', Validators.required],
-      frequenciaCardiaca: ['', Validators.required],
-      frequenciaRespiratoria: ['', Validators.required],
-      kSerico: ['', Validators.required],
-      hematocrito: ['', Validators.required],
-      aapo: ['', Validators.required],
-      creatinina: ['', Validators.required],
+      outrasMedidas: this.fb.group({
+        temperatura: ['', Validators.required],
+        arterialPh: ['', Validators.required],
+        naSerico: ['', Validators.required],
+        leucocitos: ['', Validators.required],
+        gasglow: ['', Validators.required],
+        problemasCronicos: ['', Validators.required],
+        frequenciaCardiaca: ['', Validators.required],
+        frequenciaRespiratoria: ['', Validators.required],
+        kSerico: ['', Validators.required],
+        hematocrito: ['', Validators.required],
+        aapo: ['', Validators.required],
+        creatinina: ['', Validators.required],
+      }),
     }
   );
   resetForm = false;
+  showProblemas = false;
+  messageError = "Este campo não pode ser vazio."
 
   constructor(private spinner: SpinnerService, private alert: AlertService,
               private title: TitleService, private fb: FormBuilder,
@@ -98,8 +103,8 @@ export class ApacheFormComponent implements OnInit {
     this.registroAtendimentoLeito.leito = new Leito({id: leitoId});
   }
 
-  getValue = (event, controlName) => {
-    this.form.get(controlName).setValue(event);
+  getValue(event, controlName) {
+    this.getControl(controlName).setValue(event);
   };
 
   getIdade(nasc) {
@@ -125,8 +130,10 @@ export class ApacheFormComponent implements OnInit {
     if (name == 'ps' || name == 'pd' || name == 'pm')
       return this.form.get('pressaoMedia').get(name);
 
-    return this.form.get(name);
+    return this.form.get('outrasMedidas').get(name);
   }
+
+  getGroup = (name) => this.form.get(name);
 
   clear() {
     this.resetForm = true;
@@ -134,6 +141,7 @@ export class ApacheFormComponent implements OnInit {
     setTimeout(() => {
       this.resetForm = null;
     }, 1000);
+    this.form.markAsUntouched();
   }
 
 
@@ -158,6 +166,9 @@ export class ApacheFormComponent implements OnInit {
   }
 
   save() {
+    this.getGroup('outrasMedidas').markAsDirty({onlySelf: true});
+    this.getGroup('outrasMedidas').markAsTouched();
+    console.log(this.form);
     if (this.form.valid) {
       this.setValues();
       this.apacheService.save(this.newApache).subscribe(res => {

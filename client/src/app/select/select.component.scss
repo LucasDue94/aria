@@ -66,14 +66,13 @@
 }
 
 .container-options {
-  position: absolute;
+  position: absolute !important;
   display: flex;
   margin-top: 35px;
   flex-direction: column;
-  z-index: 99;
+  z-index: 99 !important;
   overflow-y: scroll;
   width: 100%;
-  //transition: 0.3s;
 
 
   .option {

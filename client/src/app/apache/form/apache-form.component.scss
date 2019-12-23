@@ -40,6 +40,13 @@
     }
   }
 
+  .select-containers {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
   .container-pressao {
     position: relative;
     height: 80px;
@@ -69,6 +76,22 @@
     }
   }
 
+  .container-button {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: 5px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+
+    .button {
+      height: 35px;
+      border-radius: 5px;
+      margin: 0 5px;
+      width: 100px;
+    }
+  }
+
   .left, .right {
     margin: 10px;
     width: 50%;
@@ -79,13 +102,28 @@
   }
 }
 
-
-.problemas-cronicos {
+.show-problemas-cronicos, .hidden-problemas-cronicos {
+  position: absolute;
+  padding: 8px;
+  border-radius: 5px;
+  top: 35px;
+  -moz-box-shadow: 1px 1px 10px $gray-100;
+  -webkit-box-shadow: 1px 1px 10px $gray-100;
+  box-shadow: 1px 1px 10px $gray-100;
   font-size: 14px;
+  z-index: 99;
+  background-color: $gray-20;
+  transition: 0.5s;
 
   .item {
-    margin: 2px 0;
+    margin: 3px 0;
   }
+}
+
+.hidden-problemas-cronicos {
+  background-color: transparent;
+  color: transparent;
+  box-shadow: none;
 }
 
 .label {
@@ -93,70 +131,174 @@
 }
 
 .info {
-  text-transform: capitalize;
-  font-size: 16px;
   margin-left: 5px;
-  font-weight: 400;
-}
 
+  & {
+    text-transform: capitalize;
+    font-size: 16px;
+    font-weight: 400;
 
-.errors {
-  position: absolute;
-  font-size: 14px;
-  text-transform: none;
-  right: 8px;
-  bottom: -15px;
-  z-index: 2;
-  color: $danger;
-  margin: 0;
-}
-
-.container-button {
-  padding: 5px;
-  position: relative;
-  align-self: flex-end;
-  left: 0;
-  bottom: 10px;
-  margin-bottom: 10px;
-
-  .button {
-    height: 35px;
-    border-radius: 5px;
-    margin: 0 5px;
-    width: 100px;
   }
 }
 
-@media screen and (max-width: 1280px) {
-  .select-containers {
-    height: auto;
+
+.errors, .hidden {
+  display: initial;
+  position: absolute;
+  margin: 0;
+  right: 8px;
+  z-index: 2;
+  bottom: -15px;
+
+  & {
+    text-transform: none;
+    font-size: 14px;
+    color: $danger;
+    transition: 1s;
+  }
+}
+
+.hidden {
+  color: transparent;
+  transition: 0.3s;
+}
+
+.info-icon {
+  align-self: center;
+  margin-right: 5px;
+  transition: 0.3s;
+
+  &:hover {
+    cursor: pointer;
+    color: $blue-default;
+    transition: 0.3s;
+  }
+}
+
+@media screen and (max-width: 1700px) {
+
+  .container-form-apache {
+    position: relative;
     align-items: center;
+    overflow-y: scroll;
+
+    .container-pressao {
+      width: 70% !important;
+
+      .label-pressao, .form-group, .form-label {
+        margin-left: 0 !important;
+      }
+    }
+
+    .select-containers {
+      position: absolute;
+      display: flex;
+      flex-direction: column !important;
+      top: 100px;
+      height: auto !important;
+      align-items: center;
+
+      .left, .right {
+        position: relative;
+        margin: 0 !important;
+        width: 70% !important;
+      }
+
+      .right {
+        margin-top: -10px;
+      }
+    }
+
+    .container-button {
+      display: flex;
+      justify-content: flex-end;
+      position: initial !important;
+      width: 70%;
+
+      .button {
+        margin: 0 0 0 10px;
+      }
+    }
+  }
+
+  #container-frequencia-cardiaca {
+    margin: 5px 0;
+  }
+}
+
+@media screen and (max-width: $smartphone-width) {
+  .container-apache {
+    height: auto !important;
+  }
+  .paciente-info {
     flex-direction: column !important;
+    height: auto;
+
+    .flex-row {
+      width: calc(100% - 20px);
+      flex-direction: column !important;
+
+      .info {
+        margin: 0;
+      }
+    }
+  }
+
+  .form-group {
+    margin: 25px 0 !important;
   }
   .container-form-apache {
-    align-items: center;
-    height: 100%;
-    overflow-y: scroll;
-  }
+    align-items: flex-start;
 
+    .container-pressao {
+      height: auto;
+
+      .form-group, .label-pressao {
+        display: block;
+        margin: 10px !important;
+      }
+    }
+
+    .select-containers {
+      width: 100%;
+
+      .left, .right {
+        align-items: center !important;
+        width: 100% !important;
+      }
+    }
+  }
   .left, .right {
-    margin: 0;
+    margin: 0 !important;
     width: 70% !important;
+    height: auto;
   }
-  .container-button {
-    width: 70%;
-    right: calc(100% - 220px);
-    border: 1px solid red;
-  }
-}
-
-@media screen and (max-width: 800px) {
-  .left, .right, .container-pressao {
-    width: 95% !important;
-    margin: 0;
-  }
-
   .right {
-    margin-top: 0;
+    margin-top: -10px;
+  }
+  .info-icon {
+    margin-top: 5px;
+    align-self: flex-start;
+  }
+
+  .hidden-problemas-cronicos {
+    display: none;
+    background-color: transparent;
+    color: transparent;
+    box-shadow: none;
+  }
+
+  .container-button {
+    align-self: flex-start;
+    justify-content: flex-start;
+
+    .button {
+      margin-left: 5px;
+    }
+  }
+
+  .errors {
+    left: 5px;
+    bottom: -15px;
   }
 }

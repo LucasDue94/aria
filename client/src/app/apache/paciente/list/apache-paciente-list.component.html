@@ -41,8 +41,10 @@
     </section>
   </section>
   <section class="content-card" [scrollWindow]="false" infinite-scroll (scrolled)="scrollDown()">
-    <article class="card-apache-list"
-             *ngFor="let registro of admissoesPacSetor">
+    <article *ngFor="let registro of admissoesPacSetor"
+             [routerLink]="['/apache','form']" class="card-apache-list"
+             [queryParams]="{registro:registro.registroAtendimento.id, dataEntrada: registro.dataEntrada, leito:registro.leito.id}">
+
       <div class="row-wrap">
         <div class="basis-100">
           <label class="label">PACIENTE:</label>

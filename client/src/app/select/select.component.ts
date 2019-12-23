@@ -21,7 +21,8 @@ export class SelectComponent implements OnInit, AfterViewChecked, OnChanges, DoC
   @Input() keyPropery = '';
   @Input() width = '';
   @Input() labelName = '';
-  @Input() labelPosition = 'top';
+  @Input() labelPosition = 'left';
+  @Input() isInsideScroll = true;
   /*valores: left ou top
   * O Default é top*/
   @Output() itemSelected: EventEmitter<any> = new EventEmitter();
@@ -36,12 +37,13 @@ export class SelectComponent implements OnInit, AfterViewChecked, OnChanges, DoC
   }
 
   ngOnInit() {
+    if (window.innerWidth < 500) {
+      this.labelPosition = 'top';
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.reset.currentValue) {
-      this.clear();
-    }
+    if (changes.reset.currentValue) this.clear();
   }
 
   ngDoCheck(): void {
@@ -51,11 +53,22 @@ export class SelectComponent implements OnInit, AfterViewChecked, OnChanges, DoC
   ngAfterViewChecked(): void {
     if (this.containerOptions != undefined) {
       this.render.setStyle(this.containerOptions.nativeElement, 'right', '0');
-      if (this.containerOptions.nativeElement.getBoundingClientRect().height +
-        this.containerOptions.nativeElement.getBoundingClientRect().top > window.innerHeight - 50) {
-        this.render.setStyle(this.containerOptions.nativeElement, 'top', `-${this.containerOptions.nativeElement.getBoundingClientRect().height}px`);
+      const ultrapassou = this.containerOptions.nativeElement.getBoundingClientRect().height +
+        this.containerOptions.nativeElement.getBoundingClientRect().top > window.innerHeight - 50;
+      if (ultrapassou && !this.isInsideScroll) {
+        if (this.labelPosition == 'top') {
+          this.render.setStyle(this.containerOptions.nativeElement,
+            'top', `-${this.containerOptions.nativeElement.getBoundingClientRect().height - 25}px`);
+        } else {
+          this.render.setStyle(this.containerOptions.nativeElement,
+            'top', `-${this.containerOptions.nativeElement.getBoundingClientRect().height}px`);
+        }
       } else {
-        this.render.setStyle(this.containerOptions.nativeElement, 'top', '35px');
+        if (this.labelPosition == 'top') {
+          this.render.setStyle(this.containerOptions.nativeElement, 'top', '60px');
+        } else {
+          this.render.setStyle(this.containerOptions.nativeElement, 'top', '35px');
+        }
       }
     }
   }
