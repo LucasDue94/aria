@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, DoCheck, OnInit} from '@angular/core';
 import {SpinnerService} from "../../core/spinner/spinner.service";
 import {AlertService} from "../../core/alert/alert.service";
 import {TitleService} from "../../core/title/title.service";
@@ -17,7 +17,7 @@ import {RegistroAtendimento} from "../../core/registroAtendimento/registroAtendi
   styleUrls: ['./apache-form.component.scss']
 })
 export class ApacheFormComponent implements OnInit {
-  faInfoCircle = faInfoCircle
+  faInfoCircle = faInfoCircle;
   newApache: Apache;
   registroAtendimento: RegistroAtendimento;
   registroAtendimentoLeito: RegistroAtendimentoLeito = new RegistroAtendimentoLeito();
@@ -63,7 +63,8 @@ export class ApacheFormComponent implements OnInit {
   );
   resetForm = false;
   showProblemas = false;
-  messageError = "Este campo não pode ser vazio."
+  messageError = "Este campo não pode ser vazio.";
+  labelPosition = 'left';
 
   constructor(private spinner: SpinnerService, private alert: AlertService,
               private title: TitleService, private fb: FormBuilder,
@@ -72,8 +73,9 @@ export class ApacheFormComponent implements OnInit {
 
   }
 
-
   ngOnInit() {
+    if (window.innerWidth < 1024)
+      this.labelPosition = 'top';
     this.spinner.show();
     this.title.send('Apache - Formulário');
     this.calculaPressaoMedia();
@@ -113,6 +115,7 @@ export class ApacheFormComponent implements OnInit {
   }
 
   calculaPressaoMedia() {
+    //TODO PS > PD e 20 > PM >300
     let pressaoMedia = this.form.get('pressaoMedia');
     pressaoMedia.get('ps').valueChanges.subscribe(res => {
       this.pressaoMedia.ps = res;

@@ -1,7 +1,9 @@
 @import '../../assets/colors';
 @import '../../assets/device-sizes';
 
-
+.flex-column{
+  //height: auto !important;
+}
 .main-container {
   position: relative;
   display: flex;
@@ -20,9 +22,11 @@
     z-index: 44;
   }
 
-  @media screen and (max-width: $smartphone-width) {
+  @media screen and (max-width: $smartphone-max-width) {
     background-color: transparent;
     box-shadow: none;
+    height: 100%;
+
   }
 }
 
@@ -31,6 +35,12 @@
   height: 100%;
   border-radius: 6px;
   background-color: $gray-20;
+
+  @media screen and (max-width: $smartphone-max-width) {
+    position: relative;
+    height: 100%;
+    overflow-y: auto;
+  }
 }
 
 .aria-nav {

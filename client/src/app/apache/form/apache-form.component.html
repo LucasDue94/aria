@@ -67,7 +67,7 @@
     <section class="flex-row select-containers" [formGroup]="getGroup('outrasMedidas')">
       <section class="left">
         <div class="form-group">
-          <app-select [reset]="resetForm" [width]="'215px'" [labelPosition]="'left'" [labelName]="'Temperatura(ºC):'"
+          <app-select [reset]="resetForm" [width]="'215px'" [labelPosition]="labelPosition" [labelName]="'Temperatura(ºC):'"
                       (itemSelected)="getValue($event, 'temperatura')"
                       [items]="temperatura"></app-select>
           <p
@@ -75,7 +75,7 @@
         </div>
 
         <div class="form-group">
-          <app-select [reset]="resetForm" [width]="'215px'" [labelPosition]="'left'"
+          <app-select [reset]="resetForm" [width]="'215px'" [labelPosition]="labelPosition"
                       [labelName]="'Arterial pH ou HCO3:'"
                       (itemSelected)="getValue($event, 'arterialPh')"
                       [items]="arterialPh"></app-select>
@@ -85,7 +85,7 @@
 
         </div>
         <div class="form-group">
-          <app-select [reset]="resetForm" [width]="'215px'" [labelPosition]="'left'" [labelName]="'Na+ Sérico (meq/l):'"
+          <app-select [reset]="resetForm" [width]="'215px'" [labelPosition]="labelPosition" [labelName]="'Na+ Sérico (meq/l):'"
                       (itemSelected)="getValue($event, 'naSerico')"
                       [items]="naSerico"></app-select>
           <p
@@ -94,7 +94,7 @@
 
         </div>
         <div class="form-group">
-          <app-select [reset]="resetForm" [width]="'215px'" [labelPosition]="'left'"
+          <app-select [reset]="resetForm" [width]="'215px'" [labelPosition]="labelPosition"
                       [labelName]="'Leucócitos (10^3/£gl):'"
                       (itemSelected)="getValue($event, 'leucocitos')"
                       [items]="leucocitos"></app-select>
@@ -104,7 +104,7 @@
 
         </div>
         <div class="form-group">
-          <app-select [reset]="resetForm" [width]="'215px'" [labelPosition]="'left'" [labelName]="'Gasglow Com Escala:'"
+          <app-select [reset]="resetForm" [width]="'215px'" [labelPosition]="labelPosition" [labelName]="'Gasglow Com Escala:'"
                       (itemSelected)="getValue($event,'gasglow')"
                       [items]="gasglow"></app-select>
           <p
@@ -116,7 +116,7 @@
           <section class="flex-row">
             <fa-icon (mouseover)="showProblemas = true" (mouseleave)="showProblemas = false" class="info-icon"
                      [icon]="faInfoCircle"></fa-icon>
-            <app-select [reset]="resetForm" [width]="'215px'" [labelPosition]="'left'"
+            <app-select [reset]="resetForm" [width]="'215px'" [labelPosition]="labelPosition"
                         [labelName]="'Problemas Crônicos de Saúde:'"
                         (itemSelected)="getValue($event, 'problemasCronicos')"
                         [items]="problemasCronicos"></app-select>
@@ -136,7 +136,7 @@
       </section>
       <section class="right">
         <div class="form-group" id="container-frequencia-cardiaca">
-          <app-select [reset]="resetForm" [width]="'215px'" [labelPosition]="'left'"
+          <app-select [reset]="resetForm" [width]="'215px'" [labelPosition]="labelPosition"
                       [labelName]="'Frequência Cardíaca:'"
                       (itemSelected)="getValue($event,'frequenciaCardiaca')"
                       [items]="frequenciaCardiaca"></app-select>
@@ -146,7 +146,7 @@
         </div>
 
         <div class="form-group">
-          <app-select [reset]="resetForm" [width]="'215px'" [labelPosition]="'left'"
+          <app-select [reset]="resetForm" [width]="'215px'" [labelPosition]="labelPosition"
                       [labelName]="'Frequência Respiratória:'"
                       (itemSelected)="getValue($event, 'frequenciaRespiratoria')"
                       [items]="frequenciaRespiratoria"></app-select>
@@ -156,7 +156,7 @@
 
         </div>
         <div class="form-group">
-          <app-select [reset]="resetForm" [width]="'215px'" [labelPosition]="'left'" [labelName]="'K+ Sérico (meq/l):'"
+          <app-select [reset]="resetForm" [width]="'215px'" [labelPosition]="labelPosition" [labelName]="'K+ Sérico (meq/l):'"
                       (itemSelected)="getValue($event,'kSerico')"
                       [items]="kSerico"></app-select>
           <p
@@ -165,7 +165,7 @@
 
         </div>
         <div class="form-group">
-          <app-select [reset]="resetForm" [width]="'215px'" [labelPosition]="'left'" [labelName]="'Hematócrito:'"
+          <app-select [reset]="resetForm" [width]="'215px'" [labelPosition]="labelPosition" [labelName]="'Hematócrito:'"
                       (itemSelected)="getValue($event,'hematocrito')"
                       [items]="hematocrito"></app-select>
           <p
@@ -174,7 +174,7 @@
 
         </div>
         <div class="form-group">
-          <app-select [reset]="resetForm" [width]="'215px'" [labelPosition]="'left'"
+          <app-select [reset]="resetForm" [width]="'215px'" [labelPosition]="labelPosition"
                       [labelName]="'A-aPO2 (FiO2 > 50%) ou PaO2 (FiO2 < 50%):'"
                       (itemSelected)="getValue($event, 'aapo')"
                       [items]="aapo"></app-select>
@@ -184,7 +184,7 @@
 
         </div>
         <div class="form-group">
-          <app-select [reset]="resetForm" [width]="'215px'" [labelPosition]="'left'"
+          <app-select [reset]="resetForm" [width]="'215px'" [labelPosition]="labelPosition"
                       [labelName]="'Creatinina Sérica com ou sem IRA: '"
                       (itemSelected)="getValue($event,'creatinina')"
                       [items]="creatinina"></app-select>

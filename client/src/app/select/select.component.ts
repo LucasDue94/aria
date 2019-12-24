@@ -16,7 +16,7 @@ import {SelectService} from "../core/select/select.service";
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss']
 })
-export class SelectComponent implements OnInit, AfterViewChecked, OnChanges, DoCheck {
+export class SelectComponent implements OnInit, AfterViewChecked, OnChanges {
   @Input() items = [];
   @Input() keyPropery = '';
   @Input() width = '';
@@ -44,10 +44,6 @@ export class SelectComponent implements OnInit, AfterViewChecked, OnChanges, DoC
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.reset.currentValue) this.clear();
-  }
-
-  ngDoCheck(): void {
-    // this.selectService.listen().subscribe(res => console.log(res));
   }
 
   ngAfterViewChecked(): void {

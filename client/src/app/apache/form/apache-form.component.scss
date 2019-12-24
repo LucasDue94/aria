@@ -194,7 +194,7 @@
       position: absolute;
       display: flex;
       flex-direction: column !important;
-      top: 100px;
+      top: 85px;
       height: auto !important;
       align-items: center;
 
@@ -214,6 +214,7 @@
       justify-content: flex-end;
       position: initial !important;
       width: 70%;
+      margin-right: 0;
 
       .button {
         margin: 0 0 0 10px;
@@ -226,56 +227,57 @@
   }
 }
 
-@media screen and (max-width: $smartphone-width) {
-  .container-apache {
-    height: auto !important;
-  }
+@media screen and (max-width: $smartphone-max-width) {
   .paciente-info {
-    flex-direction: column !important;
-    height: auto;
+    position: relative;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    .flex-column {
+      margin: 5px 5px 0 5px !important;
+      width: 45%;
+      height: auto;
+    }
 
     .flex-row {
-      width: calc(100% - 20px);
+      margin: 5px !important;
       flex-direction: column !important;
 
-      .info {
+      .info, .label {
         margin: 0;
       }
     }
   }
 
-  .form-group {
-    margin: 25px 0 !important;
+  .container-apache{
+    position: absolute;
+    border: 2px solid green;
+    height: auto;
   }
   .container-form-apache {
-    align-items: flex-start;
+    border: 2px solid rebeccapurple;
+    height: auto;
+    overflow-y: initial !important;
 
     .container-pressao {
+      position: relative;
+      display: flex;
+      flex-direction: column !important;
+      width: 50% !important;
       height: auto;
 
-      .form-group, .label-pressao {
-        display: block;
-        margin: 10px !important;
-      }
     }
 
     .select-containers {
-      width: 100%;
+      top: 0;
+      position: relative !important;
+    }
 
-      .left, .right {
-        align-items: center !important;
-        width: 100% !important;
-      }
+    .right {
+      margin-top: 0;
     }
   }
-  .left, .right {
-    margin: 0 !important;
-    width: 70% !important;
-    height: auto;
-  }
-  .right {
-    margin-top: -10px;
-  }
+
   .info-icon {
     margin-top: 5px;
     align-self: flex-start;
@@ -286,18 +288,12 @@
     background-color: transparent;
     color: transparent;
     box-shadow: none;
+    left: 5px;
+    bottom: -15px;
   }
 
-  .container-button {
-    align-self: flex-start;
-    justify-content: flex-start;
 
-    .button {
-      margin-left: 5px;
-    }
-  }
-
-  .errors {
+  .errors, .hidden {
     left: 5px;
     bottom: -15px;
   }
