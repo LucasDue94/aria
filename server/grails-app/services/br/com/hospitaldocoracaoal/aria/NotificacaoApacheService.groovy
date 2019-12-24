@@ -51,12 +51,14 @@ class NotificacaoApacheService {
 
             apacheSetores.each { set ->
                 def setorNotificacoes = notificacoes.findAll { it.registroAtendimentoLeito.leito.setor.id == set.id }
-                def responsaveis = setorNotificacoes.responsaveis.unique()
+                def responsaveis = setorNotificacoes.responsaveis.findAll { !it.empty }.unique()
 
-                sendMail {
-                    to responsaveis.email.unique()
-                    subject 'Alerta Apache'
-                    text "os apaches dos pacientes: ${setorNotificacoes.registroAtendimentoLeito.registroAtendimento.paciente.nome} não foram preenchidos."
+                if (responsaveis != null && !responsaveis.empty) {
+                    sendMail {
+                        to responsaveis.email.unique()
+                        subject 'Alerta Apache'
+                        html view: '/apache/notificationEmail', model: [pacientes: setorNotificacoes.registroAtendimentoLeito.registroAtendimento.paciente.nome]
+                    }
                 }
             }
         }

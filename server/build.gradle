@@ -17,6 +17,7 @@ apply plugin:"eclipse"
 apply plugin:"idea"
 apply plugin:"war"
 apply plugin:"org.grails.grails-web"
+apply plugin:"org.grails.grails-gsp"
 apply plugin:"org.grails.plugins.views-json"
 
 repositories {
@@ -72,6 +73,7 @@ dependencies {
     compile "org.springframework.security:spring-security-ldap:5.1.6.RELEASE"
     compile 'org.grails.plugins:spring-security-ldap:3.0.2'
     compile 'org.grails.plugins:mail:3.0.0'
+    compile "org.grails.plugins:gsp:4.0.0"
 }
 
 bootRun {
