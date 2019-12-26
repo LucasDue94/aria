@@ -1,6 +1,7 @@
 package br.com.hospitaldocoracaoal.aria.db
 
 enum TipoSetor {
+    AMBULATORIO('A'),
     EMERGENCIA('E'),
     INTERNACAO('I'),
     HEMODINAMICA('H'),

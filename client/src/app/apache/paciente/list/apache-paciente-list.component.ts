@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {faFrown, faSearch} from "@fortawesome/free-solid-svg-icons";
-import {Admissao} from "../../../core/setor/admissao";
 import {Setor} from "../../../core/setor/setor";
 import {ApacheService} from "../../../core/apache/apache.service";
 import {SetorService} from "../../../core/setor/setor.service";
@@ -8,6 +7,7 @@ import {FormBuilder} from "@angular/forms";
 import {TitleService} from "../../../core/title/title.service";
 import {SpinnerService} from "../../../core/spinner/spinner.service";
 import {debounceTime, switchMap} from 'rxjs/operators';
+import {RegistroAtendimentoLeito} from "../../../core/registroAtendimentoLeitos/registroAtendimentoLeito";
 
 @Component({
   selector: 'app-apache-paciente-list',
@@ -19,7 +19,7 @@ export class ApachePacienteListComponent implements OnInit {
 
   faFrown = faFrown;
   faSearch = faSearch;
-  admissoesPacSetor: Admissao[] = [];
+  admissoesPacSetor: RegistroAtendimentoLeito[] = [];
   arrayListSetor: Setor[] = [];
   searchForm = this.fb.group({
     searchControl: ['']

@@ -7,7 +7,6 @@ CREATE FOREIGN TABLE atendimento (
     id bigint not null,
     version bigint,
     cid_id varchar(255) not null,
-    usuario_id bigint not null,
     registro_atendimento_id varchar(255) not null,
     data_atendimento timestamp not null,
     conteudo text

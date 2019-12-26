@@ -87,9 +87,9 @@ export class PerfilDashboardComponent implements OnInit, DoCheck, AfterViewCheck
       },
       opposite: true
     }],
-      legend: {
-        enabled: false
-      },
+    legend: {
+      enabled: false
+    },
     tooltip: {
       shared: true,
       formatter: function () {
@@ -486,7 +486,7 @@ export class PerfilDashboardComponent implements OnInit, DoCheck, AfterViewCheck
   getPercentageArray(key, arrayQuantity) {
     let array = [];
     const sum = (total, value) => total + value;
-    if (this.data != undefined && this.data[key] != undefined) {
+    if (this.data != undefined && this.data[key] != undefined && this.data[key].lenght > 0) {
       const total = arrayQuantity.reduce(sum);
       this.data[key].forEach(value => {
         let percent = (value.quantidade * 100) / total;
@@ -500,7 +500,7 @@ export class PerfilDashboardComponent implements OnInit, DoCheck, AfterViewCheck
 
   ngOnInit() {
     this.titleService.send('Perfil Epidemiológico');
-    this.setorService.list('','', '').subscribe(setores => {
+    this.setorService.list('', '', '').subscribe(setores => {
       this.setores = setores;
     });
     this.getLastMonth();
@@ -562,7 +562,7 @@ export class PerfilDashboardComponent implements OnInit, DoCheck, AfterViewCheck
     tipoArray.push(externo ? 'E' : '');
     tipoArray.push(ambulatorial ? 'A' : '');
     tipoArray.push(urgencia ? 'U' : '');
-    this.perfil.tipoAtendimento = tipoArray.filter( (el) => el != '');
+    this.perfil.tipoAtendimento = tipoArray.filter((el) => el != '');
     this.perfil.perfilGeral = perfilFlag;
     this.perfil.dataInicio = this.getControl('dataInicio').value;
     this.perfil.dataFinal = this.getControl('dataFinal').value;
@@ -587,6 +587,12 @@ export class PerfilDashboardComponent implements OnInit, DoCheck, AfterViewCheck
         type: 'error',
         icon: faFrown
       })
+    } else if (dataInicio == '' || dataFinal == '') {
+      this.alertService.send({
+        message: 'Ops...A data deve ser preenchida',
+        type: 'warning',
+        icon: faFrown
+      });
     } else {
       this.spinner.show();
       this.perfilService.list(this.perfil).subscribe(res => {
@@ -595,7 +601,7 @@ export class PerfilDashboardComponent implements OnInit, DoCheck, AfterViewCheck
             message: 'Desculpe... ocorreu um erro no servidor',
             type: 'error',
             icon: faFrown
-          })
+          });
         } else {
           this.data = res;
           this.updateCharts();

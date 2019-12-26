@@ -40,6 +40,7 @@ grails:
         json:
             generator:
                 dateFormat: 'yyyy-MM-dd HH:mm'
+                timeZone: 'GMT-03:00'
     databinding:
         date-formats:
             - 'dd/MM/yyyy HH:mm'

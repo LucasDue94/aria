@@ -27,6 +27,7 @@ app-root {
 body, app-main {
   height: 100vh;
   background-color: $white;
+  overflow: hidden;
 }
 
 setor-list, apache-form {

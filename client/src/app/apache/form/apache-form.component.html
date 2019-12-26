@@ -3,49 +3,49 @@
     <section class="flex-column">
       <section class="flex-row">
         <h3 class="label">Paciente:</h3>
-        <h4 class="info">{{registroAtendimentoLeito?.registroAtendimento?.paciente?.nome.toLowerCase()}}</h4>
+        <h4 class="info">{{registroAtendimento?.paciente?.nome.toLowerCase()}}</h4>
       </section>
       <section class="flex-row">
         <h3 class="label">Mãe:</h3>
-        <h4 class="info">{{registroAtendimentoLeito?.registroAtendimento?.paciente?.nomeMae.toLowerCase()}}</h4>
+        <h4 class="info">{{registroAtendimento?.paciente?.nomeMae.toLowerCase()}}</h4>
       </section>
       <section class="flex-row">
         <h3 class="label">Entrada:</h3>
-        <h4 class="info">{{registroAtendimentoLeito?.registroAtendimento?.dataEntrada | date:'dd/MM/yy,   HH:mm'}}</h4>
+        <h4 class="info">{{registroAtendimento?.dataEntrada | date:'dd/MM/yy,   HH:mm'}}</h4>
       </section>
     </section>
     <section class="flex-column">
       <section class="flex-row">
         <h3 class="label">Registro:</h3>
-        <h4 class="info">{{registroAtendimentoLeito?.registroAtendimento?.id}}</h4>
+        <h4 class="info">{{registroAtendimento?.id}}</h4>
       </section>
       <section class="flex-row">
         <h3 class="label">Motivo Alta:</h3>
-        <h4 class="info">{{registroAtendimentoLeito?.registroAtendimento?.motivoAlta?.toLowerCase()}}</h4>
+        <h4 class="info">{{registroAtendimento?.motivoAlta?.descricao?.toLowerCase()}}</h4>
       </section>
       <section class="flex-row">
         <h3 class="label">Saída:</h3>
-        <h4 class="info">{{registroAtendimentoLeito?.registroAtendimento?.dataAlta | date:'dd/MM/yy HH:mm'}}</h4>
+        <h4 class="info">{{registroAtendimento?.dataAlta | date:'dd/MM/yy,   HH:mm'}}</h4>
       </section>
     </section>
     <section class="flex-column">
       <section class="flex-row">
         <h3 class="label">Nascimento:</h3>
         <h4
-          class="info">{{registroAtendimentoLeito?.registroAtendimento?.paciente?.nascimento | date:'dd/MM/yyyy'}}</h4>
+          class="info">{{registroAtendimento?.paciente?.nascimento | date:'dd/MM/yyyy'}}</h4>
       </section>
       <section class="flex-row">
         <h3 class="label">Idade:</h3>
-        <h4 class="info">{{getIdade(registroAtendimentoLeito?.registroAtendimento?.paciente?.nascimento)}} anos</h4>
+        <h4 class="info">{{getIdade(registroAtendimento?.paciente?.nascimento)}} anos</h4>
       </section>
       <section class="flex-row">
         <h3 class="label">Setor:</h3>
-        <h4 class="info">{{registroAtendimentoLeito?.registroAtendimento?.setor?.descricao}}</h4>
+        <h4 class="info">{{registroAtendimento?.setor?.descricao}}</h4>
       </section>
     </section>
   </article>
   <form class="container-form-apache" [formGroup]="form">
-    <section class="container-pressao" [formGroup]="getControl('pressaoMedia')">
+    <section class="container-pressao" [formGroup]="getGroup('pressaoMedia')">
       <h3 class="label-pressao">Pressão Arterial Média (mmHg):</h3>
       <div class="form-group">
         <label for="ps" class="form-label">PS</label>
@@ -59,17 +59,19 @@
         <label for="pm" class="form-label">PM</label>
         <input id="pm" class="form-control control-disable" type="text" formControlName="pm">
       </div>
-      <p *ngIf="getControl('pressaoMedia').invalid" class="errors ">Estes campos não podem ser vazios. Insira
-        valores.</p>
+      <p
+        [ngClass]="[getGroup('pressaoMedia').invalid && (getGroup('pressaoMedia').dirty && getGroup('pressaoMedia').touched) ? 'errors': 'hidden']">
+        Estes campos não podem ser
+        vazios.Insira valores.</p>
     </section>
-    <section class="flex-row">
+    <section class="flex-row select-containers" [formGroup]="getGroup('outrasMedidas')">
       <section class="left">
         <div class="form-group">
           <app-select [reset]="resetForm" [width]="'215px'" [labelPosition]="'left'" [labelName]="'Temperatura(ºC):'"
                       (itemSelected)="getValue($event, 'temperatura')"
                       [items]="temperatura"></app-select>
-          <p *ngIf="getControl('temperatura').invalid" class="errors">Este campo não pode ser vazio. Escolha uma
-            opção.</p>
+          <p
+            [ngClass]="[getControl('temperatura').invalid && (getGroup('outrasMedidas').dirty && getGroup('outrasMedidas').touched) ? 'errors': 'hidden']">{{messageError}}</p>
         </div>
 
         <div class="form-group">
@@ -77,15 +79,18 @@
                       [labelName]="'Arterial pH ou HCO3:'"
                       (itemSelected)="getValue($event, 'arterialPh')"
                       [items]="arterialPh"></app-select>
-          <p *ngIf="getControl('arterialPh').invalid" class="errors">Este campo não pode ser vazio. Escolha uma
-            opção.</p>
+          <p
+            [ngClass]="[getControl('arterialPh').invalid && (getGroup('outrasMedidas').dirty && getGroup('outrasMedidas').touched) ? 'errors': 'hidden']">
+            {{messageError}}</p>
 
         </div>
         <div class="form-group">
           <app-select [reset]="resetForm" [width]="'215px'" [labelPosition]="'left'" [labelName]="'Na+ Sérico (meq/l):'"
                       (itemSelected)="getValue($event, 'naSerico')"
                       [items]="naSerico"></app-select>
-          <p *ngIf="getControl('naSerico').invalid" class="errors">Este campo não pode ser vazio. Escolha uma opção.</p>
+          <p
+            [ngClass]="[getControl('naSerico').invalid && (getGroup('outrasMedidas').dirty && getGroup('outrasMedidas').touched) ? 'errors': 'hidden']">
+            {{messageError}}</p>
 
         </div>
         <div class="form-group">
@@ -93,44 +98,51 @@
                       [labelName]="'Leucócitos (10^3/£gl):'"
                       (itemSelected)="getValue($event, 'leucocitos')"
                       [items]="leucocitos"></app-select>
-          <p *ngIf="getControl('leucocitos').invalid" class="errors">Este campo não pode ser vazio. Escolha uma
-            opção.</p>
+          <p
+            [ngClass]="[getControl('leucocitos').invalid && (getGroup('outrasMedidas').dirty && getGroup('outrasMedidas').touched) ? 'errors': 'hidden']">
+            {{messageError}}</p>
 
         </div>
         <div class="form-group">
           <app-select [reset]="resetForm" [width]="'215px'" [labelPosition]="'left'" [labelName]="'Gasglow Com Escala:'"
                       (itemSelected)="getValue($event,'gasglow')"
                       [items]="gasglow"></app-select>
-          <p *ngIf="getControl('gasglow').invalid" class="errors">Este campo não pode ser vazio. Escolha uma opção.</p>
+          <p
+            [ngClass]="[getControl('gasglow').invalid && (getGroup('outrasMedidas').dirty && getGroup('outrasMedidas').touched) ? 'errors': 'hidden']">
+            {{messageError}}</p>
 
         </div>
         <div class="form-group">
-          <app-select [reset]="resetForm" [width]="'215px'" [labelPosition]="'left'"
-                      [labelName]="'Problemas Crônicos de Saúde:'"
-                      (itemSelected)="getValue($event, 'problemasCronicos')"
-                      [items]="problemasCronicos"></app-select>
-          <p *ngIf="getControl('problemasCronicos').invalid" class="errors">Este campo não pode ser vazio. Escolha uma
-            opção.</p>
+          <section class="flex-row">
+            <fa-icon (mouseover)="showProblemas = true" (mouseleave)="showProblemas = false" class="info-icon"
+                     [icon]="faInfoCircle"></fa-icon>
+            <app-select [reset]="resetForm" [width]="'215px'" [labelPosition]="'left'"
+                        [labelName]="'Problemas Crônicos de Saúde:'"
+                        (itemSelected)="getValue($event, 'problemasCronicos')"
+                        [items]="problemasCronicos"></app-select>
+            <section [ngClass]=" [showProblemas ? 'show-problemas-cronicos':'hidden-problemas-cronicos']">
+              <p class="item">1) Cirrose-Biópsia</p>
+              <p class="item">2) New York Heart Association Class IV</p>
+              <p class="item">3) Severa COPD: Hipercapnia,O2 Dependente, Hipertensão Pulmonar</p>
+              <p class="item">4) Diálise Crônica</p>
+              <p class="item">5) Imunocomprometido</p>
+            </section>
+          </section>
+          <p
+            [ngClass]="[getControl('problemasCronicos').invalid && (getGroup('outrasMedidas').dirty && getGroup('outrasMedidas').touched) ? 'errors': 'hidden']">
+            {{messageError}}</p>
 
-
-          <!-- <section class="problemas-cronicos">
-             <p class="item">1) Cirrose-Biópsia</p>
-             <p class="item">2) New York Heart Association Class IV</p>
-             <p class="item">3) Severa COPD: Hipercapnia,O2 Dependente, Hipertensão Pulmonar</p>
-             <p class="item">4) Diálise Crônica</p>
-             <p class="item">5) Imunocomprometido</p>
-           </section>-->
         </div>
       </section>
       <section class="right">
-        <div class="form-group">
+        <div class="form-group" id="container-frequencia-cardiaca">
           <app-select [reset]="resetForm" [width]="'215px'" [labelPosition]="'left'"
                       [labelName]="'Frequência Cardíaca:'"
                       (itemSelected)="getValue($event,'frequenciaCardiaca')"
                       [items]="frequenciaCardiaca"></app-select>
-          <p *ngIf="getControl('frequenciaCardiaca').invalid" class="errors">Este campo não pode ser vazio. Escolha uma
-            opção.</p>
-
+          <p
+            [ngClass]="[getControl('frequenciaCardiaca').invalid && (getGroup('outrasMedidas').dirty && getGroup('outrasMedidas').touched) ? 'errors': 'hidden']">
+            {{messageError}}</p>
         </div>
 
         <div class="form-group">
@@ -138,23 +150,27 @@
                       [labelName]="'Frequência Respiratória:'"
                       (itemSelected)="getValue($event, 'frequenciaRespiratoria')"
                       [items]="frequenciaRespiratoria"></app-select>
-          <p *ngIf="getControl('frequenciaRespiratoria').invalid" class="errors">Este campo não pode ser vazio. Escolha
-            uma opção.</p>
+          <p
+            [ngClass]="[getControl('frequenciaRespiratoria').invalid && (getGroup('outrasMedidas').dirty && getGroup('outrasMedidas').touched) ? 'errors': 'hidden']">
+            {{messageError}}</p>
 
         </div>
         <div class="form-group">
           <app-select [reset]="resetForm" [width]="'215px'" [labelPosition]="'left'" [labelName]="'K+ Sérico (meq/l):'"
                       (itemSelected)="getValue($event,'kSerico')"
                       [items]="kSerico"></app-select>
-          <p *ngIf="getControl('kSerico').invalid" class="errors">Este campo não pode ser vazio. Escolha uma opção.</p>
+          <p
+            [ngClass]="[getControl('kSerico').invalid && (getGroup('outrasMedidas').dirty && getGroup('outrasMedidas').touched) ? 'errors': 'hidden']">
+            {{messageError}}</p>
 
         </div>
         <div class="form-group">
           <app-select [reset]="resetForm" [width]="'215px'" [labelPosition]="'left'" [labelName]="'Hematócrito:'"
                       (itemSelected)="getValue($event,'hematocrito')"
                       [items]="hematocrito"></app-select>
-          <p *ngIf="getControl('hematocrito').invalid" class="errors">Este campo não pode ser vazio. Escolha uma
-            opção.</p>
+          <p
+            [ngClass]="[getControl('hematocrito').invalid && (getGroup('outrasMedidas').dirty && getGroup('outrasMedidas').touched) ? 'errors': 'hidden']">
+            {{messageError}}</p>
 
         </div>
         <div class="form-group">
@@ -162,7 +178,9 @@
                       [labelName]="'A-aPO2 (FiO2 > 50%) ou PaO2 (FiO2 < 50%):'"
                       (itemSelected)="getValue($event, 'aapo')"
                       [items]="aapo"></app-select>
-          <p *ngIf="getControl('aapo').invalid" class="errors">Este campo não pode ser vazio. Escolha uma opção.</p>
+          <p
+            [ngClass]="[getControl('aapo').invalid && (getGroup('outrasMedidas').dirty && getGroup('outrasMedidas').touched) ? 'errors': 'hidden']">
+            {{messageError}}</p>
 
         </div>
         <div class="form-group">
@@ -170,15 +188,16 @@
                       [labelName]="'Creatinina Sérica com ou sem IRA: '"
                       (itemSelected)="getValue($event,'creatinina')"
                       [items]="creatinina"></app-select>
-          <p *ngIf="getControl('creatinina').invalid" class="errors">Este campo não pode ser vazio. Escolha uma
-            opção.</p>
+          <p
+            [ngClass]="[getControl('creatinina').invalid && (getGroup('outrasMedidas').dirty && getGroup('outrasMedidas').touched) ? 'errors': 'hidden']">
+            {{messageError}}</p>
 
         </div>
       </section>
+      <div class="container-button">
+        <button (click)="save()" class="button button-blue">Salvar</button>
+        <button (click)="clear()" class="button">Limpar</button>
+      </div>
     </section>
-    <div class="container-button">
-      <button (click)="save()" class="button button-blue">Salvar</button>
-      <button (click)="clear()" class="button">Limpar</button>
-    </div>
   </form>
 </main>

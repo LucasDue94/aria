@@ -28,7 +28,7 @@ export class PerfilService {
     let fullUrl = '';
 
     if (perfil == undefined) {
-      fullUrl = this.baseUrl + `perfilEpidemiologico?dataInicio=` + '&dataFinal=' +
+      fullUrl = this.baseUrl + `perfilEpidemiologico?inicio=` + '&fim=' +
         '&setores=' + '&tipo=' + tipo + '&perfilGeral=true';
     } else {
       if (perfil.tipoAtendimento != undefined) tipo = perfil.tipoAtendimento.join('&tipo=');
@@ -36,7 +36,7 @@ export class PerfilService {
         setor = perfil.setores.join('&setores=');
       }
 
-      fullUrl = this.baseUrl + `perfilEpidemiologico?dataInicio=` + perfil.dataInicio + '&dataFinal=' +
+      fullUrl = this.baseUrl + `perfilEpidemiologico?inicio=` + perfil.dataInicio + '&fim=' +
         perfil.dataFinal + '&setores=' + setor + '&tipo=' + tipo + '&perfilGeral=' +
         perfil.perfilGeral;
     }

@@ -1,17 +1,25 @@
 package br.com.hospitaldocoracaoal.aria
 
-import br.com.hospitaldocoracaoal.integracao.Atendimento
 import br.com.hospitaldocoracaoal.integracao.Cid
 import br.com.hospitaldocoracaoal.integracao.RegistroAtendimento
 import br.com.hospitaldocoracaoal.integracao.SetorWpd
 import org.grails.datastore.mapping.query.api.BuildableCriteria
-
-
+import org.hibernate.FetchMode
+import org.hibernate.sql.JoinType
 
 class PerfilEpidemiologicoService {
 
 
     private static final Closure FILTROS = { BuildableCriteria criteria, Date inicio, Date fim, Character[] tipos ->
+        criteria.createAlias "atendimentos", "a", JoinType.LEFT_OUTER_JOIN
+        criteria.createAlias "a.cid", "ac", JoinType.LEFT_OUTER_JOIN
+        criteria.createAlias "cid", "c", JoinType.LEFT_OUTER_JOIN
+
+        criteria.fetchMode "a", FetchMode.JOIN
+        criteria.fetchMode "c", FetchMode.JOIN
+        criteria.fetchMode "paciente", FetchMode.JOIN
+        criteria.fetchMode "ac", FetchMode.JOIN
+
         if (inicio != null && fim != null) {
             Calendar calendar = new GregorianCalendar()
             calendar.time = fim
@@ -147,7 +155,6 @@ class PerfilEpidemiologicoService {
             ]
         }
 
-
         registros.each { registro ->
 
             def motivoAlta = motivosAltas.find { it.motivoAltaId == registro.motivoAlta.id }
@@ -163,21 +170,22 @@ class PerfilEpidemiologicoService {
                 motivosAltas << [motivoAltaId: motivoAltaId, descricao: descricao, quantidade: 1]
             }
 
-            def cid = cids.find { c -> c.codigo == registro.cid?.codigo }
 
+            Cid cid = registro.cid
+            if (cid == null && !registro.atendimentos.empty) {
+                cid = registro.atendimentos.last().cid
+            }
+            def perfilCid = cids.find { c -> c.codigo == cid?.id }
 
-            if (cid != null) {
-                cid.quantidade++
+            if (perfilCid != null) {
+                perfilCid.quantidade++
             } else {
                 String codigo = null
                 String diagnostico = "Não cadastrado"
-                if (registro.cid != null) {
-                    codigo = registro.cid.codigo
-                    diagnostico = registro.cid.diagnostico
-                } else if (!registro.atendimentos.empty) {
-                    Cid atendimentoCid = registro.atendimentos.last().cid
-                    codigo = atendimentoCid.codigo
-                    diagnostico = atendimentoCid.diagnostico
+
+                if (cid != null) {
+                    codigo = cid.id
+                    diagnostico = cid.diagnostico
                 }
 
                 cids << [codigo: codigo, diagnostico: diagnostico, quantidade: 1]

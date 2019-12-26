@@ -1,6 +1,5 @@
 export class MotivoAlta {
   id: number;
-
   descricao: string;
   classificacao: any;
 
@@ -11,7 +10,6 @@ export class MotivoAlta {
         this[prop] = object[prop];
       }
     }
-
   }
 
   toString(): string {
