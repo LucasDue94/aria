@@ -612,12 +612,10 @@ export class PerfilDashboardComponent implements OnInit, DoCheck, AfterViewCheck
   }
 
   getItemsSelected(event) {
-    console.log(event);
     this.perfil.setores = [];
     let itemsSet = new Set();
     event.forEach(item => itemsSet.add(item.id));
     this.perfil.setores = Array.from(itemsSet);
-    console.log(this.perfil.setores);
   }
 }
 

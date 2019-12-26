@@ -45,6 +45,10 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+
+    .aria-select {
+      width: 100%;
+    }
   }
 
   .container-pressao {
@@ -93,7 +97,7 @@
   }
 
   .left, .right {
-    margin: 10px;
+    margin: 10px 20px;
     width: 50%;
 
     .form-group {
@@ -175,6 +179,7 @@
   }
 }
 
+
 @media screen and (max-width: 1700px) {
 
   .container-form-apache {
@@ -201,7 +206,7 @@
       .left, .right {
         position: relative;
         margin: 0 !important;
-        width: 70% !important;
+        width: 70%;
       }
 
       .right {
@@ -249,13 +254,12 @@
     }
   }
 
-  .container-apache{
+  .container-apache {
     position: absolute;
-    border: 2px solid green;
     height: auto;
+    width: 100%;
   }
   .container-form-apache {
-    border: 2px solid rebeccapurple;
     height: auto;
     overflow-y: initial !important;
 
@@ -271,10 +275,28 @@
     .select-containers {
       top: 0;
       position: relative !important;
+
+      .aria-select {
+        width: auto;
+      }
+    }
+
+    .form-group {
+      position: relative;
+      align-items: center;
     }
 
     .right {
+      width: 100% !important;
       margin-top: 0;
+    }
+
+    .left {
+      width: 100% !important;
+
+      .flex-row {
+        width: auto;
+      }
     }
   }
 
@@ -294,7 +316,7 @@
 
 
   .errors, .hidden {
-    left: 5px;
-    bottom: -15px;
+    text-align: center;
+    left: 0;
   }
 }

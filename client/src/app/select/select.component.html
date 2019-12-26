@@ -1,5 +1,5 @@
 <main class="container-select" [ngClass]="[labelPosition == 'left'? 'label-left':'label-top' ]">
-  <h3 class="select-label">{{labelName}}</h3>
+  <h3 class="select-label" [ngStyle]="{'width': labelPosition=='top' ? width:'' }">{{labelName}}</h3>
   <section (click)="showSelect()" class="select" [ngStyle]="{'width':width}"
            #select>{{selected}}</section>
   <article *ngIf="show" class="container-options simple-select"

@@ -1,4 +1,4 @@
-import {HostListener, Injectable} from '@angular/core';
+import {Injectable} from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +10,6 @@ export class SelectService {
   constructor() {
   }
 
-  @HostListener('click', ['$event.target']) onClick(element) {
-    console.log(element);
-  }
 
   emit(element) {
     this.previousSelect = this.currentSelect;

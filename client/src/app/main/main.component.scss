@@ -1,9 +1,6 @@
 @import '../../assets/colors';
 @import '../../assets/device-sizes';
 
-.flex-column{
-  //height: auto !important;
-}
 .main-container {
   position: relative;
   display: flex;
@@ -26,7 +23,6 @@
     background-color: transparent;
     box-shadow: none;
     height: 100%;
-
   }
 }
 
@@ -37,6 +33,8 @@
   background-color: $gray-20;
 
   @media screen and (max-width: $smartphone-max-width) {
+    display: flex;
+    flex-direction: column;
     position: relative;
     height: 100%;
     overflow-y: auto;

@@ -1,4 +1,4 @@
-import {Component, DoCheck, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {SpinnerService} from "../../core/spinner/spinner.service";
 import {AlertService} from "../../core/alert/alert.service";
 import {TitleService} from "../../core/title/title.service";
@@ -43,7 +43,7 @@ export class ApacheFormComponent implements OnInit {
       pressaoMedia: this.fb.group({
         ps: ['', Validators.required],
         pd: ['', Validators.required],
-        pm: ['', Validators.required],
+        pm: ['', [Validators.required, Validators.min(21), Validators.max(299)]],
       }),
       outrasMedidas: this.fb.group({
         temperatura: ['', Validators.required],
@@ -64,6 +64,7 @@ export class ApacheFormComponent implements OnInit {
   resetForm = false;
   showProblemas = false;
   messageError = "Este campo não pode ser vazio.";
+  messagePressao = "Este campo não pode ser vazio.";
   labelPosition = 'left';
 
   constructor(private spinner: SpinnerService, private alert: AlertService,
@@ -74,9 +75,9 @@ export class ApacheFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (window.innerWidth < 1024)
-      this.labelPosition = 'top';
+    if (window.innerWidth < 1024) this.labelPosition = 'top';
     this.spinner.show();
+
     this.title.send('Apache - Formulário');
     this.calculaPressaoMedia();
     const id = this.route.snapshot.queryParamMap.get('registro');
@@ -115,18 +116,37 @@ export class ApacheFormComponent implements OnInit {
   }
 
   calculaPressaoMedia() {
-    //TODO PS > PD e 20 > PM >300
     let pressaoMedia = this.form.get('pressaoMedia');
     pressaoMedia.get('ps').valueChanges.subscribe(res => {
       this.pressaoMedia.ps = res;
-      this.pressaoMedia.pm = (this.pressaoMedia.ps + (this.pressaoMedia.pd * 2)) / 3;
+      this.pressaoMedia.pm = ((this.getControl('ps').value * 2) + (this.getControl('pd').value * 2)) / 3;
       pressaoMedia.get('pm').setValue(this.pressaoMedia.pm);
+      this.checkErrorPressao();
     });
     pressaoMedia.get('pd').valueChanges.subscribe(res => {
       this.pressaoMedia.pd = res;
-      this.pressaoMedia.pm = (this.pressaoMedia.ps + (this.pressaoMedia.pd * 2)) / 3;
+      this.pressaoMedia.pm = ((this.getControl('ps').value * 2) + (this.getControl('pd').value * 2)) / 3;
       pressaoMedia.get('pm').setValue(this.pressaoMedia.pm);
+      this.checkErrorPressao();
     });
+  }
+
+  checkErrorPressao() {
+    let ps = this.getControl('ps').value;
+    let pd = this.getControl('pd').value;
+    let pm = this.getControl('pm').value;
+
+    if (ps == '' || pd == '' || pm == '') {
+      this.messagePressao = 'Este campo não pode ser vazio';
+    } else {
+      if (ps < pd) {
+        this.messagePressao = 'A pressao sistólica é menor que a diastólica';
+      } else if (pm < 300 || pm > 20) {
+        this.messagePressao = 'A pressao média deve estar entre o intervalo 20 > PM >300';
+      }
+    }
+    this.getGroup('pressaoMedia').markAsTouched();
+    this.getGroup('pressaoMedia').markAsDirty({onlySelf: true});
   }
 
   getControl(name) {
@@ -136,7 +156,7 @@ export class ApacheFormComponent implements OnInit {
     return this.form.get('outrasMedidas').get(name);
   }
 
-  getGroup = (name) => this.form.get(name);
+  getGroup = (name): any => this.form.get(name);
 
   clear() {
     this.resetForm = true;
@@ -146,7 +166,6 @@ export class ApacheFormComponent implements OnInit {
     }, 1000);
     this.form.markAsUntouched();
   }
-
 
   setValues() {
     this.newApache = new Apache();
@@ -171,7 +190,7 @@ export class ApacheFormComponent implements OnInit {
   save() {
     this.getGroup('outrasMedidas').markAsDirty({onlySelf: true});
     this.getGroup('outrasMedidas').markAsTouched();
-    console.log(this.form);
+    this.checkErrorPressao();
     if (this.form.valid) {
       this.setValues();
       this.apacheService.save(this.newApache).subscribe(res => {
