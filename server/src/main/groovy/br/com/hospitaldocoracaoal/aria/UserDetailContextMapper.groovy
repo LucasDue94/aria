@@ -17,6 +17,7 @@ class UserDetailContextMapper implements UserDetailsContextMapper {
     @Override
     UserDetails mapUserFromContext(DirContextOperations ctx, String username, Collection<? extends GrantedAuthority> authorities) {
         String nome = ctx.getStringAttribute('displayName')
+        String email = ctx.getStringAttribute('mail')
 
         Usuario.withTransaction {
 
@@ -24,7 +25,8 @@ class UserDetailContextMapper implements UserDetailsContextMapper {
             def usuarioMap = [
                     username: username,
                     grupo: grupo,
-                    nome: nome
+                    nome: nome,
+                    email: email
             ]
 
             Usuario usuario = Usuario.findOrCreateWhere usuarioMap
