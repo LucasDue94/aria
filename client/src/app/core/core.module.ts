@@ -18,6 +18,8 @@ import {AuthService} from "./auth/auth.service";
 import {AuthGuard} from "./guards/auth.guard";
 import {SelectService} from "./select/select.service";
 import {ApacheService} from './apache/apache.service';
+import { PermissaoService } from './permissao/permissao.service';
+import { GrupoService } from './grupo/grupo.service';
 
 
 @NgModule({
@@ -43,8 +45,10 @@ import {ApacheService} from './apache/apache.service';
     AuthService,
     AuthGuard,
     SelectService,
-    ApacheService
-  ]
+    ApacheService,
+    PermissaoService,
+    GrupoService
+]
 })
 export class CoreModule {
 }

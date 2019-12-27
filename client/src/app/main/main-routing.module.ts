@@ -10,6 +10,7 @@ import {MainComponent} from "./main.component";
 import {AuthGuard} from "../core/guards/auth.guard";
 import {RelatorioListComponent} from "../relatorio/relatorio-list/relatorio-list.component";
 import {ApacheReportComponent} from "../relatorio/relatorio-list/apache-report/apache-report.component";
+import {GrupoCreateComponent} from "../grupo/create/grupo-create.component";
 
 
 const routes: Routes = [
@@ -30,8 +31,6 @@ const routes: Routes = [
             redirectTo: 'list',
             pathMatch: 'full',
             canActivate: [AuthGuard],
-            data: {permissao: 'ROLE_SETOR_INDEX'}
-
           },
           {
             path: 'list',
@@ -87,7 +86,25 @@ const routes: Routes = [
         path: 'apache-report',
         component: ApacheReportComponent,
         canActivate: [AuthGuard]
-      }
+      },
+      {
+        path: 'grupo',
+        children: [
+          {
+            path: '',
+            redirectTo: 'create',
+            pathMatch: 'full',
+            canActivate: [AuthGuard],
+          },
+          {
+            path: 'create',
+            component: GrupoCreateComponent,
+            canActivate: [AuthGuard],
+            data: {permissao: 'ROLE_SETOR_INDEX'}
+
+          }
+        ]
+      },
     ]
   }
 ];

@@ -28,6 +28,7 @@ export class SetorEditComponent implements OnInit {
     {id: 'I', setor: 'INTERNACAO'},
     {id: 'H', setor: 'HEMODINAMICA'},
     {id: 'E', setor: 'EMERGENCIA'},
+    {id: 'A', setor: 'AMBULATORIO'},
   ];
 
   setor: Setor;
