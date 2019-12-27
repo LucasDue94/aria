@@ -2,7 +2,6 @@ import {RegistroAtendimentoLeito} from '../registroAtendimentoLeitos/registroAte
 
 export class Apache {
   id: number;
-
   temperatura: string;
   pas: number;
   pad: number;
@@ -34,6 +33,7 @@ export class Apache {
     }
 
   }
+
 
   toString(): string {
     return 'br.com.hospitaldocoracaoal.aria.Apache : ' + (this.id ? this.id : '(unsaved)');
