@@ -1,18 +1,16 @@
-<form action="" class="panel">
+<form #it="ngForm" action="" class="panel">
   <div>
     <label class="label-panel" for="inicio">Inicio:</label>
-    <input class="input-date" id="inicio" type="date">
+    <input class="input-date" id="inicio" type="date" value="{{dataInicio}}">
     <label class="label-panel" for="fim">Fim:</label>
   </div>
   <div>
-    <input class="input-date" id="fim" type="date">
+    <input class="input-date" id="fim" type="date" value="{{dataFim}}">
     <label class="label-panel" for="fim">Setor:</label>
   </div>
   <div>
-    <select class="panel-select" name="" id="">
-      <option value="">Selecione</option>
-      <option value="">CTI</option>
-      <option value="">UTI</option>
+    <select name="setor" class="panel-select" [(ngModel)]="setorId" (ngModelChange)="getSetor(setorId)">
+      <option name="setor" *ngFor="let setor of arrayListSetor" [ngValue]="setor.id">{{setor.sigla}}</option>
     </select>
     <button class="button-search-panel">
       <fa-icon [icon]=faSearch></fa-icon>

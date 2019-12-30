@@ -23,6 +23,7 @@ import {AuthGuard} from "./core/guards/auth.guard";
 import {HashLocationStrategy, LocationStrategy} from "@angular/common";
 import {RelatorioModule} from "./relatorio/relatorio.module";
 import {GrupoModule} from "./grupo/grupo.module";
+import {UsuarioModule} from "./usuario/usuario.module";
 
 @NgModule({
   exports: [],
@@ -51,6 +52,7 @@ import {GrupoModule} from "./grupo/grupo.module";
     SelectModule,
     LoginModule,
     GrupoModule,
+    UsuarioModule
   ],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy},

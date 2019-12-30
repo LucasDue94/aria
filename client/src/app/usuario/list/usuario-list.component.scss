@@ -1,0 +1,33 @@
+@import '../../../assets/device-sizes';
+
+@media screen and (max-width: $tablet-width) {
+  .email {
+    display: none;
+  }
+  .button-add {
+    right: 5px;
+  }
+
+  .container-usuario {
+    height: calc(100% - 10px);
+    width: calc(100% - 20px);
+    margin: 10px;
+
+    .search-container {
+      position: relative;
+      display: flex;
+
+      #search-button {
+        flex: 1;
+        max-width: 40px;
+      }
+
+      #search-text {
+        max-width: 200px;
+        flex: 3;
+        width: 10px;
+        margin: 0 !important;
+      }
+    }
+  }
+}

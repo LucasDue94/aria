@@ -38,6 +38,16 @@ export class ApacheService extends HeadersHelper {
     return subject.asObservable();
   }
 
+  report(dataInicio?: string, dataFim?: string, setorId?: number, offset?: any, max?: any): Observable<Apache[]> {
+    let subject = new Subject<Apache[]>();
+    this.http.get<Apache[]>(this.baseUrl + `apache/relatorio?` + 'dataInicio=' + dataInicio + '&dataFim=' + dataFim + '&setorId='+ setorId +'&offset=' + offset + '&max=' + max, {headers: this.getDefaultHttpOptions()})
+      .pipe(
+        catchError(error => of({error})
+        )).subscribe((json: Apache[]) => {
+      subject.next(json);
+    });
+    return subject.asObservable();
+  }
 
   count() {
     let quantity: number;

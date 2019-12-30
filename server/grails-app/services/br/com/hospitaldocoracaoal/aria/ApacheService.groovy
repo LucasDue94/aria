@@ -22,64 +22,65 @@ abstract class ApacheService {
             createAlias 'registroAtendimentoLeito', 'ral', JoinType.INNER_JOIN
             createAlias 'ral.leito', 'l', JoinType.INNER_JOIN
             createAlias 'l.setor', 's', JoinType.INNER_JOIN
+            createAlias 's.setor', 'set', JoinType.INNER_JOIN
 
             between 'ral.dataEntrada', dataInicio, dataFim
-            eq('s.id', args.setorId)
+            eq('set.id', args.long('setorId'))
         } as List<Apache>
 
         def cirurgico = apacheList.findAll { !it.registroAtendimentoLeito.registroAtendimento.cirurgias?.isEmpty() }
         def naoCirurgicos = apacheList - cirurgico
 
-        Closure closureAltas = { it.registroAtendimentoLeito.registroAtendimento.motivoAlta.classificacao != 'O' }
-        Closure closureObitos = { it.registroAtendimentoLeito.registroAtendimento.motivoAlta.classificacao == 'O' }
+        Closure closureAltas = { it.registroAtendimentoLeito.registroAtendimento?.motivoAlta?.classificacao != 'O' }
+        Closure closureObitos = { it.registroAtendimentoLeito.registroAtendimento?.motivoAlta?.classificacao == 'O' }
 
 //        Smr Cirúrgico
 
         def cir1Smr = cirurgico.findAll({ it.escore <= 4 }).size() == 0 ? 0
-                : cirurgico.findAll({ it.escore <= 4 }).findAll(closureObitos).size() / (cirurgico.findAll({ it.escore <= 4 }).size() * 0.04)
+                : cirurgico.findAll({ it.escore <= 4 }).findAll(closureObitos).size() / (cirurgico.findAll({ it.escore <= 4 }).size() * 0.04d)
 
         def cir3Smr = cirurgico.findAll({ it.escore >= 5 && it.escore <= 9 }).size() == 0 ? 0
-                : cirurgico.findAll({ it.escore >= 5 && it.escore <= 9 }).findAll(closureObitos).size() / (cirurgico.findAll({ it.escore >= 5 && it.escore <= 9 }).size() * 0.03)
+                : cirurgico.findAll({ it.escore >= 5 && it.escore <= 9 }).findAll(closureObitos).size() / (cirurgico.findAll({ it.escore >= 5 && it.escore <= 9 }).size() * 0.03d)
 
         def cir7Smr = cirurgico.findAll({ it.escore >= 10 && it.escore <= 14 }).size() == 0 ? 0
-                : cirurgico.findAll({ it.escore >= 10 && it.escore <= 14 }).findAll(closureObitos).size() / (cirurgico.findAll({ it.escore >= 10 && it.escore <= 14 }).size() * 0.07)
+                : cirurgico.findAll({ it.escore >= 10 && it.escore <= 14 }).findAll(closureObitos).size() / (cirurgico.findAll({ it.escore >= 10 && it.escore <= 14 }).size() * 0.07d)
 
         def cir12Smr = cirurgico.findAll({ it.escore >= 15 && it.escore <= 19 }).size() == 0 ? 0
-                : cirurgico.findAll({ it.escore >= 15 && it.escore <= 19 }).findAll(closureObitos).size() / (cirurgico.findAll({ it.escore >= 15 && it.escore <= 19 }).size() * 0.12)
+                : cirurgico.findAll({ it.escore >= 15 && it.escore <= 19 }).findAll(closureObitos).size() / (cirurgico.findAll({ it.escore >= 15 && it.escore <= 19 }).size() * 0.12d)
 
         def cir30Smr = cirurgico.findAll({ it.escore >= 20 && it.escore <= 24 }).size() == 0 ? 0
-                : cirurgico.findAll({ it.escore >= 20 && it.escore <= 24 }).findAll(closureObitos).size() / (cirurgico.findAll({ it.escore >= 20 && it.escore <= 24 }).size() * 0.30)
+                : cirurgico.findAll({ it.escore >= 20 && it.escore <= 24 }).findAll(closureObitos).size() / (cirurgico.findAll({ it.escore >= 20 && it.escore <= 24 }).size() * 0.30d)
 
         def cir35Smr = cirurgico.findAll({ it.escore >= 25 && it.escore <= 29 }).size() == 0 ? 0
-                : cirurgico.findAll({ it.escore >= 25 && it.escore <= 29 }).findAll(closureObitos).size() / (cirurgico.findAll({ it.escore >= 25 && it.escore <= 29 }).size() * 0.35)
+                : cirurgico.findAll({ it.escore >= 25 && it.escore <= 29 }).findAll(closureObitos).size() / (cirurgico.findAll({ it.escore >= 25 && it.escore <= 29 }).size() * 0.35d)
 
         def cir73Smr = cirurgico.findAll({ it.escore >= 30 && it.escore <= 34 }).size() == 0 ? 0
-                : cirurgico.findAll({ it.escore >= 30 && it.escore <= 34 }).findAll(closureObitos).size() / (cirurgico.findAll({ it.escore >= 30 && it.escore <= 34 }).size() * 0.73)
+                : cirurgico.findAll({ it.escore >= 30 && it.escore <= 34 }).findAll(closureObitos).size() / (cirurgico.findAll({ it.escore >= 30 && it.escore <= 34 }).size() * 0.73d)
 
         def cir88Smr = cirurgico.findAll({ it.escore >= 35 }).size() == 0 ? 0
-                : cirurgico.findAll({ it.escore >= 35 }).findAll(closureObitos).size() / (cirurgico.findAll({ it.escore >= 35 }).size() * 0.88)
+                : cirurgico.findAll({ it.escore >= 35 }).findAll(closureObitos).size() / (cirurgico.findAll({ it.escore >= 35 }).size() * 0.88d)
 
 //        Smr não cirúrgico
         def nCir4Smr = naoCirurgicos.findAll({ it.escore <= 4 }).size() == 0 ? 0
-                : naoCirurgicos.findAll({ it.escore <= 4 }).findAll(closureObitos).size() / (naoCirurgicos.findAll({ it.escore <= 4 }).size() * 0.04)
+                : naoCirurgicos.findAll({ it.escore <= 4 }).findAll(closureObitos).size() / (naoCirurgicos.findAll({ it.escore <= 4 }).size() * 0.04d)
 
         def nCir8Smr = naoCirurgicos.findAll({ it.escore >= 5 && it.escore <= 9 }).size() == 0 ? 0
-                : naoCirurgicos.findAll({ it.escore >= 5 && it.escore <= 9 }).findAll(closureObitos).size() / (naoCirurgicos.findAll({ it.escore >= 5 && it.escore <= 9 }).size() * 0.08)
+                : naoCirurgicos.findAll({ it.escore >= 5 && it.escore <= 9 }).findAll(closureObitos).size() / (naoCirurgicos.findAll({ it.escore >= 5 && it.escore <= 9 }).size() * 0.08d)
 
         def nCir15Smr = naoCirurgicos.findAll({ it.escore >= 10 && it.escore <= 14 }).size() == 0 ? 0
-                : naoCirurgicos.findAll({ it.escore >= 10 && it.escore <= 14 }).findAll(closureObitos).size() / (naoCirurgicos.findAll({ it.escore >= 10 && it.escore <= 14 }).size() * 0.15)
+                : naoCirurgicos.findAll({ it.escore >= 10 && it.escore <= 14 }).findAll(closureObitos).size() / (naoCirurgicos.findAll({ it.escore >= 10 && it.escore <= 14 }).size() * 0.15d)
 
         def nCir24Smr = naoCirurgicos.findAll({ it.escore >= 15 && it.escore <= 19 }).size() == 0 ? 0
-                : naoCirurgicos.findAll({ it.escore >= 15 && it.escore <= 19 }).findAll(closureObitos).size() / (naoCirurgicos.findAll({ it.escore >= 15 && it.escore <= 19 }).size() * 0.24)
+                : naoCirurgicos.findAll({ it.escore >= 15 && it.escore <= 19 }).findAll(closureObitos).size() / (naoCirurgicos.findAll({ it.escore >= 15 && it.escore <= 19 }).size() * 0.24d)
 
         def nCir40Smr = naoCirurgicos.findAll({ it.escore >= 20 && it.escore <= 24 }).size() == 0 ? 0
-                : naoCirurgicos.findAll({ it.escore >= 20 && it.escore <= 24 }).findAll(closureObitos).size() / (naoCirurgicos.findAll({ it.escore >= 20 && it.escore <= 24 }).size() * 0.40)
+                : naoCirurgicos.findAll({ it.escore >= 20 && it.escore <= 24 }).findAll(closureObitos).size() / (naoCirurgicos.findAll({ it.escore >= 20 && it.escore <= 24 }).size() * 0.40d)
 
         def nCir55Smr = naoCirurgicos.findAll({ it.escore >= 25 && it.escore <= 29 }).size() == 0 ? 0
-                : naoCirurgicos.findAll({ it.escore >= 25 && it.escore <= 29 }).findAll(closureObitos).size() / (naoCirurgicos.findAll({ it.escore >= 25 && it.escore <= 29 }).size() * 0.55)
+                : naoCirurgicos.findAll({ it.escore >= 25 && it.escore <= 29 }).findAll(closureObitos).size() / (naoCirurgicos.findAll({ it.escore >= 25 && it.escore <= 29 }).size() * 0.55d)
 
         def nCir73Smr = naoCirurgicos.findAll({ it.escore >= 30 && it.escore <= 34 }).size() == 0 ? 0
-                : naoCirurgicos.findAll({ it.escore >= 30 && it.escore <= 34 }).findAll(closureObitos).size() / (naoCirurgicos.findAll({ it.escore >= 30 && it.escore <= 34 }).size() * 0.73)
+                : naoCirurgicos.findAll({ it.escore >= 30 && it.escore <= 34 }).findAll(closureObitos).size() / (naoCirurgicos.findAll({ it.escore >= 30 && it.escore <= 34 }).size() * 0.73d)
 
         def nCir85Smr = naoCirurgicos.findAll({ it.escore >= 35 }).size() == 0 ? 0
                 : naoCirurgicos.findAll({ it.escore >= 35 }).findAll(closureObitos).size() / (naoCirurgicos.findAll({ it.escore >= 35 }).size() * 0.85)
