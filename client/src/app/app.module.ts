@@ -22,6 +22,7 @@ import {LoginModule} from "./login/login.module";
 import {AuthGuard} from "./core/guards/auth.guard";
 import {HashLocationStrategy, LocationStrategy} from "@angular/common";
 import {RelatorioModule} from "./relatorio/relatorio.module";
+import {UsuarioModule} from "./usuario/usuario.module";
 
 @NgModule({
   exports: [],
@@ -49,6 +50,7 @@ import {RelatorioModule} from "./relatorio/relatorio.module";
     FastSearchModule,
     SelectModule,
     LoginModule,
+    UsuarioModule
   ],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy},

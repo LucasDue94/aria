@@ -10,6 +10,8 @@ import {MainComponent} from "./main.component";
 import {AuthGuard} from "../core/guards/auth.guard";
 import {RelatorioListComponent} from "../relatorio/relatorio-list/relatorio-list.component";
 import {ApacheReportComponent} from "../relatorio/relatorio-list/apache-report/apache-report.component";
+import {UsuarioListComponent} from "../usuario/list/usuario-list.component";
+import {UsuarioEditComponent} from "../usuario/edit/usuario-edit.component";
 
 
 const routes: Routes = [
@@ -46,6 +48,28 @@ const routes: Routes = [
             component: SetorCreateComponent,
             canActivate: [AuthGuard],
           },
+        ]
+      },
+      {
+        path: 'usuario',
+        children: [
+          {
+            path: '',
+            redirectTo: 'list',
+            pathMatch: 'full',
+            canActivate: [AuthGuard],
+            data: {permissao: 'ROLE_SETOR_INDEX'}
+
+          },
+          {
+            path: 'list',
+            component: UsuarioListComponent,
+            canActivate: [AuthGuard]
+          }, {
+            path: 'edit/:id',
+            component: UsuarioEditComponent,
+            canActivate: [AuthGuard]
+          }
         ]
       },
       {
