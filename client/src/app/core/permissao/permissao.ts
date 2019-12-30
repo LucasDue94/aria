@@ -1,28 +1,31 @@
-import { Grupo } from '../grupo/grupo';
+import {Grupo} from '../grupo/grupo';
 
 export class Permissao {
-    id: number;
+  id: number;
 
-    authority: string;
+  authority: string;
   nome: string;
+  alias: string;
   grupos: Grupo[];
 
-    constructor (object?: any) {
-      if (object) {
-        
-        if (object.hasOwnProperty('grupos')) {
-          this.grupos = object['grupos'].map((obj: any) => { return new Grupo(obj); });
+  constructor(object?: any) {
+    if (object) {
+
+      if (object.hasOwnProperty('grupos')) {
+        this.grupos = object['grupos'].map((obj: any) => {
+          return new Grupo(obj);
+        });
         delete object['grupos'];
-        }
-        
-        for (var prop in object) {
-          this[prop] = object[prop];
-        }
       }
 
+      for (var prop in object) {
+        this[prop] = object[prop];
+      }
     }
 
-    toString(): string {
-      return 'br.com.hospitaldocoracaoal.aria.Permissao : ' + (this.id ? this.id : '(unsaved)');
-    }
+  }
+
+  toString(): string {
+    return 'br.com.hospitaldocoracaoal.aria.Permissao : ' + (this.id ? this.id : '(unsaved)');
+  }
 }

@@ -51,7 +51,7 @@ import {GrupoModule} from "./grupo/grupo.module";
     SelectModule,
     LoginModule,
     GrupoModule,
-],
+  ],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy},
     AuthGuard],

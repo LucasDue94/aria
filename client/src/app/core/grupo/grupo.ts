@@ -1,21 +1,19 @@
-
+import {Permissao} from "../permissao/permissao";
 
 export class Grupo {
-    id: number;
+  id: number;
+  name: string;
+  permissoes: Permissao[] = new Array<Permissao>();
 
-    
-
-    constructor (object?: any) {
-      if (object) {
-        
-        for (var prop in object) {
-          this[prop] = object[prop];
-        }
+  constructor(object?: any) {
+    if (object) {
+      for (var prop in object) {
+        this[prop] = object[prop];
       }
-
     }
+  }
 
-    toString(): string {
-      return 'br.com.hospitaldocoracaoal.aria.Grupo : ' + (this.id ? this.id : '(unsaved)');
-    }
+  toString(): string {
+    return 'br.com.hospitaldocoracaoal.aria.Grupo : ' + (this.id ? this.id : '(unsaved)');
+  }
 }
