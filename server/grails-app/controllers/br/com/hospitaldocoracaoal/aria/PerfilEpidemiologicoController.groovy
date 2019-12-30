@@ -1,6 +1,5 @@
 package br.com.hospitaldocoracaoal.aria
 
-import br.com.hospitaldocoracaoal.integracao.SetorWpd
 import grails.plugin.springsecurity.annotation.Secured
 import org.springframework.http.HttpStatus
 import org.springframework.web.server.ResponseStatusException
@@ -17,7 +16,7 @@ class PerfilEpidemiologicoController {
         Date inicio = entradas.inicio
         Date fim = entradas.fim
         Character[] tipos = entradas.tipos
-        Collection<SetorWpd> setores = entradas.setores
+        Collection<Setor> setores = entradas.setores
         Boolean perfilGeral = entradas.perfilGeral
 
         if (inicio == null && fim == null) {
@@ -57,7 +56,7 @@ class PerfilEpidemiologicoController {
             }
         }
 
-        List<SetorWpd> setores = setoresIds != null ? setoresIds.collect { SetorWpd.load(it) } : null
+        List<Setor> setores = setoresIds != null ? setoresIds.collect { Setor.load(it) } : null
         return [inicio: inicio, fim: fim, tipos: tipos, setores: setores, perfilGeral: perfilGeral]
     }
 
