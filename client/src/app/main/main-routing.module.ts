@@ -12,6 +12,8 @@ import {RelatorioListComponent} from "../relatorio/relatorio-list/relatorio-list
 import {ApacheReportComponent} from "../relatorio/relatorio-list/apache-report/apache-report.component";
 import {UsuarioListComponent} from "../usuario/list/usuario-list.component";
 import {UsuarioEditComponent} from "../usuario/edit/usuario-edit.component";
+import {GrupoListComponent} from "../grupo/list/grupo-list.component";
+import {GrupoFormComponent} from "../grupo/form/grupo-form.component";
 
 
 const routes: Routes = [
@@ -32,8 +34,6 @@ const routes: Routes = [
             redirectTo: 'list',
             pathMatch: 'full',
             canActivate: [AuthGuard],
-            data: {permissao: 'ROLE_SETOR_INDEX'}
-
           },
           {
             path: 'list',
@@ -111,7 +111,31 @@ const routes: Routes = [
         path: 'apache-report',
         component: ApacheReportComponent,
         canActivate: [AuthGuard]
-      }
+      },
+      {
+        path: 'grupo',
+        children: [
+          {
+            path: '',
+            redirectTo: 'list',
+            pathMatch: 'full',
+            canActivate: [AuthGuard],
+          },
+          {
+            path: 'list',
+            component: GrupoListComponent,
+            canActivate: [AuthGuard],
+          }, {
+            path: 'create',
+            component: GrupoFormComponent,
+            canActivate: [AuthGuard],
+          }, {
+            path: 'edit/:id',
+            component: GrupoFormComponent,
+            canActivate: [AuthGuard],
+          }
+        ]
+      },
     ]
   }
 ];

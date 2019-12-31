@@ -1,0 +1,7 @@
+import br.com.hospitaldocoracaoal.aria.Grupo
+
+model {
+    Grupo grupo
+}
+
+json g.render(grupo, [expand: ['permissoes'], resolveTemplate: false])
