@@ -51,6 +51,7 @@ import {UsuarioModule} from "./usuario/usuario.module";
     FastSearchModule,
     SelectModule,
     LoginModule,
+    UsuarioModule,
     GrupoModule,
     UsuarioModule
   ],
