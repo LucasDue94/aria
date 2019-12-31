@@ -51,17 +51,18 @@ export class UsuarioEditComponent implements OnInit {
 
   setForm() {
     this.form.get('cod').setValue(this.usuario.id);
-    // let setor = this.selectItems.find((el) => el.id == this.usuario.setor.id);
   }
 
   setValues() {
     this.usuario.id = this.form.get('cod').value;
-    // this.usuario.setores = this.form.get('setor').value;
   }
 
   save() {
     this.setValues();
     if (this.form.valid) {
+      this.usuario.setores = this.usuario.setores.map((e) => {
+        return {id: e.id}
+      });
       this.usuarioService.save(this.usuario).subscribe(res => {
         let messageError = '';
         if (res.hasOwnProperty('error')) {
@@ -94,10 +95,7 @@ export class UsuarioEditComponent implements OnInit {
   }
 
   getItemsSelected(event) {
-    this.usuario.setores = [];
-    this.usuario.setores = event.map((e) => {
-      return {id: e.id}
-    })
+    this.usuario.setores = event;
   }
 
 }

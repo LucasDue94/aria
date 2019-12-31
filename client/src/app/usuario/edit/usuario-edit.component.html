@@ -10,7 +10,7 @@
         <article class="flex-column container-select-search">
           <section id="select-multiple-container">
             <multiple-select [width]="''" (itemsSelected)="getItemsSelected($event)"
-                             [items]="this.setoresItems" [keyPropery]="'descricao'">
+                             [items]="this.setoresItems" [keyPropery]="'descricao'" [selectedItems]="usuario?.setores">
             </multiple-select>
           </section>
         </article>
