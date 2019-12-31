@@ -47,4 +47,9 @@ class UsuarioController {
 
         respond usuario, [status: OK, view:"show"]
     }
+
+    @Secured('ROLE_USUARIO_SHOW')
+    def show(Long id) {
+        respond usuarioService.get(id)
+    }
 }

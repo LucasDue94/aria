@@ -11,6 +11,7 @@ class Setor {
     String sigla
     TipoSetor tipoSetor
     static hasMany = [usuarios: Usuario]
+    static belongsTo = [Usuario]
 
     static constraints = {
         descricao nullable: false, blank: false, unique: true

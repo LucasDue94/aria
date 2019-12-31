@@ -7,6 +7,7 @@ import {RouterModule} from "@angular/router";
 import {FastSearchModule} from "../fast-search/fast-search.module";
 import {ReactiveFormsModule} from "@angular/forms";
 import {UsuarioService} from "../core/usuario/usuario.service";
+import {SelectModule} from "../select/select.module";
 
 
 
@@ -17,7 +18,8 @@ import {UsuarioService} from "../core/usuario/usuario.service";
     FontAwesomeModule,
     RouterModule,
     FastSearchModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SelectModule
   ],
   providers: [
     UsuarioService

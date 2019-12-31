@@ -24,7 +24,11 @@ export class SetorService {
 
   list(tipoSetor?: string, offset?: any, max?: any): Observable<Setor[]> {
     let subject = new Subject<Setor[]>();
-    this.http.get<Setor[]>(this.baseUrl + 'setor?' + 'tipoSetor=' + tipoSetor + '&offset=' + offset + '&max=' + max,
+    let url = this.baseUrl + 'setor?' + 'offset=' + offset + '&max=' + max;
+    if(tipoSetor != null && tipoSetor != '') {
+      url += '&tipoSetor=' + tipoSetor
+    }
+    this.http.get<Setor[]>(url,
       {headers: this.getDefaultHttpOptions()})
       .pipe(
         catchError(error => of({error})

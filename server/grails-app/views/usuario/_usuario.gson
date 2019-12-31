@@ -1,0 +1,7 @@
+import br.com.hospitaldocoracaoal.aria.Usuario
+
+model {
+	Usuario usuario
+}
+
+json g.render(usuario, [expand: ['setores'], resolveTemplate: false])

@@ -26,6 +26,7 @@ export class MultipleSelectComponent implements OnInit, AfterViewChecked {
     this.selected = 'Selecione';
   }
 
+
   ngAfterViewChecked(): void {
     this.render.setStyle(this.select.nativeElement, 'width', this.width);
   }

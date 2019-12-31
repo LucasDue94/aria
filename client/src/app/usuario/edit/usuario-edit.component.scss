@@ -1,0 +1,227 @@
+@import "../../../assets/colors";
+@import "../../../assets/device-sizes";
+
+.container-usuario-edit {
+  position: relative;
+  width: 100%;
+  height: calc(100% - 15px);
+}
+
+.card {
+  position: absolute;
+  background-color: $white;
+  margin: 15px;
+  width: 450px;
+  height: 290px;
+
+  & {
+    border-radius: 5px;
+    box-shadow: 1px 1px 6px $gray-90;
+  }
+}
+
+.background-shadow {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  height: calc(100% - 70px);
+  left: 0;
+  z-index: 99;
+
+  & {
+    background-color: rgba($gray-100, 0.6);
+  }
+}
+
+.btn-save {
+  position: absolute;
+  bottom: 10px;
+  right: 11px;
+  width: 90px;
+  height: 35px;
+  font-size: 16px;
+
+  & {
+    letter-spacing: 1px;
+    font-weight: 400 !important;
+  }
+}
+
+.container-search {
+  position: absolute;
+  width: 400px;
+}
+
+.container-back {
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  padding: 2px 5px;
+  left: 0;
+  top: 0;
+  transition: 0.3s;
+
+  & {
+    font-size: 20px;
+    box-shadow: 0 0 10px $gray-100;
+    background-color: $white;
+    color: $gray-100;
+  }
+
+  &:hover {
+    color: $blue-default;
+    transition: 0.5s;
+
+    .btn-back {
+      transition: 0.5s;
+      color: $blue-default;
+    }
+  }
+
+  .btn-back {
+    & {
+      box-shadow: none;
+      background-color: transparent;
+    }
+  }
+}
+
+.form-container {
+  position: relative;
+  display: flex;
+  flex-direction: column !important;
+
+  .form-group {
+    position: relative;
+    margin: 9px;
+
+    .form-control {
+      flex: 2;
+      margin: 0 10px;
+    }
+
+    .form-label {
+      flex: 1;
+    }
+  }
+}
+
+.errors {
+  font-size: 14px;
+  position: absolute;
+  text-transform: none;
+  right: 8px;
+  bottom: -21px;
+  z-index: 2;
+  padding: 3px;
+  color: $danger;
+}
+
+@media screen and (max-width: 500px) {
+  .container-search {
+    width: 280px;
+  }
+  .container-back {
+    left: 0;
+    top: 0;
+    font-size: 18px;
+    height: 35px;
+  }
+
+  .card {
+    margin: 5px;
+    min-height: 360px;
+    width: calc(100% - 10px);
+  }
+
+  .form-container {
+    display: flex;
+    position: relative;
+    align-items: flex-start;
+    flex-direction: column !important;
+
+    .form-group {
+      width: calc(100% - 10px);
+      margin: 5px;
+      position: relative;
+      display: flex;
+      flex-direction: column !important;
+
+      .form-control, .form-label {
+        text-align: left;
+        position: relative;
+        flex: 1;
+        width: calc(100% - 15px);
+      }
+
+      .form-label {
+        width: calc(100%);
+      }
+    }
+
+    #tipo {
+      width: calc(100%);
+    }
+  }
+  .btn-save {
+    position: absolute;
+    right: 15px;
+    bottom: 5px;
+  }
+
+  .errors {
+    right: 2px;
+  }
+}
+
+.container-select-search {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  #select-multiple-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 5px;
+
+    & {
+      border: 1px solid $gray-70;
+      border-radius: 5px;
+    }
+  }
+
+  .button-container {
+    display: flex;
+    margin:5px 0;
+
+
+    .search-button {
+      margin: 5px 5px 0 5px;
+      height: 35px;
+      flex: 1;
+
+      & {
+        text-align: center;
+        color: $white;
+        border-radius: 5px;
+        background-color: rgba($blue-default, 0.7);
+      }
+
+      &:hover {
+        transition: 0.3s;
+        cursor: pointer;
+        background-color: $blue-default;
+      }
+
+      .search-icon {
+        margin-right: 5px;
+      }
+    }
+  }
+}

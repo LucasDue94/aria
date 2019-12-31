@@ -30,3 +30,4 @@ insert into permissao (id, version, authority, nome) values (nextval('permissao_
 
 insert into permissao (id, version, authority, nome) values (nextval('permissao_id_seq'), 0, 'ROLE_USUARIO_INDEX', 'Listar usuários');
 insert into permissao (id, version, authority, nome) values (nextval('permissao_id_seq'), 0, 'ROLE_USUARIO_UPDATE', 'Atualizar usuário');
+insert into permissao (id, version, authority, nome) values (nextval('permissao_id_seq'), 0, 'ROLE_USUARIO_SHOW', 'Ver usuário');
