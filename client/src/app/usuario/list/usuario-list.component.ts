@@ -34,7 +34,6 @@ export class UsuarioListComponent implements OnInit {
         this.alertService.send({message: 'Desculpe...ocorreu um erro.', type: 'error', icon: faFrown});
       } else {
         this.data = usuarios;
-        // this.sortSetor();
         this.usuarios = this.data;
         this.spinner.hide();
       }
