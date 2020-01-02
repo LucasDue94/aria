@@ -1,11 +1,11 @@
 <form #it="ngForm" action="" class="panel">
   <div>
     <label class="label-panel" for="inicio">Inicio:</label>
-    <input class="input-date" id="inicio" type="date" value="{{dataInicio}}">
-    <label class="label-panel" for="fim">Fim:</label>
+    <input class="input-date" id="inicio" type="date" value="{{getDateInitial()}}">
   </div>
   <div>
-    <input class="input-date" id="fim" type="date" value="{{dataFim}}">
+    <label class="label-panel" for="fim">Fim:</label>
+    <input class="input-date" id="fim" type="date" value="{{getDateEnd()}}">
     <label class="label-panel" for="fim">Setor:</label>
   </div>
   <div>

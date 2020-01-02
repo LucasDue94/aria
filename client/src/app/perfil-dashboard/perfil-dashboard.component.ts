@@ -9,6 +9,7 @@ import {Chart} from "angular-highcharts";
 import {SetorService} from "../core/setor/setor.service";
 import {Setor} from "../core/setor/setor";
 import {TitleService} from "../core/title/title.service";
+import {ErrorService} from "../core/error/error.service";
 
 @Component({
   selector: 'perfil-dashboard',
@@ -370,7 +371,7 @@ export class PerfilDashboardComponent implements OnInit, DoCheck, AfterViewCheck
   setores: Setor[];
 
   constructor(private menuService: MenuService, private render: Renderer2,
-              private spinner: SpinnerService, private fb: FormBuilder,
+              private spinner: SpinnerService, private fb: FormBuilder, private errorService: ErrorService,
               private perfilService: PerfilService, private alertService: AlertService,
               private setorService: SetorService, private titleService: TitleService) {
   }
@@ -486,7 +487,7 @@ export class PerfilDashboardComponent implements OnInit, DoCheck, AfterViewCheck
   getPercentageArray(key, arrayQuantity) {
     let array = [];
     const sum = (total, value) => total + value;
-    if (this.data != undefined && this.data[key] != undefined && this.data[key].lenght > 0) {
+    if (this.data != undefined && this.data[key] != undefined && this.data[key].length > 0) {
       const total = arrayQuantity.reduce(sum);
       this.data[key].forEach(value => {
         let percent = (value.quantidade * 100) / total;
@@ -501,7 +502,11 @@ export class PerfilDashboardComponent implements OnInit, DoCheck, AfterViewCheck
   ngOnInit() {
     this.titleService.send('Perfil Epidemiológico');
     this.setorService.list('', '', '').subscribe(setores => {
-      this.setores = setores;
+      if(this.errorService.hasError(setores)) {
+        this.errorService.sendError(setores);
+      } else {
+        this.setores = setores;
+      }
     });
     this.getLastMonth();
     this.spinner.show();

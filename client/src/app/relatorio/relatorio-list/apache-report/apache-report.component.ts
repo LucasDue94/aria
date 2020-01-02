@@ -1,10 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Pipe, PipeTransform} from '@angular/core';
 import {faSearch} from '@fortawesome/free-solid-svg-icons';
 import {Chart} from 'angular-highcharts';
 import {TitleService} from '../../../core/title/title.service';
 import {ApacheService} from '../../../core/apache/apache.service';
 import {SetorService} from '../../../core/setor/setor.service';
 import {Setor} from '../../../core/setor/setor';
+import {SeriesBarOptions, SeriesSplineOptions} from "highcharts";
+
 
 @Component({
   selector: 'app-apache-report',
@@ -17,8 +19,12 @@ export class ApacheReportComponent implements OnInit {
   faSearch = faSearch;
   apache: any[] = [];
   setorId;
-  dataInicio;
-  dataFim;
+  today = new Date();
+  date = new Date(this.today.getFullYear(), this.today.getMonth(), 2);
+  dataInicio: any;
+  dataFim: any;
+  /* dataInicio: [this.getLastMonth()];
+   dataFinal: [new Date().toISOString().slice(0, 10)];*/
   titleChart;
   naoCirurgico = [];
   cirurgico = [];
@@ -34,31 +40,42 @@ export class ApacheReportComponent implements OnInit {
       type: 'bar'
     },
     title: {
-      // text: `Apache ${title}`
-      text: `Apache`
+      text: 'Population pyramid for Germany, 2018'
     },
+    subtitle: {},
     xAxis: [{
-      categories: this.getLabelsCirurgicoApache(),
       reversed: false,
       labels: {
         step: 1
       },
-    }, {
+      accessibility: {
+        description: 'Age (male)'
+      }
+    }, { // mirror axis on right side
       opposite: true,
       reversed: false,
-      categories: this.getLabelsNaoCirurgicosApache(),
       linkedTo: 0,
       labels: {
         step: 1
       },
+      accessibility: {
+        description: 'Age (female)'
+      }
     }],
     yAxis: {
-      title: {
-        text: 'TOTAL'
+      labels: {
+        formatter: function () {
+          return Math.abs(this.value);
+        }
       },
+      accessibility: {
+        description: 'Percentage population',
+        rangeDescription: 'Range: 0 to 5%'
+      }
     },
+
     plotOptions: {
-      series: {
+      bar: {
         stacking: 'normal'
       }
     },
@@ -66,19 +83,13 @@ export class ApacheReportComponent implements OnInit {
       name: 'Altas',
       data: [
         -2.2, -2.1, -2.2, -2.4,
-        -2.7, -3.0, -3.3, -3.2,
-        -2.9, -3.5, -4.4, -4.1,
-        -3.4, -2.7, -2.3, -2.2,
-        -1.6, -0.6, -0.3, -0.0,
-        -0.0
+        -2.7, -3.0, -3.3, -3.2
       ]
     }, {
+      name: 'Obitos',
       data: [
         2.1, 2.0, 2.1, 2.3, 2.6,
-        2.9, 3.2, 3.1, 2.9, 3.4,
-        4.3, 4.0, 3.5, 2.9, 2.5,
-        2.7, 2.2, 1.1, 0.6, 0.2,
-        0.0
+        2.9, 3.2, 3.1, 2.9, 3.4
       ]
     }
     ]
@@ -95,10 +106,8 @@ export class ApacheReportComponent implements OnInit {
 
   ngOnInit() {
     this.titleService.send('Relatório de Apache');
-    this.dataInicio = this.getDateInitial();
-    this.dataFim = this.getDateEnd();
-    this.setorService.list('U', '', '').subscribe(setores => {
 
+    this.setorService.list('U', '', '').subscribe(setores => {
       setores.forEach(setor => {
         this.arrayListSetor.push(setor);
         this.setorId = setor.id;
@@ -106,26 +115,62 @@ export class ApacheReportComponent implements OnInit {
       });
 
       this.apacheService.report(this.dataInicio, this.dataFim, this.setorId, '', '').subscribe(apaches => {
-        this.data = apaches;
-        this.cirurgico = this.data;
-        this.naoCirurgico = this.data;
-        console.log('Não cirurgico - ', this.naoCirurgico);
-        Object.keys(this.naoCirurgico).map(i => {
-          this.altas.push(this.naoCirurgico[i].altas);
-          this.obitos.push(this.naoCirurgico[i].obitos);
-          this.smr.push(this.naoCirurgico[i].smr);
-        });
+        apaches['cirurgico'] ? this.cirurgico = apaches['cirurgico'] : '';
+        apaches['naoCirurgico'] ? this.naoCirurgico = apaches['naoCirurgico'] : '';
 
-        Object.keys(this.cirurgico).map(i => {
-          this.altasCirurgicos.push(this.cirurgico[i].altas * (-1));
-          this.obitosCirurgicos.push(this.cirurgico[i].obitos * (-1));
-          this.smrCirurgicos.push(this.cirurgico[i].smr * (-1));
-        });
+        if (apaches.hasOwnProperty('naoCirurgico')) {
+          Object.keys(this.naoCirurgico).map(key => {
+            this.altas.push(this.naoCirurgico[key]['altas']);
+            this.obitos.push(this.naoCirurgico[key]['obitos']);
+            this.smr.push(this.naoCirurgico[key]['smr']);
+          });
+        }
 
-        console.log('altas - ', this.altasCirurgicos);
-        console.log('obitos - ', this.obitos);
+        if (apaches.hasOwnProperty('cirurgico')) {
+          Object.keys(this.cirurgico).map(key => {
+            this.altasCirurgicos.push(this.cirurgico[key]['altas'] * (-1));
+            this.obitosCirurgicos.push(this.cirurgico[key]['obitos'] * (-1));
+            this.smrCirurgicos.push(this.cirurgico[key]['smr'] * (-1));
+          });
+        }
+
         this.apacheChart.ref.update({
           series: [
+            {
+              name: 'Op',
+              data: [
+                -2, -2, -2, -2,
+                -2, -3, -3, -3
+              ]
+            } as SeriesBarOptions, {
+              name: 'Non-Op',
+              data: [
+                2, 2, 2, 2,
+                2, 3, 3, 2
+              ]
+            } as SeriesBarOptions, {
+              name: 'Op',
+              data: [
+                -1, -2, 0, -2,
+                -2, -3, -1, -2
+              ]
+            } as SeriesBarOptions, {
+              name: 'Non-Op',
+              data: [
+                1, 1, 0, 3,
+                0, 3, 1, 2
+              ]
+            } as SeriesBarOptions, {
+              name: 'SMR Op',
+              type: 'spline',
+              data: [0,-1.25,-1.5,-1.33,
+                    -0.4,-1.2,-0.48,-0.73]
+            } as SeriesSplineOptions, {
+              name: 'SMR Non-Op',
+              type: 'spline',
+              data: [0.125,1.25,1.5,1.33,
+                     0.71,1.2,0.48,0.73]
+            } as SeriesSplineOptions
           ]
         }, true, true);
       });
@@ -133,20 +178,23 @@ export class ApacheReportComponent implements OnInit {
 
   }
 
-  getDateInitial() {
-    const today = new Date();
-    const day = today.getDate();
-    const month = today.getMonth();
-    const year = today.getFullYear();
-    return year + '-' + month + '-' + day;
+  getDateInitial(): string {
+    this.date.setMonth(this.date.getMonth() + (this.today.getMonth() - 1));
+    let month = this.date.getMonth() + 1;
+    let day = this.date.getDate() + 1;
+    let year = this.date.getFullYear();
+    return year + "-" + month + "-" + 0 + day;
   }
 
-  getDateEnd() {
-    const today = new Date();
-    const day = today.getDate();
-    const month = today.getMonth() + 1;
-    const year = today.getFullYear();
-    return year + '-' + month + '-' + day;
+  getDateEnd(): string {
+    this.date.setMonth(this.date.getMonth() + (this.today.getMonth() + 1));
+    let month = this.date.getMonth() + 1;
+    let day = this.date.getDate();
+    let year = this.date.getFullYear();
+    const options = {ano: year, mes: month, dia: day};
+    const data = this.date.toDateString();
+    // @ts-ignore
+    return ;
   }
 
   getSetor(setorId?: number): string {
@@ -159,28 +207,6 @@ export class ApacheReportComponent implements OnInit {
     });
     return this.titleChart;
   }
-
-  /*generateChartApache(dataInicio?: string, dataFim?: string, setorId?: number, title?: string): any {
-    let apache: any[] = [];
-    let cirurgico: any[];
-    let naoCirurgico: any[];
-    let altas: any[] = [];
-    let obitos: any[] = [];
-    let smr: any[] = [];
-    let options: any;
-
-    this.apacheService.report(dataInicio, dataFim, setorId, '', '').subscribe(apaches => {
-      apache = apaches;
-      naoCirurgico = apache['naoCirurgico'];
-      console.log("Não cirurgico - ", naoCirurgico);
-      Object.keys(naoCirurgico).map(i => {
-        altas.push(naoCirurgico[i]['altas']);
-        obitos.push(naoCirurgico[i]['obitos']);
-        smr.push(naoCirurgico[i]['smr']);
-      });
-      console.log(altas)
-    });
-  }*/
 
   getLabelsCirurgicoApache() {
     return [

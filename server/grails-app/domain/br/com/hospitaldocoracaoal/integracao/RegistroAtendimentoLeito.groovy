@@ -9,7 +9,6 @@ class RegistroAtendimentoLeito implements Serializable {
     Leito leito
     Date dataEntrada
 
-    static hasOne = [apache: Apache]
     static hasMany = [notificacoes: Notificacao]
     static belongsTo = [RegistroAtendimento, Leito]
 

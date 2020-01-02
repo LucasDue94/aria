@@ -8,6 +8,7 @@ import {TitleService} from "../../../core/title/title.service";
 import {SpinnerService} from "../../../core/spinner/spinner.service";
 import {debounceTime, switchMap} from 'rxjs/operators';
 import {RegistroAtendimentoLeito} from "../../../core/registroAtendimentoLeitos/registroAtendimentoLeito";
+import {ErrorService} from "../../../core/error/error.service";
 
 @Component({
   selector: 'app-apache-paciente-list',
@@ -29,7 +30,7 @@ export class ApachePacienteListComponent implements OnInit {
   max = 20;
   termo = '';
 
-  constructor(private apacheService: ApacheService, private setorService: SetorService,
+  constructor(private apacheService: ApacheService, private setorService: SetorService, private errorService: ErrorService,
               private titleService: TitleService, private fb: FormBuilder, private spinner: SpinnerService) {
   }
 
@@ -37,14 +38,23 @@ export class ApachePacienteListComponent implements OnInit {
     this.spinner.show();
     this.titleService.send('Apache - Lista de pacientes');
     this.setorService.list('U', '', '').subscribe(setores => {
-      setores.forEach(setor => {
-        this.arrayListSetor.push(setor);
-        this.setorId = setor.id;
-      });
-
-      this.apacheService.list(this.setorId, this.termo, '', '').subscribe(registros => {
-        this.admissoesPacSetor = registros;
+      if(this.errorService.hasError(setores)) {
         this.spinner.hide();
+        this.errorService.hasError(setores);
+      } else {
+        setores.forEach(setor => {
+          this.arrayListSetor.push(setor);
+          this.setorId = setor.id;
+        });
+      }
+      this.apacheService.list(this.setorId, this.termo, '', '').subscribe(registros => {
+        if (this.errorService.hasError(registros)) {
+          this.spinner.hide();
+          this.errorService.sendError(registros);
+        } else {
+          this.admissoesPacSetor = registros;
+          this.spinner.hide();
+        }
       });
     });
   }

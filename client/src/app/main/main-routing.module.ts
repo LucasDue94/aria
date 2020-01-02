@@ -10,6 +10,7 @@ import {MainComponent} from "./main.component";
 import {AuthGuard} from "../core/guards/auth.guard";
 import {RelatorioListComponent} from "../relatorio/relatorio-list/relatorio-list.component";
 import {ApacheReportComponent} from "../relatorio/relatorio-list/apache-report/apache-report.component";
+import {ErrorComponent} from "../error/error.component";
 
 
 const routes: Routes = [
@@ -87,8 +88,14 @@ const routes: Routes = [
         path: 'apache-report',
         component: ApacheReportComponent,
         canActivate: [AuthGuard]
+      },
+      {
+        path: 'error/:cod/:id',
+        component: ErrorComponent,
+        canActivate: [AuthGuard]
       }
-    ]
+      ]
+
   }
 ];
 

@@ -76,6 +76,10 @@ dependencies {
     compile "org.grails.plugins:gsp:4.0.0"
 }
 
+grails {
+    pathingJar = true
+}
+
 bootRun {
     jvmArgs(
         '-Dspring.output.ansi.enabled=always', 
