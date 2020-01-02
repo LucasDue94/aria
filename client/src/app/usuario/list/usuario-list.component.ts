@@ -28,7 +28,7 @@ export class UsuarioListComponent implements OnInit {
 
   ngOnInit() {
     this.spinner.show();
-    this.titleService.send('Usuários');
+    this.titleService.send('Lista de Usuários');
     this.usuarioService.list('',10000).subscribe(usuarios => {
       if (usuarios.hasOwnProperty('error')) {
         this.alertService.send({message: 'Desculpe...ocorreu um erro.', type: 'error', icon: faFrown});
