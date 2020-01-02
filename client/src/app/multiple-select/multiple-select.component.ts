@@ -45,8 +45,12 @@ export class MultipleSelectComponent implements OnInit, AfterViewChecked {
 
   }
 
-  isSelected = (item) => this.selectedItems.find((value) => value == item) != undefined;
-
+  isSelected = (item) => this.selectedItems.find((value) => value.id == item.id) != undefined;
+  // isSelected(item) {
+  //   return this.selectedItems.find((value) => {
+  //     return value.id == item.id
+  //   }) != undefined
+  // }
   removeSelectedOfDom(event) {
     let parent = this.render.parentNode(event.target);
     let childNode = event.target;
