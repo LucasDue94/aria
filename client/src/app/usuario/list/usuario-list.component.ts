@@ -42,12 +42,7 @@ export class UsuarioListComponent implements OnInit {
   }
 
   sortUsuario() {
-    this.data.sort(function (a, b) {
-      if (a.nome > b.nome)
-        return 1;
-      else
-        return -1;
-    })
+    this.data.sort( (a, b) => (a.nome > b.nome) ? 1 : -1)
   }
 
   search() {
