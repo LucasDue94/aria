@@ -1,4 +1,14 @@
-import {AfterViewChecked, Component, EventEmitter, Input, OnInit, Output, Renderer2, ViewChild} from '@angular/core';
+import {
+  AfterViewChecked,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  Renderer2,
+  SimpleChange, SimpleChanges,
+  ViewChild
+} from '@angular/core';
 import {faTimesCircle} from "@fortawesome/free-solid-svg-icons/faTimesCircle";
 
 @Component({
@@ -16,7 +26,7 @@ export class MultipleSelectComponent implements OnInit, AfterViewChecked {
   @ViewChild('select', {static: false}) select;
   faTimesCircle = faTimesCircle;
   selected = '';
-  selectedItems = [];
+  @Input() selectedItems = [];
   show = false;
 
   constructor(private render: Renderer2) {
@@ -35,7 +45,7 @@ export class MultipleSelectComponent implements OnInit, AfterViewChecked {
 
   }
 
-  isSelected = (item) => this.selectedItems.find((value) => value == item) != undefined;
+  isSelected = (item) => this.selectedItems.find((value) => value.id == item.id) != undefined;
 
   removeSelectedOfDom(event) {
     let parent = this.render.parentNode(event.target);

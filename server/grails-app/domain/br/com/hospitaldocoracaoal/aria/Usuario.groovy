@@ -21,7 +21,6 @@ class Usuario implements Serializable {
     Grupo grupo
 
     static hasMany = [setores: Setor]
-    static belongsTo = [Setor]
 
     Set<Permissao> getAuthorities() {
         grupo.permissoes as Set<Permissao>

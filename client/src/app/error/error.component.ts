@@ -1,5 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
 import {faSadTear} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
@@ -13,13 +12,13 @@ export class ErrorComponent implements OnInit {
   @Input() cod;
   messageDefault = 'Desculpe o transtorno, ocorreu um erro.';
   codDefault = '123';
-  faSadTear = faSadTear
-  constructor(private route: ActivatedRoute) {}
+  faSadTear = faSadTear;
+
+  constructor() {
+  }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      this.cod = params['cod'];
-      this.message = params['message'];
-    })
+    this.cod = history.state.cod;
+    this.message = history.state.message;
   }
 }

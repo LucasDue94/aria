@@ -3,60 +3,50 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../../environments/environment.prod";
 import {Observable, of, Subject} from "rxjs";
 import {catchError} from "rxjs/operators";
-import {Setor} from "./setor";
+import {Usuario} from "./usuario";
+import {BaseService} from "../http/baseService.service";
 
 
 @Injectable()
-export class SetorService {
+export class UsuarioService extends BaseService {
 
-  private baseUrl = environment.serverUrl;
-
-  getDefaultHttpOptions() {
-    return new HttpHeaders({
-      "Cache-Control": "no-cache",
-      "Content-Type": "application/json",
-      "X-Auth-Token": localStorage.getItem('token')
-    })
-  }
+  private baseUrl = environment.serverUrl + 'usuario';
 
   constructor(private http: HttpClient) {
+    super();
   }
 
-  list(tipoSetor?: string, offset?: any, max?: any): Observable<Setor[]> {
-    let subject = new Subject<Setor[]>();
-    let url = this.baseUrl + 'setor?' + 'offset=' + offset + '&max=' + max;
-    if(tipoSetor != null && tipoSetor != '') {
-      url += '&tipoSetor=' + tipoSetor
-    }
-    this.http.get<Setor[]>(url,
+  list(offset?: any, max?: any): Observable<Usuario[]> {
+    let subject = new Subject<Usuario[]>();
+    this.http.get<Usuario[]>(this.baseUrl + '?offset=' + offset + '&max=' + max,
       {headers: this.getDefaultHttpOptions()})
       .pipe(
         catchError(error => of({error})
-        )).subscribe((json: Setor[]) => {
+        )).subscribe((json: Usuario[]) => {
       subject.next(json);
     });
     return subject.asObservable();
   }
 
   get(id: number): Observable<any> {
-    let subject = new Subject<Setor>();
-    this.http.get(this.baseUrl + `setor/` + id, {headers: this.getDefaultHttpOptions()})
+    let subject = new Subject<Usuario>();
+    this.http.get(this.baseUrl + '/' + id, {headers: this.getDefaultHttpOptions()})
       .pipe(
         catchError(error => of({error})
         )).subscribe((json: any) => {
       if (json.hasOwnProperty('error')) {
         subject.next(json);
       } else {
-        subject.next(new Setor(json));
+        subject.next(new Usuario(json));
       }
     });
     return subject.asObservable();
   }
 
-  save(setor: Setor): Observable<any> {
-    let subject = new Subject<Setor>();
-    if (setor.id) {
-      this.http.put<Setor>(this.baseUrl + `setor/` + setor.id, setor, {
+  save(usuario: Usuario): Observable<any> {
+    let subject = new Subject<Usuario>();
+    if (usuario.id) {
+      this.http.put<Usuario>(this.baseUrl + '/' + usuario.id, usuario, {
         headers: this.getDefaultHttpOptions(),
         responseType: 'json'
       }).pipe(
@@ -65,7 +55,7 @@ export class SetorService {
         subject.next(json)
       });
     } else {
-      this.http.post<Setor>(this.baseUrl + `setor/`, setor, {
+      this.http.post<Usuario>(this.baseUrl, usuario, {
         headers: this.getDefaultHttpOptions(),
         responseType: 'json'
       }).pipe(

@@ -1,0 +1,8 @@
+import br.com.hospitaldocoracaoal.aria.Grupo
+
+model {
+	Iterable<Grupo> grupoList
+}
+
+json tmpl.grupo(grupoList ?: [])
+

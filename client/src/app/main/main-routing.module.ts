@@ -10,6 +10,10 @@ import {MainComponent} from "./main.component";
 import {AuthGuard} from "../core/guards/auth.guard";
 import {RelatorioListComponent} from "../relatorio/relatorio-list/relatorio-list.component";
 import {ApacheReportComponent} from "../relatorio/relatorio-list/apache-report/apache-report.component";
+import {UsuarioListComponent} from "../usuario/list/usuario-list.component";
+import {UsuarioEditComponent} from "../usuario/edit/usuario-edit.component";
+import {GrupoListComponent} from "../grupo/list/grupo-list.component";
+import {GrupoFormComponent} from "../grupo/form/grupo-form.component";
 import {ErrorComponent} from "../error/error.component";
 
 
@@ -22,6 +26,8 @@ const routes: Routes = [
       {
         path: 'perfil', pathMatch: 'full',
         component: PerfilDashboardComponent, canActivate: [AuthGuard],
+      }, {
+        path: 'error', component: ErrorComponent
       },
       {
         path: 'setor',
@@ -31,8 +37,6 @@ const routes: Routes = [
             redirectTo: 'list',
             pathMatch: 'full',
             canActivate: [AuthGuard],
-            data: {permissao: 'ROLE_SETOR_INDEX'}
-
           },
           {
             path: 'list',
@@ -47,6 +51,28 @@ const routes: Routes = [
             component: SetorCreateComponent,
             canActivate: [AuthGuard],
           },
+        ]
+      },
+      {
+        path: 'usuario',
+        children: [
+          {
+            path: '',
+            redirectTo: 'list',
+            pathMatch: 'full',
+            canActivate: [AuthGuard],
+            data: {permissao: 'ROLE_SETOR_INDEX'}
+
+          },
+          {
+            path: 'list',
+            component: UsuarioListComponent,
+            canActivate: [AuthGuard]
+          }, {
+            path: 'edit/:id',
+            component: UsuarioEditComponent,
+            canActivate: [AuthGuard]
+          }
         ]
       },
       {
@@ -90,12 +116,30 @@ const routes: Routes = [
         canActivate: [AuthGuard]
       },
       {
-        path: 'error/:cod/:id',
-        component: ErrorComponent,
-        canActivate: [AuthGuard]
-      }
-      ]
-
+        path: 'grupo',
+        children: [
+          {
+            path: '',
+            redirectTo: 'list',
+            pathMatch: 'full',
+            canActivate: [AuthGuard],
+          },
+          {
+            path: 'list',
+            component: GrupoListComponent,
+            canActivate: [AuthGuard],
+          }, {
+            path: 'create',
+            component: GrupoFormComponent,
+            canActivate: [AuthGuard],
+          }, {
+            path: 'edit/:id',
+            component: GrupoFormComponent,
+            canActivate: [AuthGuard],
+          }
+        ]
+      },
+    ]
   }
 ];
 

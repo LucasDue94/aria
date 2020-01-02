@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Error} from './error';
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -43,7 +43,7 @@ export class ErrorService {
     this.INTERNAL_SERVER_ERROR, this.BAD_GATEWAY, this.SERVICE_UNAVAILABLE, this.GATEWAY_TIMEOUT];
 
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private route: ActivatedRoute) {
   }
 
   hasError = (httpResponse) => httpResponse.hasOwnProperty('error');
@@ -55,7 +55,7 @@ export class ErrorService {
       // this.authService.logout(localStorage.getItem('token'));
       this.router.navigate(['/']);
     } else {
-      this.router.navigate(['error', error.cod, error.message]);
+      this.router.navigate(['error'], {state: {cod: error.cod, message: error.message}});
     }
   }
 }
