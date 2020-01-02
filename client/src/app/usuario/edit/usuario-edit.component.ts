@@ -8,6 +8,7 @@ import {TitleService} from "../../core/title/title.service";
 import {faCheck, faExclamationCircle, faFrown} from "@fortawesome/free-solid-svg-icons";
 import {UsuarioService} from "../../core/usuario/usuario.service";
 import {Usuario} from "../../core/usuario/usuario";
+import {Setor} from "../../core/setor/setor";
 
 @Component({
   selector: 'app-edit',
@@ -61,8 +62,8 @@ export class UsuarioEditComponent implements OnInit {
     this.setValues();
     if (this.form.valid) {
       this.usuario.setores = this.usuario.setores.map((e) => {
-        return {id: e.id}
-      });
+              return new Setor({id: e.id})
+            });
       this.usuarioService.save(this.usuario).subscribe(res => {
         let messageError = '';
         if (res.hasOwnProperty('error')) {

@@ -5,7 +5,6 @@ import br.com.hospitaldocoracaoal.integracao.Leito
 import br.com.hospitaldocoracaoal.integracao.SetorWpd
 
 class Setor {
-
     String descricao
     SetorWpd setorWpd
     String sigla
