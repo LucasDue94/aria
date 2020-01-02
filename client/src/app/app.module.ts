@@ -53,7 +53,6 @@ import {UsuarioModule} from "./usuario/usuario.module";
     LoginModule,
     UsuarioModule,
     GrupoModule,
-    UsuarioModule
   ],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy},
