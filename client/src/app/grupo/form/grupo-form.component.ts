@@ -8,7 +8,7 @@ import {Grupo} from "../../core/grupo/grupo";
 import {ErrorService} from "../../core/error/error.service";
 import {AlertService} from "../../core/alert/alert.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {faCheck} from "@fortawesome/free-solid-svg-icons";
+import {faCheck, faFrown, faSadTear} from "@fortawesome/free-solid-svg-icons";
 import {SpinnerService} from "../../core/spinner/spinner.service";
 
 @Component({
@@ -36,7 +36,7 @@ export class GrupoFormComponent implements OnInit {
     this.titleService.send('Grupo - Novo Grupo');
     this.persmissaoService.list(10000, '').subscribe(res => {
       if (res.hasOwnProperty('error')) {
-        //TODO trate o erro aqui
+        this.errorService.sendError(res);
       } else {
         this.permissoes = res;
         this.orderArray();
@@ -48,8 +48,7 @@ export class GrupoFormComponent implements OnInit {
     if (id != undefined) {
       this.grupoService.get(id).subscribe(res => {
         if (res.hasOwnProperty('error')) {
-          //TODO trate o erro aqui
-
+          this.errorService.sendError(res)
         } else {
           res.permissoes.forEach(permissao => this.permissoesSelecionadas.add(permissao.id));
           this.form.get('nome').setValue(res.name);
@@ -89,13 +88,11 @@ export class GrupoFormComponent implements OnInit {
       name: this.form.get('nome').value,
       permissoes: Array.from(this.permissoesSelecionadas)
     });
-    console.log(grupo);
     this.grupoService.save(grupo).subscribe(res => {
       if (this.errorService.hasError(res)) {
-        //TODO trate o erro aqui
-
+        this.alertService.send({message: 'Ops..Ocorreu um erro ao salvar...', icon: faSadTear, type: 'error'});
       } else {
-        this.alertService.send({message: 'Novo grupo criado!', icon: faCheck, type: 'success'});
+        this.alertService.send({message: 'Grupo salvo!', icon: faCheck, type: 'success'});
         setTimeout(() => {
           this.router.navigate(['/grupo']);
         }, 300)

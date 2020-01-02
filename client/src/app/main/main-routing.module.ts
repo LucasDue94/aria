@@ -14,6 +14,7 @@ import {UsuarioListComponent} from "../usuario/list/usuario-list.component";
 import {UsuarioEditComponent} from "../usuario/edit/usuario-edit.component";
 import {GrupoListComponent} from "../grupo/list/grupo-list.component";
 import {GrupoFormComponent} from "../grupo/form/grupo-form.component";
+import {ErrorComponent} from "../error/error.component";
 
 
 const routes: Routes = [
@@ -25,6 +26,8 @@ const routes: Routes = [
       {
         path: 'perfil', pathMatch: 'full',
         component: PerfilDashboardComponent, canActivate: [AuthGuard],
+      }, {
+        path: 'error', component: ErrorComponent
       },
       {
         path: 'setor',
