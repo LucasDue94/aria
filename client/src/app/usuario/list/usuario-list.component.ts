@@ -34,10 +34,20 @@ export class UsuarioListComponent implements OnInit {
         this.alertService.send({message: 'Desculpe...ocorreu um erro.', type: 'error', icon: faFrown});
       } else {
         this.data = usuarios;
+        this.sortUsuario();
         this.usuarios = this.data;
         this.spinner.hide();
       }
     });
+  }
+
+  sortUsuario() {
+    this.data.sort(function (a, b) {
+      if (a.nome > b.nome)
+        return 1;
+      else
+        return -1;
+    })
   }
 
   search() {
