@@ -10,6 +10,7 @@ import {
   faUserMd
 } from "@fortawesome/free-solid-svg-icons";
 import {ActivatedRoute} from "@angular/router";
+import {AuthService} from "../core/auth/auth.service";
 
 @Component({
   selector: 'app-menu',
@@ -19,18 +20,25 @@ import {ActivatedRoute} from "@angular/router";
 export class MenuComponent implements OnInit, OnChanges {
 
   @ViewChild('menuContainer', {static: false}) menuContainer;
-  @Input() menuStatus: boolean;
+  @Input('menu-status') menuStatus: boolean = false;
   faChartPie = faChartPie;
   faFolderOpen = faFolderOpen;
   faNotesMedical = faNotesMedical;
   faDiagnoses = faDiagnoses;
   faUsers = faUsers;
   faUserMd = faUserMd;
+  menuPermission: boolean = false;
 
-  constructor(private render: Renderer2, private menuService: MenuService, private activatedRoute: ActivatedRoute) {
+
+  constructor(private render: Renderer2, private menuService: MenuService, private authService: AuthService) {
   }
 
   ngOnInit() {
+    this.menuPermission = this.verifyPermission(window.localStorage.getItem('roles'));
+  }
+
+  verifyPermission(permission?: string) {
+    return this.authService.hasPermission(permission);
   }
 
   ngOnChanges(changes: SimpleChanges): void {

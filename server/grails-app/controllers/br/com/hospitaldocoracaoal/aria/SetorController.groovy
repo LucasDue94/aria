@@ -4,6 +4,7 @@ import grails.gorm.transactions.ReadOnly
 import grails.gorm.transactions.Transactional
 import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
+import org.springframework.security.access.prepost.PreAuthorize
 
 import static org.springframework.http.HttpStatus.*
 
@@ -22,12 +23,13 @@ class SetorController {
         respond setorService.list(params, tipoSetor), model:[setorCount: setorService.count()]
     }
 
+
     @Secured('ROLE_SETOR_SHOW')
     def show(Long id) {
         respond setorService.get(id)
     }
 
-    @Secured('ROLE_SETOR_INDEX')
+    @Secured('ROLE_SETOR_SHOW')
     def admissions(Integer max, String termo) {
         params.sort = 'dataEntrada'
         params.order = 'desc'

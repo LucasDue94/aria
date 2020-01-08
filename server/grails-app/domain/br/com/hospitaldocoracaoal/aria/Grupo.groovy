@@ -12,6 +12,8 @@ class Grupo implements Serializable {
 	private static final long serialVersionUID = 1
 
 	String name
+	Boolean habilitado = true
+
 	static hasMany = [
 	        usuarios: Usuario,
 			permissoes: Permissao
@@ -23,5 +25,7 @@ class Grupo implements Serializable {
 
 	static constraints = {
 		name nullable: false, blank: false, unique: true
+		habilitado nullable: true
 	}
+
 }

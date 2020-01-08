@@ -1,4 +1,4 @@
-import {Component, OnInit, Renderer2} from '@angular/core';
+import {Component, Input, OnInit, Renderer2} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import {TitleService} from "../../core/title/title.service";
 import {PermissaoService} from "../../core/permissao/permissao.service";
@@ -17,6 +17,7 @@ import {SpinnerService} from "../../core/spinner/spinner.service";
   styleUrls: ['./grupo-form.component.scss']
 })
 export class GrupoFormComponent implements OnInit {
+  @Input('habilitado') status: boolean = false;
   form = this.fb.group({
     nome: ['', Validators.required],
   });

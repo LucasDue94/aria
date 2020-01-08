@@ -10,8 +10,8 @@ export class ErrorComponent implements OnInit {
 
   @Input() message;
   @Input() cod;
-  messageDefault = 'Desculpe o transtorno, ocorreu um erro.';
-  codDefault = '123';
+  messageDefault = 'Desculpe...Você não tem permissão para acessar esta página.';
+  codDefault = '403';
   faSadTear = faSadTear;
 
   constructor() {

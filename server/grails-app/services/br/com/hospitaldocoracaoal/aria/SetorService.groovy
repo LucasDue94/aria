@@ -2,6 +2,7 @@ package br.com.hospitaldocoracaoal.aria
 
 import br.com.hospitaldocoracaoal.aria.db.TipoSetor
 import grails.gorm.services.Service
+import org.springframework.security.access.prepost.PreAuthorize
 
 @Service(Setor)
 abstract class SetorService {

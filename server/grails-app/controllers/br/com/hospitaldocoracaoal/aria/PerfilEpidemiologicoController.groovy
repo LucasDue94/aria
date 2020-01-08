@@ -2,6 +2,7 @@ package br.com.hospitaldocoracaoal.aria
 
 import grails.plugin.springsecurity.annotation.Secured
 import org.springframework.http.HttpStatus
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.server.ResponseStatusException
 
 class PerfilEpidemiologicoController {
@@ -10,7 +11,7 @@ class PerfilEpidemiologicoController {
     static responseFormats = ['json', 'xml']
     PerfilEpidemiologicoService perfilEpidemiologicoService
 
-    @Secured('ROLE_PERFIL_EPIDEMIOLOGICO_INDEX')
+    @Secured(['ROLE_PERFIL_EPIDEMIOLOGICO_INDEX'])
     def index() {
         Map entradas = this.carregarFiltros()
         Date inicio = entradas.inicio

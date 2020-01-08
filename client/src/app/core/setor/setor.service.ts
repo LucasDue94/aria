@@ -32,7 +32,7 @@ export class SetorService {
       {headers: this.getDefaultHttpOptions()})
       .pipe(
         catchError(error => of({error})
-        )).subscribe((json: Setor[]) => {
+        )).subscribe((json: any[]) => {
       subject.next(json);
     });
     return subject.asObservable();

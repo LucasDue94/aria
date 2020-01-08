@@ -39,11 +39,11 @@ export class ApacheService extends HeadersHelper {
   }
 
   report(dataInicio?: string, dataFim?: string, setorId?: number, offset?: any, max?: any): Observable<Apache[]> {
-    let subject = new Subject<Apache[]>();
-    this.http.get<Apache[]>(this.baseUrl + `apache/relatorio?` + 'dataInicio=' + dataInicio + '&dataFim=' + dataFim + '&setorId='+ setorId +'&offset=' + offset + '&max=' + max, {headers: this.getDefaultHttpOptions()})
+    let subject = new Subject<any[]>();
+    this.http.get<any[]>(this.baseUrl + `apache/relatorio?` + 'dataInicio=' + dataInicio + '&dataFim=' + dataFim + '&setorId='+ setorId +'&offset=' + offset + '&max=' + max, {headers: this.getDefaultHttpOptions()})
       .pipe(
         catchError(error => of({error})
-        )).subscribe((json: Apache[]) => {
+        )).subscribe((json: any) => {
       subject.next(json);
     });
     return subject.asObservable();

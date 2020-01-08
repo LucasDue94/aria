@@ -6,6 +6,7 @@ import {FormBuilder} from "@angular/forms";
 import {SpinnerService} from "../../core/spinner/spinner.service";
 import {UsuarioService} from "../../core/usuario/usuario.service";
 import {AlertService} from "../../core/alert/alert.service";
+import {ErrorService} from "../../core/error/error.service";
 
 @Component({
   selector: 'app-list',
@@ -15,7 +16,7 @@ import {AlertService} from "../../core/alert/alert.service";
 export class UsuarioListComponent implements OnInit {
 
   constructor(private titleService: TitleService, private fb: FormBuilder, private spinner: SpinnerService,
-              private usuarioService: UsuarioService, private alertService: AlertService) { }
+              private usuarioService: UsuarioService, private errorService: ErrorService) { }
 
   faFrown = faFrown;
   faSearch = faSearch;
@@ -30,8 +31,9 @@ export class UsuarioListComponent implements OnInit {
     this.spinner.show();
     this.titleService.send('Lista de Usuários');
     this.usuarioService.list('',10000).subscribe(usuarios => {
-      if (usuarios.hasOwnProperty('error')) {
-        this.alertService.send({message: 'Desculpe...ocorreu um erro.', type: 'error', icon: faFrown});
+      if (this.errorService.hasError(usuarios)) {
+        this.spinner.hide();
+        this.errorService.sendError(usuarios);
       } else {
         this.data = usuarios;
         this.sortUsuario();

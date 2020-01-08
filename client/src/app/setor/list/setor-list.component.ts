@@ -6,6 +6,8 @@ import {faFrown, faPlus, faSearch} from "@fortawesome/free-solid-svg-icons";
 import {FormBuilder} from "@angular/forms";
 import {AlertService} from "../../core/alert/alert.service";
 import {TitleService} from "../../core/title/title.service";
+import {ErrorService} from "../../core/error/error.service";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -23,16 +25,18 @@ export class SetorListComponent implements OnInit {
     searchControl: ['']
   });
 
-  constructor(private setorService: SetorService, private spinner: SpinnerService,
+  constructor(private setorService: SetorService, private spinner: SpinnerService, private errorService: ErrorService,
+              private router: Router,
               private fb: FormBuilder, private alertService: AlertService, private titleService: TitleService) {
   }
 
   ngOnInit() {
     this.spinner.show();
+    window.localStorage.getItem('grupo') == 'Padrão' ? this.router.navigate(['error']) : '';
     this.titleService.send('Lista de Setores');
     this.setorService.list('', '',10000).subscribe(setores => {
-      if (setores.hasOwnProperty('error')) {
-        this.alertService.send({message: 'Desculpe...ocorreu um erro.', type: 'error', icon: faFrown});
+      if (this.errorService.hasError(setores)) {
+          this.errorService.sendError(setores);
       } else {
         this.data = setores;
         this.sortSetor();

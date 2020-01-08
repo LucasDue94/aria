@@ -19,13 +19,11 @@ class BootStrap {
         }
 
         def padrao = Grupo.findByName('Padrão')
-        if(padrao == null) {
+        if (padrao == null) {
             Grupo.withTransaction {
                 padrao = new Grupo(name: 'Padrão')
-                //TODO: Change later
-                padrao.permissoes = Permissao.all
+                padrao.permissoes = Permissao.findAllByAuthorityInList(['ROLE_PERFIL_EPIDEMIOLOGICO_INDEX']) as Set<Permissao>
                 padrao.save flush: true
-
             }
         }
     }

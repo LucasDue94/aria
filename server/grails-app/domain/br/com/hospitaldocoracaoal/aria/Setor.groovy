@@ -24,6 +24,8 @@ class Setor {
 
     static transients = ['leitos']
 
+
+
     Set<Leito> getLeitos() {
         setorWpd.leitos
     }

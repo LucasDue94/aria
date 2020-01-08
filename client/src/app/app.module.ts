@@ -30,7 +30,7 @@ import {UsuarioModule} from "./usuario/usuario.module";
   declarations: [
     AppComponent,
     PerfilDashboardComponent,
-    ErrorComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,

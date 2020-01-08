@@ -8,13 +8,14 @@ import {ApachePacienteListComponent} from "../apache/paciente/list/apache-pacien
 import {ApacheFormComponent} from "../apache/form/apache-form.component";
 import {MainComponent} from "./main.component";
 import {AuthGuard} from "../core/guards/auth.guard";
-import {RelatorioListComponent} from "../relatorio/relatorio-list/relatorio-list.component";
-import {ApacheReportComponent} from "../relatorio/relatorio-list/apache-report/apache-report.component";
+import {ListComponent} from "../relatorio/list/list.component";
+import {ReportComponent} from "../apache/report/report.component";
 import {UsuarioListComponent} from "../usuario/list/usuario-list.component";
 import {UsuarioEditComponent} from "../usuario/edit/usuario-edit.component";
 import {GrupoListComponent} from "../grupo/list/grupo-list.component";
 import {GrupoFormComponent} from "../grupo/form/grupo-form.component";
 import {ErrorComponent} from "../error/error.component";
+import {GrupoEditComponent} from "../grupo/edit/grupo-edit.component";
 
 
 const routes: Routes = [
@@ -105,14 +106,14 @@ const routes: Routes = [
           },
           {
             path: 'list',
-            component: RelatorioListComponent,
+            component: ListComponent,
             canActivate: [AuthGuard]
           }
         ],
       },
       {
         path: 'apache-report',
-        component: ApacheReportComponent,
+        component: ReportComponent,
         canActivate: [AuthGuard]
       },
       {
@@ -134,7 +135,7 @@ const routes: Routes = [
             canActivate: [AuthGuard],
           }, {
             path: 'edit/:id',
-            component: GrupoFormComponent,
+            component: GrupoEditComponent,
             canActivate: [AuthGuard],
           }
         ]

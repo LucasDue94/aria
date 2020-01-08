@@ -2,9 +2,13 @@ package br.com.hospitaldocoracaoal.aria
 
 import br.com.hospitaldocoracaoal.integracao.Cid
 import br.com.hospitaldocoracaoal.integracao.RegistroAtendimento
+import grails.compiler.GrailsCompileStatic
 import org.grails.datastore.mapping.query.api.BuildableCriteria
 import org.hibernate.FetchMode
 import org.hibernate.sql.JoinType
+import org.springframework.security.access.prepost.PostFilter
+import org.springframework.security.access.prepost.PreAuthorize
+
 
 class PerfilEpidemiologicoService {
 
@@ -46,7 +50,6 @@ class PerfilEpidemiologicoService {
         } as Set<RegistroAtendimento>
     }
 
-
     private Set<RegistroAtendimento> leitosPorSetor(Date inicio, Date fim, Character[] tipos, Collection<Setor> setores) {
         def criteria = RegistroAtendimento.createCriteria()
         return criteria.listDistinct {
@@ -68,7 +71,6 @@ class PerfilEpidemiologicoService {
             }
         } as Set<RegistroAtendimento>
     }
-
 
     def gerarPerfil(Date inicio, Date fim, Character[] tipos = null, Collection<Setor> setores = null, Boolean perfilGeral = true) {
         def criteria = RegistroAtendimento.createCriteria()

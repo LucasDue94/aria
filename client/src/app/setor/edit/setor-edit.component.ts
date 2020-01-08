@@ -8,6 +8,7 @@ import {Setor} from "../../core/setor/setor";
 import {faCheck, faExclamationCircle, faFrown} from "@fortawesome/free-solid-svg-icons";
 import {AlertService} from "../../core/alert/alert.service";
 import {TitleService} from "../../core/title/title.service";
+import {ErrorService} from "../../core/error/error.service";
 
 @Component({
   selector: 'app-setor-edit',
@@ -36,7 +37,9 @@ export class SetorEditComponent implements OnInit {
   constructor(private spinner: SpinnerService, private setorAriaService: SetorService,
               private render: Renderer2, private fb: FormBuilder,
               private location: Location, private router: Router,
-              private route: ActivatedRoute, private alertService: AlertService,
+              private route: ActivatedRoute,
+              private errorService: ErrorService,
+              private alertService: AlertService,
               private titleService: TitleService) {
   }
 
@@ -45,8 +48,9 @@ export class SetorEditComponent implements OnInit {
     this.spinner.show();
     this.route.params.subscribe(params => {
       this.setorAriaService.get(params['id']).subscribe(setor => {
-        if (setor.hasOwnProperty('error')) {
-          this.alertService.send({message: 'Desculpe...ocorreu um erro.', type: 'error', icon: faFrown});
+        if (this.errorService.hasError(setor)) {
+          this.spinner.hide();
+          this.errorService.sendError(setor);
         } else {
           this.setor = setor;
           this.setForm();

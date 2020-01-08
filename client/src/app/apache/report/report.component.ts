@@ -1,23 +1,24 @@
 import {Component, OnInit} from '@angular/core';
 import {faFrown, faSearch} from '@fortawesome/free-solid-svg-icons';
 import {Chart} from 'angular-highcharts';
-import {TitleService} from '../../../core/title/title.service';
-import {ApacheService} from '../../../core/apache/apache.service';
-import {SetorService} from '../../../core/setor/setor.service';
-import {Setor} from '../../../core/setor/setor';
+import {TitleService} from '../../core/title/title.service';
+import {ApacheService} from '../../core/apache/apache.service';
+import {SetorService} from '../../core/setor/setor.service';
+import {Setor} from '../../core/setor/setor';
 import {SeriesBarOptions, SeriesSplineOptions} from "highcharts";
 import {DatePipe} from "@angular/common";
 import {FormBuilder, Validators} from "@angular/forms";
-import {ErrorService} from "../../../core/error/error.service";
-import {AlertService} from "../../../core/alert/alert.service";
+import {AlertService} from "../../core/alert/alert.service";
+import {ErrorService} from "../../core/error/error.service";
+import {SpinnerService} from "../../core/spinner/spinner.service";
 
 
 @Component({
   selector: 'app-apache-report',
-  templateUrl: './apache-report.component.html',
-  styleUrls: ['./apache-report.component.scss']
+  templateUrl: './report.component.html',
+  styleUrls: ['./report.component.scss']
 })
-export class ApacheReportComponent extends DatePipe implements OnInit, DatePipe {
+export class ReportComponent extends DatePipe implements OnInit, DatePipe {
 
   arrayListSetor: Setor[] = [];
   faSearch = faSearch;
@@ -107,6 +108,8 @@ export class ApacheReportComponent extends DatePipe implements OnInit, DatePipe 
     private setorService: SetorService,
     private apacheService: ApacheService,
     private alertService: AlertService,
+    private spinner: SpinnerService,
+    private errorService: ErrorService,
     private fb: FormBuilder) {
     super('en-US');
 
@@ -114,30 +117,43 @@ export class ApacheReportComponent extends DatePipe implements OnInit, DatePipe 
   }
 
   ngOnInit() {
+    this.spinner.show();
     this.titleService.send('Relatório de Apache');
     this.getDateInterval();
     this.setorService.list('U', '', '').subscribe(setores => {
-      setores.forEach(setor => {
-        this.arrayListSetor.push(setor);
-        this.setorId = setor.id;
-        this.titleChart = setor.sigla;
+       this.spinner.hide();
+        this.errorService.hasError(setores);
+        setores.forEach(setor => {
+          this.arrayListSetor.push(setor);
+          this.setorId = setor.id;
+          this.titleChart = setor.sigla;
 
-        this.form = this.fb.group({
-          inicio: [this.dataInicio, Validators.required],
-          fim: [this.dataFim, Validators.required],
-          setorId: [this.setorId, Validators.required]
+          this.form = this.fb.group({
+            inicio: [this.dataInicio, Validators.required],
+            fim: [this.dataFim, Validators.required],
+            setorId: [this.setorId, Validators.required]
+          });
         });
-      });
 
-      this.apacheService.report(this.dataInicio, this.dataFim, this.setorId, '', '').subscribe(this.generateChartApache);
-    });
+        this.apacheService.report(this.dataInicio, this.dataFim, this.setorId, '', '').subscribe(apaches => {
+            this.spinner.show();
+            if(this.errorService.hasError(apaches)) {
+              this.spinner.hide();
+              this.errorService.sendError(apaches);
+            } else {
+                this.generateChartApache(apaches);
+            }
+          }
+        );
+      }
+    );
   }
 
   getDateInterval(): string {
     const today: DatePipe = new DatePipe('en-US');
-    const dateFormatterInico: string = this.date.getFullYear() + "-" + this.date.getMonth() + "-" + this.date.getDate();
+    const dateFormatterInicio: string = this.date.getFullYear() + "-" + this.date.getMonth() + "-" + this.date.getDate();
     const dateFormatterFim: string = this.date.getFullYear() + "-" + (this.date.getMonth() + 1) + "-" + this.date.getDate();
-    this.dataInicio = today.transform(dateFormatterInico, 'yyyy-MM-dd', '', 'en-US');
+    this.dataInicio = today.transform(dateFormatterInicio, 'yyyy-MM-dd', '', 'en-US');
     this.dataFim = today.transform(dateFormatterFim, 'yyyy-MM-dd', '', 'en-US');
 
     return this.dataFim + this.dataInicio

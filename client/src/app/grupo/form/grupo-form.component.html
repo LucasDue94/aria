@@ -4,6 +4,10 @@
       <div class="form-group flex-row">
         <label for="nome" class="form-label">Nome:</label>
         <input class="form-control" formControlName="nome" id="nome" type="text">
+        <div *ngIf="status">
+          <label for="status" class="form-label">Habilitado:</label>
+          <input id="status" type="checkbox" class="checkBox" checked>
+        </div>
         <button (click)="save()" class="button button-blue btn-save">Salvar</button>
       </div>
     </form>

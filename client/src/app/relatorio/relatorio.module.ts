@@ -8,16 +8,16 @@ import {InfiniteScrollModule} from "ngx-infinite-scroll";
 import {SpinnerModule} from "../spinner/spinner.module";
 import {SelectModule} from "../select/select.module";
 import {CoreModule} from "../core/core.module";
-import { RelatorioListComponent } from './relatorio-list/relatorio-list.component';
-import { ApacheReportComponent } from './relatorio-list/apache-report/apache-report.component';
+import { ListComponent } from './list/list.component';
+import { ReportComponent } from '../apache/report/report.component';
 import {ChartModule} from "angular-highcharts";
 
 
 
 @NgModule({
   declarations: [
-    RelatorioListComponent,
-    ApacheReportComponent
+    ListComponent,
+    ReportComponent
   ],
     imports: [
         CommonModule,
