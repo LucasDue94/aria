@@ -38,7 +38,7 @@ dependencies {
     compile "org.grails:grails-core"
     compile 'org.grails.plugins:spring-security-acl:4.0.0.M2'
     compile "org.springframework.boot:spring-boot-starter-actuator"
-    compile "org.springframework.boot:spring-boot-starter-tomcat"
+    provided "org.springframework.boot:spring-boot-starter-tomcat"
     compile "org.grails:grails-plugin-url-mappings"
     compile "org.grails:grails-plugin-rest"
     compile "org.grails:grails-plugin-codecs"
@@ -90,4 +90,8 @@ bootRun {
     sourceResources sourceSets.main
     String springProfilesActive = 'spring.profiles.active'
     systemProperty springProfilesActive, System.getProperty(springProfilesActive)
+}
+
+bootWar {
+    archiveFileName = "${rootProject.name}.war"
 }

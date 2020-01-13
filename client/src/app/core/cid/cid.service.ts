@@ -9,7 +9,7 @@ import {Cid} from "./cid";
 @Injectable()
 export class CidService{
 
-    private baseUrl = environment.serverUrl;
+    private baseUrl = environment.apiUrl;
     getDefaultHttpOptions() {
         return new HttpHeaders({
             "Cache-Control": "no-cache",

@@ -9,7 +9,7 @@ import {Leito} from "./leito";
 @Injectable()
 export class LeitoService {
 
-    private baseUrl = environment.serverUrl;
+    private baseUrl = environment.apiUrl;
     getDefaultHttpOptions() {
         return new HttpHeaders({
             "Cache-Control": "no-cache",

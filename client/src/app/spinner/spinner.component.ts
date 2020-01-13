@@ -9,21 +9,19 @@ import {faHeart} from "@fortawesome/free-solid-svg-icons/faHeart";
   styleUrls: ['./spinner.component.scss']
 })
 export class SpinnerComponent implements DoCheck, AfterViewInit {
-
-
-  private status;
-  faHeart = faHeart
+  status: boolean;
+  faHeart = faHeart;
   @Input('width') width: string;
   @Input('height') height: string;
   @ViewChild('spinnerContainer', {static: false}) spinnerContainer;
 
-  constructor(private render: Renderer2, private spinnerService: SpinnerService) {
+  constructor(private render: Renderer2,
+              private spinnerService: SpinnerService) {
   }
 
   ngDoCheck() {
     this.spinnerService.listen().subscribe(res => this.status = res);
     if (this.height != undefined) this.status = true;
-
   }
 
   ngAfterViewInit(): void {

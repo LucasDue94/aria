@@ -10,7 +10,7 @@ import {BaseService} from "../http/baseService.service";
 @Injectable()
 export class UsuarioService extends BaseService {
 
-  private baseUrl = environment.serverUrl + 'usuario';
+  private baseUrl = environment.apiUrl + 'usuario';
 
   constructor(private http: HttpClient) {
     super();

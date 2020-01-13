@@ -9,7 +9,7 @@ import {RegistroAtendimento} from "./registroAtendimento";
 @Injectable()
 export class RegistroAtendimentoService {
 
-    private baseUrl = environment.serverUrl;
+    private baseUrl = environment.apiUrl;
     getDefaultHttpOptions() {
         return new HttpHeaders({
             "Cache-Control": "no-cache",

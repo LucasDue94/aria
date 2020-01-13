@@ -95,45 +95,31 @@ hibernate:
 dataSource:
     pooled: true
     jmxExport: true
-    dialect: org.hibernate.dialect.PostgreSQL94Dialect
 
 environments:
     development:
         dataSource:
             logSql: true
             dbCreate: update
+            dialect: org.hibernate.dialect.PostgreSQL94Dialect
             url: jdbc:postgresql://10.10.1.23:5432/aria_dev
             username: aria
             password: 'aria@123-hcor'
     test:
         dataSource:
             dbCreate: update
+            dialect: org.hibernate.dialect.PostgreSQL94Dialect
             url: jdbc:postgresql://10.10.1.23:5432/aria_dev
             username: aria
             password: 'aria@123-hcor'
     production:
         dataSource:
             dbCreate: none
-            url: jdbc:h2:./prodDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
-            properties:
-                jmxEnabled: true
-                initialSize: 5
-                maxActive: 50
-                minIdle: 5
-                maxIdle: 25
-                maxWait: 10000
-                maxAge: 600000
-                timeBetweenEvictionRunsMillis: 5000
-                minEvictableIdleTimeMillis: 60000
-                validationQuery: SELECT 1
-                validationQueryTimeout: 3
-                validationInterval: 15000
-                testOnBorrow: true
-                testWhileIdle: true
-                testOnReturn: false
-                jdbcInterceptors: ConnectionState
-                defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
+            jndiName: 'java:jboss/datasources/AriaDS'
+
 grails:
+    resources:
+        pattern: /**
     plugin:
         springsecurity:
             ldap:
@@ -149,7 +135,6 @@ grails:
                     searchSubtree: true
                 auth:
                     hideUserNotFoundExceptions: false
-
     mail:
         host: "smtp.gmail.com"
         port: 587

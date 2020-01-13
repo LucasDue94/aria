@@ -10,7 +10,7 @@ import {catchError} from 'rxjs/operators';
 @Injectable()
 export class PermissaoService extends HeadersHelper {
 
-  private baseUrl = environment.serverUrl;
+  private baseUrl = environment.apiUrl;
 
   getDefaultHttpOptions() {
     return new HttpHeaders({

@@ -8,7 +8,7 @@ import {catchError} from "rxjs/operators";
 @Injectable()
 export class SetorWpdService {
 
-  private baseUrl = environment.serverUrl;
+  private baseUrl = environment.apiUrl;
 
   getDefaultHttpOptions() {
     return new HttpHeaders({

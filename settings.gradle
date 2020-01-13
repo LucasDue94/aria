@@ -1,4 +1,2 @@
 rootProject.name = 'aria'
-include 'server'
-findProject(':server')?.name = 'Server'
-
+include 'server', 'client'
