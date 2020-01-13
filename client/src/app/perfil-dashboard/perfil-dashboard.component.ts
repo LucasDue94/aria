@@ -16,14 +16,13 @@ import {ErrorService} from "../core/error/error.service";
   templateUrl: './perfil-dashboard.component.html',
   styleUrls: ['./perfil-dashboard.component.scss']
 })
-export class PerfilDashboardComponent implements OnInit, DoCheck, AfterViewChecked {
+export class PerfilDashboardComponent implements OnInit, AfterViewChecked {
   @ViewChild('buttonPediatrico', {static: false}) buttonPediatrico;
   @ViewChild('buttonAdulto', {static: false}) buttonAdulto;
   faExpand = faExpand;
   faMale = faMale;
   faFemale = faFemale;
   faBabyCarriage = faBabyCarriage;
-  menuStatus: boolean;
   defaultPlotOptions = {
     series: {
       labels: {
@@ -374,6 +373,7 @@ export class PerfilDashboardComponent implements OnInit, DoCheck, AfterViewCheck
               private spinner: SpinnerService, private fb: FormBuilder, private errorService: ErrorService,
               private perfilService: PerfilService, private alertService: AlertService,
               private setorService: SetorService, private titleService: TitleService) {
+    this.redrawCharts = this.redrawCharts.bind(this);
   }
 
 
@@ -450,10 +450,18 @@ export class PerfilDashboardComponent implements OnInit, DoCheck, AfterViewCheck
   }
 
   redrawCharts() {
-    this.cidChart.ref.reflow();
-    this.idadeChart.ref.reflow();
-    this.sexoChart.ref.reflow();
-    this.motivoAltaChart.ref.reflow();
+    if (this.cidChart.ref !== undefined && this.idadeChart.ref !== undefined &&
+      this.sexoChart.ref !== undefined && this.motivoAltaChart.ref !== undefined) {
+
+      this.cidChart.ref.reflow();
+      this.idadeChart.ref.reflow();
+      this.sexoChart.ref.reflow();
+      this.motivoAltaChart.ref.reflow();
+    } else {
+      setTimeout(() => {
+        this.redrawCharts();
+      }, 500);
+    }
   }
 
   getQuantityArray(key) {
@@ -502,7 +510,7 @@ export class PerfilDashboardComponent implements OnInit, DoCheck, AfterViewCheck
   ngOnInit() {
     this.titleService.send('Perfil Epidemiológico');
     this.setorService.list('', '', '').subscribe(setores => {
-      if(this.errorService.hasError(setores)) {
+      if (this.errorService.hasError(setores)) {
         this.errorService.sendError(setores);
       } else {
         this.setores = setores;
@@ -519,27 +527,10 @@ export class PerfilDashboardComponent implements OnInit, DoCheck, AfterViewCheck
       this.optionsCid.xAxis.labels.style.fontSize = '10px';
       this.defaultLabels.rotation = -45;
     }
-    this.menuService.getStatus().subscribe(status => {
-      if (status != this.menuStatus) {
-        setTimeout(() => {
-          this.redrawCharts();
-        }, 500);
-        this.menuStatus = status;
-      }
-    });
   }
 
   ngAfterViewChecked(): void {
     this.toggle();
-  }
-
-  ngDoCheck(): void {
-    this.menuService.getStatus().subscribe(status => {
-      if (status != this.menuStatus) {
-        this.redrawCharts()
-      }
-      this.menuStatus = status;
-    });
   }
 
   toggle() {
@@ -623,60 +614,3 @@ export class PerfilDashboardComponent implements OnInit, DoCheck, AfterViewCheck
     this.perfil.setores = Array.from(itemsSet);
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
