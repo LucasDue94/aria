@@ -9,7 +9,7 @@ import {ApacheFormComponent} from "../apache/form/apache-form.component";
 import {MainComponent} from "./main.component";
 import {AuthGuard} from "../core/guards/auth.guard";
 import {ListComponent} from "../relatorio/list/list.component";
-import {ReportComponent} from "../apache/report/report.component";
+import {ReportApacheComponent} from "../apache/report/report-apache.component";
 import {UsuarioListComponent} from "../usuario/list/usuario-list.component";
 import {UsuarioEditComponent} from "../usuario/edit/usuario-edit.component";
 import {GrupoListComponent} from "../grupo/list/grupo-list.component";
@@ -113,7 +113,7 @@ const routes: Routes = [
       },
       {
         path: 'apache-report',
-        component: ReportComponent,
+        component: ReportApacheComponent,
         canActivate: [AuthGuard]
       },
       {

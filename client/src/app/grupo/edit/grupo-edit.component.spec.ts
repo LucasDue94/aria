@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ReportComponent } from './report.component';
+import { GrupoEditComponent } from './grupo-edit.component';
 
-describe('ApacheReportComponent', () => {
-  let component: ReportComponent;
-  let fixture: ComponentFixture<ReportComponent>;
+describe('GrupoEditComponent', () => {
+  let component: GrupoEditComponent;
+  let fixture: ComponentFixture<GrupoEditComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ReportComponent ]
+      declarations: [ GrupoEditComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ReportComponent);
+    fixture = TestBed.createComponent(GrupoEditComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

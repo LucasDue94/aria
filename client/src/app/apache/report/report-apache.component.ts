@@ -15,10 +15,10 @@ import {SpinnerService} from "../../core/spinner/spinner.service";
 
 @Component({
   selector: 'app-apache-report',
-  templateUrl: './report.component.html',
-  styleUrls: ['./report.component.scss']
+  templateUrl: './report-apache.component.html',
+  styleUrls: ['./report-apache.component.scss']
 })
-export class ReportComponent extends DatePipe implements OnInit, DatePipe {
+export class ReportApacheComponent extends DatePipe implements OnInit, DatePipe {
 
   arrayListSetor: Setor[] = [];
   faSearch = faSearch;
@@ -121,7 +121,7 @@ export class ReportComponent extends DatePipe implements OnInit, DatePipe {
     this.titleService.send('Relatório de Apache');
     this.getDateInterval();
     this.setorService.list('U', '', '').subscribe(setores => {
-       this.spinner.hide();
+        this.spinner.hide();
         this.errorService.hasError(setores);
         setores.forEach(setor => {
           this.arrayListSetor.push(setor);
@@ -137,11 +137,12 @@ export class ReportComponent extends DatePipe implements OnInit, DatePipe {
 
         this.apacheService.report(this.dataInicio, this.dataFim, this.setorId, '', '').subscribe(apaches => {
             this.spinner.show();
-            if(this.errorService.hasError(apaches)) {
+            if (this.errorService.hasError(apaches)) {
               this.spinner.hide();
               this.errorService.sendError(apaches);
             } else {
-                this.generateChartApache(apaches);
+              this.spinner.hide();
+              this.generateChartApache(apaches);
             }
           }
         );

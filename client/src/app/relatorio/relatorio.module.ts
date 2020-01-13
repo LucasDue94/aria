@@ -9,7 +9,7 @@ import {SpinnerModule} from "../spinner/spinner.module";
 import {SelectModule} from "../select/select.module";
 import {CoreModule} from "../core/core.module";
 import { ListComponent } from './list/list.component';
-import { ReportComponent } from '../apache/report/report.component';
+import { ReportApacheComponent } from '../apache/report/report-apache.component';
 import {ChartModule} from "angular-highcharts";
 
 
@@ -17,7 +17,7 @@ import {ChartModule} from "angular-highcharts";
 @NgModule({
   declarations: [
     ListComponent,
-    ReportComponent
+    ReportApacheComponent
   ],
     imports: [
         CommonModule,
