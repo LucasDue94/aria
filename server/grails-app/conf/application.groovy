@@ -32,6 +32,7 @@ grails.plugin.springsecurity.rest.token.storage.gorm.usernamePropertyName = 'use
 
 grails.plugin.springsecurity.roleHierarchy = """
  	 ROLE_PERFIL_EPIDEMIOLOGICO_INDEX > ROLE_SETOR_INDEX
+ 	 ROLE_PERFIL_EPIDEMIOLOGICO_INDEX > ROLE_PERMISSAO_INDEX
 """
 
 grails.plugin.springsecurity.filterChain.chainMap = [

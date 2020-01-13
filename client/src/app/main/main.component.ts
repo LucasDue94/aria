@@ -15,9 +15,9 @@ import {Location} from "@angular/common";
 export class MainComponent implements DoCheck {
   @ViewChild(SpinnerComponent, {static: false}) spinner;
   @ViewChild('main-container', {static: false}) mainContainer;
+  menuStatus: boolean = true;
   moduleName = 'Home';
   alert: Alert;
-  menuStatus: boolean;
   faArrowLeft = faChevronCircleLeft;
 
   constructor(private alertService: AlertService, private menuService: MenuService,

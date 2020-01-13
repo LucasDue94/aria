@@ -20,19 +20,22 @@ class UserDetailContextMapper implements UserDetailsContextMapper {
         String email = ctx.getStringAttribute('mail')
 
         Usuario.withTransaction {
+            Usuario usuario = Usuario.findByUsername(username)
+            if(usuario == null) {
+                Grupo grupo = Grupo.findByName('Padrão')
+                def usuarioMap = [
+                        username: username,
+                        grupo: grupo,
+                        nome: nome,
+                        email: email
+                ]
 
-            Grupo grupo = Grupo.findByName('Padrão')
-            def usuarioMap = [
-                    username: username,
-                    grupo: grupo,
-                    nome: nome,
-                    email: email
-            ]
+                usuario = Usuario.findOrCreateWhere usuarioMap
+                usuario.save(flush: true)
+            }
 
-            Usuario usuario = Usuario.findOrCreateWhere usuarioMap
-            usuario.save(flush: true)
 
-            authorities = grupo.permissoes.collect({
+            authorities = usuario.grupo.permissoes.collect({
                 new SimpleGrantedAuthority(it.authority as String)
             })
 

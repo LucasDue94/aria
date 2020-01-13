@@ -6,7 +6,7 @@ import {Observable, Subject} from "rxjs";
 })
 export class MenuService {
   private subject: Subject<any> = new Subject();
-  private status: boolean;
+  private status: boolean = true;
 
   constructor() {}
 

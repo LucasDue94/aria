@@ -31,9 +31,9 @@ export class SetorListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.spinner.show();
-    window.localStorage.getItem('grupo') == 'Padrão' ? this.router.navigate(['error']) : '';
     this.titleService.send('Lista de Setores');
+    window.localStorage.getItem('grupo') == 'Padrão' ? this.router.navigate(['error']) :
+    window.localStorage.getItem('grupo') == 'Admin' ?
     this.setorService.list('', '',10000).subscribe(setores => {
       if (this.errorService.hasError(setores)) {
           this.errorService.sendError(setores);
@@ -43,7 +43,7 @@ export class SetorListComponent implements OnInit {
         this.setores = this.data;
         this.spinner.hide();
       }
-    });
+    }) : this.router.navigate(['error']);
   }
 
   sortSetor() {
