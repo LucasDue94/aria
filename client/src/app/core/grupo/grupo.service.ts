@@ -10,7 +10,7 @@ import {Grupo} from "./grupo";
 @Injectable()
 export class GrupoService extends HeadersHelper {
 
-  private baseUrl = environment.serverUrl;
+  private baseUrl = environment.apiUrl;
 
   getDefaultHttpOptions() {
     return new HttpHeaders({

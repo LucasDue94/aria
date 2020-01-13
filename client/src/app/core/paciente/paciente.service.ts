@@ -9,7 +9,7 @@ import {Paciente} from "./paciente";
 @Injectable()
 export class PacienteService {
 
-    private baseUrl = environment.serverUrl;
+    private baseUrl = environment.apiUrl;
     getDefaultHttpOptions() {
         return new HttpHeaders({
             "Cache-Control": "no-cache",

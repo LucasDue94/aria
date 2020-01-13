@@ -9,7 +9,7 @@ import {Setor} from "./setor";
 @Injectable()
 export class SetorService {
 
-  private baseUrl = environment.serverUrl;
+  private baseUrl = environment.apiUrl;
 
   getDefaultHttpOptions() {
     return new HttpHeaders({

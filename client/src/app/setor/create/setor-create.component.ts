@@ -29,7 +29,7 @@ export class SetorCreateComponent implements OnInit, AfterViewInit {
   newSetor = new Setor();
 
   constructor(private setorAriaService: SetorService, private render: Renderer2,
-              private fb: FormBuilder, private setorWpdService: SetorWpdService,
+              private fb: FormBuilder, public setorWpdService: SetorWpdService,
               private location: Location, private router: Router,
               private alertService: AlertService, private titleService: TitleService) {
   }

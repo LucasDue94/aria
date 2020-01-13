@@ -9,7 +9,7 @@ import {MotivoAlta} from "./motivoAlta";
 @Injectable()
 export class MotivoAltaService {
 
-    private baseUrl = environment.serverUrl;
+    private baseUrl = environment.apiUrl;
     getDefaultHttpOptions() {
         return new HttpHeaders({
             "Cache-Control": "no-cache",

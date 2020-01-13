@@ -13,7 +13,7 @@ import {RegistroAtendimentoLeito} from "../registroAtendimentoLeitos/registroAte
 @Injectable()
 export class ApacheService extends HeadersHelper {
 
-  private baseUrl = environment.serverUrl;
+  private baseUrl = environment.apiUrl;
 
   getDefaultHttpOptions() {
     return new HttpHeaders({

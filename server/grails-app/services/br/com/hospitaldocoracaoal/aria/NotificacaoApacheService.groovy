@@ -16,7 +16,7 @@ class NotificacaoApacheService {
 
     static lazyInit = false
 
-    @Scheduled(fixedDelay = 600000L, initialDelay = 5000L)
+//    @Scheduled(fixedDelay = 600000L, initialDelay = 5000L)
     def notificaPrazoVencido() {
         Calendar calendar = GregorianCalendar.instance
         calendar.time = new Date()

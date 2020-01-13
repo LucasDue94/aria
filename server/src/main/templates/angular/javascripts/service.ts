@@ -9,7 +9,7 @@ import {HeadersHelper} from "../headersHelper";
 @Injectable()
 export class ${className}Service extends  HeadersHelper{
 
-    private baseUrl = environment.serverUrl;
+    private baseUrl = environment.apiUrl;
     getDefaultHttpOptions() {
         return new HttpHeaders({
             "Cache-Control": "no-cache",

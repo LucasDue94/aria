@@ -90,7 +90,7 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('grupo', res['grupo']);
             localStorage.setItem('token', res['access_token']);
           }
-          this.router.navigate(['/setor']);
+          this.router.navigate(['/perfil']);
         },
         error => {
           this.error = true;

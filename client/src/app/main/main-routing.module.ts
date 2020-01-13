@@ -15,15 +15,12 @@ import {UsuarioEditComponent} from "../usuario/edit/usuario-edit.component";
 import {GrupoListComponent} from "../grupo/list/grupo-list.component";
 import {GrupoFormComponent} from "../grupo/form/grupo-form.component";
 import {ErrorComponent} from "../error/error.component";
-import {GrupoEditComponent} from "../grupo/edit/grupo-edit.component";
-
 
 const routes: Routes = [
   {
     path: '',
     component: MainComponent,
     children: [
-
       {
         path: 'perfil', pathMatch: 'full',
         component: PerfilDashboardComponent, canActivate: [AuthGuard],
@@ -132,10 +129,6 @@ const routes: Routes = [
           }, {
             path: 'create',
             component: GrupoFormComponent,
-            canActivate: [AuthGuard],
-          }, {
-            path: 'edit/:id',
-            component: GrupoEditComponent,
             canActivate: [AuthGuard],
           }
         ]
