@@ -1,5 +1,5 @@
 <main class="container-select">
-  <section (click)="showSelect()" class="select" #select>Selecione</section>
+  <section (click)="showSelect()" class="select" #select>{{this.texto}}</section>
   <article class="container-selected-items" *ngIf="this.selectedItems?.length > 0" #containerSelectedItems>
     <div (click)="removeSelectedOfDom($event)" class="item" *ngFor="let item of selectedItems">
       <fa-icon class="icon" [icon]="faTimesCircle"></fa-icon>

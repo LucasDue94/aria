@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {environment} from "../../../environments/environment.prod";
+import {environment} from "../../../environments/environment";
 import {Observable, Subject, of} from "rxjs";
 import {map, catchError} from "rxjs/operators";
 import {HeadersHelper} from "../headersHelper";

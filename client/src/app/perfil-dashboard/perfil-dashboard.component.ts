@@ -16,13 +16,14 @@ import {ErrorService} from "../core/error/error.service";
   templateUrl: './perfil-dashboard.component.html',
   styleUrls: ['./perfil-dashboard.component.scss']
 })
-export class PerfilDashboardComponent implements OnInit, AfterViewChecked {
+export class PerfilDashboardComponent implements OnInit, DoCheck, AfterViewChecked {
   @ViewChild('buttonPediatrico', {static: false}) buttonPediatrico;
   @ViewChild('buttonAdulto', {static: false}) buttonAdulto;
   faExpand = faExpand;
   faMale = faMale;
   faFemale = faFemale;
   faBabyCarriage = faBabyCarriage;
+  menuStatus: boolean;
   defaultPlotOptions = {
     series: {
       labels: {
@@ -242,11 +243,11 @@ export class PerfilDashboardComponent implements OnInit, AfterViewChecked {
       name: 'Quantidade',
       colorByPoint: true,
       data: [{
-        name: 'Masculino',
+        name: 'M',
         y: 1025,
         color: '#2D9DD1'
       }, {
-        name: 'Feminino',
+        name: 'F',
         y: 1354,
         color: '#E83961'
       }]
@@ -443,6 +444,7 @@ export class PerfilDashboardComponent implements OnInit, AfterViewChecked {
         }, {
           name: 'Feminino',
           y: arraySexo.Feminino,
+
           color: '#E83961'
         }]
       }],
@@ -527,10 +529,27 @@ export class PerfilDashboardComponent implements OnInit, AfterViewChecked {
       this.optionsCid.xAxis.labels.style.fontSize = '10px';
       this.defaultLabels.rotation = -45;
     }
+    this.menuService.getStatus().subscribe(status => {
+      if (status != this.menuStatus) {
+        setTimeout(() => {
+          this.redrawCharts();
+        }, 500);
+        this.menuStatus = status;
+      }
+    });
   }
 
   ngAfterViewChecked(): void {
     this.toggle();
+  }
+
+  ngDoCheck(): void {
+    this.menuService.getStatus().subscribe(status => {
+      if (status != this.menuStatus) {
+        this.redrawCharts()
+      }
+      this.menuStatus = status;
+    });
   }
 
   toggle() {

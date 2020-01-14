@@ -20,6 +20,7 @@ export class MultipleSelectComponent implements OnInit, AfterViewChecked {
   @Input() items = [];
   @Input() keyPropery = 'descricao';
   @Input() width = '200px';
+  @Input() texto = 'Selecione';
   @Output() itemsSelected: EventEmitter<any> = new EventEmitter();
   @ViewChild('containerOptions', {static: false}) containerOptions;
   @ViewChild('containerSelectedItems', {static: false}) containerSelectedItems;
