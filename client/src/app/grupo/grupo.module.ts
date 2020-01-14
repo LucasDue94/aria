@@ -5,12 +5,14 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {GrupoListComponent} from "./list/grupo-list.component";
 import {RouterModule} from "@angular/router";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import {GrupoEditComponent} from "./edit/grupo-edit.component";
 
 
 @NgModule({
   declarations: [
     GrupoFormComponent,
     GrupoListComponent,
+    GrupoEditComponent
   ],
   imports: [
     CommonModule,

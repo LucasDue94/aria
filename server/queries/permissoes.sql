@@ -15,9 +15,6 @@ insert into permissao (id, version, authority, nome, alias) values (nextval('per
 
 insert into permissao (id, version, authority, nome, alias) values (nextval('permissao_id_seq'), 0, 'ROLE_PERFIL_EPIDEMIOLOGICO_INDEX', 'Listar Perfis Epidemiológicos','perfil epidemiológico');
 
-insert into permissao (id, version, authority, nome, alias) values (nextval('permissao_id_seq'), 0, 'ROLE_USUARIO_INDEX', 'Listar usuários','usuario');
-insert into permissao (id, version, authority, nome, alias) values (nextval('permissao_id_seq'), 0, 'ROLE_USUARIO_UPDATE', 'Atualizar usuário','usuario');
-
 insert into permissao (id, version, authority, nome, alias) values (nextval('permissao_id_seq'), 0, 'ROLE_PACIENTE_INDEX', 'Listar Pacientes','paciente');
 insert into permissao (id, version, authority, nome, alias) values (nextval('permissao_id_seq'), 0, 'ROLE_PACIENTE_SHOW', 'Ver Paciente','paciente');
 
@@ -27,12 +24,7 @@ insert into permissao (id, version, authority, nome, alias) values (nextval('per
 insert into permissao (id, version, authority, nome, alias) values (nextval('permissao_id_seq'), 0, 'ROLE_SETOR_WPD_INDEX', 'Listar setores do wpd','setor wpd');
 insert into permissao (id, version, authority, nome, alias) values (nextval('permissao_id_seq'), 0, 'ROLE_SETOR_WPD_SHOW', 'Ver setor do wpd','setor wpd');
 
-
-
-insert into permissao (id, version, authority, nome) values (nextval('permissao_id_seq'), 0, 'ROLE_USUARIO_INDEX', 'Listar usuários');
-insert into permissao (id, version, authority, nome) values (nextval('permissao_id_seq'), 0, 'ROLE_USUARIO_UPDATE', 'Atualizar usuário');
-insert into permissao (id, version, authority, nome) values (nextval('permissao_id_seq'), 0, 'ROLE_USUARIO_SHOW', 'Ver usuário');
-
+insert into permissao (id, version, authority, nome, alias) values (nextval('permissao_id_seq'), 0, 'ROLE_USUARIO_SHOW', 'Ver usuário', 'usuario');
 insert into permissao (id, version, authority, nome, alias) values (nextval('permissao_id_seq'), 0, 'ROLE_USUARIO_INDEX', 'Listar usuários','usuario');
 insert into permissao (id, version, authority, nome, alias) values (nextval('permissao_id_seq'), 0, 'ROLE_USUARIO_UPDATE', 'Atualizar usuário','usuario');
 
