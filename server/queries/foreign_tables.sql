@@ -104,6 +104,7 @@ alter foreign table cid owner to aria;
 
 
 /*PACIENTE*/
+drop foreign table paciente;
 create foreign table paciente
     (
         id varchar(9) options (key 'true') not null,
@@ -113,8 +114,7 @@ create foreign table paciente
         nome_mae varchar(70) not null
         )
     server wpd
-    options (table '(select PRT.COD_PRT, PRT.NOME_PAC, PRT.SEXO, to_char(PRT.NASCIMENTO, ''DD-MM-YYYY'') AS nascimento, PRT.NOME_MAE
-FROM ADMWPD.FAPRTCAD PRT)', readonly 'true');
+    options (table '((select PRT.COD_PRT, PRT.NOME_PAC, PRT.SEXO, PRT.NASCIMENTO, PRT.NOME_MAE FROM ADMWPD.FAPRTCAD PRT))', readonly 'true');
 
 alter foreign table paciente owner to aria;
 
