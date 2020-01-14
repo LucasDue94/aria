@@ -72,9 +72,11 @@ export class MenuComponent implements OnInit {
 
   ngOnInit() {
     this.createMenu();
-    window.localStorage.getItem('grupo') == 'Padrão' ? this.menuList.forEach(item => {
-      item.name == 'relatorio' ? item.status = false : '';
-    }) : '';
+    if (!this.authService.hasPermission(EnumPermisson.role_apache_report)) {
+      this.menuList.forEach(item => {
+        item.name == 'relatorio' ? item.status = false : '';
+      })
+    }
   }
 
 
