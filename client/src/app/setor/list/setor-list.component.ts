@@ -8,6 +8,8 @@ import {AlertService} from "../../core/alert/alert.service";
 import {TitleService} from "../../core/title/title.service";
 import {ErrorService} from "../../core/error/error.service";
 import {Router} from "@angular/router";
+import {AuthService} from "../../core/auth/auth.service";
+import {EnumPermisson} from "../../core/permissao/enumPermisson";
 
 
 @Component({
@@ -27,23 +29,24 @@ export class SetorListComponent implements OnInit {
 
   constructor(private setorService: SetorService, private spinner: SpinnerService, private errorService: ErrorService,
               private router: Router,
-              private fb: FormBuilder, private alertService: AlertService, private titleService: TitleService) {
+              private fb: FormBuilder, private alertService: AlertService, private titleService: TitleService, private authService: AuthService) {
   }
 
   ngOnInit() {
     this.titleService.send('Lista de Setores');
-    window.localStorage.getItem('grupo') == 'Padrão' ? this.router.navigate(['error']) :
-    window.localStorage.getItem('grupo') == 'Admin' ?
+    if (!this.authService.hasPermission(EnumPermisson.role_setor_index)) {
+      this.router.navigate(['/error']);
+    }
     this.setorService.list('', '',10000).subscribe(setores => {
       if (this.errorService.hasError(setores)) {
-          this.errorService.sendError(setores);
+        this.errorService.sendError(setores);
       } else {
         this.data = setores;
         this.sortSetor();
         this.setores = this.data;
         this.spinner.hide();
       }
-    }) : this.router.navigate(['error']);
+    })
   }
 
   sortSetor() {
