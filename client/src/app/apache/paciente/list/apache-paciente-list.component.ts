@@ -75,11 +75,13 @@ export class ApachePacienteListComponent implements OnInit {
       debounceTime(1000),
       switchMap(changes => {
         this.spinner.show();
+        this.termo = changes;
         this.offset = 0;
         if (this.admissoesPacSetor != undefined) this.admissoesPacSetor.length = 0;
         return this.apacheService.search(this.setorId, changes, this.offset, this.max)
       })
     ).subscribe(res => {
+      debugger
       this.admissoesPacSetor = res;
       this.spinner.hide();
     });
