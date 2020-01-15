@@ -28,6 +28,15 @@ export class SetorCreateComponent implements OnInit, AfterViewInit {
   });
   newSetor = new Setor();
 
+  selectItems = [
+    {id: '', setor: 'SELECIONE'},
+    {id: 'U', setor: 'UTI'},
+    {id: 'I', setor: 'INTERNACAO'},
+    {id: 'H', setor: 'HEMODINAMICA'},
+    {id: 'E', setor: 'EMERGENCIA'},
+    {id: 'A', setor: 'AMBULATORIO'},
+  ];
+
   constructor(private setorAriaService: SetorService, private render: Renderer2,
               private fb: FormBuilder, public setorWpdService: SetorWpdService,
               private location: Location, private router: Router,
@@ -35,7 +44,7 @@ export class SetorCreateComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.titleService.send('Setor - Novo setor');
+    this.titleService.send('Setor - Novo Setor');
   }
 
   ngAfterViewInit(): void {

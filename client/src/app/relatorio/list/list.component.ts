@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {TitleService} from "../../core/title/title.service";
 import {faNotesMedical} from '@fortawesome/free-solid-svg-icons';
-import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-relatorio-list',
@@ -12,12 +11,12 @@ export class ListComponent implements OnInit {
 
   faNotesMedical = faNotesMedical;
 
-  constructor(private titleService: TitleService, private router: Router) {
+  constructor(private titleService: TitleService) {
   }
 
   ngOnInit() {
-    this.titleService.send('Lista de Relatórios');
-    window.localStorage.getItem('grupo') == 'Padrão' ? this.router.navigate(['error']) : '';
+    //TODO Sem o timeout não muda o título da tela, verificar o titleService
+    window.setTimeout(() => this.titleService.send('Lista de Relatórios'), 100)
   }
 
 }

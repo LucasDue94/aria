@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {Observable, of, Subject} from "rxjs";
 import {catchError} from "rxjs/operators";
@@ -11,14 +11,6 @@ export class SetorService {
 
   private baseUrl = environment.apiUrl;
 
-  getDefaultHttpOptions() {
-    return new HttpHeaders({
-      "Cache-Control": "no-cache",
-      "Content-Type": "application/json",
-      "X-Auth-Token": localStorage.getItem('token')
-    })
-  }
-
   constructor(private http: HttpClient) {
   }
 
@@ -28,8 +20,7 @@ export class SetorService {
     if(tipoSetor != null && tipoSetor != '') {
       url += '&tipoSetor=' + tipoSetor
     }
-    this.http.get<Setor[]>(url,
-      {headers: this.getDefaultHttpOptions()})
+    this.http.get<Setor[]>(url)
       .pipe(
         catchError(error => of({error})
         )).subscribe((json: any[]) => {
@@ -40,7 +31,7 @@ export class SetorService {
 
   get(id: number): Observable<any> {
     let subject = new Subject<Setor>();
-    this.http.get(this.baseUrl + `setor/` + id, {headers: this.getDefaultHttpOptions()})
+    this.http.get(this.baseUrl + `setor/` + id)
       .pipe(
         catchError(error => of({error})
         )).subscribe((json: any) => {
@@ -57,7 +48,6 @@ export class SetorService {
     let subject = new Subject<Setor>();
     if (setor.id) {
       this.http.put<Setor>(this.baseUrl + `setor/` + setor.id, setor, {
-        headers: this.getDefaultHttpOptions(),
         responseType: 'json'
       }).pipe(
         catchError(error => of({error}))
@@ -66,7 +56,6 @@ export class SetorService {
       });
     } else {
       this.http.post<Setor>(this.baseUrl + `setor/`, setor, {
-        headers: this.getDefaultHttpOptions(),
         responseType: 'json'
       }).pipe(
         catchError(error => of({error}))

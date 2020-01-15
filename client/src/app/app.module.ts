@@ -24,6 +24,7 @@ import {HashLocationStrategy, LocationStrategy} from "@angular/common";
 import {RelatorioModule} from "./relatorio/relatorio.module";
 import {GrupoModule} from "./grupo/grupo.module";
 import {UsuarioModule} from "./usuario/usuario.module";
+import {InterceptorModule} from "./interceptor/interceptor.module";
 
 @NgModule({
   exports: [],
@@ -53,6 +54,7 @@ import {UsuarioModule} from "./usuario/usuario.module";
     LoginModule,
     UsuarioModule,
     GrupoModule,
+    InterceptorModule
   ],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy},

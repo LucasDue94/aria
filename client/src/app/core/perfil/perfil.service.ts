@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {Observable, of, Subject} from "rxjs";
 import {catchError} from "rxjs/operators";
@@ -9,15 +9,6 @@ import {catchError} from "rxjs/operators";
 export class PerfilService {
 
   private baseUrl = environment.apiUrl;
-
-  getDefaultHttpOptions() {
-    return new HttpHeaders({
-      "Cache-Control": "no-cache",
-      "Content-Type": "application/json",
-      "X-Auth-Token": localStorage.getItem('token')
-
-    })
-  }
 
   constructor(private http: HttpClient) {
   }
@@ -42,7 +33,7 @@ export class PerfilService {
     }
 
     let subject = new Subject<any>();
-    this.http.get(fullUrl, {headers: this.getDefaultHttpOptions()})
+    this.http.get(fullUrl)
       .pipe(
         catchError(error => of({error})
         )).subscribe((json: any[]) => {

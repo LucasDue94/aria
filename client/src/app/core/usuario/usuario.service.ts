@@ -1,25 +1,22 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {Observable, of, Subject} from "rxjs";
 import {catchError} from "rxjs/operators";
 import {Usuario} from "./usuario";
-import {BaseService} from "../http/baseService.service";
 
 
 @Injectable()
-export class UsuarioService extends BaseService {
+export class UsuarioService {
 
   private baseUrl = environment.apiUrl + 'usuario';
 
   constructor(private http: HttpClient) {
-    super();
   }
 
   list(offset?: any, max?: any): Observable<Usuario[]> {
     let subject = new Subject<Usuario[]>();
-    this.http.get<Usuario[]>(this.baseUrl + '?offset=' + offset + '&max=' + max,
-      {headers: this.getDefaultHttpOptions()})
+    this.http.get<Usuario[]>(this.baseUrl + '?offset=' + offset + '&max=' + max)
       .pipe(
         catchError(error => of({error})
         )).subscribe((json: Usuario[]) => {
@@ -30,7 +27,7 @@ export class UsuarioService extends BaseService {
 
   get(id: number): Observable<any> {
     let subject = new Subject<Usuario>();
-    this.http.get(this.baseUrl + '/' + id, {headers: this.getDefaultHttpOptions()})
+    this.http.get(this.baseUrl + '/' + id)
       .pipe(
         catchError(error => of({error})
         )).subscribe((json: any) => {
@@ -47,7 +44,6 @@ export class UsuarioService extends BaseService {
     let subject = new Subject<Usuario>();
     if (usuario.id) {
       this.http.put<Usuario>(this.baseUrl + '/' + usuario.id, usuario, {
-        headers: this.getDefaultHttpOptions(),
         responseType: 'json'
       }).pipe(
         catchError(error => of({error}))
@@ -56,7 +52,6 @@ export class UsuarioService extends BaseService {
       });
     } else {
       this.http.post<Usuario>(this.baseUrl, usuario, {
-        headers: this.getDefaultHttpOptions(),
         responseType: 'json'
       }).pipe(
         catchError(error => of({error}))
