@@ -9,6 +9,9 @@ import {SpinnerService} from "../../../core/spinner/spinner.service";
 import {debounceTime, switchMap} from 'rxjs/operators';
 import {RegistroAtendimentoLeito} from "../../../core/registroAtendimentoLeitos/registroAtendimentoLeito";
 import {ErrorService} from "../../../core/error/error.service";
+import {AuthService} from "../../../core/auth/auth.service";
+import {Router} from "@angular/router";
+import {EnumPermisson} from "../../../core/permissao/enumPermisson";
 
 @Component({
   selector: 'app-apache-paciente-list',
@@ -31,7 +34,7 @@ export class ApachePacienteListComponent implements OnInit {
   termo = '';
 
   constructor(private apacheService: ApacheService, private setorService: SetorService, private errorService: ErrorService,
-              private titleService: TitleService, private fb: FormBuilder, private spinner: SpinnerService) {
+              private titleService: TitleService, private fb: FormBuilder, private spinner: SpinnerService, private authService: AuthService, private router: Router) {
   }
 
   ngOnInit() {

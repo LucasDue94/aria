@@ -7,6 +7,9 @@ import {SpinnerService} from "../../core/spinner/spinner.service";
 import {UsuarioService} from "../../core/usuario/usuario.service";
 import {AlertService} from "../../core/alert/alert.service";
 import {ErrorService} from "../../core/error/error.service";
+import {EnumPermisson} from "../../core/permissao/enumPermisson";
+import {AuthService} from "../../core/auth/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-list',
@@ -16,7 +19,7 @@ import {ErrorService} from "../../core/error/error.service";
 export class UsuarioListComponent implements OnInit {
 
   constructor(private titleService: TitleService, private fb: FormBuilder, private spinner: SpinnerService,
-              private usuarioService: UsuarioService, private errorService: ErrorService) { }
+              private usuarioService: UsuarioService, private errorService: ErrorService, private authService: AuthService, private router: Router) { }
 
   faFrown = faFrown;
   faSearch = faSearch;
@@ -30,6 +33,9 @@ export class UsuarioListComponent implements OnInit {
   ngOnInit() {
     this.spinner.show();
     this.titleService.send('Lista de Usuários');
+    if (!this.authService.hasPermission(EnumPermisson.role_usuario_index)) {
+      this.router.navigate(['/error']);
+    }
     this.usuarioService.list('',10000).subscribe(usuarios => {
       if (this.errorService.hasError(usuarios)) {
         this.spinner.hide();
