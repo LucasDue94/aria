@@ -39,7 +39,7 @@ export class UsuarioEditComponent implements OnInit {
           this.alertService.send({message: 'Desculpe...ocorreu um erro.', type: 'error', icon: faFrown});
         } else {
           this.usuario = usuario;
-          this.titleService.send('Editar usuário - '+ usuario.nome);
+          this.titleService.send('Editar Usuário - '+ usuario.nome);
           this.setorAriaService.list('', '', 100).subscribe( setores => {
             this.setoresItems = setores;
             this.setForm();
