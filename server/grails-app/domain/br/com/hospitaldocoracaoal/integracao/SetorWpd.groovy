@@ -10,6 +10,10 @@ class SetorWpd {
     static hasMany = [leitos: Leito]
     static hasOne = [setor: Setor]
 
+    static constraints = {
+        setor nullable: true
+    }
+
     static mapping = {
         id generator: 'assigned'
         version false

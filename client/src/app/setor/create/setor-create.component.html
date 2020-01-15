@@ -23,14 +23,9 @@
       </div>
       <div class="form-group flex-row">
         <label class="form-label" for="tipo">Tipo</label>
-        <select
-          [ngStyle]="{'border' : this.form.get('tipo').invalid && selectedSetor != undefined ? '1px solid red':''}"
-          class="form-control" formControlName="tipo" id="tipo">
-          <option value="">selecione</option>
-          <option value="U">UTI</option>
-          <option value="I">INTERNAÇÃO</option>
-          <option value="H">HEMODINÂMICA</option>
-          <option value="E">EMERGÊNCIA</option>
+        <select [ngStyle]="{'border' : this.form.get('tipo').invalid ? '2px solid #c26267':''}"
+                class="form-control" formControlName="tipo" id="tipo">
+          <option *ngFor="let item of selectItems" [value]="item.id">{{item.setor}}</option>
         </select>
         <p *ngIf="this.form.get('tipo').invalid && selectedSetor != undefined" class="errors">Selecione um tipo</p>
       </div>
