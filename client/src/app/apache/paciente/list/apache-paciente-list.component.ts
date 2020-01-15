@@ -49,7 +49,7 @@ export class ApachePacienteListComponent implements OnInit {
           this.arrayListSetor.push(setor);
           this.setorId = setor.id;
         });
-        this.apacheService.list(this.setorId, this.termo, '', '').subscribe(registros => {
+        this.apacheService.list(this.setorId, this.termo, '', 30).subscribe(registros => {
           if (this.errorService.hasError(registros)) {
             this.spinner.hide();
             this.errorService.sendError(registros);
