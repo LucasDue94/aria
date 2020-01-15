@@ -1,32 +1,22 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {Observable, of, Subject} from "rxjs";
 import {catchError} from "rxjs/operators";
-import {HeadersHelper} from "../headersHelper";
 import {Grupo} from "./grupo";
 
 
 @Injectable()
-export class GrupoService extends HeadersHelper {
+export class GrupoService {
 
   private baseUrl = environment.apiUrl;
 
-  getDefaultHttpOptions() {
-    return new HttpHeaders({
-      "Cache-Control": "no-cache",
-      "Content-Type": "application/json",
-      "X-Auth-Token": localStorage.getItem('token')
-    })
-  }
-
   constructor(private http: HttpClient) {
-    super()
   }
 
   list(max?: any, offset?: any): Observable<Grupo[]> {
     let subject = new Subject<Grupo[]>();
-    this.http.get(this.baseUrl + `grupo?offset=` + offset + '&max=' + max, {headers: this.getDefaultHttpOptions()})
+    this.http.get(this.baseUrl + `grupo?offset=` + offset + '&max=' + max)
       .pipe(
         catchError(error => of({error})
         )).subscribe((json: Grupo[]) => {
@@ -37,7 +27,7 @@ export class GrupoService extends HeadersHelper {
 
   get(id: number): Observable<any> {
     let subject = new Subject<Grupo>();
-    this.http.get(this.baseUrl + `grupo/` + id, {headers: this.getDefaultHttpOptions()})
+    this.http.get(this.baseUrl + `grupo/` + id)
       .pipe(
         catchError(error => of({error})
         )).subscribe((json: Grupo) => {
@@ -49,7 +39,6 @@ export class GrupoService extends HeadersHelper {
   search(searchTerm, offset?: any, max?): Observable<any[]> {
     let subject = new Subject<Grupo[]>();
     this.http.get(this.baseUrl + `grupo/` + '?offset=' + offset + '&max=' + max, {
-      headers: this.getDefaultHttpOptions(),
       params: {termo: searchTerm}
     }).pipe(
       catchError(error => of({error})
@@ -63,12 +52,10 @@ export class GrupoService extends HeadersHelper {
   save(grupo: Grupo): Observable<Grupo> {
     if (grupo.id) {
       return this.http.put<Grupo>(this.baseUrl + `grupo/` + grupo.id, grupo, {
-        headers: this.getDefaultHttpOptions(),
         responseType: 'json'
       });
     } else {
       return this.http.post<Grupo>(this.baseUrl + `grupo/`, grupo, {
-        headers: this.getDefaultHttpOptions(),
         responseType: 'json'
       });
     }
@@ -76,7 +63,6 @@ export class GrupoService extends HeadersHelper {
 
   destroy(grupo: Grupo): Observable<Object> {
     return this.http.delete(this.baseUrl + `grupo/` + grupo.id, {
-      headers: this.getDefaultHttpOptions(),
       observe: 'response'
     });
   }

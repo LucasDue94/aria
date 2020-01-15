@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {Observable, Subject} from "rxjs";
 import {map} from "rxjs/operators";
@@ -10,20 +10,13 @@ import {Paciente} from "./paciente";
 export class PacienteService {
 
     private baseUrl = environment.apiUrl;
-    getDefaultHttpOptions() {
-        return new HttpHeaders({
-            "Cache-Control": "no-cache",
-            "Content-Type": "application/json",
-            "X-Auth-Token": localStorage.getItem('token')
-        })
-    }
 
     constructor(private http: HttpClient) {
     }
 
     list(max?: any, offset?: any): Observable<Paciente[]> {
         let subject = new Subject<Paciente[]>();
-        this.http.get(this.baseUrl + `paciente?offset=` + offset + '&max=' + max, {headers: this.getDefaultHttpOptions()})
+        this.http.get(this.baseUrl + `paciente?offset=` + offset + '&max=' + max)
             .subscribe((json: any[]) => {
                 subject.next(json.map((propertyName: any) => new Paciente(propertyName)))
             });
@@ -44,7 +37,7 @@ export class PacienteService {
 
     get(id: number): Observable<Paciente> {
         let subject = new Subject<Paciente>();
-        this.http.get(this.baseUrl + `paciente/` + id, {headers: this.getDefaultHttpOptions()})
+        this.http.get(this.baseUrl + `paciente/` + id)
             .subscribe((json: any) => {
                 subject.next(new Paciente(json));
             });
@@ -54,7 +47,6 @@ export class PacienteService {
     search(searchTerm, offset?: any, max?): Observable<any[]> {
         let subject = new Subject<Paciente[]>();
         this.http.get(this.baseUrl + `paciente/` + '?offset=' + offset + '&max=' + max, {
-            headers: this.getDefaultHttpOptions(),
             params: {termo: searchTerm}
         }).subscribe((json: any) => {
             subject.next(json.map((obj: any) => new Paciente(obj)))
@@ -65,12 +57,10 @@ export class PacienteService {
     save(paciente: Paciente): Observable<Paciente> {
         if (paciente.id) {
             return this.http.put<Paciente>(this.baseUrl + `paciente/` + paciente.id, paciente, {
-                headers: this.getDefaultHttpOptions(),
                 responseType: 'json'
             });
         } else {
             return this.http.post<Paciente>(this.baseUrl + `paciente/`, paciente, {
-                headers: this.getDefaultHttpOptions(),
                 responseType: 'json'
             });
         }
@@ -79,7 +69,6 @@ export class PacienteService {
 
     destroy(paciente: Paciente): Observable<Object> {
         return this.http.delete(this.baseUrl + `paciente/` + paciente.id, {
-            headers: this.getDefaultHttpOptions(),
             observe: 'response'
         });
     }
