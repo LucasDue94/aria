@@ -1,5 +1,5 @@
 import {Setor} from "../setor/setor";
-import {SetorWpd} from "../setor-wpd/setorWpd";
+import {Grupo} from "../grupo/grupo";
 
 export class Usuario {
 
@@ -7,6 +7,7 @@ export class Usuario {
   username: string;
   email: string;
   nome: string;
+  grupo: Grupo;
   setores: Setor[];
 
   constructor(object?: any) {

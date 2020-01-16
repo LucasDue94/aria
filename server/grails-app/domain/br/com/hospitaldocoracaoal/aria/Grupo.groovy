@@ -27,5 +27,4 @@ class Grupo implements Serializable {
 		name nullable: false, blank: false, unique: true
 		habilitado nullable: true
 	}
-
 }

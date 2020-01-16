@@ -1,12 +1,12 @@
 <main class="container-grupo">
-  <article class="card card-nome">
+  <article class="card card-nome" [ngClass]="{background: 'red'}">
     <form [formGroup]="form" class="form-container">
-      <div class="form-group flex-row">
+      <div class="form-group flex-column">
         <label for="nome" class="form-label">Nome:</label>
         <input class="form-control" formControlName="nome" id="nome" type="text">
-        <div *ngIf="status">
+        <div *ngIf="grupo.usersCount == 0">
           <label for="status" class="form-label">Habilitado:</label>
-          <input id="status" type="checkbox" class="checkBox" checked>
+          <input id="status" type="checkbox" class="form-check" formControlName="habilitado">
         </div>
         <button (click)="save()" class="button button-blue btn-save">Salvar</button>
       </div>
@@ -25,3 +25,4 @@
     </section>
   </article>
 </main>
+

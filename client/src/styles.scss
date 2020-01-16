@@ -304,13 +304,18 @@ tspan {
     align-items: center;
     transition: 0.3s;
     background-color: $white;
-
     &:hover {
       transition: 0.3s;
       background-color: $gray-50;
       box-shadow: 0 0 5px $gray-90;
       cursor: pointer;
     }
+  }
+
+  .row-disabled {
+    align-items: center;
+    transition: 0.3s;
+    color: $gray-60;
   }
 
   .tbody {

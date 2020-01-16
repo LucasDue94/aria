@@ -79,7 +79,6 @@ export class MenuComponent implements OnInit {
     }
   }
 
-
   createMenu(): Menu[] {
     this.menuList.forEach(item => {
       this.authService.hasPermission(item.permission) ? item.status = true : item.status = false;

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {faBars, faSignOutAlt} from "@fortawesome/free-solid-svg-icons";
 import {MenuService} from "../core/menu/menu.service";
 import {AuthService} from "../core/auth/auth.service";
@@ -9,6 +9,7 @@ import {AuthService} from "../core/auth/auth.service";
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  @Input('menu-status') menuStatus: boolean = true;
   systemName;
   usuarioLogado;
   faBars = faBars;

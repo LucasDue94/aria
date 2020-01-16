@@ -3,6 +3,7 @@ import {Permissao} from "../permissao/permissao";
 export class Grupo {
   id: number;
   name: string;
+  habilitado: boolean;
   permissoes: Permissao[] = new Array<Permissao>();
 
   constructor(object?: any) {

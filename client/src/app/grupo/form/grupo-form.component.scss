@@ -17,17 +17,17 @@
     border-radius: 5px;
     box-shadow: 1px 1px 6px $gray-90;
   }
+  & label, input, button {
+    margin-bottom: 15px;
+  }
 }
 
 .card-nome {
   margin: 5px;
   width: 400px;
-  height: 70px;
+  height: 180px;
 }
 
-.form-group {
-  align-items: center;
-}
 
 .btn-save {
   padding: 7px;

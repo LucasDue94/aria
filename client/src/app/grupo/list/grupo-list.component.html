@@ -11,7 +11,7 @@
       <span class="th">Nome do Grupo</span>
     </section>
     <section *ngIf="grupos!=null" class="tbody content-grupo">
-      <div [routerLink]="['/grupo','edit',grupo.id]" *ngFor="let grupo of grupos" class="row">
+      <div [routerLink]="['/grupo','edit',grupo.id]" *ngFor="let grupo of grupos" class="row" [ngClass]="grupo.habilitado == false ? 'row-disabled' : 'row'">
         <span class="td">{{grupo.name}}</span>
       </div>
       <div class="empty" *ngIf="grupos?.length == 0">

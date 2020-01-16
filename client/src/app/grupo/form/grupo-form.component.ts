@@ -8,8 +8,8 @@ import {Grupo} from "../../core/grupo/grupo";
 import {ErrorService} from "../../core/error/error.service";
 import {AlertService} from "../../core/alert/alert.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {faCheck, faFrown, faSadTear} from "@fortawesome/free-solid-svg-icons";
 import {SpinnerService} from "../../core/spinner/spinner.service";
+import {UsuarioService} from "../../core/usuario/usuario.service";
 
 @Component({
   selector: 'grupo-form',
@@ -17,19 +17,23 @@ import {SpinnerService} from "../../core/spinner/spinner.service";
   styleUrls: ['./grupo-form.component.scss']
 })
 export class GrupoFormComponent implements OnInit {
-  @Input('habilitado') status: boolean = false;
   form = this.fb.group({
     nome: ['', Validators.required],
+    habilitado: [false, Validators.required]
   });
   permissoes: Permissao[];
   permissoesSelecionadas = new Set();
   aliasesGrupo = new Set();
 
+  grupo = {
+    usersCount: 0
+  };
+
   constructor(private fb: FormBuilder, private titleService: TitleService,
               private persmissaoService: PermissaoService, private render: Renderer2,
               private grupoService: GrupoService, private errorService: ErrorService,
               private alertService: AlertService, private route: ActivatedRoute,
-              private router: Router, private spinner: SpinnerService) {
+              private router: Router, private spinner: SpinnerService, private usuarioService: UsuarioService) {
   }
 
   ngOnInit() {
@@ -51,8 +55,10 @@ export class GrupoFormComponent implements OnInit {
         if (res.hasOwnProperty('error')) {
           this.errorService.sendError(res)
         } else {
+          this.grupo = res;
           res.permissoes.forEach(permissao => this.permissoesSelecionadas.add(permissao.id));
           this.form.get('nome').setValue(res.name);
+          this.form.get('habilitado').setValue(res.habilitado);
         }
       });
     }
@@ -84,21 +90,18 @@ export class GrupoFormComponent implements OnInit {
   }
 
   save() {
+    let id = this.route.snapshot.params['id'];
     const grupo = new Grupo({
-      id: this.route.snapshot.params['id'],
+      id: id,
       name: this.form.get('nome').value,
+      habilitado: this.form.get('habilitado').value,
       permissoes: Array.from(this.permissoesSelecionadas)
     });
-    this.grupoService.save(grupo).subscribe(res => {
-      if (this.errorService.hasError(res)) {
-        this.alertService.send({message: 'Ops..Ocorreu um erro ao salvar...', icon: faSadTear, type: 'error'});
-      } else {
-        this.alertService.send({message: 'Grupo salvo!', icon: faCheck, type: 'success'});
-        setTimeout(() => {
-          this.router.navigate(['/grupo']);
-        }, 300)
-      }
-    });
+
+     this.grupoService.save(grupo).subscribe(res => {
+       setTimeout(() => {
+         this.router.navigate(['/grupo']);
+       }, 300)
+     });
   }
 }
-

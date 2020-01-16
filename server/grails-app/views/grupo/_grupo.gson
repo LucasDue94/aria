@@ -4,4 +4,6 @@ model {
     Grupo grupo
 }
 
-json g.render(grupo, [expand: ['permissoes'], resolveTemplate: false])
+json g.render(grupo, [expand: ['permissoes'], resolveTemplate: false]) {
+    usersCount grupo.usuarios.size()
+}
