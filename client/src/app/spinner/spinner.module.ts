@@ -3,12 +3,14 @@ import {CommonModule} from '@angular/common';
 import {SpinnerComponent} from "./spinner.component";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {SpinnerDirective} from "./spinner.directive";
+import { ScrollSpinnerComponent } from './scroll-spinner/scroll-spinner.component';
 
 
 @NgModule({
   declarations: [
     SpinnerComponent,
-    SpinnerDirective
+    SpinnerDirective,
+    ScrollSpinnerComponent
   ],
   imports: [
     CommonModule,
@@ -16,7 +18,8 @@ import {SpinnerDirective} from "./spinner.directive";
   ],
   exports: [
     SpinnerComponent,
-    SpinnerDirective
+    SpinnerDirective,
+    ScrollSpinnerComponent
   ]
 })
 export class SpinnerModule {

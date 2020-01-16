@@ -11,7 +11,6 @@ import {RegistroAtendimentoLeito} from "../../../core/registroAtendimentoLeitos/
 import {ErrorService} from "../../../core/error/error.service";
 import {AuthService} from "../../../core/auth/auth.service";
 import {Router} from "@angular/router";
-import {EnumPermisson} from "../../../core/permissao/enumPermisson";
 
 @Component({
   selector: 'app-apache-paciente-list',
@@ -23,6 +22,7 @@ export class ApachePacienteListComponent implements OnInit {
 
   faFrown = faFrown;
   faSearch = faSearch;
+  showListScrollSpinner = false;
   admissoesPacSetor: RegistroAtendimentoLeito[] = [];
   arrayListSetor: Setor[] = [];
   searchForm = this.fb.group({
@@ -49,16 +49,16 @@ export class ApachePacienteListComponent implements OnInit {
           this.arrayListSetor.push(setor);
           this.setorId = setor.id;
         });
+        this.apacheService.list(this.setorId, this.termo, '', 30).subscribe(registros => {
+          if (this.errorService.hasError(registros)) {
+            this.spinner.hide();
+            this.errorService.sendError(registros);
+          } else {
+            this.admissoesPacSetor = registros;
+            this.spinner.hide();
+          }
+        });
       }
-      this.apacheService.list(this.setorId, this.termo, '', '').subscribe(registros => {
-        if (this.errorService.hasError(registros)) {
-          this.spinner.hide();
-          this.errorService.sendError(registros);
-        } else {
-          this.admissoesPacSetor = registros;
-          this.spinner.hide();
-        }
-      });
     });
   }
 
@@ -75,23 +75,25 @@ export class ApachePacienteListComponent implements OnInit {
       debounceTime(1000),
       switchMap(changes => {
         this.spinner.show();
+        this.termo = changes;
         this.offset = 0;
         if (this.admissoesPacSetor != undefined) this.admissoesPacSetor.length = 0;
         return this.apacheService.search(this.setorId, changes, this.offset, this.max)
       })
     ).subscribe(res => {
+      debugger
       this.admissoesPacSetor = res;
       this.spinner.hide();
     });
   }
 
   scrollDown() {
-    this.spinner.show();
+    this.showListScrollSpinner = true;
     this.offset += 10;
     this.apacheService.list(+this.setorId, this.termo, this.offset, this.max).subscribe(registros => {
       registros.forEach(registro => {
         this.admissoesPacSetor.push(registro);
-        this.spinner.hide();
+        this.showListScrollSpinner = false;
       });
     });
   }

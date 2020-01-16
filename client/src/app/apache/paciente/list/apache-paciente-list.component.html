@@ -34,6 +34,7 @@
         <span class="td">{{registro.registroAtendimento.paciente.nascimento | date:'dd/MM/yy'}}</span>
         <span class="td">{{registro.registroAtendimento.paciente.nomeMae}}</span>
       </div>
+      <app-scroll-spinner [show]="showListScrollSpinner"></app-scroll-spinner>
       <div class="empty" *ngIf="admissoesPacSetor?.length == 0">
         <p>Nenhum paciente encontrado!</p>
         <fa-icon class="icon" [icon]="faFrown" size="2x"></fa-icon>
