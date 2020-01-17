@@ -1,7 +1,10 @@
+import br.com.hospitaldocoracaoal.aria.Apache
 import br.com.hospitaldocoracaoal.integracao.RegistroAtendimentoLeito
 
 model {
-	RegistroAtendimentoLeito registroAtendimentoLeitos
+	RegistroAtendimentoLeito registroAtendimentoLeito
 }
 
-json g.render(registroAtendimentoLeitos, [expand: ['registroAtendimento', 'registroAtendimento.paciente'], resolveTemplate: false])
+json g.render(registroAtendimentoLeito, [expand: ['registroAtendimento', 'registroAtendimento.paciente'], resolveTemplate: false]) {
+	apache g.render(Apache.findByRegistroAtendimentoLeito(registroAtendimentoLeito), [excludes: ['registroAtendimentoLeito'], resolveTemplate: false])
+}

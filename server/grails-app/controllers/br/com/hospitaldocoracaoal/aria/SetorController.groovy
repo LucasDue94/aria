@@ -4,7 +4,6 @@ import grails.gorm.transactions.ReadOnly
 import grails.gorm.transactions.Transactional
 import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
-import org.springframework.security.access.prepost.PreAuthorize
 
 import static org.springframework.http.HttpStatus.*
 
@@ -34,8 +33,7 @@ class SetorController {
         params.sort = 'dataEntrada'
         params.order = 'desc'
         params.max = Math.min(max ?: 10, 100)
-        def result = registroAtendimentoLeitosService.list(params, termo)
-        respond  result
+        respond registroAtendimentoLeitosService.list(params, termo)
     }
 
     @Secured('ROLE_SETOR_SAVE')

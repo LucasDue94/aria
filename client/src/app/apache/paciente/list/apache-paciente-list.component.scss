@@ -3,6 +3,10 @@
 @import "../../../setor/list/setor-list.component";
 
 
+.row-success {
+  border-left: 10px solid #80cbc4;
+}
+
 .text-overflow {
   text-overflow: ellipsis;
 }

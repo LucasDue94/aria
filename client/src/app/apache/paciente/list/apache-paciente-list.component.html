@@ -20,15 +20,15 @@
       <span class="th">ENTRADA</span>
       <span class="th paciente">PACIENTE</span>
       <span class="th">SEXO</span>
-      <span class="th sigla">DATA NASCIMENTO</span>
+      <span class="th sigla">NASCIMENTO</span>
       <span class="th sigla">NOME DA MÃE</span>
     </section>
     <section class="tbody content" [scrollWindow]="false" infinite-scroll (scrolled)="scrollDown()">
-      <div class="row" *ngFor="let registro of admissoesPacSetor"
+      <div [ngClass]="getRowClass(registro)" class="row" *ngFor="let registro of admissoesPacSetor"
            [routerLink]="['/apache','form']"
            [queryParams]="{registro:registro.registroAtendimento.id, dataEntrada: registro.dataEntrada, leito:registro.leito.id}">
         <span class="td">{{registro.registroAtendimento.id}}</span>
-        <span class="td">{{registro.registroAtendimento.dataEntrada | date: 'dd/MM/yyyy,  HH:mm'}}</span>
+        <span class="td">{{registro.registroAtendimento.dataEntrada | date: 'dd/MM/yyyy - HH:mm'}}</span>
         <span class="td paciente">{{registro.registroAtendimento.paciente.nome}}</span>
         <span class="td">{{registro.registroAtendimento.paciente.sexo}}</span>
         <span class="td">{{registro.registroAtendimento.paciente.nascimento | date:'dd/MM/yy'}}</span>
