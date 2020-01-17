@@ -81,7 +81,6 @@ export class ApachePacienteListComponent implements OnInit {
         return this.apacheService.search(this.setorId, changes, this.offset, this.max)
       })
     ).subscribe(res => {
-      debugger
       this.admissoesPacSetor = res;
       this.spinner.hide();
     });

@@ -5,7 +5,7 @@ import { UsuarioEditComponent } from './edit/usuario-edit.component';
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {RouterModule} from "@angular/router";
 import {FastSearchModule} from "../fast-search/fast-search.module";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {UsuarioService} from "../core/usuario/usuario.service";
 import {SelectModule} from "../select/select.module";
 
@@ -19,7 +19,8 @@ import {SelectModule} from "../select/select.module";
     RouterModule,
     FastSearchModule,
     ReactiveFormsModule,
-    SelectModule
+    SelectModule,
+    FormsModule
   ],
   providers: [
     UsuarioService
