@@ -1,4 +1,4 @@
-import {Component, OnInit, Renderer2} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {SpinnerService} from "../../core/spinner/spinner.service";
 import {SetorService} from "../../core/setor/setor.service";
 import {FormBuilder, Validators} from "@angular/forms";
@@ -9,6 +9,8 @@ import {faCheck, faExclamationCircle, faFrown} from "@fortawesome/free-solid-svg
 import {UsuarioService} from "../../core/usuario/usuario.service";
 import {Usuario} from "../../core/usuario/usuario";
 import {Setor} from "../../core/setor/setor";
+import {GrupoService} from "../../core/grupo/grupo.service";
+import {Grupo} from "../../core/grupo/grupo";
 
 @Component({
   selector: 'app-edit',
@@ -19,13 +21,18 @@ export class UsuarioEditComponent implements OnInit {
 
   usuario: Usuario;
   setoresItems = [];
+  grupos: Grupo[] = [];
+  grupoId;
 
   form = this.fb.group({
     cod: ['', Validators.required],
+    grupoId: ['', Validators.required],
+    grupoDesc: ['', Validators.required]
   });
 
-  constructor(private spinner: SpinnerService, private setorAriaService: SetorService, private usuarioService : UsuarioService,
+  constructor(private spinner: SpinnerService, private setorAriaService: SetorService, private usuarioService: UsuarioService,
               private fb: FormBuilder, private router: Router,
+              private grupoService: GrupoService,
               private route: ActivatedRoute, private alertService: AlertService,
               private titleService: TitleService) {
   }
@@ -39,19 +46,26 @@ export class UsuarioEditComponent implements OnInit {
           this.alertService.send({message: 'Desculpe...ocorreu um erro.', type: 'error', icon: faFrown});
         } else {
           this.usuario = usuario;
-          this.titleService.send('Editar Usuário - '+ usuario.nome);
-          this.setorAriaService.list('', '', 100).subscribe( setores => {
+          this.titleService.send('Editar Usuário - ' + usuario.nome);
+          this.setorAriaService.list('', '', 100).subscribe(setores => {
             this.setoresItems = setores;
             this.setForm();
-          })
+          });
           this.spinner.hide();
         }
       });
+    });
+
+
+    this.grupoService.list('', '').subscribe(grupo => {
+      this.grupos = grupo;
     });
   }
 
   setForm() {
     this.form.get('cod').setValue(this.usuario.id);
+    this.form.get('grupoId').setValue(this.usuario.grupo.id);
+    this.form.get('grupoDesc').setValue(this.usuario.grupo.name);
   }
 
   setValues() {
@@ -62,8 +76,14 @@ export class UsuarioEditComponent implements OnInit {
     this.setValues();
     if (this.form.valid) {
       this.usuario.setores = this.usuario.setores.map((e) => {
-              return new Setor({id: e.id})
-            });
+        return new Setor({id: e.id})
+      });
+
+      this.usuario.grupo.id = this.form.get('grupoId').value;
+      let usuarioId = this.form.get('cod').value;
+      delete this.usuario.grupo.permissoes;
+      this.usuarioService.update(usuarioId, this.usuario);
+
       this.usuarioService.save(this.usuario).subscribe(res => {
         let messageError = '';
         if (res.hasOwnProperty('error')) {

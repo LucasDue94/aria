@@ -61,4 +61,20 @@ export class UsuarioService {
     }
     return subject.asObservable()
   }
+
+  update(usuarioId: number, usuario: Usuario): Observable<any> {
+    this.http.put(this.baseUrl + '/' + usuarioId, usuario, {
+      responseType: 'json'
+    }).pipe(
+      catchError(error => of({error})
+      )).subscribe((json: any) => {
+      if (json.hasOwnProperty('error')) {
+        subject.next(json);
+      } else {
+        subject.next(new Usuario(json));
+      }
+    });
+    let subject = new Subject<Usuario>();
+    return subject.asObservable();
+  }
 }
