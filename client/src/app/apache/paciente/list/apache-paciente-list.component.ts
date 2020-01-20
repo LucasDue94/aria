@@ -7,7 +7,6 @@ import {FormBuilder} from "@angular/forms";
 import {TitleService} from "../../../core/title/title.service";
 import {SpinnerService} from "../../../core/spinner/spinner.service";
 import {debounceTime, switchMap} from 'rxjs/operators';
-import {RegistroAtendimentoLeito} from "../../../core/registroAtendimentoLeitos/registroAtendimentoLeito";
 import {ErrorService} from "../../../core/error/error.service";
 import {AuthService} from "../../../core/auth/auth.service";
 import {Router} from "@angular/router";
@@ -23,7 +22,7 @@ export class ApachePacienteListComponent implements OnInit {
   faFrown = faFrown;
   faSearch = faSearch;
   showListScrollSpinner = false;
-  admissoesPacSetor: RegistroAtendimentoLeito[] = [];
+  admissoesPacSetor: any = [];
   arrayListSetor: Setor[] = [];
   searchForm = this.fb.group({
     searchControl: ['']

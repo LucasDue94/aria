@@ -6,10 +6,8 @@ import {FormBuilder, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ApacheService} from "../../core/apache/apache.service";
 import {faCheck, faExclamationCircle, faFrown, faInfoCircle} from "@fortawesome/free-solid-svg-icons";
-import {Apache} from "../../core/apache/apache";
-import {RegistroAtendimentoLeito} from "../../core/registroAtendimentoLeitos/registroAtendimentoLeito";
-import {Leito} from "../../core/leito/leito";
 import {RegistroAtendimento} from "../../core/registroAtendimento/registroAtendimento";
+import {RegistroAtendimentoService} from "../../core/registroAtendimento/registroAtendimento.service";
 
 @Component({
   selector: 'apache-form',
@@ -18,15 +16,15 @@ import {RegistroAtendimento} from "../../core/registroAtendimento/registroAtendi
 })
 export class ApacheFormComponent implements OnInit {
   faInfoCircle = faInfoCircle;
-  newApache: Apache;
+  apache: any;
   registroAtendimento: RegistroAtendimento;
-  registroAtendimentoLeito: RegistroAtendimentoLeito = new RegistroAtendimentoLeito();
+  registroAtendimentoLeito: any;
   temperatura = ['> 41', '39 - 40.9', '38.5 - 38.9', '36 - 38.4', '34 - 35.9', '32 - 33.9', '30 - 31.9', '< 29.9'];
   kSerico = ['> 7', '6 - 6.9', '5.5 - 5.9', '3.5 - 5.4', '3 - 3.4', '2.5 - 2.9', '< 2.5'];
   naSerico = ['> 180', '160 - 179', '155 - 159', '150 - 154', '130 - 149', '120 - 129', '111 - 119', '< 110'];
   leucocitos = ['> 40', '20 - 39.9', '15 - 19.9', '3 - 14.9', '1 - 2.9', '< 1'];
   arterialPh = ['< 7.7; > 52', '7.6 - 7.69; 41 - 51.9', '7.5 - 7.59; 32 - 40.9', '7.33 - 7.49; 32 - 40.9', '7.25 - 7.32; 18 - 22.9', '7.15 - 7.24; 15 - 17.9', '< 7.15; < 15'];
-  gasglow = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+  glasgow = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
   problemasCronicos = ['Nenhuma', 'Não - Cirúrgico', 'Cirurgia de Emergência', 'Cirurgia Eletiva'];
   frequenciaCardiaca = ['> 180', '140 - 179', '110 - 139', '70 - 109', '55 - 69', '40 - 54', '< 39'];
   frequenciaRespiratoria = ['> 50', '35 - 49', '25 - 34', '12 - 24', '10 - 11', '6 - 9', '< 5'];
@@ -50,7 +48,7 @@ export class ApacheFormComponent implements OnInit {
         arterialPh: ['', Validators.required],
         naSerico: ['', Validators.required],
         leucocitos: ['', Validators.required],
-        gasglow: ['', Validators.required],
+        glasgow: ['', Validators.required],
         problemasCronicos: ['', Validators.required],
         frequenciaCardiaca: ['', Validators.required],
         frequenciaRespiratoria: ['', Validators.required],
@@ -69,7 +67,7 @@ export class ApacheFormComponent implements OnInit {
 
   constructor(private spinner: SpinnerService, private alert: AlertService,
               private title: TitleService, private fb: FormBuilder,
-              private route: ActivatedRoute, private apacheService: ApacheService,
+              private route: ActivatedRoute, private apacheService: ApacheService, private registroAtendimentoService: RegistroAtendimentoService,
               private alertService: AlertService, private router: Router) {
 
   }
@@ -77,33 +75,58 @@ export class ApacheFormComponent implements OnInit {
   ngOnInit() {
     if (window.innerWidth < 1024) this.labelPosition = 'top';
     this.spinner.show();
+    this.apache = {};
 
     this.title.send('Apache - Formulário');
     this.calculaPressaoMedia();
     const id = this.route.snapshot.queryParamMap.get('registro');
-    this.apacheService.get(id).subscribe(res => {
-      let messageError = '';
-      if (res.hasOwnProperty('error')) {
-        if (res.error.error.hasOwnProperty('_embedded')) {
-          res.error.error._embedded.errors.forEach(error => {
-            messageError += error.message + '. \n';
+    this.registroAtendimentoService.get(id).subscribe(res => {
+        let messageError = '';
+        if (res.hasOwnProperty('error')) {
+          if (res.error.error.hasOwnProperty('_embedded')) {
+            res.error.error._embedded.errors.forEach(error => {
+              messageError += error.message + '. \n';
+            });
+          } else {
+            messageError = res.error.error.message;
+          }
+          this.alertService.send({
+            message: messageError,
+            type: 'error',
+            icon: faFrown
           });
         } else {
-          messageError = res.error.error.message;
+          this.registroAtendimento = res;
+          this.registroAtendimentoLeito = {
+            dataEntrada: this.route.snapshot.queryParamMap.get('dataEntrada'),
+            leito: {
+              id: this.route.snapshot.queryParamMap.get('leito')
+            },
+            registroAtendimento: {
+              id: this.registroAtendimento.id
+            }
+          }
         }
-        this.alertService.send({
-          message: messageError,
-          type: 'error',
-          icon: faFrown
+
+        this.spinner.hide();
+
+      const apacheId = this.route.snapshot.queryParamMap.get('apacheId');
+      if(apacheId) {
+        this.apacheService.get(apacheId).subscribe(res => {
+          if (res.hasOwnProperty('error')) {
+            messageError = res.error.error.message;
+            this.alertService.send({
+              message: messageError,
+              type: 'error',
+              icon: faFrown
+            });
+          } else {
+            this.apache = res;
+            this.setForm();
+          }
         });
-      } else {
-        this.registroAtendimento = res;
       }
-      this.spinner.hide();
     });
-    this.registroAtendimentoLeito.dataEntrada = this.route.snapshot.queryParamMap.get('dataEntrada');
-    const leitoId = this.route.snapshot.queryParamMap.get('leito');
-    this.registroAtendimentoLeito.leito = new Leito({id: leitoId});
   }
 
   getValue(event, controlName) {
@@ -168,23 +191,38 @@ export class ApacheFormComponent implements OnInit {
   }
 
   setValues() {
-    this.newApache = new Apache();
-    this.newApache.temperatura = this.getControl('temperatura').value;
-    this.newApache.pas = this.getControl('ps').value;
-    this.newApache.pad = this.getControl('pd').value;
-    this.newApache.frequenciaCardiaca = this.getControl('frequenciaCardiaca').value;
-    this.newApache.frequenciaRespiratoria = this.getControl('frequenciaRespiratoria').value;
-    this.newApache.aapo = this.getControl('aapo').value;
-    this.newApache.arterialPh = this.getControl('arterialPh').value;
-    this.newApache.naSerico = this.getControl('naSerico').value;
-    this.newApache.kSerico = this.getControl('kSerico').value;
-    this.newApache.creatininaSerica = this.getControl('creatinina').value;
-    this.newApache.hematocrito = this.getControl('hematocrito').value;
-    this.newApache.leucocitos = this.getControl('leucocitos').value;
-    this.newApache.glasgow = this.getControl('gasglow').value;
-    this.newApache.problemasCronicos = this.getControl('problemasCronicos').value;
-    this.registroAtendimentoLeito.registroAtendimento = new RegistroAtendimento({id: this.registroAtendimento.id});
-    this.newApache.registroAtendimentoLeito = this.registroAtendimentoLeito;
+    this.apache.temperatura = this.getControl('temperatura').value;
+    this.apache.pas = this.getControl('ps').value;
+    this.apache.pad = this.getControl('pd').value;
+    this.apache.frequenciaCardiaca = this.getControl('frequenciaCardiaca').value;
+    this.apache.frequenciaRespiratoria = this.getControl('frequenciaRespiratoria').value;
+    this.apache.aapo = this.getControl('aapo').value;
+    this.apache.arterialPh = this.getControl('arterialPh').value;
+    this.apache.naSerico = this.getControl('naSerico').value;
+    this.apache.kSerico = this.getControl('kSerico').value;
+    this.apache.creatininaSerica = this.getControl('creatinina').value;
+    this.apache.hematocrito = this.getControl('hematocrito').value;
+    this.apache.leucocitos = this.getControl('leucocitos').value;
+    this.apache.glasgow = this.getControl('glasgow').value;
+    this.apache.problemasCronicos = this.getControl('problemasCronicos').value;
+    this.apache.registroAtendimentoLeito = this.registroAtendimentoLeito;
+  }
+
+  setForm() {
+    this.form['controls']['pressaoMedia']['controls']['ps'].setValue(this.apache.pas);
+    this.form['controls']['pressaoMedia']['controls']['pd'].setValue(this.apache.pad);
+    this.form['controls']['outrasMedidas']['controls']['temperatura'].setValue(this.apache.temperatura);
+    this.form['controls']['outrasMedidas']['controls']['frequenciaCardiaca'].setValue(this.apache.frequenciaCardiaca);
+    this.form['controls']['outrasMedidas']['controls']['frequenciaRespiratoria'].setValue(this.apache.frequenciaRespiratoria);
+    this.form['controls']['outrasMedidas']['controls']['aapo'].setValue(this.apache.aapo);
+    this.form['controls']['outrasMedidas']['controls']['arterialPh'].setValue(this.apache.arterialPh);
+    this.form['controls']['outrasMedidas']['controls']['naSerico'].setValue(this.apache.naSerico);
+    this.form['controls']['outrasMedidas']['controls']['kSerico'].setValue(this.apache.kSerico);
+    this.form['controls']['outrasMedidas']['controls']['creatinina'].setValue(this.apache.creatininaSerica);
+    this.form['controls']['outrasMedidas']['controls']['hematocrito'].setValue(this.apache.hematocrito);
+    this.form['controls']['outrasMedidas']['controls']['leucocitos'].setValue(this.apache.leucocitos);
+    this.form['controls']['outrasMedidas']['controls']['glasgow'].setValue(this.apache.glasgow);
+    this.form['controls']['outrasMedidas']['controls']['problemasCronicos'].setValue(this.apache.problemasCronicos);
   }
 
   save() {
@@ -193,7 +231,7 @@ export class ApacheFormComponent implements OnInit {
     this.checkErrorPressao();
     if (this.form.valid) {
       this.setValues();
-      this.apacheService.save(this.newApache).subscribe(res => {
+      this.apacheService.save(this.apache).subscribe(res => {
         let messageError = '';
         if (res.hasOwnProperty('error')) {
           if (res.error.error.hasOwnProperty('_embedded')) {
