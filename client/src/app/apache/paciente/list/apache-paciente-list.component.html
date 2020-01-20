@@ -1,5 +1,5 @@
 <main class="container">
-  <div class="selected">
+  <div class="filters-container">
     <form [formGroup]="searchForm" class="search-container">
       <input (focus)="search()" formControlName="searchControl" id="search-text"
              placeholder="Procure: Paciente ou registro..." type="text">
@@ -13,6 +13,12 @@
         <option name="setor" *ngFor="let setor of arrayListSetor" [ngValue]="setor.id">{{setor.sigla}}</option>
       </select>
     </div>
+
+    <ul class="legend">
+      <li><span class="legend-success"></span> Realizado</li>
+      <li><span class="legend-available"></span> Pendente</li>
+      <li><span class="legend-alert"></span> Atrasado</li>
+    </ul>
   </div>
   <section class="table">
     <section class="thead">

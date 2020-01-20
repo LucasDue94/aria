@@ -10,6 +10,7 @@ import {debounceTime, switchMap} from 'rxjs/operators';
 import {ErrorService} from "../../../core/error/error.service";
 import {AuthService} from "../../../core/auth/auth.service";
 import {Router} from "@angular/router";
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-apache-paciente-list',
@@ -97,6 +98,12 @@ export class ApachePacienteListComponent implements OnInit {
   }
 
   getRowClass(registro: any) {
-    return 'row-success'
+    let rowClass = '';
+    if(registro.apache) {
+      rowClass = 'row-success'
+    } else if(moment() > moment(registro.dataEntrada).add(24, 'hours')) { // If is greater than 24 hours
+      rowClass = 'row-available'
+    }
+    return rowClass;
   }
 }
