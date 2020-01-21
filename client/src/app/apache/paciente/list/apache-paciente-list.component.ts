@@ -7,10 +7,10 @@ import {FormBuilder} from "@angular/forms";
 import {TitleService} from "../../../core/title/title.service";
 import {SpinnerService} from "../../../core/spinner/spinner.service";
 import {debounceTime, switchMap} from 'rxjs/operators';
-import {RegistroAtendimentoLeito} from "../../../core/registroAtendimentoLeitos/registroAtendimentoLeito";
 import {ErrorService} from "../../../core/error/error.service";
 import {AuthService} from "../../../core/auth/auth.service";
 import {Router} from "@angular/router";
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-apache-paciente-list',
@@ -23,7 +23,7 @@ export class ApachePacienteListComponent implements OnInit {
   faFrown = faFrown;
   faSearch = faSearch;
   showListScrollSpinner = false;
-  admissoesPacSetor: RegistroAtendimentoLeito[] = [];
+  admissoesPacSetor: any = [];
   arrayListSetor: Setor[] = [];
   searchForm = this.fb.group({
     searchControl: ['']
@@ -39,7 +39,7 @@ export class ApachePacienteListComponent implements OnInit {
 
   ngOnInit() {
     this.spinner.show();
-    this.titleService.send('Apache - Lista de Pacientes');
+    this.titleService.send('Apache II - Lista de Pacientes');
     this.setorService.list('U', '', '').subscribe(setores => {
       if(this.errorService.hasError(setores)) {
         this.spinner.hide();
@@ -98,6 +98,12 @@ export class ApachePacienteListComponent implements OnInit {
   }
 
   getRowClass(registro: any) {
-    return 'row-success'
+    let rowClass = '';
+    if(registro.apache) {
+      rowClass = 'row-success'
+    } else if(moment() > moment(registro.dataEntrada).add(24, 'hours')) { // If is greater than 24 hours
+      rowClass = 'row-available'
+    }
+    return rowClass;
   }
 }

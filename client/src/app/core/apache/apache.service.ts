@@ -5,7 +5,6 @@ import {Observable, Subject, of} from "rxjs";
 import {map, catchError} from "rxjs/operators";
 import {Apache} from "./apache";
 import {Admissao} from "../setor/admissao";
-import {RegistroAtendimento} from "../registroAtendimento/registroAtendimento";
 import {RegistroAtendimentoLeito} from "../registroAtendimentoLeitos/registroAtendimentoLeito";
 
 
@@ -17,12 +16,12 @@ export class ApacheService {
   constructor(private http: HttpClient) {
   }
 
-  list(setorId: number, termo?: string, offset?: any, max?: any): Observable<Admissao[]> {
-    let subject = new Subject<RegistroAtendimentoLeito[]>();
-    this.http.get<RegistroAtendimentoLeito[]>(this.baseUrl + `setor/admissoes?` + 'setorId=' + setorId + '&termo=' + termo + '&offset=' + offset + '&max=' + max)
+  list(setorId: number, termo?: string, offset?: any, max?: any): Observable<any[]> {
+    let subject = new Subject<any[]>();
+    this.http.get<any[]>(this.baseUrl + `setor/admissoes?` + 'setorId=' + setorId + '&termo=' + termo + '&offset=' + offset + '&max=' + max)
       .pipe(
         catchError(error => of({error})
-        )).subscribe((json: Admissao[]) => {
+        )).subscribe((json: any[]) => {
       subject.next(json);
     });
     return subject.asObservable();
@@ -51,28 +50,28 @@ export class ApacheService {
     )
   }
 
-  get(id: string): Observable<any> {
-    let subject = new Subject<RegistroAtendimento>();
-    this.http.get(this.baseUrl + `registroAtendimento/` + id)
+  get(id): Observable<any> {
+    let subject = new Subject<any>();
+    this.http.get(this.baseUrl + `apache/` + id)
       .pipe(
         catchError(error => of({error})
         )).subscribe((json: any) => {
       if (json.hasOwnProperty('error')) {
         subject.next(json);
       } else {
-        subject.next(new RegistroAtendimento(json));
+        subject.next(json);
       }
     });
     return subject.asObservable();
   }
 
 
-  search(setorId: number, termo?: string, offset?: any, max?: any): Observable<Admissao[]> {
-    let subject = new Subject<Admissao[]>();
+  search(setorId: number, termo?: string, offset?: any, max?: any): Observable<any[]> {
+    let subject = new Subject<any[]>();
     this.http.get(this.baseUrl + `setor/admissoes?` + 'setorId=' + setorId + '&termo=' + termo + '&offset=' + offset + '&max=' + max)
       .pipe(
         catchError(error => of({error})
-        )).subscribe((json: Admissao[]) => {
+        )).subscribe((json: any[]) => {
       subject.next(json);
     });
     return subject.asObservable();

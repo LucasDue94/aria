@@ -1,5 +1,7 @@
 insert into permissao (id, version, authority, nome, alias) values (nextval('permissao_id_seq'), 0, 'ROLE_APACHE_REPORT', 'Ver relatório apache','apache');
 insert into permissao (id, version, authority, nome, alias) values (nextval('permissao_id_seq'), 0, 'ROLE_APACHE_SAVE', 'Salvar Apache','apache');
+insert into permissao (id, version, authority, nome, alias) values (nextval('permissao_id_seq'), 0, 'ROLE_APACHE_SHOW', 'Ver Apache','apache');
+insert into permissao (id, version, authority, nome, alias) values (nextval('permissao_id_seq'), 0, 'ROLE_APACHE_UPDATE', 'Atualizar Apache','apache');
 
 insert into permissao (id, version, authority, nome, alias) values (nextval('permissao_id_seq'), 0, 'ROLE_GRUPO_INDEX', 'Listar grupos de usuários','grupo');
 insert into permissao (id, version, authority, nome, alias) values (nextval('permissao_id_seq'), 0, 'ROLE_GRUPO_SHOW', 'Ver grupo de usuário','grupo');

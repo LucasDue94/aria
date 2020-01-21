@@ -29,7 +29,7 @@ export class SelectComponent implements OnInit, AfterViewChecked, OnChanges {
   @ViewChild('containerOptions', {static: false}) containerOptions;
   @ViewChild('select', {static: false}) select;
   @Input() reset;
-  selected = 'Selecione';
+  @Input() selected = 'Selecione';
   show = false;
   widthOptions = '';
 
@@ -43,7 +43,7 @@ export class SelectComponent implements OnInit, AfterViewChecked, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.reset.currentValue) this.clear();
+    if (changes.reset && changes.reset.currentValue) this.clear();
   }
 
   ngAfterViewChecked(): void {

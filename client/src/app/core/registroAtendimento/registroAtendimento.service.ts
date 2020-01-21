@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
-import {Observable, Subject} from "rxjs";
-import {map} from "rxjs/operators";
+import {Observable, of, Subject} from "rxjs";
+import {catchError, map} from "rxjs/operators";
 import {RegistroAtendimento} from "./registroAtendimento";
 
 
@@ -35,13 +35,19 @@ export class RegistroAtendimentoService {
         )
     }
 
-    get(id: number): Observable<RegistroAtendimento> {
-        let subject = new Subject<RegistroAtendimento>();
-        this.http.get(this.baseUrl + `registroAtendimento/` + id)
-            .subscribe((json: any) => {
-                subject.next(new RegistroAtendimento(json));
-            });
-        return subject.asObservable();
+    get(id: string): Observable<any> {
+      let subject = new Subject<RegistroAtendimento>();
+      this.http.get(this.baseUrl + `registroAtendimento/` + id)
+        .pipe(
+          catchError(error => of({error})
+          )).subscribe((json: any) => {
+        if (json.hasOwnProperty('error')) {
+          subject.next(json);
+        } else {
+          subject.next(new RegistroAtendimento(json));
+        }
+      });
+      return subject.asObservable();
     }
 
     search(searchTerm, offset?: any, max?): Observable<any[]> {

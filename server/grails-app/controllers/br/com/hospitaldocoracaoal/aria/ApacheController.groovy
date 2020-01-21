@@ -20,6 +20,11 @@ class ApacheController {
         return [data: apacheService.report(params)]
     }
 
+    @Secured('ROLE_APACHE_SHOW')
+    def show(Long id) {
+        respond apacheService.get(id)
+    }
+
     @Secured('ROLE_APACHE_SAVE')
     @Transactional
     def save(Apache apache) {
@@ -44,6 +49,7 @@ class ApacheController {
         respond apache, [status: CREATED, view:"show"]
     }
 
+    @Secured('ROLE_APACHE_UPDATE')
     @Transactional
     def update(Apache apache) {
         if (apache == null) {

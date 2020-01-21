@@ -24,42 +24,42 @@ export class MenuComponent implements OnInit {
 
   menuList: Menu[] = [
     {
-      name: 'perfil',
+      name: 'Perfil',
       status: false,
       permission: EnumPermisson.role_perfil_epidemiologico_index,
       faIcon: faDiagnoses,
       router: ['/perfil']
     },
     {
-      name: 'apache',
+      name: 'Apache II',
       status: false,
       permission: EnumPermisson.role_apache_report,
       faIcon: faNotesMedical,
       router: ['/apache']
     },
     {
-      name: 'setores',
+      name: 'Setores',
       status: false,
       permission: EnumPermisson.role_setor_index,
       faIcon: faFolderOpen,
       router: ['/setor']
     },
     {
-      name: 'relatorio',
+      name: 'Relatorios',
       status: false,
       permission: '',
       faIcon: faChartPie,
       router: ['/relatorio']
     },
     {
-      name: 'usuarios',
+      name: 'Usuarios',
       status: false,
       permission: EnumPermisson.role_usuario_index,
       faIcon: faUserMd,
       router: ['/usuario']
     },
     {
-      name: 'grupo',
+      name: 'Grupos',
       status: false,
       permission: EnumPermisson.role_grupo_index,
       faIcon: faUsers,

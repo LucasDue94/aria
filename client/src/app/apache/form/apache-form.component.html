@@ -11,7 +11,7 @@
       </section>
       <section class="flex-row">
         <h3 class="label">Entrada:</h3>
-        <h4 class="info">{{registroAtendimento?.dataEntrada | date:'dd/MM/yy,   HH:mm'}}</h4>
+        <h4 class="info">{{registroAtendimento?.dataEntrada | date:'dd/MM/yy - HH:mm'}}</h4>
       </section>
     </section>
     <section class="flex-column">
@@ -25,7 +25,7 @@
       </section>
       <section class="flex-row">
         <h3 class="label">Saída:</h3>
-        <h4 class="info">{{registroAtendimento?.dataAlta | date:'dd/MM/yy,   HH:mm'}}</h4>
+        <h4 class="info">{{registroAtendimento?.dataAlta | date:'dd/MM/yy - HH:mm'}}</h4>
       </section>
     </section>
     <section class="flex-column">
@@ -67,6 +67,7 @@
         <div class="form-group">
           <app-select class="aria-select" [reset]="resetForm" [width]="'215px'" [labelPosition]="labelPosition"
                       [labelName]="'Temperatura(ºC):'"
+                      [selected]= "apache.temperatura ? apache.temperatura : 'Selecione'"
                       (itemSelected)="getValue($event, 'temperatura')"
                       [items]="temperatura"></app-select>
           <p
@@ -76,6 +77,7 @@
         <div class="form-group">
           <app-select class="aria-select" [reset]="resetForm" [width]="'215px'" [labelPosition]="labelPosition"
                       [labelName]="'Arterial pH ou HCO3:'"
+                      [selected]= "apache.arterialPh ? apache.arterialPh : 'Selecione'"
                       (itemSelected)="getValue($event, 'arterialPh')"
                       [items]="arterialPh"></app-select>
           <p
@@ -86,6 +88,7 @@
         <div class="form-group">
           <app-select class="aria-select" [reset]="resetForm" [width]="'215px'" [labelPosition]="labelPosition"
                       [labelName]="'Na+ Sérico (meq/l):'"
+                      [selected]= "apache.naSerico ? apache.naSerico : 'Selecione'"
                       (itemSelected)="getValue($event, 'naSerico')"
                       [items]="naSerico"></app-select>
           <p
@@ -96,6 +99,7 @@
         <div class="form-group">
           <app-select class="aria-select" [reset]="resetForm" [width]="'215px'" [labelPosition]="labelPosition"
                       [labelName]="'Leucócitos (10^3/£gl):'"
+                      [selected]= "apache.leucocitos ? apache.leucocitos : 'Selecione'"
                       (itemSelected)="getValue($event, 'leucocitos')"
                       [items]="leucocitos"></app-select>
           <p
@@ -105,11 +109,12 @@
         </div>
         <div class="form-group">
           <app-select class="aria-select" [reset]="resetForm" [width]="'215px'" [labelPosition]="labelPosition"
-                      [labelName]="'Gasglow Com Escala:'"
-                      (itemSelected)="getValue($event,'gasglow')"
-                      [items]="gasglow"></app-select>
+                      [labelName]="'Glasgow Com Escala:'"
+                      [selected]= "apache.glasgow ? (apache.glasgow) : 'Selecione'"
+                      (itemSelected)="getValue($event,'glasgow')"
+                      [items]="glasgow"></app-select>
           <p
-            [ngClass]="[getControl('gasglow').invalid && (getGroup('outrasMedidas').dirty && getGroup('outrasMedidas').touched) ? 'errors': 'hidden']">
+            [ngClass]="[getControl('glasgow').invalid && (getGroup('outrasMedidas').dirty && getGroup('outrasMedidas').touched) ? 'errors': 'hidden']">
             {{messageError}}</p>
 
         </div>
@@ -119,6 +124,7 @@
                      [icon]="faInfoCircle"></fa-icon>
             <app-select class="aria-select" [reset]="resetForm" [width]="'215px'" [labelPosition]="labelPosition"
                         [labelName]="'Problemas Crônicos de Saúde:'"
+                        [selected]= "apache.problemasCronicos ? apache.problemasCronicos : 'Selecione'"
                         (itemSelected)="getValue($event, 'problemasCronicos')"
                         [items]="problemasCronicos"></app-select>
             <section [ngClass]=" [showProblemas ? 'show-problemas-cronicos':'hidden-problemas-cronicos']">
@@ -139,6 +145,7 @@
         <div class="form-group" id="container-frequencia-cardiaca">
           <app-select class="aria-select" [reset]="resetForm" [width]="'215px'" [labelPosition]="labelPosition"
                       [labelName]="'Frequência Cardíaca:'"
+                      [selected]= "apache.frequenciaCardiaca ? apache.frequenciaCardiaca : 'Selecione'"
                       (itemSelected)="getValue($event,'frequenciaCardiaca')"
                       [items]="frequenciaCardiaca"></app-select>
           <p
@@ -149,6 +156,7 @@
         <div class="form-group">
           <app-select class="aria-select" [reset]="resetForm" [width]="'215px'" [labelPosition]="labelPosition"
                       [labelName]="'Frequência Respiratória:'"
+                      [selected]= "apache.frequenciaRespiratoria ? apache.frequenciaRespiratoria : 'Selecione'"
                       (itemSelected)="getValue($event, 'frequenciaRespiratoria')"
                       [items]="frequenciaRespiratoria"></app-select>
           <p
@@ -159,6 +167,7 @@
         <div class="form-group">
           <app-select class="aria-select" [reset]="resetForm" [width]="'215px'" [labelPosition]="labelPosition"
                       [labelName]="'K+ Sérico (meq/l):'"
+                      [selected]= "apache.kSerico ? apache.kSerico : 'Selecione'"
                       (itemSelected)="getValue($event,'kSerico')"
                       [items]="kSerico"></app-select>
           <p
@@ -169,6 +178,7 @@
         <div class="form-group">
           <app-select class="aria-select" [reset]="resetForm" [width]="'215px'" [labelPosition]="labelPosition"
                       [labelName]="'Hematócrito:'"
+                      [selected]= "apache.hematocrito ? apache.hematocrito : 'Selecione'"
                       (itemSelected)="getValue($event,'hematocrito')"
                       [items]="hematocrito"></app-select>
           <p
@@ -179,6 +189,7 @@
         <div class="form-group">
           <app-select class="aria-select" [reset]="resetForm" [width]="'215px'" [labelPosition]="labelPosition"
                       [labelName]="'A-aPO2 (FiO2 > 50%) ou PaO2 (FiO2 < 50%):'"
+                      [selected]= "apache.aapo ? apache.aapo : 'Selecione'"
                       (itemSelected)="getValue($event, 'aapo')"
                       [items]="aapo"></app-select>
           <p
@@ -189,6 +200,7 @@
         <div class="form-group">
           <app-select class="aria-select" [reset]="resetForm" [width]="'215px'" [labelPosition]="labelPosition"
                       [labelName]="'Creatinina Sérica com ou sem IRA: '"
+                      [selected]= "apache.creatininaSerica ? apache.creatininaSerica : 'Selecione'"
                       (itemSelected)="getValue($event,'creatinina')"
                       [items]="creatinina"></app-select>
           <p
