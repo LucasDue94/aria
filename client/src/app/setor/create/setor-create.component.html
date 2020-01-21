@@ -29,8 +29,17 @@
         </select>
         <p *ngIf="this.form.get('tipo').invalid && selectedSetor != undefined" class="errors">Selecione um tipo</p>
       </div>
+      <div class="form-group flex-row">
+        <label class="form-label" for="sigla">Prazo Apache II (Horas)</label>
+        <input
+          [ngStyle]="{'border' : this.form.get('prazoApache').invalid ? '2px solid #c26267':''}"
+          class="form-control" formControlName="prazoApache" id="prazoApache" type="number" style="
+    max-width: 135px;">
+        <p *ngIf="this.form.get('prazoApache').invalid" class="errors">não pode ser
+          branco</p>
+      </div>
+      <button (click)="save()" class="button button-blue btn-save">Salvar</button>
     </form>
-    <button (click)="save()" class="button button-blue btn-save">Salvar</button>
   </article>
 </main>
 <section class="background-shadow" #shadow>

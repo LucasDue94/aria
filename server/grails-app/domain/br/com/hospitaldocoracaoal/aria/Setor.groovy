@@ -9,6 +9,7 @@ class Setor {
     SetorWpd setorWpd
     String sigla
     TipoSetor tipoSetor
+    Integer prazoApache
     static hasMany = [usuarios: Usuario]
     static belongsTo = [Usuario]
 

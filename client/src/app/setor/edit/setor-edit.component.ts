@@ -20,7 +20,8 @@ export class SetorEditComponent implements OnInit {
     codWpd: ['', Validators.required],
     descricao: ['', Validators.required],
     sigla: ['', Validators.required],
-    tipo: ['', Validators.required]
+    tipo: ['', Validators.required],
+    prazoApache: ['', Validators.required]
   });
 
   selectItems = [
@@ -66,6 +67,7 @@ export class SetorEditComponent implements OnInit {
     this.form.get('sigla').setValue(this.setor.sigla);
     let setor = this.selectItems.find((el) => el.setor == this.setor.tipoSetor);
     this.form.get('tipo').setValue(setor['id']);
+    this.form.get('prazoApache').setValue(this.setor.prazoApache);
   }
 
   setValues() {
@@ -73,6 +75,7 @@ export class SetorEditComponent implements OnInit {
     this.setor.descricao = this.form.get('descricao').value;
     this.setor.sigla = this.form.get('sigla').value;
     this.setor.tipoSetor = this.form.get('tipo').value;
+    this.setor.prazoApache = this.form.get('prazoApache').value;
   }
 
   save() {
