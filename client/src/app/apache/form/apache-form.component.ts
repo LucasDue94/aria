@@ -77,7 +77,7 @@ export class ApacheFormComponent implements OnInit {
     this.spinner.show();
     this.apache = {};
 
-    this.title.send('Apache - Formulário');
+    this.title.send('Apache II - Formulário');
     this.calculaPressaoMedia();
     const id = this.route.snapshot.queryParamMap.get('registro');
     this.registroAtendimentoService.get(id).subscribe(res => {
