@@ -1,6 +1,5 @@
 package br.com.hospitaldocoracaoal.integracao
 
-import br.com.hospitaldocoracaoal.aria.Apache
 import br.com.hospitaldocoracaoal.aria.Notificacao
 
 class RegistroAtendimentoLeito implements Serializable {
@@ -15,5 +14,24 @@ class RegistroAtendimentoLeito implements Serializable {
     static mapping = {
         id composite: ['registroAtendimento', 'leito', 'dataEntrada']
         version false
+    }
+
+    static transients = ['ultimo']
+
+    boolean isUltimo() {
+        this == registroAtendimento.ultimoRegistroAtendimentoLeito
+    }
+
+    boolean equals(o) {
+        if (this.is(o)) return true
+        if (getClass() != o.class) return false
+
+        RegistroAtendimentoLeito that = (RegistroAtendimentoLeito) o
+
+        if (dataEntrada != that.dataEntrada) return false
+        if (leito != that.leito) return false
+        if (registroAtendimento != that.registroAtendimento) return false
+
+        return true
     }
 }

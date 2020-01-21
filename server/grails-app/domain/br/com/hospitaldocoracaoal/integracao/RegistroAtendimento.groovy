@@ -23,4 +23,10 @@ class RegistroAtendimento {
         id generator: 'assigned'
         version  false
     }
+
+    static transients = ['ultimoRegistroAtendimentoLeito']
+
+    RegistroAtendimentoLeito getUltimoRegistroAtendimentoLeito() {
+        registroAtendimentoLeitos.sort { r1, r2 -> r1.dataEntrada <=> r2.dataEntrada }.last()
+    }
 }
