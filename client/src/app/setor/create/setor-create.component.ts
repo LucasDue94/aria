@@ -24,7 +24,8 @@ export class SetorCreateComponent implements OnInit, AfterViewInit {
     codWpd: ['', Validators.required],
     descricao: ['', Validators.required],
     sigla: ['', Validators.required],
-    tipo: ['', Validators.required]
+    tipo: ['', Validators.required],
+    prazoApache: ['', Validators.required]
   });
   newSetor = new Setor();
 
@@ -67,6 +68,7 @@ export class SetorCreateComponent implements OnInit, AfterViewInit {
   setForm() {
     this.form.get('codWpd').setValue(this.selectedSetor.id);
     this.form.get('descricao').setValue(this.selectedSetor.descricao);
+    this.form.get('prazoApache').setValue(4)
   }
 
   setValues() {
@@ -74,6 +76,7 @@ export class SetorCreateComponent implements OnInit, AfterViewInit {
     this.newSetor.descricao = this.form.get('descricao').value;
     this.newSetor.sigla = this.form.get('sigla').value;
     this.newSetor.tipoSetor = this.form.get('tipo').value;
+    this.newSetor.prazoApache = this.form.get('prazoApache').value;
   }
 
   save() {

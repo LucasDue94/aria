@@ -8,7 +8,7 @@ class BootStrap {
 
     def init = { servletContext ->
 
-
+        Permissao.createPermissoes()
         def admin = Grupo.findByName('Admin')
         if (admin == null) {
             Grupo.withTransaction {

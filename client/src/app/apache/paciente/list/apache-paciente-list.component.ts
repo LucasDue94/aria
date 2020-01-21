@@ -30,7 +30,7 @@ export class ApachePacienteListComponent implements OnInit {
   });
   setorId;
   offset = 0;
-  max = 20;
+  max = 30;
   termo = '';
 
   constructor(private apacheService: ApacheService, private setorService: SetorService, private errorService: ErrorService,
@@ -64,6 +64,8 @@ export class ApachePacienteListComponent implements OnInit {
 
   listAdmissoesSetor() {
     this.spinner.show();
+    this.offset = 0;
+    document.getElementById('data-list').scrollTop = 0;
     this.apacheService.list(+this.setorId, this.termo, this.offset, this.max).subscribe(registros => {
       this.admissoesPacSetor = registros;
       this.spinner.hide();
@@ -100,9 +102,13 @@ export class ApachePacienteListComponent implements OnInit {
   getRowClass(registro: any) {
     let rowClass = '';
     if(registro.apache) {
-      rowClass = 'row-success'
-    } else if(moment() > moment(registro.dataEntrada).add(24, 'hours')) { // If is greater than 24 hours
-      rowClass = 'row-available'
+      rowClass = 'row-success';
+    } else if(moment() > moment(registro.dataEntrada).add(24, 'hours')) { // Testa se passaram 24 horas da entrada
+      rowClass = 'row-available';
+      const setor = this.arrayListSetor.find( s => s.id == this.setorId)
+      if(moment() > moment(registro.dataEntrada).add(24 + setor.prazoApache, 'hours')) { // Testa se alem das 24 horas, estourou o prazo do setor
+        rowClass = 'row-alert';
+      }
     }
     return rowClass;
   }

@@ -7,6 +7,7 @@ export class Setor {
   descricao: string;
   tipoSetor: string;
   setorWpd: SetorWpd = new SetorWpd();
+  prazoApache: number;
 
   constructor(object?) {
     if (object) {
