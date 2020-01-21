@@ -80,9 +80,8 @@ export class UsuarioEditComponent implements OnInit {
       });
 
       this.usuario.grupo.id = this.form.get('grupoId').value;
-      let usuarioId = this.form.get('cod').value;
+      this.usuario.id =  this.form.get('cod').value;
       delete this.usuario.grupo.permissoes;
-      this.usuarioService.update(usuarioId, this.usuario);
 
       this.usuarioService.save(this.usuario).subscribe(res => {
         let messageError = '';

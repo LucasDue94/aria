@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, Renderer2} from '@angular/core';
+import {Component, OnInit, Renderer2} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import {TitleService} from "../../core/title/title.service";
 import {PermissaoService} from "../../core/permissao/permissao.service";
@@ -10,6 +10,7 @@ import {AlertService} from "../../core/alert/alert.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {SpinnerService} from "../../core/spinner/spinner.service";
 import {UsuarioService} from "../../core/usuario/usuario.service";
+import {faCheck} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'grupo-form',
@@ -24,7 +25,7 @@ export class GrupoFormComponent implements OnInit {
   permissoes: Permissao[];
   permissoesSelecionadas = new Set();
   aliasesGrupo = new Set();
-
+  url = this.route.snapshot.url[0].path;
   grupo = {
     usersCount: 0
   };
@@ -38,7 +39,7 @@ export class GrupoFormComponent implements OnInit {
 
   ngOnInit() {
     this.spinner.show();
-    this.titleService.send('Grupo - Novo Grupo');
+    this.url == 'create' ? this.titleService.send('Grupo - Novo Grupo') : this.titleService.send('Grupo - Editar Grupo');
     this.persmissaoService.list(10000, '').subscribe(res => {
       if (res.hasOwnProperty('error')) {
         this.errorService.sendError(res);
@@ -91,6 +92,7 @@ export class GrupoFormComponent implements OnInit {
 
   save() {
     let id = this.route.snapshot.params['id'];
+
     const grupo = new Grupo({
       id: id,
       name: this.form.get('nome').value,
@@ -98,10 +100,19 @@ export class GrupoFormComponent implements OnInit {
       permissoes: Array.from(this.permissoesSelecionadas)
     });
 
-     this.grupoService.save(grupo).subscribe(res => {
-       setTimeout(() => {
-         this.router.navigate(['/grupo']);
-       }, 300)
-     });
+    id == undefined ? delete grupo.id && delete grupo.permissoes : grupo.id && grupo.permissoes;
+
+    this.grupoService.save(grupo).subscribe(() => {
+      this.url == 'create' ?
+      this.alertService.send(
+        {message: 'Grupo Criado!', type: 'success', icon: faCheck}
+      ) :  this.alertService.send(
+        {message: 'Grupo Aterado!', type: 'success', icon: faCheck}
+        ) ;
+
+      setTimeout(() => {
+        this.router.navigate(['/grupo']);
+      }, 300)
+    });
   }
 }

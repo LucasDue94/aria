@@ -19,7 +19,6 @@
         <label class="form-label">Grupo</label>
         <input class="form-control control-disable" formControlName="grupoDesc" type="text">
         <select  class="form-control" name="" id="" formControlName="grupoId">
-          <option>Selecione</option>
           <option *ngFor="let grupo of grupos" value="{{grupo.id}}">{{grupo.name}}</option>
         </select>
       </div>

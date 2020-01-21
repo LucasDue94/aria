@@ -50,15 +50,26 @@ export class GrupoService {
   }
 
   save(grupo: Grupo): Observable<Grupo> {
+    let subject = new Subject<Grupo>();
     if (grupo.id) {
-      return this.http.put<Grupo>(this.baseUrl + `grupo/` + grupo.id, grupo, {
+      this.http.put<Grupo>(this.baseUrl + 'grupo/' + grupo.id, grupo, {
         responseType: 'json'
+      }).pipe(
+        catchError(error => of({error}))
+      ).subscribe((json: any) => {
+        subject.next(json)
       });
     } else {
-      return this.http.post<Grupo>(this.baseUrl + `grupo/`, grupo, {
+      this.http.post<Grupo>(this.baseUrl + 'grupo/',  grupo, {
         responseType: 'json'
+      }).pipe(
+        catchError(error => of({error}))
+      ).subscribe((json: any) => {
+        subject.next(json)
       });
     }
+    return subject.asObservable()
+
   }
 
   destroy(grupo: Grupo): Observable<Object> {

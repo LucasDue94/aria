@@ -5,5 +5,7 @@ model {
 }
 
 json g.render(grupo, [expand: ['permissoes'], resolveTemplate: false]) {
-    usersCount grupo.usuarios.size()
+   if(grupo.usuarios != null) {
+       usersCount grupo.usuarios.size()
+   }
 }

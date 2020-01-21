@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TitleService} from "../../core/title/title.service";
 import {faFrown, faSearch} from "@fortawesome/free-solid-svg-icons";
 import {Usuario} from "../../core/usuario/usuario";
 import {FormBuilder} from "@angular/forms";
 import {SpinnerService} from "../../core/spinner/spinner.service";
 import {UsuarioService} from "../../core/usuario/usuario.service";
-import {AlertService} from "../../core/alert/alert.service";
 import {ErrorService} from "../../core/error/error.service";
 import {EnumPermisson} from "../../core/permissao/enumPermisson";
 import {AuthService} from "../../core/auth/auth.service";
