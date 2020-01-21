@@ -71,7 +71,6 @@ class Permissao implements Serializable {
 
             // -- PERMISSAO --
             findOrSaveWhere(authority: 'ROLE_PERMISSAO_INDEX', nome: 'Listar Permissões', alias: 'permissao')
-            findOrSaveWhere(authority: 'TESTE', nome: 'TESTE', alias: 'TESTE')
         }
     }
 }
