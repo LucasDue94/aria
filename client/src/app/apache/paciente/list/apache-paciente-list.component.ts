@@ -30,7 +30,7 @@ export class ApachePacienteListComponent implements OnInit {
   });
   setorId;
   offset = 0;
-  max = 20;
+  max = 30;
   termo = '';
 
   constructor(private apacheService: ApacheService, private setorService: SetorService, private errorService: ErrorService,
@@ -64,6 +64,8 @@ export class ApachePacienteListComponent implements OnInit {
 
   listAdmissoesSetor() {
     this.spinner.show();
+    this.offset = 0;
+    document.getElementById('data-list').scrollTop = 0;
     this.apacheService.list(+this.setorId, this.termo, this.offset, this.max).subscribe(registros => {
       this.admissoesPacSetor = registros;
       this.spinner.hide();
