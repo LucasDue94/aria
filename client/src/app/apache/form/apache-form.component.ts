@@ -108,8 +108,6 @@ export class ApacheFormComponent implements OnInit {
           }
         }
 
-        this.spinner.hide();
-
       const apacheId = this.route.snapshot.queryParamMap.get('apacheId');
       if(apacheId) {
         this.apacheService.get(apacheId).subscribe(res => {
@@ -124,7 +122,10 @@ export class ApacheFormComponent implements OnInit {
             this.apache = res;
             this.setForm();
           }
+          this.spinner.hide();
         });
+      } else {
+        this.spinner.hide();
       }
     });
   }
@@ -247,7 +248,7 @@ export class ApacheFormComponent implements OnInit {
             icon: faFrown
           });
         } else {
-          this.alertService.send({message: 'Apache salvo!', type: 'success', icon: faCheck});
+          this.alertService.send({message: 'Apache II salvo com sucesso!', type: 'success', icon: faCheck});
           setTimeout(() => {
             this.router.navigate(['/apache', 'list']);
           }, 300);

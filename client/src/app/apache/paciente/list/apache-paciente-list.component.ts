@@ -39,7 +39,7 @@ export class ApachePacienteListComponent implements OnInit {
 
   ngOnInit() {
     this.spinner.show();
-    this.titleService.send('Apache - Lista de Pacientes');
+    this.titleService.send('Apache II - Lista de Pacientes');
     this.setorService.list('U', '', '').subscribe(setores => {
       if(this.errorService.hasError(setores)) {
         this.spinner.hide();
