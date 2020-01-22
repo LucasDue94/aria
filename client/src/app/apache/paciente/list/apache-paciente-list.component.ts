@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {faFrown, faSearch} from "@fortawesome/free-solid-svg-icons";
 import {Setor} from "../../../core/setor/setor";
 import {ApacheService} from "../../../core/apache/apache.service";
@@ -20,6 +20,8 @@ import * as moment from 'moment';
 
 export class ApachePacienteListComponent implements OnInit {
 
+  @ViewChild('dataList', {static: false}) dataList;
+
   faFrown = faFrown;
   faSearch = faSearch;
   showListScrollSpinner = false;
@@ -34,7 +36,7 @@ export class ApachePacienteListComponent implements OnInit {
   termo = '';
 
   constructor(private apacheService: ApacheService, private setorService: SetorService, private errorService: ErrorService,
-              private titleService: TitleService, private fb: FormBuilder, private spinner: SpinnerService, private authService: AuthService, private router: Router) {
+              private titleService: TitleService, private fb: FormBuilder, private spinner: SpinnerService, private renderer: Renderer2) {
   }
 
   ngOnInit() {
@@ -65,7 +67,7 @@ export class ApachePacienteListComponent implements OnInit {
   listAdmissoesSetor() {
     this.spinner.show();
     this.offset = 0;
-    document.getElementById('data-list').scrollTop = 0;
+    this.renderer.setProperty(this.dataList.nativeElement, 'scrollTop', 0)
     this.apacheService.list(+this.setorId, this.termo, this.offset, this.max).subscribe(registros => {
       this.admissoesPacSetor = registros;
       this.spinner.hide();
