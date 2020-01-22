@@ -9,7 +9,6 @@ import {TitleService} from "../../core/title/title.service";
 import {ErrorService} from "../../core/error/error.service";
 import {Router} from "@angular/router";
 import {AuthService} from "../../core/auth/auth.service";
-import {EnumPermisson} from "../../core/permissao/enumPermisson";
 
 
 @Component({
@@ -34,9 +33,7 @@ export class SetorListComponent implements OnInit {
 
   ngOnInit() {
     this.titleService.send('Lista de Setores');
-    if (!this.authService.hasPermission(EnumPermisson.role_setor_index)) {
-      this.router.navigate(['/error']);
-    }
+    this.spinner.show();
     this.setorService.list('', '',10000).subscribe(setores => {
       if (this.errorService.hasError(setores)) {
         this.errorService.sendError(setores);
@@ -46,7 +43,7 @@ export class SetorListComponent implements OnInit {
         this.setores = this.data;
         this.spinner.hide();
       }
-    })
+    });
   }
 
   sortSetor() {

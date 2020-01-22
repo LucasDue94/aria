@@ -13,11 +13,11 @@ export class AlertService {
   }
 
   receive(): Observable<Alert> {
-    this.subject.next(this.alert);
     return this.subject.asObservable()
   }
 
   send(params) {
     this.alert = new Alert(params);
+    this.subject.next(this.alert);
   }
 }

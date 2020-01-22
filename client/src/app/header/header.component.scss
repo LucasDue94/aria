@@ -7,8 +7,10 @@ $header-height: 70px;
 
 .container-header {
   display: flex;
-  position: relative;
-  z-index: 4;
+  /*position: relative;*/
+  position: fixed;
+  width: 100%;
+  z-index: 99;
   align-items: center;
   height: $header-height;
   align-content: space-between;

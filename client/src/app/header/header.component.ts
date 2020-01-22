@@ -10,7 +10,6 @@ import {AuthService} from "../core/auth/auth.service";
 })
 export class HeaderComponent implements OnInit {
   @Input('menu-status') menuStatus: boolean = true;
-  systemName;
   usuarioLogado;
   faBars = faBars;
   faSingOut = faSignOutAlt;
@@ -21,7 +20,6 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.systemName = 'hamb';
     this.usuarioLogado = localStorage;
     if (window.innerWidth <= 1200) this.showMenu = false;
   }
@@ -34,6 +32,4 @@ export class HeaderComponent implements OnInit {
     this.showMenu = !this.showMenu;
     this.menuService.setStatus(this.showMenu);
   }
-
-
 }

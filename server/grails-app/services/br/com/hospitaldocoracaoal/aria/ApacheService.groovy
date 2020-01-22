@@ -1,6 +1,7 @@
 package br.com.hospitaldocoracaoal.aria
 
 import br.com.hospitaldocoracaoal.aria.utils.DataUtils
+import br.com.hospitaldocoracaoal.integracao.Paciente
 import grails.gorm.services.Service
 import grails.web.servlet.mvc.GrailsParameterMap
 import org.hibernate.sql.JoinType
@@ -110,7 +111,7 @@ abstract class ApacheService {
         def nCir24Smr = naoCirurgicos.findAll({ it.escore >= 15 && it.escore <= 19 }).size() == 0 ? 0
                 : naoCirurgicos.findAll({ it.escore >= 15 && it.escore <= 19 }).findAll(closureObitos).size() / (naoCirurgicos.findAll({ it.escore >= 15 && it.escore <= 19 }).size() * 0.24d)
         if (nCir24Smr >= 1) {
-            pacientesObito.addAll naoCirurgicos.findAll({ it.escore >= 15 && it.escore <= 19 }).findAll(closureObitos).registroAtendimentoLeito.registroAtendimento.paciente.nome
+            pacientesObito.addAll naoCirurgicos.findAll({ it.escore >= 15 && it.escore <= 19 }).findAll(closureObitos)
         }
 
         def nCir40Smr = naoCirurgicos.findAll({ it.escore >= 20 && it.escore <= 24 }).size() == 0 ? 0
@@ -239,7 +240,7 @@ abstract class ApacheService {
                         ]
                 ],
 
-                pacientesObito   : pacientesObito
+                pacientesObito   : pacientesObito.registroAtendimentoLeito.registroAtendimento.paciente
         ]
     }
 

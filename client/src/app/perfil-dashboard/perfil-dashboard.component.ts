@@ -1,4 +1,4 @@
-import {AfterViewChecked, Component, DoCheck, OnInit, Renderer2, ViewChild} from '@angular/core';
+import {AfterViewChecked, Component, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {MenuService} from "../core/menu/menu.service";
 import {faBabyCarriage, faExpand, faFemale, faFrown, faMale} from "@fortawesome/free-solid-svg-icons/";
 import {SpinnerService} from "../core/spinner/spinner.service";
@@ -16,7 +16,7 @@ import {ErrorService} from "../core/error/error.service";
   templateUrl: './perfil-dashboard.component.html',
   styleUrls: ['./perfil-dashboard.component.scss']
 })
-export class PerfilDashboardComponent implements OnInit, DoCheck, AfterViewChecked {
+export class PerfilDashboardComponent implements OnInit, AfterViewChecked {
   @ViewChild('buttonPediatrico', {static: false}) buttonPediatrico;
   @ViewChild('buttonAdulto', {static: false}) buttonAdulto;
   faExpand = faExpand;
@@ -537,19 +537,16 @@ export class PerfilDashboardComponent implements OnInit, DoCheck, AfterViewCheck
         this.menuStatus = status;
       }
     });
-  }
-
-  ngAfterViewChecked(): void {
-    this.toggle();
-  }
-
-  ngDoCheck(): void {
     this.menuService.getStatus().subscribe(status => {
       if (status != this.menuStatus) {
         this.redrawCharts()
       }
       this.menuStatus = status;
     });
+  }
+
+  ngAfterViewChecked(): void {
+    this.toggle();
   }
 
   toggle() {

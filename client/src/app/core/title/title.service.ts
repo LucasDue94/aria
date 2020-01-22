@@ -13,11 +13,11 @@ export class TitleService {
   }
 
   receive(){
-    this.subject.next(this.title);
     return this.subject.asObservable()
   }
 
   send(title){
     this.title = title;
+    this.subject.next(this.title);
   }
 }

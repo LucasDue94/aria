@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, DoCheck, Input, OnInit, Renderer2, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, Input, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {SpinnerService} from "../core/spinner/spinner.service";
 import {faHeart} from "@fortawesome/free-solid-svg-icons/faHeart";
 
@@ -8,7 +8,7 @@ import {faHeart} from "@fortawesome/free-solid-svg-icons/faHeart";
   templateUrl: './spinner.component.html',
   styleUrls: ['./spinner.component.scss']
 })
-export class SpinnerComponent implements DoCheck, AfterViewInit {
+export class SpinnerComponent implements OnInit, AfterViewInit {
   status: boolean;
   faHeart = faHeart;
   @Input('width') width: string;
@@ -19,7 +19,7 @@ export class SpinnerComponent implements DoCheck, AfterViewInit {
               private spinnerService: SpinnerService) {
   }
 
-  ngDoCheck() {
+  ngOnInit() {
     this.spinnerService.listen().subscribe(res => this.status = res);
     if (this.height != undefined) this.status = true;
   }

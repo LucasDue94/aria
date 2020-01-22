@@ -1,5 +1,4 @@
-import {Component, Input, OnInit, Renderer2, ViewChild} from '@angular/core';
-import {MenuService} from "../core/menu/menu.service";
+import {Component, Input, OnInit} from '@angular/core';
 import {
   faChartPie,
   faDiagnoses,
@@ -19,8 +18,6 @@ import {EnumPermisson} from "../core/permissao/enumPermisson";
 })
 export class MenuComponent implements OnInit {
 
-  @ViewChild('menuContainer', {static: false}) menuContainer;
-  @Input('menu-status') menuStatus: boolean = true;
 
   menuList: Menu[] = [
     {
@@ -67,7 +64,7 @@ export class MenuComponent implements OnInit {
     }
   ];
 
-  constructor(private render: Renderer2, private menuService: MenuService, private authService: AuthService) {
+  constructor(private authService: AuthService) {
   }
 
   ngOnInit() {

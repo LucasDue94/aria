@@ -1,5 +1,5 @@
-<main class="menu-container" #menuContainer>
-  <aside class="menu" *ngIf="menuStatus">
+<main class="menu-container">
+  <aside class="menu">
     <div *ngFor="let menu of menuList">
       <a [routerLink]="menu.router" [routerLinkActive]="['active-link']" *ngIf="menu.status" class="menu-item">
         <fa-icon [icon]="menu.faIcon"></fa-icon>

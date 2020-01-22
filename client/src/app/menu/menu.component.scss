@@ -42,6 +42,9 @@ $animation-time: 300ms;
 .menu-container {
   display: flex;
   flex-direction: row;
+  position: fixed;
+  z-index: 98;
+  margin-top: 70px;
   height: calc(100% - 10px);
 }
 

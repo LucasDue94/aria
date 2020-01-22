@@ -1,6 +1,6 @@
 import {
   AfterViewChecked,
-  Component, DoCheck,
+  Component,
   EventEmitter,
   Input,
   OnChanges,

@@ -27,7 +27,7 @@ export class ApacheService {
     return subject.asObservable();
   }
 
-  report(dataInicio?: string, dataFim?: string, setorId?: number, offset?: any, max?: any): Observable<Apache[]> {
+  report(dataInicio?: string, dataFim?: string, setorId?: number, offset?: any, max?: any): Observable<any[]> {
     let subject = new Subject<any[]>();
     this.http.get<any[]>(this.baseUrl + `apache/relatorio?` + 'dataInicio=' + dataInicio + '&dataFim=' + dataFim + '&setorId='+ setorId +'&offset=' + offset + '&max=' + max)
       .pipe(

@@ -1,4 +1,4 @@
-import {Component, DoCheck, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {AlertService} from "../core/alert/alert.service";
 import {Alert} from "../core/alert/alert";
 import {SpinnerComponent} from "../spinner/spinner.component";
@@ -12,10 +12,9 @@ import {Location} from "@angular/common";
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })
-export class MainComponent implements DoCheck {
+export class MainComponent implements OnInit {
   @ViewChild(SpinnerComponent, {static: false}) spinner;
-  @ViewChild('main-container', {static: false}) mainContainer;
-  menuStatus: boolean = true;
+  showMenu: boolean = true;
   moduleName = 'Home';
   alert: Alert;
   faArrowLeft = faChevronCircleLeft;
@@ -24,14 +23,13 @@ export class MainComponent implements DoCheck {
               private titleService: TitleService, private location: Location) {
   }
 
-
-  ngDoCheck(): void {
-    this.alertService.receive().subscribe(alert => this.alert = alert);
-    this.menuService.getStatus().subscribe(status => this.menuStatus = status);
-    this.titleService.receive().subscribe(title => this.moduleName = title);
-  }
-
   goRoute() {
     this.location.back();
+  }
+
+  ngOnInit(): void {
+    this.alertService.receive().subscribe(alert => this.alert = alert);
+    this.menuService.getStatus().subscribe(status => this.showMenu = status);
+    this.titleService.receive().subscribe(title => this.moduleName = title);
   }
 }

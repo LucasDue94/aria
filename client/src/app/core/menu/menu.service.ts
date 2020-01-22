@@ -5,17 +5,15 @@ import {Observable, Subject} from "rxjs";
   providedIn: 'root'
 })
 export class MenuService {
-  private subject: Subject<any> = new Subject();
-  private status: boolean = true;
+  private subject: Subject<boolean> = new Subject();
 
   constructor() {}
 
   getStatus(): Observable<boolean> {
-    this.subject.next(this.status);
     return this.subject.asObservable()
   }
 
   setStatus(status) {
-    this.status = status;
+    this.subject.next(status);
   }
 }

@@ -20,7 +20,10 @@ import {SpinnerService} from "../../core/spinner/spinner.service";
 })
 export class ReportApacheComponent extends DatePipe implements OnInit, DatePipe {
 
+  pacientesObito = [{}];
   arrayListSetor: Setor[] = [];
+  showListScrollSpinner = false;
+  faFrown = faFrown;
   faSearch = faSearch;
   apache: any[] = [];
   setorId;
@@ -80,20 +83,11 @@ export class ReportApacheComponent extends DatePipe implements OnInit, DatePipe 
         rangeDescription: 'Range: 0 to 5%'
       }
     },
-
     plotOptions: {
       bar: {
         stacking: 'normal'
       }
-    },
-    series: [{
-      name: '',
-      data: []
-    }, {
-      name: '',
-      data: []
     }
-    ]
   };
   form = this.fb.group({
     inicio: [''],
@@ -101,7 +95,7 @@ export class ReportApacheComponent extends DatePipe implements OnInit, DatePipe 
     setorId: ['']
   });
 
-  apacheChart = new Chart(this.optionsChart);
+  apacheChart;
 
   constructor(
     private titleService: TitleService,
@@ -118,34 +112,19 @@ export class ReportApacheComponent extends DatePipe implements OnInit, DatePipe 
 
   ngOnInit() {
     this.spinner.show();
-    this.titleService.send('Relatório de Apache');
+    this.titleService.send('Relatório de Apache II');
     this.getDateInterval();
+    this.form = this.fb.group({
+      inicio: [this.dataInicio, Validators.required],
+      fim: [this.dataFim, Validators.required],
+      setorId: [this.setorId, Validators.required]
+    });
+
     this.setorService.list('U', '', '').subscribe(setores => {
         this.spinner.hide();
         this.errorService.hasError(setores);
-        setores.forEach(setor => {
-          this.arrayListSetor.push(setor);
-          this.setorId = setor.id;
-          this.titleChart = setor.sigla;
 
-          this.form = this.fb.group({
-            inicio: [this.dataInicio, Validators.required],
-            fim: [this.dataFim, Validators.required],
-            setorId: [this.setorId, Validators.required]
-          });
-        });
-
-        this.apacheService.report(this.dataInicio, this.dataFim, this.setorId, '', '').subscribe(apaches => {
-            this.spinner.show();
-            if (this.errorService.hasError(apaches)) {
-              this.spinner.hide();
-              this.errorService.sendError(apaches);
-            } else {
-              this.spinner.hide();
-              this.generateChartApache(apaches);
-            }
-          }
-        );
+        this.arrayListSetor = setores;
       }
     );
   }
@@ -195,16 +174,21 @@ export class ReportApacheComponent extends DatePipe implements OnInit, DatePipe 
     let tempDataFim = new Date(this.dataFim);
 
     let messageError = 'Ops... A data deve ser preenchida';
-    this.dataInicio == "" || this.dataFim == "" || tempDataInicio > tempDataFim ? this.alertService.send({
-      message: messageError,
-      type: 'warning',
-      icon: faFrown
-    }) : this.apacheService.report(this.dataInicio, this.dataFim, this.setorId).subscribe(this.generateChartApache);
+    if (this.dataInicio == "" || this.dataFim == "" || tempDataInicio > tempDataFim) {
+      this.alertService.send({
+        message: messageError,
+        type: 'warning',
+        icon: faFrown
+      });
+    } else {
+      this.apacheService.report(this.dataInicio, this.dataFim, this.setorId).subscribe(this.generateChartApache);
+    }
   }
 
   generateChartApache(apaches: any[]) {
-    apaches['cirurgico'] ? this.cirurgico = apaches['cirurgico'] : '';
-    apaches['naoCirurgico'] ? this.naoCirurgico = apaches['naoCirurgico'] : '';
+    this.cirurgico = apaches['cirurgico'];
+    this.naoCirurgico = apaches['naoCirurgico'];
+    this.pacientesObito = apaches['pacientesObito'];
 
     this.altasNaoCirurgicas = [];
     this.obitosNaoCirurgicos = [];
@@ -229,7 +213,7 @@ export class ReportApacheComponent extends DatePipe implements OnInit, DatePipe 
       });
     }
 
-    this.apacheChart.ref.update({
+    const chartOptions = {
       series: [
         {
           name: 'ALTAS POST-OP',
@@ -261,6 +245,18 @@ export class ReportApacheComponent extends DatePipe implements OnInit, DatePipe 
           color: '#2B1E1D'
         } as SeriesSplineOptions
       ]
-    }, true, true);
+    };
+
+    if (this.apacheChart) {
+      this.apacheChart.ref.update(chartOptions, true, true);
+    } else {
+      this.apacheChart = new Chart(Object.assign(this.optionsChart, chartOptions));
+    }
   }
+
+
+  scrollDown() {
+    this.showListScrollSpinner = true;
+  }
+
 }

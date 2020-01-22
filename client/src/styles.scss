@@ -27,7 +27,7 @@ app-root {
 body, app-main {
   height: 100vh;
   background-color: $white;
-  overflow: hidden;
+  //overflow: hidden;
 }
 
 setor-list, apache-form, grupo-list {
@@ -52,6 +52,10 @@ app-select {
 //Highcharts
 tspan {
   font-size: 12px !important;
+}
+
+.menu-hidden {
+  margin-left: 10px !important;
 }
 
 .container {
