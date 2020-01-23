@@ -9,7 +9,7 @@ $animation-time: 300ms;
   color: $gray-70;
   flex-direction: column;
   padding-top: 15px;
-  z-index: 99;
+  z-index: 150;
   min-width: 300px;
 
   & {
@@ -42,7 +42,7 @@ $animation-time: 300ms;
   display: flex;
   flex-direction: row;
   position: fixed;
-  z-index: 40;
+  z-index: 150;
   margin-top: 70px;
   height: calc(100% - 10px);
   transition: width, transform;
