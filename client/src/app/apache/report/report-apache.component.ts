@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {faFrown, faSearch} from '@fortawesome/free-solid-svg-icons';
+import {Component, OnInit, Renderer2} from '@angular/core';
+import {faEye, faFrown, faSearch} from '@fortawesome/free-solid-svg-icons';
 import {Chart} from 'angular-highcharts';
 import {TitleService} from '../../core/title/title.service';
 import {ApacheService} from '../../core/apache/apache.service';
@@ -19,12 +19,12 @@ import {SpinnerService} from "../../core/spinner/spinner.service";
   styleUrls: ['./report-apache.component.scss']
 })
 export class ReportApacheComponent extends DatePipe implements OnInit, DatePipe {
-
   pacientesObito = [{}];
   arrayListSetor: Setor[] = [];
   showListScrollSpinner = false;
   faFrown = faFrown;
   faSearch = faSearch;
+  faEye = faEye;
   apache: any[] = [];
   setorId;
   date = new Date();
@@ -59,7 +59,7 @@ export class ReportApacheComponent extends DatePipe implements OnInit, DatePipe 
       },
       accessibility: {
         description: 'Age (male)'
-      }
+      },
     }, { // mirror axis on right side
       opposite: true,
       reversed: false,
@@ -70,7 +70,8 @@ export class ReportApacheComponent extends DatePipe implements OnInit, DatePipe 
       },
       accessibility: {
         description: 'Age (female)'
-      }
+      },
+      title: false
     }],
     yAxis: {
       labels: {
@@ -81,7 +82,8 @@ export class ReportApacheComponent extends DatePipe implements OnInit, DatePipe 
       accessibility: {
         description: 'Percentage population',
         rangeDescription: 'Range: 0 to 5%'
-      }
+      },
+      title: false
     },
     plotOptions: {
       bar: {
@@ -92,7 +94,7 @@ export class ReportApacheComponent extends DatePipe implements OnInit, DatePipe 
   form = this.fb.group({
     inicio: [''],
     fim: [''],
-    setorId: ['']
+    setorId: ['selecione']
   });
 
   apacheChart;
@@ -104,10 +106,12 @@ export class ReportApacheComponent extends DatePipe implements OnInit, DatePipe 
     private alertService: AlertService,
     private spinner: SpinnerService,
     private errorService: ErrorService,
+    private render: Renderer2,
     private fb: FormBuilder) {
     super('en-US');
 
     this.generateChartApache = this.generateChartApache.bind(this);
+
   }
 
   ngOnInit() {
@@ -123,7 +127,6 @@ export class ReportApacheComponent extends DatePipe implements OnInit, DatePipe 
     this.setorService.list('U', '', '').subscribe(setores => {
         this.spinner.hide();
         this.errorService.hasError(setores);
-
         this.arrayListSetor = setores;
       }
     );

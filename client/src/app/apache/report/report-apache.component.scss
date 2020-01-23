@@ -56,10 +56,42 @@
 }
 
 .panel-chart {
-  margin: 0 auto;
+  margin: 20px auto 20px auto;
   box-shadow: 2px 2px 10px $gray-80;
 
 }
+
+.link-visualization {
+  font-weight: bold;
+  width: 100%;
+  color: $gray-70;
+
+  &:hover {
+    color: $gray-90;
+  }
+}
+
+.modal {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top:0;
+  left: 0;
+  z-index: 100;
+  background-color: rgba(90, 91, 91, 0.8);
+
+  & .modal-content {
+    position: relative;
+    top: 150px;
+    width: 90%;
+  }
+}
+
+.close-modal {
+  width: 0;
+  display: none;
+}
+
 @media screen and (max-width: $smartphone-max-width) {
   .panel {
     width: min-content;
