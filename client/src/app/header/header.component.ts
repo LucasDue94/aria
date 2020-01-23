@@ -8,20 +8,13 @@ import {AuthService} from "../core/auth/auth.service";
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
-  @Input('menu-status') menuStatus: boolean = true;
-  usuarioLogado;
+export class HeaderComponent {
   faBars = faBars;
   faSingOut = faSignOutAlt;
   showMenu = true;
 
 
   constructor(private menuService: MenuService, private authService: AuthService) {
-  }
-
-  ngOnInit() {
-    this.usuarioLogado = localStorage;
-    if (window.innerWidth <= 1200) this.showMenu = false;
   }
 
   logout() {

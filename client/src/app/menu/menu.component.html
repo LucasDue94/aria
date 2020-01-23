@@ -1,10 +1,10 @@
-<main class="menu-container">
-  <aside class="menu">
+<aside #menuContainer class="menu-container menu-collapsed">
+  <nav class="menu">
     <div *ngFor="let menu of menuList">
-      <a [routerLink]="menu.router" [routerLinkActive]="['active-link']" *ngIf="menu.status" class="menu-item">
+      <a [routerLink]="menu.router" (click)="toggle()" [routerLinkActive]="['active-link']" *ngIf="menu.status" class="menu-item">
         <fa-icon [icon]="menu.faIcon"></fa-icon>
-        <h3 class="description">{{menu.name}}</h3>
+        <p class="description">{{menu.name}}</p>
       </a>
     </div>
-  </aside>
-</main>
+  </nav>
+</aside>

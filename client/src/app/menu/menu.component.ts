@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, HostListener, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {
   faChartPie,
   faDiagnoses,
@@ -10,6 +10,7 @@ import {
 import {AuthService} from "../core/auth/auth.service";
 import {Menu} from "../core/menu/menu";
 import {EnumPermisson} from "../core/permissao/enumPermisson";
+import {MenuService} from "../core/menu/menu.service";
 
 @Component({
   selector: 'app-menu',
@@ -18,7 +19,9 @@ import {EnumPermisson} from "../core/permissao/enumPermisson";
 })
 export class MenuComponent implements OnInit {
 
+  @ViewChild('menuContainer', {static: false}) menuContainer;
 
+  show = false;
   menuList: Menu[] = [
     {
       name: 'Perfil',
@@ -64,7 +67,7 @@ export class MenuComponent implements OnInit {
     }
   ];
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private eRef: ElementRef, private menuService: MenuService, private renderer: Renderer2) {
   }
 
   ngOnInit() {
@@ -73,6 +76,19 @@ export class MenuComponent implements OnInit {
       this.menuList.forEach(item => {
         item.name == 'relatorio' ? item.status = false : '';
       })
+    }
+    this.menuService.getStatus().subscribe(status => {
+      this.toggle()
+    })
+  }
+
+  toggle() {
+    if(this.menuContainer.nativeElement.classList.contains('menu-collapsed')) {
+      this.renderer.removeClass(this.menuContainer.nativeElement, 'menu-collapsed');
+      this.show = true;
+    } else {
+      this.renderer.addClass(this.menuContainer.nativeElement, 'menu-collapsed');
+      this.show = false;
     }
   }
 
@@ -83,4 +99,12 @@ export class MenuComponent implements OnInit {
     return this.menuList;
   }
 
+  //TODO: Esconder menu ao clicar fora
+  @HostListener('document:click', ['$event'])
+  clickout(event) {
+    if(this.show && !this.eRef.nativeElement.contains(event.target)) {
+      // this.renderer.addClass(this.menuContainer.nativeElement, 'menu-collapsed');
+      // this.show = false;
+    }
+  }
 }
