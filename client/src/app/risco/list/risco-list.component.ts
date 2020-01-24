@@ -6,8 +6,6 @@ import {faFrown, faPlus, faSearch} from '@fortawesome/free-solid-svg-icons';
 import {TitleService} from "../../core/title/title.service";
 import {SpinnerService} from "../../core/spinner/spinner.service";
 import {ErrorService} from "../../core/error/error.service";
-import {AuthService} from "../../core/auth/auth.service";
-import {Router} from "@angular/router";
 
 @Component({
   selector: 'risco-list',
@@ -18,10 +16,12 @@ export class RiscoListComponent implements OnInit {
   searchForm = this.fb.group({
     searchControl: ['']
   });
-  riscos: Risco[];
   faSearch = faSearch;
   faPlus = faPlus;
   faFrown = faFrown;
+  riscos: Risco[];
+  data: Risco[];
+
 
   constructor(private riscoService: RiscoService, private titleService: TitleService,
               private spinner: SpinnerService, private errorService: ErrorService,
@@ -31,11 +31,12 @@ export class RiscoListComponent implements OnInit {
   ngOnInit() {
     this.spinner.show();
     this.titleService.send('Lista de Riscos');
-    this.riscoService.list(10000, '').subscribe(riscos => {
+    this.riscoService.list().subscribe(riscos => {
       if (this.errorService.hasError(riscos)) {
         this.errorService.sendError(riscos);
       } else {
         this.riscos = riscos;
+        this.data = riscos;
       }
       this.spinner.hide();
     });
@@ -43,7 +44,7 @@ export class RiscoListComponent implements OnInit {
 
   search() {
     this.searchForm.get('searchControl').valueChanges.subscribe(res => {
-      this.riscos = this.riscos.filter(function (obj) {
+      this.riscos = this.data.filter(function (obj) {
         return `${obj.id}`.includes(res.toUpperCase()) || obj.nome.includes(res.toUpperCase());
       });
     });

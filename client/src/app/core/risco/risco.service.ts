@@ -14,7 +14,7 @@ export class RiscoService {
   constructor(private http: HttpClient) {
   }
 
-  list(max?: any, offset?: any): Observable<Risco[]> {
+  list(max: any = '', offset: any = ''): Observable<Risco[]> {
     let subject = new Subject<Risco[]>();
     this.http.get(this.baseUrl + `risco?offset=` + offset + '&max=' + max)
       .pipe(
