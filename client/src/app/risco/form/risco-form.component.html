@@ -1,0 +1,12 @@
+<main class="container-risco">
+  <article class="card card-nome" [ngClass]="{background: 'red'}">
+    <form [formGroup]="form" class="form-container">
+      <div class="form-group flex-column">
+        <label for="nome" class="form-label">Nome:</label>
+        <input class="form-control" formControlName="nome" id="nome" type="text">
+        <button (click)="save()" class="button button-blue btn-save">Salvar</button>
+      </div>
+    </form>
+  </article>
+</main>
+

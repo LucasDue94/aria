@@ -25,6 +25,7 @@ import {RelatorioModule} from "./relatorio/relatorio.module";
 import {GrupoModule} from "./grupo/grupo.module";
 import {UsuarioModule} from "./usuario/usuario.module";
 import {InterceptorModule} from "./interceptor/interceptor.module";
+import {RiscoModule} from "./risco/risco.module";
 
 @NgModule({
   exports: [],
@@ -54,7 +55,8 @@ import {InterceptorModule} from "./interceptor/interceptor.module";
     LoginModule,
     UsuarioModule,
     GrupoModule,
-    InterceptorModule
+    InterceptorModule,
+    RiscoModule
   ],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy},
