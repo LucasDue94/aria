@@ -110,7 +110,6 @@ export class MenuComponent implements OnInit {
     return this.menuList;
   }
 
-  //TODO: Esconder menu ao clicar fora
   @HostListener('document:click', ['$event'])
   clickout(event) {
     if(this.show && this.sidenavOverlay.nativeElement.contains(event.target)) {
