@@ -71,6 +71,13 @@ class Permissao implements Serializable {
             // -- PERMISSAO --
             findOrSaveWhere(authority: 'ROLE_PERMISSAO_INDEX', nome: 'Listar Permissões', alias: 'permissao')
 
+            // -- RISCO --
+            findOrSaveWhere(authority: 'ROLE_RISCO_INDEX', nome: 'Listar riscos', alias: 'risco')
+            findOrSaveWhere(authority: 'ROLE_RISCO_SHOW', nome: 'Ver risco', alias: 'risco')
+            findOrSaveWhere(authority: 'ROLE_RISCO_SAVE', nome: 'Salvar risco', alias: 'risco')
+            findOrSaveWhere(authority: 'ROLE_RISCO_UPDATE', nome: 'Atualizar risco', alias: 'risco')
+            findOrSaveWhere(authority: 'ROLE_RISCO_DELETE', nome: 'Excluir risco', alias: 'risco')
+
             status.flush()
         }
     }
