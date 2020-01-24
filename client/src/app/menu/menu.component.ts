@@ -20,6 +20,7 @@ import {MenuService} from "../core/menu/menu.service";
 export class MenuComponent implements OnInit {
 
   @ViewChild('menuContainer', {static: false}) menuContainer;
+  @ViewChild('sidenavOverlay', {static: false}) sidenavOverlay;
 
   show = false;
   menuList: Menu[] = [
@@ -85,9 +86,11 @@ export class MenuComponent implements OnInit {
   toggle() {
     if(this.menuContainer.nativeElement.classList.contains('menu-collapsed')) {
       this.renderer.removeClass(this.menuContainer.nativeElement, 'menu-collapsed');
+      this.renderer.addClass(this.sidenavOverlay.nativeElement, 'sidenav-overlay-show');
       this.show = true;
     } else {
       this.renderer.addClass(this.menuContainer.nativeElement, 'menu-collapsed');
+      this.renderer.removeClass(this.sidenavOverlay.nativeElement, 'sidenav-overlay-show');
       this.show = false;
     }
   }
@@ -102,9 +105,10 @@ export class MenuComponent implements OnInit {
   //TODO: Esconder menu ao clicar fora
   @HostListener('document:click', ['$event'])
   clickout(event) {
-    if(this.show && !this.eRef.nativeElement.contains(event.target)) {
-      // this.renderer.addClass(this.menuContainer.nativeElement, 'menu-collapsed');
-      // this.show = false;
+    if(this.show && this.sidenavOverlay.nativeElement.contains(event.target)) {
+      this.renderer.addClass(this.menuContainer.nativeElement, 'menu-collapsed');
+      this.renderer.removeClass(this.sidenavOverlay.nativeElement, 'sidenav-overlay-show');
+      this.show = false;
     }
   }
 }

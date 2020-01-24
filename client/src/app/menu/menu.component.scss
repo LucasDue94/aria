@@ -13,7 +13,7 @@ $animation-time: 300ms;
   min-width: 300px;
 
   & {
-    box-shadow: 1px 5px 10px $gray-70;
+    box-shadow: 1px 5px 1px $gray-70;
     background-color: $gray-50;
   }
 
@@ -42,8 +42,8 @@ $animation-time: 300ms;
   display: flex;
   flex-direction: row;
   position: fixed;
-  z-index: 150;
-  margin-top: 70px;
+  z-index: 100;
+  //margin-top: 70px;
   height: calc(100% - 10px);
   transition: width, transform;
   transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94),cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -97,4 +97,22 @@ $animation-time: 300ms;
 .active-link {
   color: $gray-100 !important;
   background: #bdbdbd;
+}
+
+.sidenav-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  opacity: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 99;
+  display: none;
+}
+
+.sidenav-overlay-show {
+  display: block;
+  opacity: 1;
 }
