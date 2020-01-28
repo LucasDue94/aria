@@ -1,12 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
-import {Observable, Subject, of} from "rxjs";
-import {map, catchError} from "rxjs/operators";
+import {Observable, of, Subject} from "rxjs";
+import {catchError, map} from "rxjs/operators";
 import {Apache} from "./apache";
-import {Admissao} from "../setor/admissao";
-import {RegistroAtendimentoLeito} from "../registroAtendimentoLeitos/registroAtendimentoLeito";
-
 
 @Injectable()
 export class ApacheService {

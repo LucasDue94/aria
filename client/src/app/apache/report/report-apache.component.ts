@@ -1,4 +1,4 @@
-import {Component, OnInit, Renderer2} from '@angular/core';
+import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {faEye, faFrown, faSearch} from '@fortawesome/free-solid-svg-icons';
 import {Chart} from 'angular-highcharts';
 import {TitleService} from '../../core/title/title.service';
@@ -11,26 +11,34 @@ import {FormBuilder, Validators} from "@angular/forms";
 import {AlertService} from "../../core/alert/alert.service";
 import {ErrorService} from "../../core/error/error.service";
 import {SpinnerService} from "../../core/spinner/spinner.service";
-
+import {faPrint} from "@fortawesome/free-solid-svg-icons/faPrint";
+import {UserOptions} from 'jspdf-autotable';
+import * as jsPdf from 'jspdf';
+import 'jspdf-autotable';
 
 @Component({
   selector: 'app-apache-report',
   templateUrl: './report-apache.component.html',
   styleUrls: ['./report-apache.component.scss']
 })
+
+
 export class ReportApacheComponent extends DatePipe implements OnInit, DatePipe {
+
+  @ViewChild('myCanvas', {static: false}) myCanvas: ElementRef;
+  @ViewChild('chartSVG', {static: false}) chartSVG: ElementRef;
   pacientesObito = [{}];
   arrayListSetor: Setor[] = [];
   showListScrollSpinner = false;
   faFrown = faFrown;
   faSearch = faSearch;
+  faPrint = faPrint;
   faEye = faEye;
   apache: any[] = [];
   setorId;
   date = new Date();
   dataInicio: any;
   dataFim: any;
-  titleChart;
   naoCirurgico = [];
   cirurgico = [];
   data = [];
@@ -247,14 +255,94 @@ export class ReportApacheComponent extends DatePipe implements OnInit, DatePipe 
           data: this.smrNaoCirurgico,
           color: '#2B1E1D'
         } as SeriesSplineOptions
-      ]
+      ],
+      exporting: {
+        enabled: true
+      }
     };
 
     if (this.apacheChart) {
-      this.apacheChart.ref.update(chartOptions, true, true);
+      this.apacheChart.ref.update(chartOptions);
     } else {
       this.apacheChart = new Chart(Object.assign(this.optionsChart, chartOptions));
     }
+  }
+
+
+  generatePdf() {
+
+    const elementHandler = {
+      '#ignorePDF': function (element, renderer) {
+        return true;
+      }
+    };
+
+    //interface implements autoTable
+    interface jsPDFWithPlugin extends jsPdf {
+      autoTable: (options: UserOptions) => jsPdf;
+    }
+
+
+    //load data backend
+    let obitos: any[] = [];
+    Object.keys(this.pacientesObito).forEach(key => {
+      obitos.push(
+        [
+          this.pacientesObito[key]['id'],
+          this.pacientesObito[key]['nome'],
+          this.pacientesObito[key]['sexo'],
+          this.pacientesObito[key]['nascimento'],
+          this.pacientesObito[key]['nomeMae']
+        ]);
+    });
+
+
+    //layout header
+    const logo = new Image();
+    logo.src = '/assets/images/logo.png';
+
+
+    const pdf = new jsPdf('l', 'cm', 'a4') as jsPDFWithPlugin;
+    pdf.addImage(logo, 'PNG', 1, 1, 3, 1);
+    pdf.autoTable({
+      margin: {top: 3},
+      head: [['Registro', 'Paciente', 'Sexo', 'Nascimento', 'Nome da Mãe']],
+      body: obitos,
+      theme: "plain"
+    });
+
+
+    /*const chartSVG = document.getElementsByClassName('highcharts-root')[0];*/
+    const chartSVG = this.chartSVG.nativeElement.querySelector('.highcharts-root');
+    const context = (<HTMLCanvasElement>this.myCanvas.nativeElement).getContext('2d');
+
+    const DOMURL = window.URL;
+    const data = new XMLSerializer().serializeToString(chartSVG);
+    const svgBlob = new Blob([data], {type: 'image/svg+xml;charset=utf-8'});
+    const url = DOMURL.createObjectURL(svgBlob);
+    const xhr = new XMLHttpRequest();
+
+    xhr.onload = function () {
+      let chartImg = new Image();
+      chartImg.onload = function() {
+        context.canvas.width = 800;
+        context.canvas.height = 600;
+        context.drawImage(chartImg, 0, 0);
+        DOMURL.revokeObjectURL(url);
+
+        let dataUrl = context.canvas.toDataURL('image/jpeg');
+        pdf.addImage(dataUrl, 'JPEG', 20, 300, 800, 600);
+
+        setTimeout(function() {
+          pdf.save('apache.pdf');
+        }, 5000);
+      };
+      chartImg.src = url;
+    };
+
+    xhr.open('GET', url, true);
+    xhr.responseType = 'blob';
+    xhr.send();
   }
 
 

@@ -17,33 +17,39 @@
         <fa-icon [icon]=faSearch></fa-icon>
         Buscar
       </button>
+      <button class="button-search-panel" *ngIf="apacheChart" (click)="generatePdf()">
+        <fa-icon [icon]=faPrint></fa-icon>
+      </button>
     </div>
   </form>
 
   <section class="panel-chart" *ngIf="apacheChart">
-    <section [chart]="apacheChart" id="apache">Apache</section>
+    <section [chart]="apacheChart" id="apache" #chartSVG>Apache II</section>
   </section>
-    <section class="table modal-content" *ngIf="apacheChart">
-      <section class="thead">
-        <span class="th">REGISTRO</span>
-        <span class="th paciente">PACIENTE</span>
-        <span class="th">SEXO</span>
-        <span class="th sigla">NASCIMENTO</span>
-        <span class="th sigla">NOME DA MÃE</span>
-      </section>
-      <section id="data-list" class="tbody content" [scrollWindow]="false" infinite-scroll (scrolled)="scrollDown()">
-        <div class="row" *ngFor="let paciente of pacientesObito">
-          <span class="td">{{paciente['id']}}</span>
-          <span class="td paciente">{{paciente['nome']}}</span>
-          <span class="td">{{paciente['sexo']}}</span>
-          <span class="td">{{paciente['nascimento']}}</span>
-          <span class="td">{{paciente['nomeMae']}}</span>
-        </div>
-        <app-scroll-spinner [show]="showListScrollSpinner"></app-scroll-spinner>
-        <div class="empty" *ngIf="pacientesObito.length == 0">
-          <p>Nenhum paciente foi a óbito com SMR >= 1</p>
-          <fa-icon class="icon" [icon]="faFrown" size="2x"></fa-icon>
-        </div>
-      </section>
+
+  <canvas #myCanvas></canvas>
+
+  <section class="table modal-content" *ngIf="apacheChart">
+    <section class="thead">
+      <span class="th">REGISTRO</span>
+      <span class="th paciente">PACIENTE</span>
+      <span class="th">SEXO</span>
+      <span class="th sigla">NASCIMENTO</span>
+      <span class="th sigla">NOME DA MÃE</span>
     </section>
+    <section id="data-list" class="tbody content" [scrollWindow]="false" infinite-scroll (scrolled)="scrollDown()">
+      <div class="row" *ngFor="let paciente of pacientesObito">
+        <span class="td">{{paciente['id']}}</span>
+        <span class="td paciente">{{paciente['nome']}}</span>
+        <span class="td">{{paciente['sexo']}}</span>
+        <span class="td">{{paciente['nascimento']}}</span>
+        <span class="td">{{paciente['nomeMae']}}</span>
+      </div>
+      <app-scroll-spinner [show]="showListScrollSpinner"></app-scroll-spinner>
+      <div class="empty" *ngIf="pacientesObito.length == 0">
+        <p>Nenhum paciente foi a óbito com SMR >= 1</p>
+        <fa-icon class="icon" [icon]="faFrown" size="2x"></fa-icon>
+      </div>
+    </section>
+  </section>
 </main>
