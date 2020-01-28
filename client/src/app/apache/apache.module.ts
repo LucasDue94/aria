@@ -10,8 +10,9 @@ import {ApacheFormComponent} from "./form/apache-form.component";
 import {SpinnerModule} from "../spinner/spinner.module";
 import {SelectModule} from "../select/select.module";
 import { CoreModule } from '../core/core.module';
-
-
+import {HIGHCHARTS_MODULES} from "angular-highcharts";
+import * as more from 'highcharts/highcharts-more.src';
+import * as exporting from 'highcharts/modules/exporting.src';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,9 @@ import { CoreModule } from '../core/core.module';
     SpinnerModule,
     SelectModule,
     CoreModule
-]
+  ],
+  providers: [
+    { provide: HIGHCHARTS_MODULES, useFactory: () => [ more, exporting ] }
+  ]
 })
 export class ApacheModule { }
