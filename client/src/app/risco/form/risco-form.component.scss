@@ -5,10 +5,23 @@
 .container-risco {
   display: flex;
   position: absolute;
-  height: 100%;
   width: 100%;
   overflow-y: scroll;
   flex-wrap: wrap;
+
+  .card {
+    margin: 5px;
+    align-items: center;
+    width: 500px;
+  }
+
+  .form-group {
+    align-items: baseline;
+  }
+
+  .form-label {
+    text-transform: none;
+  }
 }
 
 .card {
@@ -22,52 +35,49 @@
   }
 }
 
-.card-nome {
-  margin: 5px;
-  width: 400px;
-  height: 180px;
-}
-
-
 .btn-save {
   padding: 7px;
   font-weight: 400;
   width: 100px;
 }
+@media screen and (max-width: 500px) {
+  .form-container {
+    display: flex;
+    position: relative;
+    align-items: flex-start;
+    flex-direction: column !important;
 
-.table {
-  margin: 5px;
-  width: 400px;
+    .form-group {
+      width: calc(100% - 10px);
+      margin: 5px;
+      position: relative;
+      display: flex;
+      flex-direction: column !important;
 
-  .thead {
-    padding: 7px 0;
-    font-size: 16px;
-    letter-spacing: 1px;
-    font-weight: 400;
-    background-color: $blue-default;
-    color: $white;
-    box-shadow: none;
+      .form-control, .form-label {
+        text-align: left;
+        position: relative;
+        flex: 1;
+        width: calc(100% - 15px);
+      }
+
+      .form-label {
+        width: calc(100%);
+      }
+    }
+
+    #tipo {
+      width: calc(100%);
+    }
+  }
+  .btn-save {
+    position: relative;
+    margin-left: auto;
+    left: 5px;
+  }
+
+  .errors {
+    right: 2px;
   }
 }
 
-.row {
-  flex: 1;
-  padding: 13px;
-  text-transform: uppercase;
-}
-
-.selected {
-  transition: 0.3s;
-  background-color: $gray-50;
-  box-shadow: 0 0 2px $gray-100;
-}
-
-@media screen and (max-width: $tablet-width) {
-  .card-nome, .table {
-    width: 100%;
-  }
-
-  #nome {
-    width: calc(100% - 200px);
-  }
-}

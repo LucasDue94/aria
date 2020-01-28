@@ -13,17 +13,12 @@
 
   .content-risco {
     position: relative;
-    overflow-y: scroll;
     padding: 0 2px;
     height: 100%;
   }
 }
 
 @media screen and (max-width: $tablet-width) {
-  .button-add {
-    right: 5px;
-  }
-
   .container-setor {
     height: calc(100% - 10px);
     width: calc(100% - 20px);
