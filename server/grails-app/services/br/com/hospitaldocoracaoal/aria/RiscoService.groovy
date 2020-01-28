@@ -3,16 +3,22 @@ package br.com.hospitaldocoracaoal.aria
 import grails.gorm.services.Service
 
 @Service(Risco)
-interface RiscoService {
+abstract class RiscoService {
 
-    Risco get(Serializable id)
+    abstract Risco get(Serializable id)
 
-    List<Risco> list(Map args)
+    List<Risco> list(Map args) {
+        Risco.createCriteria().list(args) {
+            if(args.get('termo') != null && !args.get('termo').isEmpty()) {
+                ilike('nome', "%${args.get('termo')}%")
+            }
+        } as List<Risco>
+    }
 
-    Long count()
+    abstract Long count()
 
-    void delete(Serializable id)
+    abstract void delete(Serializable id)
 
-    Risco save(Risco risco)
+    abstract Risco save(Risco risco)
 
 }

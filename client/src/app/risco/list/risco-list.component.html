@@ -10,10 +10,11 @@
     <section class="thead">
       <span class="th">Nome do Risco</span>
     </section>
-    <section *ngIf="riscos!=null" class="tbody content-risco">
+    <section #dataList class="tbody content-risco" [scrollWindow]="false" infinite-scroll (scrolled)="scrollDown()">
       <div [routerLink]="['/risco','edit',risco.id]" *ngFor="let risco of riscos" class="row">
         <span class="td">{{risco.nome}}</span>
       </div>
+      <app-scroll-spinner [show]="showListScrollSpinner"></app-scroll-spinner>
       <div class="empty" *ngIf="riscos?.length == 0">
         <p>Nenhum risco encontrado!</p>
         <fa-icon class="icon" [icon]="faFrown" size="2x"></fa-icon>

@@ -14,9 +14,9 @@ export class RiscoService {
   constructor(private http: HttpClient) {
   }
 
-  list(max: any = '', offset: any = ''): Observable<Risco[]> {
+  list(max: any = '', offset: any = '', termo: any = ''): Observable<Risco[]> {
     let subject = new Subject<Risco[]>();
-    this.http.get(this.baseUrl + `risco?offset=` + offset + '&max=' + max)
+    this.http.get(this.baseUrl + `risco?offset=` + offset + '&max=' + max + '&termo=' + termo)
       .pipe(
         catchError(error => of({error})
         )).subscribe((json: Risco[]) => {
@@ -33,19 +33,6 @@ export class RiscoService {
         )).subscribe((json: Risco) => {
       subject.next(json);
     });
-    return subject.asObservable();
-  }
-
-  search(searchTerm, offset?: any, max?): Observable<any[]> {
-    let subject = new Subject<Risco[]>();
-    this.http.get(this.baseUrl + `risco/` + '?offset=' + offset + '&max=' + max, {
-      params: {termo: searchTerm}
-    }).pipe(
-      catchError(error => of({error})
-      )).subscribe((json: Risco[]) => {
-      subject.next(json);
-    });
-
     return subject.asObservable();
   }
 
@@ -69,7 +56,6 @@ export class RiscoService {
       });
     }
     return subject.asObservable()
-
   }
 
   destroy(risco: Risco): Observable<Object> {
