@@ -7,7 +7,7 @@ import {ErrorService} from "../../core/error/error.service";
 import {AlertService} from "../../core/alert/alert.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {SpinnerService} from "../../core/spinner/spinner.service";
-import {faCheck} from "@fortawesome/free-solid-svg-icons";
+import {faCheck, faFrown} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'risco-form',
@@ -48,23 +48,30 @@ export class RiscoFormComponent implements OnInit {
 
   save() {
     let id = this.route.snapshot.params['id'];
-
     const risco = new Risco({
       id: id,
       nome: this.form.get('nome').value
     });
 
-    this.riscoService.save(risco).subscribe(() => {
-      this.url == 'create' ?
-      this.alertService.send(
-        {message: 'Risco Criado!', type: 'success', icon: faCheck}
-      ) :  this.alertService.send(
-        {message: 'Risco Aterado!', type: 'success', icon: faCheck}
-        ) ;
+    this.riscoService.save(risco).subscribe((res) => {
+      if (!res.hasOwnProperty('error')) {
+        this.url == 'create' ?
+          this.alertService.send(
+            {message: 'Risco Criado!', type: 'success', icon: faCheck}
+          ) :  this.alertService.send(
+          {message: 'Risco Aterado!', type: 'success', icon: faCheck}
+          ) ;
 
-      setTimeout(() => {
-        this.router.navigate(['/risco']);
-      }, 300)
+        setTimeout(() => {
+          this.router.navigate(['/risco']);
+        }, 300);
+      } else {
+        this.alertService.send({
+          message: res.error.error.message,
+          type: 'error',
+          icon: faFrown
+        });
+      }
     });
   }
 }

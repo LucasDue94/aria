@@ -36,7 +36,7 @@ export class RiscoService {
     return subject.asObservable();
   }
 
-  save(risco: Risco): Observable<Risco> {
+  save(risco: Risco): Observable<any> {
     let subject = new Subject<Risco>();
     if (risco.id) {
       this.http.put<Risco>(this.baseUrl + 'risco/' + risco.id, risco, {
