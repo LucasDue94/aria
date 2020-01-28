@@ -184,9 +184,9 @@ tspan {
 }
 
 .button-add {
-  position: absolute;
-  bottom: 10px;
-  right: 20px;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
