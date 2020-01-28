@@ -20,6 +20,7 @@ import {SelectService} from "./select/select.service";
 import {ApacheService} from './apache/apache.service';
 import { PermissaoService } from './permissao/permissao.service';
 import { GrupoService } from './grupo/grupo.service';
+import {RiscoService} from "./risco/risco.service";
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import { GrupoService } from './grupo/grupo.service';
     SelectService,
     ApacheService,
     PermissaoService,
-    GrupoService
+    GrupoService,
+    RiscoService
 ]
 })
 export class CoreModule {

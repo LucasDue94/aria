@@ -1,15 +1,17 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, HostListener, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {
   faChartPie,
   faDiagnoses,
   faFolderOpen,
   faNotesMedical,
   faUserMd,
-  faUsers
+  faUsers,
+  faExclamation
 } from "@fortawesome/free-solid-svg-icons";
 import {AuthService} from "../core/auth/auth.service";
 import {Menu} from "../core/menu/menu";
 import {EnumPermisson} from "../core/permissao/enumPermisson";
+import {MenuService} from "../core/menu/menu.service";
 
 @Component({
   selector: 'app-menu',
@@ -18,7 +20,10 @@ import {EnumPermisson} from "../core/permissao/enumPermisson";
 })
 export class MenuComponent implements OnInit {
 
+  @ViewChild('menuContainer', {static: false}) menuContainer;
+  @ViewChild('sidenavOverlay', {static: false}) sidenavOverlay;
 
+  show = false;
   menuList: Menu[] = [
     {
       name: 'Perfil',
@@ -61,10 +66,17 @@ export class MenuComponent implements OnInit {
       permission: EnumPermisson.role_grupo_index,
       faIcon: faUsers,
       router: ['/grupo']
+    },
+    {
+      name: 'Riscos',
+      status: false,
+      permission: EnumPermisson.role_risco_index,
+      faIcon: faExclamation,
+      router: ['/risco']
     }
   ];
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private eRef: ElementRef, private menuService: MenuService, private renderer: Renderer2) {
   }
 
   ngOnInit() {
@@ -73,6 +85,21 @@ export class MenuComponent implements OnInit {
       this.menuList.forEach(item => {
         item.name == 'relatorio' ? item.status = false : '';
       })
+    }
+    this.menuService.getStatus().subscribe(status => {
+      this.toggle()
+    })
+  }
+
+  toggle() {
+    if(this.menuContainer.nativeElement.classList.contains('menu-collapsed')) {
+      this.renderer.removeClass(this.menuContainer.nativeElement, 'menu-collapsed');
+      this.renderer.addClass(this.sidenavOverlay.nativeElement, 'sidenav-overlay-show');
+      this.show = true;
+    } else {
+      this.renderer.addClass(this.menuContainer.nativeElement, 'menu-collapsed');
+      this.renderer.removeClass(this.sidenavOverlay.nativeElement, 'sidenav-overlay-show');
+      this.show = false;
     }
   }
 
@@ -83,4 +110,12 @@ export class MenuComponent implements OnInit {
     return this.menuList;
   }
 
+  @HostListener('document:click', ['$event'])
+  clickout(event) {
+    if(this.show && this.sidenavOverlay.nativeElement.contains(event.target)) {
+      this.renderer.addClass(this.menuContainer.nativeElement, 'menu-collapsed');
+      this.renderer.removeClass(this.sidenavOverlay.nativeElement, 'sidenav-overlay-show');
+      this.show = false;
+    }
+  }
 }

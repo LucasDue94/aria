@@ -14,7 +14,7 @@ import {Location} from "@angular/common";
 })
 export class MainComponent implements OnInit {
   @ViewChild(SpinnerComponent, {static: false}) spinner;
-  showMenu: boolean = true;
+  showMenu: boolean = false;
   moduleName = 'Home';
   alert: Alert;
   faArrowLeft = faChevronCircleLeft;

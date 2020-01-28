@@ -1,0 +1,73 @@
+@import '../../../assets/colors';
+@import '../../../assets/device-sizes';
+@import '../../../inputs';
+
+.container-risco {
+  display: flex;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  overflow-y: scroll;
+  flex-wrap: wrap;
+}
+
+.card {
+  & {
+    background-color: $white;
+    border-radius: 5px;
+    box-shadow: 1px 1px 6px $gray-90;
+  }
+  & label, input, button {
+    margin-bottom: 15px;
+  }
+}
+
+.card-nome {
+  margin: 5px;
+  width: 400px;
+  height: 180px;
+}
+
+
+.btn-save {
+  padding: 7px;
+  font-weight: 400;
+  width: 100px;
+}
+
+.table {
+  margin: 5px;
+  width: 400px;
+
+  .thead {
+    padding: 7px 0;
+    font-size: 16px;
+    letter-spacing: 1px;
+    font-weight: 400;
+    background-color: $blue-default;
+    color: $white;
+    box-shadow: none;
+  }
+}
+
+.row {
+  flex: 1;
+  padding: 13px;
+  text-transform: uppercase;
+}
+
+.selected {
+  transition: 0.3s;
+  background-color: $gray-50;
+  box-shadow: 0 0 2px $gray-100;
+}
+
+@media screen and (max-width: $tablet-width) {
+  .card-nome, .table {
+    width: 100%;
+  }
+
+  #nome {
+    width: calc(100% - 200px);
+  }
+}

@@ -15,6 +15,8 @@ import {UsuarioEditComponent} from "../usuario/edit/usuario-edit.component";
 import {GrupoListComponent} from "../grupo/list/grupo-list.component";
 import {GrupoFormComponent} from "../grupo/form/grupo-form.component";
 import {ErrorComponent} from "../error/error.component";
+import {RiscoListComponent} from "../risco/list/risco-list.component";
+import {RiscoFormComponent} from "../risco/form/risco-form.component";
 
 const routes: Routes = [
   {
@@ -133,6 +135,30 @@ const routes: Routes = [
           }, {
             path: 'edit/:id',
             component: GrupoFormComponent,
+            canActivate: [AuthGuard]
+          }
+        ]
+      },
+      {
+        path: 'risco',
+        children: [
+          {
+            path: '',
+            redirectTo: 'list',
+            pathMatch: 'full',
+            canActivate: [AuthGuard],
+          },
+          {
+            path: 'list',
+            component: RiscoListComponent,
+            canActivate: [AuthGuard],
+          }, {
+            path: 'create',
+            component: RiscoFormComponent,
+            canActivate: [AuthGuard],
+          }, {
+            path: 'edit/:id',
+            component: RiscoFormComponent,
             canActivate: [AuthGuard]
           }
         ]

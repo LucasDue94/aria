@@ -71,6 +71,20 @@ class Permissao implements Serializable {
             // -- PERMISSAO --
             findOrSaveWhere(authority: 'ROLE_PERMISSAO_INDEX', nome: 'Listar Permissões', alias: 'permissao')
 
+            // -- RISCO --
+            findOrSaveWhere(authority: 'ROLE_RISCO_INDEX', nome: 'Listar riscos', alias: 'risco')
+            findOrSaveWhere(authority: 'ROLE_RISCO_SHOW', nome: 'Ver risco', alias: 'risco')
+            findOrSaveWhere(authority: 'ROLE_RISCO_SAVE', nome: 'Salvar risco', alias: 'risco')
+            findOrSaveWhere(authority: 'ROLE_RISCO_UPDATE', nome: 'Atualizar risco', alias: 'risco')
+            findOrSaveWhere(authority: 'ROLE_RISCO_DELETE', nome: 'Excluir risco', alias: 'risco')
+
+            // -- TIPO INCIDENTE --
+            findOrSaveWhere(authority: 'ROLE_TIPO_INCIDENTE_INDEX', nome: 'Listar tipos de incidente', alias: 'tipo de incidente')
+            findOrSaveWhere(authority: 'ROLE_TIPO_INCIDENTE_SHOW', nome: 'Ver tipo de incidente', alias: 'tipo de incidente')
+            findOrSaveWhere(authority: 'ROLE_TIPO_INCIDENTE_SAVE', nome: 'Salvar tipo de incidente', alias: 'tipo de incidente')
+            findOrSaveWhere(authority: 'ROLE_TIPO_INCIDENTE_UPDATE', nome: 'Atualizar tipo de incidente', alias: 'tipo de incidente')
+            findOrSaveWhere(authority: 'ROLE_TIPO_INCIDENTE_DELETE', nome: 'Excluir tipo de incidente', alias: 'tipo de incidente')
+
             status.flush()
         }
     }

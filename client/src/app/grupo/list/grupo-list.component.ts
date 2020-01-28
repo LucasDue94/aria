@@ -34,9 +34,6 @@ export class GrupoListComponent implements OnInit {
   ngOnInit() {
     this.spinner.show();
     this.titleService.send('Lista de Grupos');
-    if (!this.authService.hasPermission(EnumPermisson.role_grupo_index)) {
-      this.router.navigate(['/error']);
-    }
     this.grupoService.list(10000, '').subscribe(grupos => {
       if (this.errorService.hasError(grupos)) {
         this.errorService.sendError(grupos);
@@ -44,8 +41,8 @@ export class GrupoListComponent implements OnInit {
         this.grupos = grupos;
         this.data = grupos;
       }
+      this.spinner.hide();
     });
-    this.spinner.hide();
   }
 
   search() {
