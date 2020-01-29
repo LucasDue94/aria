@@ -1,0 +1,22 @@
+<main class="container-risco">
+  <article class="card" [ngClass]="{background: 'red'}">
+    <form [formGroup]="form" class="form-container">
+      <div class="form-group flex-row">
+        <label for="nome" class="form-label">Nome:</label>
+        <input class="form-control" formControlName="nome" id="nome" type="text">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="">Unidades</label>
+        <multiple-select [width]="'350px'" (itemsSelected)="getItemsSelected($event)"
+                         [items]="" [keyPropery]="'nome'" [selectedItems]="">
+
+        </multiple-select>
+        <div class="form-invalid" *ngIf="">
+          Você precisa selecionar ao menos um risco
+        </div>
+      </div>
+      <button (click)="save()" class="button button-blue btn-save">Salvar</button>
+    </form>
+  </article>
+</main>
+

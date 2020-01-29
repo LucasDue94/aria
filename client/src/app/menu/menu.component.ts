@@ -6,7 +6,8 @@ import {
   faNotesMedical,
   faUserMd,
   faUsers,
-  faExclamation
+  faExclamation,
+  faEdit
 } from "@fortawesome/free-solid-svg-icons";
 import {AuthService} from "../core/auth/auth.service";
 import {Menu} from "../core/menu/menu";
@@ -73,6 +74,13 @@ export class MenuComponent implements OnInit {
       permission: EnumPermisson.role_risco_index,
       faIcon: faExclamation,
       router: ['/risco']
+    },
+    {
+      name: 'Tipos de Incidentes',
+      status: false,
+      permission: EnumPermisson.role_tipo_incidente_index,
+      faIcon: faEdit,
+      router: ['/tipo-incidente']
     }
   ];
 

@@ -1,0 +1,79 @@
+@import '../../../assets/colors';
+@import '../../../assets/device-sizes';
+@import '../../../inputs';
+
+.container-risco {
+  display: flex;
+  position: absolute;
+  width: 100%;
+  overflow-y: scroll;
+  flex-wrap: wrap;
+
+  .card {
+    margin: 15px;
+    align-items: center;
+    width: 500px;
+  }
+
+  .form-group {
+    align-items: baseline;
+  }
+
+  .form-label {
+    text-transform: none;
+  }
+}
+
+.card {
+  & {
+    background-color: $white;
+    border-radius: 5px;
+    box-shadow: 1px 1px 6px $gray-90;
+  }
+  & label, input, button {
+    margin-bottom: 15px;
+  }
+}
+
+.btn-save {
+  padding: 7px;
+  font-weight: 400;
+  width: 100px;
+}
+@media screen and (max-width: 500px) {
+  .form-container {
+    display: flex;
+    position: relative;
+    align-items: flex-start;
+    flex-direction: column !important;
+
+    .form-group {
+      width: calc(100% - 10px);
+      margin: 5px;
+      position: relative;
+      display: flex;
+      flex-direction: column !important;
+
+      .form-control, .form-label {
+        text-align: left;
+        position: relative;
+        flex: 1;
+        width: calc(100% - 15px);
+      }
+
+      .form-label {
+        width: calc(100%);
+      }
+    }
+  }
+  .btn-save {
+    position: relative;
+    margin-left: auto;
+    left: 5px;
+  }
+
+  .errors {
+    right: 2px;
+  }
+}
+
