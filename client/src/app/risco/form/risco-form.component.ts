@@ -74,4 +74,6 @@ export class RiscoFormComponent implements OnInit {
       }
     });
   }
+
+  get f() { return this.form.controls; }
 }

@@ -39,6 +39,8 @@
   padding: 7px;
   font-weight: 400;
   width: 100px;
+  margin-top: 5px;
+  margin-left: 15px;
 }
 @media screen and (max-width: 500px) {
   .form-container {
@@ -69,7 +71,6 @@
   .btn-save {
     position: relative;
     margin-left: auto;
-    left: 5px;
   }
 
   .errors {
