@@ -1,7 +1,7 @@
 import {
   AfterViewChecked,
-  Component,
-  EventEmitter,
+  Component, ElementRef,
+  EventEmitter, HostListener,
   Input,
   OnInit,
   Output,
@@ -30,7 +30,7 @@ export class MultipleSelectComponent implements OnInit, AfterViewChecked {
   @Input() selectedItems = [];
   show = false;
 
-  constructor(private render: Renderer2) {
+  constructor(private render: Renderer2, private eRef: ElementRef) {
   }
 
   ngOnInit() {
@@ -94,4 +94,11 @@ export class MultipleSelectComponent implements OnInit, AfterViewChecked {
     }
     this.emitItems();
   }
+  @HostListener('document:click', ['$event'])
+  clickout(event) {
+    if(this.show && !this.eRef.nativeElement.contains(event.target)) {
+      this.show = false;
+    }
+  }
+
 }
