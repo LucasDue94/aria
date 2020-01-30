@@ -2,11 +2,11 @@
   <article class="card" [ngClass]="{background: 'red'}">
     <form [formGroup]="form" class="form-container">
       <div class="form-group flex-row">
-        <label for="nome" class="form-label">Nome:</label>
+        <label for="nome" class="form-label">Nome*:</label>
         <input class="form-control" formControlName="nome" id="nome" type="text">
       </div>
       <div class="form-group flex-row">
-        <label class="form-label">Risco(s):</label>
+        <label class="form-label">Risco(s)*:</label>
         <div class="select-multiple-container-relative">
           <multiple-select (itemsSelected)="getItemsSelected($event)"
                            [width]="''" [items]="riscos" [keyPropery]="'nome'" [selectedItems]="tipoIncidente.riscos">

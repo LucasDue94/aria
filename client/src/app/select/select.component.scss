@@ -158,3 +158,9 @@
   margin-top: 0!important;
   max-height: 88px;
 }
+:host-context(.select-multiple-container-relative) .container-select {
+  margin: 0 !important;
+}
+:host-context(.select-multiple-container-relative) .select {
+  width: auto !important;
+}

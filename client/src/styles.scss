@@ -33,7 +33,6 @@ body, app-main {
 setor-list, apache-form, grupo-list {
   position: relative;
   height: 100%;
-
 }
 
 multiple-select {
@@ -354,6 +353,16 @@ tspan {
     border-radius: 8px;
     text-transform: uppercase;
   }
+}
+
+.error-label {
+  font-size: 14px;
+  position: relative;
+  text-transform: none;
+  right: 8px;
+  bottom: -21px;
+  padding: 3px;
+  color: #c26267;
 }
 
 
