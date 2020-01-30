@@ -58,11 +58,12 @@ export class TipoIncidenteFormComponent implements OnInit {
   }
 
   save() {
-    this.tipoIncidente.id = this.route.snapshot.params['id'];
-    this.tipoIncidente.nome = this.form.get('nome').value;
-    this.tipoIncidente.riscos = this.tipoIncidente.riscos.map((e) => new Risco({id: e.id}));
+    let subject = Object.create({});
+    subject.id = this.route.snapshot.params['id'];
+    subject.nome = this.form.get('nome').value;
+    subject.riscos = this.tipoIncidente.riscos.map((r) => {return {id: r.id}})
 
-    this.tipoIncidenteService.save(this.tipoIncidente).subscribe((res) => {
+    this.tipoIncidenteService.save(subject).subscribe((res) => {
       if (!res.hasOwnProperty('error')) {
         this.route.snapshot.url[0].path == 'create' ?
           this.alertService.send(
