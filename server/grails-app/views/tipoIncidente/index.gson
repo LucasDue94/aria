@@ -1,0 +1,8 @@
+import br.com.hospitaldocoracaoal.aria.TipoIncidente
+
+model {
+	Iterable<TipoIncidente> tipoIncidenteList
+}
+
+json tmpl.tipoIncidente(tipoIncidenteList ?: [])
+

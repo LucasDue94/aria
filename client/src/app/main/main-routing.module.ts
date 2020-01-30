@@ -184,11 +184,11 @@ const routes: Routes = [
             component: TipoIncidenteFormComponent,
             canActivate: [AuthGuard],
           },
-          // {
-          //   path: 'edit/:id',
-          //   component: RiscoFormComponent,
-          //   canActivate: [AuthGuard]
-          // }
+          {
+            path: 'edit/:id',
+            component: TipoIncidenteFormComponent,
+            canActivate: [AuthGuard]
+          }
         ]
       },
     ]

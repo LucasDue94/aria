@@ -11,7 +11,7 @@
       <span class="th">Nome</span>
     </section>
     <section #dataList class="tbody content" [scrollWindow]="false" infinite-scroll (scrolled)="scrollDown()">
-      <div [routerLink]="['/tipoIncidente','edit',tipoIncidente.id]" *ngFor="let tipoIncidente of tiposIncidente" class="row">
+      <div [routerLink]="['/tipo-incidente','edit',tipoIncidente.id]" *ngFor="let tipoIncidente of tiposIncidente" class="row">
         <span class="td">{{tipoIncidente.nome}}</span>
       </div>
       <app-scroll-spinner [show]="showListScrollSpinner"></app-scroll-spinner>
