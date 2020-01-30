@@ -9,7 +9,6 @@ import {faCheck, faFrown} from "@fortawesome/free-solid-svg-icons";
 import {TipoIncidente} from "../../core/tipoIncidente/tipoIncidente";
 import {TipoIncidenteService} from "../../core/tipoIncidente/tipoIncidente.service";
 import {RiscoService} from "../../core/risco/risco.service";
-import {Risco} from "../../core/risco/risco";
 
 @Component({
   selector: 'tipo-incidente-form',
@@ -96,4 +95,6 @@ export class TipoIncidenteFormComponent implements OnInit {
   getItemsSelected(riscos: any) {
     this.tipoIncidente.riscos = riscos;
   }
+
+  get f() { return this.form.controls; }
 }

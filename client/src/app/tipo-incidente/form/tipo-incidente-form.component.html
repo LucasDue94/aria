@@ -3,7 +3,10 @@
     <form [formGroup]="form" class="form-container">
       <div class="form-group flex-row">
         <label for="nome" class="form-label">Nome*:</label>
-        <input class="form-control" formControlName="nome" id="nome" type="text">
+        <input class="form-control" formControlName="nome" id="nome" type="text" [ngClass]="{'form-control-error': f.nome.errors && (f.nome.dirty || f.nome.touched)}" required>
+        <p class="error-label" *ngIf="f.nome.errors && (f.nome.dirty || f.nome.touched)">
+          nome não pode ser branco
+        </p>
       </div>
       <div class="form-group flex-row">
         <label class="form-label">Risco(s)*:</label>
@@ -13,9 +16,9 @@
 
           </multiple-select>
         </div>
-<!--        <div class="form-invalid" *ngIf="tipoIncidente.riscos.length == 0">-->
-<!--          Você precisa selecionar ao menos um risco-->
-<!--        </div>-->
+        <p class="error-label" *ngIf="tipoIncidente.riscos.length == 0">
+          selecione ao menos um
+        </p>
       </div>
       <button (click)="save()" class="button button-blue btn-save">Salvar</button>
     </form>

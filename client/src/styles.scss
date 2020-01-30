@@ -65,7 +65,7 @@ tspan {
 
 .content {
   position: relative;
-  overflow-y: scroll;
+  overflow-y: auto;
   height: 100%;
   padding: 0 2px;
 }
@@ -246,6 +246,20 @@ tspan {
   }
 }
 
+.error-label {
+  font-size: 14px;
+  position: absolute;
+  text-transform: none;
+  right: -1px;
+  bottom: -6px;
+  padding: 3px;
+  color: #c26267;
+}
+
+.form-control-error {
+  border: 1px solid #c26267 !important;
+}
+
 .empty {
   display: flex;
   flex-direction: row;
@@ -353,16 +367,6 @@ tspan {
     border-radius: 8px;
     text-transform: uppercase;
   }
-}
-
-.error-label {
-  font-size: 14px;
-  position: relative;
-  text-transform: none;
-  right: 8px;
-  bottom: -21px;
-  padding: 3px;
-  color: #c26267;
 }
 
 
