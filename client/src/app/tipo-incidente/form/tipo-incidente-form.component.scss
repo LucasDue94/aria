@@ -2,11 +2,10 @@
 @import '../../../assets/device-sizes';
 @import '../../../inputs';
 
-.container-risco {
+.container-tipo-incidente {
   display: flex;
   position: absolute;
   width: 100%;
-  overflow-y: scroll;
   flex-wrap: wrap;
 
   .card {
@@ -15,12 +14,28 @@
     width: 500px;
   }
 
+  .form-container {
+    flex-direction: column;
+  }
+
   .form-group {
     align-items: baseline;
+    width: calc(100% - 10px);
   }
 
   .form-label {
     text-transform: none;
+    flex: 1;
+  }
+
+  .form-control {
+    flex: 2;
+  }
+
+  .select-multiple-container {
+    width: 100%;
+    flex: 2;
+    margin-bottom: 15px;
   }
 }
 
@@ -39,6 +54,9 @@
   padding: 7px;
   font-weight: 400;
   width: 100px;
+  position: relative;
+  margin-left: auto;
+  left: -5px;
 }
 @media screen and (max-width: 500px) {
   .form-container {
@@ -57,19 +75,18 @@
       .form-control, .form-label {
         text-align: left;
         position: relative;
-        flex: 1;
         width: calc(100% - 15px);
+      }
+
+      .form-control {
+        flex: 2;
       }
 
       .form-label {
         width: calc(100%);
+        flex: 1;
       }
     }
-  }
-  .btn-save {
-    position: relative;
-    margin-left: auto;
-    left: 5px;
   }
 
   .errors {

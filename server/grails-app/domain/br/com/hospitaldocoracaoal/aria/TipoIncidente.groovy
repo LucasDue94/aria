@@ -6,6 +6,8 @@ class TipoIncidente {
     static hasMany = [riscos: Risco]
 
     static constraints = {
-        nome nullable: false
+        nome nullable: false, unique: true
+        riscos minSize: 1
     }
+
 }

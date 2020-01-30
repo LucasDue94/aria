@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
-import {Observable, Subject} from "rxjs";
-import {map} from "rxjs/operators";
+import {Observable, of, Subject} from "rxjs";
+import {catchError, map} from "rxjs/operators";
 import {TipoIncidente} from "./tipoIncidente";
+import {Risco} from "../risco/risco";
 
 
 @Injectable()
@@ -45,15 +46,25 @@ export class TipoIncidenteService {
     }
 
     save(tipoIncidente: TipoIncidente): Observable<any> {
-        if (tipoIncidente.id) {
-            return this.http.put<TipoIncidente>(this.baseUrl + `tipoIncidente/` + tipoIncidente.id, tipoIncidente, {
-                responseType: 'json'
-            });
-        } else {
-            return this.http.post<TipoIncidente>(this.baseUrl + `tipoIncidente/`, tipoIncidente, {
-                responseType: 'json'
-            });
-        }
+      let subject = new Subject<TipoIncidente>();
+      if (tipoIncidente.id) {
+        this.http.put<Risco>(this.baseUrl + 'tipoIncidente/' + tipoIncidente.id, tipoIncidente, {
+          responseType: 'json'
+        }).pipe(
+          catchError(error => of({error}))
+        ).subscribe((json: any) => {
+          subject.next(json)
+        });
+      } else {
+        this.http.post<TipoIncidente>(this.baseUrl + 'tipoIncidente/',  tipoIncidente, {
+          responseType: 'json'
+        }).pipe(
+          catchError(error => of({error}))
+        ).subscribe((json: any) => {
+          subject.next(json)
+        });
+      }
+      return subject.asObservable()
     }
 
 

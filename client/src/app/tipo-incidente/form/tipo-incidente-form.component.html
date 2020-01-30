@@ -1,19 +1,21 @@
-<main class="container-risco">
+<main class="container-tipo-incidente">
   <article class="card" [ngClass]="{background: 'red'}">
     <form [formGroup]="form" class="form-container">
       <div class="form-group flex-row">
         <label for="nome" class="form-label">Nome:</label>
         <input class="form-control" formControlName="nome" id="nome" type="text">
       </div>
-      <div class="form-group">
-        <label class="form-label" for="">Unidades</label>
-        <multiple-select [width]="'350px'" (itemsSelected)="getItemsSelected($event)"
-                         [items]="" [keyPropery]="'nome'" [selectedItems]="">
+      <div class="form-group flex-row">
+        <label class="form-label">Risco(s):</label>
+        <div class="select-multiple-container">
+          <multiple-select (itemsSelected)="getItemsSelected($event)"
+                           [width]="''" [items]="riscos" [keyPropery]="'nome'" [selectedItems]="tipoIncidente.riscos">
 
-        </multiple-select>
-        <div class="form-invalid" *ngIf="">
-          Você precisa selecionar ao menos um risco
+          </multiple-select>
         </div>
+<!--        <div class="form-invalid" *ngIf="tipoIncidente.riscos.length == 0">-->
+<!--          Você precisa selecionar ao menos um risco-->
+<!--        </div>-->
       </div>
       <button (click)="save()" class="button button-blue btn-save">Salvar</button>
     </form>
