@@ -1,0 +1,15 @@
+<main class="container-incidente">
+  <article class="card" [ngClass]="{background: 'red'}">
+    <form [formGroup]="form" class="form-container">
+      <div class="form-group flex-row">
+        <label for="nome" class="form-label">Nome do Risco:</label>
+        <input class="form-control" formControlName="nome" id="nome" type="text" [ngClass]="{'form-control-error': f.nome.errors && (f.nome.dirty || f.nome.touched)}">
+        <p class="error-label" *ngIf="f.nome.errors && (f.nome.dirty || f.nome.touched)">
+          nome não pode ser branco
+        </p>
+      </div>
+      <button (click)="save()" class="button button-blue btn-save">Salvar</button>
+    </form>
+  </article>
+</main>
+
