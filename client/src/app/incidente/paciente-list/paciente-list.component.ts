@@ -49,8 +49,10 @@ export class PacienteListComponent implements OnInit {
   scrollDown() {
     this.showListScrollSpinner = true;
     this.offset += 10;
-    this.pacienteService.list(this.max, this.offset, this.termo).subscribe(incidentes => {
-      this.pacientes = this.pacientes.concat(incidentes);
+    this.pacienteService.list(this.max, this.offset, this.termo).subscribe(pacientes => {
+      if (!this.errorService.hasError(pacientes)) {
+        this.pacientes = this.pacientes.concat(pacientes);
+      }
       this.showListScrollSpinner = false;
     });
   }
@@ -59,7 +61,7 @@ export class PacienteListComponent implements OnInit {
     this.spinner.show();
     this.pacienteService.list(this.max, '', this.termo, this.setorId).subscribe(pacientes => {
       if (this.errorService.hasError(pacientes)) {
-        this.errorService.sendError(pacientes);
+        this.pacientes = [];
       } else {
         this.pacientes = pacientes;
       }
@@ -78,8 +80,11 @@ export class PacienteListComponent implements OnInit {
         return this.pacienteService.list(this.max, this.offset, this.termo, this.setorId)
       })
     ).subscribe(res => {
-      if (this.errorService.hasError(res)) this.errorService.sendError(res);
-      this.pacientes = res;
+      if (this.errorService.hasError(res)) {
+        this.pacientes = [];
+      } else {
+        this.pacientes = res;
+      }
       this.spinner.hide();
     });
   }
