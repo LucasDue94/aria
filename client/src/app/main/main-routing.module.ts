@@ -19,6 +19,7 @@ import {RiscoListComponent} from "../risco/list/risco-list.component";
 import {RiscoFormComponent} from "../risco/form/risco-form.component";
 import {TipoIncidenteListComponent} from "../tipo-incidente/list/tipo-incidente-list.component";
 import {TipoIncidenteFormComponent} from "../tipo-incidente/form/tipo-incidente-form.component";
+import {PacienteListComponent} from "../incidente/paciente-list/paciente-list.component";
 
 const routes: Routes = [
   {
@@ -189,6 +190,32 @@ const routes: Routes = [
             component: TipoIncidenteFormComponent,
             canActivate: [AuthGuard]
           }
+        ]
+      },
+      {
+        path: 'incidente',
+        children: [
+          {
+            path: '',
+            redirectTo: 'paciente-list',
+            pathMatch: 'full',
+            canActivate: [AuthGuard],
+          },
+          {
+            path: 'paciente-list',
+            component: PacienteListComponent,
+            canActivate: [AuthGuard],
+          },
+          // {
+          //   path: 'create',
+          //   component: ,
+          //   canActivate: [AuthGuard],
+          // },
+          // {
+          //   path: 'edit/:id',
+          //   component: ,
+          //   canActivate: [AuthGuard]
+          // }
         ]
       },
     ]

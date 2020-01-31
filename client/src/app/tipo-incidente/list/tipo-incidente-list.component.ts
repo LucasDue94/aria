@@ -42,7 +42,7 @@ export class TipoIncidenteListComponent implements OnInit {
 
   fetchTipoIncidentes() {
     this.spinner.show();
-    this.tipoIncidenteService.list().subscribe(res => {
+    this.tipoIncidenteService.list(this.max).subscribe(res => {
       if (this.errorService.hasError(res)) {
         this.errorService.sendError(res);
       } else {
@@ -56,7 +56,7 @@ export class TipoIncidenteListComponent implements OnInit {
   scrollDown() {
     this.showListScrollSpinner = true;
     this.offset += 10;
-    this.tipoIncidenteService.list('', this.offset, this.termo).subscribe(res => {
+    this.tipoIncidenteService.list(this.max, this.offset, this.termo).subscribe(res => {
       this.tiposIncidente = this.tiposIncidente.concat(res);
       this.showListScrollSpinner = false;
     });
@@ -70,7 +70,7 @@ export class TipoIncidenteListComponent implements OnInit {
         this.termo = changes;
         this.offset = 0;
         this.renderer.setProperty(this.dataList.nativeElement, 'scrollTop', 0);
-        return this.tipoIncidenteService.list('', this.offset, this.termo)
+        return this.tipoIncidenteService.list(this.max, this.offset, this.termo)
       })
     ).subscribe(res => {
       if (this.errorService.hasError(res)) this.errorService.sendError(res);

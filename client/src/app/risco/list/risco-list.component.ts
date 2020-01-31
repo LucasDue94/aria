@@ -45,7 +45,7 @@ export class RiscoListComponent implements OnInit {
 
   fetchRiscos() {
     this.spinner.show();
-    this.riscoService.list().subscribe(riscos => {
+    this.riscoService.list(this.max).subscribe(riscos => {
       if (this.errorService.hasError(riscos)) {
         this.errorService.sendError(riscos);
       } else {
@@ -59,7 +59,7 @@ export class RiscoListComponent implements OnInit {
   scrollDown() {
     this.showListScrollSpinner = true;
     this.offset += 10;
-    this.riscoService.list('', this.offset, this.termo).subscribe(riscos => {
+    this.riscoService.list(this.max, this.offset, this.termo).subscribe(riscos => {
       this.riscos = this.riscos.concat(riscos);
       this.showListScrollSpinner = false;
     });
@@ -73,7 +73,7 @@ export class RiscoListComponent implements OnInit {
         this.termo = changes;
         this.offset = 0;
         this.renderer.setProperty(this.dataList.nativeElement, 'scrollTop', 0);
-        return this.riscoService.list('', this.offset, this.termo)
+        return this.riscoService.list(this.max, this.offset, this.termo)
       })
     ).subscribe(res => {
       if (this.errorService.hasError(res)) this.errorService.sendError(res);

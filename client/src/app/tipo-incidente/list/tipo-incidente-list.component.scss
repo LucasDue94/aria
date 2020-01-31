@@ -10,26 +10,6 @@
     padding: 0 2px;
     height: 100%;
   }
-
-  .row {
-    justify-content: space-between;
-  }
-
-  .td:last-child {
-    flex: none;
-    margin-right: 30px;
-  }
-
-  .thead {
-    justify-content: space-between;
-    .th {
-      flex: none;
-    }
-
-    .th:last-child {
-      margin-right: 30px;
-    }
-  }
 }
 
 @media screen and (max-width: $tablet-width) {

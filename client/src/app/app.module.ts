@@ -27,6 +27,7 @@ import {UsuarioModule} from "./usuario/usuario.module";
 import {InterceptorModule} from "./interceptor/interceptor.module";
 import {RiscoModule} from "./risco/risco.module";
 import {TipoIncidenteModule} from './tipo-incidente/tipo-incidente.module';
+import {IncidenteModule} from "./incidente/incidente.module";
 
 @NgModule({
   exports: [],
@@ -58,7 +59,8 @@ import {TipoIncidenteModule} from './tipo-incidente/tipo-incidente.module';
     GrupoModule,
     InterceptorModule,
     RiscoModule,
-    TipoIncidenteModule
+    TipoIncidenteModule,
+    IncidenteModule
 ],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy},

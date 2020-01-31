@@ -14,9 +14,9 @@ export class PacienteService {
     constructor(private http: HttpClient) {
     }
 
-    list(max?: any, offset?: any): Observable<Paciente[]> {
+    list(max: any = '', offset: any = '', termo: any = '', setor: any = ''): Observable<Paciente[]> {
         let subject = new Subject<Paciente[]>();
-        this.http.get(this.baseUrl + `paciente?offset=` + offset + '&max=' + max)
+        this.http.get(this.baseUrl + `paciente?offset=` + offset + '&max=' + max + '&termo=' + termo + '&setor=' + setor)
             .subscribe((json: any[]) => {
                 subject.next(json.map((propertyName: any) => new Paciente(propertyName)))
             });

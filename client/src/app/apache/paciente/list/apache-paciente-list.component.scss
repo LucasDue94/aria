@@ -24,6 +24,10 @@
   border-left: 10px solid #26a69a;
 }
 
+.row {
+  border-left: 10px solid transparent;
+}
+
 .row-available {
   border-left: 10px solid #42a5f5;
 }
@@ -68,7 +72,6 @@
   margin-left: 40px;
   .label-selected {
     margin-right: 10px;
-
   }
 
   .selected {
@@ -82,6 +85,14 @@
 
 .card-apache-list {
   display: none;
+}
+
+.thead {
+  padding-left: 10px;
+
+  .th:last-child {
+    margin-right: 20px;
+  }
 }
 
 @media screen and (max-width: $smartphone-max-width) {
