@@ -26,13 +26,15 @@ import {GrupoModule} from "./grupo/grupo.module";
 import {UsuarioModule} from "./usuario/usuario.module";
 import {InterceptorModule} from "./interceptor/interceptor.module";
 import {RiscoModule} from "./risco/risco.module";
+import { ReportComponent } from './report/report.component';
 
 @NgModule({
   exports: [],
   declarations: [
     AppComponent,
     PerfilDashboardComponent,
-    ErrorComponent
+    ErrorComponent,
+    ReportComponent
   ],
   imports: [
     BrowserModule,

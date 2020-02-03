@@ -30,7 +30,6 @@
             "styles": [
               "src/styles.scss",
               "src/assets/colors.scss"
-
             ],
             "scripts": [
               "node_modules/jspdf/dist/jspdf.min.js",
@@ -125,6 +124,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "client"
+    }
+  },
+  "defaultProject": "client",
+  "cli": {
+    "analytics": false
+  }
 }

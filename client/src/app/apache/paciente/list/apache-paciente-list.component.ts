@@ -8,8 +8,6 @@ import {TitleService} from "../../../core/title/title.service";
 import {SpinnerService} from "../../../core/spinner/spinner.service";
 import {debounceTime, switchMap} from 'rxjs/operators';
 import {ErrorService} from "../../../core/error/error.service";
-import {AuthService} from "../../../core/auth/auth.service";
-import {Router} from "@angular/router";
 import * as moment from 'moment';
 
 @Component({
@@ -21,7 +19,6 @@ import * as moment from 'moment';
 export class ApachePacienteListComponent implements OnInit {
 
   @ViewChild('dataList', {static: false}) dataList;
-
   faFrown = faFrown;
   faSearch = faSearch;
   showListScrollSpinner = false;

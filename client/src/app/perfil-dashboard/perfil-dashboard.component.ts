@@ -10,6 +10,7 @@ import {SetorService} from "../core/setor/setor.service";
 import {Setor} from "../core/setor/setor";
 import {TitleService} from "../core/title/title.service";
 import {ErrorService} from "../core/error/error.service";
+import {SeriesPieOptions} from "highcharts";
 
 @Component({
   selector: 'perfil-dashboard',
@@ -447,7 +448,7 @@ export class PerfilDashboardComponent implements OnInit, AfterViewChecked {
 
           color: '#E83961'
         }]
-      }],
+      } as SeriesPieOptions],
     }, true, true);
   }
 

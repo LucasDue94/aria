@@ -7,7 +7,6 @@
   margin-right: 15px;
 }
 
-
 .panel {
   display: flex;
   flex-wrap: wrap;
@@ -58,7 +57,11 @@
 .panel-chart {
   margin: 20px auto 20px auto;
   box-shadow: 2px 2px 10px $gray-80;
+}
 
+
+.apache:only-child {
+  width: 1284px;
 }
 
 .link-visualization {
@@ -75,7 +78,7 @@
   width: 100vw;
   height: 100vh;
   position: fixed;
-  top:0;
+  top: 0;
   left: 0;
   z-index: 99;
   background-color: rgba(90, 91, 91, 0.8);

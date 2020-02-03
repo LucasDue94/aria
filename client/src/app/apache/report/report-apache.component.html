@@ -11,6 +11,7 @@
     </div>
     <div>
       <select  name="setor" class="panel-select" formControlName="setorId">
+        <option value="null">Selecione</option>
         <option name="setor" *ngFor="let setor of arrayListSetor" [ngValue]="setor.id">{{setor.sigla}}</option>
       </select>
       <button class="button-search-panel" (click)="update()">
@@ -27,10 +28,8 @@
     <section [chart]="apacheChart" id="apache" #chartSVG>Apache II</section>
   </section>
 
-  <canvas #myCanvas></canvas>
-
   <section class="table modal-content" *ngIf="apacheChart">
-    <section class="thead">
+    <section class="thead" *ngIf="obitos">
       <span class="th">REGISTRO</span>
       <span class="th paciente">PACIENTE</span>
       <span class="th">SEXO</span>
@@ -46,10 +45,10 @@
         <span class="td">{{paciente['nomeMae']}}</span>
       </div>
       <app-scroll-spinner [show]="showListScrollSpinner"></app-scroll-spinner>
-      <div class="empty" *ngIf="pacientesObito.length == 0">
-        <p>Nenhum paciente foi a óbito com SMR >= 1</p>
-        <fa-icon class="icon" [icon]="faFrown" size="2x"></fa-icon>
-      </div>
     </section>
+    <div class="empty" *ngIf="!obitos">
+      <p>Nenhum paciente foi a óbito com SMR >= 1</p>
+      <fa-icon class="icon" [icon]="faFrown" size="2x"></fa-icon>
+    </div>
   </section>
 </main>
