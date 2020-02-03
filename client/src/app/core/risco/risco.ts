@@ -1,6 +1,7 @@
 export class Risco {
   id: number;
   nome: string;
+  habilitado: boolean;
 
   constructor(object?: any) {
     if (object) {

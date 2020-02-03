@@ -4,6 +4,7 @@ import {environment} from "../../../environments/environment";
 import {Observable, Subject} from "rxjs";
 import {map} from "rxjs/operators";
 import {Paciente} from "./paciente";
+import {Setor} from "../setor/setor";
 
 
 @Injectable()
@@ -14,11 +15,11 @@ export class PacienteService {
     constructor(private http: HttpClient) {
     }
 
-    list(max?: any, offset?: any): Observable<Paciente[]> {
+    list(max: any = '', offset: any = '', termo: any = '', setor: any = ''): Observable<any[]> {
         let subject = new Subject<Paciente[]>();
-        this.http.get(this.baseUrl + `paciente?offset=` + offset + '&max=' + max)
+        this.http.get(this.baseUrl + `paciente?offset=` + offset + '&max=' + max + '&termo=' + termo + '&setor=' + setor)
             .subscribe((json: any[]) => {
-                subject.next(json.map((propertyName: any) => new Paciente(propertyName)))
+              subject.next(json);
             });
         return subject.asObservable();
     }

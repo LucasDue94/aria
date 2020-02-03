@@ -21,6 +21,7 @@ import {ApacheService} from './apache/apache.service';
 import { PermissaoService } from './permissao/permissao.service';
 import { GrupoService } from './grupo/grupo.service';
 import {RiscoService} from "./risco/risco.service";
+import { TipoIncidenteService } from './tipoIncidente/tipoIncidente.service';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import {RiscoService} from "./risco/risco.service";
     ApacheService,
     PermissaoService,
     GrupoService,
-    RiscoService
+    RiscoService,
+    TipoIncidenteService
 ]
 })
 export class CoreModule {

@@ -1,8 +1,8 @@
 import {Component, OnInit, Renderer2} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import {TitleService} from "../../core/title/title.service";
-import {RiscoService} from "../../core/risco/risco.service";
-import {Risco} from "../../core/risco/risco";
+import {IncidenteService} from "../../core/incidente/incidente.service";
+import {Incidente} from "../../core/incidente/incidente";
 import {ErrorService} from "../../core/error/error.service";
 import {AlertService} from "../../core/alert/alert.service";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -10,35 +10,35 @@ import {SpinnerService} from "../../core/spinner/spinner.service";
 import {faCheck, faFrown} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
-  selector: 'risco-form',
-  templateUrl: './risco-form.component.html',
-  styleUrls: ['./risco-form.component.scss']
+  selector: 'incidente-form',
+  templateUrl: './incidente-form.component.html',
+  styleUrls: ['./incidente-form.component.scss']
 })
-export class RiscoFormComponent implements OnInit {
+export class IncidenteFormComponent implements OnInit {
   form = this.fb.group({
     nome: ['', Validators.required],
   });
-  risco: Risco;
+  incidente: Incidente;
   url = this.route.snapshot.url[0].path;
 
   constructor(private fb: FormBuilder, private titleService: TitleService,
               private render: Renderer2,
-              private riscoService: RiscoService, private errorService: ErrorService,
+              private incidenteService: IncidenteService, private errorService: ErrorService,
               private alertService: AlertService, private route: ActivatedRoute,
               private router: Router, private spinner: SpinnerService) {
   }
 
   ngOnInit() {
     this.spinner.show();
-    this.url == 'create' ? this.titleService.send('Risco - Novo Risco') : this.titleService.send('Risco - Editar Risco');
+    this.url == 'create' ? this.titleService.send('Incidente - Novo Incidente') : this.titleService.send('Incidente - Editar Incidente');
 
     const id = this.route.snapshot.params['id'];
     if (id != undefined) {
-      this.riscoService.get(id).subscribe(res => {
+      this.incidenteService.get(id).subscribe(res => {
         if (res.hasOwnProperty('error')) {
           this.errorService.sendError(res)
         } else {
-          this.risco = res;
+          this.incidente = res;
           this.form.get('nome').setValue(res.nome);
         }
       });
@@ -48,22 +48,22 @@ export class RiscoFormComponent implements OnInit {
 
   save() {
     let id = this.route.snapshot.params['id'];
-    const risco = new Risco({
+    const incidente = new Incidente({
       id: id,
       nome: this.form.get('nome').value
     });
 
-    this.riscoService.save(risco).subscribe((res) => {
+    this.incidenteService.save(incidente).subscribe((res) => {
       if (!res.hasOwnProperty('error')) {
         this.url == 'create' ?
           this.alertService.send(
-            {message: 'Risco Criado!', type: 'success', icon: faCheck}
+            {message: 'Incidente Criado!', type: 'success', icon: faCheck}
           ) :  this.alertService.send(
-          {message: 'Risco Aterado!', type: 'success', icon: faCheck}
+          {message: 'Incidente Aterado!', type: 'success', icon: faCheck}
           ) ;
 
         setTimeout(() => {
-          this.router.navigate(['/risco']);
+          this.router.navigate(['/incidente']);
         }, 300);
       } else {
         this.alertService.send({

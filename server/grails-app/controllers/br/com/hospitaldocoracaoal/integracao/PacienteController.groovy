@@ -17,7 +17,7 @@ class PacienteController {
         try {
             respond pacienteService.list(params), model:[pacienteCount: pacienteService.count()]
         } catch (IllegalArgumentException e) {
-            render([erro: e.message] as JSON)
+            render([error: e.message] as JSON)
         }
     }
 

@@ -3,51 +3,43 @@ import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {Observable, of, Subject} from "rxjs";
 import {catchError} from "rxjs/operators";
-import {Setor} from "./setor";
+import {Incidente} from "./incidente";
 
 
 @Injectable()
-export class SetorService {
+export class IncidenteService {
 
   private baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {
   }
 
-  list(tipoSetor: string = '', offset: any = '', max: any = ''): Observable<Setor[]> {
-    let subject = new Subject<Setor[]>();
-    let url = this.baseUrl + 'setor?' + 'offset=' + offset + '&max=' + max;
-    if(tipoSetor != null && tipoSetor != '') {
-      url += '&tipoSetor=' + tipoSetor
-    }
-    this.http.get<Setor[]>(url)
+  list(max: any = '', offset: any = '', termo: any = ''): Observable<Incidente[]> {
+    let subject = new Subject<Incidente[]>();
+    this.http.get(this.baseUrl + `incidente?offset=` + offset + '&max=' + max + '&termo=' + termo)
       .pipe(
         catchError(error => of({error})
-        )).subscribe((json: any[]) => {
+        )).subscribe((json: Incidente[]) => {
       subject.next(json);
     });
     return subject.asObservable();
   }
 
   get(id: number): Observable<any> {
-    let subject = new Subject<Setor>();
-    this.http.get(this.baseUrl + `setor/` + id)
+    let subject = new Subject<Incidente>();
+    this.http.get(this.baseUrl + `incidente/` + id)
       .pipe(
         catchError(error => of({error})
-        )).subscribe((json: any) => {
-      if (json.hasOwnProperty('error')) {
-        subject.next(json);
-      } else {
-        subject.next(new Setor(json));
-      }
+        )).subscribe((json: Incidente) => {
+      subject.next(json);
     });
     return subject.asObservable();
   }
 
-  save(setor: Setor): Observable<any> {
-    let subject = new Subject<Setor>();
-    if (setor.id) {
-      this.http.put<Setor>(this.baseUrl + `setor/` + setor.id, setor, {
+  save(incidente: Incidente): Observable<any> {
+    let subject = new Subject<Incidente>();
+    if (incidente.id) {
+      this.http.put<Incidente>(this.baseUrl + 'incidente/' + incidente.id, incidente, {
         responseType: 'json'
       }).pipe(
         catchError(error => of({error}))
@@ -55,7 +47,7 @@ export class SetorService {
         subject.next(json)
       });
     } else {
-      this.http.post<Setor>(this.baseUrl + `setor/`, setor, {
+      this.http.post<Incidente>(this.baseUrl + 'incidente/',  incidente, {
         responseType: 'json'
       }).pipe(
         catchError(error => of({error}))
@@ -64,5 +56,11 @@ export class SetorService {
       });
     }
     return subject.asObservable()
+  }
+
+  destroy(incidente: Incidente): Observable<Object> {
+    return this.http.delete(this.baseUrl + `incidente/` + incidente.id, {
+      observe: 'response'
+    });
   }
 }

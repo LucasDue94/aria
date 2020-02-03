@@ -1,0 +1,27 @@
+<main class="container">
+  <form [formGroup]="searchForm" class="search-container">
+    <input (focus)="search()" formControlName="searchControl" id="search-text"
+           placeholder="Procure: Descrição ou id..." type="text">
+    <button id="search-button">
+      <fa-icon [icon]=faSearch></fa-icon>
+    </button>
+  </form>
+  <section class="table">
+    <section class="thead">
+      <span class="th">Nome</span>
+    </section>
+    <section #dataList class="tbody content" [scrollWindow]="false" infinite-scroll (scrolled)="scrollDown()">
+      <div [routerLink]="['/tipo-incidente','edit',tipoIncidente.id]" *ngFor="let tipoIncidente of tiposIncidente" class="row">
+        <span class="td">{{tipoIncidente.nome}}</span>
+      </div>
+      <app-scroll-spinner [show]="showListScrollSpinner"></app-scroll-spinner>
+      <div class="empty" *ngIf="tiposIncidente?.length == 0">
+        <p>Nenhum Tipo de Incidente encontrado!</p>
+        <fa-icon class="icon" [icon]="faFrown" size="2x"></fa-icon>
+      </div>
+    </section>
+  </section>
+  <div [routerLink]="['/tipo-incidente','create']" class="button-add">
+    <fa-icon class="icon" [icon]="faPlus"></fa-icon>
+  </div>
+</main>

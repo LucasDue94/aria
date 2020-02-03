@@ -1,7 +1,7 @@
 @import '../../../assets/device-sizes';
 @import '../../../assets/colors';
 
-.container-risco {
+.container-paciente {
   position: relative;
   height: calc(100% - 20px);
   margin: 10px 20px;
@@ -11,30 +11,35 @@
   position: absolute;
   height: calc(100% - 60px);
 
-  .content-risco {
+  .content-paciente {
     position: relative;
     padding: 0 2px;
     height: 100%;
-    overflow-y: auto;
+    overflow-y: scroll;
   }
 
   .row {
     justify-content: space-between;
   }
 
-  .td:last-child {
-    flex: none;
-    margin-right: 30px;
+  .thead {
+    .th:last-child {
+      margin-right: 20px;
+    }
+  }
+}
+
+.search-selected {
+  margin-left: 40px;
+  .label-selected {
+    margin-right: 10px;
   }
 
-  .thead {
-    justify-content: space-between;
-    .th {
-      flex: none;
-    }
-
-    .th:last-child {
-      margin-right: 30px;
-    }
+  select {
+    color: $gray-90;
+    font-size: 18px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid $gray-70;
   }
 }

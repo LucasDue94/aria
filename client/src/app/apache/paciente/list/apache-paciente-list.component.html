@@ -34,7 +34,7 @@
            [routerLink]="['/apache','form']"
            [queryParams]="{registro:registro.registroAtendimento.id, dataEntrada: registro.dataEntrada, leito:registro.leito.id, apacheId: registro.apache ? registro.apache.id : null }">
         <span class="td">{{registro.registroAtendimento.id}}</span>
-        <span class="td">{{registro.registroAtendimento.dataEntrada | date: 'dd/MM/yyyy - HH:mm'}}</span>
+        <span class="td">{{registro.dataEntrada | date: 'dd/MM/yyyy - HH:mm'}}</span>
         <span class="td paciente">{{registro.registroAtendimento.paciente.nome}}</span>
         <span class="td">{{registro.registroAtendimento.paciente.sexo}}</span>
         <span class="td">{{registro.registroAtendimento.paciente.nascimento | date:'dd/MM/yy'}}</span>

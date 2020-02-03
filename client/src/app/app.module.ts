@@ -26,15 +26,15 @@ import {GrupoModule} from "./grupo/grupo.module";
 import {UsuarioModule} from "./usuario/usuario.module";
 import {InterceptorModule} from "./interceptor/interceptor.module";
 import {RiscoModule} from "./risco/risco.module";
-import { ReportComponent } from './report/report.component';
+import {TipoIncidenteModule} from './tipo-incidente/tipo-incidente.module';
+import {IncidenteModule} from "./incidente/incidente.module";
 
 @NgModule({
   exports: [],
   declarations: [
     AppComponent,
     PerfilDashboardComponent,
-    ErrorComponent,
-    ReportComponent
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -58,8 +58,10 @@ import { ReportComponent } from './report/report.component';
     UsuarioModule,
     GrupoModule,
     InterceptorModule,
-    RiscoModule
-  ],
+    RiscoModule,
+    TipoIncidenteModule,
+    IncidenteModule
+],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy},
     AuthGuard],

@@ -9,10 +9,12 @@
   <section class="table">
     <section class="thead">
       <span class="th">Nome do Risco</span>
+      <span class="th"><fa-icon [icon]="faCog" size="lg"></fa-icon></span>
     </section>
     <section #dataList class="tbody content-risco" [scrollWindow]="false" infinite-scroll (scrolled)="scrollDown()">
-      <div [routerLink]="['/risco','edit',risco.id]" *ngFor="let risco of riscos" class="row">
+      <div [routerLink]="['/risco','edit',risco.id]" *ngFor="let risco of riscos" class="row" [class.row-disabled]="!risco.habilitado">
         <span class="td">{{risco.nome}}</span>
+        <span class="td"><fa-icon [icon]="faPowerOff" size="lg" (click)="enableDisableRisco(risco, $event)"></fa-icon></span>
       </div>
       <app-scroll-spinner [show]="showListScrollSpinner"></app-scroll-spinner>
       <div class="empty" *ngIf="riscos?.length == 0">
