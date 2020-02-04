@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
-import {faEye, faFrown, faSearch} from '@fortawesome/free-solid-svg-icons';
+import {faFrown, faSearch} from '@fortawesome/free-solid-svg-icons';
 import {Chart} from 'angular-highcharts';
 import {TitleService} from '../../core/title/title.service';
 import {ApacheService} from '../../core/apache/apache.service';
@@ -12,9 +12,8 @@ import {AlertService} from "../../core/alert/alert.service";
 import {ErrorService} from "../../core/error/error.service";
 import {SpinnerService} from "../../core/spinner/spinner.service";
 import {faPrint} from "@fortawesome/free-solid-svg-icons/faPrint";
-import {UserOptions} from 'jspdf-autotable';
-import * as jsPdf from 'jspdf';
 import 'jspdf-autotable';
+import {ChartImage, ReportBuilder} from "../../core/report/reportBuilder";
 
 @Component({
   selector: 'app-apache-report',
@@ -33,7 +32,6 @@ export class ReportApacheComponent extends DatePipe implements OnInit, DatePipe 
   faFrown = faFrown;
   faSearch = faSearch;
   faPrint = faPrint;
-  faEye = faEye;
   apache: any[] = [];
   setorId;
   date = new Date();
@@ -102,10 +100,11 @@ export class ReportApacheComponent extends DatePipe implements OnInit, DatePipe 
   form = this.fb.group({
     inicio: [''],
     fim: [''],
-    setorId: ['selecione']
+    setorId: []
   });
 
   apacheChart;
+  obitos: boolean;
 
   constructor(
     private titleService: TitleService,
@@ -131,13 +130,11 @@ export class ReportApacheComponent extends DatePipe implements OnInit, DatePipe 
       fim: [this.dataFim, Validators.required],
       setorId: [this.setorId, Validators.required]
     });
-
-    this.setorService.list('U', '', '').subscribe(setores => {
-        this.spinner.hide();
-        this.errorService.hasError(setores);
-        this.arrayListSetor = setores;
-      }
-    );
+    this.setorService.list('U', '', '').subscribe(setor => {
+      this.spinner.hide();
+      this.errorService.hasError(setor);
+      this.arrayListSetor = setor;
+    });
   }
 
   getDateInterval(): string {
@@ -181,173 +178,126 @@ export class ReportApacheComponent extends DatePipe implements OnInit, DatePipe 
     this.dataFim = this.form.controls.fim.value;
     this.setorId = this.form.controls.setorId.value;
 
-    let tempDataInicio = new Date(this.dataInicio);
-    let tempDataFim = new Date(this.dataFim);
+    let defaultDataInicio = new Date(this.dataInicio);
+    let defaultDataFim = new Date(this.dataFim);
 
-    let messageError = 'Ops... A data deve ser preenchida';
-    if (this.dataInicio == "" || this.dataFim == "" || tempDataInicio > tempDataFim) {
+    let messageError = 'Ops... A data deve ser preenchida!';
+    if (this.dataInicio == "" || this.dataFim == "" || defaultDataInicio > defaultDataFim) {
       this.alertService.send({
         message: messageError,
         type: 'warning',
         icon: faFrown
       });
     } else {
-      this.apacheService.report(this.dataInicio, this.dataFim, this.setorId).subscribe(this.generateChartApache);
-    }
-  }
-
-  generateChartApache(apaches: any[]) {
-    this.cirurgico = apaches['cirurgico'];
-    this.naoCirurgico = apaches['naoCirurgico'];
-    this.pacientesObito = apaches['pacientesObito'];
-
-    this.altasNaoCirurgicas = [];
-    this.obitosNaoCirurgicos = [];
-    this.smrNaoCirurgico = [];
-    this.altasCirurgicos = [];
-    this.obitosCirurgicos = [];
-    this.smrCirurgicos = [];
-
-    if (apaches.hasOwnProperty('naoCirurgico')) {
-      Object.keys(this.naoCirurgico).forEach(key => {
-        this.altasNaoCirurgicas.push(this.naoCirurgico[key]['altas']);
-        this.obitosNaoCirurgicos.push(this.naoCirurgico[key]['obitos']);
-        this.smrNaoCirurgico.push(this.naoCirurgico[key]['smr']);
-      });
-    }
-
-    if (apaches.hasOwnProperty('cirurgico')) {
-      Object.keys(this.cirurgico).forEach(key => {
-        this.altasCirurgicos.push(this.cirurgico[key]['altas'] * (-1));
-        this.obitosCirurgicos.push(this.cirurgico[key]['obitos'] * (-1));
-        this.smrCirurgicos.push(this.cirurgico[key]['smr'] * (-1));
-      });
-    }
-
-    const chartOptions = {
-      series: [
-        {
-          name: 'ALTAS POST-OP',
-          data: this.altasCirurgicos,
-          color: '#7EAECC'
-        } as SeriesBarOptions, {
-          name: 'ALTAS NON-OP',
-          data:
-          this.altasNaoCirurgicas
-          ,
-          color: '#8FBFA7'
-        } as SeriesBarOptions, {
-          name: 'ÓBITOS POST-OP',
-          data: this.obitosCirurgicos,
-          color: '#FF9A8F'
-        } as SeriesBarOptions, {
-          name: 'ÓBITOS NON-OP',
-          data: this.obitosNaoCirurgicos,
-          color: '#8B8C8F'
-        } as SeriesBarOptions, {
-          name: 'SMR POST-OP',
-          type: 'spline',
-          data: this.smrCirurgicos,
-          color: '#C02110'
-        } as SeriesSplineOptions, {
-          name: 'SMR NON-OP',
-          type: 'spline',
-          data: this.smrNaoCirurgico,
-          color: '#2B1E1D'
-        } as SeriesSplineOptions
-      ],
-      exporting: {
-        enabled: true
+      if(this.setorId == null) {
+        this.alertService.send({
+          message: 'Ops... Selecione um setor!',
+          type: 'error',
+          icon: faFrown
+        });
       }
-    };
-
-    if (this.apacheChart) {
-      this.apacheChart.ref.update(chartOptions);
-    } else {
-      this.apacheChart = new Chart(Object.assign(this.optionsChart, chartOptions));
-    }
-  }
-
-
-  generatePdf() {
-
-    const elementHandler = {
-      '#ignorePDF': function (element, renderer) {
-        return true;
+      else {
+        this.apacheService.report(this.dataInicio, this.dataFim, this.setorId).subscribe(this.generateChartApache);
       }
-    };
-
-    //interface implements autoTable
-    interface jsPDFWithPlugin extends jsPdf {
-      autoTable: (options: UserOptions) => jsPdf;
     }
-
-
-    //load data backend
-    let obitos: any[] = [];
-    Object.keys(this.pacientesObito).forEach(key => {
-      obitos.push(
-        [
-          this.pacientesObito[key]['id'],
-          this.pacientesObito[key]['nome'],
-          this.pacientesObito[key]['sexo'],
-          this.pacientesObito[key]['nascimento'],
-          this.pacientesObito[key]['nomeMae']
-        ]);
-    });
-
-
-    //layout header
-    const logo = new Image();
-    logo.src = '/assets/images/logo.png';
-
-
-    const pdf = new jsPdf('l', 'cm', 'a4') as jsPDFWithPlugin;
-    pdf.addImage(logo, 'PNG', 1, 1, 3, 1);
-    pdf.autoTable({
-      margin: {top: 3},
-      head: [['Registro', 'Paciente', 'Sexo', 'Nascimento', 'Nome da Mãe']],
-      body: obitos,
-      theme: "plain"
-    });
-
-
-    /*const chartSVG = document.getElementsByClassName('highcharts-root')[0];*/
-    const chartSVG = this.chartSVG.nativeElement.querySelector('.highcharts-root');
-    const context = (<HTMLCanvasElement>this.myCanvas.nativeElement).getContext('2d');
-
-    const DOMURL = window.URL;
-    const data = new XMLSerializer().serializeToString(chartSVG);
-    const svgBlob = new Blob([data], {type: 'image/svg+xml;charset=utf-8'});
-    const url = DOMURL.createObjectURL(svgBlob);
-    const xhr = new XMLHttpRequest();
-
-    xhr.onload = function () {
-      let chartImg = new Image();
-      chartImg.onload = function() {
-        context.canvas.width = 800;
-        context.canvas.height = 600;
-        context.drawImage(chartImg, 0, 0);
-        DOMURL.revokeObjectURL(url);
-
-        let dataUrl = context.canvas.toDataURL('image/jpeg');
-        pdf.addImage(dataUrl, 'JPEG', 20, 300, 800, 600);
-
-        setTimeout(function() {
-          pdf.save('apache.pdf');
-        }, 5000);
-      };
-      chartImg.src = url;
-    };
-
-    xhr.open('GET', url, true);
-    xhr.responseType = 'blob';
-    xhr.send();
   }
 
+generateChartApache(apaches:any[]) {
+  this.cirurgico = apaches['cirurgico'];
+  this.naoCirurgico = apaches['naoCirurgico'];
+  this.pacientesObito = apaches['pacientesObito'];
+  this.altasNaoCirurgicas = [];
+  this.obitosNaoCirurgicos = [];
+  this.smrNaoCirurgico = [];
+  this.altasCirurgicos = [];
+  this.obitosCirurgicos = [];
+  this.smrCirurgicos = [];
 
-  scrollDown() {
-    this.showListScrollSpinner = true;
+  if (this.pacientesObito.length <= 0) {
+    this.obitos = false;
+  } else {
+    this.obitos = true;
   }
+
+  if (apaches.hasOwnProperty('naoCirurgico')) {
+    Object.keys(this.naoCirurgico).forEach(key => {
+      this.altasNaoCirurgicas.push(this.naoCirurgico[key]['altas']);
+      this.obitosNaoCirurgicos.push(this.naoCirurgico[key]['obitos']);
+      this.smrNaoCirurgico.push(this.naoCirurgico[key]['smr']);
+    });
+  }
+
+  if (apaches.hasOwnProperty('cirurgico')) {
+    Object.keys(this.cirurgico).forEach(key => {
+      this.altasCirurgicos.push(this.cirurgico[key]['altas'] * (-1));
+      this.obitosCirurgicos.push(this.cirurgico[key]['obitos'] * (-1));
+      this.smrCirurgicos.push(this.cirurgico[key]['smr'] * (-1));
+    });
+  }
+
+  const chartOptions = {
+    series: [
+      {
+        name: 'ALTAS POST-OP',
+        data: this.altasCirurgicos,
+        color: '#7EAECC'
+      } as SeriesBarOptions, {
+        name: 'ALTAS NON-OP',
+        data:
+        this.altasNaoCirurgicas
+        ,
+        color: '#8FBFA7'
+      } as SeriesBarOptions, {
+        name: 'ÓBITOS POST-OP',
+        data: this.obitosCirurgicos,
+        color: '#FF9A8F'
+      } as SeriesBarOptions, {
+        name: 'ÓBITOS NON-OP',
+        data: this.obitosNaoCirurgicos,
+        color: '#8B8C8F'
+      } as SeriesBarOptions, {
+        name: 'SMR POST-OP',
+        type: 'spline',
+        data: this.smrCirurgicos,
+        color: '#C02110'
+      } as SeriesSplineOptions, {
+        name: 'SMR NON-OP',
+        type: 'spline',
+        data: this.smrNaoCirurgico,
+        color: '#2B1E1D'
+      } as SeriesSplineOptions
+    ],
+    exporting: {
+      enabled: false
+    }
+  };
+
+  if (this.apacheChart) {
+    this.apacheChart.ref.update(chartOptions);
+  } else {
+    this.apacheChart = new Chart(Object.assign(this.optionsChart, chartOptions));
+  }
+}
+
+generatePdf() {
+  const modeloRelatorio = {
+    columns: [
+      {dataKey: 'id', header: 'Registro'},
+      {dataKey: 'nome', header: 'Paciente'},
+      {dataKey: 'nomeMae', header: 'Nome da Mãe'},
+      {dataKey: 'nascimento', header: 'Nascimento'}
+    ],
+    body: this.pacientesObito
+  };
+  const chartSVG = this.chartSVG.nativeElement.querySelector('.highcharts-root');
+  const report = new ReportBuilder();
+  report.addTable(modeloRelatorio);
+  report.addChart(new ChartImage(chartSVG));
+  report.print('RELATÓRIO APACHE II');
+}
+
+scrollDown() {
+  this.showListScrollSpinner = true;
+}
 
 }
