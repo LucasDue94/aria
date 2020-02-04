@@ -7,13 +7,15 @@ import {RouterModule} from "@angular/router";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {InfiniteScrollModule} from "ngx-infinite-scroll";
 import {SpinnerModule} from "../spinner/spinner.module";
+import { PacienteDetailsComponent } from './paciente-details/paciente-details.component';
 
 
 
 @NgModule({
   declarations: [
     PacienteListComponent,
-    IncidenteFormComponent
+    IncidenteFormComponent,
+    PacienteDetailsComponent
   ],
   imports: [
     CommonModule,

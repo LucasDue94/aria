@@ -36,7 +36,7 @@ export class PacienteService {
         )
     }
 
-    get(id: number): Observable<Paciente> {
+    get(id: any): Observable<Paciente> {
         let subject = new Subject<Paciente>();
         this.http.get(this.baseUrl + `paciente/` + id)
             .subscribe((json: any) => {
