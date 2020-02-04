@@ -1,11 +1,19 @@
 @import "src/assets/device-sizes";
 
-.card {
-  display: flex;
-  width: 100%;
+.btn-save {
+  position: relative;
+  left: -18px;
+  margin-left: auto;
+  margin-top: 15px;
+  width: 90px;
+  height: 35px;
+  font-size: 16px;
 
+  & {
+    letter-spacing: 1px;
+    font-weight: 400 !important;
+  }
 }
-
 
 @media screen and (max-width: $tablet-width ) {
 

@@ -50,7 +50,7 @@ export class PortaBalaoListComponent implements OnInit {
   scrollDown() {
     this.showListScrollSpinner = true;
     this.offset += 10;
-    this.registroAtendimentoService.list(this.setorId, '', '').subscribe(registros => {
+    this.registroAtendimentoService.list(this.setorId, this.max, this.offset).subscribe(registros => {
       if (!this.errorService.hasError(registros)) {
         this.registros = this.registros.concat(registros);
       }
