@@ -22,7 +22,7 @@ class PacienteController {
     }
 
     @Secured('ROLE_PACIENTE_SHOW')
-    def show(Long id) {
+    def show(String id) {
         respond pacienteService.get(id)
     }
 }

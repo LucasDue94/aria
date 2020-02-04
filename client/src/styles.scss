@@ -60,7 +60,7 @@ tspan {
 .container {
   position: relative;
   height: calc(100% - 20px);
-  margin: 10px 20px;
+  margin: 15px;
 }
 
 .content {
@@ -368,6 +368,36 @@ tspan {
     text-transform: uppercase;
   }
 }
+
+
+.card-info {
+  background: #fff;
+  padding: 15px;
+  border: 1px solid #EEEAEA;
+  width: 50%;
+
+  .label {
+    font-size: 16px;
+    font-weight: lighter;
+  }
+  .info {
+    text-transform: capitalize;
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 15px;
+  }
+
+  .flex-column {
+    margin-right: 10px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .card-info {
+    width: auto;
+  }
+}
+
 
 
 

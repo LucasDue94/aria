@@ -1,0 +1,30 @@
+<div class="container">
+  <article class="card-info">
+    <div class="flex-row">
+      <div class="flex-column">
+        <span class="label">Paciente:</span>
+        <p class="info">{{paciente?.nome?.toLocaleLowerCase()}}</p>
+      </div>
+      <div class="flex-column">
+        <span class="label">Sexo:</span>
+        <p class="info">{{paciente?.sexo}}</p>
+      </div>
+    </div>
+    <div class="flex-row">
+      <div class="flex-column">
+        <span class="label">Mãe:</span>
+        <p class="info">{{paciente?.nomeMae?.toLowerCase()}}</p>
+      </div>
+      <div class="flex-column">
+        <span class="label">Nascimento:</span>
+        <p class="info">{{paciente?.nascimento | date:'dd/MM/yyyy'}}</p>
+      </div>
+    </div>
+    <div class="flex-row">
+      <div class="flex-column">
+        <span class="label">Registro:</span>
+        <p class="info">{{paciente?.id}}</p>
+      </div>
+    </div>
+  </article>
+</div>
