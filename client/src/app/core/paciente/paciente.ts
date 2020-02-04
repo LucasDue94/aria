@@ -1,9 +1,11 @@
 import {RegistroAtendimento} from '../registroAtendimento/registroAtendimento';
+import {Incidente} from "../incidente/incidente";
 
 export class Paciente {
   id: string;
   nome: string;
   registros: RegistroAtendimento[];
+  incidentes: Incidente[];
   sexo: any;
   nomeMae: string;
   nascimento: any;
