@@ -3,6 +3,7 @@ import {Paciente} from "../../core/paciente/paciente";
 import {PacienteService} from "../../core/paciente/paciente.service";
 import {ActivatedRoute} from "@angular/router";
 import {TitleService} from "../../core/title/title.service";
+import {faFrown, faPlus} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-paciente-details',
@@ -12,6 +13,8 @@ import {TitleService} from "../../core/title/title.service";
 export class PacienteDetailsComponent implements OnInit {
 
   private paciente: Paciente = new Paciente();
+  private faFrown = faFrown;
+  private faPlus = faPlus;
 
   constructor(private pacienteService: PacienteService, private route: ActivatedRoute, private title: TitleService) { }
 

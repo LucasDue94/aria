@@ -1,0 +1,15 @@
+.flex-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 15px;
+
+  h1 {
+    font-size: 22px;
+  }
+
+  .button {
+    padding: 8px 12px;
+    font-size: 16px;
+  }
+}
