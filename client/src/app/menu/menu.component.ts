@@ -14,6 +14,7 @@ import {AuthService} from "../core/auth/auth.service";
 import {Menu} from "../core/menu/menu";
 import {EnumPermisson} from "../core/permissao/enumPermisson";
 import {MenuService} from "../core/menu/menu.service";
+import {faCommentMedical} from "@fortawesome/free-solid-svg-icons/faCommentMedical";
 
 @Component({
   selector: 'app-menu',
@@ -89,6 +90,13 @@ export class MenuComponent implements OnInit {
       permission: EnumPermisson.role_paciente_index,
       faIcon: faUserInjured,
       router: ['/incidente/paciente-list']
+    },
+    {
+      name: 'Porta Balão',
+      status: false,
+      permission: EnumPermisson.role_paciente_index,
+      faIcon: faCommentMedical,
+      router: ['/portaBalao/paciente-list']
     }
   ];
 

@@ -24,4 +24,6 @@ abstract class RegistroAtendimentoService {
      RegistroAtendimento get(String id){
          RegistroAtendimento.findById(id)
      }
+
+    abstract Long count()
 }

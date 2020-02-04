@@ -1,4 +1,6 @@
 package br.com.hospitaldocoracaoal.integracao
+
+import grails.converters.JSON
 import grails.gorm.transactions.ReadOnly
 import grails.plugin.springsecurity.annotation.Secured
 
@@ -13,11 +15,16 @@ class RegistroAtendimentoController {
     @Secured('ROLE_REGISTRO_ATENDIMENTO_INDEX')
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond registroAtendimentoService.list(params), model: [registroAtendimentoCount: registroAtendimentoService.count()]
+        try {
+            respond registroAtendimentoService.list(params), model: [registroAtendimentoCount: registroAtendimentoService.count()]
+        } catch (IllegalArgumentException e) {
+            render([error: e.message] as JSON)
+        }
     }
 
     @Secured('ROLE_REGISTRO_ATENDIMENTO_SHOW')
     def show(String id) {
         respond registroAtendimentoService.get(id)
     }
+
 }

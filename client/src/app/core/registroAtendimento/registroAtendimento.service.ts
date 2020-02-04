@@ -14,9 +14,9 @@ export class RegistroAtendimentoService {
     constructor(private http: HttpClient) {
     }
 
-    list(max?: any, offset?: any): Observable<RegistroAtendimento[]> {
+    list(setorId: number, max?: any, offset?: any): Observable<RegistroAtendimento[]> {
         let subject = new Subject<RegistroAtendimento[]>();
-        this.http.get(this.baseUrl + `registroAtendimento?offset=` + offset + '&max=' + max)
+        this.http.get<RegistroAtendimento[]>(this.baseUrl + 'registroAtendimento?'+'setorId=' + setorId + '&offset=' + offset + '&max=' + max)
             .subscribe((json: any[]) => {
                 subject.next(json.map((propertyName: any) => new RegistroAtendimento(propertyName)))
             });
