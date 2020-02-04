@@ -28,13 +28,17 @@ import {InterceptorModule} from "./interceptor/interceptor.module";
 import {RiscoModule} from "./risco/risco.module";
 import {TipoIncidenteModule} from './tipo-incidente/tipo-incidente.module';
 import {IncidenteModule} from "./incidente/incidente.module";
+import { PortaBalaoFormComponent } from './porta-balao/form/porta-balao-form.component';
+import { PortaBalaoListComponent } from './porta-balao/list/porta-balao-list.component';
 
 @NgModule({
   exports: [],
   declarations: [
     AppComponent,
     PerfilDashboardComponent,
-    ErrorComponent
+    ErrorComponent,
+    PortaBalaoFormComponent,
+    PortaBalaoListComponent
   ],
   imports: [
     BrowserModule,

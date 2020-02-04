@@ -1,0 +1,24 @@
+<main class="main-container">
+  <section class="container">
+    <section class="list-head">
+      <span class="label-list">Paciente</span>
+      <span class="label-list">Sexo</span>
+      <span class="label-list">Mãe</span>
+      <span class="label-list">Nascimento</span>
+      <span class="label-list">Registro</span>
+    </section>
+    <section class="list-body">
+      <div *ngFor="let registro of registros">
+        <span>{{registro.paciente.nome}}</span>
+        <span>{{registro.paciente.sexo}}</span>
+        <span>{{registro.paciente.nomeMae}}</span>
+        <span>{{registro.paciente.nascimento}}</span>
+        <span>{{registro.paciente.registros}}</span>
+      </div>
+    </section>
+    <form [formGroup]="form" class="form-container">
+      <label for="data" class="form-label">Data de balão</label>
+      <input id="data" type="date" name="data" class="form-control">
+    </form>
+  </section>
+</main>

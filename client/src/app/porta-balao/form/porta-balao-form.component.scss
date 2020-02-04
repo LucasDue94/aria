@@ -1,0 +1,12 @@
+@import "src/assets/device-sizes";
+
+.card {
+  display: flex;
+  width: 100%;
+
+}
+
+
+@media screen and (max-width: $tablet-width ) {
+
+}
