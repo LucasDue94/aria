@@ -107,7 +107,7 @@ export class GrupoFormComponent implements OnInit {
       this.alertService.send(
         {message: 'Grupo Criado!', type: 'success', icon: faCheck}
       ) :  this.alertService.send(
-        {message: 'Grupo Aterado!', type: 'success', icon: faCheck}
+        {message: 'Grupo Alterado!', type: 'success', icon: faCheck}
         ) ;
 
       setTimeout(() => {

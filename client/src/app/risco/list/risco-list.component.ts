@@ -88,7 +88,7 @@ export class RiscoListComponent implements OnInit {
     this.riscoService.save(risco).subscribe((res) => {
       if (!res.hasOwnProperty('error')) {
         this.alertService.send(
-          {message: 'Risco Aterado!', type: 'success', icon: faCheck}
+          {message: 'Risco Alterado!', type: 'success', icon: faCheck}
         );
       } else {
         risco.habilitado = !risco.habilitado;

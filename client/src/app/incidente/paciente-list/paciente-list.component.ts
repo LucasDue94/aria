@@ -39,7 +39,7 @@ export class PacienteListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.titleService.send('Lista de Pacientes');
+    this.titleService.send('Incidentes - Lista de Pacientes');
     this.setorService.list().subscribe((setores)=> {
       this.setores = setores;
       this.list();

@@ -1,0 +1,7 @@
+import br.com.hospitaldocoracaoal.aria.Incidente
+
+model {
+	Incidente incidente
+}
+
+json g.render(incidente, [expand: 'tipoIncidente',resolveTemplate: false])

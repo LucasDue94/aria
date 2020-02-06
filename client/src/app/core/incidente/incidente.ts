@@ -1,9 +1,9 @@
-import {Risco} from "../risco/risco";
+import {TipoIncidente} from "../tipoIncidente/tipoIncidente";
 
 export class Incidente {
   id: string;
-  nome: string;
-  risco: Risco;
+  dataHora: Date;
+  tipoIncidente: TipoIncidente;
 
   constructor(object?: any) {
     if (object) {

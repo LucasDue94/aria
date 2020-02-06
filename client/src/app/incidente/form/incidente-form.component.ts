@@ -8,6 +8,10 @@ import {AlertService} from "../../core/alert/alert.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {SpinnerService} from "../../core/spinner/spinner.service";
 import {faCheck, faFrown} from "@fortawesome/free-solid-svg-icons";
+import {Paciente} from "../../core/paciente/paciente";
+import {PacienteService} from "../../core/paciente/paciente.service";
+import {TipoIncidenteService} from "../../core/tipoIncidente/tipoIncidente.service";
+import {TipoIncidente} from "../../core/tipoIncidente/tipoIncidente";
 
 @Component({
   selector: 'incidente-form',
@@ -16,54 +20,84 @@ import {faCheck, faFrown} from "@fortawesome/free-solid-svg-icons";
 })
 export class IncidenteFormComponent implements OnInit {
   form = this.fb.group({
-    nome: ['', Validators.required],
+    data: ['', Validators.required],
+    hora: ['', Validators.required],
+    tipoIncidente: ['', Validators.required],
+    obs: [''],
   });
-  incidente: Incidente;
+
+  private incidente: Incidente;
+  private paciente: Paciente;
+  private tiposIncidente = [];
   url = this.route.snapshot.url[0].path;
 
   constructor(private fb: FormBuilder, private titleService: TitleService,
               private render: Renderer2,
               private incidenteService: IncidenteService, private errorService: ErrorService,
               private alertService: AlertService, private route: ActivatedRoute,
-              private router: Router, private spinner: SpinnerService) {
+              private router: Router, private spinner: SpinnerService, private pacienteService: PacienteService,
+              private tipoIncidenteService: TipoIncidenteService) {
   }
 
   ngOnInit() {
-    this.spinner.show();
     this.url == 'create' ? this.titleService.send('Incidente - Novo Incidente') : this.titleService.send('Incidente - Editar Incidente');
+
+    const pacienteId = this.route.snapshot.queryParams['paciente'];
+    if (pacienteId != undefined) {
+      this.spinner.show();
+      this.pacienteService.get(pacienteId).subscribe(res => {
+        if (res.hasOwnProperty('error')) {
+          this.errorService.sendError(res)
+        } else {
+          this.paciente = res;
+        }
+        this.spinner.hide();
+      });
+    }
+
+    this.tipoIncidenteService.list().subscribe(res => {
+      if (res.hasOwnProperty('error')) {
+        this.errorService.sendError(res)
+      } else {
+        this.tiposIncidente = res;
+      }
+    });
 
     const id = this.route.snapshot.params['id'];
     if (id != undefined) {
+      this.spinner.show();
       this.incidenteService.get(id).subscribe(res => {
         if (res.hasOwnProperty('error')) {
           this.errorService.sendError(res)
         } else {
           this.incidente = res;
-          this.form.get('nome').setValue(res.nome);
         }
+        this.spinner.hide();
       });
     }
-    this.spinner.hide();
   }
 
   save() {
     let id = this.route.snapshot.params['id'];
-    const incidente = new Incidente({
+    const incidente = new Object({
       id: id,
-      nome: this.form.get('nome').value
+      dataHora: this.form.get('data').value + ' ' + this.form.get('hora').value,
+      obs: this.form.get('obs').value,
+      tipoIncidente: new Object({id: this.form.get('tipoIncidente').value}),
+      paciente: new Object({id: this.paciente.id})
     });
 
     this.incidenteService.save(incidente).subscribe((res) => {
       if (!res.hasOwnProperty('error')) {
         this.url == 'create' ?
           this.alertService.send(
-            {message: 'Incidente Criado!', type: 'success', icon: faCheck}
+            {message: 'Incidente criado.', type: 'success', icon: faCheck}
           ) :  this.alertService.send(
-          {message: 'Incidente Aterado!', type: 'success', icon: faCheck}
+          {message: 'Incidente alterado', type: 'success', icon: faCheck}
           ) ;
 
         setTimeout(() => {
-          this.router.navigate(['/incidente']);
+          this.router.navigate(['/incidente/paciente-details', this.paciente.id]);
         }, 300);
       } else {
         this.alertService.send({

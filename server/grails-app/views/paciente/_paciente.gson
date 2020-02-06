@@ -1,0 +1,7 @@
+import br.com.hospitaldocoracaoal.integracao.Paciente
+
+model {
+	Paciente paciente
+}
+
+json g.render(paciente, [expand: ['incidentes'], resolveTemplate: false])

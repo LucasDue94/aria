@@ -1,80 +1,46 @@
-@import '../../../assets/colors';
-@import '../../../assets/device-sizes';
 @import '../../../inputs';
 
-.container-risco {
-  display: flex;
-  position: absolute;
-  width: 100%;
-  overflow-y: scroll;
-  flex-wrap: wrap;
-
-  .card {
-    margin: 15px;
-    align-items: center;
-    width: 500px;
+.incidente-form {
+  textarea {
+    width: calc(100% - 15px);
+    min-height: 100px;
   }
 
   .form-group {
-    align-items: baseline;
+    margin: 0;
   }
 
-  .form-label {
-    text-transform: none;
+  .flex-wrap {
+    flex-wrap: wrap;
+    margin-bottom: 0;
   }
-}
 
-.card {
-  & {
-    background-color: $white;
-    border-radius: 5px;
-    box-shadow: 1px 1px 6px $gray-90;
+  .flex-0 {
+    flex: 0;
+    margin-right: 20px;
+    margin-bottom: 20px;
   }
-  & label, input, button {
-    margin-bottom: 15px;
-  }
-}
 
-.btn-save {
-  padding: 7px;
-  font-weight: 400;
-  width: 100px;
-  margin-top: 5px;
-  margin-left: 15px;
-}
-@media screen and (max-width: 500px) {
   .form-container {
-    display: flex;
-    position: relative;
-    align-items: flex-start;
-    flex-direction: column !important;
-
-    .form-group {
-      width: calc(100% - 10px);
-      margin: 5px;
-      position: relative;
-      display: flex;
-      flex-direction: column !important;
-
-      .form-control, .form-label {
-        text-align: left;
-        position: relative;
-        flex: 1;
-        width: calc(100% - 15px);
-      }
-
-      .form-label {
-        width: calc(100%);
-      }
-    }
+    padding: 0;
   }
+
   .btn-save {
-    position: relative;
+    padding: 7px;
+    font-weight: 400;
+    width: 100px;
     margin-left: auto;
   }
 
-  .errors {
-    right: 2px;
+  .error-label {
+    bottom: -20px;
+  }
+
+  .form-control {
+    min-width: 160px;
+  }
+
+  select.form-control {
+    height: 42px;
   }
 }
-

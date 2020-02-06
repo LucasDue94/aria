@@ -1,15 +1,64 @@
-<main class="container-incidente">
-  <article class="card" [ngClass]="{background: 'red'}">
-    <form [formGroup]="form" class="form-container">
-      <div class="form-group flex-row">
-        <label for="nome" class="form-label">Nome do Risco:</label>
-        <input class="form-control" formControlName="nome" id="nome" type="text" [ngClass]="{'form-control-error': f.nome.errors && (f.nome.dirty || f.nome.touched)}">
-        <p class="error-label" *ngIf="f.nome.errors && (f.nome.dirty || f.nome.touched)">
-          nome não pode ser branco
-        </p>
+<div class="container incidente-form">
+  <article class="card-info">
+    <div class="flex-row">
+      <div class="flex-column">
+        <span class="label">Paciente:</span>
+        <p class="info">{{paciente?.nome?.toLocaleLowerCase()}}</p>
       </div>
-      <button (click)="save()" class="button button-blue btn-save">Salvar</button>
+      <div class="flex-column">
+        <span class="label">Sexo:</span>
+        <p class="info">{{paciente?.sexo}}</p>
+      </div>
+    </div>
+    <div class="flex-row">
+      <div class="flex-column">
+        <span class="label">Mãe:</span>
+        <p class="info">{{paciente?.nomeMae?.toLowerCase()}}</p>
+      </div>
+      <div class="flex-column">
+        <span class="label">Nascimento:</span>
+        <p class="info">{{paciente?.nascimento | date:'dd/MM/yyyy'}}</p>
+      </div>
+    </div>
+    <div class="flex-row">
+      <div class="flex-column">
+        <span class="label">Registro:</span>
+        <p class="info">{{paciente?.id}}</p>
+      </div>
+    </div>
+    <form [formGroup]="form" class="form-container">
+      <div class="flex-row flex-wrap">
+        <div class="form-group flex-0">
+          <label class="label">Data Incidente*:</label>
+          <input formControlName="data" type="date" class="form-control" [ngClass]="{'form-control-error': f.data.errors && (f.data.dirty || f.data.touched)}" required>
+          <p class="error-label" *ngIf="f.data.errors && (f.data.dirty || f.data.touched)">
+            não pode ser branco
+          </p>
+        </div>
+        <div class="form-group flex-0">
+          <label class="label">Hora*:</label>
+          <input formControlName="hora" type="time" class="form-control" [ngClass]="{'form-control-error': f.hora.errors && (f.hora.dirty || f.hora.touched)}" required>
+          <p class="error-label" *ngIf="f.hora.errors && (f.hora.dirty || f.hora.touched)">
+            não pode ser branco
+          </p>
+        </div>
+        <div class="form-group flex-0">
+          <label class="label">Tipo Incidente*:</label>
+          <select class="form-control" formControlName="tipoIncidente" id="tipoIncidente" [ngClass]="{'form-control-error': f.tipoIncidente.errors && (f.tipoIncidente.dirty || f.tipoIncidente.touched)}" required>
+            <option *ngFor="let tipo of tiposIncidente" [value]="tipo.id">{{tipo.nome}}</option>
+          </select>
+          <p class="error-label" *ngIf="f.tipoIncidente.errors && (f.tipoIncidente.dirty || f.tipoIncidente.touched)">
+            não pode ser branco
+          </p>
+        </div>
+      </div>
+      <div class="flex-row">
+        <div class="form-group">
+          <label class="label">Observações:</label>
+          <textarea formControlName="obs" class="form-control"></textarea>
+        </div>
+      </div>
+      <button class="button button-blue btn-save" [disabled]="!form.valid" (click)="save()">Salvar</button>
     </form>
   </article>
-</main>
-
+</div>
