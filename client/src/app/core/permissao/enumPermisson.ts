@@ -27,6 +27,7 @@ export enum EnumPermisson {
   role_registro_atendimento_show = 'ROLE_REGISTRO_ATENDIMENTO_SHOW',
 
   role_risco_index = 'ROLE_RISCO_INDEX',
-  role_tipo_incidente_index = 'ROLE_TIPO_INCIDENTE_INDEX'
+  role_tipo_incidente_index = 'ROLE_TIPO_INCIDENTE_INDEX',
+  role_porta_balao_index = 'ROLE_PORTA_BALAO_INDEX'
 }
 

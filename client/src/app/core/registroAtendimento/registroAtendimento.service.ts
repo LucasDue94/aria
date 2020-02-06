@@ -36,8 +36,8 @@ export class RegistroAtendimentoService {
     }
 
     get(id: string): Observable<any> {
-      let subject = new Subject<RegistroAtendimento>();
-      this.http.get(this.baseUrl + `registroAtendimento/` + id)
+      let subject = new Subject<any>();
+      this.http.get<RegistroAtendimento>(this.baseUrl + 'registroAtendimento/' + id)
         .pipe(
           catchError(error => of({error})
           )).subscribe((json: any) => {

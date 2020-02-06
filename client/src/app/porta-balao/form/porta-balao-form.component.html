@@ -1,24 +1,43 @@
-<main class="main-container">
-  <section class="container">
-    <section class="list-head">
-      <span class="label-list">Paciente</span>
-      <span class="label-list">Sexo</span>
-      <span class="label-list">Mãe</span>
-      <span class="label-list">Nascimento</span>
-      <span class="label-list">Registro</span>
-    </section>
-    <section class="list-body">
-      <div *ngFor="let registro of registros">
-        <span>{{registro.paciente.nome}}</span>
-        <span>{{registro.paciente.sexo}}</span>
-        <span>{{registro.paciente.nomeMae}}</span>
-        <span>{{registro.paciente.nascimento}}</span>
-        <span>{{registro.paciente.registros}}</span>
+<div class="container">
+  <article class="card-info">
+    <div class="flex-row">
+      <div class="flex-column">
+        <span class="label">Paciente:</span>
+        <p class="info">{{registro?.paciente?.nome}}</p>
       </div>
-    </section>
-    <form [formGroup]="form" class="form-container">
-      <label for="data" class="form-label">Data de balão</label>
-      <input id="data" type="date" name="data" class="form-control">
+      <div class="flex-column">
+        <span class="label">Sexo:</span>
+        <p class="info">{{registro?.paciente?.sexo}}</p>
+      </div>
+    </div>
+    <div class="flex-row">
+      <div class="flex-column">
+        <span class="label">Mãe:</span>
+        <p class="info">{{registro?.paciente?.nomeMae}}</p>
+      </div>
+      <div class="flex-column">
+        <span class="label">Nascimento:</span>
+        <p class="info">{{registro?.paciente?.nascimento | date: 'dd/MM/yyyy'}}</p>
+      </div>
+    </div>
+    <div class="flex-row">
+      <div class="flex-column">
+        <span class="label">Registro:</span>
+        <p class="info">{{registro?.id}}</p>
+      </div>
+    </div>
+    <form [formGroup]="form" class="flex-row">
+      <div class="flex-column">
+        <span class="label">Data de balão:</span>
+        <input type="date" class="input-date" value="2020-02-04">
+      </div>
+      <div class="flex-column">
+        <span class="label">Hora de balão:</span>
+        <input type="time" class="input-date" value="09:10">
+      </div>
+      <div class="flex-column">
+        <button class="button button-blue btn-save">Salvar</button>
+      </div>
     </form>
-  </section>
-</main>
+  </article>
+</div>

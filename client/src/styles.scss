@@ -377,9 +377,10 @@ tspan {
 .card-info {
   background: #fff;
   padding: 15px;
+  border-radius: 5px;
   border: 1px solid #EEEAEA;
+  box-shadow: 1px 1px 6px #707070;
   width: 50%;
-
   .label {
     font-size: 16px;
     font-weight: lighter;
