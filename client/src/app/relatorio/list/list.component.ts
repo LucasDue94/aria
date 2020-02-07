@@ -15,8 +15,7 @@ export class ListComponent implements OnInit {
   }
 
   ngOnInit() {
-    //TODO Sem o timeout não muda o título da tela, verificar o titleService
-    window.setTimeout(() => this.titleService.send('Lista de Relatórios'), 100)
+    this.titleService.send('Lista de Relatórios');
   }
 
 }
