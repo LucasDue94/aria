@@ -20,7 +20,7 @@ import {ApacheModule} from "./apache/apache.module";
 import {SelectModule} from "./select/select.module";
 import {LoginModule} from "./login/login.module";
 import {AuthGuard} from "./core/guards/auth.guard";
-import {HashLocationStrategy, LocationStrategy} from "@angular/common";
+import {DatePipe, HashLocationStrategy, LocationStrategy} from "@angular/common";
 import {RelatorioModule} from "./relatorio/relatorio.module";
 import {GrupoModule} from "./grupo/grupo.module";
 import {UsuarioModule} from "./usuario/usuario.module";
@@ -66,7 +66,7 @@ import {PortaBalaoModule} from "./porta-balao/porta-balao.module";
 ],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy},
-    AuthGuard],
+    AuthGuard, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule {

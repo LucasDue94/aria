@@ -12,6 +12,7 @@ import {Paciente} from "../../core/paciente/paciente";
 import {PacienteService} from "../../core/paciente/paciente.service";
 import {TipoIncidenteService} from "../../core/tipoIncidente/tipoIncidente.service";
 import {TipoIncidente} from "../../core/tipoIncidente/tipoIncidente";
+import {DatePipe} from "@angular/common";
 
 @Component({
   selector: 'incidente-form',
@@ -19,6 +20,12 @@ import {TipoIncidente} from "../../core/tipoIncidente/tipoIncidente";
   styleUrls: ['./incidente-form.component.scss']
 })
 export class IncidenteFormComponent implements OnInit {
+
+  private incidente: Incidente = new Incidente();
+  private paciente: Paciente;
+  private tiposIncidente = [];
+  url = this.route.snapshot.url[0].path;
+
   form = this.fb.group({
     data: ['', Validators.required],
     hora: ['', Validators.required],
@@ -26,54 +33,75 @@ export class IncidenteFormComponent implements OnInit {
     obs: [''],
   });
 
-  private incidente: Incidente;
-  private paciente: Paciente;
-  private tiposIncidente = [];
-  url = this.route.snapshot.url[0].path;
 
   constructor(private fb: FormBuilder, private titleService: TitleService,
               private render: Renderer2,
               private incidenteService: IncidenteService, private errorService: ErrorService,
               private alertService: AlertService, private route: ActivatedRoute,
               private router: Router, private spinner: SpinnerService, private pacienteService: PacienteService,
-              private tipoIncidenteService: TipoIncidenteService) {
+              private tipoIncidenteService: TipoIncidenteService,
+              private datePipe: DatePipe) {
   }
 
   ngOnInit() {
-    this.url == 'create' ? this.titleService.send('Incidente - Novo Incidente') : this.titleService.send('Incidente - Editar Incidente');
-
-    const pacienteId = this.route.snapshot.queryParams['paciente'];
-    if (pacienteId != undefined) {
-      this.spinner.show();
-      this.pacienteService.get(pacienteId).subscribe(res => {
-        if (res.hasOwnProperty('error')) {
-          this.errorService.sendError(res)
-        } else {
-          this.paciente = res;
-        }
-        this.spinner.hide();
-      });
-    }
-
-    this.tipoIncidenteService.list().subscribe(res => {
-      if (res.hasOwnProperty('error')) {
-        this.errorService.sendError(res)
-      } else {
-        this.tiposIncidente = res;
+    if(this.url == 'create') {
+      this.titleService.send('Incidente - Novo Incidente');
+      const pacienteId = this.route.snapshot.queryParams['paciente'];
+      if (pacienteId != undefined) {
+        this.spinner.show();
+        this.pacienteService.get(pacienteId).subscribe(res => {
+          if (res.hasOwnProperty('error')) {
+            this.errorService.sendError(res)
+          } else {
+            this.paciente = res;
+            this.tipoIncidenteService.list().subscribe(res => {
+              if (res.hasOwnProperty('error')) {
+                this.errorService.sendError(res);
+              } else {
+                this.tiposIncidente = res;
+                this.setForm();
+                this.spinner.hide();
+              }
+            });
+          }
+        });
       }
-    });
+    } else {
+      this.titleService.send('Incidente - Editar Incidente');
+      const incidenteId = this.route.snapshot.params['id'];
+      if (incidenteId != undefined) {
+        this.spinner.show();
+        this.tipoIncidenteService.list().subscribe(res => {
+          if (res.hasOwnProperty('error')) {
+            this.errorService.sendError(res);
+          } else {
+            this.tiposIncidente = res;
+            this.incidenteService.get(incidenteId).subscribe(res => {
+              if (res.hasOwnProperty('error')) {
+                this.errorService.sendError(res)
+              } else {
+                this.incidente = res;
+                this.paciente = this.incidente.paciente;
+                this.setForm();
+              }
+              this.spinner.hide();
+            });
+          }
+        });
+      }
+    }
+  }
 
-    const id = this.route.snapshot.params['id'];
-    if (id != undefined) {
-      this.spinner.show();
-      this.incidenteService.get(id).subscribe(res => {
-        if (res.hasOwnProperty('error')) {
-          this.errorService.sendError(res)
-        } else {
-          this.incidente = res;
-        }
-        this.spinner.hide();
-      });
+  setForm() {
+    if(this.incidente.id == undefined) {
+      const lastDateTime = new Date();
+      this.f.data.setValue(this.datePipe.transform(lastDateTime, 'yyyy-MM-dd'));
+      this.f.hora.setValue(this.datePipe.transform(lastDateTime, 'HH:mm'));
+    } else {
+      this.f.data.setValue(this.datePipe.transform(this.incidente.dataHora, 'yyyy-MM-dd'));
+      this.f.hora.setValue(this.datePipe.transform(this.incidente.dataHora, 'HH:mm'));
+      this.f.tipoIncidente.setValue(this.incidente.tipoIncidente.id);
+      this.f.obs.setValue(this.incidente.obs);
     }
   }
 

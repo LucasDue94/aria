@@ -30,7 +30,9 @@
       <div class="flex-row flex-wrap">
         <div class="form-group flex-0">
           <label class="label">Data Incidente*:</label>
-          <input formControlName="data" type="date" class="form-control" [ngClass]="{'form-control-error': f.data.errors && (f.data.dirty || f.data.touched)}" required>
+          <input formControlName="data" type="date" class="form-control"
+
+                 [ngClass]="{'form-control-error': f.data.errors && (f.data.dirty || f.data.touched)}" required>
           <p class="error-label" *ngIf="f.data.errors && (f.data.dirty || f.data.touched)">
             não pode ser branco
           </p>

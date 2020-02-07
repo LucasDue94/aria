@@ -240,6 +240,11 @@ const routes: Routes = [
             path: 'create',
             component: IncidenteFormComponent,
             canActivate: [AuthGuard]
+          },
+          {
+            path: 'edit/:id',
+            component: IncidenteFormComponent,
+            canActivate: [AuthGuard]
           }
         ]
       },

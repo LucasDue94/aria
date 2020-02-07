@@ -7,5 +7,6 @@ class Incidente {
     static belongsTo = [tipoIncidente: TipoIncidente, paciente: Paciente]
     String obs
     static constraints = {
+        obs blank: true, nullable: true
     }
 }
