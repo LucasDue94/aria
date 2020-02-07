@@ -7,7 +7,6 @@ class TipoIncidente {
 
     static constraints = {
         nome nullable: false, unique: true
-        riscos minSize: 1
     }
 
 }
