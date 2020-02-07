@@ -8,6 +8,7 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {InfiniteScrollModule} from "ngx-infinite-scroll";
 import {SpinnerModule} from "../spinner/spinner.module";
 import { PacienteDetailsComponent } from './paciente-details/paciente-details.component';
+import { IncidenteReportComponent } from './incidente-report/incidente-report.component';
 
 
 
@@ -15,7 +16,8 @@ import { PacienteDetailsComponent } from './paciente-details/paciente-details.co
   declarations: [
     PacienteListComponent,
     IncidenteFormComponent,
-    PacienteDetailsComponent
+    PacienteDetailsComponent,
+    IncidenteReportComponent
   ],
   imports: [
     CommonModule,

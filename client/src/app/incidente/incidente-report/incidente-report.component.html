@@ -1,0 +1,30 @@
+<div class="container">
+  <form [formGroup]="form" class="filter-panel">
+    <div>
+      <label class="label-panel" for="inicio">Inicio:</label>
+      <input formControlName="dataInicio" class="input-date" id="inicio" type="date">
+    </div>
+    <div>
+      <label class="label-panel" for="fim">Fim:</label>
+      <input formControlName="dataFim" class="input-date" id="fim" type="date">
+    </div>
+    <div>
+      <label class="label-panel" for="fim">Setor:</label>
+      <select  name="setor" class="panel-select" formControlName="setorId">
+        <option value="null">Selecione</option>
+        <option name="setor" *ngFor="let setor of setores" [ngValue]="setor.id">{{setor.sigla}}</option>
+      </select>
+      <button class="button-search-panel" (click)="updateChart()">
+        <fa-icon [icon]=faSearch></fa-icon>
+        Buscar
+      </button>
+      <button class="button-search-panel" *ngIf="chart" (click)="generatePdf()">
+        <fa-icon [icon]=faPrint></fa-icon>
+      </button>
+    </div>
+  </form>
+
+<!--  <section class="panel-chart" *ngIf="apacheChart">-->
+<!--    <section [chart]="apacheChart" id="apache" #chartSVG>Apache II</section>-->
+<!--  </section>-->
+</div>

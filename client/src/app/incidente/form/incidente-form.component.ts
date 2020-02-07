@@ -11,7 +11,6 @@ import {faCheck, faFrown} from "@fortawesome/free-solid-svg-icons";
 import {Paciente} from "../../core/paciente/paciente";
 import {PacienteService} from "../../core/paciente/paciente.service";
 import {TipoIncidenteService} from "../../core/tipoIncidente/tipoIncidente.service";
-import {TipoIncidente} from "../../core/tipoIncidente/tipoIncidente";
 import {DatePipe} from "@angular/common";
 
 @Component({
@@ -21,9 +20,9 @@ import {DatePipe} from "@angular/common";
 })
 export class IncidenteFormComponent implements OnInit {
 
-  private incidente: Incidente = new Incidente();
-  private paciente: Paciente;
-  private tiposIncidente = [];
+  incidente: Incidente = new Incidente();
+  paciente: Paciente;
+  tiposIncidente = [];
   url = this.route.snapshot.url[0].path;
 
   form = this.fb.group({

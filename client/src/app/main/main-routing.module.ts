@@ -24,6 +24,7 @@ import {PortaBalaoFormComponent} from "../porta-balao/form/porta-balao-form.comp
 import {PortaBalaoListComponent} from "../porta-balao/list/porta-balao-list.component";
 import {PacienteDetailsComponent} from "../incidente/paciente-details/paciente-details.component";
 import {IncidenteFormComponent} from "../incidente/form/incidente-form.component";
+import {IncidenteReportComponent} from "../incidente/incidente-report/incidente-report.component";
 
 const routes: Routes = [
   {
@@ -244,6 +245,11 @@ const routes: Routes = [
           {
             path: 'edit/:id',
             component: IncidenteFormComponent,
+            canActivate: [AuthGuard]
+          },
+          {
+            path: 'report',
+            component: IncidenteReportComponent,
             canActivate: [AuthGuard]
           }
         ]
