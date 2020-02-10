@@ -23,6 +23,8 @@ import {PacienteListComponent} from "../incidente/paciente-list/paciente-list.co
 import {PortaBalaoFormComponent} from "../porta-balao/form/porta-balao-form.component";
 import {PortaBalaoListComponent} from "../porta-balao/list/porta-balao-list.component";
 import {PacienteDetailsComponent} from "../incidente/paciente-details/paciente-details.component";
+import {IncidenteFormComponent} from "../incidente/form/incidente-form.component";
+import {IncidenteReportComponent} from "../incidente/incidente-report/incidente-report.component";
 
 const routes: Routes = [
   {
@@ -235,11 +237,21 @@ const routes: Routes = [
             component: PacienteDetailsComponent,
             canActivate: [AuthGuard],
           },
-          // {
-          //   path: 'edit/:id',
-          //   component: ,
-          //   canActivate: [AuthGuard]
-          // }
+          {
+            path: 'create',
+            component: IncidenteFormComponent,
+            canActivate: [AuthGuard]
+          },
+          {
+            path: 'edit/:id',
+            component: IncidenteFormComponent,
+            canActivate: [AuthGuard]
+          },
+          {
+            path: 'report',
+            component: IncidenteReportComponent,
+            canActivate: [AuthGuard]
+          }
         ]
       },
     ]

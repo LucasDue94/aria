@@ -5,7 +5,7 @@ export class Paciente {
   id: string;
   nome: string;
   registros: RegistroAtendimento[];
-  incidentes: Incidente[];
+  incidentes: Incidente[] = new Array<Incidente>();
   sexo: any;
   nomeMae: string;
   nascimento: any;
@@ -18,6 +18,13 @@ export class Paciente {
           return new RegistroAtendimento(obj);
         });
         delete object['registros'];
+      }
+
+      if (object.hasOwnProperty('incidentes')) {
+        this.incidentes = object['incidentes'].map((obj: any) => {
+          return new Incidente(obj);
+        });
+        delete object['incidentes'];
       }
 
       for (var prop in object) {

@@ -68,7 +68,7 @@ export class TipoIncidenteFormComponent implements OnInit {
           this.alertService.send(
             {message: 'Tipo de Incidente Criado!', type: 'success', icon: faCheck}
           ) :  this.alertService.send(
-          {message: 'Tipo de Incidente Aterado!', type: 'success', icon: faCheck}
+          {message: 'Tipo de Incidente Alterado!', type: 'success', icon: faCheck}
           ) ;
 
         setTimeout(() => {

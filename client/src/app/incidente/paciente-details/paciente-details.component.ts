@@ -3,7 +3,8 @@ import {Paciente} from "../../core/paciente/paciente";
 import {PacienteService} from "../../core/paciente/paciente.service";
 import {ActivatedRoute} from "@angular/router";
 import {TitleService} from "../../core/title/title.service";
-import {faFrown, faPlus} from '@fortawesome/free-solid-svg-icons';
+import {faSmile, faPlus} from '@fortawesome/free-solid-svg-icons';
+import {SpinnerService} from "../../core/spinner/spinner.service";
 
 @Component({
   selector: 'app-paciente-details',
@@ -13,15 +14,20 @@ import {faFrown, faPlus} from '@fortawesome/free-solid-svg-icons';
 export class PacienteDetailsComponent implements OnInit {
 
   private paciente: Paciente = new Paciente();
-  private faFrown = faFrown;
+  private faSmile = faSmile;
   private faPlus = faPlus;
 
-  constructor(private pacienteService: PacienteService, private route: ActivatedRoute, private title: TitleService) { }
+  constructor(private pacienteService: PacienteService,
+              private route: ActivatedRoute,
+              private title: TitleService,
+              private spinnerService: SpinnerService) { }
 
   ngOnInit() {
+    this.spinnerService.show();
     this.title.send('Incidente - Detalhes de Paciente');
     this.pacienteService.get(this.route.snapshot.paramMap.get('id')).subscribe( paciente => {
       this.paciente = paciente;
+      this.spinnerService.hide();
     });
   }
 }

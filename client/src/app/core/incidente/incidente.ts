@@ -1,9 +1,12 @@
-import {Risco} from "../risco/risco";
+import {TipoIncidente} from "../tipoIncidente/tipoIncidente";
+import {Paciente} from "../paciente/paciente";
 
 export class Incidente {
   id: string;
-  nome: string;
-  risco: Risco;
+  dataHora: Date;
+  paciente: Paciente;
+  tipoIncidente: TipoIncidente;
+  obs: string;
 
   constructor(object?: any) {
     if (object) {

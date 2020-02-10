@@ -180,6 +180,10 @@ tspan {
     transition: 0.3s;
     background-color: $blue-default;
   }
+
+  &:disabled {
+    opacity: 0.3;
+  }
 }
 
 .button-add {

@@ -1,4 +1,5 @@
 package br.com.hospitaldocoracaoal.integracao
+import br.com.hospitaldocoracaoal.aria.Incidente
 
 class Paciente {
 
@@ -7,7 +8,7 @@ class Paciente {
     Character sexo
     Date nascimento
     String nomeMae
-    static hasMany = [registros: RegistroAtendimento]
+    static hasMany = [registros: RegistroAtendimento, incidentes: Incidente]
 
     static constraints = {
     }

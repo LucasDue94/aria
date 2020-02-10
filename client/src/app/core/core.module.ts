@@ -22,6 +22,7 @@ import { PermissaoService } from './permissao/permissao.service';
 import { GrupoService } from './grupo/grupo.service';
 import {RiscoService} from "./risco/risco.service";
 import { TipoIncidenteService } from './tipoIncidente/tipoIncidente.service';
+import {IncidenteService} from "./incidente/incidente.service";
 import {PortaBalaoService} from "./portaBalao/portaBalao.service";
 
 
@@ -54,6 +55,8 @@ import {PortaBalaoService} from "./portaBalao/portaBalao.service";
     RiscoService,
     TipoIncidenteService,
     PortaBalaoService
+    TipoIncidenteService,
+    IncidenteService
 ]
 })
 export class CoreModule {

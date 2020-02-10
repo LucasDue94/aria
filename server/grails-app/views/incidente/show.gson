@@ -1,0 +1,7 @@
+import br.com.hospitaldocoracaoal.aria.Incidente
+
+model {
+	Incidente incidente
+}
+
+json tmpl.incidente(incidente)

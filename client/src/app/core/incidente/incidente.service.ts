@@ -36,7 +36,7 @@ export class IncidenteService {
     return subject.asObservable();
   }
 
-  save(incidente: Incidente): Observable<any> {
+  save(incidente: any): Observable<any> {
     let subject = new Subject<Incidente>();
     if (incidente.id) {
       this.http.put<Incidente>(this.baseUrl + 'incidente/' + incidente.id, incidente, {

@@ -59,7 +59,7 @@ export class RiscoFormComponent implements OnInit {
           this.alertService.send(
             {message: 'Risco Criado!', type: 'success', icon: faCheck}
           ) :  this.alertService.send(
-          {message: 'Risco Aterado!', type: 'success', icon: faCheck}
+          {message: 'Risco Alterado!', type: 'success', icon: faCheck}
           ) ;
 
         setTimeout(() => {
