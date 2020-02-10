@@ -54,8 +54,7 @@ import {PortaBalaoService} from "./portaBalao/portaBalao.service";
     GrupoService,
     RiscoService,
     TipoIncidenteService,
-    PortaBalaoService
-    TipoIncidenteService,
+    PortaBalaoService,
     IncidenteService
 ]
 })
