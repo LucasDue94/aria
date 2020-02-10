@@ -4,6 +4,13 @@ import {FormBuilder, Validators} from "@angular/forms";
 import {RegistroAtendimento} from "../../core/registroAtendimento/registroAtendimento";
 import {RegistroAtendimentoService} from "../../core/registroAtendimento/registroAtendimento.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import {PortaBalao} from "../../core/portaBalao/portaBalao";
+import {PortaBalaoService} from "../../core/portaBalao/portaBalao.service";
+import {ErrorService} from "../../core/error/error.service";
+import {AlertService} from "../../core/alert/alert.service";
+import {DatePipe} from "@angular/common";
+import {faFrown} from "@fortawesome/free-solid-svg-icons";
+import {SpinnerService} from "../../core/spinner/spinner.service";
 
 @Component({
   selector: 'app-porta-balao-form',
@@ -12,24 +19,55 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class PortaBalaoFormComponent implements OnInit {
 
-  registro: RegistroAtendimento;
   registroId;
+  today = new Date();
+  datePipe = new DatePipe('en-US');
+  registro: RegistroAtendimento;
+  portaBalao: PortaBalao = new PortaBalao();
+  searchForm = this.fb.group({searchControl: ['']});
   form = this.fb.group({
-    data: ['', Validators.required],
-    hora: ['', Validators.required]
+    dataBalao: [this.datePipe.transform(this.today, 'yyyy-MM-dd', '', 'en-US'), Validators.required],
+    horaBalao: [this.datePipe.transform(this.today, 'HH:mm', '', 'en-US'), Validators.required]
   });
 
   constructor(
     private titleService: TitleService,
     private fb: FormBuilder, private route: ActivatedRoute,
-    private registroAtendimentoService: RegistroAtendimentoService) {}
+    private portaBalaoService: PortaBalaoService,
+    private router: Router, private spinner: SpinnerService,
+    private alertService: AlertService,  datePipe: DatePipe,
+    private errorService: ErrorService,
+    private registroAtendimentoService: RegistroAtendimentoService) {
+  }
 
   ngOnInit() {
-    this.titleService.send('Novo - Porta Balão');
+    this.spinner.show();
+    this.titleService.send('Porta Balão');
     this.registroId = this.route.snapshot.params.id;
     this.registroAtendimentoService.get(this.registroId).subscribe(registro => {
       this.registro = registro;
+      this.spinner.hide();
     });
   }
 
+  save() {
+    this.portaBalao.registroAtendimento = new RegistroAtendimento({id: this.registroId});
+    this.portaBalao.dataHoraBalao = this.form.get('dataBalao').value + " " + this.form.get('horaBalao').value;
+    this.portaBalaoService.save(this.portaBalao).subscribe(res => {
+      if (res.hasOwnProperty('error')) {
+
+      } else {
+        this.router.navigate(['portaBalao']);
+        setTimeout(() => {
+          this.alertService.send({
+            message: 'Porta balão cadastrado',
+            type: 'success',
+            icon: faFrown
+          });
+        }, 500)
+      }
+    });
+  }
 }
+
+

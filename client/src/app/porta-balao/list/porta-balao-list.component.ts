@@ -8,6 +8,8 @@ import {RegistroAtendimentoService} from "../../core/registroAtendimento/registr
 import {ErrorService} from "../../core/error/error.service";
 import {Setor} from "../../core/setor/setor";
 import {SetorService} from "../../core/setor/setor.service";
+import {SpinnerService} from "../../core/spinner/spinner.service";
+import {debounceTime, switchMap} from "rxjs/operators";
 
 @Component({
   selector: 'app-porta-balao-list',
@@ -16,34 +18,40 @@ import {SetorService} from "../../core/setor/setor.service";
 })
 export class PortaBalaoListComponent implements OnInit {
 
+  setorId = 1;
   faSearch = faSearch;
   faFrown = faFrown;
   registros: RegistroAtendimento[];
   setores: Setor[];
   showListScrollSpinner = false;
-  offset = 0;
-  max = 30;
   searchForm = this.fb.group({
     searchControl: ['']
   });
-  setorId = 1;
+  offset = 0;
+  max = 30;
+  termo = '';
 
-  constructor(private titleService: TitleService,
+  constructor(private titleService: TitleService, private spinner: SpinnerService,
               private registroAtendimentoService: RegistroAtendimentoService,
               private fb: FormBuilder, private setorService: SetorService,
               private errorService: ErrorService) {
   }
 
   ngOnInit() {
+    this.spinner.show();
     this.titleService.send('Lista de Porta Balão');
-    this.list();
+    this.registroAtendimentoService.list( null,'','').subscribe(registros => {
+      this.registros = registros;
+      this.spinner.hide();
+    });
   }
 
-  search() {}
-
-  list() {
-    this.registroAtendimentoService.list(this.setorId, '', '').subscribe(registros => {
-      this.registros = registros;
+  search() {
+    this.searchForm.get('searchControl').valueChanges.pipe(
+      debounceTime(1000),
+    ).subscribe(res => {
+     /* this.admissoesPacSetor = res;*/
+      this.spinner.hide();
     });
   }
 

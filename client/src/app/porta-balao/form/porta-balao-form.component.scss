@@ -1,9 +1,16 @@
 @import "src/assets/device-sizes";
+@import "../../../inputs";
+
+.filters-container {
+  display: flex;
+  align-items: center;
+  flex-flow: row wrap;
+}
 
 .btn-save {
   position: relative;
   left: -18px;
-  margin-left: auto;
+  margin-left: 0;
   margin-top: 15px;
   width: 90px;
   height: 35px;
