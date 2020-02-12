@@ -18,7 +18,7 @@
       <span class="th">Nascimento</span>
     </section>
     <section class="tbody content-paciente" [scrollWindow]="false" infinite-scroll (scrolled)="scrollDown()">
-      <div [routerLink]="['/portaBalao','create', registro.id]" class="row" *ngFor="let registro of atendimentos">
+      <div [routerLink]="['/ecg','create', registro.id]" class="row" *ngFor="let registro of atendimentos">
         <span class="td">{{registro.paciente.id}}</span>
         <span class="td">{{registro.paciente.nome}}</span>
         <span class="td">{{registro.paciente.sexo}}</span>
@@ -27,7 +27,7 @@
         <span class="td">{{registro.paciente.nascimento | date: "dd/MM/yyyy" }}</span>
       </div>
       <app-scroll-spinner [show]="showListScrollSpinner"></app-scroll-spinner>
-      <div class="empty" *ngIf="internamentos?.length == 0">
+      <div class="empty" *ngIf="urgencias?.length == 0">
         <p>Nenhum paciente encontrado!</p>
         <fa-icon class="icon" [icon]="faFrown" size="2x"></fa-icon>
       </div>

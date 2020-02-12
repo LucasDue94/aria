@@ -1,20 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {PortaBalaoListComponent} from "./list/porta-balao-list.component";
-import {PortaBalaoFormComponent} from "./form/porta-balao-form.component";
 import {InfiniteScrollModule} from "ngx-infinite-scroll";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {RouterModule} from "@angular/router";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {SpinnerModule} from "../spinner/spinner.module";
-import {RouterModule} from "@angular/router";
-import {RegistroAtendimentoModule} from "../registro-atendimento/registro-atendimento.module";
+import {RegistroAtendimentoComponent} from "./list/registro-atendimento.component";
 
 
 
 @NgModule({
   declarations: [
-    PortaBalaoListComponent,
-    PortaBalaoFormComponent
+    RegistroAtendimentoComponent
+  ],
+  exports: [
+    RegistroAtendimentoComponent
   ],
   imports: [
     CommonModule,
@@ -24,8 +24,7 @@ import {RegistroAtendimentoModule} from "../registro-atendimento/registro-atendi
     FontAwesomeModule,
     InfiniteScrollModule,
     SpinnerModule,
-    FormsModule,
-    RegistroAtendimentoModule
+    FormsModule
   ]
 })
-export class PortaBalaoModule { }
+export class RegistroAtendimentoModule { }

@@ -11,6 +11,8 @@ class UrlMappings {
             put "/$controller/$id(.$format)?"(action: "update")
             patch "/$controller/$id(.$format)?"(action: "patch")
 
+            get '/registroAtendimento/internamentos'(controller: "registroAtendimento", action: 'listInternamentos')
+            get '/registroAtendimento/urgencias'(controller: "registroAtendimento", action: 'listUrgencias')
             get '/setor/admissoes'(controller: "setor", action: 'admissions')
             get '/apache/relatorio'(controller: "apache", action: 'report')
             get '/apache/notificacoes'(controller: "apache", action: 'notificacoes')

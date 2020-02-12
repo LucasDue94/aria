@@ -1,0 +1,7 @@
+import br.com.hospitaldocoracaoal.aria.Ecg
+
+model {
+	Ecg ecg
+}
+
+json tmpl.ecg(ecg)

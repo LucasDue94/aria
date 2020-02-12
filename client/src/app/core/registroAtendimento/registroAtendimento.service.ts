@@ -31,6 +31,46 @@ export class RegistroAtendimentoService {
     return subject.asObservable();
   }
 
+  listInternamentos(max?: any, offset?: any): Observable<RegistroAtendimento[]> {
+    let subject = new Subject<RegistroAtendimento[]>();
+    this.http.get(this.baseUrl + `registroAtendimento/internamentos?offset=` + offset + '&max=' + max)
+      .subscribe((json: any[]) => {
+        subject.next(json.map((propertyName: any) => new RegistroAtendimento(propertyName)))
+      });
+    return subject.asObservable();
+  }
+
+  listUrgencias(max?: any, offset?: any): Observable<RegistroAtendimento[]> {
+    let subject = new Subject<RegistroAtendimento[]>();
+    this.http.get(this.baseUrl + `registroAtendimento/urgencias?offset=` + offset + '&max=' + max)
+      .subscribe((json: any[]) => {
+        subject.next(json.map((propertyName: any) => new RegistroAtendimento(propertyName)))
+      });
+    return subject.asObservable();
+  }
+
+  searchInternamentos(termo?: string, offset?: any, max?: any): Observable<any[]> {
+    let subject = new Subject<any[]>();
+    this.http.get(this.baseUrl + 'registroAtendimento/internamentos?termo=' + termo + '&offset=' + offset + '&max=' + max)
+      .pipe(
+        catchError(error => of({error})
+        )).subscribe((json: any[]) => {
+      subject.next(json);
+    });
+    return subject.asObservable();
+  }
+
+  searchUrgencias(termo?: string, offset?: any, max?: any): Observable<any[]> {
+    let subject = new Subject<any[]>();
+    this.http.get(this.baseUrl + 'registroAtendimento/urgencias?termo=' + termo + '&offset=' + offset + '&max=' + max)
+      .pipe(
+        catchError(error => of({error})
+        )).subscribe((json: any[]) => {
+      subject.next(json);
+    });
+    return subject.asObservable();
+  }
+
   count() {
     let quantity: number;
     return this.http.get<RegistroAtendimento[]>(this.baseUrl + `registroAtendimento/`).pipe(

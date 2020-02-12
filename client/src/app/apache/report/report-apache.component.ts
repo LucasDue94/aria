@@ -189,115 +189,114 @@ export class ReportApacheComponent extends DatePipe implements OnInit, DatePipe 
         icon: faFrown
       });
     } else {
-      if(this.setorId == null) {
+      if (this.setorId == null) {
         this.alertService.send({
           message: 'Ops... Selecione um setor!',
           type: 'error',
           icon: faFrown
         });
-      }
-      else {
+      } else {
         this.apacheService.report(this.dataInicio, this.dataFim, this.setorId).subscribe(this.generateChartApache);
       }
     }
   }
 
-generateChartApache(apaches:any[]) {
-  this.cirurgico = apaches['cirurgico'];
-  this.naoCirurgico = apaches['naoCirurgico'];
-  this.pacientesObito = apaches['pacientesObito'];
-  this.altasNaoCirurgicas = [];
-  this.obitosNaoCirurgicos = [];
-  this.smrNaoCirurgico = [];
-  this.altasCirurgicos = [];
-  this.obitosCirurgicos = [];
-  this.smrCirurgicos = [];
+  generateChartApache(apaches: any[]) {
+    this.cirurgico = apaches['cirurgico'];
+    this.naoCirurgico = apaches['naoCirurgico'];
+    this.pacientesObito = apaches['pacientesObito'];
+    this.altasNaoCirurgicas = [];
+    this.obitosNaoCirurgicos = [];
+    this.smrNaoCirurgico = [];
+    this.altasCirurgicos = [];
+    this.obitosCirurgicos = [];
+    this.smrCirurgicos = [];
 
-  if (this.pacientesObito.length <= 0) {
-    this.obitos = false;
-  } else {
-    this.obitos = true;
-  }
-
-  if (apaches.hasOwnProperty('naoCirurgico')) {
-    Object.keys(this.naoCirurgico).forEach(key => {
-      this.altasNaoCirurgicas.push(this.naoCirurgico[key]['altas']);
-      this.obitosNaoCirurgicos.push(this.naoCirurgico[key]['obitos']);
-      this.smrNaoCirurgico.push(this.naoCirurgico[key]['smr']);
-    });
-  }
-
-  if (apaches.hasOwnProperty('cirurgico')) {
-    Object.keys(this.cirurgico).forEach(key => {
-      this.altasCirurgicos.push(this.cirurgico[key]['altas'] * (-1));
-      this.obitosCirurgicos.push(this.cirurgico[key]['obitos'] * (-1));
-      this.smrCirurgicos.push(this.cirurgico[key]['smr'] * (-1));
-    });
-  }
-
-  const chartOptions = {
-    series: [
-      {
-        name: 'ALTAS POST-OP',
-        data: this.altasCirurgicos,
-        color: '#7EAECC'
-      } as SeriesBarOptions, {
-        name: 'ALTAS NON-OP',
-        data:
-        this.altasNaoCirurgicas
-        ,
-        color: '#8FBFA7'
-      } as SeriesBarOptions, {
-        name: 'ÓBITOS POST-OP',
-        data: this.obitosCirurgicos,
-        color: '#FF9A8F'
-      } as SeriesBarOptions, {
-        name: 'ÓBITOS NON-OP',
-        data: this.obitosNaoCirurgicos,
-        color: '#8B8C8F'
-      } as SeriesBarOptions, {
-        name: 'SMR POST-OP',
-        type: 'spline',
-        data: this.smrCirurgicos,
-        color: '#C02110'
-      } as SeriesSplineOptions, {
-        name: 'SMR NON-OP',
-        type: 'spline',
-        data: this.smrNaoCirurgico,
-        color: '#2B1E1D'
-      } as SeriesSplineOptions
-    ],
-    exporting: {
-      enabled: false
+    if (this.pacientesObito.length <= 0) {
+      this.obitos = false;
+    } else {
+      this.obitos = true;
     }
-  };
 
-  if (this.apacheChart) {
-    this.apacheChart.ref.update(chartOptions);
-  } else {
-    this.apacheChart = new Chart(Object.assign(this.optionsChart, chartOptions));
+    if (apaches.hasOwnProperty('naoCirurgico')) {
+      Object.keys(this.naoCirurgico).forEach(key => {
+        this.altasNaoCirurgicas.push(this.naoCirurgico[key]['altas']);
+        this.obitosNaoCirurgicos.push(this.naoCirurgico[key]['obitos']);
+        this.smrNaoCirurgico.push(this.naoCirurgico[key]['smr']);
+      });
+    }
+
+    if (apaches.hasOwnProperty('cirurgico')) {
+      Object.keys(this.cirurgico).forEach(key => {
+        this.altasCirurgicos.push(this.cirurgico[key]['altas'] * (-1));
+        this.obitosCirurgicos.push(this.cirurgico[key]['obitos'] * (-1));
+        this.smrCirurgicos.push(this.cirurgico[key]['smr'] * (-1));
+      });
+    }
+
+    const chartOptions = {
+      series: [
+        {
+          name: 'ALTAS POST-OP',
+          data: this.altasCirurgicos,
+          color: '#7EAECC'
+        } as SeriesBarOptions, {
+          name: 'ALTAS NON-OP',
+          data:
+          this.altasNaoCirurgicas
+          ,
+          color: '#8FBFA7'
+        } as SeriesBarOptions, {
+          name: 'ÓBITOS POST-OP',
+          data: this.obitosCirurgicos,
+          color: '#FF9A8F'
+        } as SeriesBarOptions, {
+          name: 'ÓBITOS NON-OP',
+          data: this.obitosNaoCirurgicos,
+          color: '#8B8C8F'
+        } as SeriesBarOptions, {
+          name: 'SMR POST-OP',
+          type: 'spline',
+          data: this.smrCirurgicos,
+          color: '#C02110'
+        } as SeriesSplineOptions, {
+          name: 'SMR NON-OP',
+          type: 'spline',
+          data: this.smrNaoCirurgico,
+          color: '#2B1E1D'
+        } as SeriesSplineOptions
+      ],
+      exporting: {
+        enabled: false
+      }
+    };
+
+    if (this.apacheChart) {
+      this.apacheChart.ref.update(chartOptions);
+    } else {
+      this.apacheChart = new Chart(Object.assign(this.optionsChart, chartOptions));
+    }
   }
-}
 
-generatePdf() {
-  const modeloRelatorio = {
-    columns: [
-      {dataKey: 'id', header: 'Registro'},
-      {dataKey: 'nome', header: 'Paciente'},
-      {dataKey: 'nomeMae', header: 'Nome da Mãe'},
-      {dataKey: 'nascimento', header: 'Nascimento'}
-    ],
-    body: this.pacientesObito
-  };
-  const chartSVG = this.chartSVG.nativeElement.querySelector('.highcharts-root');
-  const report = new ReportBuilder();
-  report.addTable(modeloRelatorio);
-  report.addChart(new ChartImage(chartSVG));
-  report.print('RELATÓRIO APACHE II');
-}
+  generatePdf() {
+    const modeloRelatorio = {
+      columns: [
+        {dataKey: 'id', header: 'Registro'},
+        {dataKey: 'nome', header: 'Paciente'},
+        {dataKey: 'nomeMae', header: 'Nome da Mãe'},
+        {dataKey: 'nascimento', header: 'Nascimento'}
+      ],
+      body: this.pacientesObito
+    };
+    const chartSVG = this.chartSVG.nativeElement.querySelector('.highcharts-root');
+    const report = new ReportBuilder();
+    report.addTable(modeloRelatorio);
+    report.addChart(new ChartImage(chartSVG));
+    report.print('RELATÓRIO APACHE II');
+  }
 
-scrollDown() {
-  this.showListScrollSpinner = true;
-}
+  scrollDown() {
+    this.showListScrollSpinner = true;
+  }
 
 }

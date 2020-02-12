@@ -1,0 +1,8 @@
+import br.com.hospitaldocoracaoal.aria.Ecg
+
+model {
+	Iterable<Ecg> ecgList
+}
+
+json tmpl.ecg(ecgList ?: [])
+

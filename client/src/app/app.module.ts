@@ -29,9 +29,12 @@ import {RiscoModule} from "./risco/risco.module";
 import {TipoIncidenteModule} from './tipo-incidente/tipo-incidente.module';
 import {IncidenteModule} from "./incidente/incidente.module";
 import {PortaBalaoModule} from "./porta-balao/porta-balao.module";
+import {EcgModule} from './ecg/ecg.module';
+import {RegistroAtendimentoModule} from "./registro-atendimento/registro-atendimento.module";
 
 @NgModule({
-  exports: [],
+  exports: [
+  ],
   declarations: [
     AppComponent,
     PerfilDashboardComponent,
@@ -62,7 +65,9 @@ import {PortaBalaoModule} from "./porta-balao/porta-balao.module";
     RiscoModule,
     PortaBalaoModule,
     TipoIncidenteModule,
-    IncidenteModule
+    IncidenteModule,
+    EcgModule,
+    RegistroAtendimentoModule
 ],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy},

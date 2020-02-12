@@ -5,6 +5,8 @@ import br.com.hospitaldocoracaoal.aria.Setor
 import grails.gorm.services.Service
 import grails.web.servlet.mvc.GrailsParameterMap
 
+import static org.hibernate.sql.JoinType.INNER_JOIN
+
 @Service(RegistroAtendimento)
 abstract class RegistroAtendimentoService {
 
@@ -31,8 +33,36 @@ abstract class RegistroAtendimentoService {
         }
     }
 
-    abstract Long count()
+    List<RegistroAtendimento> listInternamentos(GrailsParameterMap args, String termo) {
+        def criteria = RegistroAtendimento.createCriteria()
+        criteria.list(args) {
+            createAlias 'paciente', 'p', INNER_JOIN
+            eq 'tipo', RegistroAtendimento.TIPO_INTERNO
 
+            if (termo != null && !termo.empty) {
+                or {
+                    ilike 'p.id', "%$termo%"
+                    ilike 'p.nome', "%$termo%"
+                }
+            }
+        } as List<RegistroAtendimento>
+    }
+
+    List<RegistroAtendimento> listUrgencias(GrailsParameterMap args, termo) {
+        def criteria = RegistroAtendimento.createCriteria()
+        criteria.list(args) {
+            createAlias 'paciente', 'p', INNER_JOIN
+            eq 'tipo', RegistroAtendimento.TIPO_EMERGENCIA
+            if (termo != null && !termo.empty) {
+                or {
+                    ilike 'p.id', "%$termo%"
+                    ilike 'p.nome', "%$termo%"
+                }
+            }
+        } as List<RegistroAtendimento>
+    }
+
+    abstract Long count()
     RegistroAtendimento get(String id){
         RegistroAtendimento.findById(id)
     }

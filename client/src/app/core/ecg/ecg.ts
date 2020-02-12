@@ -1,10 +1,10 @@
 import {RegistroAtendimento} from '../registroAtendimento/registroAtendimento';
 
-export class PortaBalao {
+export class Ecg {
   id: number;
+  dataHoraEcg: any;
+  dataTempoPorta: any;
   registroAtendimento: RegistroAtendimento;
-  dataHoraBalao: any;
-  status: boolean;
 
   constructor(object?: any) {
     if (object) {
@@ -22,6 +22,6 @@ export class PortaBalao {
   }
 
   toString(): string {
-    return 'br.com.hospitaldocoracaoal.aria.PortaBalao : ' + (this.id ? this.id : '(unsaved)');
+    return 'br.com.hospitaldocoracaoal.aria.Ecg : ' + (this.id ? this.id : '(unsaved)');
   }
 }

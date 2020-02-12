@@ -25,6 +25,8 @@ import {PortaBalaoListComponent} from "../porta-balao/list/porta-balao-list.comp
 import {PacienteDetailsComponent} from "../incidente/paciente-details/paciente-details.component";
 import {IncidenteFormComponent} from "../incidente/form/incidente-form.component";
 import {IncidenteReportComponent} from "../incidente/incidente-report/incidente-report.component";
+import {EcgListComponent} from "../ecg/list/ecg-list.component";
+import {EcgFormComponent} from "../ecg/form/ecg-form.component";
 
 const routes: Routes = [
   {
@@ -254,6 +256,27 @@ const routes: Routes = [
           }
         ]
       },
+      {
+        path: 'ecg',
+        children: [
+          {
+            path: '',
+            redirectTo: 'paciente-list',
+            pathMatch: 'full',
+            canActivate: [AuthGuard]
+          },
+          {
+            path: 'paciente-list',
+            component: EcgListComponent,
+            canActivate: [AuthGuard]
+          },
+          {
+            path: 'create/:id',
+            component: EcgFormComponent,
+            canActivate: [AuthGuard]
+          }
+        ]
+      }
     ]
   }
 ];

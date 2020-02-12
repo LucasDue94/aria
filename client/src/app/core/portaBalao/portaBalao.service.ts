@@ -44,15 +44,6 @@ export class PortaBalaoService {
         return subject.asObservable();
     }
 
-    search(searchTerm, offset?: any, max?): Observable<any[]> {
-        let subject = new Subject<PortaBalao[]>();
-        this.http.get(this.baseUrl + `portaBalao/` + '?offset=' + offset + '&max=' + max, {
-            params: {termo: searchTerm}
-        }).subscribe((json: any) => {
-            subject.next(json.map((obj: any) => new PortaBalao(obj)))
-        });
-        return subject.asObservable();
-    }
 
     save(portaBalao: PortaBalao): Observable<PortaBalao> {
         if (portaBalao.id) {

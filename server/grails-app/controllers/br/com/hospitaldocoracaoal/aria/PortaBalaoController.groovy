@@ -1,6 +1,5 @@
 package br.com.hospitaldocoracaoal.aria
 
-import br.com.hospitaldocoracaoal.integracao.RegistroAtendimento
 import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.CREATED
@@ -25,6 +24,7 @@ class PortaBalaoController {
         respond portaBalaoService.list(params), model:[portaBalaoCount: portaBalaoService.count()]
     }
 
+    @Secured('ROLE_PORTA_BALAO_SHOW')
     def show(Long id) {
         respond portaBalaoService.get(id)
     }

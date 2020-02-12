@@ -5,9 +5,10 @@ import br.com.hospitaldocoracaoal.integracao.RegistroAtendimento
 class PortaBalao {
 
     Date dataHoraBalao
-    Boolean status = false
 
-    static belongsTo = [registroAtendimento: RegistroAtendimento]
+    static belongsTo = [
+            registroAtendimento: RegistroAtendimento,
+    ]
 
     static constraints = {
         registroAtendimento nullable: false

@@ -3,25 +3,27 @@ import {TitleService} from "../../core/title/title.service";
 import {EcgService} from "../../core/ecg/ecg.service";
 import {FormBuilder} from "@angular/forms";
 import {SpinnerService} from "../../core/spinner/spinner.service";
-import {ErrorService} from "../../core/error/error.service";
 import {debounceTime, switchMap} from "rxjs/operators";
 import {faFrown, faSearch} from '@fortawesome/free-solid-svg-icons';
+import {Ecg} from "../../core/ecg/ecg";
 import {RegistroAtendimento} from "../../core/registroAtendimento/registroAtendimento";
 import {RegistroAtendimentoService} from "../../core/registroAtendimento/registroAtendimento.service";
+import {ErrorService} from "../../core/error/error.service";
 
 @Component({
-  selector: 'app-porta-balao-list',
-  templateUrl: './porta-balao-list.component.html',
-  styleUrls: ['./porta-balao-list.component.scss']
+  selector: 'ecg-list',
+  templateUrl: './ecg-list.component.html',
+  styleUrls: ['./ecg-list-component.scss']
 })
-export class PortaBalaoListComponent implements OnInit {
+export class EcgListComponent implements OnInit {
 
-  internamentos: any = [];
+  urgencias: any[] = [];
+  registros: Ecg[];
   atendimentos: RegistroAtendimento[];
   showListScrollSpinner = false;
   offset = 0;
   max = 30;
-  termo;
+  termo = '';
   faFrown = faFrown;
   searchForm = this.fb.group({
     searchControl: ['']
@@ -30,14 +32,15 @@ export class PortaBalaoListComponent implements OnInit {
 
   constructor(private ecgService: EcgService, private titleService: TitleService,
               private fb: FormBuilder, private spinner: SpinnerService,
-              private errorService: ErrorService, private registroAtendimentoService: RegistroAtendimentoService) {
+              private errorService: ErrorService,
+              private registroAtendimentoService: RegistroAtendimentoService) {
   }
 
   ngOnInit() {
     this.spinner.show();
-    this.titleService.send('Porta Balão - Lista de Pacientes');
-    this.registroAtendimentoService.listInternamentos('','').subscribe(registros => {
-      this.atendimentos = registros;
+    this.titleService.send('ECG - Lista de Pacientes');
+    this.registroAtendimentoService.listUrgencias('', '').subscribe(res => {
+      this.atendimentos = res;
       this.spinner.hide();
     });
   }
@@ -45,11 +48,11 @@ export class PortaBalaoListComponent implements OnInit {
   scrollDown() {
     this.showListScrollSpinner = true;
     this.offset += 10;
-    this.registroAtendimentoService.listInternamentos(this.offset, this.max).subscribe(registros => {
+    this.registroAtendimentoService.listUrgencias(this.offset, this.max).subscribe(registros => {
       registros.forEach(atendimento => {
-        this.internamentos.push(atendimento)
+        this.urgencias.push(atendimento);
+        this.showListScrollSpinner = false;
       });
-      this.showListScrollSpinner = false;
     });
   }
 
@@ -60,11 +63,11 @@ export class PortaBalaoListComponent implements OnInit {
         this.spinner.show();
         this.termo = changes;
         this.offset = 0;
-        if (this.internamentos!= undefined) this.internamentos.length = 0;
-        return this.registroAtendimentoService.searchInternamentos(changes, this.offset, this.max);
+        if (this.urgencias!= undefined) this.urgencias.length = 0;
+        return this.registroAtendimentoService.searchUrgencias(changes, this.offset, this.max);
       })
     ).subscribe(res => {
-      this.atendimentos = res;
+      this.urgencias = res;
       this.spinner.hide();
     });
   }

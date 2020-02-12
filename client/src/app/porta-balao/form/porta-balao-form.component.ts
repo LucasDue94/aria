@@ -22,27 +22,29 @@ export class PortaBalaoFormComponent implements OnInit {
   registroId;
   today = new Date();
   datePipe = new DatePipe('en-US');
+  registroAtendimento = {id: null};
   registro: RegistroAtendimento;
   portaBalao: PortaBalao = new PortaBalao();
   searchForm = this.fb.group({searchControl: ['']});
   form = this.fb.group({
     dataBalao: [this.datePipe.transform(this.today, 'yyyy-MM-dd', '', 'en-US'), Validators.required],
-    horaBalao: [this.datePipe.transform(this.today, 'HH:mm', '', 'en-US'), Validators.required]
+    horaBalao: [this.datePipe.transform(this.today, 'HH:mm', '', 'en-US'), Validators.required],
+    status: true
   });
 
   constructor(
     private titleService: TitleService,
     private fb: FormBuilder, private route: ActivatedRoute,
     private portaBalaoService: PortaBalaoService,
+    private registroAtendimentoService: RegistroAtendimentoService,
     private router: Router, private spinner: SpinnerService,
     private alertService: AlertService,  datePipe: DatePipe,
-    private errorService: ErrorService,
-    private registroAtendimentoService: RegistroAtendimentoService) {
+    private errorService: ErrorService) {
   }
 
   ngOnInit() {
     this.spinner.show();
-    this.titleService.send('Porta Balão');
+    this.titleService.send('Porta Balão - Formulário');
     this.registroId = this.route.snapshot.params.id;
     this.registroAtendimentoService.get(this.registroId).subscribe(registro => {
       this.registro = registro;
@@ -51,8 +53,9 @@ export class PortaBalaoFormComponent implements OnInit {
   }
 
   save() {
-    this.portaBalao.registroAtendimento = new RegistroAtendimento({id: this.registroId});
+    this.portaBalao.registroAtendimento = this.registroAtendimento.id = this.registroId;
     this.portaBalao.dataHoraBalao = this.form.get('dataBalao').value + " " + this.form.get('horaBalao').value;
+    this.portaBalao.status = this.form.get('status').value;
     this.portaBalaoService.save(this.portaBalao).subscribe(res => {
       if (res.hasOwnProperty('error')) {
 

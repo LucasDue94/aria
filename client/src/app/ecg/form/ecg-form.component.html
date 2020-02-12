@@ -16,7 +16,7 @@
         <p class="info"></p>
       </div>
       <div class="flex-column">
-        <span class="label">Nascimento: {{registro?.paciente?.nascimento| date: 'dd/MM/yyyy'}}</span>
+        <span class="label">Nascimento: {{registro?.paciente?.nascimento | date: 'dd/MM/yyyy'}}</span>
         <p class="info"></p>
       </div>
     </div>
@@ -28,16 +28,18 @@
     </div>
     <form [formGroup]="form" class="flex-row">
       <div class="form-group">
-        <span class="label">Data de balão:</span>
-        <input type="date" class="input-date form-control" value="" formControlName="dataBalao">
+        <span class="label">Data de Porta:</span>
+        <input type="date" class="input-date form-control" value="" formControlName="dataPorta">
+        <span class="label">Hora de Porta:</span>
+        <input type="time" class="input-date form-control" value="" formControlName="horaPorta">
       </div>
       <div class="form-group">
-        <span class="label">Hora de balão:</span>
-        <input type="time" class="input-date form-control" value="" formControlName="horaBalao">
+        <span class="label">Data de ECG:</span>
+        <input type="date" class="input-date form-control" value="" formControlName="dataECG">
+        <span class="label">Hora de ECG:</span>
+        <input type="time" class="input-date form-control" value="" formControlName="horaECG">
       </div>
-      <div class="form-group">
-        <button class="button button-blue btn-save">Salvar</button>
-      </div>
+        <button class="button button-blue btn-save" (click)="save()">Salvar</button>
     </form>
   </article>
 </div>

@@ -1,0 +1,28 @@
+@import "src/assets/device-sizes";
+@import "../../../inputs";
+
+.filters-container {
+  display: flex;
+  align-items: center;
+  flex-flow: row wrap;
+}
+
+.btn-save {
+  position: relative;
+  top: 70px;
+  left: -18px;
+  margin-left: 0;
+  margin-top: 15px;
+  width: 90px;
+  height: 35px;
+  font-size: 16px;
+
+  & {
+    letter-spacing: 1px;
+    font-weight: 400 !important;
+  }
+}
+
+@media screen and (max-width: $tablet-width ) {
+
+}

@@ -8,7 +8,7 @@ import {
   faUsers,
   faExclamation,
   faEdit,
-  faUserInjured
+  faUserInjured, faProcedures
 } from "@fortawesome/free-solid-svg-icons";
 import {AuthService} from "../core/auth/auth.service";
 import {Menu} from "../core/menu/menu";
@@ -90,6 +90,13 @@ export class MenuComponent implements OnInit {
       permission: EnumPermisson.role_paciente_index,
       faIcon: faUserInjured,
       router: ['/incidente/paciente-list']
+    },
+    {
+      name: 'Ecg',
+      status: false,
+      permission: EnumPermisson.role_paciente_index,
+      faIcon: faProcedures,
+      router: ['/ecg/paciente-list']
     },
     {
       name: 'Porta Balão',

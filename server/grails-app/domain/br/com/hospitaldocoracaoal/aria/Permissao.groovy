@@ -92,6 +92,13 @@ class Permissao implements Serializable {
             findOrSaveWhere(authority: 'ROLE_PORTA_BALAO_UPDATE', nome: 'Atualizar porta balão', alias: 'porta balão')
             findOrSaveWhere(authority: 'ROLE_PORTA_BALAO_DELETE', nome: 'Excluir porta balão', alias: 'porta balão')
 
+            // -- ECG
+            findOrSaveWhere(authority: 'ROLE_ECG_INDEX', nome: 'Listar ecg', alias: 'ecocardiograma')
+            findOrSaveWhere(authority: 'ROLE_ECG_SHOW', nome: 'Ver ecg', alias: 'ecocardiograma')
+            findOrSaveWhere(authority: 'ROLE_ECG_SAVE', nome: 'Salvar ecg', alias: 'ecocardiograma')
+            findOrSaveWhere(authority: 'ROLE_ECG_UPDATE', nome: 'Atualizar ecg', alias: 'ecocardiograma')
+            findOrSaveWhere(authority: 'ROLE_ECG_DELETE', nome: 'Excluir ecg', alias: 'ecocardiograma')
+
             // -- INCIDENTE --
             findOrSaveWhere(authority: 'ROLE_INCIDENTE_INDEX', nome: 'Listar incidentes', alias: 'incidentes')
             findOrSaveWhere(authority: 'ROLE_INCIDENTE_SHOW', nome: 'Ver incidente', alias: 'incidente')
