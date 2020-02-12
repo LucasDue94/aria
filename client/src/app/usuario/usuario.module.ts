@@ -4,10 +4,10 @@ import { UsuarioListComponent } from './list/usuario-list.component';
 import { UsuarioEditComponent } from './edit/usuario-edit.component';
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {RouterModule} from "@angular/router";
-import {FastSearchModule} from "../fast-search/fast-search.module";
+import {FastSearchModule} from "../components/fast-search/fast-search.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {UsuarioService} from "../core/usuario/usuario.service";
-import {SelectModule} from "../select/select.module";
+import {SelectModule} from "../components/select/select.module";
 
 
 

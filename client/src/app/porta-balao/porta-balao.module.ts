@@ -5,8 +5,8 @@ import {PortaBalaoFormComponent} from "./form/porta-balao-form.component";
 import {InfiniteScrollModule} from "ngx-infinite-scroll";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
-import {SpinnerModule} from "../spinner/spinner.module";
 import {RouterModule} from "@angular/router";
+import {SpinnerModule} from "../components/spinner/spinner.module";
 
 
 

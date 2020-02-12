@@ -1,0 +1,30 @@
+@import '../../assets/colors';
+
+.paciente-info-container {
+  display: flex;
+  padding: 5px;
+  min-height: 100px;
+  margin: 10px;
+  flex-wrap: wrap;
+
+  & {
+    background-color: $gray-30;
+    box-shadow: 1px 1px 10px $gray-80;
+    border-radius: 3px;
+  }
+
+  .item-info {
+    width: 24% !important;
+    margin: 5px;
+
+    .label {
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    .info {
+      font-size: 18px;
+    }
+  }
+
+}
