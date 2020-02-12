@@ -2,6 +2,7 @@ package br.com.hospitaldocoracaoal.integracao
 
 class RegistroAtendimento {
 
+    static final Character TIPO_INTERNO = 'I' as Character
     String id
     Date dataEntrada
     Date dataAlta
@@ -18,6 +19,11 @@ class RegistroAtendimento {
             registroAtendimentoLeitos: RegistroAtendimentoLeito,
             cirurgias: Cirurgia
     ]
+
+    static constraints = {
+        cid nullable: true
+        setor nullable: true
+    }
 
     static mapping = {
         id generator: 'assigned'

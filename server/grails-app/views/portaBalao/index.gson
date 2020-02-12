@@ -1,0 +1,8 @@
+import br.com.hospitaldocoracaoal.aria.PortaBalao
+
+model {
+	Iterable<PortaBalao> portaBalaoList
+}
+
+json tmpl.portaBalao(portaBalaoList ?: [])
+

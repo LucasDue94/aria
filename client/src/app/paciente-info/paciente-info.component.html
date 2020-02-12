@@ -1,0 +1,46 @@
+<main class="paciente-info-container">
+    <section *ngIf="nome" class="item-info">
+      <h3 class="label">Paciente</h3>
+      <h4 class="info">{{nome}}</h4>
+    </section>
+    <section *ngIf="mae" class="item-info">
+      <h3 class="label">Mãe</h3>
+      <h4 class="info">{{mae}}</h4>
+    </section>
+    <section *ngIf="dataNascimento" class="item-info">
+      <h3 class="label">Nascimento</h3>
+      <h4 class="info">{{dataNascimento | date: 'dd/MM/yyyy'}}</h4>
+    </section>
+    <section *ngIf="dataNascimento" class="item-info">
+      <h3 class="label">Idade</h3>
+      <h4 class="info">{{getIdade(dataNascimento)}} anos</h4>
+    </section>
+    <section *ngIf="prontuario" class="item-info">
+      <h3 class="label">Prontuario</h3>
+      <h4 class="info">{{prontuario}}</h4>
+    </section>
+    <section *ngIf="registro" class="item-info">
+      <h3 class="label">Registro</h3>
+      <h4 class="info">{{registro}}</h4>
+    </section>
+    <section *ngIf="dataEntrada" class="item-info">
+      <h3 class="label">Entrada</h3>
+      <h4 class="info">{{dataEntrada | date: 'dd/MM/yy - HHmm'}}</h4>
+    </section>
+    <section *ngIf="motivoAlta" class="item-info">
+      <h3 class="label">Motivo Alta</h3>
+      <h4 class="info">{{motivoAlta}}</h4>
+    </section>
+    <section *ngIf="dataSaida" class="item-info">
+      <h3 class="label">Saída</h3>
+      <h4 class="info">{{dataSaida | date: 'dd/MM/yy - HHmm'}}</h4>
+    </section>
+    <section *ngIf="setor" class="item-info">
+      <h3 class="label">Setor</h3>
+      <h4 class="info">{{setor}}</h4>
+    </section>
+    <section *ngIf="sexo" class="item-info">
+      <h3 class="label">Sexo</h3>
+      <h4 class="info">{{sexo}}</h4>
+    </section>
+</main>

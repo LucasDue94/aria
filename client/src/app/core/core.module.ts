@@ -23,6 +23,7 @@ import { GrupoService } from './grupo/grupo.service';
 import {RiscoService} from "./risco/risco.service";
 import { TipoIncidenteService } from './tipoIncidente/tipoIncidente.service';
 import {IncidenteService} from "./incidente/incidente.service";
+import {PortaBalaoService} from "./portaBalao/portaBalao.service";
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import {IncidenteService} from "./incidente/incidente.service";
     GrupoService,
     RiscoService,
     TipoIncidenteService,
+    PortaBalaoService,
     IncidenteService
 ]
 })
