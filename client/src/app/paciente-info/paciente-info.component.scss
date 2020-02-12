@@ -6,11 +6,18 @@
   min-height: 100px;
   margin: 10px;
   flex-wrap: wrap;
+  cursor: pointer;
 
   & {
     background-color: $gray-30;
-    box-shadow: 1px 1px 10px $gray-80;
+    box-shadow: 0 0 5px $gray-80;
     border-radius: 3px;
+    transition: 500ms;
+  }
+
+  &:hover{
+    transition: 500ms;
+    background-color: $gray-60;
   }
 
   .item-info {
