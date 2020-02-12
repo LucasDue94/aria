@@ -1,0 +1,9 @@
+import br.com.hospitaldocoracaoal.integracao.RegistroAtendimento
+
+model {
+    RegistroAtendimento registroAtendimento
+}
+
+json g.render(registroAtendimento, [resolveTemplate: false]) {
+    registroAtendimentoLeitos tmpl.'/paciente/registroAtendimentoLeito'(registroAtendimento.registroAtendimentoLeitos)
+}

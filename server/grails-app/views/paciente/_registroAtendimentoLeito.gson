@@ -1,0 +1,12 @@
+import br.com.hospitaldocoracaoal.aria.Apache
+import br.com.hospitaldocoracaoal.integracao.RegistroAtendimentoLeito
+
+model {
+	RegistroAtendimentoLeito registroAtendimentoLeito
+}
+
+json g.render(registroAtendimentoLeito, [excludes: ['registroAtendimento', 'leito'], resolveTemplate: false]) {
+	leito registroAtendimentoLeito.leito.collect {
+		g.render(it, [excludes: ['registroAtendimentoLeitos'], resolveTemplate: false])
+	}
+}

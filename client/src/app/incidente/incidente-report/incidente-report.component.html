@@ -18,13 +18,13 @@
         <fa-icon [icon]=faSearch></fa-icon>
         Buscar
       </button>
-      <button class="button-search-panel" *ngIf="chart" (click)="generatePdf()">
+      <button class="button-search-panel" *ngIf="incidenteChart" (click)="generatePdf()">
         <fa-icon [icon]=faPrint></fa-icon>
       </button>
     </div>
   </form>
 
-<!--  <section class="panel-chart" *ngIf="apacheChart">-->
-<!--    <section [chart]="apacheChart" id="apache" #chartSVG>Apache II</section>-->
-<!--  </section>-->
+  <section class="panel-chart">
+    <section [chart]="incidenteChart" id="incidente-chart" #chartSVG>Incidentes</section>
+  </section>
 </div>

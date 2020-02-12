@@ -22,7 +22,7 @@
     </div>
     <div class="flex-row">
       <div class="flex-column">
-        <span class="label">Registro:</span>
+        <span class="label">Prontuário:</span>
         <p class="info">{{paciente?.id}}</p>
       </div>
     </div>
@@ -47,6 +47,18 @@
         <div class="form-group flex-0">
           <label class="label">Tipo Incidente*:</label>
           <select class="form-control" formControlName="tipoIncidente" id="tipoIncidente" [ngClass]="{'form-control-error': f.tipoIncidente.errors && (f.tipoIncidente.dirty || f.tipoIncidente.touched)}" required>
+            <option *ngFor="let tipo of tiposIncidente" [value]="tipo.id">{{tipo.nome}}</option>
+          </select>
+          <p class="error-label" *ngIf="f.tipoIncidente.errors && (f.tipoIncidente.dirty || f.tipoIncidente.touched)">
+            não pode ser branco
+          </p>
+        </div>
+      </div>
+
+      <div class="flex-row">
+        <div class="form-group flex-0">
+          <label class="label">Leito*:</label>
+          <select class="form-control" formControlName="registroAtendimentoLeito" id="registroAtendimentoLeito" [ngClass]="{'form-control-error': f.registroAtendimentoLeito.errors && (f.registroAtendimentoLeito.dirty || f.registroAtendimentoLeito.touched)}" required>
             <option *ngFor="let tipo of tiposIncidente" [value]="tipo.id">{{tipo.nome}}</option>
           </select>
           <p class="error-label" *ngIf="f.tipoIncidente.errors && (f.tipoIncidente.dirty || f.tipoIncidente.touched)">
