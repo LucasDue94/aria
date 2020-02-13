@@ -5,9 +5,8 @@ import {PortaBalaoFormComponent} from "./form/porta-balao-form.component";
 import {InfiniteScrollModule} from "ngx-infinite-scroll";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
-import {SpinnerModule} from "../spinner/spinner.module";
 import {RouterModule} from "@angular/router";
-import {RegistroAtendimentoModule} from "../registro-atendimento/registro-atendimento.module";
+import {SpinnerModule} from "../components/spinner/spinner.module";
 
 
 
@@ -16,16 +15,15 @@ import {RegistroAtendimentoModule} from "../registro-atendimento/registro-atendi
     PortaBalaoListComponent,
     PortaBalaoFormComponent
   ],
-  imports: [
-    CommonModule,
-    InfiniteScrollModule,
-    ReactiveFormsModule,
-    RouterModule,
-    FontAwesomeModule,
-    InfiniteScrollModule,
-    SpinnerModule,
-    FormsModule,
-    RegistroAtendimentoModule
-  ]
+    imports: [
+        CommonModule,
+        InfiniteScrollModule,
+        ReactiveFormsModule,
+        RouterModule,
+        FontAwesomeModule,
+        InfiniteScrollModule,
+        SpinnerModule,
+        FormsModule
+    ]
 })
 export class PortaBalaoModule { }

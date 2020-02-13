@@ -54,7 +54,7 @@ create foreign table registro_atendimento_leito (
 ) server wpd
 options (table '(select his.COD_PAC, his.LEITO,
        to_date(to_char(his.DATA, ''DD-MM-YYYY'') || '' '' || to_char(his.HORA, ''HH24:MI:SS''), ''DD-MM-YYYY HH24:MI:SS'') as data
-from ADMWPD.FALEHCAD his)', readonly 'true');
+from ADMWPD.FALEHCAD his inner join ADMWPD.FALEICAD lei on lei.LEITO = his.LEITO)', readonly 'true');
 
 
 /*SETOR*/

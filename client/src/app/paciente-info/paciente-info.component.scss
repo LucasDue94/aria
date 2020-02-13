@@ -1,0 +1,37 @@
+@import '../../assets/colors';
+
+.paciente-info-container {
+  display: flex;
+  padding: 5px;
+  min-height: 100px;
+  margin: 10px;
+  flex-wrap: wrap;
+  cursor: pointer;
+
+  & {
+    background-color: $gray-30;
+    box-shadow: 0 0 5px $gray-80;
+    border-radius: 3px;
+    transition: 500ms;
+  }
+
+  &:hover{
+    transition: 500ms;
+    background-color: $gray-60;
+  }
+
+  .item-info {
+    width: 24% !important;
+    margin: 5px;
+
+    .label {
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    .info {
+      font-size: 18px;
+    }
+  }
+
+}

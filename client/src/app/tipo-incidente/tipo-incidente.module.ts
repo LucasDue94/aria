@@ -6,9 +6,9 @@ import {TipoIncidenteListComponent} from "./list/tipo-incidente-list.component";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {InfiniteScrollModule} from "ngx-infinite-scroll";
 import {RouterModule} from "@angular/router";
-import {SpinnerModule} from "../spinner/spinner.module";
 import {TipoIncidenteFormComponent} from "./form/tipo-incidente-form.component";
-import {SelectModule} from "../select/select.module";
+import {SelectModule} from "../components/select/select.module";
+import {SpinnerModule} from "../components/spinner/spinner.module";
 
 @NgModule({
   declarations: [

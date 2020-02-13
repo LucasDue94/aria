@@ -8,7 +8,7 @@ class Paciente {
     Character sexo
     Date nascimento
     String nomeMae
-    static hasMany = [registros: RegistroAtendimento, incidentes: Incidente]
+    static hasMany = [registrosAtendimento: RegistroAtendimento]
 
     static constraints = {
     }

@@ -29,6 +29,7 @@ export class IncidenteFormComponent implements OnInit {
     data: ['', Validators.required],
     hora: ['', Validators.required],
     tipoIncidente: ['', Validators.required],
+    registroAtendimentoLeito: ['', Validators.required],
     obs: [''],
   });
 
