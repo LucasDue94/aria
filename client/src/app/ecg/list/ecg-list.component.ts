@@ -67,7 +67,7 @@ export class EcgListComponent implements OnInit {
         return this.registroAtendimentoService.searchUrgencias(changes, this.offset, this.max);
       })
     ).subscribe(res => {
-      this.urgencias = res;
+      this.atendimentos = res;
       this.spinner.hide();
     });
   }
