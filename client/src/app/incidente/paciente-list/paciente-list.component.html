@@ -1,7 +1,7 @@
 <main class="container-paciente">
   <form [formGroup]="searchForm" class="search-container">
     <input (focus)="search()" formControlName="searchControl" id="search-text"
-           placeholder="Procure: Descrição ou id..." type="text">
+           placeholder="Procure: nome, prontuário..." type="text">
     <button id="search-button">
       <fa-icon [icon]=faSearch></fa-icon>
     </button>

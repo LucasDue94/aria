@@ -4,6 +4,6 @@ model {
     RegistroAtendimento registroAtendimento
 }
 
-json g.render(registroAtendimento, [resolveTemplate: false]) {
+json g.render(registroAtendimento, [expand: 'incidentes',resolveTemplate: false]) {
     registroAtendimentoLeitos tmpl.'/paciente/registroAtendimentoLeito'(registroAtendimento.registroAtendimentoLeitos)
 }
