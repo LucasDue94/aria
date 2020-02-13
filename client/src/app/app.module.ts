@@ -31,6 +31,7 @@ import {PortaBalaoModule} from "./porta-balao/porta-balao.module";
 import {NasModule} from "./nas/nas.module";
 import {SpinnerModule} from "./components/spinner/spinner.module";
 import {PacienteInfoModule} from "./paciente-info/paciente-info.module";
+import {EcgModule} from "./ecg/ecg.module";
 
 @NgModule({
   exports: [],
@@ -63,6 +64,7 @@ import {PacienteInfoModule} from "./paciente-info/paciente-info.module";
     InterceptorModule,
     RiscoModule,
     PortaBalaoModule,
+    EcgModule,
     TipoIncidenteModule,
     IncidenteModule,
     NasModule,
