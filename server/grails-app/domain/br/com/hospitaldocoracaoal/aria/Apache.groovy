@@ -46,7 +46,7 @@ class Apache {
                 dataEntrada == val.dataEntrada
             }.count()
             if (reg == 0) {
-                errors.rejectValue('registroAtendimentoLeito', 'apache.registroAtendimentoLeito.doesnt.exist')
+                errors.rejectValue('registroAtendimentoLeito', 'nas.registroAtendimentoLeito.doesnt.exist')
             }
         }
     }

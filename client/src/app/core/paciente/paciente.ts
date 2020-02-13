@@ -34,6 +34,7 @@ export class Paciente {
 
   }
 
+
   toString(): string {
     return 'br.com.hospitaldocoracaoal.integracao.Paciente : ' + (this.id ? this.id : '(unsaved)');
   }
