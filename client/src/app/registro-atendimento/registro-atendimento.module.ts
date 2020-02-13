@@ -4,8 +4,8 @@ import {InfiniteScrollModule} from "ngx-infinite-scroll";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {RouterModule} from "@angular/router";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
-import {SpinnerModule} from "../spinner/spinner.module";
 import {RegistroAtendimentoComponent} from "./list/registro-atendimento.component";
+import {SpinnerModule} from "../components/spinner/spinner.module";
 
 
 

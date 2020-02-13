@@ -5,9 +5,9 @@ import {EcgListComponent} from './list/ecg-list.component';
 import {RouterModule} from "@angular/router";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {InfiniteScrollModule} from "ngx-infinite-scroll";
-import {SpinnerModule} from "../spinner/spinner.module";
 import {RegistroAtendimentoModule} from "../registro-atendimento/registro-atendimento.module";
 import { EcgFormComponent } from './form/ecg-form.component';
+import {SpinnerModule} from "../components/spinner/spinner.module";
 
 @NgModule({
   declarations: [
