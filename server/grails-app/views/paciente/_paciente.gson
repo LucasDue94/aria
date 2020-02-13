@@ -4,6 +4,6 @@ model {
 	Paciente paciente
 }
 
-json g.render(paciente, [resolveTemplate: false]) {
+json g.render(paciente, [expand: ['ecg', 'portaBalao'],resolveTemplate: false]) {
 	registrosAtendimento tmpl.'/paciente/registroAtendimento'(paciente.registrosAtendimento ?: [])
 }

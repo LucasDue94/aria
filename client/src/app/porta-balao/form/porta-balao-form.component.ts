@@ -11,6 +11,7 @@ import {AlertService} from "../../core/alert/alert.service";
 import {DatePipe} from "@angular/common";
 import {faFrown} from "@fortawesome/free-solid-svg-icons";
 import {SpinnerService} from "../../core/spinner/spinner.service";
+import {Paciente} from "../../core/paciente/paciente";
 
 @Component({
   selector: 'app-porta-balao-form',
@@ -55,21 +56,30 @@ export class PortaBalaoFormComponent implements OnInit {
   save() {
     this.portaBalao.registroAtendimento = this.registroAtendimento.id = this.registroId;
     this.portaBalao.dataHoraBalao = this.form.get('dataBalao').value + " " + this.form.get('horaBalao').value;
-    this.portaBalao.status = this.form.get('status').value;
-    this.portaBalaoService.save(this.portaBalao).subscribe(res => {
-      if (res.hasOwnProperty('error')) {
+    this.portaBalao.paciente = new Paciente({id: this.registro.paciente.id});
+    if(this.form.get('dataBalao').value == '' || this.form.get('horaBalao').value == '') {
+      this.alertService.send({
+        message: 'Ops... A data/hora deve ser preenchida!',
+        type: 'warning',
+        icon: faFrown
+      })
+    }else {
+      this.portaBalaoService.save(this.portaBalao).subscribe(res => {
+     /*   if (res.hasOwnProperty('error')) {
 
-      } else {
-        this.router.navigate(['portaBalao']);
-        setTimeout(() => {
-          this.alertService.send({
-            message: 'Porta balão cadastrado',
-            type: 'success',
-            icon: faFrown
-          });
-        }, 500)
-      }
-    });
+        } else {
+          this.router.navigate(['portaBalao']);
+          setTimeout(() => {
+            this.alertService.send({
+              message: 'Porta balão cadastrado',
+              type: 'success',
+              icon: faFrown
+            });
+          }, 500)
+        }*/
+        console.log(res);
+      });
+    }
   }
 }
 

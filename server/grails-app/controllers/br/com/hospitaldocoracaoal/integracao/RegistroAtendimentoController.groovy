@@ -23,13 +23,13 @@ class RegistroAtendimentoController {
 
     @Secured('ROLE_REGISTRO_ATENDIMENTO_INDEX')
     def listInternamentos(Integer max, String termo) {
-        params.max = Math.min(max ?: 10,100)
+        params.max = Math.min(max ?: 20,100)
         respond registroAtendimentoService.listInternamentos(params, termo)
     }
 
     @Secured('ROLE_REGISTRO_ATENDIMENTO_INDEX')
     def listUrgencias(Integer max, String termo) {
-        params.max = Math.min(max ?: 10, 100)
+        params.max = Math.min(max ?: 20, 100)
         respond registroAtendimentoService.listUrgencias(params, termo)
     }
 

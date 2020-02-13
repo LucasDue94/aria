@@ -1,11 +1,15 @@
 import {RegistroAtendimento} from '../registroAtendimento/registroAtendimento';
 import {Incidente} from "../incidente/incidente";
+import {PortaBalao} from "../portaBalao/portaBalao";
+import {Ecg} from "../ecg/ecg";
 
 export class Paciente {
   id: string;
   nome: string;
   registros: RegistroAtendimento[];
   incidentes: Incidente[] = new Array<Incidente>();
+  portaBalao: PortaBalao[] = new Array<PortaBalao>();
+  ecg: Ecg[] = new Array<Ecg>();
   sexo: any;
   nomeMae: string;
   nascimento: any;

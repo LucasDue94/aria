@@ -1,10 +1,11 @@
 import {RegistroAtendimento} from '../registroAtendimento/registroAtendimento';
+import {Paciente} from "../paciente/paciente";
 
 export class PortaBalao {
   id: number;
   registroAtendimento: RegistroAtendimento;
   dataHoraBalao: any;
-  status: boolean;
+  paciente: Paciente;
 
   constructor(object?: any) {
     if (object) {

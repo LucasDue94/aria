@@ -4,4 +4,4 @@ model {
 	PortaBalao portaBalao
 }
 
-json g.render(portaBalao, [resolveTemplate: false])
+json g.render(portaBalao, [excludes: 'paciente' ,resolveTemplate: false])

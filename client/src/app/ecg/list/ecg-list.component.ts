@@ -50,7 +50,7 @@ export class EcgListComponent implements OnInit {
     this.offset += 10;
     this.registroAtendimentoService.listUrgencias(this.offset, this.max).subscribe(registros => {
       registros.forEach(atendimento => {
-        this.urgencias.push(atendimento);
+        this.atendimentos.push(atendimento);
         this.showListScrollSpinner = false;
       });
     });
