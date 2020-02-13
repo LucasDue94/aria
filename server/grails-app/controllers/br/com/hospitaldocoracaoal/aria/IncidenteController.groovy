@@ -4,6 +4,7 @@ import grails.gorm.transactions.ReadOnly
 import grails.gorm.transactions.Transactional
 import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
+import org.grails.web.json.JSONObject
 
 import static org.springframework.http.HttpStatus.*
 
@@ -28,7 +29,10 @@ class IncidenteController {
 
     @Secured('ROLE_INCIDENTE_SAVE')
     @Transactional
-    def save(Incidente incidente) {
+    def save() {
+        JSONObject requestJson = (JSONObject) request.JSON
+        Incidente incidente = new Incidente(requestJson)
+
         if (incidente == null) {
             render status: NOT_FOUND
             return
@@ -40,7 +44,7 @@ class IncidenteController {
         }
 
         try {
-            incidenteService.save(incidente)
+            incidenteService.save(incidente, requestJson.paciente.id)
         } catch (ValidationException e) {
             respond incidente.errors
             return

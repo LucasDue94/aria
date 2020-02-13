@@ -10,9 +10,6 @@ class Paciente {
     String nomeMae
     static hasMany = [registrosAtendimento: RegistroAtendimento]
 
-    static constraints = {
-    }
-
     static mapping = {
         id generator: 'assigned'
         version  false

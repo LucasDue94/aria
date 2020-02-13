@@ -24,7 +24,7 @@ abstract class PacienteService {
 
         def query = Paciente.where {
             if (termo != null && !termo.isEmpty()) {
-                nome =~ "%${termo}%"
+                (nome =~ "%${termo}%") || (id =~ "%${termo}%")
             }
 
             registrosAtendimento {

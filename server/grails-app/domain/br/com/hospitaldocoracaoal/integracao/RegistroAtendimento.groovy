@@ -1,5 +1,7 @@
 package br.com.hospitaldocoracaoal.integracao
 
+import br.com.hospitaldocoracaoal.aria.Incidente
+
 class RegistroAtendimento {
 
     static final Character TIPO_INTERNO = 'I' as Character
@@ -18,7 +20,8 @@ class RegistroAtendimento {
             atendimentos: Atendimento,
             exames: Exame,
             registroAtendimentoLeitos: RegistroAtendimentoLeito,
-            cirurgias: Cirurgia
+            cirurgias: Cirurgia,
+            incidentes: Incidente
     ]
 
     static constraints = {

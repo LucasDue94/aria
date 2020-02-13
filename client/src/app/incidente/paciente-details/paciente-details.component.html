@@ -39,11 +39,11 @@
       <span class="th">Tipo de Incidente</span>
     </div>
     <div class="tbody content-grupo">
-      <div [routerLink]="['/incidente','edit', incidente.id]" *ngFor="let incidente of paciente.incidentes" class="row">
+      <div [routerLink]="['/incidente','edit', incidente.id]" *ngFor="let incidente of incidentes" class="row">
         <span class="td">{{incidente.dataHora | date:'dd/MM/yyyy - HH:mm'}}</span>
         <span class="td">{{incidente.tipoIncidente?.nome}}</span>
       </div>
-      <div class="empty" *ngIf="paciente.incidentes?.length == 0">
+      <div class="empty" *ngIf="incidentes?.length == 0">
         <p>O paciente não possui incidentes.</p>
         <fa-icon class="icon" [icon]="faSmile" size="2x"></fa-icon>
       </div>
