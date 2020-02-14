@@ -19,7 +19,7 @@
     </section>
     <section class="tbody content-paciente" [scrollWindow]="false" infinite-scroll (scrolled)="scrollDown()">
       <div [routerLink]="['/portaBalao','create', registro.id]" class="row" *ngFor="let registro of atendimentos">
-        <span class="td">{{registro.paciente.id}}</span>
+        <span class="td">{{registro.id}}</span>
         <span class="td">{{registro.paciente.nome}}</span>
         <span class="td">{{registro.paciente.sexo}}</span>
         <span class="td">{{registro.dataEntrada}}</span>

@@ -47,7 +47,7 @@ export class PortaBalaoListComponent implements OnInit {
     this.offset += 10;
     this.registroAtendimentoService.listInternamentos(this.offset, this.max).subscribe(registros => {
       registros.forEach(atendimento => {
-        this.internamentos.push(atendimento)
+        this.atendimentos.push(atendimento)
       });
       this.showListScrollSpinner = false;
     });

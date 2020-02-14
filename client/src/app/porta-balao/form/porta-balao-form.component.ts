@@ -65,7 +65,7 @@ export class PortaBalaoFormComponent implements OnInit {
       })
     }else {
       this.portaBalaoService.save(this.portaBalao).subscribe(res => {
-     /*   if (res.hasOwnProperty('error')) {
+        if (res.hasOwnProperty('error')) {
 
         } else {
           this.router.navigate(['portaBalao']);
@@ -76,8 +76,7 @@ export class PortaBalaoFormComponent implements OnInit {
               icon: faFrown
             });
           }, 500)
-        }*/
-        console.log(res);
+        }
       });
     }
   }
