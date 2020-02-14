@@ -53,15 +53,11 @@ class IncidenteController {
             render status: NOT_FOUND
             return
         }
-        if (incidente.hasErrors()) {
-            transactionStatus.setRollbackOnly()
-            respond incidente.errors
-            return
-        }
 
         try {
-            incidenteService.save(incidente)
+            incidenteService.save(incidente, incidente.registroAtendimento.paciente.id)
         } catch (ValidationException e) {
+            transactionStatus.setRollbackOnly()
             respond incidente.errors
             return
         }

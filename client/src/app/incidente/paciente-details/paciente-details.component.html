@@ -40,7 +40,7 @@
       <span class="th">Setor</span>
     </div>
     <div class="tbody content-grupo">
-      <div [routerLink]="['/incidente','edit', incidente.id]" *ngFor="let incidente of incidentes" class="row">
+      <div [routerLink]="['/incidente','edit', incidente.id]" [queryParams]="{paciente: paciente.id}" *ngFor="let incidente of incidentes" class="row">
         <span class="td">{{incidente.dataHora | date:'dd/MM/yyyy - HH:mm'}}</span>
         <span class="td">{{incidente.tipoIncidente?.nome}}</span>
         <span class="td">{{incidente.setor?.descricao}}</span>

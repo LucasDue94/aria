@@ -64,6 +64,7 @@ abstract class IncidenteService {
                     'incidente.registroAtendimento.doesnt.exist',
                     'Registro não encontrado para a data e hora informados.'
             )
+            throw new ValidationException('Incidente inválido.', incidente.errors)
         }
 
         if (incidente.hasErrors()) {
