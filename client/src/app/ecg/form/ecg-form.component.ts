@@ -11,6 +11,7 @@ import {RegistroAtendimentoService} from "../../core/registroAtendimento/registr
 import {faFrown} from "@fortawesome/free-solid-svg-icons";
 import {Ecg} from "../../core/ecg/ecg";
 import {EcgService} from "../../core/ecg/ecg.service";
+import {Paciente} from "../../core/paciente/paciente";
 
 @Component({
   selector: 'app-ecg-form',
@@ -22,6 +23,7 @@ export class EcgFormComponent implements OnInit {
   registroId;
   today = new Date();
   datePipe = new DatePipe('en-US');
+  paciente = {id: null};
   registroAtendimento = {id: null};
   registro: RegistroAtendimento;
   ecg: Ecg = new Ecg();
@@ -30,8 +32,7 @@ export class EcgFormComponent implements OnInit {
     dataPorta: ['', Validators.required],
     horaPorta: ['', Validators.required],
     dataECG: [this.datePipe.transform(this.today, 'yyyy-MM-dd', '', 'en-US'), Validators.required],
-    horaECG: [this.datePipe.transform(this.today, 'HH:mm', '', 'en-US'), Validators.required],
-    status: true
+    horaECG: [this.datePipe.transform(this.today, 'HH:mm', '', 'en-US'), Validators.required]
   });
 
   constructor(
@@ -56,25 +57,37 @@ export class EcgFormComponent implements OnInit {
 
   save() {
     this.ecg.registroAtendimento = this.registroId;
-    this.ecg.dataTempoPorta = this.form.get('dataPorta').value + " " + this.form.get('horaPorta').value;
+    this.ecg.dataHoraPorta = this.form.get('dataPorta').value + " " + this.form.get('horaPorta').value;
     this.ecg.dataHoraEcg = this.form.get('dataECG').value + " " + this.form.get('horaECG').value;
-    this.ecgService.save(this.ecg).subscribe(res => {
-      if (res.hasOwnProperty('HttpErrorResponse')) {
-        this.alertService.send({
-          message: 'ECG já cadastrado!',
-          type: 'warning',
-          icon: faFrown
-        });
-      } else {
-        this.router.navigate(['ecg']);
-        setTimeout(() => {
+    this.ecg.paciente  = new Paciente({id: this.registro.paciente.id});
+
+    console.log(this.ecg);
+    if (this.form.get('dataECG').value == '' || this.form.get('horaECG').value == '' || this.form.get('dataPorta').value == '' || this.form.get('horaPorta').value == '') {
+      this.alertService.send({
+        message: 'Ops... A data/hora deve ser preenchida!',
+        type: 'warning',
+        icon: faFrown
+      })
+    } else {
+      this.ecgService.save(this.ecg).subscribe(res => {
+        if (res.hasOwnProperty('HttpErrorResponse')) {
           this.alertService.send({
-            message: 'ECG cadastrado com sucesso!',
-            type: 'success',
+            message: 'ECG já cadastrado!',
+            type: 'warning',
             icon: faFrown
           });
-        }, 500)
-      }
-    });
+        } else {
+          this.router.navigate(['ecg']);
+          setTimeout(() => {
+            this.alertService.send({
+              message: 'ECG cadastrado com sucesso!',
+              type: 'success',
+              icon: faFrown
+            });
+          }, 500)
+        }
+      });
+    }
   }
+
 }

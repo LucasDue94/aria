@@ -1,26 +1,27 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {Paciente} from "../core/paciente/paciente";
 
 @Component({
   selector: 'paciente-info',
   templateUrl: './paciente-info.component.html',
   styleUrls: ['./paciente-info.component.scss']
 })
-export class PacienteInfoComponent implements OnInit {
-  @Input() nome: string;
-  @Input() mae: string;
-  @Input() registro: string;
-  @Input() prontuario: string;
-  @Input() dataNascimento: string;
-  @Input() sexo: string;
-  @Input() dataEntrada: string;
-  @Input() dataSaida: string;
-  @Input() motivoAlta: string;
-  @Input() setor: string;
+export class PacienteInfoComponent implements OnChanges {
+  @Input() paciente: Paciente;
+  @Input() extras = [];
 
   constructor() {
   }
 
-  ngOnInit() {
+  ngOnChanges(changes: SimpleChanges): void {
+    this.transforText(this.paciente);
+    this.transforText(this.extras);
+  }
+
+  transforText(obj) {
+    for (const prop in obj) {
+      obj[prop] = typeof obj[prop] != 'object' ? obj[prop].toLowerCase() : obj[prop];
+    }
   }
 
   getIdade(nasc) {
@@ -28,4 +29,5 @@ export class PacienteInfoComponent implements OnInit {
     return Math.floor(Math.ceil(Math.abs(nascimento.getTime() - (new Date()).getTime()) / (1000 * 3600 * 24)) / 365.25);
   }
 
+  //TODO implementar o redirecionamento para o Histórico do Paciente ao clicar.
 }

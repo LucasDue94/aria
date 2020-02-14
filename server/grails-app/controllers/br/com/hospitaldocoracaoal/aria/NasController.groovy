@@ -8,71 +8,67 @@ import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
 
 @ReadOnly
-class EcgController {
+class NasController {
 
-    EcgService ecgService
+    NasService nasService
 
     static responseFormats = ['json', 'xml']
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
-
-    @Secured('ROLE_ECG_INDEX')
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond ecgService.list(params), model:[ecgCount: ecgService.count()]
+        respond nasService.list(params), model:[nasCount: nasService.count()]
     }
 
-    @Secured('ROLE_ECG_SHOW')
     def show(Long id) {
-        respond ecgService.get(id)
+        respond nasService.get(id)
     }
 
-    @Secured('ROLE_ECG_SAVE')
+    @Secured('ROLE_PERFIL_EPIDEMIOLOGICO_INDEX')
     @Transactional
-    def save(Ecg ecg) {
-        if (ecg == null) {
+    def save(Nas nas) {
+        if (nas == null) {
             render status: NOT_FOUND
             return
         }
-        if (ecg.hasErrors()) {
+        if (nas.hasErrors()) {
             transactionStatus.setRollbackOnly()
-            respond ecg.errors
+            respond nas.errors
             return
         }
 
         try {
-            ecgService.save(ecg)
+            nasService.save(nas)
         } catch (ValidationException e) {
-            respond ecg.errors
+            respond nas.errors
             return
         }
 
-        respond ecg, [status: CREATED, view:"show"]
+        respond nas, [status: CREATED, view:"show"]
     }
 
-    @Secured('ROLE_ECG_UPDATE')
+    @Secured('ROLE_PERFIL_EPIDEMIOLOGICO_INDEX')
     @Transactional
-    def update(Ecg ecg) {
-        if (ecg == null) {
+    def update(Nas nas) {
+        if (nas == null) {
             render status: NOT_FOUND
             return
         }
-        if (ecg.hasErrors()) {
+        if (nas.hasErrors()) {
             transactionStatus.setRollbackOnly()
-            respond ecg.errors
+            respond nas.errors
             return
         }
 
         try {
-            ecgService.save(ecg)
+            nasService.save(nas)
         } catch (ValidationException e) {
-            respond ecg.errors
+            respond nas.errors
             return
         }
 
-        respond ecg, [status: OK, view:"show"]
+        respond nas, [status: OK, view:"show"]
     }
 
-    @Secured('ROLE_ECG_DELETE')
     @Transactional
     def delete(Long id) {
         if (id == null) {
@@ -80,7 +76,7 @@ class EcgController {
             return
         }
 
-        ecgService.delete(id)
+        nasService.delete(id)
 
         render status: NO_CONTENT
     }
