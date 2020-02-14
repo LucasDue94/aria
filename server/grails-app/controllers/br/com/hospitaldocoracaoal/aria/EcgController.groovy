@@ -26,8 +26,6 @@ class EcgController {
         respond ecgService.get(id)
     }
 
-
-
     @Secured('ROLE_ECG_SAVE')
     @Transactional
     def save(Ecg ecg) {

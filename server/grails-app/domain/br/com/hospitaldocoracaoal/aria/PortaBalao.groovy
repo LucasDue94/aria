@@ -1,5 +1,6 @@
 package br.com.hospitaldocoracaoal.aria
 
+import br.com.hospitaldocoracaoal.integracao.Paciente
 import br.com.hospitaldocoracaoal.integracao.RegistroAtendimento
 
 class PortaBalao {
@@ -8,10 +9,12 @@ class PortaBalao {
 
     static belongsTo = [
             registroAtendimento: RegistroAtendimento,
+            paciente: Paciente
     ]
 
+
     static constraints = {
-        registroAtendimento nullable: false
+        registroAtendimento unique: true
         dataHoraBalao nullable: false
     }
 }

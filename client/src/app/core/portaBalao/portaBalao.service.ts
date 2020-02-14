@@ -5,7 +5,6 @@ import {Observable, Subject} from "rxjs";
 import {map} from "rxjs/operators";
 import {PortaBalao} from "./portaBalao";
 
-
 @Injectable()
 export class PortaBalaoService {
 
@@ -52,8 +51,8 @@ export class PortaBalaoService {
             });
         } else {
             return this.http.post<PortaBalao>(this.baseUrl + `portaBalao/`, portaBalao, {
-                responseType: 'json'
-            });
+              responseType: 'json'
+            })
         }
     }
 
