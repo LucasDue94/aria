@@ -1,0 +1,8 @@
+import br.com.hospitaldocoracaoal.aria.Nas
+
+model {
+	Iterable<Nas> nasList
+}
+
+json tmpl.nas(nasList ?: [])
+

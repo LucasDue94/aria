@@ -4,79 +4,71 @@ import grails.gorm.transactions.ReadOnly
 import grails.gorm.transactions.Transactional
 import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
-import org.grails.web.json.JSONObject
 
 import static org.springframework.http.HttpStatus.*
 
 @ReadOnly
-class IncidenteController {
+class NasController {
 
-    IncidenteService incidenteService
+    NasService nasService
 
     static responseFormats = ['json', 'xml']
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
-
-    @Secured('ROLE_INCIDENTE_INDEX')
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond incidenteService.list(params), model:[incidenteCount: incidenteService.count()]
+        respond nasService.list(params), model:[nasCount: nasService.count()]
     }
 
-    @Secured('ROLE_INCIDENTE_SHOW')
     def show(Long id) {
-        respond incidenteService.get(id)
+        respond nasService.get(id)
     }
 
-    @Secured('ROLE_INCIDENTE_SAVE')
+    @Secured('ROLE_PERFIL_EPIDEMIOLOGICO_INDEX')
     @Transactional
-    def save() {
-        JSONObject requestJson = (JSONObject) request.JSON
-        Incidente incidente = new Incidente(requestJson)
-
-        if (incidente == null) {
+    def save(Nas nas) {
+        if (nas == null) {
             render status: NOT_FOUND
             return
         }
-        if (incidente.hasErrors()) {
+        if (nas.hasErrors()) {
             transactionStatus.setRollbackOnly()
-            respond incidente.errors
+            respond nas.errors
             return
         }
 
         try {
-            incidenteService.save(incidente, requestJson.paciente.id)
+            nasService.save(nas)
         } catch (ValidationException e) {
-            respond incidente.errors
+            respond nas.errors
             return
         }
 
-        respond incidente, [status: CREATED, view:"show"]
+        respond nas, [status: CREATED, view:"show"]
     }
 
-    @Secured('ROLE_INCIDENTE_UPDATE')
+    @Secured('ROLE_PERFIL_EPIDEMIOLOGICO_INDEX')
     @Transactional
-    def update(Incidente incidente) {
-        if (incidente == null) {
+    def update(Nas nas) {
+        if (nas == null) {
             render status: NOT_FOUND
             return
         }
-        if (incidente.hasErrors()) {
+        if (nas.hasErrors()) {
             transactionStatus.setRollbackOnly()
-            respond incidente.errors
+            respond nas.errors
             return
         }
 
         try {
-            incidenteService.save(incidente)
+            nasService.save(nas)
         } catch (ValidationException e) {
-            respond incidente.errors
+            respond nas.errors
             return
         }
 
-        respond incidente, [status: OK, view:"show"]
+        respond nas, [status: OK, view:"show"]
     }
 
-    @Secured('ROLE_INCIDENTE_DELETE')
     @Transactional
     def delete(Long id) {
         if (id == null) {
@@ -84,7 +76,7 @@ class IncidenteController {
             return
         }
 
-        incidenteService.delete(id)
+        nasService.delete(id)
 
         render status: NO_CONTENT
     }

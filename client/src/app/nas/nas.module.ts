@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {NasFormComponent} from "./form/nas-form.component";
 import {PacienteInfoModule} from "../paciente-info/paciente-info.module";
 
@@ -10,4 +10,5 @@ import {PacienteInfoModule} from "../paciente-info/paciente-info.module";
     PacienteInfoModule
   ]
 })
-export class NasModule { }
+export class NasModule {
+}

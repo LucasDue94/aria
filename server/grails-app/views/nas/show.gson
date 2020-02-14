@@ -1,0 +1,7 @@
+import br.com.hospitaldocoracaoal.aria.Nas
+
+model {
+	Nas nas
+}
+
+json tmpl.nas(nas)

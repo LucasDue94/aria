@@ -13,9 +13,10 @@ import {SpinnerService} from "../../core/spinner/spinner.service";
 })
 export class PacienteDetailsComponent implements OnInit {
 
-  private paciente: Paciente = new Paciente();
-  private faSmile = faSmile;
-  private faPlus = faPlus;
+  paciente: Paciente = new Paciente();
+  incidentes = [];
+  faSmile = faSmile;
+  faPlus = faPlus;
 
   constructor(private pacienteService: PacienteService,
               private route: ActivatedRoute,
@@ -27,6 +28,9 @@ export class PacienteDetailsComponent implements OnInit {
     this.title.send('Incidente - Detalhes de Paciente');
     this.pacienteService.get(this.route.snapshot.paramMap.get('id')).subscribe( paciente => {
       this.paciente = paciente;
+      this.paciente.registrosAtendimento.map((reg) => reg.incidentes).forEach(incArray => {
+        this.incidentes = this.incidentes.concat(incArray);
+      });
       this.spinnerService.hide();
     });
   }
