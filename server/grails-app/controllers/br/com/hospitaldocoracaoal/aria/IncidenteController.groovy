@@ -1,5 +1,7 @@
 package br.com.hospitaldocoracaoal.aria
 
+
+import grails.converters.JSON
 import grails.gorm.transactions.ReadOnly
 import grails.gorm.transactions.Transactional
 import grails.plugin.springsecurity.annotation.Secured
@@ -33,19 +35,10 @@ class IncidenteController {
         JSONObject requestJson = (JSONObject) request.JSON
         Incidente incidente = new Incidente(requestJson)
 
-        if (incidente == null) {
-            render status: NOT_FOUND
-            return
-        }
-        if (incidente.hasErrors()) {
-            transactionStatus.setRollbackOnly()
-            respond incidente.errors
-            return
-        }
-
         try {
-            incidenteService.save(incidente, requestJson.paciente.id)
+            incidenteService.save(incidente, requestJson.pacienteId)
         } catch (ValidationException e) {
+            transactionStatus.setRollbackOnly()
             respond incidente.errors
             return
         }

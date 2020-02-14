@@ -111,7 +111,7 @@ export class IncidenteFormComponent implements OnInit {
       dataHora: this.form.get('data').value + ' ' + this.form.get('hora').value,
       obs: this.form.get('obs').value,
       tipoIncidente: new Object({id: this.form.get('tipoIncidente').value}),
-      paciente: new Object({id: this.paciente.id})
+      pacienteId: this.paciente.id
     });
 
     this.incidenteService.save(incidente).subscribe((res) => {
