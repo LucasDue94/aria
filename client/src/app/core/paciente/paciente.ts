@@ -1,5 +1,4 @@
 import {RegistroAtendimento} from '../registroAtendimento/registroAtendimento';
-import {Incidente} from "../incidente/incidente";
 
 export class Paciente {
   id: string;

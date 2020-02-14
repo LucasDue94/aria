@@ -18,13 +18,13 @@ import {AuthService} from "./auth/auth.service";
 import {AuthGuard} from "./guards/auth.guard";
 import {SelectService} from "./select/select.service";
 import {ApacheService} from './apache/apache.service';
-import { PermissaoService } from './permissao/permissao.service';
-import { GrupoService } from './grupo/grupo.service';
+import {PermissaoService} from './permissao/permissao.service';
+import {GrupoService} from './grupo/grupo.service';
 import {RiscoService} from "./risco/risco.service";
-import { TipoIncidenteService } from './tipoIncidente/tipoIncidente.service';
+import {TipoIncidenteService} from './tipoIncidente/tipoIncidente.service';
 import {IncidenteService} from "./incidente/incidente.service";
 import {PortaBalaoService} from "./portaBalao/portaBalao.service";
-import { EcgService } from './ecg/ecg.service';
+import {EcgService} from './ecg/ecg.service';
 
 
 @NgModule({
@@ -58,7 +58,7 @@ import { EcgService } from './ecg/ecg.service';
     PortaBalaoService,
     IncidenteService,
     EcgService
-]
+  ]
 })
 export class CoreModule {
 }
