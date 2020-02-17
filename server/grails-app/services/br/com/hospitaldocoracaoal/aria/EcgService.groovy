@@ -2,8 +2,6 @@ package br.com.hospitaldocoracaoal.aria
 
 import grails.gorm.services.Service
 
-import java.text.SimpleDateFormat
-
 @Service(Ecg)
 abstract class EcgService {
 
@@ -20,18 +18,18 @@ abstract class EcgService {
     }
 
     def gerarEcg() {
-
-        def tempoLimite
-
         Calendar c = new GregorianCalendar()
 
-        Set<Ecg> registros = (Set<Ecg>) Ecg.findAll()
-        registros.each{ e ->
-            println  e.dataHoraPorta.toString()
-            SimpleDateFormat s = new SimpleDateFormat("yyyy-M-dd", Locale.ENGLISH)
-            Date date = s.parse(e.dataHoraPorta.toString())
-            print date
+        List<Boolean> ecgLimite = Ecg.list().collect { Ecg e ->
+            c.time = e.dataHoraPorta
+            c.add(Calendar.MINUTE, 10)
+            e.dataHoraEcg <= c.time
         }
-            println c.getTime()
+
+        return [
+                atendidos   : ecgLimite.count { limite -> limite },
+                naoAtendidos: ecgLimite.count { limite -> !limite },
+                total       : ecgLimite.size()
+        ]
     }
 }

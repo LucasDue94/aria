@@ -1,0 +1,16 @@
+<main class="container">
+  <form [formGroup]="form" class="panel">
+    <div>
+      <label class="label-panel" for="inicio">Inicio:</label>
+      <input formControlName="inicio" class="input-date" id="inicio" type="date">
+    </div>
+    <div>
+      <label class="label-panel" for="fim">Fim:</label>
+      <input formControlName="fim" class="input-date" id="fim" type="date">
+      <label class="label-panel" for="fim">Setor:</label>
+    </div>
+  </form>
+  <section class="panel-chart" *ngIf="ecgChart">
+    <section [chart]="ecgChart" id="ecg">ECG</section>
+  </section>
+</main>
