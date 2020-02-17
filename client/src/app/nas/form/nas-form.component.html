@@ -1,26 +1,15 @@
 <main class="nas-container">
   <paciente-info [paciente]="registroAtendimento?.paciente"></paciente-info>
-  <header class="main-title">Atividade Básica</header>
+  <header class="main-title">ATIVIDADE BÁSICA</header>
   <form class="container-groups">
-    <nas-group [groupLabel]="'Monitorização Controles'">
-      <nas-question [answer]="answers" [question]="question1"></nas-question>
-      <nas-question [answer]="answers" [question]="question2" [isBoolQuestion]="true"></nas-question>
-      <nas-question [answer]="answers" [question]="question3" [isBoolQuestion]="true"></nas-question>
-    </nas-group>
-    <nas-group [groupLabel]="'Monitorização Controles'">
-      <nas-question [answer]="answers" [question]="question1"></nas-question>
-      <nas-question [answer]="answers" [question]="question2" [isBoolQuestion]="true"></nas-question>
-      <nas-question [answer]="answers" [question]="question3" [isBoolQuestion]="true"></nas-question>
-    </nas-group>
-    <nas-group [groupLabel]="'Monitorização Controles'">
-      <nas-question [answer]="answers" [question]="question1"></nas-question>
-      <nas-question [answer]="answers" [question]="question2" [isBoolQuestion]="true"></nas-question>
-      <nas-question [answer]="answers" [question]="question3" [isBoolQuestion]="true"></nas-question>
-    </nas-group>
-    <nas-group [groupLabel]="'Monitorização Controles'">
-      <nas-question [answer]="answers" [question]="question1"></nas-question>
-      <nas-question [answer]="answers" [question]="question2" [isBoolQuestion]="true"></nas-question>
-      <nas-question [answer]="answers" [question]="question3" [isBoolQuestion]="true"></nas-question>
+    <nas-group *ngFor="let group of form" [groupLabel]="group.name">
+      <nas-question *ngFor="let question of group.questions"
+                    (change)="checkChanges($event)" [ngClass]="[isEmpty(question.name) == '' ? 'invalid': '' ]"
+                    [answer]="newNas" [isBoolQuestion]="question.isBool"
+                    [question]="question.value">{{ newNas[question.name] == '' ? 'invalid' : '' }}</nas-question>
     </nas-group>
   </form>
+  <footer class="nas-footer">
+    <button (click)="save()" class="button button-blue">Salvar</button>
+  </footer>
 </main>

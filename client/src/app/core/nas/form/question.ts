@@ -5,6 +5,7 @@ export class Question {
   number: string;
   title: string;
   alternatives: Alternative[];
+  name:string;
 
   constructor(object?: any) {
 
