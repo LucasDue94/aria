@@ -1,11 +1,13 @@
 package br.com.hospitaldocoracaoal.aria
 
-
+import br.com.hospitaldocoracaoal.aria.utils.DataUtils
 import br.com.hospitaldocoracaoal.integracao.RegistroAtendimento
 import br.com.hospitaldocoracaoal.integracao.RegistroAtendimentoLeito
 import br.com.hospitaldocoracaoal.integracao.SetorWpd
 import grails.gorm.services.Service
 import grails.validation.ValidationException
+import grails.web.servlet.mvc.GrailsParameterMap
+import org.hibernate.sql.JoinType
 
 @Service(Incidente)
 abstract class IncidenteService {
@@ -17,6 +19,29 @@ abstract class IncidenteService {
     abstract Long count()
 
     abstract void delete(Serializable id)
+
+    def report(GrailsParameterMap args) {
+        Date dataInicio = DataUtils.getFormatterToDate(args.dataInicio)
+        Date dataFim = DataUtils.endOfDay(DataUtils.getFormatterToDate(args.dataFim))
+
+        def criteria = Incidente.createCriteria()
+
+        def result = criteria.list() {
+            between 'dataHora', dataInicio, dataFim
+            setor {
+                eq 'id', args.long('setorId')
+            }
+
+            projections {
+                groupProperty 'tipoIncidente'
+                count()
+            }
+        }
+
+        result.collect {
+            [tipoIncidente: it[0].nome, quantidade: it[1]]
+        }
+    }
 
     Incidente save(Incidente incidente, String pacienteId) {
         List<RegistroAtendimento> registros = (List<RegistroAtendimento>) RegistroAtendimento.createCriteria().list(sort: 'dataEntrada') {

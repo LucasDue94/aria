@@ -16,6 +16,7 @@ class UrlMappings {
             get '/setor/admissoes'(controller: "setor", action: 'admissions')
             get '/apache/relatorio'(controller: "apache", action: 'report')
             get '/apache/notificacoes'(controller: "apache", action: 'notificacoes')
+            get '/incidente/relatorio'(controller: "incidente", action: 'report')
         }
 
         "/"(uri: 'index.html')

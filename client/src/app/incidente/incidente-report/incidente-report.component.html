@@ -14,7 +14,7 @@
         <option value="null">Selecione</option>
         <option name="setor" *ngFor="let setor of setores" [ngValue]="setor.id">{{setor.sigla}}</option>
       </select>
-      <button class="button-search-panel" (click)="updateChart()">
+      <button class="button-search-panel" (click)="getChartData()">
         <fa-icon [icon]=faSearch></fa-icon>
         Buscar
       </button>
@@ -24,7 +24,7 @@
     </div>
   </form>
 
-  <section class="panel-chart">
-    <section [chart]="incidenteChart" id="incidente-chart" #chartSVG>Incidentes</section>
+  <section class="panel-chart" [hidden]="!showChartContainer">
+    <section [chart]="incidenteChart">Incidentes</section>
   </section>
 </div>

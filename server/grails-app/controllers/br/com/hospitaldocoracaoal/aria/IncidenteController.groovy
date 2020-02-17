@@ -24,6 +24,12 @@ class IncidenteController {
         respond incidenteService.list(params), model:[incidenteCount: incidenteService.count()]
     }
 
+    @Secured('ROLE_INCIDENTE_REPORT')
+    def report(Integer max) {
+        return [data: incidenteService.report(params)]
+    }
+
+
     @Secured('ROLE_INCIDENTE_SHOW')
     def show(Long id) {
         respond incidenteService.get(id)
