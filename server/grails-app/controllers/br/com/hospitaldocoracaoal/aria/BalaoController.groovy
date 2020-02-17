@@ -11,71 +11,71 @@ import grails.gorm.transactions.ReadOnly
 import grails.gorm.transactions.Transactional
 
 @ReadOnly
-class PortaBalaoController {
+class balaooController {
 
-    PortaBalaoService portaBalaoService
+    BalaoService balaooService
 
     static responseFormats = ['json', 'xml']
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    @Secured('ROLE_PORTA_BALAO_INDEX')
+    @Secured('ROLE_BALAO_INDEX')
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond portaBalaoService.list(params), model:[portaBalaoCount: portaBalaoService.count()]
+        respond balaooService.list(params), model:[balaoCount: balaooService.count()]
     }
 
-    @Secured('ROLE_PORTA_BALAO_SHOW')
+    @Secured('ROLE_BALAO_SHOW')
     def show(Long id) {
-        respond portaBalaoService.get(id)
+        respond balaooService.get(id)
     }
 
-    @Secured('ROLE_PORTA_BALAO_SAVE')
+    @Secured('ROLE_BALAO_SAVE')
     @Transactional
-    def save(PortaBalao portaBalao) {
-        if (portaBalao == null) {
+    def save(Balao balao) {
+        if (balao == null) {
             render status: NOT_FOUND
             return
         }
-        if (portaBalao.hasErrors()) {
+        if (balao.hasErrors()) {
             transactionStatus.setRollbackOnly()
-            respond portaBalao.errors
+            respond balao.errors
             return
         }
 
         try {
-            portaBalaoService.save(portaBalao)
+            balaooService.save(balao)
         } catch (ValidationException e) {
-            respond portaBalao.errors
+            respond balao.errors
             return
         }
 
-        respond portaBalao, [status: CREATED, view:"show"]
+        respond balao, [status: CREATED, view:"show"]
     }
 
-    @Secured('ROLE_PORTA_BALAO_UPDATE')
+    @Secured('ROLE_BALAO_UPDATE')
     @Transactional
-    def update(PortaBalao portaBalao) {
-        if (portaBalao == null) {
+    def update(Balao balao) {
+        if (balao == null) {
             render status: NOT_FOUND
             return
         }
-        if (portaBalao.hasErrors()) {
+        if (balao.hasErrors()) {
             transactionStatus.setRollbackOnly()
-            respond portaBalao.errors
+            respond balao.errors
             return
         }
 
         try {
-            portaBalaoService.save(portaBalao)
+            balaooService.save(balao)
         } catch (ValidationException e) {
-            respond portaBalao.errors
+            respond balao.errors
             return
         }
 
-        respond portaBalao, [status: OK, view:"show"]
+        respond balao, [status: OK, view:"show"]
     }
 
-    @Secured('ROLE_PORTA_BALAO_DELETE')
+    @Secured('ROLE_BALAO_DELETE')
     @Transactional
     def delete(Long id) {
         if (id == null) {
@@ -83,7 +83,7 @@ class PortaBalaoController {
             return
         }
 
-        portaBalaoService.delete(id)
+        balaooService.delete(id)
 
         render status: NO_CONTENT
     }

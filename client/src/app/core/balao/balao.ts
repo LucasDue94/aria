@@ -1,7 +1,7 @@
 import {RegistroAtendimento} from '../registroAtendimento/registroAtendimento';
 import {Paciente} from "../paciente/paciente";
 
-export class PortaBalao {
+export class Balao {
   id: number;
   registroAtendimento: RegistroAtendimento;
   dataHoraBalao: any;
@@ -23,6 +23,6 @@ export class PortaBalao {
   }
 
   toString(): string {
-    return 'br.com.hospitaldocoracaoal.aria.PortaBalao : ' + (this.id ? this.id : '(unsaved)');
+    return 'br.com.hospitaldocoracaoal.aria.Balao : ' + (this.id ? this.id : '(unsaved)');
   }
 }

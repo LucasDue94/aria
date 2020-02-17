@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PortaBalaoFormComponent } from './porta-balao-form.component';
+import { BalaoListComponent } from './balao-list.component';
 
-describe('PortaBalaoFormComponent', () => {
-  let component: PortaBalaoFormComponent;
-  let fixture: ComponentFixture<PortaBalaoFormComponent>;
+describe('BalaoListComponent', () => {
+  let component: BalaoListComponent;
+  let fixture: ComponentFixture<BalaoListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PortaBalaoFormComponent ]
+      declarations: [ BalaoListComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PortaBalaoFormComponent);
+    fixture = TestBed.createComponent(BalaoListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

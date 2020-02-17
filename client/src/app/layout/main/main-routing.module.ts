@@ -20,8 +20,8 @@ import {RiscoFormComponent} from "../../risco/form/risco-form.component";
 import {TipoIncidenteListComponent} from "../../tipo-incidente/list/tipo-incidente-list.component";
 import {TipoIncidenteFormComponent} from "../../tipo-incidente/form/tipo-incidente-form.component";
 import {PacienteListComponent} from "../../incidente/paciente-list/paciente-list.component";
-import {PortaBalaoFormComponent} from "../../porta-balao/form/porta-balao-form.component";
-import {PortaBalaoListComponent} from "../../porta-balao/list/porta-balao-list.component";
+import {BalaoFormComponent} from "../../balao/form/balao-form.component";
+import {BalaoListComponent} from "../../balao/list/balao-list.component";
 import {PacienteDetailsComponent} from "../../incidente/paciente-details/paciente-details.component";
 import {IncidenteFormComponent} from "../../incidente/form/incidente-form.component";
 import {IncidenteReportComponent} from "../../incidente/incidente-report/incidente-report.component";
@@ -201,7 +201,7 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'portaBalao',
+        path: 'balao',
         children: [
           {
             path: '',
@@ -211,12 +211,12 @@ const routes: Routes = [
           },
           {
             path: 'paciente-list',
-            component: PortaBalaoListComponent,
+            component: BalaoListComponent,
             canActivate: [AuthGuard]
           },
           {
             path: 'create/:id',
-            component: PortaBalaoFormComponent,
+            component: BalaoFormComponent,
             canActivate: [AuthGuard]
           }
         ],

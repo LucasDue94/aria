@@ -1,0 +1,65 @@
+import {Injectable} from '@angular/core';
+import {HttpClient} from "@angular/common/http";
+import {environment} from "../../../environments/environment";
+import {Observable, Subject} from "rxjs";
+import {map} from "rxjs/operators";
+import {Balao} from "./balao";
+
+@Injectable()
+export class BalaoService {
+
+    private baseUrl = environment.apiUrl;
+
+    constructor(private http: HttpClient) {
+    }
+
+    list(max?: any, offset?: any): Observable<Balao[]> {
+        let subject = new Subject<Balao[]>();
+        this.http.get(this.baseUrl + `balao?offset=` + offset + '&max=' + max)
+            .subscribe((json: any[]) => {
+                subject.next(json.map((propertyName: any) => new Balao(propertyName)))
+            });
+        return subject.asObservable();
+    }
+
+    count() {
+        let quantity: number;
+        return this.http.get<Balao[]>(this.baseUrl + `balao/`).pipe(
+            map(
+                data => {
+                    quantity = data['total'];
+                    return quantity;
+                }
+            )
+        )
+    }
+
+    get(id: number): Observable<Balao> {
+        let subject = new Subject<Balao>();
+        this.http.get(this.baseUrl + `balao/` + id)
+            .subscribe((json: any) => {
+                subject.next(new Balao(json));
+            });
+        return subject.asObservable();
+    }
+
+
+    save(balao: Balao): Observable<Balao> {
+        if (balao.id) {
+            return this.http.put<Balao>(this.baseUrl + `balao/` + balao.id, balao, {
+                responseType: 'json'
+            });
+        } else {
+            return this.http.post<Balao>(this.baseUrl + `balao/`, balao, {
+              responseType: 'json'
+            })
+        }
+    }
+
+
+    destroy(balao: Balao): Observable<Object> {
+        return this.http.delete(this.baseUrl + `balao/` + balao.id, {
+            observe: 'response'
+        });
+    }
+}

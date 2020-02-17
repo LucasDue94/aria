@@ -27,11 +27,12 @@ import {InterceptorModule} from "./core/interceptor/interceptor.module";
 import {RiscoModule} from "./risco/risco.module";
 import {TipoIncidenteModule} from './tipo-incidente/tipo-incidente.module';
 import {IncidenteModule} from "./incidente/incidente.module";
-import {PortaBalaoModule} from "./porta-balao/porta-balao.module";
+import {BalaoModule} from "./balao/balao.module";
 import {NasModule} from "./nas/nas.module";
 import {SpinnerModule} from "./components/spinner/spinner.module";
 import {PacienteInfoModule} from "./paciente-info/paciente-info.module";
 import {EcgModule} from "./ecg/ecg.module";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   exports: [],
@@ -42,6 +43,7 @@ import {EcgModule} from "./ecg/ecg.module";
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     FontAwesomeModule,
     HeaderModule,
@@ -63,7 +65,7 @@ import {EcgModule} from "./ecg/ecg.module";
     GrupoModule,
     InterceptorModule,
     RiscoModule,
-    PortaBalaoModule,
+    BalaoModule,
     EcgModule,
     TipoIncidenteModule,
     IncidenteModule,
