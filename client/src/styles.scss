@@ -29,13 +29,22 @@ body, app-main {
   background-color: $white;
 }
 
-setor-list, apache-form, grupo-list {
+setor-list, apache-form, grupo-list,nas-form {
   position: relative;
   height: 100%;
 }
+nas-form{
+  position: absolute;
+  height: calc(100% - 20px);
 
+}
 multiple-select {
   height: calc(100% - 25px);
+}
+
+nas-group {
+  position: relative;
+  width: 50%;
 }
 
 app-main {
@@ -320,6 +329,7 @@ tspan {
     align-items: center;
     transition: 0.3s;
     background-color: $white;
+
     &:hover {
       transition: 0.3s;
       background-color: $gray-50;
@@ -376,10 +386,12 @@ tspan {
   border: 1px solid #EEEAEA;
   box-shadow: 1px 1px 6px #707070;
   width: 50%;
+
   .label {
     font-size: 16px;
     font-weight: lighter;
   }
+
   .info {
     text-transform: capitalize;
     font-size: 18px;

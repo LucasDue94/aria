@@ -11,7 +11,7 @@ import {faCheck, faFrown} from "@fortawesome/free-solid-svg-icons";
 import {Paciente} from "../../core/paciente/paciente";
 import {PacienteService} from "../../core/paciente/paciente.service";
 import {TipoIncidenteService} from "../../core/tipoIncidente/tipoIncidente.service";
-import {DatePipe} from "@angular/common";
+import {DatePipe, Location} from "@angular/common";
 
 @Component({
   selector: 'incidente-form',
@@ -39,53 +39,49 @@ export class IncidenteFormComponent implements OnInit {
               private alertService: AlertService, private route: ActivatedRoute,
               private router: Router, private spinner: SpinnerService, private pacienteService: PacienteService,
               private tipoIncidenteService: TipoIncidenteService,
-              private datePipe: DatePipe) {
+              private datePipe: DatePipe,
+              private location: Location) {
   }
 
   ngOnInit() {
+    this.setForm();
+    const pacienteId = this.route.snapshot.queryParams['paciente'];
+    if (pacienteId != undefined) {
+      this.spinner.show();
+      this.pacienteService.get(pacienteId).subscribe(res => {
+        if (res.hasOwnProperty('error')) {
+          this.errorService.sendError(res);
+          this.location.back();
+        } else {
+          this.paciente = res;
+          this.tipoIncidenteService.list().subscribe(res => {
+            if (res.hasOwnProperty('error')) {
+              this.errorService.sendError(res);
+            } else {
+              this.tiposIncidente = res;
+              this.spinner.hide();
+            }
+          });
+        }
+      });
+    } else {
+      this.location.back();
+    }
     if(this.url == 'create') {
       this.titleService.send('Incidente - Novo Incidente');
-      const pacienteId = this.route.snapshot.queryParams['paciente'];
-      if (pacienteId != undefined) {
+    } else {
+      const incidenteId = this.route.snapshot.params['id'];
+      if (incidenteId != undefined) {
+        this.titleService.send('Incidente - Editar Incidente');
         this.spinner.show();
-        this.pacienteService.get(pacienteId).subscribe(res => {
+        this.incidenteService.get(incidenteId).subscribe(res => {
           if (res.hasOwnProperty('error')) {
             this.errorService.sendError(res)
           } else {
-            this.paciente = res;
-            this.tipoIncidenteService.list().subscribe(res => {
-              if (res.hasOwnProperty('error')) {
-                this.errorService.sendError(res);
-              } else {
-                this.tiposIncidente = res;
-                this.setForm();
-                this.spinner.hide();
-              }
-            });
+            this.incidente = res;
+            this.setForm();
           }
-        });
-      }
-    } else {
-      this.titleService.send('Incidente - Editar Incidente');
-      const incidenteId = this.route.snapshot.params['id'];
-      if (incidenteId != undefined) {
-        this.spinner.show();
-        this.tipoIncidenteService.list().subscribe(res => {
-          if (res.hasOwnProperty('error')) {
-            this.errorService.sendError(res);
-          } else {
-            this.tiposIncidente = res;
-            this.incidenteService.get(incidenteId).subscribe(res => {
-              if (res.hasOwnProperty('error')) {
-                this.errorService.sendError(res)
-              } else {
-                this.incidente = res;
-                this.paciente = this.incidente.paciente;
-                this.setForm();
-              }
-              this.spinner.hide();
-            });
-          }
+          this.spinner.hide();
         });
       }
     }
@@ -111,7 +107,7 @@ export class IncidenteFormComponent implements OnInit {
       dataHora: this.form.get('data').value + ' ' + this.form.get('hora').value,
       obs: this.form.get('obs').value,
       tipoIncidente: new Object({id: this.form.get('tipoIncidente').value}),
-      paciente: new Object({id: this.paciente.id})
+      pacienteId: this.paciente.id
     });
 
     this.incidenteService.save(incidente).subscribe((res) => {

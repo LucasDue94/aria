@@ -5,6 +5,7 @@ import br.com.hospitaldocoracaoal.integracao.RegistroAtendimento
 import br.com.hospitaldocoracaoal.integracao.RegistroAtendimentoLeito
 import br.com.hospitaldocoracaoal.integracao.SetorWpd
 import grails.gorm.services.Service
+import grails.validation.ValidationException
 
 @Service(Incidente)
 abstract class IncidenteService {
@@ -30,34 +31,44 @@ abstract class IncidenteService {
             }
         }
 
-        if (registros == null && registros.isEmpty()) {
-            // TODO: ERROR
+        if (registros != null && !registros.isEmpty()) {
+            RegistroAtendimento registroAtendimento = registros.last()
+            SetorWpd setorWpd = null
+
+            switch (registroAtendimento.tipo) {
+                case 'I':
+                    RegistroAtendimentoLeito registroAtendimentoLeito = registroAtendimento.registroAtendimentoLeitos
+                            .sort { ral1, ral2 -> ral1.dataEntrada <=> ral2.dataEntrada }
+                            .find {  it.dataEntrada <= incidente.dataHora }
+                    setorWpd = registroAtendimentoLeito.leito.setor
+                    break;
+                case 'A':
+                case 'E':
+                case 'U':
+                    setorWpd = registroAtendimento.setor
+                    break;
+                default:
+                    incidente.errors.reject(
+                            'incidente.registroAtendimento.doesnt.exist',
+                            'Não foi possível criar um incidente. Tipo de registro inválido.'
+                    )
+                    throw new ValidationException('Incidente inválido.', incidente.errors)
+            }
+
+            incidente.registroAtendimento = registroAtendimento
+            incidente.setor = Setor.findBySetorWpd setorWpd
+
+            incidente.validate()
+        } else {
+            incidente.errors.reject(
+                    'incidente.registroAtendimento.doesnt.exist',
+                    'Registro não encontrado para a data e hora informados.'
+            )
+            throw new ValidationException('Incidente inválido.', incidente.errors)
         }
 
-        RegistroAtendimento registroAtendimento = registros.last()
-        SetorWpd setorWpd = null
-
-        switch (registroAtendimento.tipo) {
-            case 'I':
-                RegistroAtendimentoLeito registroAtendimentoLeito = registroAtendimento.registroAtendimentoLeitos
-                        .sort { ral1, ral2 -> ral1.dataEntrada <=> ral2.dataEntrada }
-                        .find {  it.dataEntrada <= incidente.dataHora }
-                setorWpd = registroAtendimentoLeito.leito.setor
-                break;
-            case 'A':
-            case 'E':
-            case 'U':
-                setorWpd = registroAtendimento.setor
-                break;
-            default:
-                setorWpd = null // TODO: ERROR
-        }
-
-        incidente.registroAtendimento = registroAtendimento
-        incidente.setor = Setor.findBySetorWpd setorWpd
-
-        if (!incidente.validate()) {
-            // TODO: ERROR
+        if (incidente.hasErrors()) {
+            throw new ValidationException('Incidente inválido.', incidente.errors)
         }
 
         incidente.save(flush: true)

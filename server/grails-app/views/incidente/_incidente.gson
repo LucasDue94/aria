@@ -4,4 +4,4 @@ model {
 	Incidente incidente
 }
 
-json g.render(incidente, [expand: 'tipoIncidente',resolveTemplate: false])
+json g.render(incidente, [expand: ['tipoIncidente', 'setor'], resolveTemplate: false])
