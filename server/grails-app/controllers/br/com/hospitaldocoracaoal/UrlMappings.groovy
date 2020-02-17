@@ -12,6 +12,7 @@ class UrlMappings {
             patch "/$controller/$id(.$format)?"(action: "patch")
 
             get '/registroAtendimento/internamentos'(controller: "registroAtendimento", action: 'listInternamentos')
+            get '/report/ecg'(controller: "ecg", action: 'gerarEcg')
             get '/registroAtendimento/urgencias'(controller: "registroAtendimento", action: 'listUrgencias')
             get '/setor/admissoes'(controller: "setor", action: 'admissions')
             get '/apache/relatorio'(controller: "apache", action: 'report')

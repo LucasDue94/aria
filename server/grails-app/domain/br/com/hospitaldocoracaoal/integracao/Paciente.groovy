@@ -1,7 +1,7 @@
 package br.com.hospitaldocoracaoal.integracao
 
 import br.com.hospitaldocoracaoal.aria.Ecg
-import br.com.hospitaldocoracaoal.aria.PortaBalao
+import br.com.hospitaldocoracaoal.aria.Balao
 
 class Paciente {
 
@@ -13,7 +13,7 @@ class Paciente {
     static hasMany = [
             registrosAtendimento: RegistroAtendimento,
             ecg: Ecg,
-            portaBalao: PortaBalao
+            balao: Balao
     ]
 
     static mapping = {

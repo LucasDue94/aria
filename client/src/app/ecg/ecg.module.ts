@@ -1,5 +1,5 @@
 import {CommonModule} from '@angular/common';
-import {NgModule} from '@angular/core';
+import {ErrorHandler, NgModule} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from "@angular/router";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
@@ -22,6 +22,8 @@ import {EcgFormComponent} from "./form/ecg-form.component";
     InfiniteScrollModule,
     SpinnerModule,
     RegistroAtendimentoModule
-  ]
+  ],
+  providers: []
 })
-export class EcgModule {}
+export class EcgModule {
+}

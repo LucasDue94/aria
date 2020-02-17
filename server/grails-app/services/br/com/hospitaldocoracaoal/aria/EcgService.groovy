@@ -1,8 +1,8 @@
 package br.com.hospitaldocoracaoal.aria
 
-import br.com.hospitaldocoracaoal.integracao.RegistroAtendimento
 import grails.gorm.services.Service
-import grails.web.servlet.mvc.GrailsParameterMap
+
+import java.text.SimpleDateFormat
 
 @Service(Ecg)
 abstract class EcgService {
@@ -17,5 +17,21 @@ abstract class EcgService {
 
     Ecg get(Long id) {
         Ecg.findById(id)
+    }
+
+    def gerarEcg() {
+
+        def tempoLimite
+
+        Calendar c = new GregorianCalendar()
+
+        Set<Ecg> registros = (Set<Ecg>) Ecg.findAll()
+        registros.each{ e ->
+            println  e.dataHoraPorta.toString()
+            SimpleDateFormat s = new SimpleDateFormat("yyyy-M-dd", Locale.ENGLISH)
+            Date date = s.parse(e.dataHoraPorta.toString())
+            print date
+        }
+            println c.getTime()
     }
 }

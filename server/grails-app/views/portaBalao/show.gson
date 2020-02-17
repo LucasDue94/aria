@@ -1,7 +1,0 @@
-import br.com.hospitaldocoracaoal.aria.PortaBalao
-
-model {
-	PortaBalao portaBalao
-}
-
-json tmpl.portaBalao(portaBalao)

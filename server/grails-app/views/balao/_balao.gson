@@ -1,0 +1,7 @@
+import br.com.hospitaldocoracaoal.aria.Balao
+
+model {
+	Balao balao
+}
+
+json g.render(balao, [excludes: 'paciente' ,resolveTemplate: false])

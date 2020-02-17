@@ -17,7 +17,7 @@
     <span class="th">Nascimento</span>
   </section>
   <section class="tbody content-paciente" [scrollWindow]="false" infinite-scroll (scrolled)="scrollDown()">
-    <div #routerCard [routerLink]="['/portaBalao','create', registro.id]" class="row" *ngFor="let registro of registros">
+    <div #routerCard [routerLink]="['/balao','create', registro.id]" class="row" *ngFor="let registro of registros">
       <span class="td">{{registro.id}}</span>
       <span class="td">{{registro.paciente.nome}}</span>
       <span class="td">{{registro.paciente.sexo}}</span>

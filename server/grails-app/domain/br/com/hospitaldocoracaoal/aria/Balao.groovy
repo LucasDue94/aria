@@ -3,7 +3,7 @@ package br.com.hospitaldocoracaoal.aria
 import br.com.hospitaldocoracaoal.integracao.Paciente
 import br.com.hospitaldocoracaoal.integracao.RegistroAtendimento
 
-class PortaBalao {
+class Balao {
 
     Date dataHoraBalao
 

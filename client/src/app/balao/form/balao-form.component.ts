@@ -4,28 +4,28 @@ import {FormBuilder, Validators} from "@angular/forms";
 import {RegistroAtendimento} from "../../core/registroAtendimento/registroAtendimento";
 import {RegistroAtendimentoService} from "../../core/registroAtendimento/registroAtendimento.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {PortaBalao} from "../../core/portaBalao/portaBalao";
-import {PortaBalaoService} from "../../core/portaBalao/portaBalao.service";
+import {Balao} from "../../core/balao/balao";
+import {BalaoService} from "../../core/balao/balao.service";
 import {ErrorService} from "../../core/error/error.service";
 import {AlertService} from "../../core/alert/alert.service";
 import {DatePipe} from "@angular/common";
-import {faFrown} from "@fortawesome/free-solid-svg-icons";
+import {faCheck, faFrown} from "@fortawesome/free-solid-svg-icons";
 import {SpinnerService} from "../../core/spinner/spinner.service";
 import {Paciente} from "../../core/paciente/paciente";
 
 @Component({
   selector: 'app-porta-balao-form',
-  templateUrl: './porta-balao-form.component.html',
-  styleUrls: ['./porta-balao-form.component.scss']
+  templateUrl: './balao-form.component.html',
+  styleUrls: ['./balao-form.component.scss']
 })
-export class PortaBalaoFormComponent implements OnInit {
+export class BalaoFormComponent implements OnInit {
 
   registroId;
   today = new Date();
   datePipe = new DatePipe('en-US');
   registroAtendimento = {id: null};
   registro: RegistroAtendimento;
-  portaBalao: PortaBalao = new PortaBalao();
+  balao: Balao = new Balao();
   searchForm = this.fb.group({searchControl: ['']});
   form = this.fb.group({
     dataBalao: [this.datePipe.transform(this.today, 'yyyy-MM-dd', '', 'en-US'), Validators.required],
@@ -36,7 +36,7 @@ export class PortaBalaoFormComponent implements OnInit {
   constructor(
     private titleService: TitleService,
     private fb: FormBuilder, private route: ActivatedRoute,
-    private portaBalaoService: PortaBalaoService,
+    private balaoService: BalaoService,
     private registroAtendimentoService: RegistroAtendimentoService,
     private router: Router, private spinner: SpinnerService,
     private alertService: AlertService,  datePipe: DatePipe,
@@ -45,7 +45,7 @@ export class PortaBalaoFormComponent implements OnInit {
 
   ngOnInit() {
     this.spinner.show();
-    this.titleService.send('Porta Balão - Formulário');
+    this.titleService.send('Balão - Formulário');
     this.registroId = this.route.snapshot.params.id;
     this.registroAtendimentoService.get(this.registroId).subscribe(registro => {
       this.registro = registro;
@@ -54,9 +54,9 @@ export class PortaBalaoFormComponent implements OnInit {
   }
 
   save() {
-    this.portaBalao.registroAtendimento = this.registroAtendimento.id = this.registroId;
-    this.portaBalao.dataHoraBalao = this.form.get('dataBalao').value + " " + this.form.get('horaBalao').value;
-    this.portaBalao.paciente = new Paciente({id: this.registro.paciente.id});
+    this.balao.registroAtendimento = this.registroAtendimento.id = this.registroId;
+    this.balao.dataHoraBalao = this.form.get('dataBalao').value + " " + this.form.get('horaBalao').value;
+    this.balao.paciente = new Paciente({id: this.registro.paciente.id});
     if(this.form.get('dataBalao').value == '' || this.form.get('horaBalao').value == '') {
       this.alertService.send({
         message: 'Ops... A data/hora deve ser preenchida!',
@@ -64,16 +64,16 @@ export class PortaBalaoFormComponent implements OnInit {
         icon: faFrown
       })
     }else {
-      this.portaBalaoService.save(this.portaBalao).subscribe(res => {
+      this.balaoService.save(this.balao).subscribe(res => {
         if (res.hasOwnProperty('error')) {
 
         } else {
-          this.router.navigate(['portaBalao']);
+          this.router.navigate(['balao']);
           setTimeout(() => {
             this.alertService.send({
-              message: 'Porta balão cadastrado',
+              message: 'Balão cadastrado',
               type: 'success',
-              icon: faFrown
+              icon: faCheck
             });
           }, 500)
         }
