@@ -8,7 +8,7 @@ import {SpinnerService} from "../../core/spinner/spinner.service";
 import {AlertService} from "../../core/alert/alert.service";
 import {ErrorService} from "../../core/error/error.service";
 import {RegistroAtendimentoService} from "../../core/registroAtendimento/registroAtendimento.service";
-import {faFrown} from "@fortawesome/free-solid-svg-icons";
+import {faCheck, faFrown} from "@fortawesome/free-solid-svg-icons";
 import {Ecg} from "../../core/ecg/ecg";
 import {EcgService} from "../../core/ecg/ecg.service";
 import {Paciente} from "../../core/paciente/paciente";
@@ -61,7 +61,6 @@ export class EcgFormComponent implements OnInit {
     this.ecg.dataHoraEcg = this.form.get('dataECG').value + " " + this.form.get('horaECG').value;
     this.ecg.paciente  = new Paciente({id: this.registro.paciente.id});
 
-    console.log(this.ecg);
     if (this.form.get('dataECG').value == '' || this.form.get('horaECG').value == '' || this.form.get('dataPorta').value == '' || this.form.get('horaPorta').value == '') {
       this.alertService.send({
         message: 'Ops... A data/hora deve ser preenchida!',
@@ -70,6 +69,7 @@ export class EcgFormComponent implements OnInit {
       })
     } else {
       this.ecgService.save(this.ecg).subscribe(res => {
+        console.log(res);
         if (res.hasOwnProperty('HttpErrorResponse')) {
           this.alertService.send({
             message: 'ECG já cadastrado!',
@@ -82,7 +82,7 @@ export class EcgFormComponent implements OnInit {
             this.alertService.send({
               message: 'ECG cadastrado com sucesso!',
               type: 'success',
-              icon: faFrown
+              icon: faCheck
             });
           }, 500)
         }

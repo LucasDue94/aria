@@ -1,8 +1,6 @@
 package br.com.hospitaldocoracaoal.aria
 
-import br.com.hospitaldocoracaoal.integracao.RegistroAtendimento
 import grails.gorm.services.Service
-import grails.web.servlet.mvc.GrailsParameterMap
 
 @Service(Ecg)
 abstract class EcgService {
@@ -17,5 +15,21 @@ abstract class EcgService {
 
     Ecg get(Long id) {
         Ecg.findById(id)
+    }
+
+    def gerarEcg() {
+        Calendar c = new GregorianCalendar()
+
+        List<Boolean> ecgLimite = Ecg.list().collect { Ecg e ->
+            c.time = e.dataHoraPorta
+            c.add(Calendar.MINUTE, 10)
+            e.dataHoraEcg <= c.time
+        }
+
+        return [
+                atendidos   : ecgLimite.count { limite -> limite },
+                naoAtendidos: ecgLimite.count { limite -> !limite },
+                total       : ecgLimite.size()
+        ]
     }
 }

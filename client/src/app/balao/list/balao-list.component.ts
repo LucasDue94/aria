@@ -11,10 +11,10 @@ import {RegistroAtendimentoService} from "../../core/registroAtendimento/registr
 
 @Component({
   selector: 'app-porta-balao-list',
-  templateUrl: './porta-balao-list.component.html',
-  styleUrls: ['./porta-balao-list.component.scss']
+  templateUrl: './balao-list.component.html',
+  styleUrls: ['./balao-list.component.scss']
 })
-export class PortaBalaoListComponent implements OnInit {
+export class BalaoListComponent implements OnInit {
 
   internamentos: any = [];
   atendimentos: RegistroAtendimento[];
@@ -35,7 +35,7 @@ export class PortaBalaoListComponent implements OnInit {
 
   ngOnInit() {
     this.spinner.show();
-    this.titleService.send('Porta Balão - Lista de Pacientes');
+    this.titleService.send('Balão - Lista de Pacientes');
     this.registroAtendimentoService.listInternamentos('','').subscribe(registros => {
       this.atendimentos = registros;
       this.spinner.hide();

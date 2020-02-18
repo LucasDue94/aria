@@ -20,14 +20,15 @@ import {RiscoFormComponent} from "../../risco/form/risco-form.component";
 import {TipoIncidenteListComponent} from "../../tipo-incidente/list/tipo-incidente-list.component";
 import {TipoIncidenteFormComponent} from "../../tipo-incidente/form/tipo-incidente-form.component";
 import {PacienteListComponent} from "../../incidente/paciente-list/paciente-list.component";
-import {PortaBalaoFormComponent} from "../../porta-balao/form/porta-balao-form.component";
-import {PortaBalaoListComponent} from "../../porta-balao/list/porta-balao-list.component";
+import {BalaoFormComponent} from "../../balao/form/balao-form.component";
+import {BalaoListComponent} from "../../balao/list/balao-list.component";
 import {PacienteDetailsComponent} from "../../incidente/paciente-details/paciente-details.component";
 import {IncidenteFormComponent} from "../../incidente/form/incidente-form.component";
 import {IncidenteReportComponent} from "../../incidente/incidente-report/incidente-report.component";
 import {NasFormComponent} from "../../nas/form/nas-form.component";
 import {EcgListComponent} from "../../ecg/list/ecg-list.component";
 import {EcgFormComponent} from "../../ecg/form/ecg-form.component";
+import {ReportEcgComponent} from "../../ecg/report-ecg/report-ecg.component";
 
 const routes: Routes = [
   {
@@ -201,7 +202,7 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'portaBalao',
+        path: 'balao',
         children: [
           {
             path: '',
@@ -211,12 +212,12 @@ const routes: Routes = [
           },
           {
             path: 'paciente-list',
-            component: PortaBalaoListComponent,
+            component: BalaoListComponent,
             canActivate: [AuthGuard]
           },
           {
             path: 'create/:id',
-            component: PortaBalaoFormComponent,
+            component: BalaoFormComponent,
             canActivate: [AuthGuard]
           }
         ],
@@ -238,6 +239,11 @@ const routes: Routes = [
           {
             path: 'create/:id',
             component: EcgFormComponent,
+            canActivate: [AuthGuard]
+          },
+          {
+            path: 'report',
+            component: ReportEcgComponent,
             canActivate: [AuthGuard]
           }
         ]

@@ -85,12 +85,12 @@ class Permissao implements Serializable {
             findOrSaveWhere(authority: 'ROLE_TIPO_INCIDENTE_UPDATE', nome: 'Atualizar tipo de incidente', alias: 'tipo de incidente')
             findOrSaveWhere(authority: 'ROLE_TIPO_INCIDENTE_DELETE', nome: 'Excluir tipo de incidente', alias: 'tipo de incidente')
 
-            // -- PORTA BALAO
-            findOrSaveWhere(authority: 'ROLE_PORTA_BALAO_INDEX', nome: 'Listar porta balão', alias: 'porta balão')
-            findOrSaveWhere(authority: 'ROLE_PORTA_BALAO_SHOW', nome: 'Ver porta balão', alias: 'porta balão')
-            findOrSaveWhere(authority: 'ROLE_PORTA_BALAO_SAVE', nome: 'Salvar porta balão', alias: 'porta balão')
-            findOrSaveWhere(authority: 'ROLE_PORTA_BALAO_UPDATE', nome: 'Atualizar porta balão', alias: 'porta balão')
-            findOrSaveWhere(authority: 'ROLE_PORTA_BALAO_DELETE', nome: 'Excluir porta balão', alias: 'porta balão')
+            // -- BALAO
+            findOrSaveWhere(authority: 'ROLE_BALAO_INDEX', nome: 'Listar porta balão', alias: 'porta balão')
+            findOrSaveWhere(authority: 'ROLE_BALAO_SHOW', nome: 'Ver porta balão', alias: 'porta balão')
+            findOrSaveWhere(authority: 'ROLE_BALAO_SAVE', nome: 'Salvar porta balão', alias: 'porta balão')
+            findOrSaveWhere(authority: 'ROLE_BALAO_UPDATE', nome: 'Atualizar porta balão', alias: 'porta balão')
+            findOrSaveWhere(authority: 'ROLE_BALAO_DELETE', nome: 'Excluir porta balão', alias: 'porta balão')
 
             // -- ECG
             findOrSaveWhere(authority: 'ROLE_ECG_INDEX', nome: 'Listar ecg', alias: 'ecocardiograma')
@@ -105,6 +105,7 @@ class Permissao implements Serializable {
             findOrSaveWhere(authority: 'ROLE_INCIDENTE_SAVE', nome: 'Salvar incidente', alias: 'incidente')
             findOrSaveWhere(authority: 'ROLE_INCIDENTE_UPDATE', nome: 'Atualizar incidente', alias: 'incidente')
             findOrSaveWhere(authority: 'ROLE_INCIDENTE_DELETE', nome: 'Excluir incidente', alias: 'incidente')
+            findOrSaveWhere(authority: 'ROLE_INCIDENTE_REPORT', nome: 'Relatório incidente', alias: 'incidente')
 
             status.flush()
         }

@@ -99,11 +99,11 @@ export class MenuComponent implements OnInit {
       router: ['/ecg/paciente-list']
     },
     {
-      name: 'Porta Balão',
+      name: 'Balão',
       status: false,
       permission: EnumPermisson.role_paciente_index,
       faIcon: faCommentMedical,
-      router: ['/portaBalao/paciente-list']
+      router: ['/balao/paciente-list']
     }
   ];
 
