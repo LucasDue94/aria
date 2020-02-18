@@ -8,8 +8,10 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {InfiniteScrollModule} from "ngx-infinite-scroll";
 import { PacienteDetailsComponent } from './paciente-details/paciente-details.component';
 import { IncidenteReportComponent } from './incidente-report/incidente-report.component';
-import {ChartModule} from "angular-highcharts";
+import {ChartModule, HIGHCHARTS_MODULES} from "angular-highcharts";
 import {SpinnerModule} from "../components/spinner/spinner.module";
+import * as more from "highcharts/highcharts-more.src";
+import * as exporting from "highcharts/modules/exporting.src";
 
 
 
@@ -29,6 +31,9 @@ import {SpinnerModule} from "../components/spinner/spinner.module";
     SpinnerModule,
     FormsModule,
     ChartModule
+  ],
+  providers: [
+    { provide: HIGHCHARTS_MODULES, useFactory: () => [ more, exporting ] }
   ]
 })
 export class IncidenteModule { }

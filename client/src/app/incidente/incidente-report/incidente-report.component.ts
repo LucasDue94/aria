@@ -3,7 +3,13 @@ import {DatePipe} from "@angular/common";
 import {FormBuilder} from "@angular/forms";
 import {TitleService} from "../../core/title/title.service";
 import {faPrint} from "@fortawesome/free-solid-svg-icons/faPrint";
-import {faSearch} from '@fortawesome/free-solid-svg-icons';
+import {faFrown, faSearch} from '@fortawesome/free-solid-svg-icons';
+import {Chart} from "angular-highcharts";
+import {IncidenteService} from "../../core/incidente/incidente.service";
+import {AlertService} from "../../core/alert/alert.service";
+import {SeriesPieOptions} from "highcharts";
+import {SetorService} from "../../core/setor/setor.service";
+import {SpinnerService} from "../../core/spinner/spinner.service";
 
 @Component({
   selector: 'app-incidente-report',
@@ -23,7 +29,6 @@ export class IncidenteReportComponent implements OnInit {
 
   setores = [];
 
-  incidenteChart;
   chartOptions: any = {
     chart: {
       plotBackgroundColor: null,
@@ -32,70 +37,114 @@ export class IncidenteReportComponent implements OnInit {
       type: 'pie'
     },
     title: {
-      text: 'Browser market shares in January, 2018'
+      text: 'INCIDENTES POR TIPO',
+      style: {
+        fontSize: '18px',
+        fontWeight: '500',
+        color: '#5A5B5B'
+
+      }
     },
     tooltip: {
-      pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+      pointFormat: 'Porcentagem: <b>{point.percentage:.1lf}%</b><br>{series.name}: <b>{point.y}'
     },
     plotOptions: {
       pie: {
         allowPointSelect: true,
         cursor: 'pointer',
         dataLabels: {
-          enabled: true,
-          format: '<b>{point.name}</b>: {point.percentage:.1f} %'
-        }
+          format: '<b>{point.name}</b><br>{point.percentage:.1f}%',
+          distance: -45,
+          style: {
+            fontSize: '16px',
+            fontWeight: '400',
+            color: 'transparent',
+            textOutline: '0 contrast'
+          }
+        },
       }
     },
     series: [{
-      name: 'Brands',
+      name: 'Quantidade',
       colorByPoint: true,
       data: [{
-        name: 'Chrome',
-        y: 61.41,
-        sliced: true,
-        selected: true
-      }, {
-        name: 'Internet Explorer',
-        y: 11.84
-      }, {
-        name: 'Firefox',
-        y: 10.85
-      }, {
-        name: 'Edge',
-        y: 4.67
-      }, {
-        name: 'Safari',
-        y: 4.18
-      }, {
-        name: 'Sogou Explorer',
-        y: 1.64
-      }, {
-        name: 'Opera',
-        y: 1.6
-      }, {
-        name: 'QQ',
-        y: 1.2
-      }, {
-        name: 'Other',
-        y: 2.61
+        name: 'Nenhum',
+        y: 1
       }]
-    }]
+    }],
+    credits: {
+      enabled: false
+    }
   };
 
-  constructor(private fb: FormBuilder, private titleService: TitleService) { }
+  incidenteChart;
+  showChartContainer = false;
+
+  constructor(private fb: FormBuilder, private titleService: TitleService,
+              private incidenteService: IncidenteService,
+              private alertService: AlertService,
+              private setorService: SetorService,
+              private spinnerService: SpinnerService) {
+    this.generateChart = this.generateChart.bind(this);
+  }
 
   ngOnInit() {
+    this.incidenteChart = new Chart(this.chartOptions);
     this.titleService.send('Relatório de Incidentes');
     this.setDateInterval();
+    this.spinnerService.show();
+    this.setorService.list().subscribe(setor => {
+      this.setores = setor;
+      this.spinnerService.hide();
+    });
   }
 
   generatePdf() {
 
   }
 
-  updateChart() {
+  generateChart(data) {
+    const seriesData = data.map( item => {return {name: item.tipoIncidente, y: item.quantidade}});
+    this.showChartContainer = true;
+    this.incidenteChart.ref.update({
+      series: [{
+        type: 'pie',
+        name: 'Quantidade',
+        colorByPoint: true,
+        data: seriesData
+      } as SeriesPieOptions],
+    }, true, true);
+  }
 
+  getChartData() {
+    const dataInicio = this.form.controls.dataInicio.value;
+    const dataFim = this.form.controls.dataFim.value;
+    const setorId = this.form.controls.setorId.value;
+
+    let defaultDataInicio = new Date(dataInicio);
+    let defaultDataFim = new Date(dataFim);
+
+    if (dataInicio == "" || dataFim == "") {
+      this.alertService.send({
+        message: 'Ops... A data deve ser preenchida!',
+        type: 'warning',
+        icon: faFrown
+      });
+    } else if (defaultDataInicio > defaultDataFim) {
+      this.alertService.send({
+        message: 'Ops... Data início deve ser maior que a data fim!',
+        type: 'warning',
+        icon: faFrown
+      });
+    } else if (setorId == null) {
+        this.alertService.send({
+          message: 'Ops... Selecione um setor!',
+          type: 'warning',
+          icon: faFrown
+        });
+    } else {
+      this.incidenteService.report(dataInicio, dataFim, setorId).subscribe(this.generateChart);
+    }
   }
 
   setDateInterval(): void {

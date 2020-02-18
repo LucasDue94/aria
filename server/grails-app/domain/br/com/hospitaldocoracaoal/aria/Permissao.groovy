@@ -105,6 +105,7 @@ class Permissao implements Serializable {
             findOrSaveWhere(authority: 'ROLE_INCIDENTE_SAVE', nome: 'Salvar incidente', alias: 'incidente')
             findOrSaveWhere(authority: 'ROLE_INCIDENTE_UPDATE', nome: 'Atualizar incidente', alias: 'incidente')
             findOrSaveWhere(authority: 'ROLE_INCIDENTE_DELETE', nome: 'Excluir incidente', alias: 'incidente')
+            findOrSaveWhere(authority: 'ROLE_INCIDENTE_REPORT', nome: 'Relatório incidente', alias: 'incidente')
 
             status.flush()
         }
