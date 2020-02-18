@@ -3,6 +3,7 @@ import {TitleService} from "../../core/title/title.service";
 import {EcgService} from "../../core/ecg/ecg.service";
 import {Chart} from "angular-highcharts";
 import {FormBuilder, Validators} from "@angular/forms";
+import {SeriesPieOptions} from "highcharts";
 
 @Component({
   selector: 'app-report-ecg',
@@ -38,26 +39,24 @@ export class ReportEcgComponent implements OnInit {
       data: [{name: 'Atendidos', y: 1}, {name: 'Não atendidos', y: 1}]
     }]
   };
-  ecgChart;
+  ecgChart = new Chart(this.optionsChart);
+
   form = this.fb.group({
     inicio: ['', Validators.required ],
     fim: ['', Validators.required]
   });
 
   constructor(private titleService: TitleService, private ecgService: EcgService, private fb: FormBuilder) {
-    this.ecgChart = new Chart(this.optionsChart);
   }
 
   ngOnInit() {
     this.titleService.send('Relatório de ECG');
-    console.log(this.ecgChart);
+    this.ecgService.report().subscribe(ecg => {
+      this.ecgChart.ref.update({series: [{
+          data: [{name: 'Atendidos', y: ecg['atendidos']}, {name: 'Não atendidos', y: ecg['naoAtendidos']}]
+        } as SeriesPieOptions]}, true, true);
+    });
   }
 
-  updateChart() {
-      this.optionsChart = {
-        series: [{
-          data: [{name: 'Atendidos', y: 2}, {name: 'Não atendidos', y: 1}]
-        }]
-      };
-  }
+
 }
