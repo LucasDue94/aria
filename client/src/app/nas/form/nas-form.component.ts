@@ -5,6 +5,15 @@ import {ActivatedRoute} from "@angular/router";
 import {Alternative} from "../../core/nas/form/alternative";
 import {Question} from "../../core/nas/form/question";
 import {Nas} from "../../core/nas/nas";
+import {NasService} from "../../core/nas/nas.service";
+import {TitleService} from "../../core/title/title.service";
+import {ErrorService} from "../../core/error/error.service";
+import {SpinnerService} from "../../core/spinner/spinner.service";
+import {AlertService} from "../../core/alert/alert.service";
+import {faExclamationCircle} from "@fortawesome/free-solid-svg-icons/faExclamationCircle";
+import {RegistroAtendimentoLeito} from "../../core/registroAtendimentoLeitos/registroAtendimentoLeito";
+import {faCheck} from "@fortawesome/free-solid-svg-icons/faCheck";
+import {faFrown} from "@fortawesome/free-solid-svg-icons/faFrown";
 
 @Component({
   selector: 'nas-form',
@@ -382,33 +391,57 @@ export class NasFormComponent implements OnInit {
     registroAtendimentoLeito: '',
   });
 
-  constructor(private route: ActivatedRoute, private registroAtendimentoService: RegistroAtendimentoService) {
+  submitted = false;
+
+  constructor(private route: ActivatedRoute, private registroAtendimentoService: RegistroAtendimentoService,
+              private nasService: NasService, private titleService: TitleService, private errorService: ErrorService,
+              private spinner: SpinnerService, private alertService: AlertService) {
   }
 
   ngOnInit() {
+    this.spinner.show();
     this.form.push(this.group1, this.group2, this.group3, this.group4, this.group5,
       this.group6, this.group7, this.group8, this.group9, this.group10, this.group11);
     this.registroAtendimentoService.get(this.route.snapshot.params['id']).subscribe(registroAtendimento => {
         this.registroAtendimento = registroAtendimento;
-        this.newNas.registroAtendimentoLeito = registroAtendimento.id;
+        this.newNas.registroAtendimentoLeito = new RegistroAtendimentoLeito({registroAtendimento: registroAtendimento});
+        this.spinner.hide();
       }
     )
   }
 
-  save() {
-    this.validateFields();
-    console.log(this.newNas);
-  }
+  formIsValid() {
+    for (const key in this.newNas) if (this.newNas[key] == '') return false;
 
-  validateFields() {
-    for (const key in this.newNas) {
-      console.log(key)
-    }
+    return true;
   }
 
   isEmpty = (key) => this.newNas[key] == '';
 
-  checkChanges(event) {
-  console.log(event)
+  save() {
+    this.submitted = true;
+    if (this.formIsValid()) {
+      this.nasService.save(this.newNas).subscribe(res => {
+        if (res.hasOwnProperty('error')) {
+          this.alertService.send({
+            message: 'Ocorreu um erro.. não foi possível salvar este NAS.',
+            icon: faFrown,
+            type: 'error'
+          });
+        } else {
+          this.alertService.send({
+            message: 'NAS salvo com sucesso!',
+            icon: faCheck,
+            type: 'success'
+          });
+        }
+      });
+    } else {
+      this.alertService.send({
+        message: 'Por favor, preencha todos os campos!',
+        icon: faExclamationCircle,
+        type: 'warning'
+      });
+    }
   }
 }

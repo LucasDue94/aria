@@ -25,8 +25,7 @@ import {TipoIncidenteService} from './tipoIncidente/tipoIncidente.service';
 import {IncidenteService} from "./incidente/incidente.service";
 import {PortaBalaoService} from "./portaBalao/portaBalao.service";
 import {EcgService} from './ecg/ecg.service';
-import { NasService } from './nas/nas.service';
-import { RegistroAtendimentoLeitoService } from './registroAtendimentoLeito/registroAtendimentoLeito.service';
+import {NasService} from './nas/nas.service';
 
 
 @NgModule({
@@ -60,9 +59,8 @@ import { RegistroAtendimentoLeitoService } from './registroAtendimentoLeito/regi
     PortaBalaoService,
     IncidenteService,
     EcgService,
-    NasService,
-    RegistroAtendimentoLeitoService
-]
+    NasService
+  ]
 })
 export class CoreModule {
 }

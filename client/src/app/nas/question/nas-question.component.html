@@ -1,16 +1,16 @@
 <h3 class="question-title">{{question.number}}. {{ question.title }}</h3>
-<form *ngIf="!isBoolQuestion">
+<article *ngIf="!isBoolQuestion">
   <section class="alternative" *ngFor="let alternative of question?.alternatives">
     <p>{{alternative?.option}}.</p>
     <div class="form-group">
-      <input required [(ngModel)]="answer[question.name]" class="form-control" id="{{ alternative?.value }}" #name
+      <input required [(ngModel)]="answer[question.name]" class="form-control" id="{{ alternative?.value }}"
              type="radio" name="{{ question.name}}" value="{{ alternative?.value }}">
       <label class="form-label" for="{{ alternative?.value }}">{{alternative?.description}}</label>
     </div>
   </section>
-</form>
+</article>
 
-<form *ngIf="isBoolQuestion">
+<article *ngIf="isBoolQuestion">
   <section class="alternative">
     <div class="form-group  bool-group" *ngFor="let bool of boolQuestion">
       <input id="{{question.number + '-' + bool.option }}" [(ngModel)]="answer[question.name]"
@@ -19,4 +19,5 @@
       <label for="{{question.number + '-' + bool.option }}" class="form-label bool-label">{{ bool.option }}</label>
     </div>
   </section>
-</form>
+</article>
+<ng-content></ng-content>

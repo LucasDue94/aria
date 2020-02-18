@@ -1,4 +1,5 @@
 @import "../../../assets/colors";
+@import "../../../assets/device-sizes";
 
 .main-title {
   margin: 10px 10px 5px 10px;
@@ -44,8 +45,8 @@
     background-color: rgba($gray-50, 0.5);
     border-top: 1px solid $gray-60;
     transition: 0.5s;
-    margin: 0 10px;
     display: flex;
+    left: 0;
     bottom: 0;
     position: fixed;
     justify-content: flex-end;
@@ -55,7 +56,7 @@
       background-color: $gray-50;
 
       .button {
-          background-color: $blue-default
+        background-color: $blue-default
       }
     }
 
@@ -68,6 +69,21 @@
   }
 }
 
-.invalid{
-  border: 2px solid red!important;
+.invalid {
+  transition: 1s;
+  background-color: rgba($danger-50, 0.5);
+}
+
+.valid {
+  transition: 0.8s;
+}
+
+@media screen and (max-width: $tablet-width) {
+  nas-group {
+    width: 100% !important;
+
+  }
+  .question {
+    width: 100% !important;
+  }
 }

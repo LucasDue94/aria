@@ -3,13 +3,14 @@
   <header class="main-title">ATIVIDADE BÁSICA</header>
   <form class="container-groups">
     <nas-group *ngFor="let group of form" [groupLabel]="group.name">
-      <nas-question *ngFor="let question of group.questions"
-                    (change)="checkChanges($event)" [ngClass]="[isEmpty(question.name) == '' ? 'invalid': '' ]"
+      <nas-question [ngClass]="[isEmpty(question.value.name) && submitted ? 'invalid' : 'valid']"
+                    *ngFor="let question of group.questions"
                     [answer]="newNas" [isBoolQuestion]="question.isBool"
-                    [question]="question.value">{{ newNas[question.name] == '' ? 'invalid' : '' }}</nas-question>
+                    [question]="question.value">
+      </nas-question>
     </nas-group>
+    <footer class="nas-footer">
+      <button (click)="save()" class="button button-blue">Salvar</button>
+    </footer>
   </form>
-  <footer class="nas-footer">
-    <button (click)="save()" class="button button-blue">Salvar</button>
-  </footer>
 </main>
