@@ -399,6 +399,7 @@ export class NasFormComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.titleService.send('NAS - Formulário')
     this.spinner.show();
     this.form.push(this.group1, this.group2, this.group3, this.group4, this.group5,
       this.group6, this.group7, this.group8, this.group9, this.group10, this.group11);
