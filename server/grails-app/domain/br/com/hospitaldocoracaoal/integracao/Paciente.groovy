@@ -1,7 +1,7 @@
 package br.com.hospitaldocoracaoal.integracao
 
-import br.com.hospitaldocoracaoal.aria.Ecg
 import br.com.hospitaldocoracaoal.aria.Balao
+import br.com.hospitaldocoracaoal.aria.Ecg
 
 class Paciente {
 

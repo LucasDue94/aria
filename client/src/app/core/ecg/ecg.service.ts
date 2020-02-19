@@ -22,10 +22,9 @@ export class EcgService {
     return subject.asObservable();
   }
 
-  report(): Observable<any[]> {
+  report(dataInicio?: any, dataFim?: any): Observable<any[]> {
     let subject = new Subject<any[]>();
-    this.http.get<any[]>(this.baseUrl + `report/ecg?`)
-      .pipe(
+    this.http.get<any[]>(this.baseUrl + "report/ecg?dataInicio=" + dataInicio + "&dataFim=" + dataFim).pipe(
         catchError(error => of({error})
         )).subscribe((json: any) => {
       subject.next(json);

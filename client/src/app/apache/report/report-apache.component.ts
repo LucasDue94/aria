@@ -181,7 +181,7 @@ export class ReportApacheComponent extends DatePipe implements OnInit, DatePipe 
     let defaultDataInicio = new Date(this.dataInicio);
     let defaultDataFim = new Date(this.dataFim);
 
-    let messageError = 'Ops... A data deve ser preenchida!';
+    let messageError = 'Ops... A data deve ser preenchida corretamente!';
     if (this.dataInicio == "" || this.dataFim == "" || defaultDataInicio > defaultDataFim) {
       this.alertService.send({
         message: messageError,
