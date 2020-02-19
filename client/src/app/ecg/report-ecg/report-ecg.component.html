@@ -2,11 +2,14 @@
   <form [formGroup]="form" class="panel">
     <div>
       <label class="label-panel" for="inicio">Inicio:</label>
-      <input formControlName="inicio" class="input-date" id="inicio" type="date">
+      <input formControlName="inicio" class="input-date" id="inicio" value="{{dataInicio}}" type="date">
     </div>
     <div>
       <label class="label-panel" for="fim">Fim:</label>
-      <input formControlName="fim" class="input-date" id="fim" type="date">
+      <input formControlName="fim" class="input-date" id="fim" value="{{dataFim}}" type="date">
+    <button class="button-search-panel" (click)="update()">
+      <fa-icon class="ng-fa-icon"></fa-icon> Buscar
+    </button>
     </div>
   </form>
   <section class="panel-chart">

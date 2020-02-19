@@ -24,6 +24,7 @@
 
   & .input-date {
     width: 180px;
+    margin-right: 10px;
     position: relative;
     border-bottom: 1px solid $gray-70;
   }
@@ -49,3 +50,33 @@
     padding: 5px;
   }
 }
+
+.button-container {
+  display: flex;
+  margin:5px 0;
+
+
+  .search-button {
+    margin: 5px 5px 0 5px;
+    height: 35px;
+    flex: 1;
+
+    & {
+      text-align: center;
+      color: $white;
+      border-radius: 5px;
+      background-color: rgba($blue-default, 0.7);
+    }
+
+    &:hover {
+      transition: 0.3s;
+      cursor: pointer;
+      background-color: $blue-default;
+    }
+
+    .search-icon {
+      margin-right: 5px;
+    }
+  }
+}
+

@@ -23,24 +23,47 @@ abstract class IncidenteService {
     def report(GrailsParameterMap args) {
         Date dataInicio = DataUtils.getFormatterToDate(args.dataInicio)
         Date dataFim = DataUtils.endOfDay(DataUtils.getFormatterToDate(args.dataFim))
+        long tipoIncidenteId = args.long('tipoIncidenteId')
 
-        def criteria = Incidente.createCriteria()
+        Setor setor = Setor.get args.long('setorId')
 
-        def result = criteria.list() {
-            between 'dataHora', dataInicio, dataFim
-            setor {
-                eq 'id', args.long('setorId')
+        def criteria = RegistroAtendimento.createCriteria()
+        def result = criteria.list {
+            createAlias 'incidentes', 'i', JoinType.LEFT_OUTER_JOIN
+            createAlias 'i.tipoIncidente', 'ti', JoinType.LEFT_OUTER_JOIN
+            createAlias 'registroAtendimentoLeitos', 'ral', JoinType.LEFT_OUTER_JOIN
+            createAlias 'ral.leito', 'l', JoinType.LEFT_OUTER_JOIN
+
+            or {
+                and {
+                    ne 'tipo', RegistroAtendimento.TIPO_INTERNO
+                    eq 'setor', setor.setorWpd
+                    between 'dataEntrada', dataInicio, dataFim
+                }
+
+                and {
+                    eq 'tipo', RegistroAtendimento.TIPO_INTERNO
+                    between 'ral.dataEntrada', dataInicio, dataFim
+                    eq 'l.setor', setor.setorWpd
+                }
+            }
+
+            or {
+                eq 'ti.id', args.long('tipoIncidenteId')
+                isNull 'ti.id'
             }
 
             projections {
-                groupProperty 'tipoIncidente'
+                groupProperty 'ti.id'
                 count()
             }
         }
 
-        result.collect {
-            [tipoIncidente: it[0].nome, quantidade: it[1]]
+        if(result.size == 1) {
+            return [incidentes: 0, semIncidentes: result[0][1]]
         }
+
+        [incidentes: result[0][1], semIncidentes: result[1][1]]
     }
 
     Incidente save(Incidente incidente, String pacienteId) {

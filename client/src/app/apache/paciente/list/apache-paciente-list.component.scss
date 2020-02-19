@@ -21,7 +21,7 @@
 .legend .legend-alert { background-color: #ef5350; }
 
 .row-success {
-  border-left: 10px solid #26a69a;
+  border-left: 10px solid #26a69a !important;
 }
 
 .row {
@@ -29,11 +29,11 @@
 }
 
 .row-available {
-  border-left: 10px solid #42a5f5;
+  border-left: 10px solid #42a5f5 !important;
 }
 
 .row-alert {
-  border-left: 10px solid #ef5350;
+  border-left: 10px solid #ef5350 !important;
 }
 
 .text-overflow {

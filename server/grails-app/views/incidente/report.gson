@@ -1,5 +1,5 @@
 model {
-	List data
+	Map data
 }
 
 json data
