@@ -1,4 +1,6 @@
-<main class="paciente-info-container">
+<fa-icon *ngIf="minimize" class="infoIcon" (click)="minimize = false" [icon]="infoCircleIcon"></fa-icon>
+<fa-icon *ngIf="!minimize" class="minimizeIcon" (click)="minimize = true" [icon]="windowMinimizeIcon"></fa-icon>
+<main [ngClass]="[minimize ? 'minimize' : 'paciente-info-container']">
   <section class="item-info">
     <h3 class="label">Paciente</h3>
     <h4 class="info">{{paciente?.nome}}</h4>
@@ -23,8 +25,8 @@
     <h3 class="label">Sexo</h3>
     <h4 class="info">{{paciente?.sexo}}</h4>
   </section>
-    <section *ngFor="let obj of extras" class="item-info">
-      <h3 class="label">{{obj.label}}</h3>
-      <h4 class="info">{{obj.value}}</h4>
-    </section>
+  <section *ngFor="let obj of extras" class="item-info">
+    <h3 class="label">{{obj.label}}</h3>
+    <h4 class="info">{{obj.value}}</h4>
+  </section>
 </main>

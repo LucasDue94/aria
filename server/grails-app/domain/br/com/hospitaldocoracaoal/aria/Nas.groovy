@@ -19,12 +19,12 @@ class Nas {
     boolean medicacaoVasoativa                //Questão 12
     boolean reposicaoIntravenosa              //Questão 13
     boolean monitorizacaoAtrioEsquerdo        //Questão 14
-    boolean reanimacaoCardiorespiratoria      //Questão 15
+    boolean reanimacaoCardioRespiratoria      //Questão 15
     boolean tecnicasHemofiltracao             //Questão 16
     boolean medidaQuantitativa                //Questão 17
     boolean medidaPressaoIntracraniana        //Questão 18
     boolean tratamentoAcidose                 //Questão 19
-    boolean hiperalimentacaoIntravenosa       //Questão 20
+    boolean hiperAlimentacaoIntravenosa       //Questão 20
     boolean alimentacaoEnteral                //Questão 21
     boolean intervencoesDentroUnidade         //Questão 22
     boolean intervencoesForaUnidade           //Questão 23
@@ -46,12 +46,12 @@ class Nas {
         medicacaoVasoativa nullabe: false, blank: false
         reposicaoIntravenosa nullabe: false, blank: false
         monitorizacaoAtrioEsquerdo nullabe: false, blank: false
-        reanimacaoCardiorespiratoria nullabe: false, blank: false
+        reanimacaoCardioRespiratoria nullabe: false, blank: false
         tecnicasHemofiltracao nullabe: false, blank: false
         medidaQuantitativa nullabe: false, blank: false
         medidaPressaoIntracraniana nullabe: false, blank: false
         tratamentoAcidose nullabe: false, blank: false
-        hiperalimentacaoIntravenosa nullabe: false, blank: false
+        hiperAlimentacaoIntravenosa nullabe: false, blank: false
         alimentacaoEnteral nullabe: false, blank: false
         intervencoesDentroUnidade nullabe: false, blank: false
         intervencoesForaUnidade nullabe: false, blank: false

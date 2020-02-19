@@ -29,15 +29,21 @@ body, app-main {
   background-color: $white;
 }
 
-setor-list, apache-form, grupo-list,nas-form {
+setor-list, apache-form, grupo-list, nas-form {
   position: relative;
   height: 100%;
 }
-nas-form{
-  position: absolute;
-  height: calc(100% - 20px);
 
+nas-question{
+  width: 100%;
+  height: 100%;
+  //border: 1px solid black;
 }
+nas-form {
+  position: absolute;
+  height: 100%;
+}
+
 multiple-select {
   height: calc(100% - 25px);
 }

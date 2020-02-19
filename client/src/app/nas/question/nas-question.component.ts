@@ -23,6 +23,7 @@ export class NasQuestionComponent implements OnInit {
   }
 
   ngOnInit() {
+    // console.log(this.question);
   }
 
 }

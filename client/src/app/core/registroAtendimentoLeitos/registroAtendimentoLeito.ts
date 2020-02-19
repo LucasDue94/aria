@@ -12,9 +12,7 @@ export class RegistroAtendimentoLeito {
     if (object) {
 
       if (object.hasOwnProperty('registroAtendimento')) {
-        this.registroAtendimento = object['registroAtendimento'].map((obj: any) => {
-          return new RegistroAtendimento(obj);
-        });
+        this.registroAtendimento = new RegistroAtendimento(object.registroAtendimento);
         delete object['registroAtendimento'];
       }
 
