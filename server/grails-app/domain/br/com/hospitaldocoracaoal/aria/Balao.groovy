@@ -11,8 +11,6 @@ class Balao {
             registroAtendimento: RegistroAtendimento,
             paciente: Paciente
     ]
-
-
     static constraints = {
         registroAtendimento unique: true
         dataHoraBalao nullable: false

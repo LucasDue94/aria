@@ -5,6 +5,7 @@ import {PacienteInfoModule} from "../paciente-info/paciente-info.module";
 import {NasQuestionComponent} from './question/nas-question.component';
 import {NasGroupComponent} from './group/nas-group.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { CoreModule } from '../core/core.module';
 
 @NgModule({
   declarations: [
@@ -16,8 +17,9 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     CommonModule,
     PacienteInfoModule,
     ReactiveFormsModule,
-    FormsModule
-  ]
+    FormsModule,
+    CoreModule
+]
 })
 export class NasModule {
 }

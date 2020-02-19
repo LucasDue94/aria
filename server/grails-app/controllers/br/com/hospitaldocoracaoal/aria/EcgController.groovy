@@ -28,7 +28,7 @@ class EcgController {
 
     @Secured('ROLE_ECG_SHOW')
     def gerarEcg() {
-        respond ecgService.gerarEcg()
+        respond ecgService.gerarEcg(params)
     }
 
     @Secured('ROLE_ECG_SAVE')

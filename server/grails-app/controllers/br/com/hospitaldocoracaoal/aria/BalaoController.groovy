@@ -1,19 +1,16 @@
 package br.com.hospitaldocoracaoal.aria
 
-import grails.plugin.springsecurity.annotation.Secured
-import grails.validation.ValidationException
-import static org.springframework.http.HttpStatus.CREATED
-import static org.springframework.http.HttpStatus.NOT_FOUND
-import static org.springframework.http.HttpStatus.NO_CONTENT
-import static org.springframework.http.HttpStatus.OK
-
 import grails.gorm.transactions.ReadOnly
 import grails.gorm.transactions.Transactional
+import grails.plugin.springsecurity.annotation.Secured
+import grails.validation.ValidationException
+
+import static org.springframework.http.HttpStatus.*
 
 @ReadOnly
-class balaooController {
+class BalaoController {
 
-    BalaoService balaooService
+    BalaoService balaoService
 
     static responseFormats = ['json', 'xml']
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
@@ -21,12 +18,12 @@ class balaooController {
     @Secured('ROLE_BALAO_INDEX')
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond balaooService.list(params), model:[balaoCount: balaooService.count()]
+        respond balaoService.list(params), model:[balaoCount: balaoService.count()]
     }
 
     @Secured('ROLE_BALAO_SHOW')
     def show(Long id) {
-        respond balaooService.get(id)
+        respond balaoService.get(id)
     }
 
     @Secured('ROLE_BALAO_SAVE')
@@ -43,7 +40,7 @@ class balaooController {
         }
 
         try {
-            balaooService.save(balao)
+            balaoService.save(balao)
         } catch (ValidationException e) {
             respond balao.errors
             return
@@ -66,7 +63,7 @@ class balaooController {
         }
 
         try {
-            balaooService.save(balao)
+            balaoService.save(balao)
         } catch (ValidationException e) {
             respond balao.errors
             return
@@ -83,7 +80,7 @@ class balaooController {
             return
         }
 
-        balaooService.delete(id)
+        balaoService.delete(id)
 
         render status: NO_CONTENT
     }

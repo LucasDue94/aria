@@ -1,10 +1,9 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
-import {Observable, Subject} from "rxjs";
-import {map} from "rxjs/operators";
+import {Observable, of, Subject} from "rxjs";
+import {catchError, map} from "rxjs/operators";
 import {Ecg} from "./ecg";
-import {catchError} from 'rxjs/operators';
 
 @Injectable()
 export class EcgService {
@@ -20,6 +19,16 @@ export class EcgService {
       .subscribe((json: any[]) => {
         subject.next(json.map((propertyName: any) => new Ecg(propertyName)))
       });
+    return subject.asObservable();
+  }
+
+  report(dataInicio?: any, dataFim?: any): Observable<any[]> {
+    let subject = new Subject<any[]>();
+    this.http.get<any[]>(this.baseUrl + "report/ecg?dataInicio=" + dataInicio + "&dataFim=" + dataFim).pipe(
+        catchError(error => of({error})
+        )).subscribe((json: any) => {
+      subject.next(json);
+    });
     return subject.asObservable();
   }
 

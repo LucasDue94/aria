@@ -28,6 +28,7 @@ import {IncidenteReportComponent} from "../../incidente/incidente-report/inciden
 import {NasFormComponent} from "../../nas/form/nas-form.component";
 import {EcgListComponent} from "../../ecg/list/ecg-list.component";
 import {EcgFormComponent} from "../../ecg/form/ecg-form.component";
+import {ReportEcgComponent} from "../../ecg/report-ecg/report-ecg.component";
 
 const routes: Routes = [
   {
@@ -238,6 +239,11 @@ const routes: Routes = [
           {
             path: 'create/:id',
             component: EcgFormComponent,
+            canActivate: [AuthGuard]
+          },
+          {
+            path: 'report',
+            component: ReportEcgComponent,
             canActivate: [AuthGuard]
           }
         ]

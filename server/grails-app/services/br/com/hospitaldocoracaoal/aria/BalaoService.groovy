@@ -1,6 +1,5 @@
 package br.com.hospitaldocoracaoal.aria
 
-
 import grails.gorm.services.Service
 
 @Service(Balao)
