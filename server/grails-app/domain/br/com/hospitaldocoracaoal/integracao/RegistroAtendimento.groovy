@@ -1,5 +1,7 @@
 package br.com.hospitaldocoracaoal.integracao
 
+import br.com.hospitaldocoracaoal.aria.Balao
+import br.com.hospitaldocoracaoal.aria.Ecg
 import br.com.hospitaldocoracaoal.aria.Incidente
 
 class RegistroAtendimento {
@@ -24,11 +26,15 @@ class RegistroAtendimento {
             incidentes: Incidente
     ]
 
+    static hasOne = [ecg: Ecg, balao: Balao]
+
     static constraints = {
         cid nullable: true
         setor nullable: true
         dataAlta nullable: true
         motivoAlta nullable: true
+        ecg nullable: true
+        balao nullable: true
     }
 
     static mapping = {
