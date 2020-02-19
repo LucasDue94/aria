@@ -52,7 +52,7 @@ export class ReportBuilder {
 
   constructor() {
     this.logo = new Image();
-    this.logo.src = '/assets/images/logo.png';
+    this.logo.src = 'assets/images/logo.png';
   }
 
   addChart(chart?: ChartImage) {
@@ -63,11 +63,15 @@ export class ReportBuilder {
     this.tables.push(model);
   }
 
-  print(title: string) {
-    const doc = new jsPDF('l', 'px', 'A4') as jsPDFWithPlugin;
+  print(title: string, orientation?: string) {
+    const doc = new jsPDF(orientation || 'l', 'px', 'A4') as jsPDFWithPlugin;
 
     doc.setFontSize(12);
     doc.text(title, 270, 30, '', '', 'center');
+
+    if (this.logo) {
+      doc.addImage(this.logo, 'PNG', 20, 10, 80, 30);
+    }
 
     setTimeout(() => {
       this.charts.forEach((chart: ChartImage) => {
@@ -83,7 +87,6 @@ export class ReportBuilder {
             scale = verticalScale;
           }
         }
-
         doc.addImage(chart.pngDataUrl, 'PNG', chart.margin, 50, chart.canvas.width * scale, chart.canvas.height * scale);
       });
 
@@ -95,7 +98,7 @@ export class ReportBuilder {
         );
       });
 
-      doc.save('apache.pdf');
+      doc.save('report.pdf');
     }, 2000);
   }
 

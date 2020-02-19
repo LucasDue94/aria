@@ -25,9 +25,9 @@ export class IncidenteService {
     return subject.asObservable();
   }
 
-  report(dataInicio?: string, dataFim?: string, setorId?: number): Observable<any[]> {
+  report(dataInicio?: string, dataFim?: string, setorId?: number, tipoIncidenteId?: number): Observable<any[]> {
     let subject = new Subject<any[]>();
-    this.http.get<any[]>(this.baseUrl + `incidente/relatorio?` + 'dataInicio=' + dataInicio + '&dataFim=' + dataFim + '&setorId='+ setorId)
+    this.http.get<any[]>(this.baseUrl + `incidente/relatorio?` + 'dataInicio=' + dataInicio + '&dataFim=' + dataFim + '&setorId='+ setorId + '&tipoIncidenteId='+ tipoIncidenteId)
       .pipe(
         catchError(error => of({error})
         )).subscribe((json: any) => {
