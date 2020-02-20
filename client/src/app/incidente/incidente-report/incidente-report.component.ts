@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {DatePipe} from "@angular/common";
 import {FormBuilder} from "@angular/forms";
 import {TitleService} from "../../core/title/title.service";
@@ -10,6 +10,8 @@ import {AlertService} from "../../core/alert/alert.service";
 import {SeriesPieOptions} from "highcharts";
 import {SetorService} from "../../core/setor/setor.service";
 import {SpinnerService} from "../../core/spinner/spinner.service";
+import {ChartImage, ReportBuilder} from "../../core/report/reportBuilder";
+import {TipoIncidenteService} from "../../core/tipoIncidente/tipoIncidente.service";
 
 @Component({
   selector: 'app-incidente-report',
@@ -18,23 +20,31 @@ import {SpinnerService} from "../../core/spinner/spinner.service";
 })
 export class IncidenteReportComponent implements OnInit {
 
+  @ViewChild('chartSVG', {static: false}) chartSVG: ElementRef;
+
   form = this.fb.group({
     dataInicio: [''],
     dataFim: [''],
-    setorId: ['']
+    setorId: [''],
+    tipoIncidenteId: ['']
   });
 
   faSearch = faSearch;
   faPrint = faPrint;
 
   setores = [];
+  tiposIncidente = [];
+
+  incidentes: number = 0;
+  semIncidentes: number = 0;
 
   chartOptions: any = {
     chart: {
       plotBackgroundColor: null,
       plotBorderWidth: null,
       plotShadow: false,
-      type: 'pie'
+      type: 'pie',
+      zoomType: 'xy'
     },
     title: {
       text: 'INCIDENTES POR TIPO',
@@ -42,23 +52,21 @@ export class IncidenteReportComponent implements OnInit {
         fontSize: '18px',
         fontWeight: '500',
         color: '#5A5B5B'
-
       }
     },
     tooltip: {
-      pointFormat: 'Porcentagem: <b>{point.percentage:.1lf}%</b><br>{series.name}: <b>{point.y}'
+      pointFormat: 'Porcentagem: <b>{point.percentage:.2lf}%</b><br>{series.name}: <b>{point.y}'
     },
     plotOptions: {
       pie: {
         allowPointSelect: true,
         cursor: 'pointer',
         dataLabels: {
-          format: '<b>{point.name}</b><br>{point.percentage:.1f}%',
-          distance: -45,
+          enabled: true,
+          format: '<b>{point.name}</b><br>{point.percentage:.2f}% ({point.y})',
           style: {
             fontSize: '16px',
             fontWeight: '400',
-            color: 'transparent',
             textOutline: '0 contrast'
           }
         },
@@ -72,9 +80,8 @@ export class IncidenteReportComponent implements OnInit {
         y: 1
       }]
     }],
-    credits: {
-      enabled: false
-    }
+    credits:   { enabled: false },
+    exporting: { enabled: false }
   };
 
   incidenteChart;
@@ -84,6 +91,7 @@ export class IncidenteReportComponent implements OnInit {
               private incidenteService: IncidenteService,
               private alertService: AlertService,
               private setorService: SetorService,
+              private tipoIncidenteService: TipoIncidenteService,
               private spinnerService: SpinnerService) {
     this.generateChart = this.generateChart.bind(this);
   }
@@ -93,18 +101,30 @@ export class IncidenteReportComponent implements OnInit {
     this.titleService.send('Relatório de Incidentes');
     this.setDateInterval();
     this.spinnerService.show();
-    this.setorService.list().subscribe(setor => {
-      this.setores = setor;
+    this.setorService.list().subscribe(setores => {
+      this.setores = setores;
       this.spinnerService.hide();
     });
+    this.tipoIncidenteService.list().subscribe(tiposIncidentes => {
+      this.tiposIncidente = tiposIncidentes;
+    });
+
+    setTimeout(() => {
+      this.incidenteChart.ref.reflow();
+    }, 5000);
   }
 
   generatePdf() {
-
+    const chartSVG = this.chartSVG.nativeElement.querySelector('.highcharts-root');
+    const report = new ReportBuilder();
+    report.addChart(new ChartImage(chartSVG));
+    report.print('RELATÓRIO DE INCIDENTES', 'p');
   }
 
   generateChart(data) {
-    const seriesData = data.map( item => {return {name: item.tipoIncidente, y: item.quantidade}});
+    this.incidentes = data['incidentes'];
+    this.semIncidentes = data['semIncidentes'];
+    const seriesData = [{name: 'Incidentes', y: this.incidentes}, {name: 'Pacientes sem ocorrências', y: this.semIncidentes}];
     this.showChartContainer = true;
     this.incidenteChart.ref.update({
       series: [{
@@ -117,33 +137,39 @@ export class IncidenteReportComponent implements OnInit {
   }
 
   getChartData() {
-    const dataInicio = this.form.controls.dataInicio.value;
-    const dataFim = this.form.controls.dataFim.value;
+    const stringDataInicio = this.form.controls.dataInicio.value;
+    const stringDataFim = this.form.controls.dataFim.value;
     const setorId = this.form.controls.setorId.value;
+    const tipoIncidenteId = this.form.controls.tipoIncidenteId.value;
+    const dataIncicio = new Date(stringDataInicio);
+    const dataFim = new Date(stringDataFim);
 
-    let defaultDataInicio = new Date(dataInicio);
-    let defaultDataFim = new Date(dataFim);
-
-    if (dataInicio == "" || dataFim == "") {
+    if (stringDataInicio == "" || stringDataFim == "") {
       this.alertService.send({
         message: 'Ops... A data deve ser preenchida!',
         type: 'warning',
         icon: faFrown
       });
-    } else if (defaultDataInicio > defaultDataFim) {
+    } else if (dataIncicio > dataFim) {
       this.alertService.send({
         message: 'Ops... Data início deve ser maior que a data fim!',
         type: 'warning',
         icon: faFrown
       });
-    } else if (setorId == null) {
+    } else if (setorId == '') {
         this.alertService.send({
           message: 'Ops... Selecione um setor!',
           type: 'warning',
           icon: faFrown
         });
+    } else if (tipoIncidenteId == '') {
+      this.alertService.send({
+        message: 'Ops... Selecione um tipo !',
+        type: 'warning',
+        icon: faFrown
+      });
     } else {
-      this.incidenteService.report(dataInicio, dataFim, setorId).subscribe(this.generateChart);
+      this.incidenteService.report(stringDataInicio, stringDataFim, setorId, tipoIncidenteId).subscribe(this.generateChart);
     }
   }
 

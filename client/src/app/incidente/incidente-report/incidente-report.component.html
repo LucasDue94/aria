@@ -11,20 +11,27 @@
     <div>
       <label class="label-panel" for="fim">Setor:</label>
       <select  name="setor" class="panel-select" formControlName="setorId">
-        <option value="null">Selecione</option>
-        <option name="setor" *ngFor="let setor of setores" [ngValue]="setor.id">{{setor.sigla}}</option>
+        <option *ngFor="let setor of setores" [ngValue]="setor.id">{{setor.sigla}}</option>
+      </select>
+      <label class="label-panel">Tipo Incidente:</label>
+      <select class="panel-select" formControlName="tipoIncidenteId" id="tipoIncidente" required>
+        <option *ngFor="let tipo of tiposIncidente" [value]="tipo.id">{{tipo.nome}}</option>
       </select>
       <button class="button-search-panel" (click)="getChartData()">
         <fa-icon [icon]=faSearch></fa-icon>
         Buscar
       </button>
-      <button class="button-search-panel" *ngIf="incidenteChart" (click)="generatePdf()">
+      <button class="button-search-panel" [hidden]="!showChartContainer" (click)="generatePdf()">
         <fa-icon [icon]=faPrint></fa-icon>
       </button>
     </div>
   </form>
 
-  <section class="panel-chart" [hidden]="!showChartContainer">
-    <section [chart]="incidenteChart">Incidentes</section>
+  <section class="panel-chart" [hidden]="!showChartContainer || incidentes == 0">
+    <section [chart]="incidenteChart" style="height: 100%" #chartSVG>Incidentes</section>
+  </section>
+
+  <section class="panel-chart-empty" *ngIf="showChartContainer && incidentes == 0">
+    <p class="label-empty">Nenhum incidente encontrado.</p>
   </section>
 </div>
