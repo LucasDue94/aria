@@ -18,12 +18,17 @@ class BalaoController {
     @Secured('ROLE_BALAO_INDEX')
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond balaoService.list(params), model:[balaoCount: balaoService.count()]
+        respond balaoService.list(params), model: [balaoCount: balaoService.count()]
     }
 
     @Secured('ROLE_BALAO_SHOW')
     def show(Long id) {
         respond balaoService.get(id)
+    }
+
+    @Secured('ROLE_BALAO_INDEX')
+    def gerarBalao() {
+        respond balaoService.gerarBalao()
     }
 
     @Secured('ROLE_BALAO_SAVE')
@@ -46,7 +51,7 @@ class BalaoController {
             return
         }
 
-        respond balao, [status: CREATED, view:"show"]
+        respond balao, [status: CREATED, view: "show"]
     }
 
     @Secured('ROLE_BALAO_UPDATE')
@@ -69,7 +74,7 @@ class BalaoController {
             return
         }
 
-        respond balao, [status: OK, view:"show"]
+        respond balao, [status: OK, view: "show"]
     }
 
     @Secured('ROLE_BALAO_DELETE')

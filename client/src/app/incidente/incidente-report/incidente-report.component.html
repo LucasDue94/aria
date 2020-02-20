@@ -21,7 +21,7 @@
         <fa-icon [icon]=faSearch></fa-icon>
         Buscar
       </button>
-      <button class="button-search-panel" [hidden]="!showChartContainer" (click)="generatePdf()">
+      <button class="button-search-panel" [hidden]="!showChartContainer || incidentes == 0" (click)="generatePdf()">
         <fa-icon [icon]=faPrint></fa-icon>
       </button>
     </div>

@@ -47,7 +47,7 @@ export class IncidenteReportComponent implements OnInit {
       zoomType: 'xy'
     },
     title: {
-      text: 'INCIDENTES POR TIPO',
+      text: '',
       style: {
         fontSize: '18px',
         fontWeight: '500',
@@ -108,17 +108,13 @@ export class IncidenteReportComponent implements OnInit {
     this.tipoIncidenteService.list().subscribe(tiposIncidentes => {
       this.tiposIncidente = tiposIncidentes;
     });
-
-    setTimeout(() => {
-      this.incidenteChart.ref.reflow();
-    }, 5000);
   }
 
   generatePdf() {
     const chartSVG = this.chartSVG.nativeElement.querySelector('.highcharts-root');
     const report = new ReportBuilder();
     report.addChart(new ChartImage(chartSVG));
-    report.print('RELATÓRIO DE INCIDENTES', 'p');
+    report.print('RELATÓRIO DE INCIDENTES', 'l', -180, 100, 1.7);
   }
 
   generateChart(data) {
