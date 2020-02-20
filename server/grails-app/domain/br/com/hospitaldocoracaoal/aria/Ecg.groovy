@@ -7,9 +7,8 @@ class Ecg {
 
     Date dataHoraEcg
     Date dataHoraPorta
-    RegistroAtendimento registroAtendimento
 
-    static belongsTo = [paciente: Paciente]
+    static belongsTo = [registroAtendimento: RegistroAtendimento]
 
     static constraints = {
         dataHoraEcg nullable: false

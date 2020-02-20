@@ -1,6 +1,5 @@
 package br.com.hospitaldocoracaoal.aria
 
-import br.com.hospitaldocoracaoal.integracao.Paciente
 import br.com.hospitaldocoracaoal.integracao.RegistroAtendimento
 
 class Balao {
@@ -8,8 +7,7 @@ class Balao {
     Date dataHoraBalao
 
     static belongsTo = [
-            registroAtendimento: RegistroAtendimento,
-            paciente: Paciente
+            registroAtendimento: RegistroAtendimento
     ]
     static constraints = {
         registroAtendimento unique: true
