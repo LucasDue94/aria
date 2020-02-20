@@ -1,7 +1,8 @@
 package br.com.hospitaldocoracaoal.aria
 
-
+import br.com.hospitaldocoracaoal.integracao.RegistroAtendimento
 import grails.gorm.services.Service
+import grails.validation.ValidationException
 
 @Service(Balao)
 abstract class BalaoService {
@@ -14,7 +15,25 @@ abstract class BalaoService {
 
     abstract void delete(Serializable id)
 
-    abstract Balao save(Balao balao)
+    def save(Balao balao) {
+
+        def criteria = RegistroAtendimento.createCriteria()
+        List<RegistroAtendimento> registros = (List<RegistroAtendimento>) criteria.list() {
+            eq 'tipo', RegistroAtendimento.TIPO_EMERGENCIA
+            eq 'paciente.id', balao.registroAtendimento.paciente.id
+            le 'dataEntrada', balao.registroAtendimento.dataEntrada
+        } as List<RegistroAtendimento>
+
+        if (registros.last().ecg != null) {
+            balao.save()
+        } else {
+            balao.errors.reject(
+                    'ecocardiograma.registroAtendimento.doesnt.exist',
+                    'Ecocardiograma não encontrado.'
+            )
+            throw new ValidationException('Paciente não tem ecg cadastrado.', balao.errors)
+        }
+    }
 
     def gerarBalao() {
         def ecgs = Ecg.findAll()
@@ -28,7 +47,7 @@ abstract class BalaoService {
             c.setTime(e.dataHoraPorta)
             c.add(Calendar.MINUTE, 90)
 
-            balaoLimite = baloes.each { b -> b.registroAtendimento.paciente.id == e.registroAtendimento.paciente.id}
+            balaoLimite = baloes.each { b -> b.registroAtendimento.paciente.id == e.registroAtendimento.paciente.id }
                     .collect { Balao b -> b.dataHoraBalao <= c.time }
         }
 

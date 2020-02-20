@@ -33,7 +33,8 @@ class BalaoController {
 
     @Secured('ROLE_BALAO_SAVE')
     @Transactional
-    def save(Balao balao) {
+    def save(Balao balao, Integer max) {
+        params.max = Math.min(max ?: 10, 100)
         if (balao == null) {
             render status: NOT_FOUND
             return
@@ -43,7 +44,6 @@ class BalaoController {
             respond balao.errors
             return
         }
-
         try {
             balaoService.save(balao)
         } catch (ValidationException e) {
