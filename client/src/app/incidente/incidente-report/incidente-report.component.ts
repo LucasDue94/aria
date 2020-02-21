@@ -29,6 +29,10 @@ export class IncidenteReportComponent implements OnInit {
     tipoIncidenteId: ['']
   });
 
+  stringDataInicio;
+  stringDataFim;
+  setorId;
+
   faSearch = faSearch;
   faPrint = faPrint;
 
@@ -92,6 +96,7 @@ export class IncidenteReportComponent implements OnInit {
               private alertService: AlertService,
               private setorService: SetorService,
               private tipoIncidenteService: TipoIncidenteService,
+              private datePipe: DatePipe,
               private spinnerService: SpinnerService) {
     this.generateChart = this.generateChart.bind(this);
   }
@@ -114,7 +119,11 @@ export class IncidenteReportComponent implements OnInit {
     const chartSVG = this.chartSVG.nativeElement.querySelector('.highcharts-root');
     const report = new ReportBuilder();
     report.addChart(new ChartImage(chartSVG));
-    report.print('RELATÓRIO DE INCIDENTES', 'l', -180, 100, 1.7);
+    const setor = this.setores.find(setor => setor.id == this.setorId);
+    const title = 'Relatório de Incidentes - ' + this.datePipe.transform(this.stringDataInicio, 'dd/MM/yyyy') +
+      ' à ' + this.datePipe.transform(this.stringDataFim, 'dd/MM/yyyy') + ' Setor: ' + setor.descricao;
+    report.titleX = 200;
+    report.print(title, 'l', -180, 100, 1.7);
   }
 
   generateChart(data) {
@@ -123,6 +132,9 @@ export class IncidenteReportComponent implements OnInit {
     const seriesData = [{name: 'Incidentes', y: this.incidentes}, {name: 'Pacientes sem ocorrências', y: this.semIncidentes}];
     this.showChartContainer = true;
     this.incidenteChart.ref.update({
+      title: {
+        text: ''
+      },
       series: [{
         type: 'pie',
         name: 'Quantidade',
@@ -133,14 +145,14 @@ export class IncidenteReportComponent implements OnInit {
   }
 
   getChartData() {
-    const stringDataInicio = this.form.controls.dataInicio.value;
-    const stringDataFim = this.form.controls.dataFim.value;
-    const setorId = this.form.controls.setorId.value;
+    this.stringDataInicio = this.form.controls.dataInicio.value;
+    this.stringDataFim = this.form.controls.dataFim.value;
+    this.setorId = this.form.controls.setorId.value;
     const tipoIncidenteId = this.form.controls.tipoIncidenteId.value;
-    const dataIncicio = new Date(stringDataInicio);
-    const dataFim = new Date(stringDataFim);
+    const dataIncicio = new Date(this.stringDataInicio);
+    const dataFim = new Date(this.stringDataFim);
 
-    if (stringDataInicio == "" || stringDataFim == "") {
+    if (this.stringDataInicio == "" || this.stringDataFim == "") {
       this.alertService.send({
         message: 'Ops... A data deve ser preenchida!',
         type: 'warning',
@@ -152,7 +164,7 @@ export class IncidenteReportComponent implements OnInit {
         type: 'warning',
         icon: faFrown
       });
-    } else if (setorId == '') {
+    } else if (this.setorId == '') {
         this.alertService.send({
           message: 'Ops... Selecione um setor!',
           type: 'warning',
@@ -165,7 +177,7 @@ export class IncidenteReportComponent implements OnInit {
         icon: faFrown
       });
     } else {
-      this.incidenteService.report(stringDataInicio, stringDataFim, setorId, tipoIncidenteId).subscribe(this.generateChart);
+      this.incidenteService.report(this.stringDataInicio, this.stringDataFim, this.setorId, tipoIncidenteId).subscribe(this.generateChart);
     }
   }
 

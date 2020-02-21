@@ -43,6 +43,8 @@ export class ReportBuilder {
   tables: UserOptions[] = [];
   charts: ChartImage[] = [];
   images: ChartImage;
+  titleX: number = 270;
+  titleY: number = 30;
   defaultTableOptions = {
     margin: {top: 250},
     theme: "striped",
@@ -67,7 +69,7 @@ export class ReportBuilder {
     const doc = new jsPDF(orientation || 'l', 'px', 'A4') as jsPDFWithPlugin;
 
     doc.setFontSize(12);
-    doc.text(title, 270, 30, '', '', 'center');
+    doc.text(title, this.titleX, this.titleY, '', '', 'center');
 
     if (this.logo) {
       doc.addImage(this.logo, 'PNG', 20, 10, 80, 30);
