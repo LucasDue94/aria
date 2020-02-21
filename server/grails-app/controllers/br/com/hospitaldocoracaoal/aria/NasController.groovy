@@ -23,6 +23,7 @@ class NasController {
         respond nasService.get(id)
     }
 
+    //TODO Modificar as roles
     @Secured('ROLE_PERFIL_EPIDEMIOLOGICO_INDEX')
     @Transactional
     def save(Nas nas) {

@@ -28,7 +28,7 @@ class Nas {
     boolean alimentacaoEnteral                //Questão 21
     boolean intervencoesDentroUnidade         //Questão 22
     boolean intervencoesForaUnidade           //Questão 23
-    int escore
+    float escore
 
 
     static constraints = {
@@ -65,6 +65,7 @@ class Nas {
                 errors.rejectValue('registroAtendimentoLeito', 'nas.registroAtendimentoLeito.doesnt.exist')
             }
         }
+        escore nullabe: false
     }
 
     def beforeValidate() {
