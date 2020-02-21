@@ -63,7 +63,7 @@ export class ReportBuilder {
     this.tables.push(model);
   }
 
-  print(title: string, orientation?: string) {
+  print(title: string, orientation ?: string, chartX: number = 20, chartY: number = 50, scaleMult: number = 1) {
     const doc = new jsPDF(orientation || 'l', 'px', 'A4') as jsPDFWithPlugin;
 
     doc.setFontSize(12);
@@ -87,7 +87,7 @@ export class ReportBuilder {
             scale = verticalScale;
           }
         }
-        doc.addImage(chart.pngDataUrl, 'PNG', chart.margin, 50, chart.canvas.width * scale, chart.canvas.height * scale);
+        doc.addImage(chart.pngDataUrl, 'PNG', chartX, chartY, chart.canvas.width * scale * scaleMult, chart.canvas.height * scale * scaleMult);
       });
 
       this.tables.forEach((tableOptions: UserOptions, index: number) => {
