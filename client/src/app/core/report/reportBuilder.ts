@@ -42,9 +42,13 @@ export class ReportBuilder {
   logo: HTMLImageElement;
   tables: UserOptions[] = [];
   charts: ChartImage[] = [];
+  title;
+  subtitle;
   images: ChartImage;
   titleX: number = 270;
   titleY: number = 30;
+  subtitleX: number = 270;
+  subtitleY: number = 45;
   defaultTableOptions = {
     margin: {top: 250},
     theme: "striped",
@@ -65,11 +69,16 @@ export class ReportBuilder {
     this.tables.push(model);
   }
 
-  print(title: string, orientation ?: string, chartX: number = 20, chartY: number = 50, scaleMult: number = 1) {
+  print(orientation ?: string, chartX: number = 20, chartY: number = 50, scaleMult: number = 1) {
     const doc = new jsPDF(orientation || 'l', 'px', 'A4') as jsPDFWithPlugin;
 
-    doc.setFontSize(12);
-    doc.text(title, this.titleX, this.titleY, '', '', 'center');
+    doc.setFontSize(16);
+    doc.text(this.title, this.titleX, this.titleY, '', '', 'center');
+
+    if(this.subtitle) {
+      doc.setFontSize(10);
+      doc.text(this.subtitle, this.subtitleX, this.subtitleY, '', '', 'center');
+    }
 
     if (this.logo) {
       doc.addImage(this.logo, 'PNG', 20, 10, 80, 30);

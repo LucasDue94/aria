@@ -120,10 +120,15 @@ export class IncidenteReportComponent implements OnInit {
     const report = new ReportBuilder();
     report.addChart(new ChartImage(chartSVG));
     const setor = this.setores.find(setor => setor.id == this.setorId);
-    const title = 'Relatório de Incidentes - ' + this.datePipe.transform(this.stringDataInicio, 'dd/MM/yyyy') +
-      ' à ' + this.datePipe.transform(this.stringDataFim, 'dd/MM/yyyy') + ' Setor: ' + setor.descricao;
-    report.titleX = 200;
-    report.print(title, 'l', -180, 100, 1.7);
+
+    report.titleX = 250;
+    report.titleY = 25;
+    report.subtitleX = 250;
+    report.subtitleY = 40;
+    report.title = 'Relatório de Incidentes';
+    report.subtitle = this.datePipe.transform(this.stringDataInicio, 'dd/MM/yyyy') +
+      ' à ' + this.datePipe.transform(this.stringDataFim, 'dd/MM/yyyy') + ' - Setor: ' + setor.descricao;
+    report.print('l', -180, 60, 1.7);
   }
 
   generateChart(data) {
