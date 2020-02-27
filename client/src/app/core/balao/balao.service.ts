@@ -44,20 +44,6 @@ export class BalaoService {
         return subject.asObservable();
     }
 
-
-    /*save(balao: Balao): Observable<any> {
-        if (balao.id) {
-           this.http.put<any>(this.baseUrl + `balao/` + balao.id, balao, {
-                responseType: 'json'
-            });
-        } else {
-          this.http.post<any>(this.baseUrl + `balao/`, balao, {
-              responseType: 'json'
-            })
-        }
-    }*/
-
-
   save(balao: any): Observable<any> {
     let subject = new Subject<Balao>();
     if (balao.id) {
@@ -80,6 +66,15 @@ export class BalaoService {
     return subject.asObservable()
   }
 
+  report(dataInicio?: any, dataFim?: any): Observable<any[]> {
+    let subject = new Subject<any[]>();
+    this.http.get<any[]>(this.baseUrl + "report/balao?dataInicio=" + dataInicio + "&dataFim=" + dataFim).pipe(
+      catchError(error => of({error})
+      )).subscribe((json: any) => {
+      subject.next(json);
+    });
+    return subject.asObservable();
+  }
 
     destroy(balao: Balao): Observable<Object> {
         return this.http.delete(this.baseUrl + `balao/` + balao.id, {

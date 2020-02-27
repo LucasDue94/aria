@@ -1,0 +1,82 @@
+@import "../../../styles";
+@import "../../../assets/colors";
+@import "../../../assets/device-sizes";
+
+.panel {
+  display: flex;
+  flex-wrap: wrap;
+  width: fit-content;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  background: $white;
+  box-shadow: 2px 2px 10px $gray-80;
+  border-radius: 4px;
+  margin-bottom: 25px;
+  padding: 25px;
+
+  & .label-panel {
+    vertical-align: middle;
+    margin: 0 10px;
+    line-height: normal;
+    font-weight: bold;
+    color: $gray-90;
+  }
+
+  & .input-date {
+    width: 180px;
+    margin-right: 10px;
+    position: relative;
+    border-bottom: 1px solid $gray-70;
+  }
+
+  & .button-search-panel {
+    font-size: 16px;
+    padding: 7px;
+    margin: auto 2px;
+    border-radius: 3px;
+    color: $white;
+    background-color: rgba(#2B517E, 0.5);
+
+    &:hover {
+      background-color: $blue-default;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+  }
+
+  & .panel-select {
+    border: 1px solid $gray-70;
+    border-radius: 5px;
+    padding: 5px;
+  }
+}
+
+.button-container {
+  display: flex;
+  margin:5px 0;
+
+
+  .search-button {
+    margin: 5px 5px 0 5px;
+    height: 35px;
+    flex: 1;
+
+    & {
+      text-align: center;
+      color: $white;
+      border-radius: 5px;
+      background-color: rgba($blue-default, 0.7);
+    }
+
+    &:hover {
+      transition: 0.3s;
+      cursor: pointer;
+      background-color: $blue-default;
+    }
+
+    .search-icon {
+      margin-right: 5px;
+    }
+  }
+}
+

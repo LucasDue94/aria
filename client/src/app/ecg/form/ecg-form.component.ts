@@ -51,6 +51,8 @@ export class EcgFormComponent implements OnInit {
     this.registroId = this.route.snapshot.params.id;
     this.registroAtendimentoService.get(this.registroId).subscribe(registro => {
       this.registro = registro;
+      this.f.dataPorta.setValue(this.datePipe.transform(registro.dataEntrada, 'yyyy-MM-dd'));
+      this.f.horaPorta.setValue(this.datePipe.transform(registro.dataEntrada, 'HH:mm'));
       this.spinner.hide();
     });
   }
@@ -69,13 +71,14 @@ export class EcgFormComponent implements OnInit {
       })
     } else {
       this.ecgService.save(this.ecg).subscribe(res => {
-        console.log(res);
-        if (res.hasOwnProperty('HttpErrorResponse')) {
-          this.alertService.send({
-            message: 'ECG já cadastrado!',
-            type: 'warning',
-            icon: faFrown
-          });
+        if (res.hasOwnProperty('error')) {
+          setTimeout(() => {
+            this.alertService.send({
+              message: 'Ops... ECG já existe!',
+              type: 'error',
+              icon: faFrown
+            });
+          }, 500);
         } else {
           this.router.navigate(['ecg']);
           setTimeout(() => {
@@ -89,5 +92,7 @@ export class EcgFormComponent implements OnInit {
       });
     }
   }
+
+  get f() { return this.form.controls; }
 
 }

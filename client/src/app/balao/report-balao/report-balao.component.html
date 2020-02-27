@@ -7,12 +7,12 @@
     <div>
       <label class="label-panel" for="fim">Fim:</label>
       <input class="input-date" id="fim" value="{{this.dataFim}}" type="date" formControlName="fim">
-    <button class="button-search-panel" (click)="update()">
-      <fa-icon class="ng-fa-icon"></fa-icon> Buscar
-    </button>
+      <button class="button-search-panel" (click)="update()">
+        <fa-icon class="ng-fa-icon"></fa-icon> Buscar
+      </button>
     </div>
   </form>
   <section class="panel-chart">
-    <section [chart]="ecgChart" id="ecg">ECG</section>
+    <section [chart]="balaoChart" id="ecg">ECG</section>
   </section>
 </main>

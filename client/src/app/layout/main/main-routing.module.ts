@@ -29,6 +29,7 @@ import {NasFormComponent} from "../../nas/form/nas-form.component";
 import {EcgListComponent} from "../../ecg/list/ecg-list.component";
 import {EcgFormComponent} from "../../ecg/form/ecg-form.component";
 import {ReportEcgComponent} from "../../ecg/report-ecg/report-ecg.component";
+import {ReportBalaoComponent} from "../../balao/report-balao/report-balao.component";
 
 const routes: Routes = [
   {
@@ -218,6 +219,11 @@ const routes: Routes = [
           {
             path: 'create/:id',
             component: BalaoFormComponent,
+            canActivate: [AuthGuard]
+          },
+          {
+            path: 'report',
+            component: ReportBalaoComponent,
             canActivate: [AuthGuard]
           }
         ],

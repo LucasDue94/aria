@@ -1,8 +1,8 @@
 <main class="container">
   <div class="filters-container">
     <form [formGroup]="searchForm" class="search-container">
-      <input  (focus)="search()" formControlName="searchControl" id="search-text"
-              placeholder="Procure: Descrição ou id..." type="text">
+      <input (focus)="search()" formControlName="searchControl" id="search-text"
+             placeholder="Procure: Descrição ou id..." type="text">
       <button id="search-button">
         <fa-icon [icon]=faSearch></fa-icon>
       </button>
