@@ -1,14 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Chart} from "angular-highcharts";
 import {FormBuilder, Validators} from "@angular/forms";
 import {TitleService} from "../../core/title/title.service";
-import {EcgService} from "../../core/ecg/ecg.service";
 import {AlertService} from "../../core/alert/alert.service";
 import {DatePipe} from "@angular/common";
 import {BalaoService} from "../../core/balao/balao.service";
 import {SeriesPieOptions} from "highcharts";
-import {faFrown} from "@fortawesome/free-solid-svg-icons";
+import {faFrown, faPrint} from "@fortawesome/free-solid-svg-icons";
 import {SpinnerService} from "../../core/spinner/spinner.service";
+import {ChartImage, ReportBuilder} from "../../core/report/reportBuilder";
 
 @Component({
   selector: 'app-report-balao',
@@ -16,16 +16,20 @@ import {SpinnerService} from "../../core/spinner/spinner.service";
   styleUrls: ['./report-balao.component.scss']
 })
 export class ReportBalaoComponent implements OnInit {
+  @ViewChild('chartSVG', {static: false}) chartSVG: ElementRef;
 
   date = new Date();
   dataInicio: any;
   dataFim: any;
+  faPrint = faPrint;
+  stringDataInicio;
+  stringDataFim;
   optionsChart: any = {
     chart: {
       type: 'pie'
     },
     title: {
-      text: 'BALÃO'
+      text: 'ATENDIDOS E NÃO ATENDIDOS NO TEMPO LIMITE DO BALÃO'
     },
     credits: {
       enabled: false
@@ -59,22 +63,25 @@ export class ReportBalaoComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private titleService: TitleService,
               private balaoService: BalaoService, private alertService: AlertService,
-              private spinner: SpinnerService){
+              private datePipe: DatePipe,
+              private spinner: SpinnerService) {
   }
 
   ngOnInit() {
     this.spinner.show();
-    this.titleService.send('Relatório de Balão');
+    this.titleService.send('Relatório de Porta Balão');
     this.getDateInterval();
     this.form = this.fb.group({
-      inicio: [this.dataInicio, Validators.required ],
+      inicio: [this.dataInicio, Validators.required],
       fim: [this.dataFim, Validators.required]
     });
-    this.balaoService.report(this.dataInicio, this.dataFim).subscribe( balao => {
+    this.balaoService.report(this.dataInicio, this.dataFim).subscribe(balao => {
       this.spinner.hide();
-      this.balaoChart.ref.update({series: [{
+      this.balaoChart.ref.update({
+        series: [{
           data: [{name: 'Atendidos', y: balao['atendidos']}, {name: 'Não atendidos', y: balao['naoAtendidos']}]
-        } as SeriesPieOptions]}, true, true);
+        } as SeriesPieOptions]
+      }, true, true);
     });
   }
 
@@ -99,14 +106,28 @@ export class ReportBalaoComponent implements OnInit {
         icon: faFrown
       });
     } else {
-      this.balaoService.report(this.dataInicio, this.dataFim).subscribe(ecg => {
+      this.balaoService.report(this.dataInicio, this.dataFim).subscribe(balao => {
         this.balaoChart.ref.update({
           series: [{
-            data: [{name: 'Atendidos', y: ecg['atendidos']}, {name: 'Não atendidos', y: ecg['naoAtendidos']}]
+            data: [{name: 'Atendidos', y: balao['atendidos']}, {name: 'Não atendidos', y: balao['naoAtendidos']}]
           } as SeriesPieOptions]
         }, true, true);
       });
     }
+  }
+
+  generatePdf() {
+    const chartSVG = this.chartSVG.nativeElement.querySelector('.highcharts-root');
+    const report = new ReportBuilder();
+    report.addChart(new ChartImage(chartSVG));
+    report.titleX = 150;
+    report.titleY = 25;
+    report.subtitleX = 280;
+    report.subtitleY = 40;
+    report.title = 'ATENDIDOS E NÃO ATENDIDOS NO TEMPO LIMITE';
+    report.subtitle = this.datePipe.transform(this.dataInicio, 'dd/MM/yyyy') +
+      ' à ' + this.datePipe.transform(this.dataFim, 'dd/MM/yyyy');
+    report.print('l', -180, 60, 1.7);
   }
 
 }

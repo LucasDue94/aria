@@ -1,13 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {TitleService} from "../../core/title/title.service";
 import {EcgService} from "../../core/ecg/ecg.service";
 import {Chart} from "angular-highcharts";
 import {FormBuilder, Validators} from "@angular/forms";
 import {SeriesPieOptions} from "highcharts";
 import {DatePipe} from "@angular/common";
-import {faFrown} from "@fortawesome/free-solid-svg-icons";
+import {faFrown, faPrint} from "@fortawesome/free-solid-svg-icons";
 import {AlertService} from "../../core/alert/alert.service";
 import {SpinnerService} from "../../core/spinner/spinner.service";
+import {ChartImage, ReportBuilder} from "../../core/report/reportBuilder";
 
 @Component({
   selector: 'app-report-ecg',
@@ -15,16 +16,18 @@ import {SpinnerService} from "../../core/spinner/spinner.service";
   styleUrls: ['./report-ecg.component.scss']
 })
 export class ReportEcgComponent implements OnInit {
+  @ViewChild('chartSVG', {static: false}) chartSVG: ElementRef;
 
   date = new Date();
   dataInicio: any;
   dataFim: any;
+  faPrint = faPrint;
   optionsChart: any = {
     chart: {
       type: 'pie'
     },
     title: {
-      text: 'ECG'
+      text: 'ATENDIDOS E NÃO ATENDIDOS NO TEMPO LIMITE DE ECG'
     },
     credits: {
       enabled: false
@@ -59,23 +62,26 @@ export class ReportEcgComponent implements OnInit {
   constructor(private titleService: TitleService,
               private ecgService: EcgService,
               private fb: FormBuilder,
+              private datePipe: DatePipe,
               private alertService: AlertService,
               private spinner: SpinnerService) {
   }
 
   ngOnInit() {
     this.spinner.show();
-    this.titleService.send('Relatório de ECG');
+    this.titleService.send('Relatório de Porta ECG');
     this.getDateInterval();
     this.form = this.fb.group({
-      inicio: [this.dataInicio, Validators.required ],
+      inicio: [this.dataInicio, Validators.required],
       fim: [this.dataFim, Validators.required]
     });
     this.ecgService.report(this.dataInicio, this.dataFim).subscribe(ecg => {
       this.spinner.hide();
-      this.ecgChart.ref.update({series: [{
+      this.ecgChart.ref.update({
+        series: [{
           data: [{name: 'Atendidos', y: ecg['atendidos']}, {name: 'Não atendidos', y: ecg['naoAtendidos']}]
-        } as SeriesPieOptions]}, true, true);
+        } as SeriesPieOptions]
+      }, true, true);
     });
   }
 
@@ -112,5 +118,18 @@ export class ReportEcgComponent implements OnInit {
     }
   }
 
+  generatePdf() {
+    const chartSVG = this.chartSVG.nativeElement.querySelector('.highcharts-root');
+    const report = new ReportBuilder();
+    report.addChart(new ChartImage(chartSVG));
+    report.titleX = 150;
+    report.titleY = 25;
+    report.subtitleX = 280;
+    report.subtitleY = 40;
+    report.title = 'ATENDIDOS E NÃO ATENDIDOS NO TEMPO LIMITE';
+    report.subtitle = this.datePipe.transform(this.dataInicio, 'dd/MM/yyyy') +
+      ' à ' + this.datePipe.transform(this.dataFim, 'dd/MM/yyyy');
+    report.print('l', -180, 60, 1.7);
+  }
 
 }

@@ -10,9 +10,12 @@
     <button class="button-search-panel" (click)="update()">
       <fa-icon class="ng-fa-icon"></fa-icon> Buscar
     </button>
+      <button class="button-search-panel" *ngIf="ecgChart" (click)="generatePdf()">
+        <fa-icon [icon]=faPrint></fa-icon>
+      </button>
     </div>
   </form>
   <section class="panel-chart">
-    <section [chart]="ecgChart" id="ecg">ECG</section>
+    <section #chartSVG [chart]="ecgChart" id="ecg">ECG</section>
   </section>
 </main>
