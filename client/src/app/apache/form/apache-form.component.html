@@ -1,218 +1,113 @@
 <main class="container-apache">
-  <article class="paciente-info">
-    <section class="flex-column">
-      <section class="flex-row">
-        <h3 class="label">Paciente:</h3>
-        <h4 class="info">{{registroAtendimento?.paciente?.nome.toLowerCase()}}</h4>
-      </section>
-      <section class="flex-row">
-        <h3 class="label">Mãe:</h3>
-        <h4 class="info">{{registroAtendimento?.paciente?.nomeMae.toLowerCase()}}</h4>
-      </section>
-      <section class="flex-row">
-        <h3 class="label">Entrada:</h3>
-        <h4 class="info">{{registroAtendimento?.dataEntrada | date:'dd/MM/yy - HH:mm'}}</h4>
-      </section>
-    </section>
-    <section class="flex-column">
-      <section class="flex-row">
-        <h3 class="label">Registro:</h3>
-        <h4 class="info">{{registroAtendimento?.id}}</h4>
-      </section>
-      <section class="flex-row">
-        <h3 class="label">Motivo Alta:</h3>
-        <h4 class="info">{{registroAtendimento?.motivoAlta?.descricao?.toLowerCase()}}</h4>
-      </section>
-      <section class="flex-row">
-        <h3 class="label">Saída:</h3>
-        <h4 class="info">{{registroAtendimento?.dataAlta | date:'dd/MM/yy - HH:mm'}}</h4>
-      </section>
-    </section>
-    <section class="flex-column">
-      <section class="flex-row">
-        <h3 class="label">Nascimento:</h3>
-        <h4
-          class="info">{{registroAtendimento?.paciente?.nascimento | date:'dd/MM/yyyy'}}</h4>
-      </section>
-      <section class="flex-row">
-        <h3 class="label">Idade:</h3>
-        <h4 class="info">{{getIdade(registroAtendimento?.paciente?.nascimento)}} anos</h4>
-      </section>
-      <section class="flex-row">
-        <h3 class="label">Setor:</h3>
-        <h4 class="info">{{registroAtendimento?.setor?.descricao}}</h4>
-      </section>
-    </section>
-  </article>
-  <form class="container-form-apache" [formGroup]="form">
-    <section class="container-pressao" [formGroup]="getGroup('pressaoMedia')">
+  <paciente-info [paciente]="registroAtendimento?.paciente"
+                 [extras]="[{label: 'Registro', value:registroAtendimento?.id},
+                 {label: 'Entrada',value:registroAtendimento?.dataEntrada | date:'dd/MM/yy - HH:mm'},
+                 {label: 'Saída', value: registroAtendimento?.dataAlta | date:'dd/MM/yy - HH:mm'},
+                 {label:'Motivo alta', value:registroAtendimento?.motivoAlta?.descricao}]"></paciente-info>
+  <section class="container-form-apache">
+    <section class="container-pressao">
       <h3 class="label-pressao">Pressão Arterial Média (mmHg):</h3>
       <div class="form-group">
         <label for="ps" class="form-label">PS</label>
-        <input id="ps" class="form-control " type="number" formControlName="ps">
+        <input [(ngModel)]="pressaoMedia.ps" id="ps" class="form-control " type="number">
       </div>
       <div class="form-group">
         <label for="pd" class="form-label">PD</label>
-        <input id="pd" class="form-control" type="number" formControlName="pd">
+        <input [(ngModel)]="pressaoMedia.pd" id="pd" class="form-control" type="number">
       </div>
       <div class="form-group">
         <label for="pm" class="form-label">PM</label>
-        <input id="pm" class="form-control control-disable" type="text" formControlName="pm">
+        <input id="pm" class="form-control control-disable" type="text">
       </div>
-      <p [ngClass]="[getGroup('pressaoMedia').invalid && (getGroup('pressaoMedia').dirty && getGroup('pressaoMedia').touched) ? 'errors': 'hidden']">
-        {{messagePressao}}</p>
     </section>
-    <section class="flex-row select-containers" [formGroup]="getGroup('outrasMedidas')">
-      <section class="left">
+    <section class="flex-row align-selects">
+      <article class="col-container">
         <div class="form-group">
-          <app-select class="aria-select" [reset]="resetForm" [width]="'215px'" [labelPosition]="labelPosition"
-                      [labelName]="'Temperatura(ºC):'"
-                      [selected]= "apache.temperatura ? apache.temperatura : 'Selecione'"
-                      (itemSelected)="getValue($event, 'temperatura')"
-                      [items]="temperatura"></app-select>
-          <p
-            [ngClass]="[getControl('temperatura').invalid && (getGroup('outrasMedidas').dirty && getGroup('outrasMedidas').touched) ? 'errors': 'hidden']">{{messageError}}</p>
+          <h3 class="select-label">Temperatura(ºC)</h3>
+          <ng-select class="select-style" [(ngModel)]="apache.temperatura" [items]="temperatura"></ng-select>
+<!--          <p [ngClass]="[apache?.temperatura == undefined && send ? 'errors': 'hidden']">{{messageError}}</p>-->
         </div>
 
         <div class="form-group">
-          <app-select class="aria-select" [reset]="resetForm" [width]="'215px'" [labelPosition]="labelPosition"
-                      [labelName]="'Arterial pH ou HCO3:'"
-                      [selected]= "apache.arterialPh ? apache.arterialPh : 'Selecione'"
-                      (itemSelected)="getValue($event, 'arterialPh')"
-                      [items]="arterialPh"></app-select>
-          <p
-            [ngClass]="[getControl('arterialPh').invalid && (getGroup('outrasMedidas').dirty && getGroup('outrasMedidas').touched) ? 'errors': 'hidden']">
-            {{messageError}}</p>
-
+          <h3 class="select-label">Arterial pH ou HCO3</h3>
+          <ng-select class="select-style" [(ngModel)]="apache.arteriaPh" [items]="arterialPh"></ng-select>
         </div>
+
         <div class="form-group">
-          <app-select class="aria-select" [reset]="resetForm" [width]="'215px'" [labelPosition]="labelPosition"
-                      [labelName]="'Na+ Sérico (meq/l):'"
-                      [selected]= "apache.naSerico ? apache.naSerico : 'Selecione'"
-                      (itemSelected)="getValue($event, 'naSerico')"
-                      [items]="naSerico"></app-select>
-          <p
-            [ngClass]="[getControl('naSerico').invalid && (getGroup('outrasMedidas').dirty && getGroup('outrasMedidas').touched) ? 'errors': 'hidden']">
-            {{messageError}}</p>
-
+          <h3 class="select-label">Na+ Sérico (meq/l)</h3>
+          <ng-select class="select-style" [(ngModel)]="apache.naSerico" [items]="naSerico"></ng-select>
         </div>
+
         <div class="form-group">
-          <app-select class="aria-select" [reset]="resetForm" [width]="'215px'" [labelPosition]="labelPosition"
-                      [labelName]="'Leucócitos (10^3/£gl):'"
-                      [selected]= "apache.leucocitos ? apache.leucocitos : 'Selecione'"
-                      (itemSelected)="getValue($event, 'leucocitos')"
-                      [items]="leucocitos"></app-select>
-          <p
-            [ngClass]="[getControl('leucocitos').invalid && (getGroup('outrasMedidas').dirty && getGroup('outrasMedidas').touched) ? 'errors': 'hidden']">
-            {{messageError}}</p>
-
+          <h3 class="select-label">Leucócitos (10^3/£gl)</h3>
+          <ng-select class="select-style" [(ngModel)]="apache.leucocitos" [items]="leucocitos"></ng-select>
         </div>
+      </article>
+      <article class="col-container">
+
         <div class="form-group">
-          <app-select class="aria-select" [reset]="resetForm" [width]="'215px'" [labelPosition]="labelPosition"
-                      [labelName]="'Glasgow Com Escala:'"
-                      [selected]= "apache.glasgow ? (apache.glasgow) : 'Selecione'"
-                      (itemSelected)="getValue($event,'glasgow')"
-                      [items]="glasgow"></app-select>
-          <p
-            [ngClass]="[getControl('glasgow').invalid && (getGroup('outrasMedidas').dirty && getGroup('outrasMedidas').touched) ? 'errors': 'hidden']">
-            {{messageError}}</p>
-
+          <h3 class="select-label">Glasgow Com Escala</h3>
+          <ng-select class="select-style" [(ngModel)]="apache.glasgow" [items]="glasgow"></ng-select>
         </div>
+
         <div class="form-group">
           <section class="flex-row">
             <fa-icon (mouseover)="showProblemas = true" (mouseleave)="showProblemas = false" class="info-icon"
                      [icon]="faInfoCircle"></fa-icon>
-            <app-select class="aria-select" [reset]="resetForm" [width]="'215px'" [labelPosition]="labelPosition"
-                        [labelName]="'Problemas Crônicos de Saúde:'"
-                        [selected]= "apache.problemasCronicos ? apache.problemasCronicos : 'Selecione'"
-                        (itemSelected)="getValue($event, 'problemasCronicos')"
-                        [items]="problemasCronicos"></app-select>
-            <section [ngClass]=" [showProblemas ? 'show-problemas-cronicos':'hidden-problemas-cronicos']">
-              <p class="item">1) Cirrose-Biópsia</p>
-              <p class="item">2) New York Heart Association Class IV</p>
-              <p class="item">3) Severa COPD: Hipercapnia,O2 Dependente, Hipertensão Pulmonar</p>
-              <p class="item">4) Diálise Crônica</p>
-              <p class="item">5) Imunocomprometido</p>
-            </section>
+            <h3 class="select-label">Problemas Crônicos de Saúde</h3>
           </section>
-          <p
-            [ngClass]="[getControl('problemasCronicos').invalid && (getGroup('outrasMedidas').dirty && getGroup('outrasMedidas').touched) ? 'errors': 'hidden']">
-            {{messageError}}</p>
-
+          <div class="form-group flex-column">
+            <ng-select class="select-style" [(ngModel)]="apache.problemasCronicos"
+                       [items]="problemasCronicos"></ng-select>
+          </div>
+          <section [ngClass]=" [showProblemas ? 'show-problemas-cronicos':'hidden-problemas-cronicos']">
+            <p class="item">1) Cirrose-Biópsia</p>
+            <p class="item">2) New York Heart Association Class IV</p>
+            <p class="item">3) Severa COPD: Hipercapnia,O2 Dependente, Hipertensão Pulmonar</p>
+            <p class="item">4) Diálise Crônica</p>
+            <p class="item">5) Imunocomprometido</p>
+          </section>
         </div>
-      </section>
-      <section class="right">
         <div class="form-group" id="container-frequencia-cardiaca">
-          <app-select class="aria-select" [reset]="resetForm" [width]="'215px'" [labelPosition]="labelPosition"
-                      [labelName]="'Frequência Cardíaca:'"
-                      [selected]= "apache.frequenciaCardiaca ? apache.frequenciaCardiaca : 'Selecione'"
-                      (itemSelected)="getValue($event,'frequenciaCardiaca')"
-                      [items]="frequenciaCardiaca"></app-select>
-          <p
-            [ngClass]="[getControl('frequenciaCardiaca').invalid && (getGroup('outrasMedidas').dirty && getGroup('outrasMedidas').touched) ? 'errors': 'hidden']">
-            {{messageError}}</p>
+          <h3 class="select-label">Frequência Cardíaca</h3>
+          <ng-select class="select-style" [(ngModel)]="apache.frequenciaCardiaca"
+                     [items]="frequenciaCardiaca"></ng-select>
+        </div>
+        <div class="form-group">
+          <h3 class="select-label">Frequência Respiratória</h3>
+          <ng-select class="select-style" [(ngModel)]="apache.frequenciaRespiratoria"
+                     [items]="frequenciaRespiratoria"></ng-select>
+        </div>
+      </article>
+      <article class="col-container">
+
+        <div class="form-group">
+          <h3 class="select-label">K+ Sérico (meq/l)</h3>
+          <ng-select class="select-style" [(ngModel)]="apache.kSerico" [items]="kSerico"></ng-select>
         </div>
 
         <div class="form-group">
-          <app-select class="aria-select" [reset]="resetForm" [width]="'215px'" [labelPosition]="labelPosition"
-                      [labelName]="'Frequência Respiratória:'"
-                      [selected]= "apache.frequenciaRespiratoria ? apache.frequenciaRespiratoria : 'Selecione'"
-                      (itemSelected)="getValue($event, 'frequenciaRespiratoria')"
-                      [items]="frequenciaRespiratoria"></app-select>
-          <p
-            [ngClass]="[getControl('frequenciaRespiratoria').invalid && (getGroup('outrasMedidas').dirty && getGroup('outrasMedidas').touched) ? 'errors': 'hidden']">
-            {{messageError}}</p>
-
+          <h3 class="select-label">Hematócrito</h3>
+          <ng-select class="select-style" [(ngModel)]="apache.hematocrito" [items]="hematocrito"></ng-select>
         </div>
+
         <div class="form-group">
-          <app-select class="aria-select" [reset]="resetForm" [width]="'215px'" [labelPosition]="labelPosition"
-                      [labelName]="'K+ Sérico (meq/l):'"
-                      [selected]= "apache.kSerico ? apache.kSerico : 'Selecione'"
-                      (itemSelected)="getValue($event,'kSerico')"
-                      [items]="kSerico"></app-select>
-          <p
-            [ngClass]="[getControl('kSerico').invalid && (getGroup('outrasMedidas').dirty && getGroup('outrasMedidas').touched) ? 'errors': 'hidden']">
-            {{messageError}}</p>
-
+          <h3 class="select-label">A-aPO2 (FiO2 > 50%) ou PaO2 (FiO2 < 50%)</h3>
+          <ng-select class="select-style" [(ngModel)]="apache.aapo" [items]="aapo"></ng-select>
         </div>
+
         <div class="form-group">
-          <app-select class="aria-select" [reset]="resetForm" [width]="'215px'" [labelPosition]="labelPosition"
-                      [labelName]="'Hematócrito:'"
-                      [selected]= "apache.hematocrito ? apache.hematocrito : 'Selecione'"
-                      (itemSelected)="getValue($event,'hematocrito')"
-                      [items]="hematocrito"></app-select>
-          <p
-            [ngClass]="[getControl('hematocrito').invalid && (getGroup('outrasMedidas').dirty && getGroup('outrasMedidas').touched) ? 'errors': 'hidden']">
-            {{messageError}}</p>
-
+          <h3 class="select-label">Creatinina Sérica com ou sem IRA</h3>
+          <ng-select class="select-style" [(ngModel)]="apache.creatinina" [items]="creatinina"></ng-select>
         </div>
-        <div class="form-group">
-          <app-select class="aria-select" [reset]="resetForm" [width]="'215px'" [labelPosition]="labelPosition"
-                      [labelName]="'A-aPO2 (FiO2 > 50%) ou PaO2 (FiO2 < 50%):'"
-                      [selected]= "apache.aapo ? apache.aapo : 'Selecione'"
-                      (itemSelected)="getValue($event, 'aapo')"
-                      [items]="aapo"></app-select>
-          <p
-            [ngClass]="[getControl('aapo').invalid && (getGroup('outrasMedidas').dirty && getGroup('outrasMedidas').touched) ? 'errors': 'hidden']">
-            {{messageError}}</p>
-
-        </div>
-        <div class="form-group">
-          <app-select class="aria-select" [reset]="resetForm" [width]="'215px'" [labelPosition]="labelPosition"
-                      [labelName]="'Creatinina Sérica com ou sem IRA: '"
-                      [selected]= "apache.creatininaSerica ? apache.creatininaSerica : 'Selecione'"
-                      (itemSelected)="getValue($event,'creatinina')"
-                      [items]="creatinina"></app-select>
-          <p
-            [ngClass]="[getControl('creatinina').invalid && (getGroup('outrasMedidas').dirty && getGroup('outrasMedidas').touched) ? 'errors': 'hidden']">
-            {{messageError}}</p>
-
-        </div>
-      </section>
-      <div class="container-button">
-        <button (click)="save()" class="button button-blue">Salvar</button>
-        <button (click)="clear()" class="button">Limpar</button>
-      </div>
+      </article>
     </section>
-  </form>
+    <footer class="apache-footer">
+      <button (click)="save()" class="button button-blue">Salvar</button>
+    </footer>
+    <!--    <div class="container-button">
+          <button (click)="save()" class="button button-blue">Salvar</button>
+          <button (click)="clear()" class="button">Limpar</button>
+        </div>-->
+  </section>
 </main>

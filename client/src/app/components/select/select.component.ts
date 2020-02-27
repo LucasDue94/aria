@@ -1,7 +1,7 @@
 import {
-  AfterViewChecked,
-  Component,
-  EventEmitter,
+  AfterViewChecked, AfterViewInit,
+  Component, DoCheck,
+  EventEmitter, HostListener,
   Input,
   OnChanges,
   OnInit,
@@ -16,7 +16,7 @@ import {SelectService} from "../../core/select/select.service";
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss']
 })
-export class SelectComponent implements OnInit, AfterViewChecked, OnChanges {
+export class SelectComponent implements OnInit, AfterViewChecked, OnChanges,DoCheck {
   @Input() items = [];
   @Input() keyPropery = '';
   @Input() width = '';
@@ -46,34 +46,44 @@ export class SelectComponent implements OnInit, AfterViewChecked, OnChanges {
     if (changes.reset && changes.reset.currentValue) this.clear();
   }
 
-  ngAfterViewChecked(): void {
-    if (this.containerOptions != undefined) {
-      this.render.setStyle(this.containerOptions.nativeElement, 'right', '0');
-      const ultrapassou = this.containerOptions.nativeElement.getBoundingClientRect().height +
-        this.containerOptions.nativeElement.getBoundingClientRect().top > window.innerHeight - 50;
-      if (ultrapassou && !this.isInsideScroll) {
-        if (this.labelPosition == 'top') {
-          this.render.setStyle(this.containerOptions.nativeElement,
-            'top', `-${this.containerOptions.nativeElement.getBoundingClientRect().height - 25}px`);
-        } else {
-          this.render.setStyle(this.containerOptions.nativeElement,
-            'top', `-${this.containerOptions.nativeElement.getBoundingClientRect().height}px`);
-        }
-      } else {
-        if (this.labelPosition == 'top') {
-          this.render.setStyle(this.containerOptions.nativeElement, 'top', '60px');
-        } else {
-          this.render.setStyle(this.containerOptions.nativeElement, 'top', '35px');
-        }
-      }
+  @HostListener('document:click', ['$event.target']) clickOut(target) {
+    if (this.containerOptions != undefined && target != this.containerOptions.nativeElement && target != this.select.nativeElement) {
+      this.show = false;
     }
   }
 
+  ngAfterViewChecked(): void {
+  }
+
+  ngDoCheck(): void {
+    if (this.containerOptions != undefined) {
+      this.buildContainerOptions()
+      console.log('checou')
+    }
+  }
+
+  buildContainerOptions() {
+    const labelIsTop = this.labelPosition == 'top';
+    if (this.containerOptions != undefined) {
+      this.render.setStyle(this.containerOptions.nativeElement, 'right', '0');
+      if (this.hasOverflow()) {
+        const containerOptionsHeight = this.containerOptions.nativeElement.getBoundingClientRect().height;
+        this.render.setStyle(this.containerOptions.nativeElement, 'top',
+          labelIsTop ? `-${-containerOptionsHeight - 25}px` : `-${containerOptionsHeight}px`);
+
+      } else {
+        this.render.setStyle(this.containerOptions.nativeElement, 'top', labelIsTop ? '60px' : '35px')
+      }
+      this.render.setStyle(this.containerOptions.nativeElement, 'visibility', 'visible');
+    }
+  }
+
+  hasOverflow = () => this.containerOptions.nativeElement.getBoundingClientRect().height +
+    this.containerOptions.nativeElement.getBoundingClientRect().top > window.innerHeight;
+
+
   showSelect() {
     this.show = !this.show;
-    if (this.show)
-      this.selectService.emit(this);
-
     this.widthOptions = `calc(${this.width} + 15px`;
   }
 
@@ -95,7 +105,6 @@ export class SelectComponent implements OnInit, AfterViewChecked, OnChanges {
   }
 
   clear() {
-    this.selectService.emit(null);
     this.show = false;
     this.selected = 'selecione';
     this.itemSelected.emit('');
