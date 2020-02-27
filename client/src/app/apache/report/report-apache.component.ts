@@ -292,7 +292,8 @@ export class ReportApacheComponent extends DatePipe implements OnInit, DatePipe 
     const report = new ReportBuilder();
     report.addTable(modeloRelatorio);
     report.addChart(new ChartImage(chartSVG));
-    report.print('RELATÓRIO APACHE II');
+    report.title = 'RELATÓRIO APACHE II';
+    report.print();
   }
 
   scrollDown() {
