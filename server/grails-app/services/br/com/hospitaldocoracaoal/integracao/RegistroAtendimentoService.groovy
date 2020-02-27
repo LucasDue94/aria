@@ -41,7 +41,7 @@ abstract class RegistroAtendimentoService {
 
             if (termo != null && !termo.empty) {
                 or {
-                    ilike 'p.id', "%$termo%"
+                    ilike 'id', "%$termo%"
                     ilike 'p.nome', "%$termo%"
                 }
             }
@@ -55,7 +55,7 @@ abstract class RegistroAtendimentoService {
             eq 'tipo', RegistroAtendimento.TIPO_EMERGENCIA
             if (termo != null && !termo.empty) {
                 or {
-                    ilike 'p.id', "%$termo%"
+                    ilike 'id', "%$termo%"
                     ilike 'p.nome', "%$termo%"
                 }
             }

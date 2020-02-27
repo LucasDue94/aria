@@ -4,4 +4,4 @@ model {
 	Balao balao
 }
 
-json g.render(balao, [excludes: ['paciente','registroAtendimento'], resolveTemplate: false])
+json g.render(balao, [excludes: ['paciente', 'registroAtendimento'], resolveTemplate: false])

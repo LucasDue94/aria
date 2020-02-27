@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
-import {Observable, Subject} from "rxjs";
-import {map} from "rxjs/operators";
+import {Observable, of, Subject} from "rxjs";
+import {catchError, map} from "rxjs/operators";
 import {Balao} from "./balao";
+import {Incidente} from "../incidente/incidente";
 
 @Injectable()
 export class BalaoService {
@@ -43,19 +44,37 @@ export class BalaoService {
         return subject.asObservable();
     }
 
-
-    save(balao: Balao): Observable<Balao> {
-        if (balao.id) {
-            return this.http.put<Balao>(this.baseUrl + `balao/` + balao.id, balao, {
-                responseType: 'json'
-            });
-        } else {
-            return this.http.post<Balao>(this.baseUrl + `balao/`, balao, {
-              responseType: 'json'
-            })
-        }
+  save(balao: any): Observable<any> {
+    let subject = new Subject<Balao>();
+    if (balao.id) {
+      this.http.put<Balao>(this.baseUrl + 'balao/' + balao.id, balao, {
+        responseType: 'json'
+      }).pipe(
+        catchError(error => of({error}))
+      ).subscribe((json: any) => {
+        subject.next(json)
+      });
+    } else {
+      this.http.post<Balao>(this.baseUrl + 'balao/',  balao, {
+        responseType: 'json'
+      }).pipe(
+        catchError(error => of({error}))
+      ).subscribe((json: any) => {
+        subject.next(json)
+      });
     }
+    return subject.asObservable()
+  }
 
+  report(dataInicio?: any, dataFim?: any): Observable<any[]> {
+    let subject = new Subject<any[]>();
+    this.http.get<any[]>(this.baseUrl + "report/balao?dataInicio=" + dataInicio + "&dataFim=" + dataFim).pipe(
+      catchError(error => of({error})
+      )).subscribe((json: any) => {
+      subject.next(json);
+    });
+    return subject.asObservable();
+  }
 
     destroy(balao: Balao): Observable<Object> {
         return this.http.delete(this.baseUrl + `balao/` + balao.id, {

@@ -39,7 +39,7 @@ export class BalaoFormComponent implements OnInit {
     private balaoService: BalaoService,
     private registroAtendimentoService: RegistroAtendimentoService,
     private router: Router, private spinner: SpinnerService,
-    private alertService: AlertService,  datePipe: DatePipe,
+    private alertService: AlertService, datePipe: DatePipe,
     private errorService: ErrorService) {
   }
 
@@ -57,16 +57,23 @@ export class BalaoFormComponent implements OnInit {
     this.balao.registroAtendimento = this.registroAtendimento.id = this.registroId;
     this.balao.dataHoraBalao = this.form.get('dataBalao').value + " " + this.form.get('horaBalao').value;
     this.balao.paciente = new Paciente({id: this.registro.paciente.id});
-    if(this.form.get('dataBalao').value == '' || this.form.get('horaBalao').value == '') {
+    if (this.form.get('dataBalao').value == '' || this.form.get('horaBalao').value == '') {
       this.alertService.send({
         message: 'Ops... A data/hora deve ser preenchida!',
         type: 'warning',
         icon: faFrown
       })
-    }else {
+    } else {
       this.balaoService.save(this.balao).subscribe(res => {
         if (res.hasOwnProperty('error')) {
-
+          this.router.navigate(['balao']);
+          setTimeout(() => {
+            this.alertService.send({
+              message: 'Ops... O Ecg precisa ser preenchido!',
+              type: 'warning',
+              icon: faFrown
+            })
+          }, 500)
         } else {
           this.router.navigate(['balao']);
           setTimeout(() => {

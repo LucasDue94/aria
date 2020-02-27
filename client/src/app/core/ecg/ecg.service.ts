@@ -63,15 +63,26 @@ export class EcgService {
     return subject.asObservable();
   }
 
-  save(ecg: Ecg): Observable<Ecg> {
+  save(ecg: Ecg): Observable<any> {
+    let subject = new Subject<any[]>()
     if (ecg.id) {
-      return this.http.put<Ecg>(this.baseUrl + `ecg/` + ecg.id, ecg, {
+      this.http.put<any>(this.baseUrl + `ecg/` + ecg.id, ecg, {
         responseType: 'json'
+      }).pipe(
+        catchError(error => of({error})
+        )).subscribe((json: any) => {
+        subject.next(json);
       });
+      return subject.asObservable();
     } else {
-      return this.http.post<Ecg>(this.baseUrl + `ecg/`, ecg, {
+      this.http.post<any>(this.baseUrl + `ecg/`, ecg, {
         responseType: 'json'
-      })
+      }).pipe(
+        catchError(error => of({error})
+        )).subscribe((json: any) => {
+        subject.next(json);
+      });
+      return subject.asObservable();
     }
   }
 
