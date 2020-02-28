@@ -7,23 +7,27 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {RouterModule} from "@angular/router";
 import {SpinnerModule} from "../components/spinner/spinner.module";
+import { ReportBalaoComponent } from './report-balao/report-balao.component';
+import {ChartModule} from "angular-highcharts";
 
 
 
 @NgModule({
   declarations: [
     BalaoListComponent,
-    BalaoFormComponent
+    BalaoFormComponent,
+    ReportBalaoComponent
   ],
-    imports: [
-        CommonModule,
-        InfiniteScrollModule,
-        ReactiveFormsModule,
-        RouterModule,
-        FontAwesomeModule,
-        InfiniteScrollModule,
-        SpinnerModule,
-        FormsModule
-    ]
+  imports: [
+    CommonModule,
+    InfiniteScrollModule,
+    ReactiveFormsModule,
+    RouterModule,
+    FontAwesomeModule,
+    InfiniteScrollModule,
+    SpinnerModule,
+    FormsModule,
+    ChartModule
+  ]
 })
 export class BalaoModule { }

@@ -13,6 +13,8 @@ import {HIGHCHARTS_MODULES} from "angular-highcharts";
 import * as more from 'highcharts/highcharts-more.src';
 import * as exporting from 'highcharts/modules/exporting.src';
 import {SpinnerModule} from "../components/spinner/spinner.module";
+import {NgSelectModule} from "@ng-select/ng-select";
+import {PacienteInfoModule} from "../paciente-info/paciente-info.module";
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import {SpinnerModule} from "../components/spinner/spinner.module";
     InfiniteScrollModule,
     SpinnerModule,
     SelectModule,
-    CoreModule
+    CoreModule,
+    NgSelectModule,
+    PacienteInfoModule
   ],
   providers: [
     { provide: HIGHCHARTS_MODULES, useFactory: () => [ more, exporting ] }

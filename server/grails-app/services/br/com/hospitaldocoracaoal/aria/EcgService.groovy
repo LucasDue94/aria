@@ -22,7 +22,7 @@ abstract class EcgService {
 
         if (args.containsKey('dataInicio') && args.containsKey('dataFim')) {
             Date dataInicio = DataUtils.getFormatterToDate((String) args.dataInicio)
-            Date dataFim = DataUtils.getFormatterToDate((String) args.dataFim)
+            Date dataFim = DataUtils.endOfDay(DataUtils.getFormatterToDate((String) args.dataFim))
 
             def criteria = Ecg.createCriteria()
             def ecgs = criteria.list {

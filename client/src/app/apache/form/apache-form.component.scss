@@ -6,33 +6,13 @@
   flex-direction: column;
   height: 100%;
 
-  .paciente-info {
-    display: flex;
-    flex-direction: row;
-    margin: 10px 10px 0 10px;
-
-    & {
-      background-color: $white;
-      box-shadow: 1px 1px 10px $gray-80;
-      border-radius: 3px;
-    }
-
-    .flex-column {
-      margin: 3px 0;
-    }
-
-    .flex-row {
-      height: auto;
-      margin: 7px 10px;
-      color: $gray-80;
-    }
-  }
-
   .container-form-apache {
     display: flex;
     flex-direction: column;
     height: 100%;
     margin: 10px;
+    align-items: center;
+    justify-items: center;
 
     & {
       background-color: $white;
@@ -40,14 +20,33 @@
     }
   }
 
-  .select-containers {
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+  .align-selects {
+    justify-content: center;
 
-    .aria-select {
-      width: 100%;
+    .form-group {
+      margin: 8px;
+    }
+  }
+
+  .col-container {
+    display: flex;
+    margin: 10px 5px;
+    flex-direction: column;
+    width: 22%;
+    max-height: 400px;
+    align-items: center;
+    justify-content: flex-start;
+    justify-items: flex-start;
+    align-content: flex-start;
+    border-left: 1px solid $gray-60;
+    border-right: 1px solid $gray-60;
+
+    .form-group {
+      justify-content: initial;
+    }
+
+    .select-style {
+      width: 200px;
     }
   }
 
@@ -55,6 +54,7 @@
     position: relative;
     height: 80px;
     color: $gray-80;
+    width: auto;
 
     .label-pressao {
       display: block;
@@ -80,6 +80,16 @@
     }
   }
 
+  .select-label {
+    font-weight: 500;
+    margin-bottom: 5px;
+    font-size: 16px;
+    color: $gray-80;
+    word-wrap: break-word;
+    max-width: 200px;
+    width: calc(100% - 14px);
+  }
+
   .container-button {
     position: absolute;
     right: 0;
@@ -93,15 +103,6 @@
       border-radius: 5px;
       margin: 0 5px;
       width: 100px;
-    }
-  }
-
-  .left, .right {
-    margin: 10px 20px;
-    width: 50%;
-
-    .form-group {
-      margin: 15px 0;
     }
   }
 }
@@ -125,6 +126,7 @@
 }
 
 .hidden-problemas-cronicos {
+  z-index: -1;
   background-color: transparent;
   color: transparent;
   box-shadow: none;
@@ -168,7 +170,7 @@
 }
 
 .info-icon {
-  align-self: center;
+  align-self: start;
   margin-right: 5px;
   transition: 0.3s;
 
@@ -179,144 +181,31 @@
   }
 }
 
+.apache-footer {
+  padding: 5px;
+  width: 100%;
+  background-color: rgba($gray-50, 0.5);
+  border-top: 1px solid $gray-60;
+  transition: 0.5s;
+  display: flex;
+  left: 0;
+  bottom: 0;
+  position: fixed;
+  justify-content: flex-end;
 
-@media screen and (max-width: 1700px) {
+  &:hover {
+    box-shadow: 1px 1px 5px $gray-100;
+    background-color: $gray-50;
 
-  .container-form-apache {
-    position: relative;
-    align-items: center;
-    overflow-y: scroll;
-
-    .container-pressao {
-      width: 70% !important;
-
-      .label-pressao, .form-group, .form-label {
-        margin-left: 0 !important;
-      }
-    }
-
-    .select-containers {
-      position: absolute;
-      display: flex;
-      flex-direction: column !important;
-      top: 85px;
-      height: auto !important;
-      align-items: center;
-
-      .left, .right {
-        position: relative;
-        margin: 0 !important;
-        width: 70%;
-      }
-
-      .right {
-        margin-top: -10px;
-      }
-    }
-
-    .container-button {
-      display: flex;
-      justify-content: flex-end;
-      position: initial !important;
-      width: 70%;
-      margin-right: 0;
-
-      .button {
-        margin: 0 0 0 10px;
-      }
+    .button {
+      background-color: $blue-default
     }
   }
 
-  #container-frequencia-cardiaca {
-    margin: 5px 0;
-  }
-}
-
-@media screen and (max-width: $smartphone-max-width) {
-  .paciente-info {
-    position: relative;
-    flex-wrap: wrap;
-    justify-content: space-between;
-
-    .flex-column {
-      margin: 5px 5px 0 5px !important;
-      width: 45%;
-      height: auto;
-    }
-
-    .flex-row {
-      margin: 5px !important;
-      flex-direction: column !important;
-
-      .info, .label {
-        margin: 0;
-      }
-    }
-  }
-
-  .container-apache {
-    position: absolute;
-    height: auto;
-    width: 100%;
-  }
-  .container-form-apache {
-    height: auto;
-    overflow-y: initial !important;
-
-    .container-pressao {
-      position: relative;
-      display: flex;
-      flex-direction: column !important;
-      width: 50% !important;
-      height: auto;
-
-    }
-
-    .select-containers {
-      top: 0;
-      position: relative !important;
-
-      .aria-select {
-        width: auto;
-      }
-    }
-
-    .form-group {
-      position: relative;
-      align-items: center;
-    }
-
-    .right {
-      width: 100% !important;
-      margin-top: 0;
-    }
-
-    .left {
-      width: 100% !important;
-
-      .flex-row {
-        width: auto;
-      }
-    }
-  }
-
-  .info-icon {
-    margin-top: 5px;
-    align-self: flex-start;
-  }
-
-  .hidden-problemas-cronicos {
-    display: none;
-    background-color: transparent;
-    color: transparent;
-    box-shadow: none;
-    left: 5px;
-    bottom: -15px;
-  }
-
-
-  .errors, .hidden {
-    text-align: center;
-    left: 0;
+  .button {
+    background-color: rgba($blue-default, 0.5);
+    width: 80px;
+    border-radius: 2px;
+    margin-right: 30px;
   }
 }

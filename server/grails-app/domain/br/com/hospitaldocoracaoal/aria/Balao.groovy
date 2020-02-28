@@ -13,4 +13,5 @@ class Balao {
         registroAtendimento unique: true
         dataHoraBalao nullable: false
     }
+
 }

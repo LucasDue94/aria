@@ -25,7 +25,7 @@ export class ApacheFormComponent implements OnInit {
   leucocitos = ['> 40', '20 - 39.9', '15 - 19.9', '3 - 14.9', '1 - 2.9', '< 1'];
   arterialPh = ['< 7.7; > 52', '7.6 - 7.69; 41 - 51.9', '7.5 - 7.59; 32 - 40.9', '7.33 - 7.49; 32 - 40.9', '7.25 - 7.32; 18 - 22.9', '7.15 - 7.24; 15 - 17.9', '< 7.15; < 15'];
   glasgow = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-  problemasCronicos = ['Nenhuma', 'Não - Cirúrgico', 'Cirurgia de Emergência', 'Cirurgia Eletiva'];
+  problemasCronicos = ['Nenhum', 'Não - Cirúrgico', 'Cirurgia de Emergência', 'Cirurgia Eletiva'];
   frequenciaCardiaca = ['> 180', '140 - 179', '110 - 139', '70 - 109', '55 - 69', '40 - 54', '< 39'];
   frequenciaRespiratoria = ['> 50', '35 - 49', '25 - 34', '12 - 24', '10 - 11', '6 - 9', '< 5'];
   aapo = ['> 500', '350 - 499', '200 - 349', '< 200 ou PaO2 > 70', 'PaO2 61 - 70', 'PaO2 < 55'];
@@ -67,7 +67,8 @@ export class ApacheFormComponent implements OnInit {
 
   constructor(private spinner: SpinnerService, private alert: AlertService,
               private title: TitleService, private fb: FormBuilder,
-              private route: ActivatedRoute, private apacheService: ApacheService, private registroAtendimentoService: RegistroAtendimentoService,
+              private route: ActivatedRoute, private apacheService: ApacheService,
+              private registroAtendimentoService: RegistroAtendimentoService,
               private alertService: AlertService, private router: Router) {
 
   }
@@ -182,6 +183,7 @@ export class ApacheFormComponent implements OnInit {
   }
 
   getGroup = (name): any => this.form.get(name);
+  send = false;
 
   clear() {
     this.resetForm = true;
@@ -228,6 +230,8 @@ export class ApacheFormComponent implements OnInit {
   }
 
   save() {
+    console.log(this.apache)
+    this.send = true;
     this.getGroup('outrasMedidas').markAsDirty({onlySelf: true});
     this.getGroup('outrasMedidas').markAsTouched();
     this.checkErrorPressao();
