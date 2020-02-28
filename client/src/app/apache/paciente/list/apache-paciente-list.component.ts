@@ -22,6 +22,7 @@ export class ApachePacienteListComponent implements OnInit {
   faFrown = faFrown;
   faSearch = faSearch;
   showListScrollSpinner = false;
+  listLoading = false;
   admissoesPacSetor: any = [];
   arrayListSetor: Setor[] = [];
   searchForm = this.fb.group({
@@ -62,12 +63,13 @@ export class ApachePacienteListComponent implements OnInit {
   }
 
   listAdmissoesSetor() {
-    this.spinner.show();
+    this.listLoading = true;
+    this.admissoesPacSetor = [];
     this.offset = 0;
     this.renderer.setProperty(this.dataList.nativeElement, 'scrollTop', 0)
     this.apacheService.list(+this.setorId, this.termo, this.offset, this.max).subscribe(registros => {
       this.admissoesPacSetor = registros;
-      this.spinner.hide();
+      this.listLoading = false;
     });
   }
 
@@ -75,7 +77,8 @@ export class ApachePacienteListComponent implements OnInit {
     this.searchForm.get('searchControl').valueChanges.pipe(
       debounceTime(1000),
       switchMap(changes => {
-        this.spinner.show();
+        this.listLoading = true;
+        this.admissoesPacSetor = [];
         this.termo = changes;
         this.offset = 0;
         if (this.admissoesPacSetor != undefined) this.admissoesPacSetor.length = 0;
@@ -83,7 +86,7 @@ export class ApachePacienteListComponent implements OnInit {
       })
     ).subscribe(res => {
       this.admissoesPacSetor = res;
-      this.spinner.hide();
+      this.listLoading = false;
     });
   }
 

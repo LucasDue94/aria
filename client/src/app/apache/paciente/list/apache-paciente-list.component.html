@@ -30,6 +30,7 @@
       <span class="th sigla">NOME DA MÃE</span>
     </section>
     <section #dataList class="tbody content" [scrollWindow]="false" infinite-scroll (scrolled)="scrollDown()">
+      <spinner [loading]="listLoading"></spinner>
       <div [ngClass]="getRowClass(registro)" class="row" *ngFor="let registro of admissoesPacSetor"
            [routerLink]="['/apache','form']"
            [queryParams]="{registro:registro.registroAtendimento.id, dataEntrada: registro.dataEntrada, leito:registro.leito.id, apacheId: registro.apache ? registro.apache.id : null, dataAlta: registro.dataAlta }">
