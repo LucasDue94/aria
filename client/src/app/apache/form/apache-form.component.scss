@@ -28,11 +28,31 @@
     }
   }
 
+  .container-pressao {
+    position: relative;
+    justify-items: start;
+
+    .form-control {
+      box-shadow: none;
+      border-color: #ccc;
+    }
+
+    .hidden, .errors {
+      height: 50px;
+      width: 100%;
+      display: block;
+      bottom: 0;
+      margin: 10px;
+      padding: 10px;
+      text-align: center;
+    }
+  }
+
   .col-container {
     display: flex;
-    margin: 10px 5px;
+    margin: 25px 5px;
     flex-direction: column;
-    width: 22%;
+    width: 24%;
     max-height: 400px;
     align-items: center;
     justify-content: flex-start;
@@ -43,40 +63,11 @@
 
     .form-group {
       justify-content: initial;
+      width: auto;
     }
 
     .select-style {
       width: 200px;
-    }
-  }
-
-  .container-pressao {
-    position: relative;
-    height: 80px;
-    color: $gray-80;
-    width: auto;
-
-    .label-pressao {
-      display: block;
-      margin: 10px;
-    }
-
-    .form-group {
-      display: inline;
-
-      .form-label {
-        font-size: 16px;
-        margin: 5px;
-      }
-
-      .form-control {
-        width: 100px;
-      }
-    }
-
-    .errors {
-      left: 10px;
-      bottom: -20px;
     }
   }
 
@@ -87,7 +78,6 @@
     color: $gray-80;
     word-wrap: break-word;
     max-width: 200px;
-    width: calc(100% - 14px);
   }
 
   .container-button {
@@ -147,14 +137,10 @@
   }
 }
 
-
 .errors, .hidden {
   display: initial;
-  position: absolute;
   margin: 0;
-  right: 8px;
   z-index: 2;
-  bottom: -15px;
 
   & {
     text-transform: none;
@@ -184,7 +170,7 @@
 .apache-footer {
   padding: 5px;
   width: 100%;
-  background-color: rgba($gray-50, 0.5);
+  background-color: rgba($gray-50, 0.7);
   border-top: 1px solid $gray-60;
   transition: 0.5s;
   display: flex;
@@ -197,15 +183,43 @@
     box-shadow: 1px 1px 5px $gray-100;
     background-color: $gray-50;
 
+    .button-blue {
+      background-color: $blue-default !important;
+    }
+
     .button {
-      background-color: $blue-default
+      background-color: $gray-60;
     }
   }
 
-  .button {
+  .button-blue {
     background-color: rgba($blue-default, 0.5);
+  }
+
+  .button {
     width: 80px;
     border-radius: 2px;
-    margin-right: 30px;
+    margin-right: 10px;
+    border: 1px solid $gray-60;
+    font-weight: 500;
+
+    &:hover {
+      background-color: $gray-60;
+    }
+  }
+}
+
+@media screen and (max-width: $tablet-width) {
+  .container-form-apache {
+    position: relative !important;
+    height: auto !important;
+  }
+  .align-selects {
+    position: relative;
+    flex-direction: column !important;
+  }
+  .col-container {
+    margin: 10px auto 20px auto !important;
+    width: 70% !important;
   }
 }

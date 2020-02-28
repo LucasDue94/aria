@@ -75,10 +75,9 @@
 
 
 @media screen and (max-width: $tablet-width) {
-
   .item-info {
+    min-width: 200px;
     width: auto !important;
     margin: 0 10px;
   }
-
 }
