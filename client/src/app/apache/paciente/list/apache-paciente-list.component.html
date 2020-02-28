@@ -32,7 +32,7 @@
     <section #dataList class="tbody content" [scrollWindow]="false" infinite-scroll (scrolled)="scrollDown()">
       <div [ngClass]="getRowClass(registro)" class="row" *ngFor="let registro of admissoesPacSetor"
            [routerLink]="['/apache','form']"
-           [queryParams]="{registro:registro.registroAtendimento.id, dataEntrada: registro.dataEntrada, leito:registro.leito.id, apacheId: registro.apache ? registro.apache.id : null }">
+           [queryParams]="{registro:registro.registroAtendimento.id, dataEntrada: registro.dataEntrada, leito:registro.leito.id, apacheId: registro.apache ? registro.apache.id : null, dataAlta: registro.dataAlta }">
         <span class="td">{{registro.registroAtendimento.id}}</span>
         <span class="td">{{registro.dataEntrada | date: 'dd/MM/yyyy - HH:mm'}}</span>
         <span class="td paciente">{{registro.registroAtendimento.paciente.nome}}</span>

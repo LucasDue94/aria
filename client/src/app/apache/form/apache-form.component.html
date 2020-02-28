@@ -11,7 +11,7 @@
       </section>
       <section class="flex-row">
         <h3 class="label">Entrada:</h3>
-        <h4 class="info">{{registroAtendimento?.dataEntrada | date:'dd/MM/yy - HH:mm'}}</h4>
+        <h4 class="info">{{registroAtendimentoLeito?.dataEntrada | date:'dd/MM/yy - HH:mm'}}</h4>
       </section>
     </section>
     <section class="flex-column">
@@ -21,11 +21,11 @@
       </section>
       <section class="flex-row">
         <h3 class="label">Motivo Alta:</h3>
-        <h4 class="info">{{registroAtendimento?.motivoAlta?.descricao?.toLowerCase()}}</h4>
+        <h4 class="info">{{registroAtendimentoLeito?.dataAlta ? 'Alta' : registroAtendimento?.motivoAlta?.descricao?.toLowerCase()}}</h4>
       </section>
       <section class="flex-row">
         <h3 class="label">Saída:</h3>
-        <h4 class="info">{{registroAtendimento?.dataAlta | date:'dd/MM/yy - HH:mm'}}</h4>
+        <h4 class="info">{{(registroAtendimentoLeito?.dataAlta || registroAtendimento.dataAlta) | date:'dd/MM/yy - HH:mm'}}</h4>
       </section>
     </section>
     <section class="flex-column">
@@ -40,7 +40,7 @@
       </section>
       <section class="flex-row">
         <h3 class="label">Setor:</h3>
-        <h4 class="info">{{registroAtendimento?.setor?.descricao}}</h4>
+        <h4 class="info">{{registroAtendimento?.setor?.setor?.descricao}}</h4>
       </section>
     </section>
   </article>
