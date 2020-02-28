@@ -99,7 +99,7 @@ export class ApachePacienteListComponent implements OnInit {
   }
 
   getRowClass(registro: any) {
-    let rowClass = '';
+    let rowClass = 'hiden';
     if(registro.apache) {
       rowClass = 'row-success';
     } else if(moment() > moment(registro.dataEntrada).add(24, 'hours')) { // Testa se passaram 24 horas da entrada
