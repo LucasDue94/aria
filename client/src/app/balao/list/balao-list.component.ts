@@ -22,6 +22,7 @@ export class BalaoListComponent implements OnInit {
   offset = 0;
   max = 30;
   termo;
+  listLoading: boolean = false;
   faFrown = faFrown;
   searchForm = this.fb.group({
     searchControl: ['']
@@ -57,7 +58,8 @@ export class BalaoListComponent implements OnInit {
     this.searchForm.get('searchControl').valueChanges.pipe(
       debounceTime(1000),
       switchMap(changes => {
-        this.spinner.show();
+        this.listLoading = true;
+        this.atendimentos = [];
         this.termo = changes;
         this.offset = 0;
         if (this.internamentos!= undefined) this.internamentos.length = 0;
@@ -65,7 +67,7 @@ export class BalaoListComponent implements OnInit {
       })
     ).subscribe(res => {
       this.atendimentos = res;
-      this.spinner.hide();
+      this.listLoading = false;
     });
   }
 }
