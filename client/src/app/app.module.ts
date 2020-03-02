@@ -33,6 +33,7 @@ import {SpinnerModule} from "./components/spinner/spinner.module";
 import {PacienteInfoModule} from "./paciente-info/paciente-info.module";
 import {EcgModule} from "./ecg/ecg.module";
 import {HttpClientModule} from "@angular/common/http";
+import {FilterModule} from "./components/filter/filter.module";
 
 @NgModule({
   exports: [],
@@ -70,7 +71,8 @@ import {HttpClientModule} from "@angular/common/http";
     TipoIncidenteModule,
     IncidenteModule,
     NasModule,
-    PacienteInfoModule
+    PacienteInfoModule,
+    FilterModule
 ],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy},

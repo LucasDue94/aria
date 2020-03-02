@@ -3,6 +3,7 @@
 @import 'fonts/manjari';
 @import 'assets/colors';
 @import "~@ng-select/ng-select/themes/default.theme.css";
+
 * {
   padding: 0;
   margin: 0;
@@ -42,6 +43,12 @@ nas-question {
 nas-form {
   position: absolute;
   height: 100%;
+}
+
+filter {
+  display: flex;
+  position: relative;
+  width: auto;
 }
 
 multiple-select {

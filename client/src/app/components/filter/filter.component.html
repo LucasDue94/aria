@@ -1,0 +1,23 @@
+<main class="filter-container">
+  <div class="group">
+    <input title="busca" placeholder="Digite sua busca..." type="text" class="control">
+  </div>
+  <div class="group">
+    <label class="group-label" for="inicio">Início</label>
+    <input id="inicio" type="date" class="control-date">
+  </div>
+  <div class="group">
+    <label class="group-label" for="fim">Fim</label>
+    <input id="fim" type="date" class="control-date">
+  </div>
+  <div class="group">
+    <ng-select></ng-select>
+  </div>
+  <div class="button-container">
+    <button class="search-button">
+      <fa-icon class="search-icon" [icon]="faIconSearch"></fa-icon>
+      <span>Buscar</span>
+    </button>
+  </div>
+</main>
+
