@@ -24,6 +24,7 @@ export class PacienteListComponent implements OnInit {
   faSearch = faSearch;
   faFrown = faFrown;
 
+  listLoading: boolean = false;
   pacientes: Paciente[];
   offset = 0;
   max = 30;
@@ -58,14 +59,15 @@ export class PacienteListComponent implements OnInit {
   }
 
   list() {
-    this.spinner.show();
+    this.listLoading = true;
+    this.pacientes = [];
     this.pacienteService.list(this.max, '', this.termo, this.setorId).subscribe(pacientes => {
       if (this.errorService.hasError(pacientes)) {
         this.pacientes = [];
       } else {
         this.pacientes = pacientes;
       }
-      this.spinner.hide();
+      this.listLoading = false;
     });
   }
 
@@ -73,19 +75,20 @@ export class PacienteListComponent implements OnInit {
     this.searchForm.get('searchControl').valueChanges.pipe(
       debounceTime(1000),
       switchMap(changes => {
-        this.spinner.show();
+        this.listLoading = true;
+        this.pacientes = [];
         this.termo = changes;
         this.offset = 0;
         this.renderer.setProperty(this.dataList.nativeElement, 'scrollTop', 0);
         return this.pacienteService.list(this.max, this.offset, this.termo, this.setorId)
       })
     ).subscribe(res => {
+      this.listLoading = false;
       if (this.errorService.hasError(res)) {
         this.pacientes = [];
       } else {
         this.pacientes = res;
       }
-      this.spinner.hide();
     });
   }
 }
