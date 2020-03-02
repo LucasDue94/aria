@@ -72,7 +72,7 @@ export class RiscoListComponent implements OnInit {
       debounceTime(1000),
       switchMap(changes => {
         this.listLoading = true;
-        this.riscos = []
+        this.riscos = [];
         this.termo = changes;
         this.offset = 0;
         this.renderer.setProperty(this.dataList.nativeElement, 'scrollTop', 0);
