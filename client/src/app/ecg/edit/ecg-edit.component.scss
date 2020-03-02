@@ -1,0 +1,97 @@
+@import "src/assets/device-sizes";
+@import "../../../inputs";
+
+.flex {
+  display: flex;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.flex-no-wrap {
+  flex-wrap: nowrap;
+}
+
+.flex-item-1 {
+  flex: 1;
+}
+
+.container-ecg-edit {
+  position: relative;
+  width: 100%;
+}
+
+.row {
+  flex-direction: row;
+}
+
+.row-between {
+  justify-content: space-between;
+}
+
+.row-flex-end {
+  justify-content: flex-end;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.card {
+  position: absolute;
+  background-color: $white;
+  margin: 15px;
+  height: 300px;
+
+  & {
+    border-radius: 5px;
+    box-shadow: 1px 1px 6px $gray-90;
+  }
+}
+
+.form {
+  line-height: 25px;
+  padding: 20px;
+  & .label-ecg {
+    margin: 5px;
+    font-weight: bold;
+  }
+  & .input-date {
+    margin: 5px;
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid $gray-70;
+    box-shadow: 2px 2px 10px $gray-70;
+  }
+}
+
+.text {
+  margin: 5px;
+  font-weight: normal;
+}
+
+.btn-save {
+  margin: 5px;
+  bottom: 10px;
+  width: 90px;
+  height: 35px;
+  font-size: 16px;
+
+  & {
+    letter-spacing: 1px;
+    font-weight: 400 !important;
+  }
+}
+
+
+
+@media screen and (max-width: $tablet-width) {
+  .row {
+    flex-direction: column;
+  }
+  .card {
+    height: auto;
+  }
+}

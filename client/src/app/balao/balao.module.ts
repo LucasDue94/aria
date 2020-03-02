@@ -9,6 +9,7 @@ import {RouterModule} from "@angular/router";
 import {SpinnerModule} from "../components/spinner/spinner.module";
 import { ReportBalaoComponent } from './report-balao/report-balao.component';
 import {ChartModule} from "angular-highcharts";
+import { EditBalaoComponent } from './edit-balao/edit-balao.component';
 
 
 
@@ -16,7 +17,8 @@ import {ChartModule} from "angular-highcharts";
   declarations: [
     BalaoListComponent,
     BalaoFormComponent,
-    ReportBalaoComponent
+    ReportBalaoComponent,
+    EditBalaoComponent
   ],
   imports: [
     CommonModule,

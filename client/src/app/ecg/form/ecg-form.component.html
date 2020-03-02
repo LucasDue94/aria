@@ -1,50 +1,39 @@
-<div class="container">
-  <article class="card-info">
-    <div class="flex-row form-group">
-      <div class="flex-column">
-        <span class="form-label">Paciente:</span>
-        <span class="label">{{registro?.paciente?.nome}}</span>
-        <p class="info"></p>
+<main class="container-ecg-edit">
+  <article class="card flex">
+    <form [formGroup]="form" action="#" class="form">
+      <div class="row">
+        <label class="label-ecg">Paciente:</label>
+        <span class="text">{{registro?.paciente?.nome}}</span>
+        <label class="label-ecg">Sexo:</label>
+        <span class="text">{{registro?.paciente?.sexo}}</span>
       </div>
-      <div class="flex-column">
-        <span class="form-label">Sexo:</span>
-        <span class="label">{{registro?.paciente?.sexo}}</span>
-        <p class="info"></p>
+      <div class="row">
+        <label class="label-ecg">Nascimento:</label>
+        <span class="text">{{registro?.paciente?.nascimento | date: 'dd/MM/yyyy'}}</span>
+        <label class="label-ecg">Mãe:</label>
+        <span class="text">{{registro?.paciente?.nomeMae}}</span>
       </div>
-    </div>
-    <div class="flex-row form-group">
-      <div class="flex-column">
-        <span class="form-label">Mãe:</span>
-        <span class="label">{{registro?.paciente?.nomeMae}}</span>
-        <p class="info"></p>
+      <div class="row">
+        <label class="label-ecg">Registro:</label>
+        <span class="text">{{registro?.id}}</span>
       </div>
-      <div class="flex-column">
-        <span class="form-label">Nascimento:</span>
-        <span class="label">{{registro?.paciente?.nascimento | date: 'dd/MM/yyyy'}}</span>
-        <p class="info"></p>
+      <div class="row row-between">
+        <label class="label-ecg">Data de Porta:</label>
+        <input class="input-date" type="date" formControlName="dataPorta">
+        <label class="label-ecg">Hora de Porta:</label>
+        <input class="input-date" type="time" formControlName="horaPorta">
       </div>
-    </div>
-    <div class="flex-row form-group">
-      <div class="flex-column">
-        <span class="form-label">Registro:</span>
-        <span class="label">{{registro?.id}}</span>
-        <p class="info"></p>
+      <div class="row row-between">
+        <label class="label-ecg">Data de ECG:</label>
+        <input class="input-date" type="date" formControlName="dataECG">
+        <label class="label-ecg">Hora de ECG:</label>
+        <input class="input-date" type="time" formControlName="horaECG">
       </div>
-    </div>
-    <form [formGroup]="form" class="flex-row">
-      <div class="form-group">
-        <span class="form-label">Data de Porta:</span>
-        <input type="date" class="input-date form-control" formControlName="dataPorta">
-        <span class="form-label">Hora de Porta:</span>
-        <input type="time" class="input-date form-control" formControlName="horaPorta">
+      <div class="row row-flex-end">
+        <button (click)="save()" class="button button-blue btn-save">Salvar</button>
       </div>
-      <div class="form-group">
-        <span class="form-label">Data de ECG:</span>
-        <input type="date" class="input-date form-control" value="" formControlName="dataECG">
-        <span class="form-label">Hora de ECG:</span>
-        <input type="time" class="input-date form-control" value="" formControlName="horaECG">
-      </div>
-      <button class="button button-blue btn-save" (click)="save()">Salvar</button>
     </form>
   </article>
-</div>
+</main>
+
+

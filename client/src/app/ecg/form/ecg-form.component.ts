@@ -51,11 +51,7 @@ export class EcgFormComponent implements OnInit {
   ngOnInit() {
     this.spinner.show();
     this.registroId = this.route.snapshot.params.id;
-    if(this.route.snapshot.url.find( ({path}) => path === 'create').path === 'create') {
-      this.titleService.send('Ecg - Novo Ecg');
-    } else if(this.route.snapshot.url.find( ({path}) => path === 'edit').path === 'edit') {
-      this.titleService.send('Ecg - Edit Ecg');
-    }
+    this.titleService.send('Ecg - Novo Ecg');
     this.registroAtendimentoService.get(this.registroId).subscribe(registro => {
       this.registro = registro;
       this.f.dataPorta.setValue(this.datePipe.transform(registro.dataEntrada, 'yyyy-MM-dd'));

@@ -18,7 +18,7 @@ export class RegistroAtendimento {
   ecg: Ecg;
   balao: Balao;
   paciente: Paciente;
-  incidentes: Incidente[] = new Array<Incidente>();
+  incidentes?: Incidente[] = new Array<Incidente>();
 
   constructor(object?: any) {
     if (object) {

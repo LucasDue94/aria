@@ -8,6 +8,7 @@ import {debounceTime, switchMap} from "rxjs/operators";
 import {faFrown, faSearch} from '@fortawesome/free-solid-svg-icons';
 import {RegistroAtendimento} from "../../core/registroAtendimento/registroAtendimento";
 import {RegistroAtendimentoService} from "../../core/registroAtendimento/registroAtendimento.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-porta-balao-list',
@@ -29,7 +30,7 @@ export class BalaoListComponent implements OnInit {
   faSearch = faSearch;
 
   constructor(private ecgService: EcgService, private titleService: TitleService,
-              private fb: FormBuilder, private spinner: SpinnerService,
+              private fb: FormBuilder, private spinner: SpinnerService, private router: Router,
               private errorService: ErrorService, private registroAtendimentoService: RegistroAtendimentoService) {
   }
 
@@ -40,6 +41,14 @@ export class BalaoListComponent implements OnInit {
       this.atendimentos = registros;
       this.spinner.hide();
     });
+  }
+
+  edit(registro: RegistroAtendimento) {
+    if (registro.balao) {
+      this.router.navigate(['/balao', 'edit', registro.id]);
+    } else {
+      this.router.navigate(['/balao', 'create', registro.id])
+    }
   }
 
   scrollDown() {
