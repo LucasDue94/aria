@@ -3,7 +3,6 @@
 @import 'fonts/manjari';
 @import 'assets/colors';
 @import "~@ng-select/ng-select/themes/default.theme.css";
-
 * {
   padding: 0;
   margin: 0;
@@ -453,6 +452,9 @@ tspan {
   border-color: $gray-100 !important;
 }
 
+.hiden {
+  display: none !important;
+}
 
 
 

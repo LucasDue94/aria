@@ -16,7 +16,7 @@ class RegistroAtendimentoLeito implements Serializable {
         version false
     }
 
-    static transients = ['ultimo']
+    static transients = ['ultimo', 'dataAlta']
 
     boolean isUltimo() {
         this == registroAtendimento.ultimoRegistroAtendimentoLeito
@@ -33,5 +33,10 @@ class RegistroAtendimentoLeito implements Serializable {
         if (registroAtendimento != that.registroAtendimento) return false
 
         return true
+    }
+
+    String getDataAlta() {
+        def regs = this.registroAtendimento.registroAtendimentoLeitos.findAll { element -> element.dataEntrada > this.dataEntrada }
+        regs.any() ? regs.first().dataEntrada : null
     }
 }
