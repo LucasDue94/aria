@@ -18,6 +18,7 @@
       <span class="th">Nascimento</span>
     </section>
     <section class="tbody content-paciente" [scrollWindow]="false" infinite-scroll (scrolled)="scrollDown()">
+      <spinner [loading]="listLoading"></spinner>
       <div [routerLink]="['/ecg','create', registro.id]" class="row" *ngFor="let registro of atendimentos">
         <span class="td">{{registro.id}}</span>
         <span class="td">{{registro.paciente.nome}}</span>

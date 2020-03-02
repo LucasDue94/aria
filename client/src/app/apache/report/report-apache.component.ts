@@ -91,6 +91,7 @@ export class ReportApacheComponent extends DatePipe implements OnInit, DatePipe 
       },
       title: false
     },
+    tooltip: { enabled: false },
     plotOptions: {
       bar: {
         stacking: 'normal'

@@ -23,6 +23,7 @@
       <span class="th">Nascimento</span>
     </section>
     <section #dataList class="tbody content-paciente" [scrollWindow]="false" infinite-scroll (scrolled)="scrollDown()">
+      <spinner [loading]="listLoading"></spinner>
       <div [routerLink]="['/incidente','paciente-details',paciente.id]" *ngFor="let paciente of pacientes" class="row">
         <span class="td">{{paciente.id}}</span>
         <span class="td">{{paciente.nome}}</span>
