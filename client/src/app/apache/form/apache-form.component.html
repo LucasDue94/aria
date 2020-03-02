@@ -4,7 +4,7 @@
                  {label: 'Entrada',value:registroAtendimentoLeito?.dataEntrada | date:'dd/MM/yy - HH:mm'},
                  {label: 'Saída', value: (registroAtendimentoLeito?.dataAlta || registroAtendimento?.dataAlta) | date:'dd/MM/yy - HH:mm'},
                  {label:'Motivo alta', value:registroAtendimento?.motivoAlta?.descricao},
-                 {label: 'Setor', value: registroAtendimento?.setor?.setor?.descricao}]"></paciente-info>
+                 {label: 'Setor', value: registroAtendimento?.setor?.setor?.sigla}]"></paciente-info>
   <section class="container-form-apache">
     <section class="flex-row align-selects">
       <article class="col-container container-pressao">
