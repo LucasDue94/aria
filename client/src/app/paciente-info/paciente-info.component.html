@@ -27,6 +27,6 @@
   </section>
   <section *ngFor="let obj of extras" class="item-info">
     <h3 class="label">{{obj.label}}</h3>
-    <h4 class="info">{{obj.value}}</h4>
+    <h4 class="info">{{obj.value?.toLowerCase()}}</h4>
   </section>
 </main>
