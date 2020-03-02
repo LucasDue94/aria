@@ -25,6 +25,7 @@ export class EcgListComponent implements OnInit {
   max = 30;
   termo = '';
   faFrown = faFrown;
+  listLoading: boolean = false;
   searchForm = this.fb.group({
     searchControl: ['']
   });
@@ -60,7 +61,8 @@ export class EcgListComponent implements OnInit {
     this.searchForm.get('searchControl').valueChanges.pipe(
       debounceTime(1000),
       switchMap(changes => {
-        this.spinner.show();
+        this.listLoading = true;
+        this.atendimentos = [];
         this.termo = changes;
         this.offset = 0;
         if (this.urgencias!= undefined) this.urgencias.length = 0;
@@ -68,7 +70,7 @@ export class EcgListComponent implements OnInit {
       })
     ).subscribe(res => {
       this.atendimentos = res;
-      this.spinner.hide();
+      this.listLoading = false;
     });
   }
 }
