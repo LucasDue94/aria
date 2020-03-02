@@ -1,9 +1,10 @@
 <main class="container-apache">
   <paciente-info [paciente]="registroAtendimento?.paciente"
                  [extras]="[{label: 'Registro', value:registroAtendimento?.id},
-                 {label: 'Entrada',value:registroAtendimento?.dataEntrada | date:'dd/MM/yy - HH:mm'},
-                 {label: 'Saída', value: registroAtendimento?.dataAlta | date:'dd/MM/yy - HH:mm'},
-                 {label:'Motivo alta', value:registroAtendimento?.motivoAlta?.descricao}]"></paciente-info>
+                 {label: 'Entrada',value:registroAtendimentoLeito?.dataEntrada | date:'dd/MM/yy - HH:mm'},
+                 {label: 'Saída', value: (registroAtendimentoLeito?.dataAlta || registroAtendimento.dataAlta) | date:'dd/MM/yy - HH:mm'},
+                 {label:'Motivo alta', value:registroAtendimento?.motivoAlta?.descricao},
+                 {label: 'Setor', value: registroAtendimento?.setor?.setor?.descricao}]"></paciente-info>
   <section class="container-form-apache">
     <section class="container-pressao">
       <h3 class="label-pressao">Pressão Arterial Média (mmHg):</h3>

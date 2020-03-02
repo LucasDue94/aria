@@ -105,7 +105,8 @@ export class ApacheFormComponent implements OnInit {
             },
             registroAtendimento: {
               id: this.registroAtendimento.id
-            }
+            },
+            dataAlta: this.route.snapshot.queryParamMap.get('dataAlta')
           }
         }
 

@@ -8,7 +8,8 @@ import {SpinnerService} from "../../core/spinner/spinner.service";
   styleUrls: ['./spinner.component.scss']
 })
 export class SpinnerComponent implements OnInit, AfterViewInit {
-  status: boolean;
+  @Input('status') status: boolean;
+  @Input('loading') loading: boolean = false;
   faHeart = faHeart;
   @Input('width') width: string;
   @Input('height') height: string;

@@ -22,21 +22,22 @@
   </div>
   <section class="table">
     <section class="thead">
-      <span class="th">REGISTRO</span>
+      <span class="th" style="flex-shrink: 0">REGISTRO</span>
       <span class="th">ENTRADA</span>
       <span class="th paciente">PACIENTE</span>
-      <span class="th">SEXO</span>
+      <span class="th sexo">SEXO</span>
       <span class="th sigla">NASCIMENTO</span>
       <span class="th sigla">NOME DA MÃE</span>
     </section>
     <section #dataList class="tbody content" [scrollWindow]="false" infinite-scroll (scrolled)="scrollDown()">
+      <spinner [loading]="listLoading"></spinner>
       <div [ngClass]="getRowClass(registro)" class="row" *ngFor="let registro of admissoesPacSetor"
            [routerLink]="['/apache','form']"
-           [queryParams]="{registro:registro.registroAtendimento.id, dataEntrada: registro.dataEntrada, leito:registro.leito.id, apacheId: registro.apache ? registro.apache.id : null }">
+           [queryParams]="{registro:registro.registroAtendimento.id, dataEntrada: registro.dataEntrada, leito:registro.leito.id, apacheId: registro.apache ? registro.apache.id : null, dataAlta: registro.dataAlta }">
         <span class="td">{{registro.registroAtendimento.id}}</span>
         <span class="td">{{registro.dataEntrada | date: 'dd/MM/yyyy - HH:mm'}}</span>
-        <span class="td paciente">{{registro.registroAtendimento.paciente.nome}}</span>
-        <span class="td">{{registro.registroAtendimento.paciente.sexo}}</span>
+        <span class="td">{{registro.registroAtendimento.paciente.nome}}</span>
+        <span class="td sexo">{{registro.registroAtendimento.paciente.sexo}}</span>
         <span class="td">{{registro.registroAtendimento.paciente.nascimento | date:'dd/MM/yy'}}</span>
         <span class="td">{{registro.registroAtendimento.paciente.nomeMae}}</span>
       </div>
