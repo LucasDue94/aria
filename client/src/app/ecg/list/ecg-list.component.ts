@@ -9,6 +9,7 @@ import {Ecg} from "../../core/ecg/ecg";
 import {RegistroAtendimento} from "../../core/registroAtendimento/registroAtendimento";
 import {RegistroAtendimentoService} from "../../core/registroAtendimento/registroAtendimento.service";
 import {ErrorService} from "../../core/error/error.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'ecg-list',
@@ -32,7 +33,7 @@ export class EcgListComponent implements OnInit {
 
   constructor(private ecgService: EcgService, private titleService: TitleService,
               private fb: FormBuilder, private spinner: SpinnerService,
-              private errorService: ErrorService,
+              private errorService: ErrorService, private router: Router,
               private registroAtendimentoService: RegistroAtendimentoService) {
   }
 
@@ -43,6 +44,14 @@ export class EcgListComponent implements OnInit {
       this.atendimentos = res;
       this.spinner.hide();
     });
+  }
+
+  edit(registro: RegistroAtendimento) {
+    if (registro.ecg) {
+      this.router.navigate(['/ecg', 'edit', registro.id]);
+    } else {
+      this.router.navigate(['/ecg', 'create', registro.id])
+    }
   }
 
   scrollDown() {
@@ -63,7 +72,7 @@ export class EcgListComponent implements OnInit {
         this.spinner.show();
         this.termo = changes;
         this.offset = 0;
-        if (this.urgencias!= undefined) this.urgencias.length = 0;
+        if (this.urgencias != undefined) this.urgencias.length = 0;
         return this.registroAtendimentoService.searchUrgencias(changes, this.offset, this.max);
       })
     ).subscribe(res => {

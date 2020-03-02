@@ -3,6 +3,8 @@ import {Cid} from "../cid/cid";
 import {MotivoAlta} from "../motivoAlta/motivoAlta";
 import {Paciente} from "../paciente/paciente";
 import {Incidente} from "../incidente/incidente";
+import {Ecg} from "../ecg/ecg";
+import {Balao} from "../balao/balao";
 
 
 export class RegistroAtendimento {
@@ -13,6 +15,8 @@ export class RegistroAtendimento {
   cid: Cid;
   motivoAlta: MotivoAlta;
   tipo: string;
+  ecg: Ecg;
+  balao: Balao;
   paciente: Paciente;
   incidentes: Incidente[] = new Array<Incidente>();
 

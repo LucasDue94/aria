@@ -30,6 +30,7 @@ import {EcgListComponent} from "../../ecg/list/ecg-list.component";
 import {EcgFormComponent} from "../../ecg/form/ecg-form.component";
 import {ReportEcgComponent} from "../../ecg/report-ecg/report-ecg.component";
 import {ReportBalaoComponent} from "../../balao/report-balao/report-balao.component";
+import {EcgEditComponent} from "../../ecg/edit/ecg-edit.component";
 
 const routes: Routes = [
   {
@@ -250,6 +251,11 @@ const routes: Routes = [
           {
             path: 'report',
             component: ReportEcgComponent,
+            canActivate: [AuthGuard]
+          },
+          {
+            path: 'edit/:id',
+            component: EcgEditComponent,
             canActivate: [AuthGuard]
           }
         ]

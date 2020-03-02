@@ -19,7 +19,6 @@ import {Paciente} from "../../core/paciente/paciente";
   styleUrls: ['./ecg-form.component.scss']
 })
 export class EcgFormComponent implements OnInit {
-
   registroId;
   today = new Date();
   datePipe = new DatePipe('en-US');
@@ -45,10 +44,18 @@ export class EcgFormComponent implements OnInit {
     private registroAtendimentoService: RegistroAtendimentoService) {
   }
 
+  get f() {
+    return this.form.controls;
+  }
+
   ngOnInit() {
     this.spinner.show();
-    this.titleService.send('ECG - FORMULÁRIO');
     this.registroId = this.route.snapshot.params.id;
+    if(this.route.snapshot.url.find( ({path}) => path === 'create').path === 'create') {
+      this.titleService.send('Ecg - Novo Ecg');
+    } else if(this.route.snapshot.url.find( ({path}) => path === 'edit').path === 'edit') {
+      this.titleService.send('Ecg - Edit Ecg');
+    }
     this.registroAtendimentoService.get(this.registroId).subscribe(registro => {
       this.registro = registro;
       this.f.dataPorta.setValue(this.datePipe.transform(registro.dataEntrada, 'yyyy-MM-dd'));
@@ -61,7 +68,7 @@ export class EcgFormComponent implements OnInit {
     this.ecg.registroAtendimento = this.registroId;
     this.ecg.dataHoraPorta = this.form.get('dataPorta').value + " " + this.form.get('horaPorta').value;
     this.ecg.dataHoraEcg = this.form.get('dataECG').value + " " + this.form.get('horaECG').value;
-    this.ecg.paciente  = new Paciente({id: this.registro.paciente.id});
+    this.ecg.paciente = new Paciente({id: this.registro.paciente.id});
 
     if (this.form.get('dataECG').value == '' || this.form.get('horaECG').value == '' || this.form.get('dataPorta').value == '' || this.form.get('horaPorta').value == '') {
       this.alertService.send({
@@ -92,7 +99,5 @@ export class EcgFormComponent implements OnInit {
       });
     }
   }
-
-  get f() { return this.form.controls; }
 
 }
