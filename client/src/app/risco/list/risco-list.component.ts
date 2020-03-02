@@ -27,6 +27,8 @@ export class RiscoListComponent implements OnInit {
   faPowerOff = faPowerOff;
   faCog = faCog;
 
+  listLoading: boolean = false;
+
   riscos: Risco[];
   offset = 0;
   max = 30;
@@ -69,7 +71,8 @@ export class RiscoListComponent implements OnInit {
     this.searchForm.get('searchControl').valueChanges.pipe(
       debounceTime(1000),
       switchMap(changes => {
-        this.spinner.show();
+        this.listLoading = true;
+        this.riscos = []
         this.termo = changes;
         this.offset = 0;
         this.renderer.setProperty(this.dataList.nativeElement, 'scrollTop', 0);
@@ -78,7 +81,7 @@ export class RiscoListComponent implements OnInit {
     ).subscribe(res => {
       if (this.errorService.hasError(res)) this.errorService.sendError(res);
       this.riscos = res;
-      this.spinner.hide();
+      this.listLoading = false;
     });
   }
 
