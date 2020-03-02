@@ -6,49 +6,59 @@
                  {label:'Motivo alta', value:registroAtendimento?.motivoAlta?.descricao},
                  {label: 'Setor', value: registroAtendimento?.setor?.setor?.descricao}]"></paciente-info>
   <section class="container-form-apache">
-    <section class="container-pressao">
-      <h3 class="label-pressao">Pressão Arterial Média (mmHg):</h3>
-      <div class="form-group">
-        <label for="ps" class="form-label">PS</label>
-        <input [(ngModel)]="pressaoMedia.ps" id="ps" class="form-control " type="number">
-      </div>
-      <div class="form-group">
-        <label for="pd" class="form-label">PD</label>
-        <input [(ngModel)]="pressaoMedia.pd" id="pd" class="form-control" type="number">
-      </div>
-      <div class="form-group">
-        <label for="pm" class="form-label">PM</label>
-        <input id="pm" class="form-control control-disable" type="text">
-      </div>
-    </section>
     <section class="flex-row align-selects">
+      <article class="col-container container-pressao">
+        <h3 class="select-label">Pressão Arterial Média (mmHg)</h3>
+        <div class="form-group">
+          <label for="ps" class="form-label">Ps</label>
+          <input (change)="calculaPressaoMedia()" [(ngModel)]="apache.pas" id="ps" class="form-control " type="number">
+        </div>
+        <div class="form-group">
+          <label for="pd" class="form-label">Pd</label>
+          <input (change)="calculaPressaoMedia()" [(ngModel)]="apache.pad" id="pd" class="form-control" type="number">
+        </div>
+        <div class="form-group">
+          <label for="pm" class="form-label">Pm</label>
+          <input [ngModel]="pressaoMedia" id="pm" class="form-control control-disable" type="text">
+        </div>
+        <p [ngClass]="[this.messagePressao != '' ? 'errors': 'hidden']">{{messagePressao}}</p>
+      </article>
       <article class="col-container">
         <div class="form-group">
           <h3 class="select-label">Temperatura(ºC)</h3>
-          <ng-select class="select-style" [(ngModel)]="apache.temperatura" [items]="temperatura"></ng-select>
-<!--          <p [ngClass]="[apache?.temperatura == undefined && send ? 'errors': 'hidden']">{{messageError}}</p>-->
+          <ng-select class="select-style" [clearable]="false" [(ngModel)]="apache.temperatura"
+                     [items]="temperatura"></ng-select>
+          <p [ngClass]="[checkFieldError(apache.temperatura) ? 'errors': 'hidden']">{{messageError}}</p>
         </div>
 
         <div class="form-group">
           <h3 class="select-label">Arterial pH ou HCO3</h3>
-          <ng-select class="select-style" [(ngModel)]="apache.arteriaPh" [items]="arterialPh"></ng-select>
+          <ng-select class="select-style" [clearable]="false" [(ngModel)]="apache.arterialPh"
+                     [items]="arterialPh"></ng-select>
+          <p [ngClass]="[checkFieldError(apache.arterialPh) ? 'errors': 'hidden']">{{messageError}}</p>
         </div>
 
         <div class="form-group">
           <h3 class="select-label">Na+ Sérico (meq/l)</h3>
-          <ng-select class="select-style" [(ngModel)]="apache.naSerico" [items]="naSerico"></ng-select>
+          <ng-select class="select-style" [clearable]="false" [(ngModel)]="apache.naSerico"
+                     [items]="naSerico"></ng-select>
+          <p [ngClass]="[checkFieldError(apache.naSerico) ? 'errors': 'hidden']">{{messageError}}</p>
         </div>
 
         <div class="form-group">
           <h3 class="select-label">Leucócitos (10^3/£gl)</h3>
-          <ng-select class="select-style" [(ngModel)]="apache.leucocitos" [items]="leucocitos"></ng-select>
+          <ng-select class="select-style" [clearable]="false" [(ngModel)]="apache.leucocitos"
+                     [items]="leucocitos"></ng-select>
+          <p [ngClass]="[checkFieldError(apache.leucocitos) ? 'errors': 'hidden']">{{messageError}}</p>
         </div>
       </article>
       <article class="col-container">
 
         <div class="form-group">
           <h3 class="select-label">Glasgow Com Escala</h3>
-          <ng-select class="select-style" [(ngModel)]="apache.glasgow" [items]="glasgow"></ng-select>
+          <ng-select class="select-style" [clearable]="false" [(ngModel)]="apache.glasgow"
+                     [items]="glasgow"></ng-select>
+          <p [ngClass]="[checkFieldError(apache.glasgow) ? 'errors': 'hidden']">{{messageError}}</p>
         </div>
 
         <div class="form-group">
@@ -58,8 +68,10 @@
             <h3 class="select-label">Problemas Crônicos de Saúde</h3>
           </section>
           <div class="form-group flex-column">
-            <ng-select class="select-style" [(ngModel)]="apache.problemasCronicos"
+            <ng-select class="select-style" [clearable]="false" [(ngModel)]="apache.problemasCronicos"
                        [items]="problemasCronicos"></ng-select>
+            <p [ngClass]="[checkFieldError(apache.problemasCronicos) ? 'errors': 'hidden']">{{messageError}}</p>
+
           </div>
           <section [ngClass]=" [showProblemas ? 'show-problemas-cronicos':'hidden-problemas-cronicos']">
             <p class="item">1) Cirrose-Biópsia</p>
@@ -71,44 +83,53 @@
         </div>
         <div class="form-group" id="container-frequencia-cardiaca">
           <h3 class="select-label">Frequência Cardíaca</h3>
-          <ng-select class="select-style" [(ngModel)]="apache.frequenciaCardiaca"
+          <ng-select class="select-style" [clearable]="false" [(ngModel)]="apache.frequenciaCardiaca"
                      [items]="frequenciaCardiaca"></ng-select>
+          <p [ngClass]="[checkFieldError(apache.frequenciaCardiaca) ? 'errors': 'hidden']">{{messageError}}</p>
+
         </div>
         <div class="form-group">
           <h3 class="select-label">Frequência Respiratória</h3>
-          <ng-select class="select-style" [(ngModel)]="apache.frequenciaRespiratoria"
+          <ng-select class="select-style" [clearable]="false" [(ngModel)]="apache.frequenciaRespiratoria"
                      [items]="frequenciaRespiratoria"></ng-select>
+          <p [ngClass]="[checkFieldError(apache.frequenciaRespiratoria) ? 'errors': 'hidden']">{{messageError}}</p>
+
         </div>
       </article>
       <article class="col-container">
 
         <div class="form-group">
           <h3 class="select-label">K+ Sérico (meq/l)</h3>
-          <ng-select class="select-style" [(ngModel)]="apache.kSerico" [items]="kSerico"></ng-select>
+          <ng-select class="select-style" [clearable]="false" [(ngModel)]="apache.kSerico"
+                     [items]="kSerico"></ng-select>
+          <p [ngClass]="[checkFieldError(apache.kSerico) ? 'errors': 'hidden']">{{messageError}}</p>
         </div>
 
         <div class="form-group">
           <h3 class="select-label">Hematócrito</h3>
-          <ng-select class="select-style" [(ngModel)]="apache.hematocrito" [items]="hematocrito"></ng-select>
+          <ng-select class="select-style" [clearable]="false" [(ngModel)]="apache.hematocrito"
+                     [items]="hematocrito"></ng-select>
+          <p [ngClass]="[checkFieldError(apache.hematocrito) ? 'errors': 'hidden']">{{messageError}}</p>
         </div>
 
         <div class="form-group">
           <h3 class="select-label">A-aPO2 (FiO2 > 50%) ou PaO2 (FiO2 < 50%)</h3>
-          <ng-select class="select-style" [(ngModel)]="apache.aapo" [items]="aapo"></ng-select>
+          <ng-select class="select-style" [clearable]="false" [(ngModel)]="apache.aapo" [items]="aapo"></ng-select>
+          <p [ngClass]="[checkFieldError(apache.aapo) ? 'errors': 'hidden']">{{messageError}}</p>
+
         </div>
 
         <div class="form-group">
           <h3 class="select-label">Creatinina Sérica com ou sem IRA</h3>
-          <ng-select class="select-style" [(ngModel)]="apache.creatinina" [items]="creatinina"></ng-select>
+          <ng-select class="select-style" [clearable]="false" [(ngModel)]="apache.creatininaSerica"
+                     [items]="creatinina"></ng-select>
+          <p [ngClass]="[checkFieldError(apache.creatininaSerica) ? 'errors': 'hidden']">{{messageError}}</p>
         </div>
       </article>
     </section>
     <footer class="apache-footer">
       <button (click)="save()" class="button button-blue">Salvar</button>
+      <button (click)="clear()" class="button">Limpar</button>
     </footer>
-    <!--    <div class="container-button">
-          <button (click)="save()" class="button button-blue">Salvar</button>
-          <button (click)="clear()" class="button">Limpar</button>
-        </div>-->
   </section>
 </main>
