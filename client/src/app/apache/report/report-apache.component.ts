@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
-import {faFrown, faSearch} from '@fortawesome/free-solid-svg-icons';
+import {faFrown, faSearch, faSmile} from '@fortawesome/free-solid-svg-icons';
 import {Chart} from 'angular-highcharts';
 import {TitleService} from '../../core/title/title.service';
 import {ApacheService} from '../../core/apache/apache.service';
@@ -29,7 +29,7 @@ export class ReportApacheComponent extends DatePipe implements OnInit, DatePipe 
   pacientesObito = [{}];
   arrayListSetor: Setor[] = [];
   showListScrollSpinner = false;
-  faFrown = faFrown;
+  faSmile = faSmile;
   faSearch = faSearch;
   faPrint = faPrint;
   apache: any[] = [];
@@ -50,6 +50,7 @@ export class ReportApacheComponent extends DatePipe implements OnInit, DatePipe 
     chart: {
       type: 'bar',
       spacingRight: 30,
+      height: 300
     },
     title: {
       text: 'APACHE II'
