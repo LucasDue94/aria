@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
-import {faFrown, faSearch, faSmile} from '@fortawesome/free-solid-svg-icons';
+import {faFrown, faList, faSearch, faSmile} from '@fortawesome/free-solid-svg-icons';
 import {Chart} from 'angular-highcharts';
 import {TitleService} from '../../core/title/title.service';
 import {ApacheService} from '../../core/apache/apache.service';
@@ -14,6 +14,7 @@ import {SpinnerService} from "../../core/spinner/spinner.service";
 import {faPrint} from "@fortawesome/free-solid-svg-icons/faPrint";
 import 'jspdf-autotable';
 import {ChartImage, ReportBuilder} from "../../core/report/reportBuilder";
+import {Paciente} from "../../core/paciente/paciente";
 
 @Component({
   selector: 'app-apache-report',
@@ -31,12 +32,14 @@ export class ReportApacheComponent extends DatePipe implements OnInit, DatePipe 
   showListScrollSpinner = false;
   faSmile = faSmile;
   faSearch = faSearch;
+  faList = faList;
   faPrint = faPrint;
   apache: any[] = [];
   setorId;
   date = new Date();
   dataInicio: any;
   dataFim: any;
+  paciente: Paciente = new Paciente();
   naoCirurgico = [];
   cirurgico = [];
   data = [];

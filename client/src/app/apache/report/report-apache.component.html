@@ -29,6 +29,7 @@
   </section>
 
   <section class="table modal-content" *ngIf="apacheChart">
+    <h2 class="table-title"> <fa-icon [icon]="faList"></fa-icon> Lista de pacientes que foram a óbito</h2>
     <section class="thead" *ngIf="obitos">
       <span class="th">REGISTRO</span>
       <span class="th paciente">PACIENTE</span>
@@ -41,7 +42,7 @@
         <span class="td">{{paciente['id']}}</span>
         <span class="td paciente">{{paciente['nome']}}</span>
         <span class="td">{{paciente['sexo']}}</span>
-        <span class="td">{{paciente['nascimento']}}</span>
+        <span class="td">{{paciente['nascimento'] | date: 'dd/MM/yyyy'}}</span>
         <span class="td">{{paciente['nomeMae']}}</span>
       </div>
       <app-scroll-spinner [show]="showListScrollSpinner"></app-scroll-spinner>

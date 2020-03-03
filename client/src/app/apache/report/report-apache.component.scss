@@ -95,6 +95,14 @@
   display: none;
 }
 
+.table-title {
+  margin: 10px;
+  letter-spacing: 1px;
+  padding: 10px;
+  color: $blue-default;
+  border-bottom: 1px solid $blue-default;
+}
+
 @media screen and (max-width: $smartphone-max-width) {
   .panel {
     width: min-content;
