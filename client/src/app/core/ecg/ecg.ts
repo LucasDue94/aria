@@ -1,10 +1,12 @@
 import {RegistroAtendimento} from '../registroAtendimento/registroAtendimento';
+import {Paciente} from "../paciente/paciente";
 
 export class Ecg {
   id: number;
   dataHoraEcg: any;
   dataHoraPorta: any;
   registroAtendimentoId: number;
+  paciente: Paciente;
   registroAtendimento: RegistroAtendimento = new RegistroAtendimento();
 
   constructor(object?: any) {

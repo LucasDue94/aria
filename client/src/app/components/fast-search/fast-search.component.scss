@@ -11,11 +11,12 @@
 .search-container {
   justify-content: flex-end;
   width: 100%;
+
+  .input-search {
+    width: 50%;
+  }
 }
 
-.input-search {
-  width: 50%;
-}
 
 .table {
   width: 100%;

@@ -38,7 +38,7 @@ class Apache {
         hematocrito nullable: false, blank: false, inList: ['> 60', '50 - 59.9', '46 - 49.9', '30 - 45.9', '20 - 29.9', '< 20']
         leucocitos nullable: false, blank: false, inList: ['> 40', '20 - 39.9', '15 - 19.9', '3 - 14.9', '1 - 2.9', '< 1']
         glasgow nullable: false, blank: false, size: 3..15
-        problemasCronicos nullable: false, blank: false, inList: ['Nenhuma', 'Não - Cirúrgico', 'Cirurgia de Emergência', 'Cirurgia Eletiva']
+        problemasCronicos nullable: false, blank: false, inList: ['Nenhum', 'Não - Cirúrgico', 'Cirurgia de Emergência', 'Cirurgia Eletiva']
         registroAtendimentoLeito validator: { val, obj, errors ->
             def reg = RegistroAtendimentoLeito.where {
                 registroAtendimento.id == val.registroAtendimentoId

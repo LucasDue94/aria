@@ -1,0 +1,71 @@
+@import "../../../assets/colors";
+
+.filter-container {
+  display: flex;
+  align-items: flex-end;
+  background-color: $white;
+  margin: 10px;
+  box-shadow: 0 0 3px $gray-80;
+  font-size: 16px;
+
+  .group {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    min-width: 200px;
+
+    .group-label {
+      font-size: 14px;
+      font-weight: 500;
+      margin-right: 5px;
+    }
+
+    .control {
+      border-radius: 5px;
+      padding: 8px;
+      border: 1px solid $gray-60;
+      transition: 0.3s;
+
+      &:focus {
+        transition: 0.3s;
+        background-color: $gray-30;
+      }
+    }
+
+    .control-date {
+      background-color: transparent;
+      padding: 10px 6px 0 0;
+      border-bottom: 1px solid $gray-60;
+    }
+  }
+
+
+  .button-container {
+    display: flex;
+    margin: 10px 0;
+
+    .search-button {
+      margin: 5px 5px 0 5px;
+      height: 35px;
+      padding: 5px;
+      flex: 1;
+
+      & {
+        text-align: center;
+        color: $white;
+        border-radius: 4px;
+        background-color: rgba($blue-default, 0.7);
+      }
+
+      &:hover {
+        transition: 0.3s;
+        cursor: pointer;
+        background-color: $blue-default;
+      }
+
+      .search-icon {
+        margin-right: 5px;
+      }
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TitleService} from "../../core/title/title.service";
 import {FormBuilder, Validators} from "@angular/forms";
 import {RegistroAtendimento} from "../../core/registroAtendimento/registroAtendimento";
