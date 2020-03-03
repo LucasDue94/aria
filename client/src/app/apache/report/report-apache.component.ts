@@ -48,7 +48,8 @@ export class ReportApacheComponent extends DatePipe implements OnInit, DatePipe 
   smrCirurgicos = [];
   optionsChart: any = {
     chart: {
-      type: 'bar'
+      type: 'bar',
+      spacingRight: 30,
     },
     title: {
       text: 'APACHE II'
