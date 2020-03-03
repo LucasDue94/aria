@@ -296,8 +296,12 @@ export class ReportApacheComponent extends DatePipe implements OnInit, DatePipe 
     };
     const chartSVG = this.chartSVG.nativeElement.querySelector('.highcharts-root');
     const report = new ReportBuilder();
-    report.addTable(modeloRelatorio);
-    report.addChart(new ChartImage(chartSVG));
+    if(this.obitos) {
+      report.addChart(new ChartImage(chartSVG));
+      report.addTable(modeloRelatorio)
+    } else {
+      report.addChart(new ChartImage(chartSVG));
+    }
     report.title = 'RELATÓRIO APACHE II';
     report.print();
   }

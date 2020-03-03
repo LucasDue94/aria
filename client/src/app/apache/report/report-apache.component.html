@@ -10,7 +10,7 @@
       <label class="label-panel" for="fim">Setor:</label>
     </div>
     <div>
-      <select  name="setor" class="panel-select" formControlName="setorId">
+      <select name="setor" class="panel-select" formControlName="setorId">
         <option value="null">Selecione</option>
         <option name="setor" *ngFor="let setor of arrayListSetor" [ngValue]="setor.id">{{setor.sigla}}</option>
       </select>
@@ -28,8 +28,11 @@
     <section [chart]="apacheChart" id="apache" #chartSVG>Apache II</section>
   </section>
 
-  <section class="table modal-content" *ngIf="apacheChart">
-    <h2 class="table-title"> <fa-icon [icon]="faList"></fa-icon> Lista de pacientes que foram a óbito</h2>
+  <section class="table modal-content" *ngIf="apacheChart && obitos">
+    <h2 class="table-title" *ngIf="obitos">
+      <fa-icon [icon]="faList"></fa-icon>
+      Óbitos com SMR > 1
+    </h2>
     <section class="thead" *ngIf="obitos">
       <span class="th">REGISTRO</span>
       <span class="th paciente">PACIENTE</span>
@@ -47,9 +50,9 @@
       </div>
       <app-scroll-spinner [show]="showListScrollSpinner"></app-scroll-spinner>
     </section>
-    <div class="empty" *ngIf="!obitos">
-      <p>Nenhum paciente foi a óbito com SMR > 1</p>
-      <fa-icon class="icon" [icon]="faSmile" size="2x"></fa-icon>
-    </div>
   </section>
+  <div class="empty" *ngIf="apacheChart && !obitos">
+    <p>Nenhum paciente foi a óbito com SMR > 1</p>
+    <fa-icon class="icon" [icon]="faSmile" size="2x"></fa-icon>
+  </div>
 </main>
