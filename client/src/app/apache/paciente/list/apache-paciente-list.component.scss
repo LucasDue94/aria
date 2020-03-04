@@ -26,6 +26,9 @@
 
 .row {
   border-left: 10px solid transparent;
+  .label-card {
+    display: none;
+  }
 }
 
 .row-available {
@@ -97,51 +100,30 @@
 
 @media screen and (max-width: $smartphone-max-width) {
   .table {
-    display: none;
+    position: relative;
+
+    & .thead {
+      display: none;
+    }
+
+    & .row {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      width: 80%;
+      margin: 10px auto;
+      & .label-card {
+        display: initial;
+        font-weight: bold;
+      }
+      & span.td {
+        width: 100%;
+      }
+    }
   }
+
   .legend {
     margin: 10px 0;
-  }
-
-  .content-card {
-    position: fixed;
-    overflow-y: scroll;
-    height: 100%;
-    margin: 0;
-    cursor: pointer;
-  }
-
-  .card-apache-list {
-    position: relative;
-    top:0;
-    right: 10px;
-    margin: 10px auto;
-    display: flex;
-    color: $gray-100;
-    width: 80%;
-    height: auto;
-    font-size: 17px;
-    white-space: normal;
-    padding: 10px;
-    border-radius: 10px;
-    border: 1px solid $gray-70;
-    background: $white;
-    line-height: 30px;
-
-    .label {
-      margin-right: 5px;
-      font-weight: bold;
-      font-size: 14px;
-    }
-
-    .text {
-      font-size: 14px;
-      margin-right: 10px;
-    }
-
-    & :hover {
-      background: $gray-40;
-    }
   }
 }
 
@@ -153,7 +135,3 @@
   }
 }
 
-.sexo {
-  flex: 0;
-  min-width: 80px;
-}

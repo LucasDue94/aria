@@ -35,12 +35,12 @@
       <div [ngClass]="getRowClass(registro)" class="row" *ngFor="let registro of admissoesPacSetor"
            [routerLink]="['/apache','form']"
            [queryParams]="{registro:registro.registroAtendimento.id, dataEntrada: registro.dataEntrada, leito:registro.leito.id, apacheId: registro.apache ? registro.apache.id : null, dataAlta: registro.dataAlta }">
-        <span class="td">{{registro.registroAtendimento.id}}</span>
-        <span class="td">{{registro.dataEntrada | date: 'dd/MM/yyyy - HH:mm'}}</span>
-        <span class="td">{{registro.registroAtendimento.paciente.nome}}</span>
-        <span class="td sexo">{{registro.registroAtendimento.paciente.sexo}}</span>
-        <span class="td">{{registro.registroAtendimento.paciente.nascimento | date:'dd/MM/yy'}}</span>
-        <span class="td">{{registro.registroAtendimento.paciente.nomeMae}}</span>
+        <span class="td"><span class="label-card">Registro:</span> {{registro.registroAtendimento.id}}</span>
+        <span class="td"><span class="label-card">Entrada:</span> {{registro.dataEntrada | date: 'dd/MM/yyyy - HH:mm'}}</span>
+        <span class="td"><span class="label-card">Paciente:</span> {{registro.registroAtendimento.paciente.nome}}</span>
+        <span class="td sexo"><span class="label-card">Sexo:</span> {{registro.registroAtendimento.paciente.sexo}}</span>
+        <span class="td"><span class="label-card">Nascimento:</span> {{registro.registroAtendimento.paciente.nascimento | date:'dd/MM/yy'}}</span>
+        <span class="td"><span class="label-card">Mãe:</span> {{registro.registroAtendimento.paciente.nomeMae}}</span>
       </div>
       <app-scroll-spinner [show]="showListScrollSpinner"></app-scroll-spinner>
       <div class="empty" *ngIf="admissoesPacSetor?.length == 0">
@@ -48,27 +48,5 @@
         <fa-icon class="icon" [icon]="faFrown" size="2x"></fa-icon>
       </div>
     </section>
-  </section>
-  <section class="content-card" [scrollWindow]="false" infinite-scroll (scrolled)="scrollDown()">
-    <article *ngFor="let registro of admissoesPacSetor"
-             [routerLink]="['/apache','form']" class="card-apache-list"
-             [queryParams]="{registro:registro.registroAtendimento.id, dataEntrada: registro.dataEntrada, leito:registro.leito.id}">
-
-      <div class="row-wrap">
-        <div class="basis-100">
-          <label class="label">PACIENTE:</label>
-          <span class="text">{{registro.registroAtendimento.paciente.nome}}</span>
-        </div>
-        <label class="label">SEXO:</label>
-        <span class="text text-overflow">{{registro.registroAtendimento.paciente.sexo}}</span>
-        <label class="label">NASCIMENTO:</label>
-        <span
-          class="text text-overflow">{{registro.registroAtendimento.paciente.nascimento | date: 'dd/MM/yyyy'}}</span>
-        <div class="basis-100">
-          <label class="label">MÃE:</label>
-          <span class="text text-overflow">{{registro.registroAtendimento.paciente.nomeMae}}</span>
-        </div>
-      </div>
-    </article>
   </section>
 </main>
