@@ -1,6 +1,6 @@
 <main class="container">
   <div class="filters-container">
-    <form [formGroup]="searchForm" class="search-container">
+    <form [formGroup]="form" class="search-container">
       <input (focus)="search()" formControlName="searchControl" id="search-text"
              placeholder="Procure: Paciente ou registro..." type="text">
       <button id="search-button">
@@ -10,6 +10,7 @@
     <div class="search-selected">
       <label class="label-selected">Setor</label>
       <select class="selected" [(ngModel)]="setorId" (ngModelChange)="listAdmissoesSetor()">
+        <option value="null">Selecione</option>
         <option name="setor" *ngFor="let setor of arrayListSetor" [ngValue]="setor.id">{{setor.sigla}}</option>
       </select>
     </div>
