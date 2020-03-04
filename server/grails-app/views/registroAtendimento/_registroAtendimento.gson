@@ -5,6 +5,6 @@ model {
 }
 
 json g.render(registroAtendimento, [expand: ['motivoAlta', 'ecg', 'balao'],excludes: ['paciente', 'setor'], resolveTemplate: false]) {
-    paciente  g.render(registroAtendimento.paciente, [excludes: 'registrosAtendimento', resolveTemplate: false])
-    setor  g.render(registroAtendimento.setor, [expand:'setor', excludes: 'registrosAtendimento', resolveTemplate: false])
+    paciente g.render(registroAtendimento.paciente, [excludes: 'registrosAtendimento', resolveTemplate: false])
+    setor g.render(registroAtendimento.setor, [expand:'setor', excludes: 'registrosAtendimento', resolveTemplate: false])
 }
