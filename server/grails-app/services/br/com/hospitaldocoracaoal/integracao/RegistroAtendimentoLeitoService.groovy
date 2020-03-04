@@ -1,15 +1,19 @@
-package br.com.hospitaldocoracaoal.aria
+package br.com.hospitaldocoracaoal.integracao
 
-import br.com.hospitaldocoracaoal.integracao.RegistroAtendimentoLeito
-import grails.gorm.transactions.Transactional
+import br.com.hospitaldocoracaoal.aria.Setor
+import grails.gorm.services.Service
 import grails.web.servlet.mvc.GrailsParameterMap
+
 import static org.hibernate.sql.JoinType.INNER_JOIN
 
-@Transactional
-class RegistroAtendimentoLeitosService {
+@Service(RegistroAtendimentoLeito)
+abstract class RegistroAtendimentoLeitoService {
 
+    abstract RegistroAtendimentoLeito get(Serializable id)
 
-    List<RegistroAtendimentoLeito> list(GrailsParameterMap args, String termo) {
+    abstract List<RegistroAtendimentoLeito> list(Map args)
+
+    List<RegistroAtendimentoLeito> admissoesSetor(GrailsParameterMap args, String termo) {
         long setorId = args.long('setorId')
         Setor s = Setor.get(setorId)
 
@@ -32,4 +36,11 @@ class RegistroAtendimentoLeitosService {
             eq 's.id', s.setorWpdId
         } as List<RegistroAtendimentoLeito>
     }
+
+    abstract Long count()
+
+    abstract void delete(Serializable id)
+
+    abstract RegistroAtendimentoLeito save(RegistroAtendimentoLeito registroAtendimentoLeito)
+
 }
