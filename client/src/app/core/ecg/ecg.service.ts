@@ -64,7 +64,7 @@ export class EcgService {
   }
 
   save(ecg: Ecg): Observable<any> {
-    let subject = new Subject<any[]>()
+    let subject = new Subject<any[]>();
     if (ecg.id) {
       this.http.put<any>(this.baseUrl + `ecg/` + ecg.id, ecg, {
         responseType: 'json'

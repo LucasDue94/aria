@@ -1,5 +1,6 @@
 package br.com.hospitaldocoracaoal.aria
 
+import br.com.hospitaldocoracaoal.integracao.RegistroAtendimentoLeitoService
 import grails.gorm.transactions.ReadOnly
 import grails.gorm.transactions.Transactional
 import grails.plugin.springsecurity.annotation.Secured
@@ -11,7 +12,7 @@ import static org.springframework.http.HttpStatus.*
 class SetorController {
 
     SetorService setorService
-    RegistroAtendimentoLeitosService registroAtendimentoLeitosService
+    RegistroAtendimentoLeitoService registroAtendimentoLeitoService
 
     static responseFormats = ['json', 'xml']
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
@@ -33,7 +34,7 @@ class SetorController {
         params.sort = 'dataEntrada'
         params.order = 'desc'
         params.max = Math.min(max ?: 10, 100)
-        respond registroAtendimentoLeitosService.list(params, termo)
+        respond registroAtendimentoLeitoService.admissoesSetor(params, termo)
     }
 
     @Secured('ROLE_SETOR_SAVE')

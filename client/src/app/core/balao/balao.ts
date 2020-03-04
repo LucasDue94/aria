@@ -6,6 +6,7 @@ export class Balao {
   registroAtendimento: RegistroAtendimento;
   dataHoraBalao: any;
   paciente: Paciente;
+  registroAtendimentoId: number;
 
   constructor(object?: any) {
     if (object) {

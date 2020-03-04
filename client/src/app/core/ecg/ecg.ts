@@ -5,8 +5,9 @@ export class Ecg {
   id: number;
   dataHoraEcg: any;
   dataHoraPorta: any;
-  registroAtendimento: RegistroAtendimento;
+  registroAtendimentoId: number;
   paciente: Paciente;
+  registroAtendimento: RegistroAtendimento = new RegistroAtendimento();
 
   constructor(object?: any) {
     if (object) {

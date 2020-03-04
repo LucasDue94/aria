@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
-import {faFrown, faSearch} from '@fortawesome/free-solid-svg-icons';
+import {faFrown, faList, faSearch, faSmile} from '@fortawesome/free-solid-svg-icons';
 import {Chart} from 'angular-highcharts';
 import {TitleService} from '../../core/title/title.service';
 import {ApacheService} from '../../core/apache/apache.service';
@@ -14,6 +14,7 @@ import {SpinnerService} from "../../core/spinner/spinner.service";
 import {faPrint} from "@fortawesome/free-solid-svg-icons/faPrint";
 import 'jspdf-autotable';
 import {ChartImage, ReportBuilder} from "../../core/report/reportBuilder";
+import {Paciente} from "../../core/paciente/paciente";
 
 @Component({
   selector: 'app-apache-report',
@@ -29,14 +30,16 @@ export class ReportApacheComponent extends DatePipe implements OnInit, DatePipe 
   pacientesObito = [{}];
   arrayListSetor: Setor[] = [];
   showListScrollSpinner = false;
-  faFrown = faFrown;
+  faSmile = faSmile;
   faSearch = faSearch;
+  faList = faList;
   faPrint = faPrint;
   apache: any[] = [];
   setorId;
   date = new Date();
   dataInicio: any;
   dataFim: any;
+  paciente: Paciente = new Paciente();
   naoCirurgico = [];
   cirurgico = [];
   data = [];
@@ -48,7 +51,9 @@ export class ReportApacheComponent extends DatePipe implements OnInit, DatePipe 
   smrCirurgicos = [];
   optionsChart: any = {
     chart: {
-      type: 'bar'
+      type: 'bar',
+      spacingRight: 30,
+      height: 300
     },
     title: {
       text: 'APACHE II'
@@ -291,8 +296,12 @@ export class ReportApacheComponent extends DatePipe implements OnInit, DatePipe 
     };
     const chartSVG = this.chartSVG.nativeElement.querySelector('.highcharts-root');
     const report = new ReportBuilder();
-    report.addTable(modeloRelatorio);
-    report.addChart(new ChartImage(chartSVG));
+    if(this.obitos) {
+      report.addChart(new ChartImage(chartSVG));
+      report.addTable(modeloRelatorio)
+    } else {
+      report.addChart(new ChartImage(chartSVG));
+    }
     report.title = 'RELATÓRIO APACHE II';
     report.print();
   }

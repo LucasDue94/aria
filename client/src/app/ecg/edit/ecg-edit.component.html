@@ -1,4 +1,4 @@
-<main class="container-balao-edit">
+<main class="container-ecg-edit">
   <article class="card flex">
     <form [formGroup]="form" action="#" class="form">
       <div class="row">
@@ -18,15 +18,22 @@
         <span class="text">{{registro?.id}}</span>
       </div>
       <div class="row row-between">
-        <label class="label-ecg">Data de Balão:</label>
-        <input class="input-date" type="date" formControlName="dataBalao">
-        <label class="label-ecg">Hora de Balão:</label>
-        <input class="input-date" type="time" formControlName="horaBalao">
+        <label class="label-ecg">Data de Porta:</label>
+        <input class="input-date" type="date" formControlName="dataPorta">
+        <label class="label-ecg">Hora de Porta:</label>
+        <input class="input-date" type="time" formControlName="horaPorta">
+      </div>
+      <div class="row row-between">
+        <label class="label-ecg">Data de ECG:</label>
+        <input class="input-date" type="date" formControlName="dataECG">
+        <label class="label-ecg">Hora de ECG:</label>
+        <input class="input-date" type="time" formControlName="horaECG">
       </div>
       <div class="row row-flex-end">
-        <button (click)="save()" class="button button-blue btn-save">Salvar</button>
+        <button (click)="update()" class="button button-blue btn-save">Alterar</button>
       </div>
     </form>
   </article>
 </main>
+
 

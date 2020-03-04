@@ -30,6 +30,8 @@ import {EcgListComponent} from "../../ecg/list/ecg-list.component";
 import {EcgFormComponent} from "../../ecg/form/ecg-form.component";
 import {ReportEcgComponent} from "../../ecg/report-ecg/report-ecg.component";
 import {ReportBalaoComponent} from "../../balao/report-balao/report-balao.component";
+import {EcgEditComponent} from "../../ecg/edit/ecg-edit.component";
+import {EditBalaoComponent} from "../../balao/edit-balao/edit-balao.component";
 import {FilterComponent} from "../../components/filter/filter.component";
 
 const routes: Routes = [
@@ -221,6 +223,10 @@ const routes: Routes = [
             path: 'create/:id',
             component: BalaoFormComponent,
             canActivate: [AuthGuard]
+          }, {
+            path: 'edit/:id',
+            component: EditBalaoComponent,
+            canActivate: [AuthGuard]
           },
           {
             path: 'report',
@@ -251,6 +257,11 @@ const routes: Routes = [
           {
             path: 'report',
             component: ReportEcgComponent,
+            canActivate: [AuthGuard]
+          },
+          {
+            path: 'edit/:id',
+            component: EcgEditComponent,
             canActivate: [AuthGuard]
           }
         ]
@@ -290,7 +301,7 @@ const routes: Routes = [
             canActivate: [AuthGuard]
           }
         ]
-      },{
+      }, {
         path: 'nas',
         children: [
           {

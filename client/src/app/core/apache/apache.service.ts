@@ -13,7 +13,7 @@ export class ApacheService {
   constructor(private http: HttpClient) {
   }
 
-  list(setorId: number, termo?: string, offset?: any, max?: any): Observable<any[]> {
+  list(setorId?: any, termo?: string, offset?: any, max?: any): Observable<any[]> {
     let subject = new Subject<any[]>();
     this.http.get<any[]>(this.baseUrl + `setor/admissoes?` + 'setorId=' + setorId + '&termo=' + termo + '&offset=' + offset + '&max=' + max)
       .pipe(
