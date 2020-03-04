@@ -49,7 +49,7 @@ export class FastSearchComponent implements OnInit {
       this.dataArray = res;
         this.loaded();
       });
-    this.search()
+    this.busca()
   }
 
   emitData(data) {
@@ -64,7 +64,7 @@ export class FastSearchComponent implements OnInit {
         this.loading();
         this.offset = 0;
         if (this.dataArray != undefined) this.dataArray.length = 0;
-        return this.service.search(changes, this.offset)
+        return this.service.hasSearch(changes, this.offset)
       })
     ).subscribe(res => {
       if (this.errorService.hasError(res)) this.errorService.sendError(res);
@@ -76,7 +76,7 @@ export class FastSearchComponent implements OnInit {
   scrollDown() {
     this.loading();
     this.offset += 25;
-    this.service.search(this.searchControl.value, this.offset, this.max).subscribe(data => {
+    this.service.hasSearch(this.searchControl.value, this.offset, this.max).subscribe(data => {
       if (this.errorService.hasError(data)) this.errorService.sendError(data);
       data.forEach(d => this.dataArray.push(d));
       this.loaded();

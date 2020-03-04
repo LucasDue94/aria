@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {Alternative} from "../../core/nas/form/alternative";
 import {Question} from "../../core/nas/form/question";
 
@@ -7,7 +7,7 @@ import {Question} from "../../core/nas/form/question";
   templateUrl: './nas-question.component.html',
   styleUrls: ['./nas-question.component.scss']
 })
-export class NasQuestionComponent implements OnInit {
+export class NasQuestionComponent {
   @Input() answer;
   @Input() isBoolQuestion = false;
   @Input() question: Question;
@@ -20,10 +20,6 @@ export class NasQuestionComponent implements OnInit {
   })];
 
   constructor() {
-  }
-
-  ngOnInit() {
-    // console.log(this.question);
   }
 
 }

@@ -58,7 +58,6 @@ export class SelectComponent implements OnInit, AfterViewChecked, OnChanges,DoCh
   ngDoCheck(): void {
     if (this.containerOptions != undefined) {
       this.buildContainerOptions()
-      console.log('checou')
     }
   }
 

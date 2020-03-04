@@ -1,17 +1,20 @@
 @import "../../../assets/colors";
 
 .filter-container {
+  position: relative;
   display: flex;
   align-items: flex-end;
   background-color: $white;
-  margin: 10px;
+  margin: 10px auto;
   box-shadow: 0 0 3px $gray-80;
   font-size: 16px;
+  min-height: 90px;
+  flex-wrap: wrap;
 
   .group {
     display: flex;
     flex-direction: column;
-    margin: 10px;
+    margin: 10px 10px 20px 10px;
     min-width: 200px;
 
     .group-label {
@@ -37,17 +40,23 @@
       padding: 10px 6px 0 0;
       border-bottom: 1px solid $gray-60;
     }
-  }
 
+    .message-error{
+      color: $danger;
+      bottom: 0;
+      position: absolute;
+    }
+  }
 
   .button-container {
     display: flex;
-    margin: 10px 0;
+    margin: 20px 0;
 
     .search-button {
       margin: 5px 5px 0 5px;
       height: 35px;
       padding: 5px;
+      min-width: 80px;
       flex: 1;
 
       & {
@@ -67,5 +76,34 @@
         margin-right: 5px;
       }
     }
+
+    .btn-clear {
+      min-width: 80px;
+      margin: 5px 5px 0 5px;
+      height: 35px;
+      padding: 5px;
+
+      &:hover {
+        border: 1px solid $gray-60;
+        background-color: $gray-60;
+      }
+    }
+  }
+}
+
+.filter-errors {
+  transition: 0.3s;
+  color: $danger;
+  font-size: 14px;
+
+  .control-date {
+    border-bottom: 2px solid $danger !important;
+    font-size: 16px;
+  }
+
+  .ng-select-single {
+    border-radius: 5px;
+    border: 2px solid $danger !important;
+    color: $danger !important;
   }
 }
