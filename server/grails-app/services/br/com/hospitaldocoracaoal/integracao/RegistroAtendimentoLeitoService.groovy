@@ -14,27 +14,37 @@ abstract class RegistroAtendimentoLeitoService {
     abstract List<RegistroAtendimentoLeito> list(Map args)
 
     List<RegistroAtendimentoLeito> admissoesSetor(GrailsParameterMap args, String termo) {
-        long setorId = args.long('setorId')
-        Setor s = Setor.get(setorId)
-
         def criteria = RegistroAtendimentoLeito.createCriteria()
-        return criteria.list(args) {
-            createAlias 'leito', 'l', INNER_JOIN
-            createAlias 'l.setor', 's', INNER_JOIN
+        if (args.containsKey('setorId') && args.getLong('setorId') != null) {
+            Long setorId = args.long('setorId')
+            Setor s = Setor.get(setorId)
+            criteria.list(args) {
+                createAlias 'leito', 'l', INNER_JOIN
+                createAlias 'l.setor', 's', INNER_JOIN
 
 
-            if (termo != null && !termo.empty) {
-                createAlias 'registroAtendimento', 'ra', INNER_JOIN
-                createAlias 'ra.paciente', 'p', INNER_JOIN
-                or {
-                    ilike 'ra.id', "%$termo%"
-                    ilike 'p.nome', "%$termo%"
+                if (termo != null && !termo.empty) {
+                    createAlias 'registroAtendimento', 'ra', INNER_JOIN
+                    createAlias 'ra.paciente', 'p', INNER_JOIN
+                    or {
+                        ilike 'ra.id', "%$termo%"
+                        ilike 'p.nome', "%$termo%"
+                    }
                 }
-
-            }
-
-            eq 's.id', s.setorWpdId
-        } as List<RegistroAtendimentoLeito>
+                eq 's.id', s.setorWpdId
+            } as List<RegistroAtendimentoLeito>
+        } else {
+            criteria.list(args) {
+                if (termo != null && !termo.empty) {
+                    createAlias 'registroAtendimento', 'ra', INNER_JOIN
+                    createAlias 'ra.paciente', 'p', INNER_JOIN
+                    or {
+                        ilike 'ra.id', "%$termo%"
+                        ilike 'p.nome', "%$termo%"
+                    }
+                }
+            } as List<RegistroAtendimentoLeito>
+        }
     }
 
     abstract Long count()

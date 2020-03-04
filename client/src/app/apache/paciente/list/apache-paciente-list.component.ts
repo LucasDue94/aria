@@ -50,7 +50,7 @@ export class ApachePacienteListComponent implements OnInit {
         setores.forEach(setor => {
           this.arrayListSetor.push(setor);
         });
-        this.apacheService.list(43, this.termo, '', 30).subscribe(registros => {
+        this.apacheService.list(this.setorId,'','',30).subscribe(registros => {
           if (this.errorService.hasError(registros)) {
             this.spinner.hide();
             this.errorService.sendError(registros);
@@ -67,8 +67,8 @@ export class ApachePacienteListComponent implements OnInit {
     this.listLoading = true;
     this.admissoesPacSetor = [];
     this.offset = 0;
-    this.renderer.setProperty(this.dataList.nativeElement, 'scrollTop', 0)
-    this.apacheService.list(+this.setorId, this.termo, this.offset, this.max).subscribe(registros => {
+    this.renderer.setProperty(this.dataList.nativeElement, 'scrollTop', 0);
+    this.apacheService.list(this.setorId, this.termo, this.offset, this.max).subscribe(registros => {
       if(registros.hasOwnProperty('error')) {
       } else {
         this.admissoesPacSetor = registros;
@@ -97,7 +97,7 @@ export class ApachePacienteListComponent implements OnInit {
   scrollDown() {
     this.showListScrollSpinner = true;
     this.offset += 10;
-    this.apacheService.list(+this.setorId, this.termo, this.offset, this.max).subscribe(registros => {
+    this.apacheService.list(this.setorId, this.termo, this.offset, this.max).subscribe(registros => {
       registros.forEach(registro => {
         this.admissoesPacSetor.push(registro);
         this.showListScrollSpinner = false;
@@ -107,14 +107,18 @@ export class ApachePacienteListComponent implements OnInit {
 
   getRowClass(registro: any) {
     let rowClass = 'hiden';
-    if(registro.apache) {
-      rowClass = 'row-success';
-    } else if(moment() > moment(registro.dataEntrada).add(24, 'hours')) { // Testa se passaram 24 horas da entrada
-      rowClass = 'row-available';
-      const setor = this.arrayListSetor.find( s => s.id == 43);
-      if(moment() > moment(registro.dataEntrada).add(24 + setor.prazoApache, 'hours')) { // Testa se alem das 24 horas, estourou o prazo do setor
-        rowClass = 'row-alert';
+    if(this.setorId != null && this.setorId != undefined && this.setorId != '' && this.setorId != 'null') {
+      if(registro.apache) {
+        rowClass = 'row-success';
+      } else if(moment() > moment(registro.dataEntrada).add(24, 'hours')) { // Testa se passaram 24 horas da entrada
+        rowClass = 'row-available';
+        const setor = this.arrayListSetor.find( s => s.id == this.setorId);
+        if(moment() > moment(registro.dataEntrada).add(24 + setor.prazoApache, 'hours')) { // Testa se alem das 24 horas, estourou o prazo do setor
+          rowClass = 'row-alert';
+        }
       }
+    } else {
+      rowClass = '';
     }
     return rowClass;
   }
