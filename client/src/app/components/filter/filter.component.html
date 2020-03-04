@@ -1,23 +1,31 @@
-<main class="filter-container">
-  <div class="group">
-    <input title="busca" placeholder="Digite sua busca..." type="text" class="control">
+<main class="filter-container" [formGroup]="form">
+  <div class="group" *ngIf="hasSearch">
+    <input formControlName="busca" title="busca" placeholder="Digite sua busca..." type="text" class="control">
   </div>
-  <div class="group">
+  <div class="group" *ngIf="hasDateInterval"
+       [ngClass]="[!isValid('inicio') && submitted || this.intervalDateMessage != '' ? 'filter-errors' : '']">
     <label class="group-label" for="inicio">Início</label>
-    <input id="inicio" type="date" class="control-date">
+    <input (change)="checkDateInterval()" formControlName="inicio" id="inicio" type="date"
+           class="control-date">
+    <span class="message-error" *ngIf="!isValid('inicio') && submitted">Preencha este campo</span>
+    <span class="message-error" *ngIf="this.intervalDateMessage != ''">{{ this.intervalDateMessage }}</span>
   </div>
-  <div class="group">
+  <div class="group" *ngIf="hasDateInterval" [ngClass]="[!isValid('fim') && submitted ? 'filter-errors' : '']">
     <label class="group-label" for="fim">Fim</label>
-    <input id="fim" type="date" class="control-date">
+    <input (change)="checkDateInterval()" formControlName="fim" id="fim" type="date" class="control-date">
+    <span class="message-error" *ngIf="!isValid('fim') && submitted">Preencha este campo</span>
   </div>
-  <div class="group">
-    <ng-select></ng-select>
+  <div class="group" *ngIf="hasSelect" [ngClass]="[!isValid('setor') && submitted ? 'filter-errors' : '']">
+    <ng-select [clearable]="false" [items]="items" [bindLabel]="bindLabel" [bindValue]="bindValue"
+               formControlName="setor">
+    </ng-select>
+    <span class="message-error" *ngIf="!isValid('setor') && submitted">Escolha um setor</span>
   </div>
   <div class="button-container">
-    <button class="search-button">
+    <button (click)="send()" class="search-button">
       <fa-icon class="search-icon" [icon]="faIconSearch"></fa-icon>
       <span>Buscar</span>
     </button>
+    <button class="button btn-clear" (click)="clear()">Limpar</button>
   </div>
 </main>
-

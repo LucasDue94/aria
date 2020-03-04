@@ -7,6 +7,7 @@ import {RouterModule} from "@angular/router";
 import {FastSearchModule} from "../components/fast-search/fast-search.module";
 import {ReactiveFormsModule} from "@angular/forms";
 import {SetorCreateComponent} from "./create/setor-create.component";
+import {FilterModule} from "../components/filter/filter.module";
 
 
 
@@ -21,7 +22,8 @@ import {SetorCreateComponent} from "./create/setor-create.component";
     FontAwesomeModule,
     RouterModule,
     FastSearchModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FilterModule
   ]
 })
 export class SetorModule { }

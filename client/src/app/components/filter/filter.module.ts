@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {FilterComponent} from "./filter.component";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -12,7 +13,8 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
   imports: [
     CommonModule,
     NgSelectModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    ReactiveFormsModule
   ],
   exports: [
     FilterComponent
