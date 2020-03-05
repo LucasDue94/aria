@@ -1,0 +1,15 @@
+import br.com.hospitaldocoracaoal.integracao.RegistroAtendimentoLeito
+
+model {
+	RegistroAtendimentoLeito registroAtendimentoLeito
+}
+
+json g.render(registroAtendimentoLeito, [expand: ['registroAtendimento', 'registroAtendimento.paciente', 'registroAtendimento.motivoAlta'], excludes: ['leito'], resolveTemplate: false]) {
+	dataAlta registroAtendimentoLeito.dataAlta
+	leito g.render(registroAtendimentoLeito.leito, [resolveTemplate: false]) {
+		setor {
+			descricao registroAtendimentoLeito.leito.setor.setor.descricao
+			sigla registroAtendimentoLeito.leito.setor.setor.sigla
+		}
+	}
+}
