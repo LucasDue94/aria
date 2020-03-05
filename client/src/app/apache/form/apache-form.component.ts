@@ -49,58 +49,30 @@ export class ApacheFormComponent implements OnInit {
 
   ngOnInit() {
     if (window.innerWidth < 1024) this.labelPosition = 'top';
-    this.spinner.show();
-
     this.title.send('Apache II - Formulário');
-    const id = this.route.snapshot.queryParamMap.get('registro');
-    this.registroAtendimentoService.get(id).subscribe(res => {
-      let messageError = '';
-      if (res.hasOwnProperty('error')) {
-        if (res.error.error.hasOwnProperty('_embedded')) {
-          res.error.error._embedded.errors.forEach(error => {
-            messageError += error.message + '. \n';
+    this.spinner.show();
+    this.registroAtendimentoService.getRegistroAtendimetoLeito(this.route.snapshot.queryParamMap.get('registro'), this.route.snapshot.queryParamMap.get('leito'), this.route.snapshot.queryParamMap.get('dataEntrada')).subscribe((registroAtendimentoLeito) => {
+      this.registroAtendimentoLeito = registroAtendimentoLeito;
+    });
+    const apacheId = this.route.snapshot.queryParamMap.get('apacheId');
+    if (apacheId) {
+      this.apacheService.get(apacheId).subscribe(res => {
+        if (res.hasOwnProperty('error')) {
+          const messageError = res.error.error.message;
+          this.alertService.send({
+            message: messageError,
+            type: 'error',
+            icon: faFrown
           });
         } else {
-          messageError = res.error.error.message;
+          this.apache = res;
+          this.calculaPressaoMedia()
         }
-        this.alertService.send({
-          message: messageError,
-          type: 'error',
-          icon: faFrown
-        });
-      } else {
-        this.registroAtendimento = res;
-        this.registroAtendimentoLeito = {
-          dataEntrada: this.route.snapshot.queryParamMap.get('dataEntrada'),
-          leito: {
-            id: this.route.snapshot.queryParamMap.get('leito')
-          },
-          registroAtendimento: {
-            id: this.registroAtendimento.id
-          },
-        dataAlta: this.route.snapshot.queryParamMap.get('dataAlta')}
-      }
-
-      const apacheId = this.route.snapshot.queryParamMap.get('apacheId');
-      if (apacheId) {
-        this.apacheService.get(apacheId).subscribe(res => {
-          if (res.hasOwnProperty('error')) {
-            messageError = res.error.error.message;
-            this.alertService.send({
-              message: messageError,
-              type: 'error',
-              icon: faFrown
-            });
-          } else {
-            this.apache = res;
-            this.calculaPressaoMedia()
-          }
-          this.spinner.hide();
-        });
-      } else {
         this.spinner.hide();
-      }
-    });
+      });
+    } else {
+      this.spinner.hide();
+    }
   }
 
   calculaPressaoMedia() {

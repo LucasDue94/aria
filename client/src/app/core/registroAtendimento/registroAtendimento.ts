@@ -8,7 +8,7 @@ import {Balao} from "../balao/balao";
 
 
 export class RegistroAtendimento {
-  id: number;
+  id: string;
   dataEntrada: string;
   dataAlta: string;
   setor: Setor;
