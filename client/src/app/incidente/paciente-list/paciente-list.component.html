@@ -16,20 +16,20 @@
   </form>
   <div class="table">
     <section class="thead">
-      <span class="th">Prontuário</span>
-      <span class="th">Nome</span>
-      <span class="th">Sexo</span>
-      <span class="th">Nome da mãe</span>
-      <span class="th">Nascimento</span>
+      <span class="th flex-1">Prontuário</span>
+      <span class="th flex-3">Nome</span>
+      <span class="th flex-1">Sexo</span>
+      <span class="th flex-3">Nome da mãe</span>
+      <span class="th flex-1">Nascimento</span>
     </section>
     <section #dataList class="tbody content-paciente" [scrollWindow]="false" infinite-scroll (scrolled)="scrollDown()">
       <spinner [loading]="listLoading"></spinner>
       <div [routerLink]="['/incidente','paciente-details',paciente.id]" *ngFor="let paciente of pacientes" class="row">
-        <span class="td">{{paciente.id}}</span>
-        <span class="td">{{paciente.nome}}</span>
-        <span class="td">{{paciente.sexo}}</span>
-        <span class="td">{{paciente.nomeMae}}</span>
-        <span class="td">{{paciente.nascimento | date:'dd/MM/yy'}}</span>
+        <span class="td flex-1">{{paciente.id}}</span>
+        <span class="td flex-3">{{paciente.nome}}</span>
+        <span class="td flex-1">{{paciente.sexo}}</span>
+        <span class="td flex-3">{{paciente.nomeMae}}</span>
+        <span class="td flex-1">{{paciente.nascimento | date:'dd/MM/yy'}}</span>
       </div>
       <app-scroll-spinner [show]="showListScrollSpinner"></app-scroll-spinner>
       <div class="empty" *ngIf="pacientes?.length == 0">
