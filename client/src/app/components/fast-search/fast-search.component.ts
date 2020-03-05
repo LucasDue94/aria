@@ -49,7 +49,7 @@ export class FastSearchComponent implements OnInit {
       this.dataArray = res;
         this.loaded();
       });
-    this.busca()
+    this.search()
   }
 
   emitData(data) {

@@ -86,7 +86,7 @@ export class ApachePacienteListComponent implements OnInit {
         this.termo = changes;
         this.offset = 0;
         if (this.admissoesPacSetor != undefined) this.admissoesPacSetor.length = 0;
-        return this.apacheService.busca(this.setorId, changes, this.offset, this.max)
+        return this.apacheService.search(this.setorId, changes, this.offset, this.max)
       })
     ).subscribe(res => {
       this.admissoesPacSetor = res;
