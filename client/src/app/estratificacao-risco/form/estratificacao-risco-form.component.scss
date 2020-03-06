@@ -1,0 +1,68 @@
+@import "src/assets/device-sizes";
+@import "../../../assets/colors";
+
+
+.stratification-risk-container {
+  padding: 10px;
+
+  & .title {
+    padding: 10px;
+    text-align: center;
+    background: $gray-80;
+    color: $white;
+  }
+
+  & .group-risk {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 99%;
+    margin: 0 auto;
+    font-size: 14px;
+    line-height: 25px;
+    color: $gray-90;
+    overflow-y: scroll !important;
+    /*
+    max-height: 350px;
+    */
+
+    & .label-risk {
+      width: 180px;
+      margin: 5px;
+      word-break: normal;
+    }
+
+    & .group-checkbox {
+      width: 33.33%;
+      margin: 10px auto;
+    }
+
+    & .column-risk {
+      padding: 10px;
+
+      & input.radio[type="radio"], input.checkbox[type='checkbox'] {
+        transform: scale(1.5);
+      }
+
+      & .label-radio-risk {
+        margin: 10px;
+      }
+
+    }
+  }
+}
+
+@media screen and (max-width: $tablet-width) {
+  .stratification-risk-container {
+    .group-risk {
+      flex-wrap: wrap;
+
+      & .column-risk {
+        width: 100%;
+      }
+    }
+  }
+
+
+}

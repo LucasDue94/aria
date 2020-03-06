@@ -33,6 +33,7 @@ import {ReportBalaoComponent} from "../../balao/report-balao/report-balao.compon
 import {EcgEditComponent} from "../../ecg/edit/ecg-edit.component";
 import {EditBalaoComponent} from "../../balao/edit-balao/edit-balao.component";
 import {FilterComponent} from "../../components/filter/filter.component";
+import {EstratificacaoRiscoFormComponent} from "../../estratificacao-risco/form/estratificacao-risco-form.component";
 
 const routes: Routes = [
   {
@@ -318,7 +319,16 @@ const routes: Routes = [
             component: FilterComponent,
           },
         ]
-      },
+      },{
+        path: 'estratificacao',
+        children: [
+          {
+            path: 'create',
+            component: EstratificacaoRiscoFormComponent,
+            canActivate: [AuthGuard]
+          }
+        ]
+      }
     ]
   }
 ];

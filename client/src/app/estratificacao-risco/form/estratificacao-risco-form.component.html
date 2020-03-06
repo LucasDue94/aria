@@ -1,0 +1,23 @@
+<paciente-info [paciente]="registroAtendimento?.paciente"></paciente-info>
+<div class="stratification-risk-container">
+  <h2 class="title">ESTRATIFICAÇÃO DE RISCOS</h2>
+  <form>
+    <section class="group-risk" *ngFor="let stratification of stratificationRisks; let i=index">
+      <div class="column-risk" *ngFor="let item of stratification.risks">
+        <p class="label-risk">{{item.description}}</p>
+        <div class="group-radios">
+          <input class="radio label-radio-risk" value="{{item.value}}" type="radio"><span class="label-risk">Sim</span>
+          <input class="radio label-radio-risk" value="{{item.value}}" type="radio"><span class="label-risk">Não</span>
+        </div>
+      </div>
+      <div class="column-risk group-checkbox" *ngFor="let item of stratification.tevClinical">
+          <input class="checkbox" type="checkbox">
+          <span class="label-risk">{{item.description}}</span>
+      </div>
+      <div class="column-risk group-checkbox" *ngFor="let item of stratification.tevSurgical">
+        <input class="checkbox" type="checkbox">
+        <span class="label-risk">{{item.description}}</span>
+      </div>
+    </section>
+  </form>
+</div>

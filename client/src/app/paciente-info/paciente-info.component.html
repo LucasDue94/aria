@@ -1,6 +1,6 @@
-<fa-icon *ngIf="minimize" class="infoIcon" (click)="minimize = false" [icon]="infoCircleIcon"></fa-icon>
-<fa-icon *ngIf="!minimize" class="minimizeIcon" (click)="minimize = true" [icon]="windowMinimizeIcon"></fa-icon>
 <main [ngClass]="[minimize ? 'minimize' : 'paciente-info-container']">
+  <fa-icon *ngIf="!minimize" class="minimizeIcon" (click)="minimize = true" [icon]="windowMinimizeIcon"></fa-icon>
+  <fa-icon *ngIf="minimize" class="infoIcon" (click)="minimize = false" [icon]="infoCircleIcon"></fa-icon>
   <section class="item-info">
     <h3 class="label">Paciente</h3>
     <h4 class="info">{{paciente?.nome}}</h4>
