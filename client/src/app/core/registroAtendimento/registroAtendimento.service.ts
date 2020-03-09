@@ -98,6 +98,17 @@ export class RegistroAtendimentoService {
     return subject.asObservable();
   }
 
+  getRegistroAtendimetoLeito(registroId?: string, leitoId?: any, dataEntrada?: any): Observable<any[]> {
+    let subject = new Subject<any[]>();
+    this.http.get(this.baseUrl + 'registroAtendimentoLeito/show?registro=' + registroId + '&leito=' + leitoId + '&dataEntrada=' + dataEntrada)
+      .pipe(
+        catchError(error => of({error})
+        )).subscribe((json: any[]) => {
+      subject.next(json);
+    });
+    return subject.asObservable();
+  }
+
   search(searchTerm, offset?: any, max?): Observable<any[]> {
     let subject = new Subject<RegistroAtendimento[]>();
     this.http.get(this.baseUrl + `registroAtendimento/` + '?offset=' + offset + '&max=' + max, {

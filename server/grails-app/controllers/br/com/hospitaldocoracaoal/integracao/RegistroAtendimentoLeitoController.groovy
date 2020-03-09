@@ -3,6 +3,8 @@ package br.com.hospitaldocoracaoal.integracao
 import grails.gorm.transactions.ReadOnly
 import grails.plugin.springsecurity.annotation.Secured
 
+import java.time.LocalDateTime
+
 @ReadOnly
 class RegistroAtendimentoLeitoController {
 
@@ -17,8 +19,8 @@ class RegistroAtendimentoLeitoController {
         respond registroAtendimentoLeitoService.list(params), model:[registroAtendimentoLeitoCount: registroAtendimentoLeitoService.count()]
     }
 
-    @Secured('ROLE_REGISTRO_ATENDIMENTO_INDEX')
-    def show(String registroAtendimento, String leito, Date dataEntrada) {
-        respond registroAtendimentoLeitoService.get(id)
+    @Secured('ROLE_REGISTRO_ATENDIMENTO_SHOW')
+    def show(String registro, String leito, String dataEntrada) {
+        respond registroAtendimentoLeitoService.get(new RegistroAtendimentoLeito(registroAtendimento: RegistroAtendimento.load(registro), leito: Leito.load(leito), dataEntrada: dataEntrada))
     }
 }

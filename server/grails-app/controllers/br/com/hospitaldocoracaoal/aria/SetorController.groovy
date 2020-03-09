@@ -23,7 +23,6 @@ class SetorController {
         respond setorService.list(params, tipoSetor), model:[setorCount: setorService.count()]
     }
 
-
     @Secured('ROLE_SETOR_SHOW')
     def show(Long id) {
         respond setorService.get(id)

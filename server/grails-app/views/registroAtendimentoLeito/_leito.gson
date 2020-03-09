@@ -1,0 +1,7 @@
+import br.com.hospitaldocoracaoal.integracao.Leito
+
+model {
+	Leito leito
+}
+
+json g.render(leito, [resolveTemplate: false])

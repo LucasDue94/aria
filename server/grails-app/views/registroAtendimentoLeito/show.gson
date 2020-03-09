@@ -1,0 +1,7 @@
+import br.com.hospitaldocoracaoal.integracao.RegistroAtendimentoLeito
+
+model {
+	RegistroAtendimentoLeito registroAtendimentoLeito
+}
+
+json tmpl.registroAtendimentoLeito(registroAtendimentoLeito)
