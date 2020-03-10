@@ -1,0 +1,7 @@
+import br.com.hospitaldocoracaoal.aria.EstratificacaoRisco
+
+model {
+	EstratificacaoRisco estratificacaoRisco
+}
+
+json tmpl.estratificacaoRisco(estratificacaoRisco)

@@ -107,6 +107,14 @@ class Permissao implements Serializable {
             findOrSaveWhere(authority: 'ROLE_INCIDENTE_DELETE', nome: 'Excluir incidente', alias: 'incidente')
             findOrSaveWhere(authority: 'ROLE_INCIDENTE_REPORT', nome: 'Relatório incidente', alias: 'incidente')
 
+            // -- ESTRATIFICACAO DE RISCO --
+            findOrSaveWhere(authority: 'ROLE_ESTRATIFICACAO_INDEX', nome: 'Listar estratificações de risco', alias: 'estratificação risco')
+            findOrSaveWhere(authority: 'ROLE_ESTRATIFICACAO_SHOW', nome: 'Ver estratificação de risco', alias: 'estratificação risco')
+            findOrSaveWhere(authority: 'ROLE_ESTRATIFICACAO_SAVE', nome: 'Salvar estratificação de risco', alias: 'estratificação risco')
+            findOrSaveWhere(authority: 'ROLE_ESTRATIFICACAO_UPDATE', nome: 'Atualizar estratificação de risco', alias: 'estratificação risco')
+            findOrSaveWhere(authority: 'ROLE_ESTRATIFICACAO_DELETE', nome: 'Excluir estratificação de risco', alias: 'estratificação risco')
+            findOrSaveWhere(authority: 'ROLE_ESTRATIFICACAO_REPORT', nome: 'Relatório estratificação de risco', alias: 'estratificação risco')
+
             status.flush()
         }
     }
