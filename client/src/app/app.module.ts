@@ -34,6 +34,7 @@ import {PacienteInfoModule} from "./paciente-info/paciente-info.module";
 import {EcgModule} from "./ecg/ecg.module";
 import {HttpClientModule} from "@angular/common/http";
 import {FilterModule} from "./components/filter/filter.module";
+import {EstratificacaoRiscoModule} from "./estratificacao-risco/estratificacao-risco.module";
 
 @NgModule({
   exports: [],
@@ -72,7 +73,8 @@ import {FilterModule} from "./components/filter/filter.module";
     IncidenteModule,
     NasModule,
     PacienteInfoModule,
-    FilterModule
+    FilterModule,
+    EstratificacaoRiscoModule
 ],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy},

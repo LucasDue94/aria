@@ -1,0 +1,160 @@
+@import "src/assets/device-sizes";
+@import "../../../assets/colors";
+
+
+.stratification-risk-container {
+  width: 99%;
+  padding: 10px;
+  margin: 0 auto;
+
+  & .title {
+    padding: 10px;
+    text-align: center;
+    background: $gray-80;
+    color: $white;
+  }
+
+  & .group-risk {
+    position: absolute;
+    display: flex;
+    width: 99%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin: 0 auto;
+    font-size: 14px;
+    line-height: 25px;
+    color: $gray-90;
+    overflow-y: scroll !important;
+    max-height: 350px;
+
+    & .label-risk {
+      width: 180px;
+      margin: 5px;
+      word-break: normal;
+    }
+
+    & .group-checkbox {
+      width: 33.33%;
+      margin: 10px auto;
+    }
+
+    & .column-risk {
+      padding: 10px;
+    }
+
+    & .column-risk:nth-child(2n+1) {
+      background: $gray-40;
+    }
+
+    & input.radio[type="radio"], input.checkbox[type='checkbox'] {
+      transform: scale(1.5);
+    }
+
+    & .label-radio-risk {
+      margin: 10px;
+    }
+  }
+
+  & .tevs {
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 14px;
+    line-height: 25px;
+    color: $gray-90;
+    margin-top: 10px;
+
+    & .tevSurgical {
+      padding: 10px;
+      width: 50%;
+    }
+
+    & .tevClinical {
+      width: 50%;
+      padding: 10px;
+    }
+
+    & .zebra:nth-child(2n+1) {
+      background: $gray-40;
+    }
+
+    & .label-tev {
+      width: 41.66%;
+      margin-left: 10px;
+    }
+
+    & .legend-group {
+      width: 50%;
+      position: absolute;
+      right: 0;
+      justify-content: center;
+      vertical-align: middle;
+      align-items: flex-start;
+      display: flex;
+      flex-direction: row;
+
+      .label-danger, .label-success, .label-moderate, .label-warning {
+        font-size: 18px;
+        text-align: center;
+        padding: 10px;
+
+        & .icon {
+          font-size: 22px;
+        }
+      }
+
+      .label-danger {
+        color: $danger;
+      }
+
+      .label-success {
+        color: $success;
+      }
+
+      .label-moderate {
+        color: $blue-default;
+      }
+
+      .label-warning {
+        color: $warning;
+      }
+    }
+  }
+
+}
+
+@media screen and (max-width: $tablet-width) {
+  .stratification-risk-container {
+    .group-risk {
+      & .column-risk {
+        width: 40%;
+      }
+    }
+
+    .tevs {
+      flex-direction: column;
+
+      & .tevSurgical, .tevClinical {
+        width: 90%;
+      }
+    }
+
+    & .legend-group {
+      display: flex;
+      width: 100% !important;
+      flex-direction: row;
+      position: relative !important;
+      margin-top: 20px;
+
+      & .label-danger, .label-success, .label-moderate, .label-warning {
+        text-align: initial;
+        width: 50%;
+      }
+    }
+  }
+
+
+}

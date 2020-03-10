@@ -1,0 +1,35 @@
+<paciente-info [paciente]="registroAtendimento?.paciente"></paciente-info>
+<div class="stratification-risk-container">
+  <h2 class="title">ESTRATIFICAÇÃO DE RISCOS</h2>
+  <form action="#">
+    <section class="group-risk" *ngFor="let stratification of stratificationRisks; let i=index">
+      <div class="column-risk" *ngFor="let item of stratification.risks">
+        <p class="label-risk">{{item.description}}</p>
+        <div class="group-radios">
+          <input type="radio" id="sim" class="radio label-radio-risk" value="sim"><label for="sim" class="label-risk">Sim</label>
+          <input type="radio" id="nao" class="radio label-radio-risk" value="nao"><label for="sim" class="label-risk">Não</label>
+        </div>
+      </div>
+      <div class="tevs">
+        <section *ngFor="let item of stratification.tevClinical">
+          <article class="tevClinical" *ngIf="tevClinical">
+            <input class="checkbox" name="{{item.status}}" value="true" type="checkbox">
+            <label class="label-tev">{{item.description}}</label>
+          </article>
+        </section>
+        <section *ngFor="let item of stratification.tevSurgical">
+          <article class="tevSurgical" *ngIf="tevSurgical">
+            <input class="checkbox" type="checkbox">
+            <label class="label-tev">{{item.description}}</label>
+          </article>
+        </section>
+        <div class="legend-group">
+          <p class="label-danger"><fa-icon class="icon" [icon]="faFrown"></fa-icon> Alto risco</p>
+          <p class="label-warning"><fa-icon class="icon" [icon]="faMeh"></fa-icon> Moderado risco</p>
+          <p class="label-moderate"><fa-icon class="icon" [icon]="faSmile"></fa-icon> Baixo risco</p>
+          <p class="label-success"><fa-icon class="icon" [icon]="faSmile"></fa-icon> Muito baixo risco</p>
+        </div>
+      </div>
+    </section>
+  </form>
+</div>

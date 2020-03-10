@@ -104,6 +104,13 @@ export class MenuComponent implements OnInit {
       permission: EnumPermisson.role_paciente_index,
       faIcon: faCommentMedical,
       router: ['/balao/paciente-list']
+    },
+    {
+      name: 'Estraficação',
+      status: false,
+      permission: EnumPermisson.role_paciente_index,
+      faIcon: faCommentMedical,
+      router: ['/estratificacao/create']
     }
   ];
 
