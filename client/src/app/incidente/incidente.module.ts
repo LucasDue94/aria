@@ -7,7 +7,7 @@ import {RouterModule} from "@angular/router";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {InfiniteScrollModule} from "ngx-infinite-scroll";
 import { PacienteDetailsComponent } from './paciente-details/paciente-details.component';
-import { IncidenteReportComponent } from './incidente-report/incidente-report.component';
+import { IncidenteReportComponent } from './report/incidente-report.component';
 import {ChartModule, HIGHCHARTS_MODULES} from "angular-highcharts";
 import {SpinnerModule} from "../components/spinner/spinner.module";
 import * as more from "highcharts/highcharts-more.src";
