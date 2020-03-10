@@ -7,9 +7,9 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {RouterModule} from "@angular/router";
 import {SpinnerModule} from "../components/spinner/spinner.module";
-import { ReportBalaoComponent } from './report-balao/report-balao.component';
+import { ReportBalaoComponent } from './report/report-balao.component';
 import {ChartModule} from "angular-highcharts";
-import { EditBalaoComponent } from './edit-balao/edit-balao.component';
+import { EditBalaoComponent } from './edit/edit-balao.component';
 
 
 

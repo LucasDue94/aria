@@ -28,12 +28,12 @@ import {IncidenteReportComponent} from "../../incidente/report/incidente-report.
 import {NasFormComponent} from "../../nas/form/nas-form.component";
 import {EcgListComponent} from "../../ecg/list/ecg-list.component";
 import {EcgFormComponent} from "../../ecg/form/ecg-form.component";
-import {ReportEcgComponent} from "../../ecg/report-ecg/report-ecg.component";
-import {ReportBalaoComponent} from "../../balao/report-balao/report-balao.component";
+import {ReportEcgComponent} from "../../ecg/report/report-ecg.component";
+import {ReportBalaoComponent} from "../../balao/report/report-balao.component";
 import {EcgEditComponent} from "../../ecg/edit/ecg-edit.component";
-import {EditBalaoComponent} from "../../balao/edit-balao/edit-balao.component";
+import {EditBalaoComponent} from "../../balao/edit/edit-balao.component";
 import {FilterComponent} from "../../components/filter/filter.component";
-import {EstratificacaoRiscoFormComponent} from "../../estratificacao-risco/form/estratificacao-risco-form.component";
+import {EstratificacaoRiscoFormComponent} from "../../risco/estratificacao/form/estratificacao-risco-form.component";
 
 const routes: Routes = [
   {

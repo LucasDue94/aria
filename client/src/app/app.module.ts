@@ -34,7 +34,7 @@ import {PacienteInfoModule} from "./paciente-info/paciente-info.module";
 import {EcgModule} from "./ecg/ecg.module";
 import {HttpClientModule} from "@angular/common/http";
 import {FilterModule} from "./components/filter/filter.module";
-import {EstratificacaoRiscoModule} from "./estratificacao-risco/estratificacao-risco.module";
+import {EstratificacaoRiscoModule} from "./risco/estratificacao/estratificacao-risco.module";
 
 @NgModule({
   exports: [],

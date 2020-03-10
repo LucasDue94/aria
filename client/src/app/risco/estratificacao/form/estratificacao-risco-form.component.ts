@@ -1,7 +1,7 @@
 import {Component, OnInit, Renderer2} from '@angular/core';
-import {RegistroAtendimentoService} from "../../core/registroAtendimento/registroAtendimento.service";
-import {RegistroAtendimento} from "../../core/registroAtendimento/registroAtendimento";
-import {TitleService} from "../../core/title/title.service";
+import {RegistroAtendimentoService} from "../../../core/registroAtendimento/registroAtendimento.service";
+import {RegistroAtendimento} from "../../../core/registroAtendimento/registroAtendimento";
+import {TitleService} from "../../../core/title/title.service";
 import {faFrown, faMeh, faSmile} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
