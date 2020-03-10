@@ -45,7 +45,8 @@ class EstratificacaoRisco {
 
     Boolean tev_cirurgico_5                 // AVC (menos de 1 mes).
     Boolean tev_cirurgico_3                 // Idade >= 75 anos, Historia pessoal de TEV, Trombocitopenia induzida por heparina, Trombofilia congenita ou adquirida
-    Boolean tev_cirurgico_2                 // Idade 61-74 anos, Cirurgia aberta / laparoscopica (>45 minutos), Neoplastia maligna, Paciente acamado >=
+    Boolean tev_cirurgico_2                 // Idade 61-74 anos, Cirurgia aberta / laparoscopica (>45 minutos), Neoplastia maligna, Paciente acamado >= , Cirurgia aberta / laparoscopica (>45 mnutos), Neoplasia maligna, Paciente acamado >= 72 horas, Cateter venoso central / PICC
+    Boolean tev_cirurgico_1                 // Idade 41- 60 anos, Pequena cirugia (45 minutos), Edema de MMII ou veias varicosas, Gravidez ou puerperio, Historia de abortamento inexplicada, Uso de contraceptivo ou terapia hormonal, Sepse, pneumonia grave
     static constraints = {
     }
 }
