@@ -5,11 +5,12 @@
   display: flex;
   align-items: flex-end;
   background-color: $white;
-  margin: 10px auto;
+  margin: 10px;
   box-shadow: 0 0 3px $gray-80;
   font-size: 16px;
   min-height: 90px;
   flex-wrap: wrap;
+  width: 100%;
 
   .group {
     display: flex;

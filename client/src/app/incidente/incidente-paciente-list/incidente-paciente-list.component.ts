@@ -10,7 +10,7 @@ import {PacienteService} from "../../core/paciente/paciente.service";
 import {SetorService} from "../../core/setor/setor.service";
 
 @Component({
-  selector: 'incidente-list',
+  selector: 'incidente-paciente-list',
   templateUrl: './incidente-paciente-list.component.html',
   styleUrls: ['./incidente-paciente-list.component.scss']
 })

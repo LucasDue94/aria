@@ -1,18 +1,16 @@
-import {Component, OnInit, Renderer2, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {faFrown, faSearch} from "@fortawesome/free-solid-svg-icons";
 import {Setor} from "../../../core/setor/setor";
 import {ApacheService} from "../../../core/apache/apache.service";
 import {SetorService} from "../../../core/setor/setor.service";
 import {FormBuilder, Validators} from "@angular/forms";
 import {TitleService} from "../../../core/title/title.service";
-import {SpinnerService} from "../../../core/spinner/spinner.service";
 import {debounceTime, switchMap} from 'rxjs/operators';
 import {ErrorService} from "../../../core/error/error.service";
 import * as moment from 'moment';
-import {hasOwnProperty} from "tslint/lib/utils";
 
 @Component({
-  selector: 'app-apache-paciente-list',
+  selector: 'apache-paciente-list',
   templateUrl: './apache-paciente-list.component.html',
   styleUrls: ['./apache-paciente-list.component.scss']
 })
@@ -36,44 +34,30 @@ export class ApachePacienteListComponent implements OnInit {
   termo = '';
 
   constructor(private apacheService: ApacheService, private setorService: SetorService, private errorService: ErrorService,
-              private titleService: TitleService, private fb: FormBuilder, private spinner: SpinnerService, private renderer: Renderer2) {
+              private titleService: TitleService, private fb: FormBuilder) {
   }
 
   ngOnInit() {
-    this.spinner.show();
+    this.listLoading = true;
     this.titleService.send('Apache II - Lista de Pacientes');
     this.setorService.list('U', '', '').subscribe(setores => {
-      if(this.errorService.hasError(setores)) {
-        this.spinner.hide();
+      if (this.errorService.hasError(setores)) {
+        this.listLoading = false;
         this.errorService.hasError(setores);
       } else {
         setores.forEach(setor => {
           this.arrayListSetor.push(setor);
         });
-        this.apacheService.list(this.setorId,'','',30).subscribe(registros => {
+        this.apacheService.list(this.setorId, '', '', 30).subscribe(registros => {
           if (this.errorService.hasError(registros)) {
-            this.spinner.hide();
+            this.listLoading = false;
             this.errorService.sendError(registros);
           } else {
             this.admissoesPacSetor = registros;
-            this.spinner.hide();
+            this.listLoading = false;
           }
         });
       }
-    });
-  }
-
-  listAdmissoesSetor() {
-    this.listLoading = true;
-    this.admissoesPacSetor = [];
-    this.offset = 0;
-    this.renderer.setProperty(this.dataList.nativeElement, 'scrollTop', 0);
-    this.apacheService.list(this.setorId, this.termo, this.offset, this.max).subscribe(registros => {
-      if(registros.hasOwnProperty('error')) {
-      } else {
-        this.admissoesPacSetor = registros;
-      }
-      this.listLoading = false;
     });
   }
 
@@ -107,13 +91,13 @@ export class ApachePacienteListComponent implements OnInit {
 
   getRowClass(registro: any) {
     let rowClass = 'hiden';
-    if(this.setorId != null && this.setorId != undefined && this.setorId != '' && this.setorId != 'null') {
-      if(registro.apache) {
+    if (this.setorId != null && this.setorId != undefined && this.setorId != '' && this.setorId != 'null') {
+      if (registro.apache) {
         rowClass = 'row-success';
-      } else if(moment() > moment(registro.dataEntrada).add(24, 'hours')) { // Testa se passaram 24 horas da entrada
+      } else if (moment() > moment(registro.dataEntrada).add(24, 'hours')) { // Testa se passaram 24 horas da entrada
         rowClass = 'row-available';
-        const setor = this.arrayListSetor.find( s => s.id == this.setorId);
-        if(moment() > moment(registro.dataEntrada).add(24 + setor.prazoApache, 'hours')) { // Testa se alem das 24 horas, estourou o prazo do setor
+        const setor = this.arrayListSetor.find(s => s.id == this.setorId);
+        if (moment() > moment(registro.dataEntrada).add(24 + setor.prazoApache, 'hours')) { // Testa se alem das 24 horas, estourou o prazo do setor
           rowClass = 'row-alert';
         }
       }

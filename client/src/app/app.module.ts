@@ -35,6 +35,7 @@ import {EcgModule} from "./ecg/ecg.module";
 import {HttpClientModule} from "@angular/common/http";
 import {FilterModule} from "./components/filter/filter.module";
 import {EstratificacaoRiscoModule} from "./risco/estratificacao/estratificacao-risco.module";
+import {PacienteListModule} from "./paciente-list/paciente-list.module";
 
 @NgModule({
   exports: [],
@@ -74,7 +75,8 @@ import {EstratificacaoRiscoModule} from "./risco/estratificacao/estratificacao-r
     NasModule,
     PacienteInfoModule,
     FilterModule,
-    EstratificacaoRiscoModule
+    EstratificacaoRiscoModule,
+    PacienteListModule
 ],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy},

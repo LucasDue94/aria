@@ -36,13 +36,6 @@ export class MenuComponent implements OnInit {
       router: ['/perfil']
     },
     {
-      name: 'Apache II',
-      status: false,
-      permission: EnumPermisson.role_apache_report,
-      faIcon: faNotesMedical,
-      router: ['/apache']
-    },
-    {
       name: 'Setores',
       status: false,
       permission: EnumPermisson.role_setor_index,
@@ -85,32 +78,11 @@ export class MenuComponent implements OnInit {
       router: ['/tipo-incidente']
     },
     {
-      name: 'Incidentes',
-      status: false,
-      permission: EnumPermisson.role_paciente_index,
-      faIcon: faUserInjured,
-      router: ['/incidente/paciente-list']
-    },
-    {
-      name: 'Ecg',
-      status: false,
-      permission: EnumPermisson.role_paciente_index,
-      faIcon: faProcedures,
-      router: ['/ecg/paciente-list']
-    },
-    {
-      name: 'Balão',
+      name: 'Pacientes',
       status: false,
       permission: EnumPermisson.role_paciente_index,
       faIcon: faCommentMedical,
-      router: ['/balao/paciente-list']
-    },
-    {
-      name: 'Estraficação',
-      status: false,
-      permission: EnumPermisson.role_paciente_index,
-      faIcon: faCommentMedical,
-      router: ['/estratificacao/create']
+      router: ['/pacientes']
     }
   ];
 

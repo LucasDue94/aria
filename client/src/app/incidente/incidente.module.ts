@@ -32,8 +32,11 @@ import * as exporting from "highcharts/modules/exporting.src";
     FormsModule,
     ChartModule
   ],
+  exports: [
+    IncidentePacienteListComponent
+  ],
   providers: [
-    { provide: HIGHCHARTS_MODULES, useFactory: () => [ more, exporting ] }
+    {provide: HIGHCHARTS_MODULES, useFactory: () => [more, exporting]}
   ]
 })
 export class IncidenteModule { }
