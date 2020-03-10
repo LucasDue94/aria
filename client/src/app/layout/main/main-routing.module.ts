@@ -24,7 +24,7 @@ import {BalaoFormComponent} from "../../balao/form/balao-form.component";
 import {BalaoListComponent} from "../../balao/list/balao-list.component";
 import {PacienteDetailsComponent} from "../../incidente/paciente-details/paciente-details.component";
 import {IncidenteFormComponent} from "../../incidente/form/incidente-form.component";
-import {IncidenteReportComponent} from "../../incidente/incidente-report/incidente-report.component";
+import {IncidenteReportComponent} from "../../incidente/report/incidente-report.component";
 import {NasFormComponent} from "../../nas/form/nas-form.component";
 import {EcgListComponent} from "../../ecg/list/ecg-list.component";
 import {EcgFormComponent} from "../../ecg/form/ecg-form.component";
