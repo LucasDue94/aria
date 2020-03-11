@@ -10,11 +10,11 @@ import {PacienteService} from "../../core/paciente/paciente.service";
 import {SetorService} from "../../core/setor/setor.service";
 
 @Component({
-  selector: 'incidente-list',
-  templateUrl: './paciente-list.component.html',
-  styleUrls: ['./paciente-list.component.scss']
+  selector: 'incidente-paciente-list',
+  templateUrl: './incidente-paciente-list.component.html',
+  styleUrls: ['./incidente-paciente-list.component.scss']
 })
-export class PacienteListComponent implements OnInit {
+export class IncidentePacienteListComponent implements OnInit {
 
   @ViewChild('dataList', {static: false}) dataList;
 

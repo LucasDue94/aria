@@ -35,8 +35,11 @@ import {PacienteInfoModule} from "../paciente-info/paciente-info.module";
     NgSelectModule,
     PacienteInfoModule
   ],
+  exports: [
+    ApachePacienteListComponent
+  ],
   providers: [
-    { provide: HIGHCHARTS_MODULES, useFactory: () => [ more, exporting ] }
+    {provide: HIGHCHARTS_MODULES, useFactory: () => [more, exporting]}
   ]
 })
 export class ApacheModule { }

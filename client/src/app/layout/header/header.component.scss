@@ -3,11 +3,10 @@
 @import '../../../fonts/manjari';
 
 $transition-links: 0.3s;
-$header-height: 70px;
+$header-height: 55px;
 
 .container-header {
   display: flex;
-  /*position: relative;*/
   position: fixed;
   width: 100%;
   z-index: 41;
@@ -23,7 +22,7 @@ $header-height: 70px;
   & {
     background-color: $green-default;
     color: $white;
-    box-shadow: 0 3px 6px $gray-90;
+    box-shadow: 0 2px 5px $gray-90;
   }
 
   #exit {
@@ -37,6 +36,7 @@ $header-height: 70px;
   #barsIcon, #exit {
     flex: 1;
     padding: 0 20px;
+    font-size: 25px;
 
     & {
       color: rgba($white, 0.7);

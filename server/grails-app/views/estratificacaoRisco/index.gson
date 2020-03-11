@@ -1,0 +1,8 @@
+import br.com.hospitaldocoracaoal.aria.EstratificacaoRisco
+
+model {
+	Iterable<EstratificacaoRisco> estratificacaoRiscoList
+}
+
+json tmpl.estratificacaoRisco(estratificacaoRiscoList ?: [])
+

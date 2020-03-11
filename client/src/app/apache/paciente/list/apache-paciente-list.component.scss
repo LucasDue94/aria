@@ -71,21 +71,6 @@
   flex-basis: 100%;
 }
 
-.search-selected {
-  margin-left: 40px;
-  .label-selected {
-    margin-right: 10px;
-  }
-
-  .selected {
-    color: $gray-90;
-    font-size: 18px;
-    padding: 5px;
-    border-radius: 5px;
-    border: 1px solid $gray-70;
-  }
-}
-
 .card-apache-list {
   display: none;
 }
@@ -126,12 +111,3 @@
     margin: 10px 0;
   }
 }
-
-@media screen and (max-width: 414px) {
-  .search-selected {
-    position: relative;
-    top: 0;
-    left: 0;
-  }
-}
-

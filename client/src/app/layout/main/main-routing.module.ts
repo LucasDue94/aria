@@ -19,7 +19,7 @@ import {RiscoListComponent} from "../../risco/list/risco-list.component";
 import {RiscoFormComponent} from "../../risco/form/risco-form.component";
 import {TipoIncidenteListComponent} from "../../tipo-incidente/list/tipo-incidente-list.component";
 import {TipoIncidenteFormComponent} from "../../tipo-incidente/form/tipo-incidente-form.component";
-import {PacienteListComponent} from "../../incidente/paciente-list/paciente-list.component";
+import {IncidentePacienteListComponent} from "../../incidente/incidente-paciente-list/incidente-paciente-list.component";
 import {BalaoFormComponent} from "../../balao/form/balao-form.component";
 import {BalaoListComponent} from "../../balao/list/balao-list.component";
 import {PacienteDetailsComponent} from "../../incidente/paciente-details/paciente-details.component";
@@ -34,6 +34,7 @@ import {EcgEditComponent} from "../../ecg/edit/ecg-edit.component";
 import {EditBalaoComponent} from "../../balao/edit/edit-balao.component";
 import {FilterComponent} from "../../components/filter/filter.component";
 import {EstratificacaoRiscoFormComponent} from "../../risco/estratificacao/form/estratificacao-risco-form.component";
+import {PacienteListComponent} from "../../paciente-list/paciente-list.component";
 
 const routes: Routes = [
   {
@@ -278,7 +279,7 @@ const routes: Routes = [
           },
           {
             path: 'paciente-list',
-            component: PacienteListComponent,
+            component: IncidentePacienteListComponent,
             canActivate: [AuthGuard],
           },
           {
@@ -328,6 +329,10 @@ const routes: Routes = [
             canActivate: [AuthGuard]
           }
         ]
+      },{
+        path: 'pacientes',
+            component: PacienteListComponent,
+            canActivate: [AuthGuard]
       }
     ]
   }

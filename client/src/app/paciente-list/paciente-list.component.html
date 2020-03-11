@@ -1,0 +1,13 @@
+<main class="container-paciente-list">
+  <app-filter></app-filter>
+  <section class="tab-container">
+    <button [ngClass]="[tab.actived ? 'tab tab-selected' : 'tab']" (click)="select(tab)"
+            *ngFor="let tab of tabs">{{ tab.name  }}</button>
+  </section>
+  <section class="container-lists">
+    <apache-paciente-list *ngIf="findTab('APACHE II').actived"></apache-paciente-list>
+    <incidente-paciente-list *ngIf="findTab('INCIDENTES').actived"></incidente-paciente-list>
+    <ecg-list *ngIf="findTab('ECG').actived"></ecg-list>
+    <balao-list *ngIf="findTab('PORTA BALÃO').actived"></balao-list>
+  </section>
+</main>

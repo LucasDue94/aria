@@ -5,7 +5,6 @@ import {FormBuilder} from "@angular/forms";
 import {SpinnerService} from "../../core/spinner/spinner.service";
 import {debounceTime, switchMap} from "rxjs/operators";
 import {faFrown, faSearch} from '@fortawesome/free-solid-svg-icons';
-import {Ecg} from "../../core/ecg/ecg";
 import {RegistroAtendimento} from "../../core/registroAtendimento/registroAtendimento";
 import {RegistroAtendimentoService} from "../../core/registroAtendimento/registroAtendimento.service";
 import {ErrorService} from "../../core/error/error.service";
@@ -19,7 +18,6 @@ import {Router} from "@angular/router";
 export class EcgListComponent implements OnInit {
 
   urgencias: any[] = [];
-  registros: Ecg[];
   atendimentos: RegistroAtendimento[];
   showListScrollSpinner = false;
   offset = 0;
@@ -39,11 +37,11 @@ export class EcgListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.spinner.show();
+    this.listLoading = true;
     this.titleService.send('ECG - Lista de Pacientes');
     this.registroAtendimentoService.listUrgencias('', '').subscribe(res => {
       this.atendimentos = res;
-      this.spinner.hide();
+      this.listLoading = false;
     });
   }
 

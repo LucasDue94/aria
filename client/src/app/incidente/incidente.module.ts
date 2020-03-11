@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {PacienteListComponent} from "./paciente-list/paciente-list.component";
+import {IncidentePacienteListComponent} from "./incidente-paciente-list/incidente-paciente-list.component";
 import {IncidenteFormComponent} from "./form/incidente-form.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {RouterModule} from "@angular/router";
@@ -17,7 +17,7 @@ import * as exporting from "highcharts/modules/exporting.src";
 
 @NgModule({
   declarations: [
-    PacienteListComponent,
+    IncidentePacienteListComponent,
     IncidenteFormComponent,
     PacienteDetailsComponent,
     IncidenteReportComponent
@@ -32,8 +32,11 @@ import * as exporting from "highcharts/modules/exporting.src";
     FormsModule,
     ChartModule
   ],
+  exports: [
+    IncidentePacienteListComponent
+  ],
   providers: [
-    { provide: HIGHCHARTS_MODULES, useFactory: () => [ more, exporting ] }
+    {provide: HIGHCHARTS_MODULES, useFactory: () => [more, exporting]}
   ]
 })
 export class IncidenteModule { }

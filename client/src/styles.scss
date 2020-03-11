@@ -80,7 +80,7 @@ tspan {
 .container {
   position: relative;
   height: calc(100% - 20px);
-  margin: 15px;
+  margin: 10px;
 }
 
 .content {
@@ -394,6 +394,30 @@ tspan {
   }
 }
 
+
+.table-list {
+  position: absolute;
+  //height: calc(100% - 45px);
+  height: 100%;
+
+  .content-paciente {
+    position: relative;
+    padding: 0 2px;
+    height: 100%;
+    overflow-y: scroll;
+  }
+
+  .row {
+    justify-content: space-between;
+    height: 140px !important;
+  }
+
+  .thead {
+    .th:last-child {
+      margin-right: 20px;
+    }
+  }
+}
 
 .card-info {
   background: #fff;

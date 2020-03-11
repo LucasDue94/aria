@@ -11,7 +11,7 @@ import {RegistroAtendimentoService} from "../../core/registroAtendimento/registr
 import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-porta-balao-list',
+  selector: 'balao-list',
   templateUrl: './balao-list.component.html',
   styleUrls: ['./balao-list.component.scss']
 })
@@ -36,11 +36,11 @@ export class BalaoListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.spinner.show();
+    this.listLoading = true;
     this.titleService.send('Balão - Lista de Pacientes');
     this.registroAtendimentoService.listInternamentos('','').subscribe(registros => {
       this.atendimentos = registros;
-      this.spinner.hide();
+      this.listLoading = false;
     });
   }
 

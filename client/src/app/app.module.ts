@@ -34,12 +34,11 @@ import {PacienteInfoModule} from "./paciente-info/paciente-info.module";
 import {EcgModule} from "./ecg/ecg.module";
 import {HttpClientModule} from "@angular/common/http";
 import {FilterModule} from "./components/filter/filter.module";
-import {StepModule} from "./step/step.module";
 import {EstratificacaoRiscoModule} from "./risco/estratificacao/estratificacao-risco.module";
+import {PacienteListModule} from "./paciente-list/paciente-list.module";
 
 @NgModule({
-  exports: [
-  ],
+  exports: [],
   declarations: [
     AppComponent,
     PerfilDashboardComponent,
@@ -76,8 +75,8 @@ import {EstratificacaoRiscoModule} from "./risco/estratificacao/estratificacao-r
     NasModule,
     PacienteInfoModule,
     FilterModule,
-    StepModule,
-    EstratificacaoRiscoModule
+    EstratificacaoRiscoModule,
+    PacienteListModule
 ],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy},
