@@ -1,19 +1,19 @@
 <main class="container">
-  <div class="filters-container">
-    <ul class="legend">
-      <li><span class="legend-success"></span> Realizado</li>
-      <li><span class="legend-available"></span> Pendente</li>
-      <li><span class="legend-alert"></span> Atrasado</li>
-    </ul>
-  </div>
-  <section class="table">
+  <!--  <div class="filters-container">
+      <ul class="legend">
+        <li><span class="legend-success"></span> Realizado</li>
+        <li><span class="legend-available"></span> Pendente</li>
+        <li><span class="legend-alert"></span> Atrasado</li>
+      </ul>
+    </div>-->
+  <section class="table table-list">
     <section class="thead">
       <span class="th flex-1">REGISTRO</span>
-      <span class="th flex-2">ENTRADA</span>
       <span class="th flex-4">PACIENTE</span>
-      <span class="th flex-1">SEXO</span>
       <span class="th flex-1">NASCIMENTO</span>
-      <span class="th sigla flex-3">NOME DA MÃE</span>
+      <span class="th flex-3">MÃE</span>
+      <span class="th flex-1">SEXO</span>
+      <span class="th flex-2">ENTRADA</span>
     </section>
     <section #dataList class="tbody content" [scrollWindow]="false" infinite-scroll (scrolled)="scrollDown()">
       <spinner [loading]="listLoading"></spinner>
@@ -21,11 +21,15 @@
            [routerLink]="['/apache','form']"
            [queryParams]="{registro:registro.registroAtendimento.id, dataEntrada: registro.dataEntrada, leito:registro.leito.id, apacheId: registro.apache ? registro.apache.id : null, dataAlta: registro.dataAlta }">
         <span class="td flex-1"><span class="label-card">Registro:</span> {{registro.registroAtendimento.id}}</span>
-        <span class="td flex-2"><span class="label-card">Entrada:</span> {{registro.dataEntrada | date: 'dd/MM/yyyy - HH:mm'}}</span>
         <span class="td flex-4"><span class="label-card">Paciente:</span> {{registro.registroAtendimento.paciente.nome}}</span>
-        <span class="td flex-1"><span class="label-card">Sexo:</span> {{registro.registroAtendimento.paciente.sexo}}</span>
-        <span class="td flex-1"><span class="label-card">Nascimento:</span> {{registro.registroAtendimento.paciente.nascimento | date:'dd/MM/yy'}}</span>
-        <span class="td flex-3"><span class="label-card">Mãe:</span> {{registro.registroAtendimento.paciente.nomeMae}}</span>
+        <span class="td flex-1"><span
+          class="label-card">Nascimento:</span> {{registro.registroAtendimento.paciente.nascimento | date:'dd/MM/yyyy'}}</span>
+        <span class="td flex-3"><span
+          class="label-card">Mãe:</span> {{registro.registroAtendimento.paciente.nomeMae}}</span>
+        <span class="td flex-1"><span
+          class="label-card">Sexo:</span> {{registro.registroAtendimento.paciente.sexo}}</span>
+        <span class="td flex-2"><span
+          class="label-card">Entrada:</span> {{registro.dataEntrada | date: 'dd/MM/yyyy - HH:mm'}}</span>
       </div>
       <app-scroll-spinner [show]="showListScrollSpinner"></app-scroll-spinner>
       <div class="empty" *ngIf="admissoesPacSetor?.length == 0">

@@ -1,22 +1,22 @@
 <main class="container">
-  <div class="table">
+  <div class="table table-list">
     <section class="thead">
       <span class="th flex-1">Registro</span>
       <span class="th flex-3">Paciente</span>
+      <span class="th flex-1">Nascimento</span>
+      <span class="th flex-3">Mãe</span>
       <span class="th flex-1">Sexo</span>
       <span class="th flex-2">Entrada</span>
-      <span class="th flex-3">Mãe</span>
-      <span class="th flex-1">Nascimento</span>
     </section>
     <section class="tbody content-paciente" [scrollWindow]="false" infinite-scroll (scrolled)="scrollDown()">
       <spinner [loading]="listLoading"></spinner>
       <div (click)="edit(registro)" class="row" *ngFor="let registro of atendimentos">
         <span class="td flex-1">{{registro.id}}</span>
         <span class="td flex-3">{{registro.paciente.nome}}</span>
+        <span class="td flex-1">{{registro.paciente.nascimento | date: "dd/MM/yyyy" }}</span>
+        <span class="td flex-3">{{registro.paciente.nomeMae}}</span>
         <span class="td flex-1">{{registro.paciente.sexo}}</span>
         <span class="td flex-2">{{registro.dataEntrada | date:'dd/MM/yy - HH:mm'}}</span>
-        <span class="td flex-3">{{registro.paciente.nomeMae}}</span>
-        <span class="td flex-1">{{registro.paciente.nascimento | date: "dd/MM/yyyy" }}</span>
       </div>
       <app-scroll-spinner [show]="showListScrollSpinner"></app-scroll-spinner>
       <div class="empty" *ngIf="atendimentos?.length == 0">

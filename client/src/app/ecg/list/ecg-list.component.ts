@@ -1,14 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {TitleService} from "../../core/title/title.service";
 import {EcgService} from "../../core/ecg/ecg.service";
-import {FormBuilder} from "@angular/forms";
 import {SpinnerService} from "../../core/spinner/spinner.service";
-import {debounceTime, switchMap} from "rxjs/operators";
 import {faFrown, faSearch} from '@fortawesome/free-solid-svg-icons';
 import {RegistroAtendimento} from "../../core/registroAtendimento/registroAtendimento";
 import {RegistroAtendimentoService} from "../../core/registroAtendimento/registroAtendimento.service";
-import {ErrorService} from "../../core/error/error.service";
 import {Router} from "@angular/router";
+import {FilterService} from "../../core/filter/filter.service";
 
 @Component({
   selector: 'ecg-list',
@@ -17,26 +15,23 @@ import {Router} from "@angular/router";
 })
 export class EcgListComponent implements OnInit {
 
-  urgencias: any[] = [];
   atendimentos: RegistroAtendimento[];
   showListScrollSpinner = false;
   offset = 0;
   max = 30;
-  termo = '';
   faFrown = faFrown;
-  listLoading: boolean = false;
-  searchForm = this.fb.group({
-    searchControl: ['']
-  });
   faSearch = faSearch;
+  listLoading: boolean = false;
 
   constructor(private ecgService: EcgService, private titleService: TitleService,
-              private fb: FormBuilder, private spinner: SpinnerService,
-              private errorService: ErrorService, private router: Router,
-              private registroAtendimentoService: RegistroAtendimentoService) {
+              private spinner: SpinnerService, private router: Router,
+              private registroAtendimentoService: RegistroAtendimentoService,
+              private filterService: FilterService) {
+    this.search = this.search.bind(this);
   }
 
   ngOnInit() {
+    this.filterService.receive().subscribe(this.search)
     this.listLoading = true;
     this.titleService.send('ECG - Lista de Pacientes');
     this.registroAtendimentoService.listUrgencias('', '').subscribe(res => {
@@ -46,38 +41,33 @@ export class EcgListComponent implements OnInit {
   }
 
   edit(registro: RegistroAtendimento) {
-    if (registro.ecg) {
-      this.router.navigate(['/ecg', 'edit', registro.id]);
-    } else {
-      this.router.navigate(['/ecg', 'create', registro.id])
-    }
+    this.router.navigate(['/ecg', registro.ecg ? 'edit' : 'create', registro.id]);
   }
-
+//TODO scroll não está buscando pelo termo
   scrollDown() {
     this.showListScrollSpinner = true;
     this.offset += 10;
     this.registroAtendimentoService.listUrgencias(this.offset, this.max).subscribe(registros => {
-      registros.forEach(atendimento => {
-        this.atendimentos.push(atendimento);
-        this.showListScrollSpinner = false;
-      });
+      this.findAndPushAtendimentos(registros)
     });
   }
 
-  search() {
-    this.searchForm.get('searchControl').valueChanges.pipe(
-      debounceTime(1000),
-      switchMap(changes => {
-        this.listLoading = true;
-        this.atendimentos = [];
-        this.termo = changes;
-        this.offset = 0;
-        if (this.urgencias != undefined) this.urgencias.length = 0;
-        return this.registroAtendimentoService.searchUrgencias(changes, this.offset, this.max);
+  search(params) {
+    this.offset = 0;
+    this.listLoading = true;
+    this.atendimentos = [];
+    if (params) {
+      this.registroAtendimentoService.searchUrgencias(params.busca, this.offset, this.max).subscribe(registros => {
+        this.findAndPushAtendimentos(registros);
+        this.listLoading = false;
       })
-    ).subscribe(res => {
-      this.atendimentos = res;
-      this.listLoading = false;
+    }
+  }
+
+  findAndPushAtendimentos(registros) {
+    registros.forEach(atendimento => {
+      this.atendimentos.push(atendimento);
+      this.showListScrollSpinner = false;
     });
   }
 }

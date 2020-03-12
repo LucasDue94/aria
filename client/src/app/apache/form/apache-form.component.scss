@@ -132,7 +132,6 @@
     text-transform: capitalize;
     font-size: 16px;
     font-weight: 400;
-
   }
 }
 
@@ -167,32 +166,18 @@
 }
 
 .apache-footer {
-  padding: 5px;
-  width: 100%;
-  background-color: rgba($gray-50, 0.7);
-  border-top: 1px solid $gray-60;
-  transition: 0.5s;
   display: flex;
+  position: fixed;
   left: 0;
   bottom: 0;
-  position: fixed;
+  width: 100%;
+  padding: 5px;
   justify-content: flex-end;
 
-  &:hover {
-    box-shadow: 1px 1px 5px $gray-100;
-    background-color: $gray-50;
-
-    .button-blue {
-      background-color: $blue-default !important;
-    }
-
-    .button {
-      background-color: $gray-60;
-    }
-  }
-
-  .button-blue {
-    background-color: rgba($blue-default, 0.5);
+  & {
+    border-top: 1px solid $gray-70;
+    background-color: rgba($gray-60, 0.7);
+    transition: 0.5s;
   }
 
   .button {
@@ -201,9 +186,14 @@
     margin-right: 10px;
     border: 1px solid $gray-60;
     font-weight: 500;
+  }
+
+  .button-gray {
+    border: 1px solid $gray-70;
+    background-color: $gray-50;
 
     &:hover {
-      background-color: $gray-60;
+      background-color: #D5CCCC;
     }
   }
 }
