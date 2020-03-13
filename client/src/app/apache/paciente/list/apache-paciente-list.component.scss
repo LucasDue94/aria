@@ -3,9 +3,16 @@
 @import "../../../setor/list/setor-list.component";
 
 .filters-container {
+  padding: 5px;
+  background-color: $gray-50;
+  z-index: 3;
+  bottom: 10px;
+  right: 38px;
+  position: fixed;
   display: flex;
   align-items: center;
   flex-flow: row wrap;
+  box-shadow: -1px -1px 3px $gray-70;
 }
 
 .legend {

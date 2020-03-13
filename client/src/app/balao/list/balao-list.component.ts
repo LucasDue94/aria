@@ -9,6 +9,7 @@ import {faFrown, faSearch} from '@fortawesome/free-solid-svg-icons';
 import {RegistroAtendimento} from "../../core/registroAtendimento/registroAtendimento";
 import {RegistroAtendimentoService} from "../../core/registroAtendimento/registroAtendimento.service";
 import {Router} from "@angular/router";
+import {FilterService} from "../../core/filter/filter.service";
 
 @Component({
   selector: 'balao-list',
@@ -22,7 +23,8 @@ export class BalaoListComponent implements OnInit {
   showListScrollSpinner = false;
   offset = 0;
   max = 30;
-  termo;
+  termo = '';
+  setorId;
   listLoading: boolean = false;
   faFrown = faFrown;
   searchForm = this.fb.group({
@@ -32,26 +34,25 @@ export class BalaoListComponent implements OnInit {
 
   constructor(private ecgService: EcgService, private titleService: TitleService,
               private fb: FormBuilder, private spinner: SpinnerService, private router: Router,
-              private errorService: ErrorService, private registroAtendimentoService: RegistroAtendimentoService) {
+              private errorService: ErrorService, private registroAtendimentoService: RegistroAtendimentoService,
+              private filterService: FilterService) {
+    this.search = this.search.bind(this);
   }
 
   ngOnInit() {
     this.listLoading = true;
     this.titleService.send('Balão - Lista de Pacientes');
-    this.registroAtendimentoService.listInternamentos('','').subscribe(registros => {
+    this.registroAtendimentoService.listInternamentos('', '').subscribe(registros => {
       this.atendimentos = registros;
       this.listLoading = false;
     });
+    this.filterService.receive().subscribe(this.search)
   }
 
   edit(registro: RegistroAtendimento) {
-    if (registro.balao) {
-      this.router.navigate(['/balao', 'edit', registro.id]);
-    } else {
-      this.router.navigate(['/balao', 'create', registro.id])
-    }
+    this.router.navigate(['/balao', registro.balao ? 'edit' : 'create', registro.id]);
   }
-
+//TODO scroll não está buscando pelo termo
   scrollDown() {
     this.showListScrollSpinner = true;
     this.offset += 10;
@@ -63,20 +64,17 @@ export class BalaoListComponent implements OnInit {
     });
   }
 
-  search() {
-    this.searchForm.get('searchControl').valueChanges.pipe(
-      debounceTime(1000),
-      switchMap(changes => {
-        this.listLoading = true;
-        this.atendimentos = [];
-        this.termo = changes;
-        this.offset = 0;
-        if (this.internamentos!= undefined) this.internamentos.length = 0;
-        return this.registroAtendimentoService.searchInternamentos(changes, this.offset, this.max);
+  search(params) {
+    this.offset = 0;
+    this.listLoading = true;
+    this.internamentos = [];
+    this.termo = params.busca;
+    this.setorId = params.setor;
+    if (params) {
+      this.registroAtendimentoService.list(+this.setorId, this.offset, this.max).subscribe(internamentos => {
+        this.internamentos = internamentos;
+        this.listLoading = false;
       })
-    ).subscribe(res => {
-      this.atendimentos = res;
-      this.listLoading = false;
-    });
+    }
   }
 }

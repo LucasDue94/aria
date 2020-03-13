@@ -2,7 +2,7 @@
   <div class="table table-list">
     <section class="thead">
       <span class="th flex-1">Registro</span>
-      <span class="th flex-3">Nome</span>
+      <span class="th flex-3">Paciente</span>
       <span class="th flex-1">Nascimento</span>
       <span class="th flex-3">Mãe</span>
       <span class="th flex-1">Sexo</span>
@@ -12,7 +12,7 @@
       <div [routerLink]="['/incidente','paciente-details',paciente.id]" *ngFor="let paciente of pacientes" class="row">
         <span class="td flex-1">{{paciente.id}}</span>
         <span class="td flex-3">{{paciente.nome}}</span>
-        <span class="td flex-1">{{paciente.nascimento | date:'dd/MM/yy'}}</span>
+        <span class="td flex-1">{{paciente.nascimento | date:'dd/MM/yyyy'}}</span>
         <span class="td flex-3">{{paciente.nomeMae}}</span>
         <span class="td flex-1">{{paciente.sexo}}</span>
       </div>
