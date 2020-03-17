@@ -75,7 +75,7 @@ export class EcgEditComponent implements OnInit {
     this.ecgService.save(ecg).subscribe( res => {
       setTimeout( () => {
         this.alertService.send({message: 'ECG Alterado com sucesso!', type: 'success', icon: faCheck});
-        this.router.navigate(['/ecg', 'paciente-list'])
+        this.router.navigate(['pacientes'])
       }, 300)
     });
   }

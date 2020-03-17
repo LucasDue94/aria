@@ -16,7 +16,7 @@
         <span class="td flex-1">{{registro.paciente.nascimento | date: "dd/MM/yyyy" }}</span>
         <span class="td flex-3">{{registro.paciente.nomeMae}}</span>
         <span class="td flex-1">{{registro.paciente.sexo}}</span>
-        <span class="td flex-2">{{registro.dataEntrada | date:'dd/MM/yy - HH:mm'}}</span>
+        <span class="td flex-2">{{registro.dataEntrada | date:'dd/MM/yyyy - HH:mm'}}</span>
       </div>
       <app-scroll-spinner [show]="showListScrollSpinner"></app-scroll-spinner>
       <div class="empty" *ngIf="atendimentos?.length == 0">
