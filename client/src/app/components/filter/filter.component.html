@@ -4,15 +4,16 @@
   </div>
   <div class="group" *ngIf="hasDateInterval"
        [ngClass]="[ isDateValid('inicio') && submitted || this.dateMessage != '' ? 'filter-errors' : '']">
-    <label class="group-label" for="inicio">Início</label>
+    <label class="group-label" for="inicio">Data Entrada</label>
     <input (change)="checkDateInterval()" formControlName="inicio" id="inicio" type="date"
            class="control-date">
     <span class="message-error" *ngIf="submitted && isDateValid('inicio')">Preencha este campo</span>
     <span class="message-error" *ngIf="this.dateMessage != ''">{{ this.dateMessage }}</span>
   </div>
+  <span id="crase">à</span>
   <div class="group" *ngIf="hasDateInterval"
        [ngClass]="[isDateValid('fim') && submitted || this.dateMessage != '' ? 'filter-errors' : '']">
-    <label class="group-label" for="fim">Fim</label>
+    <label class="group-label" for="fim">Data Entrada</label>
     <input (change)="checkDateInterval()" formControlName="fim" id="fim" type="date" class="control-date">
     <span class="message-error" *ngIf="isDateValid('fim') && submitted">Preencha este campo</span>
   </div>

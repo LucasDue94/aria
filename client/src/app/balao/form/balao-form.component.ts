@@ -6,7 +6,6 @@ import {RegistroAtendimentoService} from "../../core/registroAtendimento/registr
 import {ActivatedRoute, Router} from "@angular/router";
 import {Balao} from "../../core/balao/balao";
 import {BalaoService} from "../../core/balao/balao.service";
-import {ErrorService} from "../../core/error/error.service";
 import {AlertService} from "../../core/alert/alert.service";
 import {DatePipe} from "@angular/common";
 import {faCheck, faFrown} from "@fortawesome/free-solid-svg-icons";
@@ -39,8 +38,7 @@ export class BalaoFormComponent implements OnInit {
     private balaoService: BalaoService,
     private registroAtendimentoService: RegistroAtendimentoService,
     private router: Router, private spinner: SpinnerService,
-    private alertService: AlertService, datePipe: DatePipe,
-    private errorService: ErrorService) {
+    private alertService: AlertService) {
   }
 
   ngOnInit() {
@@ -66,7 +64,7 @@ export class BalaoFormComponent implements OnInit {
     } else {
       this.balaoService.save(this.balao).subscribe(res => {
         if (res.hasOwnProperty('error')) {
-          this.router.navigate(['balao']);
+          this.router.navigate(['pacientes'], {state: {tab: 'ECG'}});
           setTimeout(() => {
             this.alertService.send({
               message: 'Ops... O Ecg precisa ser preenchido!',
@@ -75,7 +73,7 @@ export class BalaoFormComponent implements OnInit {
             })
           }, 500)
         } else {
-          this.router.navigate(['balao']);
+          this.router.navigate(['pacientes']);
           setTimeout(() => {
             this.alertService.send({
               message: 'Balão cadastrado',

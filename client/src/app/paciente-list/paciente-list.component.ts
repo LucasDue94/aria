@@ -12,13 +12,16 @@ export class PacienteListComponent implements OnInit {
   tabs = [{name: 'APACHE II', actived: true}, {name: 'NAS', actived: false}, {name: 'FUGULIN', actived: false},
     {name: 'ECG', actived: false}, {name: 'PORTA BALÃO', actived: false}, {name: 'INCIDENTES', actived: false},
     {name: 'ESTRAT. RISCO', actived: false}];
-
   setores = [];
+  currentTab;
 
   constructor(private setorService: SetorService) {
   }
 
   ngOnInit(): void {
+    this.currentTab = localStorage.getItem('pacienteTab') != undefined ? localStorage.getItem('pacienteTab') : 'APACHE II';
+    localStorage.setItem('pacienteTab', this.currentTab);
+    this.select(this.findTab(this.currentTab));
     this.setorService.list().subscribe(setores => {
       this.setores = setores
     });
@@ -28,8 +31,11 @@ export class PacienteListComponent implements OnInit {
   findTab = (tabName) => this.tabs.find(element => element.name == tabName);
 
   select(currentTab) {
+    this.currentTab = currentTab;
+    localStorage.setItem('pacienteTab', this.currentTab.name);
     this.tabs.forEach(tab => tab.actived = false);
-    if (!currentTab.actived) currentTab.actived = true
+    if (!currentTab.actived) currentTab.actived = true;
+    history.pushState({tab: this.currentTab.name}, '', '');
   }
 
   orderByName() {

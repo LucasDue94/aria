@@ -2,13 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import {SpinnerService} from "../../core/spinner/spinner.service";
 import {AlertService} from "../../core/alert/alert.service";
 import {TitleService} from "../../core/title/title.service";
-import {FormBuilder, Validators} from "@angular/forms";
+import {FormBuilder} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ApacheService} from "../../core/apache/apache.service";
 import {faCheck, faExclamationCircle, faFrown, faInfoCircle} from "@fortawesome/free-solid-svg-icons";
-import {RegistroAtendimento} from "../../core/registroAtendimento/registroAtendimento";
 import {RegistroAtendimentoService} from "../../core/registroAtendimento/registroAtendimento.service";
 import {Apache} from "../../core/apache/apache";
+import {RegistroAtendimentoLeito} from "../../core/registroAtendimentoLeitos/registroAtendimentoLeito";
 
 @Component({
   selector: 'apache-form',
@@ -18,7 +18,6 @@ import {Apache} from "../../core/apache/apache";
 export class ApacheFormComponent implements OnInit {
   faInfoCircle = faInfoCircle;
   apache: Apache = new Apache();
-  registroAtendimento: RegistroAtendimento;
   registroAtendimentoLeito: any;
   temperatura = ['> 41', '39 - 40.9', '38.5 - 38.9', '36 - 38.4', '34 - 35.9', '32 - 33.9', '30 - 31.9', '< 29.9'];
   kSerico = ['> 7', '6 - 6.9', '5.5 - 5.9', '3.5 - 5.4', '3 - 3.4', '2.5 - 2.9', '< 2.5'];
@@ -123,9 +122,15 @@ export class ApacheFormComponent implements OnInit {
     return true
   }
 
+  setFields() {
+    this.apache.registroAtendimentoLeito = new RegistroAtendimentoLeito();
+    this.apache.registroAtendimentoLeito.registroAtendimento = this.registroAtendimentoLeito.registroAtendimento.id;
+    this.apache.registroAtendimentoLeito.dataEntrada = this.registroAtendimentoLeito.dataEntrada;
+    this.apache.registroAtendimentoLeito.leito = this.registroAtendimentoLeito.leito.id;
+  }
 
   save() {
-    this.apache.registroAtendimentoLeito = this.registroAtendimentoLeito;
+    this.setFields();
     this.send = true;
     if (!this.hasErrors()) {
       this.apacheService.save(this.apache).subscribe(res => {
@@ -146,7 +151,7 @@ export class ApacheFormComponent implements OnInit {
         } else {
           this.alertService.send({message: 'Apache II salvo com sucesso!', type: 'success', icon: faCheck});
           setTimeout(() => {
-            this.router.navigate(['/apache', 'list']);
+            this.router.navigate(['pacientes']);
           }, 300);
         }
       });
