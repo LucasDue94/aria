@@ -38,7 +38,8 @@ import {EstratificacaoRiscoModule} from "./risco/estratificacao/estratificacao-r
 import {PacienteListModule} from "./paciente-list/paciente-list.module";
 
 @NgModule({
-  exports: [],
+  exports: [
+  ],
   declarations: [
     AppComponent,
     PerfilDashboardComponent,

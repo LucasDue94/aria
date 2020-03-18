@@ -26,6 +26,7 @@ import {IncidenteService} from "./incidente/incidente.service";
 import {EcgService} from './ecg/ecg.service';
 import {NasService} from './nas/nas.service';
 import {BalaoService} from "./balao/balao.service";
+import { EstratificacaoRiscoService } from './estratificacaoRisco/estratificacaoRisco.service';
 
 
 @NgModule({
@@ -59,8 +60,9 @@ import {BalaoService} from "./balao/balao.service";
     BalaoService,
     IncidenteService,
     EcgService,
-    NasService
-  ]
+    NasService,
+    EstratificacaoRiscoService
+]
 })
 export class CoreModule {
 }
