@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { EstratificacaoRiscoFormComponent } from './form/estratificacao-risco-form.component';
 import {PacienteInfoModule} from "../../paciente-info/paciente-info.module";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
-import {StepModule} from "../../step/step.module";
+import {NgSelectModule} from "@ng-select/ng-select";
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 
@@ -13,7 +14,8 @@ import {StepModule} from "../../step/step.module";
         CommonModule,
         PacienteInfoModule,
         FontAwesomeModule,
-        StepModule
+        NgSelectModule,
+        ReactiveFormsModule
     ],
   exports: [
     EstratificacaoRiscoFormComponent
