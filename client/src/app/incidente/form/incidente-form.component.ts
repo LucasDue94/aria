@@ -67,7 +67,7 @@ export class IncidenteFormComponent implements OnInit {
     } else {
       this.location.back();
     }
-    if(this.url == 'create') {
+    if (this.url == 'create') {
       this.titleService.send('Incidente - Novo Incidente');
     } else {
       const incidenteId = this.route.snapshot.params['id'];
@@ -88,7 +88,7 @@ export class IncidenteFormComponent implements OnInit {
   }
 
   setForm() {
-    if(this.incidente.id == undefined) {
+    if (this.incidente.id == undefined) {
       const lastDateTime = new Date();
       this.f.data.setValue(this.datePipe.transform(lastDateTime, 'yyyy-MM-dd'));
       this.f.hora.setValue(this.datePipe.transform(lastDateTime, 'HH:mm'));
@@ -115,9 +115,9 @@ export class IncidenteFormComponent implements OnInit {
         this.url == 'create' ?
           this.alertService.send(
             {message: 'Incidente criado.', type: 'success', icon: faCheck}
-          ) :  this.alertService.send(
+          ) : this.alertService.send(
           {message: 'Incidente alterado', type: 'success', icon: faCheck}
-          ) ;
+          );
 
         setTimeout(() => {
           this.router.navigate(['/incidente/paciente-details', this.paciente.id]);
@@ -132,5 +132,7 @@ export class IncidenteFormComponent implements OnInit {
     });
   }
 
-  get f() { return this.form.controls; }
+  get f() {
+    return this.form.controls;
+  }
 }

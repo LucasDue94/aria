@@ -79,8 +79,8 @@ tspan {
 
 .container {
   position: relative;
-  height: calc(100% - 20px);
-  margin: 10px;
+  height: calc(100% - 10px);
+  margin: 0 10px;
 }
 
 .content {
@@ -153,7 +153,6 @@ tspan {
       transition: 0.3s;
       cursor: pointer;
     }
-
   }
 
   #search-text {
@@ -327,12 +326,13 @@ tspan {
     padding: 5px 0;
     background-color: $gray-60;
     border-radius: 3px;
-    box-shadow: 1px 1px 5px $gray-80;
+    box-shadow: 0 0 6px $gray-70;
   }
 
   .thead {
-    border: 1px solid $gray-70;
+    border: 1px solid rgba($gray-70, 0.5);
     font-weight: 600;
+    box-shadow: 1px 1px 3px $gray-70;
 
     .options {
       text-align: left;
@@ -349,7 +349,6 @@ tspan {
     &:hover {
       transition: 0.3s;
       background-color: $gray-50;
-      box-shadow: 0 0 5px $gray-90;
       cursor: pointer;
     }
   }
@@ -394,11 +393,9 @@ tspan {
   }
 }
 
-
 .table-list {
   position: absolute;
-  //height: calc(100% - 45px);
-  height: 100%;
+  height: 100% !important;
 
   .content-paciente {
     position: relative;
@@ -409,7 +406,6 @@ tspan {
 
   .row {
     justify-content: space-between;
-    height: 140px !important;
   }
 
   .thead {
@@ -506,17 +502,3 @@ tspan {
 .flex-5 {
   flex: 5 !important;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

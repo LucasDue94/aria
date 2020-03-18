@@ -4,10 +4,10 @@ import {faFrown, faSearch} from '@fortawesome/free-solid-svg-icons';
 import {TitleService} from "../../core/title/title.service";
 import {SpinnerService} from "../../core/spinner/spinner.service";
 import {ErrorService} from "../../core/error/error.service";
-import {debounceTime, switchMap} from "rxjs/operators";
 import {Paciente} from "../../core/paciente/paciente";
 import {PacienteService} from "../../core/paciente/paciente.service";
 import {SetorService} from "../../core/setor/setor.service";
+import {FilterService} from "../../core/filter/filter.service";
 
 @Component({
   selector: 'incidente-paciente-list',
@@ -23,7 +23,6 @@ export class IncidentePacienteListComponent implements OnInit {
   });
   faSearch = faSearch;
   faFrown = faFrown;
-
   listLoading: boolean = false;
   pacientes: Paciente[];
   offset = 0;
@@ -36,15 +35,17 @@ export class IncidentePacienteListComponent implements OnInit {
   constructor(private pacienteService: PacienteService, private titleService: TitleService,
               private spinner: SpinnerService, private errorService: ErrorService,
               private fb: FormBuilder, private renderer: Renderer2,
-              private setorService: SetorService) {
+              private setorService: SetorService, private filterService: FilterService) {
+    this.search = this.search.bind(this);
   }
 
   ngOnInit() {
     this.titleService.send('Incidentes - Lista de Pacientes');
-    this.setorService.list().subscribe((setores)=> {
+    this.setorService.list().subscribe((setores) => {
       this.setores = setores;
       this.list();
     });
+    this.filterService.receive().subscribe(this.search)
   }
 
   scrollDown() {
@@ -71,24 +72,17 @@ export class IncidentePacienteListComponent implements OnInit {
     });
   }
 
-  search() {
-    this.searchForm.get('searchControl').valueChanges.pipe(
-      debounceTime(1000),
-      switchMap(changes => {
-        this.listLoading = true;
-        this.pacientes = [];
-        this.termo = changes;
-        this.offset = 0;
-        this.renderer.setProperty(this.dataList.nativeElement, 'scrollTop', 0);
-        return this.pacienteService.list(this.max, this.offset, this.termo, this.setorId)
+
+  search(params) {
+    this.offset = 0;
+    this.listLoading = true;
+    this.pacientes = [];
+    this.termo = params.busca;
+    if (params) {
+      this.pacienteService.list(this.max, this.offset,this.termo, params.setor).subscribe(pacientes => {
+        this.pacientes = pacientes;
+        this.listLoading = false;
       })
-    ).subscribe(res => {
-      this.listLoading = false;
-      if (this.errorService.hasError(res)) {
-        this.pacientes = [];
-      } else {
-        this.pacientes = res;
-      }
-    });
+    }
   }
 }

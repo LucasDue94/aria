@@ -3,11 +3,11 @@ import {faFrown, faSearch} from "@fortawesome/free-solid-svg-icons";
 import {Setor} from "../../../core/setor/setor";
 import {ApacheService} from "../../../core/apache/apache.service";
 import {SetorService} from "../../../core/setor/setor.service";
-import {FormBuilder, Validators} from "@angular/forms";
+import {FormBuilder} from "@angular/forms";
 import {TitleService} from "../../../core/title/title.service";
-import {debounceTime, switchMap} from 'rxjs/operators';
 import {ErrorService} from "../../../core/error/error.service";
 import * as moment from 'moment';
+import {FilterService} from "../../../core/filter/filter.service";
 
 @Component({
   selector: 'apache-paciente-list',
@@ -24,20 +24,18 @@ export class ApachePacienteListComponent implements OnInit {
   listLoading = false;
   admissoesPacSetor: any = [];
   arrayListSetor: Setor[] = [];
-  form = this.fb.group({
-    setor: [null, Validators.required],
-    searchControl: ['']
-  });
   setorId = null;
   offset = 0;
   max = 30;
   termo = '';
 
   constructor(private apacheService: ApacheService, private setorService: SetorService, private errorService: ErrorService,
-              private titleService: TitleService, private fb: FormBuilder) {
+              private titleService: TitleService, private fb: FormBuilder, private filterService: FilterService) {
+    this.search = this.search.bind(this);
   }
 
   ngOnInit() {
+    this.filterService.receive().subscribe(this.search)
     this.listLoading = true;
     this.titleService.send('Apache II - Lista de Pacientes');
     this.setorService.list('U', '', '').subscribe(setores => {
@@ -61,21 +59,18 @@ export class ApachePacienteListComponent implements OnInit {
     });
   }
 
-  search() {
-    this.form.get('searchControl').valueChanges.pipe(
-      debounceTime(1000),
-      switchMap(changes => {
-        this.listLoading = true;
-        this.admissoesPacSetor = [];
-        this.termo = changes;
-        this.offset = 0;
-        if (this.admissoesPacSetor != undefined) this.admissoesPacSetor.length = 0;
-        return this.apacheService.search(this.setorId, changes, this.offset, this.max)
+  search(params) {
+    this.listLoading = true;
+    this.offset = 0;
+    this.admissoesPacSetor = [];
+    if (params) {
+      this.setorId = params.setor;
+      this.termo = params.busca;
+      this.apacheService.search(params.setor, params.busca, this.offset, this.max).subscribe(registros => {
+        this.admissoesPacSetor = registros;
+        this.listLoading = false;
       })
-    ).subscribe(res => {
-      this.admissoesPacSetor = res;
-      this.listLoading = false;
-    });
+    }
   }
 
   scrollDown() {

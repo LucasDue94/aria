@@ -332,7 +332,8 @@ const routes: Routes = [
       },{
         path: 'pacientes',
             component: PacienteListComponent,
-            canActivate: [AuthGuard]
+            canActivate: [AuthGuard],
+            pathMatch: 'full',
       }
     ]
   }

@@ -83,7 +83,7 @@ export class EcgFormComponent implements OnInit {
             });
           }, 500);
         } else {
-          this.router.navigate(['ecg']);
+          this.router.navigate(['pacientes']);
           setTimeout(() => {
             this.alertService.send({
               message: 'ECG cadastrado com sucesso!',

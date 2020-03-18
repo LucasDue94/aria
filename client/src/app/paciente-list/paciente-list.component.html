@@ -1,5 +1,5 @@
 <main class="container-paciente-list">
-  <app-filter></app-filter>
+  <app-filter [items]="setores" [bindLabel]="'sigla'"></app-filter>
   <section class="tab-container">
     <button [ngClass]="[tab.actived ? 'tab tab-selected' : 'tab']" (click)="select(tab)"
             *ngFor="let tab of tabs">{{ tab.name  }}</button>

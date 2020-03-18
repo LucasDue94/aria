@@ -3,17 +3,19 @@
     <input formControlName="busca" title="busca" placeholder="Digite sua busca..." type="text" class="control">
   </div>
   <div class="group" *ngIf="hasDateInterval"
-       [ngClass]="[!isValid('inicio') && submitted || this.intervalDateMessage != '' ? 'filter-errors' : '']">
-    <label class="group-label" for="inicio">Início</label>
+       [ngClass]="[ isDateValid('inicio') && submitted || this.dateMessage != '' ? 'filter-errors' : '']">
+    <label class="group-label" for="inicio">Data Entrada</label>
     <input (change)="checkDateInterval()" formControlName="inicio" id="inicio" type="date"
            class="control-date">
-    <span class="message-error" *ngIf="!isValid('inicio') && submitted">Preencha este campo</span>
-    <span class="message-error" *ngIf="this.intervalDateMessage != ''">{{ this.intervalDateMessage }}</span>
+    <span class="message-error" *ngIf="submitted && isDateValid('inicio')">Preencha este campo</span>
+    <span class="message-error" *ngIf="this.dateMessage != ''">{{ this.dateMessage }}</span>
   </div>
-  <div class="group" *ngIf="hasDateInterval" [ngClass]="[!isValid('fim') && submitted ? 'filter-errors' : '']">
-    <label class="group-label" for="fim">Fim</label>
+  <span id="crase">à</span>
+  <div class="group" *ngIf="hasDateInterval"
+       [ngClass]="[isDateValid('fim') && submitted || this.dateMessage != '' ? 'filter-errors' : '']">
+    <label class="group-label" for="fim">Data Entrada</label>
     <input (change)="checkDateInterval()" formControlName="fim" id="fim" type="date" class="control-date">
-    <span class="message-error" *ngIf="!isValid('fim') && submitted">Preencha este campo</span>
+    <span class="message-error" *ngIf="isDateValid('fim') && submitted">Preencha este campo</span>
   </div>
   <div class="group" *ngIf="hasSelect" [ngClass]="[!isValid('setor') && submitted ? 'filter-errors' : '']">
     <ng-select [clearable]="false" [items]="items" [bindLabel]="bindLabel" [bindValue]="bindValue"

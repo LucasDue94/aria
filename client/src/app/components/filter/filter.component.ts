@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {faSearch} from "@fortawesome/free-solid-svg-icons/faSearch";
-import {FormBuilder, Validators} from "@angular/forms";
+import {FormBuilder} from "@angular/forms";
+import {FilterService} from "../../core/filter/filter.service";
 
 @Component({
   selector: 'app-filter',
@@ -19,15 +20,15 @@ export class FilterComponent {
 
   faIconSearch = faSearch;
   submitted;
-  intervalDateMessage = '';
+  dateMessage = '';
   form = this.fb.group({
     busca: [''],
-    inicio: ['', Validators.required],
-    fim: ['', Validators.required],
-    setor: ['', Validators.required],
+    inicio: [''],
+    fim: [''],
+    setor: [''],
   });
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private filter: FilterService) {
   }
 
   removeUnusedControls() {
@@ -42,15 +43,16 @@ export class FilterComponent {
   getControl = (name) => this.form.get(name);
 
   checkDateInterval() {
-    this.intervalDateMessage = '';
-    if (this.hasDateInterval && this.getControl('inicio').valid && this.getControl('fim').valid) {
+    this.submitted = false;
+    let valid = true;
+    this.dateMessage = '';
+    if (this.hasDateInterval) {
       const inicio = new Date(this.getControl('inicio').value);
       const fim = new Date(this.getControl('fim').value);
-      if (inicio.getTime() > fim.getTime())
-        this.intervalDateMessage = 'A data inicial precisa ser menor que a data final.';
-      return inicio.getTime() <= fim.getTime();
+      if (inicio.getTime() > fim.getTime()) this.dateMessage = 'A data inicial precisa ser menor que a data final.';
+      valid = inicio.getTime() <= fim.getTime();
     }
-    return false
+    return valid
   }
 
   buildReturnParams() {
@@ -62,20 +64,20 @@ export class FilterComponent {
   }
 
   send() {
-    this.submitted = true;
     this.removeUnusedControls();
-    if (this.form.valid) {
-      if (this.hasDateInterval) {
-        if (this.checkDateInterval()) {
-          this.params.emit(this.buildReturnParams());
-        }
-      }
-    }
+    if (this.hasDateInterval) this.checkDateInterval();
+    this.submitted = true;
+    const params = this.buildReturnParams();
+    this.params.emit(params);
+    this.filter.send(params);
   }
 
   clear() {
     this.form.reset();
-    this.intervalDateMessage = '';
+    this.dateMessage = '';
     this.submitted = false;
   }
+
+  isDateValid = (name: string) => this.getControl(name).value == ''
+    && this.getControl(name == 'inicio' ? 'fim' : 'inicio').value != ''
 }

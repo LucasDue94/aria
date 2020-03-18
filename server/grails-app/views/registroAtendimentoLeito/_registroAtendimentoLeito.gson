@@ -8,8 +8,8 @@ json g.render(registroAtendimentoLeito, [expand: ['registroAtendimento', 'regist
 	dataAlta registroAtendimentoLeito.dataAlta
 	leito g.render(registroAtendimentoLeito.leito, [resolveTemplate: false]) {
 		setor {
-			descricao registroAtendimentoLeito.leito.setor.setor.descricao
-			sigla registroAtendimentoLeito.leito.setor.setor.sigla
+			descricao registroAtendimentoLeito.leito?.setor?.setor?.descricao
+			sigla registroAtendimentoLeito.leito?.setor?.setor?.sigla
 		}
 	}
 }
