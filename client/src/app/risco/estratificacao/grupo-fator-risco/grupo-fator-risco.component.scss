@@ -1,0 +1,29 @@
+@import "../../estratificacao/form/estratificacao-risco-form.component";
+
+.tab-item {
+  display: none;
+}
+
+.number-question {
+  font-weight: bold;
+}
+
+.group-radios {
+  width: 180px;
+  padding: 10px;
+
+  & input.radio[type="radio"], input.checkbox[type='checkbox'] {
+    transform: scale(1.5);
+    font-size: 12px;
+    margin: 10px;
+  }
+
+  & .group-label-risks {
+    width: 180px;
+    margin: 5px;
+    line-height: 20px;
+    word-wrap: break-word;
+    word-break: normal;
+    padding: 5px;
+  }
+}

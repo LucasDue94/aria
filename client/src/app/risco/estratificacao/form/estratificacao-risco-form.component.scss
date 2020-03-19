@@ -9,6 +9,19 @@
 }
 
 .tabs-container {
+
+  grupo-fator-risco {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+
+  .subtitle {
+    font-size: 16px;
+    margin-top: 20px;
+  }
+
   .invalid {
     color: #c26267;
     font-size: 11px;
@@ -31,38 +44,6 @@
     align-items: center;
   }
 
-  .number-question {
-    font-weight: bold;
-  }
-
-  & input.radio[type="radio"], input.checkbox[type='checkbox'] {
-    transform: scale(1.5);
-    font-size: 12px;
-    margin: 10px;
-  }
-
-  & .group-radios {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 10px;
-
-    & .label-risk {
-      width: 180px;
-      margin: 5px;
-      word-break: normal;
-    }
-  }
-
-  .tev-group {
-    display: flex;
-    flex-direction: row;
-    width: 80%;
-    margin: 0 auto;
-
-    & .tev-clinical {
-      line-height: 30px;
-    }
-  }
 }
 
 .footer-arrows {

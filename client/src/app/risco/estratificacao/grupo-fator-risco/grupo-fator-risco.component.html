@@ -1,0 +1,11 @@
+<div [formGroup]="groupRisk" class="group-radios" *ngFor="let item of RISKS_STRATIFICATION">
+  <div class="group-label-risks">
+    <label><span class="number-question">{{item.id}}) </span>{{item.description}}</label>
+  </div>
+  <span class="tab-item">Campo obrigatório*</span>
+  <div *ngFor="let alternative of item.alternatives">
+    <input id="{{alternative.option + item.id}}" class="radio" type="radio" formControlName="{{item.controlname}}"
+           value="{{alternative.value}}">
+    <label for="{{alternative.option + item.id}}" class="label-risk">{{alternative.option}}</label>
+  </div>
+</div>

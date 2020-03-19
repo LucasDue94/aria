@@ -165,7 +165,7 @@ export class EstratificacaoRiscoFormComponent implements OnInit {
         'redução mobilidade > 24 horas (não deambula ou deambula pouco, maior parte do dia acamado), ' +
         'condições de trombofilia (hipercoaguabilidade).',
       controlname: 'tev_clinico_1',
-      pontuacao: 3
+      punctuation: 3
     },
     {
       id: 24,
@@ -174,13 +174,13 @@ export class EstratificacaoRiscoFormComponent implements OnInit {
         'infecção aguda e/ou doença reumatológica, obesidade (IMC > 30 anos), uso de contraceptivos, ' +
         'terapia de reposição ou terapia hormonal.',
       controlname: 'tev_clinico_2',
-      pontuacao: 2
+      punctuation: 2
     },
     {
       id: 25,
       description: 'História recente de cirurgia ou trauma há menos de um mês.',
       controlname: 'tev_clinico_3',
-      pontuacao: 1
+      punctuation: 1
     }
 
   ];
@@ -189,21 +189,21 @@ export class EstratificacaoRiscoFormComponent implements OnInit {
       id: 1,
       description: 'AVC (menos de 1 mês)',
       controlname: 'tev_cirurgico_5',
-      pontuacao: 5
+      punctuation: 5
     },
     {
       id: 2,
       description: 'Idade > 75 anos, história pessoal de TEV, trombocitopenia\n' +
         'induzida por heparina, trombofilia congênita ou adquirida.',
       controlname: 'tev_cirurgico_3',
-      pontuacao: 3
+      punctuation: 3
     },
     {
       id: 3,
       description: 'Idade 61-74 anos, Cirurgia aberta/ laparoscópica (>45 minutos), Neoplasia maligna, ' +
         'Paciente acamado > 72 horas, Cateter venoso central /PICC',
       controlname: 'tev_cirurgico_2',
-      pontuacao: 2
+      punctuation: 2
     },
     {
       id: 4,
@@ -211,41 +211,77 @@ export class EstratificacaoRiscoFormComponent implements OnInit {
         'puerpério, História de abortamento inexplicada, Uso de contraceptivo ou terapia hormonal, Sepse, pneumonia grave ou função pulmonar' +
         'alterada, História de doença inflamtória intestinal, Proc. percutâneo.',
       controlname: 'tev_cirurgico_1',
-      pontuacao: 1
+      punctuation: 1
     },
   ];
-  currentTab = 0;
+  ESCALA_BRADEN = [
+    {
+      description: 'Percepção Sensorial',
+      controlname: 'braden_percepcao_sensoriale',
+      alternatives: [
+        {id: 1, description: 'Totalmente limitado', punctuation: 1},
+        {id: 2, description: 'Muito limitado', punctuation: 2},
+        {id: 3, description: 'Levemente limitado', punctuation: 3},
+        {id: 4, description: 'Nenhuma limitação', punctuation: 4}
+      ]
+    },
+    {
+      description: 'Umidade',
+      controlname: 'braden_umidade',
+      alternatives: [
+        {id: 1, description: 'Completamente molhado', punctuation: 1},
+        {id: 2, description: 'Muito molhado', punctuation: 2},
+        {id: 3, description: 'Ocasionalmente molhado', punctuation: 3},
+        {id: 4, description: 'Raramente molhado', punctuation: 4},
+      ]
+    },
+    {
+      description: 'Atividade',
+      controlname: 'braden_atividade',
+      alternatives: [
+        {id: 1, description: 'Acamado', punctuation: 1},
+        {id: 2, description: 'Confinado à cadeira', punctuation: 2},
+        {id: 3, description: 'Anda ocasionalmente', punctuation: 3},
+        {id: 4, description: 'Anda frequentemente', punctuation: 4},
+      ]
+    },
+    {
+      description: 'Mobilidade',
+      controlname: 'braden_mobilidade',
+      alternatives: [
+        {id: 1, description: 'Totalmente limitado', punctuation: 1},
+        {id: 2, description: 'Bastante limitado', punctuation: 2},
+        {id: 3, description: 'Levemente limitado', punctuation: 3},
+        {id: 4, description: 'Não apresenta limitações', punctuation: 4},
+      ]
+    },
+    {
+      description: 'Nutrição',
+      controlname: 'braden_nutricao',
+      alternatives: [
+        {id: 1, description: 'Muito pobre', punctuation: 1},
+        {id: 2, description: 'Provavelmente inadequada', punctuation: 2},
+        {id: 3, description: 'Adequada', punctuation: 3},
+        {id: 4, description: 'Excelente', punctuation: 4},
+      ]
+    },
+    {
+      description: 'Fricção',
+      controlname: 'braden_friccao_cisalhamento',
+      alternatives: [
+        {id: 1, description: 'Problema', punctuation: 1},
+        {id: 2, description: 'Problema potencial', punctuation: 2},
+        {id: 3, description: 'Nenhum', punctuation: 3}
+      ]
+    }
+  ];
   estratificacao = new EstratificacaoRisco();
+  currentTab = 0;
   form = this.fb.group({
-    alergia: this.fb.control(this.estratificacao.alergia, Validators.required),
-    acesso_periferico: this.fb.control(this.estratificacao.acesso_periferico, Validators.required),
-    drogas_sedativas: this.fb.control(this.estratificacao.drogas_sedativas, Validators.required),
-    anticoagulante: this.fb.control(this.estratificacao.anticoagulante, Validators.required),
-    plaquetopenia: this.fb.control(this.estratificacao.plaquetopenia, Validators.required),
-    operatorio_imediato: this.fb.control(this.estratificacao.operatorio_imediato, Validators.required),
-    deficit_cognitivo_demencia: this.fb.control(this.estratificacao.deficit_cognitivo_demencia, Validators.required),
-    confusional_agudo: this.fb.control(this.estratificacao.confusional_agudo, Validators.required),
-    historia_dor: this.fb.control(this.estratificacao.historia_dor, Validators.required),
-    paciente_diabetico: this.fb.control(this.estratificacao.paciente_diabetico, Validators.required),
-    jejum_prolongado: this.fb.control(this.estratificacao.jejum_prolongado, Validators.required),
-    sonda_nasoenteral: this.fb.control(this.estratificacao.sonda_nasoenteral, Validators.required),
-    doencas_neuro_resp: this.fb.control(this.estratificacao.doencas_neuro_resp, Validators.required),
-    doenciru_cabeca_pescoco: this.fb.control(this.estratificacao.doenciru_cabeca_pescoco, Validators.required),
-    disfagia_orofaringea: this.fb.control(this.estratificacao.disfagia_orofaringea, Validators.required),
-    iot_tqt: this.fb.control(this.estratificacao.iot_tqt, Validators.required),
-    alteracao_consciencia: this.fb.control(this.estratificacao.alteracao_consciencia, Validators.required),
-    comorbidades_clinico_critico: this.fb.control(this.estratificacao.comorbidades_clinico_critico, Validators.required),
-    paciente_paliativos: this.fb.control(this.estratificacao.paciente_paliativos, Validators.required),
-    analgesicos_opioides: this.fb.control(this.estratificacao.analgesicos_opioides, Validators.required),
-    hipoglicemiante_corticoide: this.fb.control(this.estratificacao.hipoglicemiante_corticoide, Validators.required),
-    proced_cirug_restric_fisica: this.fb.control(this.estratificacao.proced_cirug_restric_fisica, Validators.required),
-    tev_clinico_1: this.fb.control(this.estratificacao.tev_clinico_1, Validators.required),
-    tev_clinico_2: this.fb.control(this.estratificacao.tev_clinico_2, Validators.required),
-    tev_clinico_3: this.fb.control(this.estratificacao.tev_clinico_3, Validators.required),
-    tev_cirurgico_5: this.fb.control(this.estratificacao.tev_cirurgico_5, Validators.required),
-    tev_cirurgico_3: this.fb.control(this.estratificacao.tev_cirurgico_3, Validators.required),
-    tev_cirurgico_2: this.fb.control(this.estratificacao.tev_cirurgico_2, Validators.required),
-    tev_cirurgico_1: this.fb.control(this.estratificacao.tev_cirurgico_1, Validators.required),
+    tev_cirurgico_5: this.fb.control(false, Validators.required),
+    tev_cirurgico_3: this.fb.control(false, Validators.required),
+    tev_cirurgico_2: this.fb.control(false, Validators.required),
+    tev_cirurgico_1: this.fb.control(false, Validators.required),
   });
   title = 'ESTRATIFICAÇÃO DE RISCOS';
 

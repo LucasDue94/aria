@@ -2,22 +2,11 @@
   <form [formGroup]="form" class="tabs-container" [class.ng-invalid]="form.invalid" #tabs>
     <h2 class="title">{{title}}</h2>
     <section class="tab-item" [class.active]="currentTab == 0">
-      <fieldset id="risks" class="group-radios" *ngFor="let item of RISKS_STRATIFICATION">
-        <label class="label-risk"><span class="number-question">{{item.id}}) </span>{{item.description}}</label>
-        <span class="tab-item">Campo obrigatório*</span>
-        <div *ngFor="let alternative of item.alternatives">
-          <input id="{{alternative.option + item.id}}" class="radio" type="radio" formControlName="{{item.controlname}}"
-                 value="{{alternative.value}}">
-          <label for="{{alternative.option + item.id}}" class="label-risk">{{alternative.option}}</label>
-        </div>
-      </fieldset>
+        <grupo-fator-risco [RISKS_STRATIFICATION]="RISKS_STRATIFICATION"></grupo-fator-risco>
     </section>
     <section class="tab-item" [class.active]="currentTab == 1">
-      <fieldset class="tev-group">
-        <div class="tev-clinical" *ngFor="let item of TEV_CLINICAL">
-          <input class="checkbox" type="checkbox"><label><span class="number-question">{{item.id }}) </span>{{item.description}}</label>
-        </div>
-      </fieldset>
+      <grupo-tev-clinico [TEV_CLINICAL]="TEV_CLINICAL"></grupo-tev-clinico>
+      <grupo-braden [BRADEN]="ESCALA_BRADEN"></grupo-braden>
     </section>
     <section class="tab-item" [class.active]="currentTab == 2">STEP 3</section>
     <section class="tab-item" [class.active]="currentTab == 3">STEP 4</section>

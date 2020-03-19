@@ -1,0 +1,32 @@
+@import "../../../../assets/device-sizes";
+@import "../../../../assets/colors";
+
+.limit-row {
+  border: 1px solid $gray-70;
+  margin-bottom: 20px;
+}
+
+.braden-group {
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  margin: 0 auto;
+
+  .select-group {
+    display: flex;
+    flex-direction: row;
+
+    & .select {
+      width: 25%;
+      padding: 10px;
+      border: 1px solid $gray-60;
+      border-radius: 7px;
+      margin: 0 10px;
+    }
+  }
+
+  .label-group {
+    border:1px solid black;
+  }
+
+}

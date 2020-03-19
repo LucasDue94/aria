@@ -1,0 +1,9 @@
+<fieldset class="braden-group">
+  <h2 class="subtitle">ESCALA DE BRADEN</h2>
+  <hr class="limit-row">
+  <div class="select-group">
+    <select class="select" *ngFor="let item of BRADEN">
+      <option value="" *ngFor="let alternative of item.alternatives">{{alternative.description}}</option>
+    </select>
+  </div>
+</fieldset>

@@ -5,11 +5,15 @@ import {PacienteInfoModule} from "../../paciente-info/paciente-info.module";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {ReactiveFormsModule} from "@angular/forms";
+import { GrupoFatorRiscoComponent } from './grupo-fator-risco/grupo-fator-risco.component';
+import { GrupoTevClinicoComponent } from './grupo-tev-clinico/grupo-tev-clinico.component';
+import { GrupoBradenComponent } from './grupo-braden/grupo-braden.component';
+import { GrupoTevCirurgicoComponent } from './grupo-tev-cirurgico/grupo-tev-cirurgico.component';
 
 
 
 @NgModule({
-  declarations: [EstratificacaoRiscoFormComponent],
+  declarations: [EstratificacaoRiscoFormComponent, GrupoFatorRiscoComponent, GrupoTevClinicoComponent, GrupoBradenComponent, GrupoTevCirurgicoComponent],
     imports: [
         CommonModule,
         PacienteInfoModule,
