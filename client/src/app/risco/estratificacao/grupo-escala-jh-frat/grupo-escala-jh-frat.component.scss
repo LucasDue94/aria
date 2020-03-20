@@ -1,0 +1,36 @@
+@import "../../../../assets/device-sizes";
+@import "../../../../assets/colors";
+
+.limit-row {
+  border: 1px solid $gray-70;
+  margin-bottom: 20px;
+}
+
+.group-title {
+  width: 100%;
+}
+
+.group-scale-jh-frat {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 30px auto;
+
+  & input.checkbox[type='checkbox'] {
+    transform: scale(1.5);
+    font-size: 12px;
+    margin: 10px;
+  }
+
+}
+
+.scale-jh-frat {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 25%;
+  padding: 10px;
+  margin: 10px;
+  line-height: 25px;
+}
+

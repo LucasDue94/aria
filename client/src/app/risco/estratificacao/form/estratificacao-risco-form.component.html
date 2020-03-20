@@ -6,9 +6,13 @@
     </section>
     <section class="tab-item" [class.active]="currentTab == 1">
       <grupo-tev-clinico [TEV_CLINICAL]="TEV_CLINICAL"></grupo-tev-clinico>
+      <grupo-tev-cirurgico [TEV_SURGICAL]="TEV_SURGICAL"></grupo-tev-cirurgico>
       <grupo-braden [BRADEN]="ESCALA_BRADEN"></grupo-braden>
+      <grupo-bradenq [BRADENQ]="ESCALA_BRADEN_Q"></grupo-bradenq>
     </section>
-    <section class="tab-item" [class.active]="currentTab == 2">STEP 3</section>
+    <section class="tab-item" [class.active]="currentTab == 2">
+      <grupo-escala-jh-frat [ESCALA_JH_FRAT]="ESCALA_JH_FRAT"></grupo-escala-jh-frat>
+    </section>
     <section class="tab-item" [class.active]="currentTab == 3">STEP 4</section>
   </form>
   <footer class="footer-arrows">

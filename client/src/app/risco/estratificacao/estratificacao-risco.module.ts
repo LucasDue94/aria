@@ -9,11 +9,13 @@ import { GrupoFatorRiscoComponent } from './grupo-fator-risco/grupo-fator-risco.
 import { GrupoTevClinicoComponent } from './grupo-tev-clinico/grupo-tev-clinico.component';
 import { GrupoBradenComponent } from './grupo-braden/grupo-braden.component';
 import { GrupoTevCirurgicoComponent } from './grupo-tev-cirurgico/grupo-tev-cirurgico.component';
+import { GrupoBradenqComponent } from './grupo-bradenq/grupo-bradenq.component';
+import { GrupoEscalaJhFratComponent } from './grupo-escala-jh-frat/grupo-escala-jh-frat.component';
 
 
 
 @NgModule({
-  declarations: [EstratificacaoRiscoFormComponent, GrupoFatorRiscoComponent, GrupoTevClinicoComponent, GrupoBradenComponent, GrupoTevCirurgicoComponent],
+  declarations: [EstratificacaoRiscoFormComponent, GrupoFatorRiscoComponent, GrupoTevClinicoComponent, GrupoBradenComponent, GrupoTevCirurgicoComponent, GrupoBradenqComponent, GrupoEscalaJhFratComponent],
     imports: [
         CommonModule,
         PacienteInfoModule,

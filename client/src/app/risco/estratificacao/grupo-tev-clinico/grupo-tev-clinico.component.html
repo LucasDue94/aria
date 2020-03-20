@@ -2,9 +2,8 @@
   <h2 class="subtitle">TEV CLINÍCO</h2>
   <hr class="limit-row">
   <div class="tev-clinical" *ngFor="let item of TEV_CLINICAL">
-    <input class="checkbox" type="checkbox" formControlName="{{item.controlname}}"><label><span
+    <input  id="{{item.id}}" class="checkbox" type="checkbox" formControlName="{{item.controlname}}"><label for="{{item.id}}"><span
     class="number-question">{{item.id + ") "}}
           </span>{{item.description}}</label>
   </div>
-  <button (click)="getControl()">Click</button>
 </fieldset>

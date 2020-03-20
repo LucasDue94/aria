@@ -18,7 +18,7 @@ export class GrupoFatorRiscoComponent implements OnInit {
     drogas_sedativas: this.fb.control(this.estratificacao.drogas_sedativas, Validators.required),
     anticoagulante: this.fb.control(this.estratificacao.anticoagulante, Validators.required),
     plaquetopenia: this.fb.control(this.estratificacao.plaquetopenia, Validators.required),
-    operatorio_imediato: this.fb.control(this.estratificacao.operatorio_imediato, Validators.required),
+    posoperatorio_imediato: this.fb.control(this.estratificacao.operatorio_imediato, Validators.required),
     deficit_cognitivo_demencia: this.fb.control(this.estratificacao.deficit_cognitivo_demencia, Validators.required),
     confusional_agudo: this.fb.control(this.estratificacao.confusional_agudo, Validators.required),
     historia_dor: this.fb.control(this.estratificacao.historia_dor, Validators.required),

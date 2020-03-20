@@ -3,7 +3,7 @@ import {RegistroAtendimentoService} from "../../../core/registroAtendimento/regi
 import {RegistroAtendimento} from "../../../core/registroAtendimento/registroAtendimento";
 import {TitleService} from "../../../core/title/title.service";
 import {faChevronCircleLeft, faChevronCircleRight, faFrown, faMeh, faSmile} from '@fortawesome/free-solid-svg-icons';
-import {FormBuilder, Validators} from "@angular/forms";
+import {FormBuilder} from "@angular/forms";
 import {EstratificacaoRisco} from "../../../core/estratificacaoRisco/estratificacaoRisco";
 
 @Component({
@@ -57,7 +57,7 @@ export class EstratificacaoRiscoFormComponent implements OnInit {
     {
       id: 6,
       description: 'Pós operatório imediato',
-      controlname: 'operatorio_imediato',
+      controlname: 'posoperatorio_imediato',
       alternatives: [{option: 'Sim', value: true}, {option: 'Não', value: false}]
     },
     {
@@ -186,27 +186,27 @@ export class EstratificacaoRiscoFormComponent implements OnInit {
   ];
   TEV_SURGICAL = [
     {
-      id: 1,
+      id: 26,
       description: 'AVC (menos de 1 mês)',
       controlname: 'tev_cirurgico_5',
       punctuation: 5
     },
     {
-      id: 2,
+      id: 27,
       description: 'Idade > 75 anos, história pessoal de TEV, trombocitopenia\n' +
         'induzida por heparina, trombofilia congênita ou adquirida.',
       controlname: 'tev_cirurgico_3',
       punctuation: 3
     },
     {
-      id: 3,
+      id: 28,
       description: 'Idade 61-74 anos, Cirurgia aberta/ laparoscópica (>45 minutos), Neoplasia maligna, ' +
         'Paciente acamado > 72 horas, Cateter venoso central /PICC',
       controlname: 'tev_cirurgico_2',
       punctuation: 2
     },
     {
-      id: 4,
+      id: 29,
       description: 'Idade 41 -60 anos, Pequena cirurgia (45 minutos), Edma de MMII ou veias varicosas, Gravidez ou' +
         'puerpério, História de abortamento inexplicada, Uso de contraceptivo ou terapia hormonal, Sepse, pneumonia grave ou função pulmonar' +
         'alterada, História de doença inflamtória intestinal, Proc. percutâneo.',
@@ -217,7 +217,7 @@ export class EstratificacaoRiscoFormComponent implements OnInit {
   ESCALA_BRADEN = [
     {
       description: 'Percepção Sensorial',
-      controlname: 'braden_percepcao_sensoriale',
+      controlname: 'braden_percepcao_sensorial',
       alternatives: [
         {id: 1, description: 'Totalmente limitado', punctuation: 1},
         {id: 2, description: 'Muito limitado', punctuation: 2},
@@ -275,20 +275,198 @@ export class EstratificacaoRiscoFormComponent implements OnInit {
       ]
     }
   ];
+  ESCALA_BRADEN_Q = [
+    {
+      description: 'Mobilidade',
+      controlname: 'bradenq_mobilidade',
+      alternatives: [
+        {id: 1, description: 'Completamente imobilizado', punctuation: 1},
+        {id: 2, description: 'Muito limitada', punctuation: 2},
+        {id: 3, description: 'Ligeiramente limitada', punctuation: 3},
+        {id: 4, description: 'nenhuma limitação', punctuation: 4}
+      ]
+    },
+    {
+      description: 'Atividade',
+      controlname: 'bradenq_atividade',
+      alternatives: [
+        {id: 1, description: 'Acamado', punctuation: 1},
+        {id: 2, description: 'Sentado', punctuation: 2},
+        {id: 3, description: 'Anda ocasionalmente', punctuation: 3},
+        {id: 4, description: 'Deambula ou é muito jovem para caminhar', punctuation: 4}
+      ]
+    },
+    {
+      description: 'Percepção sensorial',
+      controlname: 'bradenq_percepcao_sensorial',
+      alternatives: [
+        {id: 1, description: 'Completamente limitada', punctuation: 1},
+        {id: 2, description: 'Muito limitada', punctuation: 2},
+        {id: 3, description: 'Ligeiramente limitada', punctuation: 3},
+        {id: 4, description: 'Nenhuma limitação', punctuation: 4}
+      ]
+    },
+    {
+      description: 'Umidade',
+      controlname: 'bradenq_umidade',
+      alternatives: [
+        {id: 1, description: 'Pele constantemente úmida', punctuation: 1},
+        {id: 2, description: 'Pele muito úmida', punctuation: 2},
+        {id: 3, description: 'Problema', punctuation: 3},
+        {id: 4, description: 'Problema pontecial', punctuation: 4}
+      ]
+    },
+    {
+      description: 'Fricção/Forças de deslizamento',
+      controlname: 'bradenq_friccao_deslizamento',
+      alternatives: [
+        {id: 1, description: 'Problema significativo', punctuation: 1},
+        {id: 2, description: 'Problema', punctuation: 2},
+        {id: 3, description: 'Problema potencial', punctuation: 3},
+        {id: 4, description: 'Nenhum problema', punctuation: 4}
+      ]
+    },
+    {
+      description: 'Nutrição',
+      controlname: 'bradenq_nutricao',
+      alternatives: [
+        {id: 1, description: 'Muito pobre', punctuation: 1},
+        {id: 2, description: 'Inadequada', punctuation: 2},
+        {id: 3, description: 'Adequada', punctuation: 3},
+        {id: 4, description: 'Excelente', punctuation: 4}
+      ]
+    },
+    {
+      description: 'Perfusão tecidual e oxigenação',
+      controlname: 'bradenq_perfusao_tecidual_oxigenacao',
+      alternatives: [
+        {id: 1, description: 'Extramamente comprometido', punctuation: 1},
+        {id: 2, description: 'Comprometido', punctuation: 2},
+        {id: 3, description: 'Adequado', punctuation: 3},
+        {id: 4, description: 'Excelente', punctuation: 4}
+      ]
+    },
+  ];
+  ESCALA_JH_FRAT = [
+    {
+      id: 1,
+      title: 'Eliminações: intestinais e urinárias',
+      controlname: 'jh_eliminacoes_intestinais',
+      alternatives: [
+        {
+          id: 1,
+          description: 'Urgência/aumento da frequência e incontinência',
+          punctuation: 4
+        },
+        {
+          id: 2,
+          description: 'Icontinência',
+          punctuation: 2
+        },
+        {
+          id: 3,
+          description: 'Urgência ou aumento da frequência',
+          punctuation: 2
+        }
+        ],
+    },
+    {
+      id: 2,
+      title: 'Mobilidade',
+      controlname: 'jh_mobilidade',
+      alternatives: [
+        {
+          id: 1,
+          description: 'Necessita de auxílio ou supervisão para mobilização',
+          punctuation: 2
+        },
+        {
+          id: 2,
+          description: 'Marcha instável',
+          punctuation: 2
+        },
+        {
+          id: 3,
+          description: 'Comprometimento visual ou auditivo que afeta a mobilidade',
+          punctuation: 2
+        },
+      ],
+    },
+    {
+      id: 3,
+      title: 'Equipamentos assistenciais',
+      controlname: 'jh_equipamentos_assistenciais',
+      alternatives: [
+        {
+          id: 1,
+          description: 'Um equipamento',
+          punctuation: 1
+        },
+        {
+          id: 2,
+          description: 'Dois equipamentos',
+          punctuation: 2
+        },
+        {
+          id: 3,
+          description: 'Três ou mais equipamentos',
+          punctuation: 3
+        },
+      ],
+    },
+    {
+      id: 4,
+      title: 'Uso de medicamentos de alto risco de queda',
+      controlname: 'jh_uso_medicamentos_risco_quedas',
+      alternatives: [
+        {
+          id: 1,
+          description: 'Em uso de 1 medicamento de alto risco de queda',
+          punctuation: 3
+        },
+        {
+          id: 2,
+          description: 'Em uso de 2 ou mais medicamentos de alto risoco de queda',
+          punctuation: 5
+        },
+        {
+          id: 3,
+          description: 'Procedimento sob sedação nasúltimas 24 horas',
+          punctuation: 7
+        },
+      ],
+    },
+    {
+      id: 5,
+      title: 'Cognição',
+      controlname: 'jh_cognicao',
+      alternatives: [
+        {
+          id: 1,
+          description: 'Percepções alteradas do ambiente físico desconhecido',
+          punctuation: 1
+        },
+        {
+          id: 2,
+          description: 'Impulsividade (comportamento imprevisível ou arriscado)',
+          punctuation: 2
+        },
+        {
+          id: 3,
+          description: 'Falta de entendimento de suas limitações físicas e cognitivas',
+          punctuation: 4
+        },
+      ],
+    },
+  ];
+
   estratificacao = new EstratificacaoRisco();
   currentTab = 0;
-  form = this.fb.group({
-    tev_cirurgico_5: this.fb.control(false, Validators.required),
-    tev_cirurgico_3: this.fb.control(false, Validators.required),
-    tev_cirurgico_2: this.fb.control(false, Validators.required),
-    tev_cirurgico_1: this.fb.control(false, Validators.required),
-  });
+  form = this.fb.group({});
   title = 'ESTRATIFICAÇÃO DE RISCOS';
 
-  constructor(
-    private registroAtendimentoService: RegistroAtendimentoService,
-    private fb: FormBuilder,
-    private titleService: TitleService) {
+  constructor(private registroAtendimentoService: RegistroAtendimentoService,
+              private fb: FormBuilder, private titleService: TitleService) {
   }
 
   get f() {

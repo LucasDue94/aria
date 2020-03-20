@@ -1,13 +1,12 @@
 <div class="braden-group">
   <div class="group-title">
-    <h2 class="subtitle">ESCALA DE BRADEN</h2>
+    <h2 class="subtitle">ESCALA DE BRADEN Q</h2>
     <hr class="limit-row">
   </div>
-  <div class="select-group" *ngFor="let item of BRADEN">
+  <div class="select-group" *ngFor="let item of BRADENQ">
     <label class="label-braden">{{item.description}}</label>
     <select class="select">
       <option value="" *ngFor="let alternative of item.alternatives">{{alternative.description}}</option>
     </select>
   </div>
 </div>
-

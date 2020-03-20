@@ -1,1 +1,9 @@
-<p>form-tev-cirurgico works!</p>
+<fieldset [formGroup]="groupTevCirurgico" class="tev-group">
+  <h2 class="subtitle">TEV CIRÚRGICO</h2>
+  <hr class="limit-row">
+  <div class="tev-clinical" *ngFor="let item of TEV_SURGICAL">
+    <input  id="{{item.id}}" class="checkbox" type="checkbox" formControlName="{{item.controlname}}"><label for="{{item.id}}"><span
+    class="number-question">{{item.id + ") "}}
+          </span>{{item.description}}</label>
+  </div>
+</fieldset>
