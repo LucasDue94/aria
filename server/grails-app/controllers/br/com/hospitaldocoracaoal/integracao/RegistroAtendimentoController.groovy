@@ -1,4 +1,5 @@
 package br.com.hospitaldocoracaoal.integracao
+
 import grails.converters.JSON
 import grails.gorm.transactions.ReadOnly
 import grails.plugin.springsecurity.annotation.Secured
@@ -12,33 +13,19 @@ class RegistroAtendimentoController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     @Secured('ROLE_REGISTRO_ATENDIMENTO_INDEX')
-    def index(Integer max) {
-        params.max = Math.min(max ?: 20, 100)
+    def index(Integer max, String termo, String setorId, String dataEntradaInicio,
+              String dataEntradaFim, Character tipoRegistro) {
+        params.max = Math.min(max ?: 30, 100)
         try {
-            respond registroAtendimentoService.list(params), model: [registroAtendimentoCount: registroAtendimentoService.count()]
+            respond registroAtendimentoService.list(params, termo, setorId, dataEntradaInicio,
+                    dataEntradaFim, tipoRegistro), model: [registroAtendimentoCount: registroAtendimentoService.count()]
         } catch (IllegalArgumentException e) {
             render([error: e.message] as JSON)
         }
     }
 
-    @Secured('ROLE_REGISTRO_ATENDIMENTO_INDEX')
-    def listInternamentos(Integer max, String termo) {
-        params.max = Math.min(max ?: 20,100)
-        respond registroAtendimentoService.listInternamentos(params, termo)
-    }
 
-    @Secured('ROLE_REGISTRO_ATENDIMENTO_INDEX')
-    def listUrgencias(Integer max, String termo) {
-        params.max = Math.min(max ?: 20, 100)
-        respond registroAtendimentoService.listUrgencias(params, termo)
-    }
-
-    @Secured('ROLE_REGISTRO_ATENDIMENTO_SHOW')
-    def show(String id) {
-        respond registroAtendimentoService.get(id)
-    }
-
-    RegistroAtendimento get(String id){
+    RegistroAtendimento get(String id) {
         RegistroAtendimento.findById(id)
     }
 
