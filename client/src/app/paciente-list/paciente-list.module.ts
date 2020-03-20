@@ -6,6 +6,7 @@ import {ApacheModule} from "../apache/apache.module";
 import {IncidenteModule} from "../incidente/incidente.module";
 import {EcgModule} from "../ecg/ecg.module";
 import {BalaoModule} from "../balao/balao.module";
+import {EstratificacaoRiscoModule} from "../risco/estratificacao/estratificacao-risco.module";
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import {BalaoModule} from "../balao/balao.module";
     ApacheModule,
     IncidenteModule,
     EcgModule,
-    BalaoModule
+    BalaoModule,
+    EstratificacaoRiscoModule
   ],
   exports: [
     PacienteListComponent
