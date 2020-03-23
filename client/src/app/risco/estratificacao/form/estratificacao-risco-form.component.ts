@@ -603,7 +603,7 @@ export class EstratificacaoRiscoFormComponent implements OnInit {
   }
 
   nextTab() {
-    if (this.currentTab < 3) {
+    if (this.currentTab < 2) {
       this.currentTab += 1;
     }
   }
