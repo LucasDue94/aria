@@ -15,13 +15,19 @@ import {FilterService} from "../../core/filter/filter.service";
 })
 export class EcgListComponent implements OnInit {
 
-  atendimentos: RegistroAtendimento[];
+  registros: RegistroAtendimento[] = [];
   showListScrollSpinner = false;
   offset = 0;
   max = 30;
   faFrown = faFrown;
   faSearch = faSearch;
   listLoading: boolean = false;
+  params = {
+    termo: '',
+    inicio: '',
+    fim: '',
+    setorId: null,
+  };
 
   constructor(private ecgService: EcgService, private titleService: TitleService,
               private spinner: SpinnerService, private router: Router,
@@ -31,43 +37,44 @@ export class EcgListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.filterService.receive().subscribe(this.search)
+    this.filterService.receive().subscribe(this.search);
     this.listLoading = true;
     this.titleService.send('ECG - Lista de Pacientes');
-    this.registroAtendimentoService.listUrgencias('', '').subscribe(res => {
-      this.atendimentos = res;
-      this.listLoading = false;
-    });
+    this.getRegistros();
   }
 
   edit(registro: RegistroAtendimento) {
     this.router.navigate(['/ecg', registro.ecg ? 'edit' : 'create', registro.id]);
   }
-//TODO scroll não está buscando pelo termo
+
   scrollDown() {
     this.showListScrollSpinner = true;
-    this.offset += 10;
-    this.registroAtendimentoService.listUrgencias(this.offset, this.max).subscribe(registros => {
-      this.findAndPushAtendimentos(registros)
-    });
+    this.offset += 30;
+    this.getRegistros();
+  }
+
+  setFilterParams(params) {
+    this.params.termo = params.busca;
+    this.params.inicio = params.inicio;
+    this.params.fim = params.fim;
+    this.params.setorId = params.setor;
   }
 
   search(params) {
     this.offset = 0;
     this.listLoading = true;
-    this.atendimentos = [];
-    if (params) {
-      this.registroAtendimentoService.searchUrgencias(params.busca, this.offset, this.max).subscribe(registros => {
-        this.findAndPushAtendimentos(registros);
-        this.listLoading = false;
-      })
-    }
+    this.registros = [];
+    this.setFilterParams(params);
+    if (params) this.getRegistros()
   }
 
-  findAndPushAtendimentos(registros) {
-    registros.forEach(atendimento => {
-      this.atendimentos.push(atendimento);
-      this.showListScrollSpinner = false;
-    });
+  getRegistros() {
+    this.registroAtendimentoService.list(this.params, this.offset, this.max, 'U').subscribe(registros => {
+      registros.forEach(registro => {
+        this.registros.push(registro);
+        this.showListScrollSpinner = false;
+      });
+      this.listLoading = false;
+    })
   }
 }

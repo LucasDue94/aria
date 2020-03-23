@@ -14,60 +14,13 @@ export class RegistroAtendimentoService {
   constructor(private http: HttpClient) {
   }
 
-  list(setorId?: number, max?: any, offset?: any): Observable<RegistroAtendimento[]> {
+  list(filterParams?, offset?: number, max?: number, tipoRegistro?: string): Observable<RegistroAtendimento[]> {
     let subject = new Subject<RegistroAtendimento[]>();
-
-    if (setorId != undefined) {
-      this.http.get<RegistroAtendimento[]>(this.baseUrl + 'registroAtendimento?' + 'setorId=' + setorId + '&offset=' + offset + '&max=' + max)
-        .subscribe((json: any[]) => {
-          subject.next(json.map((propertyName: any) => new RegistroAtendimento(propertyName)))
-        });
-    } else {
-      this.http.get<RegistroAtendimento[]>(this.baseUrl + 'registroAtendimento?' + 'offset=' + offset + '&max=' + max)
-        .subscribe((json: any[]) => {
-          subject.next(json.map((propertyName: any) => new RegistroAtendimento(propertyName)))
-        });
-    }
-    return subject.asObservable();
-  }
-
-  listInternamentos(max?: any, offset?: any): Observable<RegistroAtendimento[]> {
-    let subject = new Subject<RegistroAtendimento[]>();
-    this.http.get(this.baseUrl + `registroAtendimento/internamentos?offset=` + offset + '&max=' + max)
+    this.http.get<RegistroAtendimento[]>(this.baseUrl + `registroAtendimento?tipoRegistro=${tipoRegistro ? tipoRegistro : ''}&setorId=${filterParams.setorId ? filterParams.setorId : ''}&termo=${filterParams.termo ? filterParams.termo : ''}&dataEntradaInicio=${filterParams.inicio ? filterParams.inicio : ''}&dataEntradaFim=${filterParams.fim ? filterParams.fim : ''}&offset=${offset ? offset : ''}&max=${max ? max : ''}`)
       .subscribe((json: any[]) => {
         subject.next(json.map((propertyName: any) => new RegistroAtendimento(propertyName)))
       });
-    return subject.asObservable();
-  }
 
-  listUrgencias(max?: any, offset?: any): Observable<RegistroAtendimento[]> {
-    let subject = new Subject<RegistroAtendimento[]>();
-    this.http.get(this.baseUrl + `registroAtendimento/urgencias?offset=` + offset + '&max=' + max)
-      .subscribe((json: any[]) => {
-        subject.next(json.map((propertyName: any) => new RegistroAtendimento(propertyName)))
-      });
-    return subject.asObservable();
-  }
-
-  searchInternamentos(termo?: string, offset?: any, max?: any): Observable<any[]> {
-    let subject = new Subject<any[]>();
-    this.http.get(this.baseUrl + 'registroAtendimento/internamentos?termo=' + termo + '&offset=' + offset + '&max=' + max)
-      .pipe(
-        catchError(error => of({error})
-        )).subscribe((json: any[]) => {
-      subject.next(json);
-    });
-    return subject.asObservable();
-  }
-
-  searchUrgencias(termo?: string, offset?: any, max?: any): Observable<any[]> {
-    let subject = new Subject<any[]>();
-    this.http.get(this.baseUrl + 'registroAtendimento/urgencias?termo=' + termo + '&offset=' + offset + '&max=' + max)
-      .pipe(
-        catchError(error => of({error})
-        )).subscribe((json: any[]) => {
-      subject.next(json);
-    });
     return subject.asObservable();
   }
 
@@ -109,15 +62,6 @@ export class RegistroAtendimentoService {
     return subject.asObservable();
   }
 
-  search(searchTerm, offset?: any, max?): Observable<any[]> {
-    let subject = new Subject<RegistroAtendimento[]>();
-    this.http.get(this.baseUrl + `registroAtendimento/` + '?offset=' + offset + '&max=' + max, {
-      params: {termo: searchTerm}
-    }).subscribe((json: any) => {
-      subject.next(json.map((obj: any) => new RegistroAtendimento(obj)))
-    });
-    return subject.asObservable();
-  }
 
   save(registroAtendimento: RegistroAtendimento): Observable<RegistroAtendimento> {
     if (registroAtendimento.id) {
