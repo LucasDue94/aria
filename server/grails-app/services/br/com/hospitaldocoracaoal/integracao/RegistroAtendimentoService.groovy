@@ -1,5 +1,6 @@
 package br.com.hospitaldocoracaoal.integracao
 
+
 import br.com.hospitaldocoracaoal.aria.Setor
 import br.com.hospitaldocoracaoal.aria.utils.DataUtils
 import grails.gorm.services.Service
@@ -55,9 +56,8 @@ abstract class RegistroAtendimentoService {
 
     abstract Long count()
 
-    RegistroAtendimento get(String id) {
-        RegistroAtendimento.findById(id)
-    }
+    abstract RegistroAtendimento get(Serializable id)
+
 }
 
 
