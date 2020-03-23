@@ -15,7 +15,7 @@ import {EstratificacaoRisco} from "../../../core/estratificacaoRisco/estratifica
 export class EstratificacaoRiscoFormComponent implements OnInit {
   @ViewChild('tabs', {static: false}) tab: ElementRef;
 
-  registroAtendimento: RegistroAtendimento;
+  registroAtendimento: RegistroAtendimento[];
   tevSurgical: boolean = false;
   tevClinical: boolean = true;
   faFrown = faFrown;
@@ -459,6 +459,128 @@ export class EstratificacaoRiscoFormComponent implements OnInit {
       ],
     },
   ];
+  ESCALA_HUMPTY_DUMPTY = [
+    {
+      id: 1,
+      title: 'Diagnóstico',
+      controlname: 'hd_diagnostico',
+      alternatives: [
+        {
+          id: 1,
+          description: 'Problemas neurológicos',
+          punctuation: 4
+        },
+        {
+          id: 2,
+          description: 'Alterações de oxigenação (Respiratórios, anemia, desidratação, anorexia, tontura, síncope)',
+          punctuation: 3
+        },
+        {
+          id: 3,
+          description: 'Transtornos psíquicos',
+          punctuation: 2
+        },
+        {
+          id: 4,
+          description: 'Outro diagnóstico',
+          punctuation: 1
+        }
+      ],
+    },
+    {
+      id: 2,
+      title: 'Cirurgia / Sedação / Anestesia',
+      controlname: 'hd_cirurgia_sedacao_anestesia',
+      alternatives: [
+        {
+          id: 1,
+          description: 'Há 24h',
+          punctuation: 3
+        },
+        {
+          id: 2,
+          description: 'Há 48h',
+          punctuation: 2
+        },
+        {
+          id: 3,
+          description: 'Mais de 48h / nenhum',
+          punctuation: 1
+        }
+      ],
+    },
+    {
+      id: 3,
+      title: 'Deterioração congnitiva',
+      controlname: 'hd_deterioracao_cognitiva',
+      alternatives: [
+        {
+          id: 1,
+          description: 'Não consciente de suas limitações',
+          punctuation: 3
+        },
+        {
+          id: 2,
+          description: 'Esquece suas limitações',
+          punctuation: 2
+        },
+        {
+          id: 3,
+          description: 'Orientado de acordo com suas capacidades',
+          punctuation: 1
+        }
+      ],
+    },
+    {
+      id: 4,
+      title: 'História pregressa',
+      controlname: 'hd_historia_pregressa',
+      alternatives: [
+        {
+          id: 1,
+          description: 'História de queda ou criança de 1 mês a 3 anos acomodado em cama',
+          punctuation: 4
+        },
+        {
+          id: 2,
+          description: 'Em uso de dispositivo de assistência (cadeira de rodas, andador, suporte de soro, entre outros',
+          punctuation: 3
+        },
+        {
+          id: 3,
+          description: 'Criança acamado',
+          punctuation: 2
+        },
+        {
+          id: 4,
+          description: 'Criança que pode se locomover entre os ambientes sem limitações',
+          punctuation: 1
+        }
+      ],
+    },
+    {
+      id: 4,
+      title: 'Uso de medicamentos',
+      controlname: 'hd_uso_medicamentos',
+      alternatives: [
+        {
+          id: 1,
+          description: 'Uso de 2 ou mais dos seguintes medicamentos (sedativos, hopnóticos, barbitúricos, antidepressivos, laxantes, diurético, narcóticos)',
+          punctuation: 3
+        },
+        {
+          id: 2,
+          description: 'Uma das medicações acima citadas',
+          punctuation: 2
+        },
+        {
+          id: 3,
+          description: 'Outras medicações / nenhum',
+          punctuation: 1
+        }
+      ],
+    },
+  ];
 
   estratificacao = new EstratificacaoRisco();
   currentTab = 0;
@@ -475,37 +597,21 @@ export class EstratificacaoRiscoFormComponent implements OnInit {
 
   ngOnInit() {
     this.titleService.send('Estratificação de riscos - Formulário');
-    this.registroAtendimentoService.get('0230022').subscribe(registroAtendimento => {
+    this.registroAtendimentoService.list('0230022').subscribe(registroAtendimento => {
       this.registroAtendimento = registroAtendimento;
     });
-  }
-
-  changeTitle() {
-    switch (this.currentTab) {
-      case 0 :
-        this.title = 'ESTRATIFICAÇÃO DE RISCOS';
-        break;
-      case 1 :
-        this.title = 'ESTRATIFICAÇÃO DE RISCOS - TEV CLINICO / ESCALA BRADEN';
-        break;
-      case 2 :
-        this.title = 'ESTRATIFICAÇÃO DE RISCOS - TEV CIRÚRGICO';
-        break;
-    }
   }
 
   nextTab() {
     if (this.currentTab < 3) {
       this.currentTab += 1;
     }
-    this.changeTitle();
   }
 
   previousTab() {
     if (this.currentTab > 0) {
       this.currentTab -= 1;
     }
-    this.changeTitle();
   }
 
 }

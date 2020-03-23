@@ -1,24 +1,17 @@
 @import "../../../../assets/device-sizes";
 @import "../../../../assets/colors";
 
-.limit-row {
-  border: 1px solid $gray-70;
-  margin-bottom: 20px;
-}
+.scale-content {
+  width: 100%;
 
-.tev-group {
-  display: flex;
-  flex-direction: row;
-  width: 80%;
-  margin: 10px auto;
+  .limit-row {
+    border: 1px solid $gray-70;
+    margin-bottom: 20px;
+  }
 
-  & input.radio[type="radio"], input.checkbox[type='checkbox'] {
+  & input.checkbox[type='checkbox'] {
     transform: scale(1.5);
     font-size: 12px;
     margin: 10px;
-  }
-
-  & .tev-clinical {
-    line-height: 30px;
   }
 }
