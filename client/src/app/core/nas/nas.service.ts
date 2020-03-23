@@ -1,10 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
-import {Observable, Subject, of} from "rxjs";
-import {map, catchError} from "rxjs/operators";
+import {Observable, of, Subject} from "rxjs";
+import {catchError, map} from "rxjs/operators";
 import {Nas} from "./nas";
-import {Grupo} from "../grupo/grupo";
 
 
 @Injectable()

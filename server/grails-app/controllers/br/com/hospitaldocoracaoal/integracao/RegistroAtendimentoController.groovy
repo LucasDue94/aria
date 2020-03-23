@@ -24,9 +24,8 @@ class RegistroAtendimentoController {
         }
     }
 
-
-    RegistroAtendimento get(String id) {
-        RegistroAtendimento.findById(id)
+    @Secured('ROLE_REGISTRO_ATENDIMENTO_SHOW')
+    def show(String id) {
+        respond registroAtendimentoService.get(id)
     }
-
 }

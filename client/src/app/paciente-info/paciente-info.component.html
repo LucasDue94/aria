@@ -1,6 +1,6 @@
-<main [ngClass]="[minimize ? 'minimize' : 'paciente-info-container']">
   <fa-icon *ngIf="!minimize" class="minimizeIcon" (click)="minimize = true" [icon]="windowMinimizeIcon"></fa-icon>
   <fa-icon *ngIf="minimize" class="infoIcon" (click)="minimize = false" [icon]="infoCircleIcon"></fa-icon>
+<main [ngClass]="[minimize ? 'minimize' : 'paciente-info-container']">
   <section class="item-info">
     <h3 class="label">Paciente</h3>
     <h4 class="info">{{paciente?.nome}}</h4>
@@ -15,7 +15,7 @@
   </section>
   <section *ngIf="paciente?.nascimento" class="item-info">
     <h3 class="label">Idade</h3>
-    <h4 class="info">{{this.getIdade(paciente.nascimento)}} anos</h4>
+    <h4 class="info">{{getIdade(paciente.nascimento)}} anos</h4>
   </section>
   <section *ngIf="paciente?.id" class="item-info">
     <h3 class="label">Prontuario</h3>
