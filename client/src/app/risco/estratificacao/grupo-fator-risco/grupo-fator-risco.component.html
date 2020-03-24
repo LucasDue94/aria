@@ -1,4 +1,8 @@
-<div [formGroup]="groupRisk" class="group-radios" *ngFor="let item of RISKS_STRATIFICATION">
+<div class="header-scale">
+  <h2 class="subtitle">FATORES DE RISCOS</h2>
+  <hr class="limit-row">
+</div>
+<div [formGroup]="groupRisk" class="scale-content" *ngFor="let item of RISKS_STRATIFICATION">
   <div class="group-label-risks">
     <label><span class="number-question">{{item.id}}) </span>{{item.description}}</label>
   </div>

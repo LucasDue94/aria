@@ -1,5 +1,14 @@
 @import "../../estratificacao/form/estratificacao-risco-form.component";
 
+.header-scale {
+  width: 100%;
+
+  & .limit-row {
+    border: 1px solid $gray-70;
+    margin-bottom: 20px;
+  }
+}
+
 .tab-item {
   display: none;
 }
@@ -8,7 +17,7 @@
   font-weight: bold;
 }
 
-.group-radios {
+.scale-content {
   width: 180px;
   padding: 10px;
 
@@ -19,7 +28,7 @@
   }
 
   & .group-label-risks {
-    width: 180px;
+    width: 100%;
     margin: 5px;
     line-height: 20px;
     word-wrap: break-word;

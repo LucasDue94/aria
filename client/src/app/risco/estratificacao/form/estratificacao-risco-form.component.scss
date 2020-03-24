@@ -9,17 +9,24 @@
 }
 
 .tabs-container {
+  display: flex;
+  flex-direction: column;
 
+  grupo-tev-clinico,
+  grupo-tev-cirurgico,
+  grupo-braden,
+  grupo-bradenq,
+  grupo-escala-jh-frat,
+  grupo-humpty-dumpty,
   grupo-fator-risco {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    width: 90%;
+    margin: 10px auto;
+    line-height: 30px;
   }
 
-  grupo-escala-jh-frat {
-    width: 90%;
-    margin: 0 auto;
-  }
 
   .subtitle {
     font-size: 16px;
@@ -38,7 +45,7 @@
 
   .active {
     width: 100%;
-    height: 380px;
+    height: 650px;
     overflow-y: scroll;
     font-size: 14px;
     display: flex !important;
@@ -78,34 +85,8 @@
 
 
 @media screen and (max-width: $tablet-width) {
-  .stratification-risk-container {
-    .group-risk {
-      & .column-risk {
-        width: 40%;
-      }
-    }
 
-    .tevs {
-      flex-direction: column;
-
-      & .tevSurgical, .tevClinical {
-        width: 90%;
-      }
-    }
-
-    & .legend-group {
-      display: flex;
-      width: 100% !important;
-      flex-direction: row;
-      position: relative !important;
-      margin-top: 20px;
-
-      & .label-danger, .label-success, .label-moderate, .label-warning {
-        text-align: initial;
-        width: 50%;
-      }
-    }
+  .active {
+    height: 150px;
   }
-
-
 }
