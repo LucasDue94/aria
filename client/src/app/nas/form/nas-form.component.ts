@@ -1,7 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {RegistroAtendimento} from "../../core/registroAtendimento/registroAtendimento";
-import {RegistroAtendimentoService} from "../../core/registroAtendimento/registroAtendimento.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Alternative} from "../../core/nas/form/alternative";
 import {Question} from "../../core/nas/form/question";
 import {Nas} from "../../core/nas/nas";
@@ -11,9 +9,12 @@ import {ErrorService} from "../../core/error/error.service";
 import {SpinnerService} from "../../core/spinner/spinner.service";
 import {AlertService} from "../../core/alert/alert.service";
 import {faExclamationCircle} from "@fortawesome/free-solid-svg-icons/faExclamationCircle";
-import {RegistroAtendimentoLeito} from "../../core/registroAtendimentoLeitos/registroAtendimentoLeito";
+import {RegistroAtendimentoLeito} from "../../core/registroAtendimentoLeito/registroAtendimentoLeito";
 import {faCheck} from "@fortawesome/free-solid-svg-icons/faCheck";
 import {faFrown} from "@fortawesome/free-solid-svg-icons/faFrown";
+import {RegistroAtendimentoLeitoService} from "../../core/registroAtendimentoLeito/registroAtendimentoLeito.service";
+import {Leito} from "../../core/leito/leito";
+import {RegistroAtendimento} from "../../core/registroAtendimento/registroAtendimento";
 
 @Component({
   selector: 'nas-form',
@@ -21,7 +22,6 @@ import {faFrown} from "@fortawesome/free-solid-svg-icons/faFrown";
   styleUrls: ['./nas-form.component.scss']
 })
 export class NasFormComponent implements OnInit {
-  registroAtendimento: RegistroAtendimento;
   form = [];
   group1 = {
     name: 'MONITORIZAÇÃO CONTROLES',
@@ -392,10 +392,11 @@ export class NasFormComponent implements OnInit {
   });
 
   submitted = false;
+  registroAtendimentoLeito: RegistroAtendimentoLeito;
 
-  constructor(private route: ActivatedRoute, private registroAtendimentoService: RegistroAtendimentoService,
+  constructor(private route: ActivatedRoute, private registroAtendimentoLeitoService: RegistroAtendimentoLeitoService,
               private nasService: NasService, private titleService: TitleService, private errorService: ErrorService,
-              private spinner: SpinnerService, private alertService: AlertService) {
+              private spinner: SpinnerService, private alertService: AlertService, private router: Router) {
   }
 
   ngOnInit() {
@@ -403,12 +404,14 @@ export class NasFormComponent implements OnInit {
     this.spinner.show();
     this.form.push(this.group1, this.group2, this.group3, this.group4, this.group5,
       this.group6, this.group7, this.group8, this.group9, this.group10, this.group11);
-    this.registroAtendimentoService.get(this.route.snapshot.params['id']).subscribe(registroAtendimento => {
-        this.registroAtendimento = registroAtendimento;
-        this.newNas.registroAtendimentoLeito = new RegistroAtendimentoLeito({registroAtendimento: registroAtendimento});
-        this.spinner.hide();
-      }
-    )
+    this.registroAtendimentoLeitoService.get(
+      this.route.snapshot.queryParamMap.get('registro'),
+      this.route.snapshot.queryParamMap.get('leito'),
+      this.route.snapshot.queryParamMap.get('dataEntrada')).subscribe((registroAtendimentoLeito) => {
+      this.registroAtendimentoLeito = registroAtendimentoLeito;
+      this.spinner.hide();
+      console.log(this.registroAtendimentoLeito);
+    });
   }
 
   formIsValid() {
@@ -419,8 +422,18 @@ export class NasFormComponent implements OnInit {
 
   isEmpty = (key) => this.newNas[key] == '';
 
+  setFields() {
+    this.newNas.registroAtendimentoLeito = new RegistroAtendimentoLeito();
+    this.newNas.registroAtendimentoLeito.registroAtendimento = new RegistroAtendimento({
+      id: this.registroAtendimentoLeito.registroAtendimento.id
+    });
+    this.newNas.registroAtendimentoLeito.dataEntrada = this.registroAtendimentoLeito.dataEntrada;
+    this.newNas.registroAtendimentoLeito.leito = new Leito({id: this.registroAtendimentoLeito.leito.id});
+  }
+
   save() {
     this.submitted = true;
+    this.setFields();
     if (this.formIsValid()) {
       this.nasService.save(this.newNas).subscribe(res => {
         if (res.hasOwnProperty('error')) {
@@ -435,6 +448,9 @@ export class NasFormComponent implements OnInit {
             icon: faCheck,
             type: 'success'
           });
+          setTimeout(() => {
+            this.router.navigate(['pacientes']);
+          }, 300);
         }
       });
     } else {

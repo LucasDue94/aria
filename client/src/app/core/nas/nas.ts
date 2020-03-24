@@ -1,4 +1,4 @@
-import {RegistroAtendimentoLeito} from "../registroAtendimentoLeitos/registroAtendimentoLeito";
+import {RegistroAtendimentoLeito} from "../registroAtendimentoLeito/registroAtendimentoLeito";
 
 export class Nas {
   id: number;

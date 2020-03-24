@@ -1,5 +1,6 @@
 package br.com.hospitaldocoracaoal.integracao
 
+import br.com.hospitaldocoracaoal.aria.Nas
 import br.com.hospitaldocoracaoal.aria.Notificacao
 
 class RegistroAtendimentoLeito implements Serializable {
@@ -8,7 +9,7 @@ class RegistroAtendimentoLeito implements Serializable {
     Leito leito
     Date dataEntrada
 
-    static hasMany = [notificacoes: Notificacao]
+    static hasMany = [notificacoes: Notificacao, nas: Nas]
     static belongsTo = [RegistroAtendimento, Leito]
 
     static mapping = {

@@ -1,5 +1,3 @@
-import {PermissaoService} from "./permissao.service";
-
 export enum EnumPermisson {
 
   role_setor_index = 'ROLE_SETOR_INDEX',
