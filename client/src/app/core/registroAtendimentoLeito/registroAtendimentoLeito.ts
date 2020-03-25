@@ -1,12 +1,14 @@
 import {Leito} from "../leito/leito";
 import {RegistroAtendimento} from "../registroAtendimento/registroAtendimento";
+import {Nas} from "../nas/nas";
 
 
 export class RegistroAtendimentoLeito {
   registroAtendimento: RegistroAtendimento;
   leito: Leito;
   dataEntrada: string;
-
+  dataAlta: string;
+  nas: Nas[];
 
   constructor(object?: any) {
     if (object) {
@@ -14,6 +16,13 @@ export class RegistroAtendimentoLeito {
       if (object.hasOwnProperty('registroAtendimento')) {
         this.registroAtendimento = new RegistroAtendimento(object.registroAtendimento);
         delete object['registroAtendimento'];
+      }
+
+      if (object.hasOwnProperty('nas')) {
+        this.nas = object['nas'].map((obj: any) => {
+          return new Nas(obj);
+        });
+        delete object['nas'];
       }
 
       if (object.hasOwnProperty('leito')) {

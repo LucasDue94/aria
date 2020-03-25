@@ -35,6 +35,7 @@ export class NasPacienteListComponent implements OnInit {
     this.listLoading = true;
     this.titleService.send('NAS - Lista de pacientes');
     this.getRegistros();
+    this.sortRegistros()
   }
 
   edit(registroLeito: RegistroAtendimentoLeito) {
@@ -45,6 +46,17 @@ export class NasPacienteListComponent implements OnInit {
         registro: registroLeito.registroAtendimento.id
       }
     })
+  }
+
+  sortRegistros() {
+    this.registros.sort(function (a, b) {
+      if (a.dataAlta != null && b.dataAlta == null) {
+        return -1
+      } else {
+        return 11
+      }
+    })
+    console.log(this.registros);
   }
 
   scrollDown() {
@@ -76,5 +88,11 @@ export class NasPacienteListComponent implements OnInit {
       });
       this.listLoading = false;
     })
+  }
+
+  isToday(dataEntrada: string) {
+    const currentDate = new Date(dataEntrada);
+    const today = new Date('2020-03-24');
+    return currentDate.toLocaleString().slice(0, 10) == today.toLocaleString().slice(0, 10);
   }
 }

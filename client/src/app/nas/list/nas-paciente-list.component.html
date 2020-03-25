@@ -10,14 +10,18 @@
     </section>
     <section class="tbody content-paciente" [scrollWindow]="false" infinite-scroll (scrolled)="scrollDown()">
       <spinner [loading]="listLoading"></spinner>
-      <div (click)="edit(registroLeito)" class="row" *ngFor="let registroLeito of registros">
-        <span class="td flex-1">{{registroLeito?.registroAtendimento?.id}}</span>
-        <span class="td flex-3">{{registroLeito?.registroAtendimento?.paciente.nome}}</span>
-        <span class="td flex-1">{{registroLeito?.registroAtendimento?.paciente.nascimento | date: "dd/MM/yyyy" }}</span>
-        <span class="td flex-3">{{registroLeito?.registroAtendimento?.paciente.nomeMae}}</span>
-        <span class="td flex-1">{{registroLeito?.registroAtendimento?.paciente.sexo}}</span>
-        <span class="td flex-2">{{registroLeito.dataEntrada | date: "dd/MM/yyyy - HH:mm"}}</span>
-      </div>
+      <section *ngFor="let registroLeito of registros">
+<!--        <div class="registros-anteriores" *ngIf="isToday(registroLeito?.dataEntrada)">Pacientes Internados</div>-->
+        <div (click)="edit(registroLeito)" class="row" [style]="{'border': registroLeito?.dataAlta != null ? '2px solid blue' : '2px solid red'}">
+          <span class="td flex-1">{{registroLeito?.registroAtendimento?.id}}</span>
+          <span class="td flex-3">{{registroLeito?.registroAtendimento?.paciente.nome}}</span>
+          <span class="td flex-1">{{registroLeito?.registroAtendimento?.paciente.nascimento | date: "dd/MM/yyyy" }}</span>
+          <span class="td flex-3">{{registroLeito?.registroAtendimento?.paciente.nomeMae}}</span>
+          <span class="td flex-1">{{registroLeito?.registroAtendimento?.paciente.sexo}}</span>
+          <span class="td flex-2">{{registroLeito.dataEntrada | date: "dd/MM/yyyy - HH:mm"}}</span>
+        </div>
+<!--        <div class="registros-anteriores" *ngIf="isToday(registroLeito?.dataEntrada)">Pacientes de Alta</div>-->
+    </section>
       <app-scroll-spinner [show]="showListScrollSpinner"></app-scroll-spinner>
       <div class="empty" *ngIf="registros?.length == 0">
         <p>Nenhum paciente encontrado!</p>

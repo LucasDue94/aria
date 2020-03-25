@@ -4,7 +4,7 @@ model {
 	RegistroAtendimentoLeito registroAtendimentoLeito
 }
 
-json g.render(registroAtendimentoLeito, [expand: ['registroAtendimento', 'registroAtendimento.paciente', 'registroAtendimento.motivoAlta'], excludes: ['leito'], resolveTemplate: false]) {
+json g.render(registroAtendimentoLeito, [expand: ['registroAtendimento', 'registroAtendimento.paciente', 'registroAtendimento.motivoAlta', 'nas'], excludes: ['leito'], resolveTemplate: false]) {
 	dataAlta registroAtendimentoLeito.dataAlta
 	leito g.render(registroAtendimentoLeito.leito, [resolveTemplate: false]) {
 		setor {

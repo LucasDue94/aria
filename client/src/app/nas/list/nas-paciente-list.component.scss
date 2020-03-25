@@ -1,0 +1,14 @@
+@import "../../../assets/colors";
+
+.registros-anteriores {
+  //align-items: center;
+  flex: 1;
+  color: $gray-80;
+  padding: 8px;
+  font-weight: 600;
+  text-align: left !important;
+  text-transform: uppercase;
+  background-color: $gray-50;
+  border-bottom: 1px dashed $gray-80;
+  //margin-bottom: 5px;
+}
