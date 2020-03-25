@@ -2,13 +2,16 @@
   <h2 class="subtitle">FATORES DE RISCOS</h2>
   <hr class="limit-row">
 </div>
-<div [formGroup]="groupRisk" class="scale-content" *ngFor="let item of RISKS_STRATIFICATION">
+<div [formGroup]="formGroupRisk" class="scale-content" *ngFor="let item of risks_stratification">
   <div class="group-label-risks">
-    <label><span class="number-question">{{item.id}}) </span>{{item.description}}</label>
+    <label>
+      <span class="number-question">{{item.id}}) </span>{{item.description}}<br>
+      <span class="radio-control-error"
+            *ngIf="(!formGroupRisk.get(item.controlname).dirty || !formGroupRisk.get(item.controlname).touched)">Campo obrigatório*</span>
+    </label>
   </div>
-  <span class="tab-item">Campo obrigatório*</span>
   <div *ngFor="let alternative of item.alternatives">
-    <input id="{{alternative.option + item.id}}" class="radio" type="radio" formControlName="{{item.controlname}}"
+    <input id="{{alternative.option + item.id}}" class="radio" type="radio" formControlName="{{item?.controlname}}"
            value="{{alternative.value}}">
     <label for="{{alternative.option + item.id}}" class="label-risk">{{alternative.option}}</label>
   </div>

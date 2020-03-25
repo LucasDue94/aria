@@ -1,26 +1,37 @@
 <main class="stratification-container">
-  <form [formGroup]="form" class="tabs-container" [class.ng-invalid]="form.invalid" #tabs>
-    <h2 class="title">{{title}}</h2>
-    <section class="tab-item" [class.active]="currentTab == 0">
-        <grupo-fator-risco [RISKS_STRATIFICATION]="RISKS_STRATIFICATION"></grupo-fator-risco>
+    <section class="tabs-container">
+      <form [formGroup]="form">
+        <h2 class="title">{{title}}</h2>
+        <section class="tab-item" [class.active]="currentTab == 0">
+          <grupo-fator-risco [risks_stratification]="risks_stratification" [formGroupRisk]="groupRisks"></grupo-fator-risco>
+        </section>
+        <section class="tab-item" [class.active]="currentTab == 1">
+          <grupo-tev-clinico [tev_clinical]="tev_clinical" [formGroupTevClinical]="groupTevClinical"></grupo-tev-clinico>
+          <grupo-tev-cirurgico [tev_surgical]="tev_surgical" [formGroupTevSurgical]="groupTevSurgical"></grupo-tev-cirurgico>
+          <grupo-braden [braden]="escala_braden" [formGroupBraden]="groupBraden"></grupo-braden>
+          <grupo-bradenq [bradenq]="escala_braden_q" [formGroupBradenq]="groupBradenQ"></grupo-bradenq>
+        </section>
+        <section class="tab-item" [class.active]="currentTab == 2">
+          <grupo-escala-jh-frat [escala_jh_frat]="escala_jh_frat" [formGroupJhFrat]="groupJhfrat"></grupo-escala-jh-frat>
+          <grupo-humpty-dumpty [escala_humpty_dumpty]="escala_humpty_dumpty" [formGroupHumptyDumpty]="groupHumptyDumpty"></grupo-humpty-dumpty>
+        </section>
+      </form>
     </section>
-    <section class="tab-item" [class.active]="currentTab == 1">
-      <grupo-tev-clinico [TEV_CLINICAL]="TEV_CLINICAL"></grupo-tev-clinico>
-      <grupo-tev-cirurgico [TEV_SURGICAL]="TEV_SURGICAL"></grupo-tev-cirurgico>
-      <grupo-braden [BRADEN]="ESCALA_BRADEN"></grupo-braden>
-      <grupo-bradenq [BRADENQ]="ESCALA_BRADEN_Q"></grupo-bradenq>
-    </section>
-    <section class="tab-item" [class.active]="currentTab == 2">
-      <grupo-escala-jh-frat [ESCALA_JH_FRAT]="ESCALA_JH_FRAT"></grupo-escala-jh-frat>
-      <grupo-humpty-dumpty [ESCALA_HUMPTY_DUMPTY]="ESCALA_HUMPTY_DUMPTY"></grupo-humpty-dumpty>
-    </section>
-  </form>
   <footer class="footer-arrows">
-    <span class="arrow-label" (click)="previousTab()">
+    <div class="arrow-label" (click)="previousTab()">
       <fa-icon class="chevronLeft" [icon]="faChevronLeft"></fa-icon>Voltar
-    </span>
-    <span class="arrow-label" (click)="nextTab()">Avançar
+    </div>
+    <div class="arrow-label" *ngIf="currentTab != 2" (click)="nextTab()">Avançar
       <fa-icon class="chevronRight" [icon]="faChevronRight"></fa-icon>
-    </span>
+    </div>
+    <div class="btn-save" *ngIf="currentTab == 2" (click)="save()">
+      <fa-icon class="faCheck" [icon]="faCheck"></fa-icon> Salvar
+    </div>
   </footer>
 </main>
+
+
+<!--<input class="form-control" formControlName="nome" id="nome" type="text" [ngClass]="{'form-control-error': f.nome.errors && (f.nome.dirty || f.nome.touched)}" required>
+<p class="error-label" *ngIf="f.nome.errors && (f.nome.dirty || f.nome.touched)">
+  nome não pode ser branco
+</p>-->

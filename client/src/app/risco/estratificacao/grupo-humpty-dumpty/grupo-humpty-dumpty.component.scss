@@ -17,13 +17,13 @@
   flex-wrap: wrap;
   justify-content: space-between;
 
-  & input.checkbox[type='checkbox'] {
+  & input.radio[type='radio'] {
     transform: scale(1.5);
     font-size: 12px;
     margin: 10px;
   }
 
-  & .group-jh-frat {
+  & .group-humpty-dumpty {
     display: flex;
     flex-direction: column;
     width: 45%;

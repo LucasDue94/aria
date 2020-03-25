@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, Validators} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'grupo-tev-cirurgico',
@@ -8,17 +8,22 @@ import {FormBuilder, Validators} from "@angular/forms";
 })
 export class GrupoTevCirurgicoComponent implements OnInit {
 
-  @Input() TEV_SURGICAL;
-  groupTevCirurgico = this.fb.group({
-    tev_cirurgico_5: this.fb.control(false, Validators.required),
-    tev_cirurgico_3: this.fb.control(false, Validators.required),
-    tev_cirurgico_2: this.fb.control(false, Validators.required),
-    tev_cirurgico_1: this.fb.control(false, Validators.required),
-  });
+  @Input() tev_surgical;
+  @Input() formGroupTevSurgical: FormGroup;
 
-  constructor(private fb: FormBuilder) { }
+  constructor() {
+
+  }
 
   ngOnInit() {
+    this.createGroup();
+  }
+
+  createGroup() {
+    this.formGroupTevSurgical.addControl('tev_cirurgico_5', new FormControl('', Validators.required));
+    this.formGroupTevSurgical.addControl('tev_cirurgico_3', new FormControl('', Validators.required));
+    this.formGroupTevSurgical.addControl('tev_cirurgico_2', new FormControl('', Validators.required));
+    this.formGroupTevSurgical.addControl('tev_cirurgico_1', new FormControl('', Validators.required));
   }
 
 }

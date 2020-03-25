@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'grupo-escala-jh-frat',
@@ -7,10 +8,20 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class GrupoEscalaJhFratComponent implements OnInit {
 
-  @Input() ESCALA_JH_FRAT;
+  @Input() escala_jh_frat;
+  @Input() formGroupJhFrat: FormGroup;
+
   constructor() { }
 
   ngOnInit() {
+    this.createGroup();
   }
 
+  createGroup() {
+    this.formGroupJhFrat.addControl('jh_eliminacoes_intestinais', new FormControl('', Validators.required));
+    this.formGroupJhFrat.addControl('jh_mobilidade', new FormControl('', Validators.required));
+    this.formGroupJhFrat.addControl('jh_equipamentos_assistenciais', new FormControl('', Validators.required));
+    this.formGroupJhFrat.addControl('jh_uso_medicamentos_risco_quedas', new FormControl('', Validators.required));
+    this.formGroupJhFrat.addControl('jh_cognicao', new FormControl('', Validators.required));
+  }
 }

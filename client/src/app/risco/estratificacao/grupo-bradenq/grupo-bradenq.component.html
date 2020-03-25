@@ -2,11 +2,12 @@
   <h2 class="subtitle">ESCALA DE BRADEN Q</h2>
   <hr class="limit-row">
 </div>
-<div class="scale-content">
-  <div class="select-group" *ngFor="let item of BRADENQ">
+<div [formGroup]="formGroupBradenq" class="scale-content">
+  <div class="select-group" *ngFor="let item of bradenq">
     <label class="label-braden">{{item.description}}</label>
-    <select class="select">
-      <option value="" *ngFor="let alternative of item.alternatives">{{alternative.description}}</option>
+    <select class="select" formControlName="{{item.controlname}}">
+      <option value="{{null}}">Selecione</option>
+      <option value="{{alternative.description}}" *ngFor="let alternative of item.alternatives">{{alternative.description}}</option>
     </select>
   </div>
 </div>

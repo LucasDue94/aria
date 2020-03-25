@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, Validators} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {EstratificacaoRisco} from "../../../core/estratificacaoRisco/estratificacaoRisco";
 
 @Component({
@@ -9,22 +9,21 @@ import {EstratificacaoRisco} from "../../../core/estratificacaoRisco/estratifica
 })
 export class GrupoTevClinicoComponent implements OnInit {
 
-  @Input() TEV_CLINICAL;
+  @Input() tev_clinical;
+  @Input() formGroupTevClinical: FormGroup;
   estratificacao = new EstratificacaoRisco();
 
-  groupTevClinical = this.fb.group({
-    tev_clinico_1: this.fb.control(false, Validators.required),
-    tev_clinico_2: this.fb.control(false, Validators.required),
-    tev_clinico_3: this.fb.control(false, Validators.required),
-  });
 
-  constructor(private fb: FormBuilder) {
+  constructor() {
   }
 
   ngOnInit() {
+    this.createGroup();
   }
 
-  getControl() {
-    console.log(this.groupTevClinical.value);
+  createGroup() {
+    this.formGroupTevClinical.addControl("tev_clinico_1", new FormControl('', Validators.required));
+    this.formGroupTevClinical.addControl("tev_clinico_2", new FormControl('', Validators.required));
+    this.formGroupTevClinical.addControl("tev_clinico_3", new FormControl('', Validators.required));
   }
 }

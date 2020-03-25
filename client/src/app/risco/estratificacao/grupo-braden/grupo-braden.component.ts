@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'grupo-braden',
@@ -8,13 +8,22 @@ import {FormBuilder} from "@angular/forms";
 })
 export class GrupoBradenComponent implements OnInit {
 
-  @Input() BRADEN;
-  groupBraden = this.fb.group({});
+  @Input() braden;
+  @Input() formGroupBraden: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor() {
   }
 
   ngOnInit() {
+    this.createGroup();
   }
 
+  createGroup() {
+    this.formGroupBraden.addControl('braden_percepcao_sensorial', new FormControl('', Validators.required));
+    this.formGroupBraden.addControl('braden_umidade', new FormControl('', Validators.required));
+    this.formGroupBraden.addControl('braden_atividade', new FormControl('', Validators.required));
+    this.formGroupBraden.addControl('braden_mobilidade', new FormControl('', Validators.required));
+    this.formGroupBraden.addControl('braden_nutricao', new FormControl('', Validators.required));
+    this.formGroupBraden.addControl('braden_friccao_cisalhamento', new FormControl('', Validators.required));
+  }
 }

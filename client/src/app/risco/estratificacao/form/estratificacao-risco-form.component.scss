@@ -8,9 +8,21 @@
   color: $white;
 }
 
-.tabs-container {
+.radio-control-error {
+  border: 1px solid #c26267 !important;
+  color: #c26267;
+}
+
+.stratification-container {
   display: flex;
   flex-direction: column;
+  height: 100%;
+}
+
+.tabs-container {
+  position: absolute;
+  width: 100%;
+  height: 85%;
 
   grupo-tev-clinico,
   grupo-tev-cirurgico,
@@ -26,7 +38,6 @@
     margin: 10px auto;
     line-height: 30px;
   }
-
 
   .subtitle {
     font-size: 16px;
@@ -44,8 +55,9 @@
   }
 
   .active {
+    position: absolute;
     width: 100%;
-    height: 650px;
+    height: 100%;
     overflow-y: scroll;
     font-size: 14px;
     display: flex !important;
@@ -60,26 +72,44 @@
 .footer-arrows {
   width: 100%;
   position: absolute;
+  background: $white;
   display: flex;
+  bottom: 0;
+  align-items: center;
   flex-direction: row;
   justify-content: space-between;
-  bottom: 0;
 
-  .chevronRight, .chevronLeft {
-    font-size: 32px;
-    color: $gray-60;
-    padding: 10px;
-    cursor: pointer;
-
-    &:hover {
-      color: $gray-80;
-    }
-  }
-
-  .arrow-label {
+  .arrow-label, .btn-save {
     display: flex;
     align-items: center;
     vertical-align: center;
+    border: 1px solid $gray-80;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 2px;
+
+    .chevronRight, .chevronLeft {
+      font-size: 18px;
+      color: $gray-60;
+      padding: 5px;
+      cursor: pointer;
+    }
+  }
+
+  & .btn-save {
+    background-color: rgba(43, 81, 126, 0.7);
+    color: $white;
+
+    & .faCheck {
+      font-size: 18px;
+      color: $gray-60;
+      padding: 5px;
+      cursor: pointer;
+    }
+
+    &:hover {
+      background: $blue-default;
+    }
   }
 }
 

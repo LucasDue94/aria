@@ -1,7 +1,7 @@
-<div [formGroup]="groupTevCirurgico" class="scale-content">
+<div [formGroup]="formGroupTevSurgical" class="scale-content">
   <h2 class="subtitle">TEV CIRÚRGICO</h2>
   <hr class="limit-row">
-  <div *ngFor="let item of TEV_SURGICAL">
+  <div *ngFor="let item of tev_surgical">
     <input  id="{{item.id}}" class="checkbox" type="checkbox" formControlName="{{item.controlname}}"><label for="{{item.id}}"><span
     class="number-question">
           </span>{{item.description}}</label>

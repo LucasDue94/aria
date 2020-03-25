@@ -2,8 +2,15 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {RegistroAtendimentoService} from "../../../core/registroAtendimento/registroAtendimento.service";
 import {RegistroAtendimento} from "../../../core/registroAtendimento/registroAtendimento";
 import {TitleService} from "../../../core/title/title.service";
-import {faChevronCircleLeft, faChevronCircleRight, faFrown, faMeh, faSmile} from '@fortawesome/free-solid-svg-icons';
-import {FormBuilder} from "@angular/forms";
+import {
+  faCheck,
+  faChevronCircleLeft,
+  faChevronCircleRight,
+  faFrown,
+  faMeh,
+  faSmile
+} from '@fortawesome/free-solid-svg-icons';
+import {FormBuilder, FormGroup} from "@angular/forms";
 import {EstratificacaoRisco} from "../../../core/estratificacaoRisco/estratificacaoRisco";
 
 @Component({
@@ -14,16 +21,22 @@ import {EstratificacaoRisco} from "../../../core/estratificacaoRisco/estratifica
 
 export class EstratificacaoRiscoFormComponent implements OnInit {
   @ViewChild('tabs', {static: false}) tab: ElementRef;
-
+  form = this.fb.group({});
+  groupRisks: FormGroup;
+  groupTevClinical: FormGroup;
+  groupTevSurgical: FormGroup;
+  groupBraden: FormGroup;
+  groupBradenQ: FormGroup;
+  groupJhfrat: FormGroup;
+  groupHumptyDumpty: FormGroup;
   registroAtendimento: RegistroAtendimento[];
-  tevSurgical: boolean = false;
-  tevClinical: boolean = true;
   faFrown = faFrown;
   faSmile = faSmile;
   faMeh = faMeh;
   faChevronRight = faChevronCircleRight;
+  faCheck = faCheck;
   faChevronLeft = faChevronCircleLeft;
-  RISKS_STRATIFICATION = [
+  risks_stratification = [
     {
       id: 1,
       description: 'Alergia',
@@ -157,7 +170,7 @@ export class EstratificacaoRiscoFormComponent implements OnInit {
       alternatives: [{option: 'Sim', value: true}, {option: 'Não', value: false}]
     }
   ];
-  TEV_CLINICAL = [
+  tev_clinical = [
     {
       id: 23,
       description:
@@ -184,7 +197,7 @@ export class EstratificacaoRiscoFormComponent implements OnInit {
     }
 
   ];
-  TEV_SURGICAL = [
+  tev_surgical = [
     {
       id: 26,
       description: 'AVC (menos de 1 mês)',
@@ -214,7 +227,7 @@ export class EstratificacaoRiscoFormComponent implements OnInit {
       punctuation: 1
     },
   ];
-  ESCALA_BRADEN = [
+  escala_braden = [
     {
       description: 'Percepção Sensorial',
       controlname: 'braden_percepcao_sensorial',
@@ -275,7 +288,7 @@ export class EstratificacaoRiscoFormComponent implements OnInit {
       ]
     }
   ];
-  ESCALA_BRADEN_Q = [
+  escala_braden_q = [
     {
       description: 'Mobilidade',
       controlname: 'bradenq_mobilidade',
@@ -347,7 +360,7 @@ export class EstratificacaoRiscoFormComponent implements OnInit {
       ]
     },
   ];
-  ESCALA_JH_FRAT = [
+  escala_jh_frat = [
     {
       id: 1,
       title: 'Eliminações: intestinais e urinárias',
@@ -368,7 +381,7 @@ export class EstratificacaoRiscoFormComponent implements OnInit {
           description: 'Urgência ou aumento da frequência',
           punctuation: 2
         }
-        ],
+      ],
     },
     {
       id: 2,
@@ -459,7 +472,7 @@ export class EstratificacaoRiscoFormComponent implements OnInit {
       ],
     },
   ];
-  ESCALA_HUMPTY_DUMPTY = [
+  escala_humpty_dumpty = [
     {
       id: 1,
       title: 'Diagnóstico',
@@ -581,25 +594,20 @@ export class EstratificacaoRiscoFormComponent implements OnInit {
       ],
     },
   ];
-
   estratificacao = new EstratificacaoRisco();
   currentTab = 0;
-  form = this.fb.group({});
   title = 'ESTRATIFICAÇÃO DE RISCOS';
 
   constructor(private registroAtendimentoService: RegistroAtendimentoService,
-              private fb: FormBuilder, private titleService: TitleService) {
-  }
+              private fb: FormBuilder, private titleService: TitleService) {}
 
-  get f() {
-    return this.form.controls;
-  }
 
   ngOnInit() {
     this.titleService.send('Estratificação de riscos - Formulário');
     this.registroAtendimentoService.list('0230022').subscribe(registroAtendimento => {
       this.registroAtendimento = registroAtendimento;
     });
+    this.createFormGroups();
   }
 
   nextTab() {
@@ -614,4 +622,23 @@ export class EstratificacaoRiscoFormComponent implements OnInit {
     }
   }
 
+  createFormGroups() {
+    this.groupRisks = this.fb.group({});
+    this.groupTevClinical = this.fb.group({});
+    this.groupTevSurgical = this.fb.group({});
+    this.groupBraden = this.fb.group({});
+    this.groupBradenQ = this.fb.group({});
+    this.groupJhfrat = this.fb.group({});
+    this.groupHumptyDumpty = this.fb.group({});
+  }
+
+  save() {
+    console.log(this.groupRisks);
+    console.log(this.groupTevClinical);
+    console.log(this.groupTevSurgical);
+    console.log(this.groupBraden);
+    console.log(this.groupBradenQ);
+    console.log(this.groupJhfrat);
+    console.log(this.groupHumptyDumpty);
+  }
 }

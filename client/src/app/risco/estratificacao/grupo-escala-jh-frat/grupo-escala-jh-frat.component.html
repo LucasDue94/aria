@@ -2,11 +2,11 @@
   <h2 class="subtitle">ESCALA JH-FRAT</h2>
   <hr class="limit-row">
 </div>
-<div class="scale-content">
-  <div  class="group-jh-frat" *ngFor="let item of ESCALA_JH_FRAT">
+<div [formGroup]="formGroupJhFrat" class="scale-content">
+  <div  class="group-jh-frat" *ngFor="let item of escala_jh_frat">
     <h2>{{item.title}}</h2>
     <div *ngFor="let alternative of item.alternatives">
-      <input id="{{item.controlname + alternative.id}}" class="checkbox" type="checkbox"><label for="{{item.controlname + alternative.id}}">{{alternative.description}}</label>
+      <input id="{{item.controlname + alternative.id}}" class="radio" type="radio" formControlName="{{item.controlname}}" value="{{alternative.description}}"><label for="{{item.controlname + alternative.id}}">{{alternative.description}}</label>
     </div>
   </div>
 </div>
