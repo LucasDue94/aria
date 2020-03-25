@@ -26,9 +26,15 @@ abstract class RegistroAtendimentoService {
                 Setor s = Setor.get(setorId)
 
                 or {
-                    eq 'setorWpd.id', s.setorWpdId
-                    setor {
-                        eq 'id', s.setorWpdId
+                    and {
+                        eq 'tipo', RegistroAtendimento.TIPO_INTERNO
+                        eq 'setorWpd.id', s.setorWpdId
+                    }
+                    and {
+                        ne'tipo', RegistroAtendimento.TIPO_INTERNO
+                        setor {
+                            eq 'id', s.setorWpdId
+                        }
                     }
                 }
             }

@@ -27,6 +27,7 @@ import {EcgService} from './ecg/ecg.service';
 import {NasService} from './nas/nas.service';
 import {BalaoService} from "./balao/balao.service";
 import {FilterService} from "./filter/filter.service";
+import {RegistroAtendimentoLeitoService} from "./registroAtendimentoLeito/registroAtendimentoLeito.service";
 
 
 @NgModule({
@@ -61,7 +62,9 @@ import {FilterService} from "./filter/filter.service";
     IncidenteService,
     EcgService,
     NasService,
-    FilterService
+    FilterService,
+    RegistroAtendimentoLeitoService
+
   ]
 })
 export class CoreModule {

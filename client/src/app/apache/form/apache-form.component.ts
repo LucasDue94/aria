@@ -8,7 +8,7 @@ import {ApacheService} from "../../core/apache/apache.service";
 import {faCheck, faExclamationCircle, faFrown, faInfoCircle} from "@fortawesome/free-solid-svg-icons";
 import {RegistroAtendimentoService} from "../../core/registroAtendimento/registroAtendimento.service";
 import {Apache} from "../../core/apache/apache";
-import {RegistroAtendimentoLeito} from "../../core/registroAtendimentoLeitos/registroAtendimentoLeito";
+import {RegistroAtendimentoLeito} from "../../core/registroAtendimentoLeito/registroAtendimentoLeito";
 
 @Component({
   selector: 'apache-form',
@@ -50,9 +50,13 @@ export class ApacheFormComponent implements OnInit {
     if (window.innerWidth < 1024) this.labelPosition = 'top';
     this.title.send('Apache II - Formulário');
     this.spinner.show();
-    this.registroAtendimentoService.getRegistroAtendimetoLeito(this.route.snapshot.queryParamMap.get('registro'), this.route.snapshot.queryParamMap.get('leito'), this.route.snapshot.queryParamMap.get('dataEntrada')).subscribe((registroAtendimentoLeito) => {
-      this.registroAtendimentoLeito = registroAtendimentoLeito;
-    });
+    this.registroAtendimentoService.getRegistroAtendimetoLeito(
+      this.route.snapshot.queryParamMap.get('registro'),
+      this.route.snapshot.queryParamMap.get('leito'),
+      this.route.snapshot.queryParamMap.get('dataEntrada'))
+      .subscribe((registroAtendimentoLeito) => {
+        this.registroAtendimentoLeito = registroAtendimentoLeito;
+      });
     const apacheId = this.route.snapshot.queryParamMap.get('apacheId');
     if (apacheId) {
       this.apacheService.get(apacheId).subscribe(res => {

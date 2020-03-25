@@ -15,7 +15,7 @@ export class ApacheService {
 
   list(setorId?: any, termo?: string, offset?: any, max?: any): Observable<any[]> {
     let subject = new Subject<any[]>();
-    this.http.get<any[]>(this.baseUrl + `setor/admissoes?` + 'setorId=' + setorId + '&termo=' + termo + '&offset=' + offset + '&max=' + max)
+    this.http.get<any[]>(this.baseUrl + `registroAtendimentoLeito/admissoes?` + 'setorId=' + setorId + '&termo=' + termo + '&offset=' + offset + '&max=' + max)
       .pipe(
         catchError(error => of({error})
         )).subscribe((json: any[]) => {
@@ -58,18 +58,6 @@ export class ApacheService {
       } else {
         subject.next(json);
       }
-    });
-    return subject.asObservable();
-  }
-
-
-  search(setorId: number, termo?: string, offset?: any, max?: any): Observable<any[]> {
-    let subject = new Subject<any[]>();
-    this.http.get(this.baseUrl + `setor/admissoes?` + 'setorId=' + setorId + '&termo=' + termo + '&offset=' + offset + '&max=' + max)
-      .pipe(
-        catchError(error => of({error})
-        )).subscribe((json: any[]) => {
-      subject.next(json);
     });
     return subject.asObservable();
   }

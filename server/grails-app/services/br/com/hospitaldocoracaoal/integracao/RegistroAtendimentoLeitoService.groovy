@@ -1,6 +1,8 @@
 package br.com.hospitaldocoracaoal.integracao
 
 import br.com.hospitaldocoracaoal.aria.Setor
+import br.com.hospitaldocoracaoal.aria.db.TipoSetor
+import br.com.hospitaldocoracaoal.aria.utils.DataUtils
 import grails.gorm.services.Service
 import grails.web.servlet.mvc.GrailsParameterMap
 
@@ -13,38 +15,48 @@ abstract class RegistroAtendimentoLeitoService {
 
     abstract List<RegistroAtendimentoLeito> list(Map args)
 
-    List<RegistroAtendimentoLeito> admissoesSetor(GrailsParameterMap args, String termo) {
+    List<RegistroAtendimentoLeito> admissoesSetor(GrailsParameterMap args, String termo, String setorId, String dataEntradaInicio,
+                                                  String dataEntradaFim) {
+
         def criteria = RegistroAtendimentoLeito.createCriteria()
-        if (args.containsKey('setorId') && args.getLong('setorId') != null) {
-            Long setorId = args.long('setorId')
-            Setor s = Setor.get(setorId)
-            criteria.list(args) {
-                createAlias 'leito', 'l', INNER_JOIN
-                createAlias 'l.setor', 's', INNER_JOIN
-
-
-                if (termo != null && !termo.empty) {
-                    createAlias 'registroAtendimento', 'ra', INNER_JOIN
-                    createAlias 'ra.paciente', 'p', INNER_JOIN
-                    or {
-                        ilike 'ra.id', "%$termo%"
-                        ilike 'p.nome', "%$termo%"
-                    }
-                }
-                eq 's.id', s.setorWpdId
-            } as List<RegistroAtendimentoLeito>
-        } else {
-            criteria.list(args) {
-                if (termo != null && !termo.empty) {
-                    createAlias 'registroAtendimento', 'ra', INNER_JOIN
-                    createAlias 'ra.paciente', 'p', INNER_JOIN
-                    or {
-                        ilike 'ra.id', "%$termo%"
-                        ilike 'p.nome', "%$termo%"
-                    }
-                }
-            } as List<RegistroAtendimentoLeito>
+        Map queryArgs = (Map) args.clone()
+        if (termo != null && !termo.empty) {
+            queryArgs.remove 'sort'
+            queryArgs.remove 'order'
         }
+
+        criteria.list(queryArgs) {
+            createAlias 'leito', 'lei', INNER_JOIN
+            createAlias 'lei.setor', 'setorWpd', INNER_JOIN
+
+            if (termo != null && !termo.empty) {
+                createAlias 'registroAtendimento', 'ra', INNER_JOIN
+                createAlias 'ra.paciente', 'paciente', INNER_JOIN
+
+                or {
+                    ilike 'ra.id', "%$termo%"
+                    ilike 'paciente.id', "%$termo%"
+                    ilike 'paciente.nome', "%$termo%"
+                }
+            }
+
+            if (setorId != null && setorId != '' && setorId != 'null') {
+                Setor s = Setor.get setorId
+                eq 'setorWpd.id', s.setorWpdId
+            } else {
+                List<Setor> setoresAria = Setor.findAllByTipoSetor(TipoSetor.UTI)
+                List<SetorWpd> setores = SetorWpd.getAll(setoresAria.setorWpd.id)
+
+                'in' 'setorWpd.id', setores.id
+            }
+
+            if (dataEntradaInicio != null && dataEntradaInicio != '' && dataEntradaFim != null && dataEntradaFim != '') {
+                Date dataInicio = DataUtils.getFormatterToDate(dataEntradaInicio)
+                Date dataFim = DataUtils.endOfDay(DataUtils.getFormatterToDate(dataEntradaFim))
+
+                between 'dataEntrada', dataInicio, dataFim
+            }
+        } as List<RegistroAtendimentoLeito>
     }
 
     abstract Long count()

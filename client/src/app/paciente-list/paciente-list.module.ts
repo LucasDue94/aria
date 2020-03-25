@@ -7,6 +7,7 @@ import {IncidenteModule} from "../incidente/incidente.module";
 import {EcgModule} from "../ecg/ecg.module";
 import {BalaoModule} from "../balao/balao.module";
 import {EstratificacaoRiscoModule} from "../risco/estratificacao/estratificacao-risco.module";
+import {NasModule} from "../nas/nas.module";
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import {EstratificacaoRiscoModule} from "../risco/estratificacao/estratificacao-
     IncidenteModule,
     EcgModule,
     BalaoModule,
-    EstratificacaoRiscoModule
+    EstratificacaoRiscoModule,
+    NasModule
   ],
   exports: [
     PacienteListComponent

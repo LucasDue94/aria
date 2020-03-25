@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {faFrown, faSearch} from "@fortawesome/free-solid-svg-icons";
 import {Setor} from "../../../core/setor/setor";
 import {ApacheService} from "../../../core/apache/apache.service";
@@ -8,6 +8,8 @@ import {TitleService} from "../../../core/title/title.service";
 import {ErrorService} from "../../../core/error/error.service";
 import * as moment from 'moment';
 import {FilterService} from "../../../core/filter/filter.service";
+import {RegistroAtendimentoLeitoService} from "../../../core/registroAtendimentoLeito/registroAtendimentoLeito.service";
+import {RegistroAtendimentoLeito} from "../../../core/registroAtendimentoLeito/registroAtendimentoLeito";
 
 @Component({
   selector: 'apache-paciente-list',
@@ -17,68 +19,49 @@ import {FilterService} from "../../../core/filter/filter.service";
 
 export class ApachePacienteListComponent implements OnInit {
 
-  @ViewChild('dataList', {static: false}) dataList;
   faFrown = faFrown;
   faSearch = faSearch;
   showListScrollSpinner = false;
   listLoading = false;
-  admissoesPacSetor: any = [];
+  registrosLeito: RegistroAtendimentoLeito[] = [];
   arrayListSetor: Setor[] = [];
   setorId = null;
   offset = 0;
   max = 30;
-  termo = '';
+  params = {
+    termo: '',
+    inicio: '',
+    fim: '',
+    setorId: null,
+  };
 
   constructor(private apacheService: ApacheService, private setorService: SetorService, private errorService: ErrorService,
-              private titleService: TitleService, private fb: FormBuilder, private filterService: FilterService) {
+              private titleService: TitleService, private fb: FormBuilder, private filterService: FilterService,
+              private registroAtendimentoLeitoService: RegistroAtendimentoLeitoService) {
     this.search = this.search.bind(this);
   }
 
   ngOnInit() {
-    this.filterService.receive().subscribe(this.search)
+    this.filterService.receive().subscribe(this.search);
     this.listLoading = true;
     this.titleService.send('Apache II - Lista de Pacientes');
-    this.setorService.list('U', '', '').subscribe(setores => {
-      if (this.errorService.hasError(setores)) {
-        this.listLoading = false;
-        this.errorService.hasError(setores);
-      } else {
-        setores.forEach(setor => {
-          this.arrayListSetor.push(setor);
-        });
-        this.apacheService.list(this.setorId, '', '', 30).subscribe(registros => {
-          if (this.errorService.hasError(registros)) {
-            this.listLoading = false;
-            this.errorService.sendError(registros);
-          } else {
-            this.admissoesPacSetor = registros;
-            this.listLoading = false;
-          }
-        });
-      }
-    });
+    this.getRegistros()
   }
 
   search(params) {
     this.listLoading = true;
     this.offset = 0;
-    this.admissoesPacSetor = [];
-    if (params) {
-      this.setorId = params.setor;
-      this.termo = params.busca;
-      this.apacheService.search(params.setor, params.busca, this.offset, this.max).subscribe(registros => {
-        this.admissoesPacSetor = registros;
-        this.listLoading = false;
-      })
-    }
+    this.registrosLeito = [];
+    this.setFilterParams(params);
+    this.getRegistros()
   }
 
   scrollDown() {
     this.showListScrollSpinner = true;
     this.offset += 10;
-    this.apacheService.list(this.setorId, this.termo, this.offset, this.max).subscribe(registros => {
-      registros.forEach(registro => {
-        this.admissoesPacSetor.push(registro);
+    this.apacheService.list(this.setorId, this.params.termo, this.offset, this.max).subscribe(registrosLeito => {
+      registrosLeito.forEach(registro => {
+        this.registrosLeito.push(registro);
         this.showListScrollSpinner = false;
       });
     });
@@ -100,5 +83,23 @@ export class ApachePacienteListComponent implements OnInit {
       rowClass = '';
     }
     return rowClass;
+  }
+
+  setFilterParams(params) {
+    this.params.termo = params.busca;
+    this.params.inicio = params.inicio;
+    this.params.fim = params.fim;
+    this.params.setorId = params.setor;
+  }
+
+  getRegistros() {
+    this.registroAtendimentoLeitoService.list(this.params, this.offset, this.max).subscribe(registrosLeito => {
+      registrosLeito.forEach(registroLeito => {
+        this.registrosLeito.push(registroLeito);
+        this.showListScrollSpinner = false;
+      });
+      console.log(this.registrosLeito)
+      this.listLoading = false;
+    })
   }
 }

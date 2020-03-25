@@ -1,0 +1,28 @@
+<main class="container">
+  <div class="table table-list">
+    <section class="thead">
+      <span class="th flex-1">Registro</span>
+      <span class="th flex-3">Paciente</span>
+      <span class="th flex-1">Nascimento</span>
+      <span class="th flex-3">Mãe</span>
+      <span class="th flex-1">Sexo</span>
+      <span class="th flex-2">Entrada</span>
+    </section>
+    <section class="tbody content-paciente" [scrollWindow]="false" infinite-scroll (scrolled)="scrollDown()">
+      <spinner [loading]="listLoading"></spinner>
+      <div (click)="edit(registroLeito)" class="row" *ngFor="let registroLeito of registros">
+        <span class="td flex-1">{{registroLeito?.registroAtendimento?.id}}</span>
+        <span class="td flex-3">{{registroLeito?.registroAtendimento?.paciente.nome}}</span>
+        <span class="td flex-1">{{registroLeito?.registroAtendimento?.paciente.nascimento | date: "dd/MM/yyyy" }}</span>
+        <span class="td flex-3">{{registroLeito?.registroAtendimento?.paciente.nomeMae}}</span>
+        <span class="td flex-1">{{registroLeito?.registroAtendimento?.paciente.sexo}}</span>
+        <span class="td flex-2">{{registroLeito.dataEntrada | date: "dd/MM/yyyy - HH:mm"}}</span>
+      </div>
+      <app-scroll-spinner [show]="showListScrollSpinner"></app-scroll-spinner>
+      <div class="empty" *ngIf="registros?.length == 0">
+        <p>Nenhum paciente encontrado!</p>
+        <fa-icon class="icon" [icon]="faFrown" size="2x"></fa-icon>
+      </div>
+    </section>
+  </div>
+</main>

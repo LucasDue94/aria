@@ -17,9 +17,7 @@ export class RegistroAtendimentoLeito {
       }
 
       if (object.hasOwnProperty('leito')) {
-        this.leito = object['leito'].map((obj: any) => {
-          return new Leito(obj);
-        });
+        this.leito = object['leito'];
         delete object['leito'];
       }
 

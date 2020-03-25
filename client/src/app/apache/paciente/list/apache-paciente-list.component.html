@@ -1,11 +1,11 @@
 <main class="container">
-    <div class="filters-container">
-      <ul class="legend">
-        <li><span class="legend-success"></span> Realizado</li>
-        <li><span class="legend-available"></span> Pendente</li>
-        <li><span class="legend-alert"></span> Atrasado</li>
-      </ul>
-    </div>
+  <div class="filters-container">
+    <ul class="legend">
+      <li><span class="legend-success"></span> Realizado</li>
+      <li><span class="legend-available"></span> Pendente</li>
+      <li><span class="legend-alert"></span> Atrasado</li>
+    </ul>
+  </div>
   <section class="table table-list">
     <section class="thead">
       <span class="th flex-1">REGISTRO</span>
@@ -15,9 +15,9 @@
       <span class="th flex-1">SEXO</span>
       <span class="th flex-2">ENTRADA</span>
     </section>
-    <section #dataList class="tbody content" [scrollWindow]="false" infinite-scroll (scrolled)="scrollDown()">
+    <section class="tbody content" [scrollWindow]="false" infinite-scroll (scrolled)="scrollDown()">
       <spinner [loading]="listLoading"></spinner>
-      <div [ngClass]="getRowClass(registro)" class="row" *ngFor="let registro of admissoesPacSetor"
+      <div [ngClass]="getRowClass(registro)" class="row" *ngFor="let registro of registrosLeito"
            [routerLink]="['/apache','form']"
            [queryParams]="{registro:registro.registroAtendimento.id, dataEntrada: registro.dataEntrada, leito:registro.leito.id, apacheId: registro.apache ? registro.apache.id : null, dataAlta: registro.dataAlta }">
         <span class="td flex-1"><span class="label-card">Registro:</span> {{registro.registroAtendimento.id}}</span>
@@ -32,7 +32,7 @@
           class="label-card">Entrada:</span> {{registro.dataEntrada | date: 'dd/MM/yyyy - HH:mm'}}</span>
       </div>
       <app-scroll-spinner [show]="showListScrollSpinner"></app-scroll-spinner>
-      <div class="empty" *ngIf="admissoesPacSetor?.length == 0">
+      <div class="empty" *ngIf="registrosLeito?.length == 0">
         <p>Nenhum paciente encontrado!</p>
         <fa-icon class="icon" [icon]="faFrown" size="2x"></fa-icon>
       </div>
