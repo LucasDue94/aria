@@ -1,5 +1,6 @@
 package br.com.hospitaldocoracaoal.integracao
 
+
 import grails.gorm.transactions.ReadOnly
 import grails.plugin.springsecurity.annotation.Secured
 
