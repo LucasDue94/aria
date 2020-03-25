@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {EstratificacaoRisco} from "../../../core/estratificacaoRisco/estratificacaoRisco";
 
 @Component({
