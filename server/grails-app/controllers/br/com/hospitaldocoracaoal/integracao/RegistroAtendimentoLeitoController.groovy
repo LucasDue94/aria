@@ -1,6 +1,5 @@
 package br.com.hospitaldocoracaoal.integracao
 
-
 import grails.gorm.transactions.ReadOnly
 import grails.plugin.springsecurity.annotation.Secured
 
@@ -13,9 +12,9 @@ class RegistroAtendimentoLeitoController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     @Secured('ROLE_REGISTRO_ATENDIMENTO_INDEX')
-    def index(Integer max) {
+    def index(Integer max, Long setorId, String tipoSetor) {
         params.max = Math.min(max ?: 10, 100)
-        respond registroAtendimentoLeitoService.list(params), model: [registroAtendimentoLeitoCount: registroAtendimentoLeitoService.count()]
+        respond registroAtendimentoLeitoService.list(params, setorId, tipoSetor), model: [registroAtendimentoLeitoCount: registroAtendimentoLeitoService.count()]
     }
 
     @Secured('ROLE_REGISTRO_ATENDIMENTO_SHOW')

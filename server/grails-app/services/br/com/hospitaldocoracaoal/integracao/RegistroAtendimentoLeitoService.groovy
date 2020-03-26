@@ -13,7 +13,27 @@ abstract class RegistroAtendimentoLeitoService {
 
     abstract RegistroAtendimentoLeito get(Serializable id)
 
-    abstract List<RegistroAtendimentoLeito> list(Map args)
+    def list(Map args, Long setorId, String tipoSetor) {
+        tipoSetor = 'U'
+        List<Setor> setoresAria = Setor.findAllByTipoSetor(TipoSetor.tipoSetorPorId(tipoSetor))
+        List<SetorWpd> setoresWpd = setoresAria.setorWpd
+
+        def pacienteInternos = RegistroAtendimentoLeito.findAll """from RegistroAtendimentoLeito ral
+                inner join ral.registroAtendimento r
+                inner join ral.leito l
+                inner join l.setor s
+            where r.dataAlta is null
+              and s.id in :setoresWpd
+              and not exists(from RegistroAtendimentoLeito ral2
+                                inner join ral2.registroAtendimento r2
+                                inner join ral2.leito l2
+                                inner join l2.setor s2
+                            where r2.id = r.id
+                              and s2.id <> s.id
+                              and ral2.dataEntrada > ral.dataEntrada)""", [setoresWpd: setoresWpd.id]
+
+        return pacienteInternos
+    }
 
     List<RegistroAtendimentoLeito> admissoesSetor(GrailsParameterMap args, String termo, String setorId, String dataEntradaInicio,
                                                   String dataEntradaFim) {
