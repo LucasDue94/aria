@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {faExclamationCircle} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'grupo-humpty-dumpty',
@@ -10,6 +11,7 @@ export class GrupoHumptyDumptyComponent implements OnInit {
 
   @Input() escala_humpty_dumpty;
   @Input() formGroupHumptyDumpty: FormGroup;
+  faEclamation = faExclamationCircle;
 
   constructor() { }
 

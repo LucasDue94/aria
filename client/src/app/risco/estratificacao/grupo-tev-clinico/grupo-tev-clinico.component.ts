@@ -22,8 +22,8 @@ export class GrupoTevClinicoComponent implements OnInit {
   }
 
   createGroup() {
-    this.formGroupTevClinical.addControl("tev_clinico_1", new FormControl('', Validators.required));
-    this.formGroupTevClinical.addControl("tev_clinico_2", new FormControl('', Validators.required));
-    this.formGroupTevClinical.addControl("tev_clinico_3", new FormControl('', Validators.required));
+    this.formGroupTevClinical.addControl("tev_clinico_1", new FormControl(false, Validators.required));
+    this.formGroupTevClinical.addControl("tev_clinico_2", new FormControl(false, Validators.required));
+    this.formGroupTevClinical.addControl("tev_clinico_3", new FormControl(false, Validators.required));
   }
 }

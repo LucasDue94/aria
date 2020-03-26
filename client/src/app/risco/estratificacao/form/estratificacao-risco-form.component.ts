@@ -21,7 +21,7 @@ import {EstratificacaoRisco} from "../../../core/estratificacaoRisco/estratifica
 
 export class EstratificacaoRiscoFormComponent implements OnInit {
   @ViewChild('tabs', {static: false}) tab: ElementRef;
-  form = this.fb.group({});
+  form = this.fb.array([]);
   groupRisks: FormGroup;
   groupTevClinical: FormGroup;
   groupTevSurgical: FormGroup;
@@ -597,29 +597,62 @@ export class EstratificacaoRiscoFormComponent implements OnInit {
   estratificacao = new EstratificacaoRisco();
   currentTab = 0;
   title = 'ESTRATIFICAÇÃO DE RISCOS';
+  sumitted = false;
+  hasError: boolean;
 
   constructor(private registroAtendimentoService: RegistroAtendimentoService,
-              private fb: FormBuilder, private titleService: TitleService) {}
+              private fb: FormBuilder, private titleService: TitleService) {
+  }
 
 
   ngOnInit() {
+    this.createFormGroups();
+    this.createForm();
     this.titleService.send('Estratificação de riscos - Formulário');
     this.registroAtendimentoService.list('0230022').subscribe(registroAtendimento => {
       this.registroAtendimento = registroAtendimento;
     });
-    this.createFormGroups();
   }
 
+
   nextTab() {
-    if (this.currentTab < 2) {
-      this.currentTab += 1;
+
+    if(this.currentTab == 0) {
+      this.hasError = this.groupRisks.invalid;
+      if (this.groupRisks.valid && this.hasError != true) {
+        this.currentTab += 1;
+      }
+      return;
     }
+
+    if(this.currentTab == 1) {
+      this.hasError = this.groupBraden.invalid;
+      if (this.groupBraden.valid && this.hasError != true) {
+        this.currentTab += 1;
+      }
+      return;
+    }
+
+    if(this.currentTab == 2) {
+      this.hasError = this.groupJhfrat.invalid;
+      if(this.groupJhfrat.valid && this.hasError != true) {
+        this.currentTab += 1;
+      }
+      return;
+    }
+
   }
 
   previousTab() {
     if (this.currentTab > 0) {
       this.currentTab -= 1;
     }
+  }
+
+  createForm() {
+    this.form = this.fb.array(
+      [this.groupRisks, this.groupTevClinical, this.groupTevSurgical, this.groupBraden,
+        this.groupBradenQ, this.groupJhfrat, this.groupHumptyDumpty]);
   }
 
   createFormGroups() {
@@ -633,12 +666,9 @@ export class EstratificacaoRiscoFormComponent implements OnInit {
   }
 
   save() {
-    console.log(this.groupRisks);
-    console.log(this.groupTevClinical);
-    console.log(this.groupTevSurgical);
-    console.log(this.groupBraden);
-    console.log(this.groupBradenQ);
-    console.log(this.groupJhfrat);
-    console.log(this.groupHumptyDumpty);
+    this.sumitted = true;
+    if (this.form.invalid) {
+      console.log(this.form.value);
+    }
   }
 }

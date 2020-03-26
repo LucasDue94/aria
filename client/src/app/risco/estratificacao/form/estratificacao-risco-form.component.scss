@@ -8,10 +8,25 @@
   color: $white;
 }
 
-.radio-control-error {
-  border: 1px solid #c26267 !important;
-  color: #c26267;
+
+.alert-errors {
+  display: flex;
+  flex-direction: row;
+  vertical-align: center;
+  align-content: center;
+  transition: 1s all;
+
+  .exclamation {
+    color: #c26267;
+    margin-right: 5px;
+  }
+
+  .invalid {
+    font-size: 12px;
+    color: #c26267;
+  }
 }
+
 
 .stratification-container {
   display: flex;

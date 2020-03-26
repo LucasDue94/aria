@@ -4,6 +4,10 @@
 </div>
 <div [formGroup]="formGroupHumptyDumpty" class="scale-content">
   <div class="group-humpty-dumpty" *ngFor="let item of escala_humpty_dumpty">
+    <div class="alert-errors" *ngIf="formGroupHumptyDumpty.get(item.controlname).invalid">
+      <span class="exclamation"><fa-icon [icon]="faEclamation"></fa-icon></span>
+      <span class="invalid">Selecione uma opção*</span>
+    </div>
     <h2>{{item.title}}</h2>
     <div *ngFor="let alternative of item.alternatives">
       <input id="{{item.controlname + alternative.id}}" class="radio" type="radio"

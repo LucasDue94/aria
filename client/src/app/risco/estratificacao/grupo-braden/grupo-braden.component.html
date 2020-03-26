@@ -4,6 +4,10 @@
 </div>
 <div [formGroup]="formGroupBraden"  class="scale-content">
   <div class="select-group" *ngFor="let item of braden">
+    <div class="alert-errors" *ngIf="formGroupBraden.get(item.controlname).invalid && hasError">
+      <span class="exclamation"><fa-icon [icon]="faEclamation"></fa-icon></span>
+      <span class="invalid">Selecione uma opção*</span>
+    </div>
     <label class="label-braden">{{item.description}}</label>
     <select class="select" formControlName="{{item.controlname}}">
       <option value="{{null}}">Selecione</option>

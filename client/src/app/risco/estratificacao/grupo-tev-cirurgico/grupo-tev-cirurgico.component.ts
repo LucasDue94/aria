@@ -20,10 +20,10 @@ export class GrupoTevCirurgicoComponent implements OnInit {
   }
 
   createGroup() {
-    this.formGroupTevSurgical.addControl('tev_cirurgico_5', new FormControl('', Validators.required));
-    this.formGroupTevSurgical.addControl('tev_cirurgico_3', new FormControl('', Validators.required));
-    this.formGroupTevSurgical.addControl('tev_cirurgico_2', new FormControl('', Validators.required));
-    this.formGroupTevSurgical.addControl('tev_cirurgico_1', new FormControl('', Validators.required));
+    this.formGroupTevSurgical.addControl('tev_cirurgico_5', new FormControl(false, Validators.required));
+    this.formGroupTevSurgical.addControl('tev_cirurgico_3', new FormControl(false, Validators.required));
+    this.formGroupTevSurgical.addControl('tev_cirurgico_2', new FormControl(false, Validators.required));
+    this.formGroupTevSurgical.addControl('tev_cirurgico_1', new FormControl(false, Validators.required));
   }
 
 }

@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {faExclamationCircle} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'grupo-escala-jh-frat',
@@ -10,6 +11,8 @@ export class GrupoEscalaJhFratComponent implements OnInit {
 
   @Input() escala_jh_frat;
   @Input() formGroupJhFrat: FormGroup;
+  @Input() hasError: boolean;
+  faEclamation = faExclamationCircle;
 
   constructor() { }
 

@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {EstratificacaoRisco} from "../../../core/estratificacaoRisco/estratificacaoRisco";
+import {faExclamationCircle} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'grupo-fator-risco',
@@ -11,6 +12,8 @@ export class GrupoFatorRiscoComponent implements OnInit {
 
   @Input() risks_stratification;
   @Input() formGroupRisk: FormGroup;
+  @Input() hasError: Boolean;
+  faEclamation = faExclamationCircle;
   estratificacao = new EstratificacaoRisco();
 
   constructor() {
