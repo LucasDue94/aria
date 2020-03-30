@@ -14,8 +14,7 @@
         <div class="registros-anteriores" *ngIf="isInternado(registroLeito) && i==0">Pacientes Internados</div>
         <div class="registros-anteriores" *ngIf="!isInternado(registroLeito) && i  == internados">Pacientes de Alta
         </div>
-        <div (click)="edit(registroLeito)" class="row"
-             [ngStyle]="{'border': isInternado(registroLeito) ? '2px solid red': '2px solid blue'}">
+        <div (click)="edit(registroLeito)" class="row">
           <span class="td flex-1">{{registroLeito?.registroAtendimento?.id}}</span>
           <span class="td flex-3">{{registroLeito?.registroAtendimento?.paciente.nome}}</span>
           <span

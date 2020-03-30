@@ -89,14 +89,13 @@ export class NasPacienteListComponent implements OnInit {
     if (params) this.getRegistros()
   }
 
-  getRegistros() {
-    // this.internados = 0;
-    // this.antigos = 0;
-    this.registroAtendimentoLeitoService.list(this.params, this.offset, this.max).subscribe(registros => {
+  /*getRegistros() {
+    this.registroAtendimentoLeitoService.list(this.params, this.offset, this.max)
+      .subscribe((registros: RegistroAtendimentoLeito[]) => {
+      console.log(registros)
       const totalRegistros = this.sortRegistros(registros)
-      console.log(totalRegistros)
       totalRegistros.forEach(registro => {
-        if(this.isInternado(registro)) this.internados++
+        if (this.isInternado(registro)) this.internados++
         else this.antigos++
         this.registros.push(registro);
         this.showListScrollSpinner = false;
@@ -104,6 +103,22 @@ export class NasPacienteListComponent implements OnInit {
       this.registros = this.sortRegistros(this.registros);
       this.listLoading = false;
     })
+  }*/
+
+  getRegistros() {
+    this.registroAtendimentoLeitoService.list('', 'U', this.offset, this.max)
+      .subscribe((registros: RegistroAtendimentoLeito[]) => {
+        console.log(registros)
+        const totalRegistros = this.sortRegistros(registros)
+        totalRegistros.forEach(registro => {
+          if (this.isInternado(registro)) this.internados++
+          else this.antigos++
+          this.registros.push(registro);
+          this.showListScrollSpinner = false;
+        });
+        this.registros = this.sortRegistros(this.registros);
+        this.listLoading = false;
+      })
   }
 
 
@@ -114,7 +129,6 @@ export class NasPacienteListComponent implements OnInit {
   }
 
   isInternado(registroLeito: RegistroAtendimentoLeito) {
-    const internado = registroLeito && registroLeito.dataAlta == null && !registroLeito.registroAtendimento.hasOwnProperty('dataAlta')
-    return internado
+    return registroLeito && registroLeito.dataAlta == null && !registroLeito.registroAtendimento.hasOwnProperty('dataAlta')
   }
 }
