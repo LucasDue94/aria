@@ -14,11 +14,13 @@
   flex-direction: row;
   vertical-align: center;
   align-content: center;
-  transition: 1s all;
+  position: absolute;
+  margin: 2px auto;
 
   .exclamation {
     color: #c26267;
     margin-right: 5px;
+    transition: color 2s ease-in;
   }
 
   .invalid {

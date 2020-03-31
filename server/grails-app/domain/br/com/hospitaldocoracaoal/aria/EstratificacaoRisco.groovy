@@ -17,7 +17,6 @@ class EstratificacaoRisco {
     // Risco de sangramento
     Boolean anticoagulante                  // Uso de anticoagulante
     Boolean plaquetopenia                   // Plaquetopenia (<50.000)
-    Boolean operatorio_imediato             // Pos operatorio imediato
 
     // Risco de Delirium
 //    Boolean idade_65                      // Idade > 65 anos
@@ -111,7 +110,7 @@ class EstratificacaoRisco {
                                                                     'Em uso de dispositivo de assistência (cadeira de rodas, andador, suporte de soro, entre outros)',
                                                                     'Criança acamado', 'Criança que pode se locomover entre os ambientes sem limitações']
         hd_uso_medicamentos nullable: true, blank: false, inList:['Uso de 2 ou mais dos seguintes medicamentos (sedativos, hipnóticos, barbitúricos, antidepressivos, laxantes, diuréticos, narcóticos)',
-                                                                  'Uma das medicações acima citadas']
+                                                                  'Uma das medicações acima citadas', 'Outras medicações / nenhum']
 
 
     }

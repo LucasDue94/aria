@@ -324,7 +324,7 @@ const routes: Routes = [
         path: 'estratificacao',
         children: [
           {
-            path: 'create',
+            path: 'create/:id',
             component: EstratificacaoRiscoFormComponent,
             canActivate: [AuthGuard]
           }

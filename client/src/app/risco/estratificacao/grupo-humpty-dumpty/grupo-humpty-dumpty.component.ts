@@ -10,6 +10,7 @@ import {faExclamationCircle} from "@fortawesome/free-solid-svg-icons";
 export class GrupoHumptyDumptyComponent implements OnInit {
 
   @Input() escala_humpty_dumpty;
+  @Input() controlIsEmpty: boolean;
   @Input() formGroupHumptyDumpty: FormGroup;
   faEclamation = faExclamationCircle;
 

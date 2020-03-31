@@ -21,15 +21,22 @@
   width: 180px;
   padding: 10px;
 
-  & input.radio[type="radio"], input.checkbox[type='checkbox'] {
+  & input.radio[type="radio"] {
     transform: scale(1.5);
     font-size: 12px;
     margin: 10px;
   }
 
+  & input.radio[type="radio"]:focus,
+  & input.radio[type="radio"]:valid {
+    background-color: #74B856;
+  }
+
+
+
   & .group-label-risks {
     width: 100%;
-    margin: 5px;
+    margin: 10px 5px;
     line-height: 20px;
     word-wrap: break-word;
     word-break: normal;

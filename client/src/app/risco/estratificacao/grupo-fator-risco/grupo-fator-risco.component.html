@@ -5,9 +5,9 @@
 <div [formGroup]="formGroupRisk" class="scale-content" *ngFor="let item of risks_stratification">
   <div class="group-label-risks">
     <label>
-      <span class="number-question">{{item.id}}) </span>{{item.description}}<br>
+      <span class="number-question">{{item.id}}) </span>{{item.description}}
     </label>
-    <div class="alert-errors" *ngIf="formGroupRisk.get(item.controlname).invalid && hasError">
+    <div class="alert-errors" *ngIf="formGroupRisk.get(item.controlname).invalid && controlIsEmpty">
       <span class="exclamation"><fa-icon [icon]="faEclamation"></fa-icon></span>
       <span class="invalid">Selecione uma opção*</span>
     </div>

@@ -11,7 +11,7 @@ export class GrupoBradenComponent implements OnInit {
 
   @Input() braden;
   @Input() formGroupBraden: FormGroup;
-  @Input() hasError: Boolean;
+  @Input() controlIsEmpty: Boolean;
   faEclamation = faExclamationCircle;
 
   constructor() {

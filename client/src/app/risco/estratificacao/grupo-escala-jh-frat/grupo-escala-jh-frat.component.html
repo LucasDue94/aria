@@ -1,17 +1,20 @@
 <div class="header-scale">
-  <h2 class="subtitle">ESCALA JH-FRAT</h2>
+  <h2 class="subtitle">ESCALA JH FRAT</h2>
   <hr class="limit-row">
 </div>
 <div [formGroup]="formGroupJhFrat" class="scale-content">
-  <div  class="group-jh-frat" *ngFor="let item of escala_jh_frat">
-    <div class="alert-errors" *ngIf="formGroupJhFrat.get(item.controlname).invalid && hasError">
+  <div class="group-jh-frat" *ngFor="let item of escala_jh_frat">
+    <h2 class="title-question">{{item.title}}</h2>
+    <div class="alert-errors" *ngIf="formGroupJhFrat.get(item.controlname).invalid && controlIsEmpty">
       <span class="exclamation"><fa-icon [icon]="faEclamation"></fa-icon></span>
       <span class="invalid">Selecione uma opção*</span>
     </div>
-    <h2>{{item.title}}</h2>
-    <div *ngFor="let alternative of item.alternatives">
-      <input id="{{item.controlname + alternative.id}}" class="radio" type="radio" formControlName="{{item.controlname}}" value="{{alternative.description}}"><label for="{{item.controlname + alternative.id}}">{{alternative.description}}</label>
+    <div class="group-radios">
+      <div *ngFor="let alternative of item.alternatives">
+        <input id="{{item.controlname + alternative.id}}" class="radio" type="radio"
+               formControlName="{{item.controlname}}" value="{{alternative.description}}"><label
+        for="{{item.controlname + alternative.id}}">{{alternative.description}}</label>
+      </div>
     </div>
   </div>
 </div>
-

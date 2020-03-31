@@ -43,7 +43,6 @@ export class EstratificacaoRisco {
   drogas_sedativas: boolean;
   comorbidades_clinico_critico: boolean;
   tev_clinico_3: boolean;
-  operatorio_imediato: boolean;
   hipoglicemiante_corticoide: boolean;
   anticoagulante: boolean;
   tev_cirurgico_5: boolean;

@@ -12,6 +12,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {EstratificacaoRisco} from "../../../core/estratificacaoRisco/estratificacaoRisco";
+import {EstratificacaoRiscoService} from "../../../core/estratificacaoRisco/estratificacaoRisco.service";
 
 @Component({
   selector: 'estratificacao-risco-form',
@@ -21,7 +22,6 @@ import {EstratificacaoRisco} from "../../../core/estratificacaoRisco/estratifica
 
 export class EstratificacaoRiscoFormComponent implements OnInit {
   @ViewChild('tabs', {static: false}) tab: ElementRef;
-  form = this.fb.array([]);
   groupRisks: FormGroup;
   groupTevClinical: FormGroup;
   groupTevSurgical: FormGroup;
@@ -373,7 +373,7 @@ export class EstratificacaoRiscoFormComponent implements OnInit {
         },
         {
           id: 2,
-          description: 'Icontinência',
+          description: 'Incontinência',
           punctuation: 2
         },
         {
@@ -439,12 +439,12 @@ export class EstratificacaoRiscoFormComponent implements OnInit {
         },
         {
           id: 2,
-          description: 'Em uso de 2 ou mais medicamentos de alto risoco de queda',
+          description: 'Em uso de 2 ou mais medicamentos de alto risco de queda',
           punctuation: 5
         },
         {
           id: 3,
-          description: 'Procedimento sob sedação nasúltimas 24 horas',
+          description: 'Procedimento sob sedação nas últimas 24 horas',
           punctuation: 7
         },
       ],
@@ -485,7 +485,7 @@ export class EstratificacaoRiscoFormComponent implements OnInit {
         },
         {
           id: 2,
-          description: 'Alterações de oxigenação (Respiratórios, anemia, desidratação, anorexia, tontura, síncope)',
+          description: 'Alterações de oxigenação (Respiratórios, anemia, desitratação, anorexia, tontura, síncope)',
           punctuation: 3
         },
         {
@@ -556,7 +556,7 @@ export class EstratificacaoRiscoFormComponent implements OnInit {
         },
         {
           id: 2,
-          description: 'Em uso de dispositivo de assistência (cadeira de rodas, andador, suporte de soro, entre outros',
+          description: 'Em uso de dispositivo de assistência (cadeira de rodas, andador, suporte de soro, entre outros)',
           punctuation: 3
         },
         {
@@ -578,7 +578,7 @@ export class EstratificacaoRiscoFormComponent implements OnInit {
       alternatives: [
         {
           id: 1,
-          description: 'Uso de 2 ou mais dos seguintes medicamentos (sedativos, hopnóticos, barbitúricos, antidepressivos, laxantes, diurético, narcóticos)',
+          description: 'Uso de 2 ou mais dos seguintes medicamentos (sedativos, hipnóticos, barbitúricos, antidepressivos, laxantes, diuréticos, narcóticos)',
           punctuation: 3
         },
         {
@@ -594,13 +594,15 @@ export class EstratificacaoRiscoFormComponent implements OnInit {
       ],
     },
   ];
-  estratificacao = new EstratificacaoRisco();
   currentTab = 0;
-  title = 'ESTRATIFICAÇÃO DE RISCOS';
   sumitted = false;
-  hasError: boolean;
+  title = 'ESTRATIFICAÇÃO DE RISCOS';
+  form = this.fb.array([{}]);
+  estratificacao = new EstratificacaoRisco();
+  controlStateIsEmpty: boolean = false;
 
   constructor(private registroAtendimentoService: RegistroAtendimentoService,
+              private estratificacaoRiscoService: EstratificacaoRiscoService,
               private fb: FormBuilder, private titleService: TitleService) {
   }
 
@@ -614,33 +616,34 @@ export class EstratificacaoRiscoFormComponent implements OnInit {
     });
   }
 
-
   nextTab() {
-
-    if(this.currentTab == 0) {
-      this.hasError = this.groupRisks.invalid;
-      if (this.groupRisks.valid && this.hasError != true) {
-        this.currentTab += 1;
+    let valid;
+    switch (this.currentTab) {
+      case 0: {
+        this.controlStateIsEmpty = this.groupRisks.invalid;
+        valid = this.groupRisks.valid && this.controlStateIsEmpty != true;
+        if (valid) {
+          this.currentTab += 1;
+        }
+        break;
       }
-      return;
-    }
-
-    if(this.currentTab == 1) {
-      this.hasError = this.groupBraden.invalid;
-      if (this.groupBraden.valid && this.hasError != true) {
-        this.currentTab += 1;
+      case 1: {
+        this.controlStateIsEmpty = this.groupBraden.invalid;
+        this.controlStateIsEmpty = this.groupBradenQ.invalid;
+        valid = this.groupBraden.valid || this.groupBradenQ.valid && this.controlStateIsEmpty != true;
+        valid == true ? this.currentTab += 1 : null;
+        break;
       }
-      return;
-    }
-
-    if(this.currentTab == 2) {
-      this.hasError = this.groupJhfrat.invalid;
-      if(this.groupJhfrat.valid && this.hasError != true) {
-        this.currentTab += 1;
+      case 2: {
+        this.controlStateIsEmpty = this.groupJhfrat.invalid;
+        this.controlStateIsEmpty = this.groupHumptyDumpty.invalid;
+        valid = this.groupJhfrat.valid || this.groupHumptyDumpty && this.controlStateIsEmpty != true;
+        if (valid) {
+          this.currentTab += 1;
+        }
+        break;
       }
-      return;
     }
-
   }
 
   previousTab() {
@@ -666,9 +669,9 @@ export class EstratificacaoRiscoFormComponent implements OnInit {
   }
 
   save() {
-    this.sumitted = true;
-    if (this.form.invalid) {
-      console.log(this.form.value);
-    }
+    const estratifcacao = this.form.getRawValue().reduce((obj, group) => Object.assign(obj, group));
+    this.estratificacaoRiscoService.save(estratifcacao).subscribe();
+
+    console.log(this.estratificacao);
   }
 }

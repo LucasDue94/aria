@@ -11,7 +11,7 @@ export class GrupoEscalaJhFratComponent implements OnInit {
 
   @Input() escala_jh_frat;
   @Input() formGroupJhFrat: FormGroup;
-  @Input() hasError: boolean;
+  @Input() controlIsEmpty: boolean;
   faEclamation = faExclamationCircle;
 
   constructor() { }
