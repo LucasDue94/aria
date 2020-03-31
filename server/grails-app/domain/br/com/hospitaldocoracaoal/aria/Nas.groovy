@@ -30,8 +30,7 @@ class Nas {
     boolean intervencoesForaUnidade           //Questão 23
     float escore
     static belongsTo = [RegistroAtendimentoLeito]
-
-
+    Date dateCreated
 
     static constraints = {
         monitorizacao nullabe: false, blank: false, inList: ['1a', '1b', '1c']

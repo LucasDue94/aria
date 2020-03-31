@@ -27,6 +27,7 @@ export class Nas {
   intervencoesForaUnidade: boolean;                           //Questão 23
   registroAtendimentoLeito: RegistroAtendimentoLeito;
   escore: any;
+  dataCriacao: string;
 
   constructor(object?: any) {
     if (object) {
@@ -34,6 +35,11 @@ export class Nas {
       if (object.hasOwnProperty('registroAtendimentoLeito')) {
         this.registroAtendimentoLeito = new RegistroAtendimentoLeito(object['registroAtendimentoLeito']);
         delete object['registroAtendimentoLeito'];
+      }
+
+      if(object.hasOwnProperty('dateCreated')){
+        this.dataCriacao = object['dateCreated'];
+        delete object['dateCreated']
       }
 
       for (var prop in object) {

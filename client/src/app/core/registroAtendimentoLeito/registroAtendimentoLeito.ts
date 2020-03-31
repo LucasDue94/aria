@@ -34,7 +34,17 @@ export class RegistroAtendimentoLeito {
         this[prop] = object[prop];
       }
     }
+  }
 
+  lastNas() {
+    this.nas = this.nas.sort(function (a, b) {
+      if (a.dataCriacao > b.dataCriacao)
+        return 1;
+      else
+        return -1;
+    });
+
+    return this.nas[this.nas.length - 1];
   }
 
   toString(): string {

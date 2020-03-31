@@ -12,7 +12,8 @@ import {RegistroAtendimentoLeito} from "../../core/registroAtendimentoLeito/regi
   styleUrls: ['./nas-paciente-list.component.scss']
 })
 export class NasPacienteListComponent implements OnInit {
-  registros: RegistroAtendimentoLeito[] = [];
+  outrosPacientes: RegistroAtendimentoLeito[] = [];
+  pacientesInternos: RegistroAtendimentoLeito[] = [];
   showListScrollSpinner = false;
   offset = 0;
   max = 30;
@@ -25,8 +26,6 @@ export class NasPacienteListComponent implements OnInit {
     fim: '',
     setorId: null,
   };
-  internados = 0;
-  antigos = 0;
 
   constructor(private registroAtendimentoLeitoService: RegistroAtendimentoLeitoService, private router: Router,
               private titleService: TitleService, private filterService: FilterService) {
@@ -49,23 +48,31 @@ export class NasPacienteListComponent implements OnInit {
     })
   }
 
-  sortRegistros(registros) {
-    return registros.sort(function (a, b) {
-      if ((a.dataAlta == null && !a.registroAtendimento.hasOwnProperty('dataAlta'))
-        && (b.dataAlta != null || b.registroAtendimento.hasOwnProperty('dataAlta')))
-        return -1;
-      else
+  sortPacientesInternos() {
+    this.pacientesInternos.sort(function (a, b) {
+      if (a.registroAtendimento.paciente.nome > b.registroAtendimento.paciente.nome)
         return 1;
+      else
+        return -1;
     });
+    this.pacientesInternos.sort(function (a, b) {
+      const escoreA = a.lastNas() ? (a.lastNas().escore) : 0;
+      const escoreB = b.lastNas() ? (b.lastNas().escore) : 0;
 
-    /*   this.registros.sort(function (a, b) {
-         const dateA = new Date(a.dataEntrada)
-         const dateB = new Date(b.dataEntrada)
-         if (dateA.getTime() > dateB.getTime())
-           return -1;
-         else
-           return 1;
-       });*/
+      if (escoreA > escoreB)
+        return 1;
+      else if (escoreA < escoreB)
+        return -1;
+    });
+  }
+
+  static sortByDataEntrada(array) {
+    array.sort(function (a, b) {
+      if (a.dataEntrada < b.dataEntrada)
+        return 1;
+      else
+        return -1;
+    });
   }
 
   scrollDown() {
@@ -82,45 +89,28 @@ export class NasPacienteListComponent implements OnInit {
   }
 
   search(params) {
+    this.pacientesInternos = [];
+    this.outrosPacientes = [];
     this.offset = 0;
     this.listLoading = true;
-    this.registros = [];
     this.setFilterParams(params);
     if (params) this.getRegistros()
   }
 
-  /*getRegistros() {
-    this.registroAtendimentoLeitoService.list(this.params, this.offset, this.max)
-      .subscribe((registros: RegistroAtendimentoLeito[]) => {
-      console.log(registros)
-      const totalRegistros = this.sortRegistros(registros)
-      totalRegistros.forEach(registro => {
-        if (this.isInternado(registro)) this.internados++
-        else this.antigos++
-        this.registros.push(registro);
+  getRegistros() {
+    this.pacientesInternos = [];
+    this.registroAtendimentoLeitoService.list('', 'U', this.offset, this.max)
+      .subscribe(data => {
+        this.pushItems(this.pacientesInternos, data['pacientesInternos']);
+        this.pushItems(this.outrosPacientes, data['outrosPacientes']);
+        this.sortPacientesInternos();
+        NasPacienteListComponent.sortByDataEntrada(this.outrosPacientes);
+        this.listLoading = false;
         this.showListScrollSpinner = false;
       });
-      this.registros = this.sortRegistros(this.registros);
-      this.listLoading = false;
-    })
-  }*/
-
-  getRegistros() {
-    this.registroAtendimentoLeitoService.list('', 'U', this.offset, this.max)
-      .subscribe((registros: RegistroAtendimentoLeito[]) => {
-        console.log(registros)
-        const totalRegistros = this.sortRegistros(registros)
-        totalRegistros.forEach(registro => {
-          if (this.isInternado(registro)) this.internados++
-          else this.antigos++
-          this.registros.push(registro);
-          this.showListScrollSpinner = false;
-        });
-        this.registros = this.sortRegistros(this.registros);
-        this.listLoading = false;
-      })
   }
 
+  pushItems = (array, items) => items.forEach(item => array.push(item));
 
   isToday(dataEntrada: string) {
     const currentDate = new Date(dataEntrada);
@@ -128,7 +118,7 @@ export class NasPacienteListComponent implements OnInit {
     return currentDate.toLocaleString().slice(0, 10) == today.toLocaleString().slice(0, 10);
   }
 
-  isInternado(registroLeito: RegistroAtendimentoLeito) {
-    return registroLeito && registroLeito.dataAlta == null && !registroLeito.registroAtendimento.hasOwnProperty('dataAlta')
+  roundEscore(escore){
+    return parseFloat(escore).toFixed(1)
   }
 }

@@ -61,7 +61,7 @@ abstract class RegistroAtendimentoLeitoService {
                                 and ral2.dataEntrada > ral.dataEntrada)
                $query"""
 
-        List<RegistroAtendimentoLeito> outrosPacientes = RegistroAtendimentoLeito.findAll hqlOutros, queryParams, [max: 30]
+        List<RegistroAtendimentoLeito> outrosPacientes = RegistroAtendimentoLeito.findAll hqlOutros, queryParams, [offset:args.offset, max: 30]
 
         return [
                 pacientesInternos: pacienteInternos,

@@ -14,25 +14,28 @@ export class RegistroAtendimentoLeitoService {
   constructor(private http: HttpClient) {
   }
 
-  list(setorId?: string, tipoSetor?: string, offset?: number, max?: number): Observable<RegistroAtendimentoLeito[]> {
-    let subject = new Subject<RegistroAtendimentoLeito[]>();
-
+  list(setorId?: string, tipoSetor?: string, offset?: number, max?: number): Observable<any> {
+    let subject = new Subject<any>();
+    let data = {
+      pacientesInternos: [],
+      outrosPacientes: []
+    };
     this.http.get<RegistroAtendimentoLeito[]>(this.baseUrl + `registroAtendimentoLeito?setorId=${setorId ? setorId : ''}&tipoSetor=${tipoSetor ? tipoSetor : ''}&offset=${offset ? offset : ''}&max=${max ? max : ''}`)
       .subscribe((json: any[]) => {
-        console.log(json)
         if (json.hasOwnProperty('pacientesInternos')) {
-          subject.next(json['pacientesInternos'].map((propertyName: any) => new RegistroAtendimentoLeito(propertyName)))
+          data.pacientesInternos = json['pacientesInternos'].map((propertyName: any) => new RegistroAtendimentoLeito(propertyName));
         }
         if (json.hasOwnProperty('outrosPacientes')) {
-          subject.next(json['outrosPacientes'].map((propertyName: any) => new RegistroAtendimentoLeito(propertyName)))
+          data.outrosPacientes = json['outrosPacientes'].map((propertyName: any) => new RegistroAtendimentoLeito(propertyName))
         }
+        subject.next(data);
       });
 
     return subject.asObservable();
   }
 
   /*
-    list(filterParams?, offset?: number, max?: number): Observable<RegistroAtendimentoLeito[]> {
+    search(filterParams?, offset?: number, max?: number): Observable<RegistroAtendimentoLeito[]> {
       let subject = new Subject<RegistroAtendimentoLeito[]>();
 
       this.http.get<RegistroAtendimentoLeito[]>(this.baseUrl + `registroAtendimentoLeito?setorId=${filterParams.setorId ? filterParams.setorId : ''}&termo=${filterParams.termo ? filterParams.termo : ''}&dataEntradaInicio=${filterParams.inicio ? filterParams.inicio : ''}&dataEntradaFim=${filterParams.fim ? filterParams.fim : ''}&offset=${offset ? offset : ''}&max=${max ? max : ''}`)
