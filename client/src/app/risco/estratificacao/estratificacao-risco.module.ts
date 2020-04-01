@@ -12,6 +12,7 @@ import {GrupoTevCirurgicoComponent} from './grupo-tev-cirurgico/grupo-tev-cirurg
 import {GrupoBradenqComponent} from './grupo-bradenq/grupo-bradenq.component';
 import {GrupoEscalaJhFratComponent} from './grupo-escala-jh-frat/grupo-escala-jh-frat.component';
 import {GrupoHumptyDumptyComponent} from './grupo-humpty-dumpty/grupo-humpty-dumpty.component';
+import { ResumoComponent } from './resumo/resumo.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import {GrupoHumptyDumptyComponent} from './grupo-humpty-dumpty/grupo-humpty-dum
     GrupoTevCirurgicoComponent,
     GrupoBradenqComponent,
     GrupoEscalaJhFratComponent,
-    GrupoHumptyDumptyComponent
+    GrupoHumptyDumptyComponent,
+    ResumoComponent
   ],
   imports: [
     CommonModule,

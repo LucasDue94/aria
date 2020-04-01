@@ -595,15 +595,14 @@ export class EstratificacaoRiscoFormComponent implements OnInit {
     },
   ];
   currentTab = 0;
-  sumitted = false;
   title = 'ESTRATIFICAÇÃO DE RISCOS';
   form = this.fb.array([{}]);
   estratificacao = new EstratificacaoRisco();
   controlStateIsEmpty: boolean = false;
 
-  constructor(private registroAtendimentoService: RegistroAtendimentoService,
-              private estratificacaoRiscoService: EstratificacaoRiscoService,
-              private fb: FormBuilder, private titleService: TitleService) {
+  constructor(private registroAtendimentoService?: RegistroAtendimentoService,
+              private estratificacaoRiscoService?: EstratificacaoRiscoService,
+              private fb?: FormBuilder, private titleService?: TitleService) {
   }
 
 
@@ -668,10 +667,12 @@ export class EstratificacaoRiscoFormComponent implements OnInit {
     this.groupHumptyDumpty = this.fb.group({});
   }
 
-  save() {
+  getEstratificacao(): EstratificacaoRisco {
     const estratifcacao = this.form.getRawValue().reduce((obj, group) => Object.assign(obj, group));
-    this.estratificacaoRiscoService.save(estratifcacao).subscribe();
+    return  this.estratificacao = new EstratificacaoRisco(estratifcacao);
+  }
 
-    console.log(this.estratificacao);
+  save() {
+    this.estratificacaoRiscoService.save(this.getEstratificacao()).subscribe();
   }
 }

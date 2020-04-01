@@ -1,0 +1,12 @@
+@import "../grupo-fator-risco/grupo-fator-risco.component";
+@import "../../estratificacao/form/estratificacao-risco-form.component";
+@import "../grupo-tev-clinico/grupo-tev-clinico.component";
+@import "../grupo-braden/grupo-braden.component";
+@import "../grupo-bradenq/grupo-bradenq.component";
+@import "../grupo-escala-jh-frat/grupo-escala-jh-frat.component";
+@import "../grupo-humpty-dumpty/grupo-humpty-dumpty.component";
+
+.subtitle {
+  font-size: 16px;
+  margin-top: 20px;
+}
