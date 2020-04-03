@@ -1,5 +1,6 @@
 @import "../../../../assets/device-sizes";
 @import "../../../../assets/colors";
+@import "../form/estratificacao-risco-form.component";
 
 .header-scale {
   width: 100%;
@@ -25,6 +26,7 @@
 
     & .label-braden {
       font-weight: bold;
+      margin-top: 25px;
     }
 
     & .select {

@@ -1,5 +1,6 @@
 @import "../../../../assets/device-sizes";
 @import "../../../../assets/colors";
+@import "../../estratificacao/form/estratificacao-risco-form.component";
 
 .header-scale {
   width: 100%;
@@ -28,8 +29,20 @@
     flex-direction: column;
     width: 45%;
     padding: 10px;
-    margin: 10px;
+    margin-bottom: 50px;
     line-height: 25px;
-  }
 
+    & .group-radios {
+      margin-top: 20px;
+    }
+
+    & .title-question {
+      margin-top: -15px;
+      margin-left: 10px;
+    }
+
+    & .alert-errors {
+      margin-left: 10px;
+    }
+}
 }

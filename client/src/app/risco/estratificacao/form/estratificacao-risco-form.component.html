@@ -1,31 +1,55 @@
 <main class="stratification-container">
-    <section class="tabs-container">
-      <form [formGroup]="form">
-        <h2 class="title">{{title}}</h2>
-        <section class="tab-item" [class.active]="currentTab == 0">
-          <grupo-fator-risco [risks_stratification]="risks_stratification" [formGroupRisk]="groupRisks"></grupo-fator-risco>
-        </section>
-        <section class="tab-item" [class.active]="currentTab == 1">
-          <grupo-tev-clinico [tev_clinical]="tev_clinical" [formGroupTevClinical]="groupTevClinical"></grupo-tev-clinico>
-          <grupo-tev-cirurgico [tev_surgical]="tev_surgical" [formGroupTevSurgical]="groupTevSurgical"></grupo-tev-cirurgico>
-          <grupo-braden [braden]="escala_braden" [formGroupBraden]="groupBraden"></grupo-braden>
-          <grupo-bradenq [bradenq]="escala_braden_q" [formGroupBradenq]="groupBradenQ"></grupo-bradenq>
-        </section>
-        <section class="tab-item" [class.active]="currentTab == 2">
-          <grupo-escala-jh-frat [escala_jh_frat]="escala_jh_frat" [formGroupJhFrat]="groupJhfrat"></grupo-escala-jh-frat>
-          <grupo-humpty-dumpty [escala_humpty_dumpty]="escala_humpty_dumpty" [formGroupHumptyDumpty]="groupHumptyDumpty"></grupo-humpty-dumpty>
-        </section>
-      </form>
-    </section>
+  <section class="tabs-container">
+    <form [formGroup]="form" (ngSubmit)="save()">
+      <h2 class="title">{{title}}</h2>
+
+      <section class="tab-item" [class.active]="currentTab == 0">
+        <grupo-fator-risco [risks_stratification]="risks_stratification"
+                           [formGroupRisk]="groupRisks" [controlIsEmpty]="controlStateIsEmpty">
+        </grupo-fator-risco>
+      </section>
+
+      <section class="tab-item" [class.active]="currentTab == 1">
+        <grupo-tev-clinico [tev_clinical]="tev_clinical" [formGroupTevClinical]="groupTevClinical"></grupo-tev-clinico>
+        <grupo-tev-cirurgico [tev_surgical]="tev_surgical"
+                             [formGroupTevSurgical]="groupTevSurgical"></grupo-tev-cirurgico>
+        <grupo-braden [braden]="escala_braden" [formGroupBraden]="groupBraden"
+                      [controlIsEmpty]="controlStateIsEmpty"></grupo-braden>
+        <grupo-bradenq [bradenq]="escala_braden_q" [formGroupBradenq]="groupBradenQ"
+                       [controlIsEmpty]="controlStateIsEmpty"></grupo-bradenq>
+      </section>
+
+      <section class="tab-item" [class.active]="currentTab == 2">
+        <grupo-escala-jh-frat [escala_jh_frat]="escala_jh_frat" [formGroupJhFrat]="groupJhfrat"
+                              [controlIsEmpty]="controlStateIsEmpty"></grupo-escala-jh-frat>
+        <grupo-humpty-dumpty [escala_humpty_dumpty]="escala_humpty_dumpty" [formGroupHumptyDumpty]="groupHumptyDumpty"
+                             [controlIsEmpty]="controlStateIsEmpty"></grupo-humpty-dumpty>
+      </section>
+
+      <section class="tab-item" [class.active]="currentTab == 3">
+        <resumo [controlIsEmpty]="controlStateIsEmpty" [risks_stratification]="risks_stratification"
+                [formGroupRisk]="groupRisks" [tev_clinical]="tev_clinical" [formGroupTevClinical]="groupTevClinical"
+                [tev_surgical]="tev_surgical" [formGroupTevSurgical]="groupTevSurgical"
+                [braden]="escala_braden" [formGroupBraden]="groupBraden" [bradenq]="escala_braden_q"
+                [formGroupBradenq]="groupBradenQ" [escala_jh_frat]="escala_jh_frat" [formGroupJhFrat]="groupJhfrat"
+                [escala_humpty_dumpty]="escala_humpty_dumpty" [formGroupHumptyDumpty]="groupHumptyDumpty">
+        </resumo>
+      </section>
+    </form>
+  </section>
   <footer class="footer-arrows">
     <div class="arrow-label" (click)="previousTab()">
-      <fa-icon class="chevronLeft" [icon]="faChevronLeft"></fa-icon>Voltar
+      <fa-icon class="chevronLeft" [icon]="faChevronLeft"></fa-icon>
+      Voltar
     </div>
-    <div class="arrow-label" *ngIf="currentTab != 2" (click)="nextTab()">Avançar
+    <div class="arrow-label" *ngIf="currentTab != 3" (click)="nextTab()">Avançar
       <fa-icon class="chevronRight" [icon]="faChevronRight"></fa-icon>
     </div>
-    <div class="btn-save" *ngIf="currentTab == 2" (click)="save()">
-      <fa-icon class="faCheck" [icon]="faCheck"></fa-icon> Salvar
+    <div *ngIf="currentTab == 3" (click)="save()">
+      <button class="btn-save" [disabled]="!form.valid">
+        <fa-icon class="faCheck" [icon]="faCheck"></fa-icon>
+        Salvar
+      </button>
     </div>
   </footer>
 </main>

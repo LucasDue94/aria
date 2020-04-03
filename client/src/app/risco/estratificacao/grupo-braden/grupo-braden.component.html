@@ -2,12 +2,17 @@
   <h2 class="subtitle">ESCALA DE BRADEN</h2>
   <hr class="limit-row">
 </div>
-<div [formGroup]="formGroupBraden"  class="scale-content">
+<div [formGroup]="formGroupBraden" class="scale-content">
   <div class="select-group" *ngFor="let item of braden">
     <label class="label-braden">{{item.description}}</label>
+    <div class="alert-errors" *ngIf="formGroupBraden.get(item.controlname).invalid && controlIsEmpty">
+      <span class="exclamation"><fa-icon [icon]="faEclamation"></fa-icon></span>
+      <span class="invalid">Selecione uma opção*</span>
+    </div>
     <select class="select" formControlName="{{item.controlname}}">
       <option value="{{null}}">Selecione</option>
-      <option value="{{alternative.description}}" *ngFor="let alternative of item.alternatives">{{alternative.description}}</option>
+      <option value="{{alternative.description}}"
+              *ngFor="let alternative of item.alternatives">{{alternative.description}}</option>
     </select>
   </div>
 </div>

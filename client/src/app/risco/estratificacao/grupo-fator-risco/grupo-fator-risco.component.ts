@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {EstratificacaoRisco} from "../../../core/estratificacaoRisco/estratificacaoRisco";
+import {faExclamationCircle} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'grupo-fator-risco',
@@ -11,6 +12,8 @@ export class GrupoFatorRiscoComponent implements OnInit {
 
   @Input() risks_stratification;
   @Input() formGroupRisk: FormGroup;
+  @Input() controlIsEmpty: Boolean;
+  faEclamation = faExclamationCircle;
   estratificacao = new EstratificacaoRisco();
 
   constructor() {
@@ -26,7 +29,6 @@ export class GrupoFatorRiscoComponent implements OnInit {
     this.formGroupRisk.addControl("drogas_sedativas", new FormControl('', Validators.required));
     this.formGroupRisk.addControl("anticoagulante", new FormControl('', Validators.required));
     this.formGroupRisk.addControl("plaquetopenia", new FormControl('', Validators.required));
-    this.formGroupRisk.addControl("posoperatorio_imediato", new FormControl('', Validators.required));
     this.formGroupRisk.addControl("posoperatorio_imediato", new FormControl('', Validators.required));
     this.formGroupRisk.addControl("deficit_cognitivo_demencia", new FormControl('', Validators.required));
     this.formGroupRisk.addControl("confusional_agudo", new FormControl('', Validators.required));
@@ -45,6 +47,10 @@ export class GrupoFatorRiscoComponent implements OnInit {
     this.formGroupRisk.addControl("analgesicos_opioides", new FormControl('', Validators.required));
     this.formGroupRisk.addControl("hipoglicemiante_corticoide", new FormControl('', Validators.required));
     this.formGroupRisk.addControl("proced_cirug_restric_fisica", new FormControl('', Validators.required));
+
+    for (let control in this.formGroupRisk.controls) {
+      this.formGroupRisk.get(control.toString()).setValue(true);
+    }
   }
 
 }

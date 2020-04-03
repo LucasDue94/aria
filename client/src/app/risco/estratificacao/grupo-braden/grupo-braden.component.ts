@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {faExclamationCircle} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'grupo-braden',
@@ -10,6 +11,8 @@ export class GrupoBradenComponent implements OnInit {
 
   @Input() braden;
   @Input() formGroupBraden: FormGroup;
+  @Input() controlIsEmpty: Boolean;
+  faEclamation = faExclamationCircle;
 
   constructor() {
   }

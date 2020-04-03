@@ -8,10 +8,27 @@
   color: $white;
 }
 
-.radio-control-error {
-  border: 1px solid #c26267 !important;
-  color: #c26267;
+
+.alert-errors {
+  display: flex;
+  flex-direction: row;
+  vertical-align: center;
+  align-content: center;
+  position: absolute;
+  margin: 2px auto;
+
+  .exclamation {
+    color: #c26267;
+    margin-right: 5px;
+    transition: color 2s ease-in;
+  }
+
+  .invalid {
+    font-size: 12px;
+    color: #c26267;
+  }
 }
+
 
 .stratification-container {
   display: flex;
@@ -30,7 +47,8 @@
   grupo-bradenq,
   grupo-escala-jh-frat,
   grupo-humpty-dumpty,
-  grupo-fator-risco {
+  grupo-fator-risco,
+  resumo {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;

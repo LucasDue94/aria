@@ -28,6 +28,7 @@ import {NasService} from './nas/nas.service';
 import {BalaoService} from "./balao/balao.service";
 import {FilterService} from "./filter/filter.service";
 import {RegistroAtendimentoLeitoService} from "./registroAtendimentoLeito/registroAtendimentoLeito.service";
+import {EstratificacaoRiscoService} from "./estratificacaoRisco/estratificacaoRisco.service";
 
 
 @NgModule({
@@ -63,6 +64,7 @@ import {RegistroAtendimentoLeitoService} from "./registroAtendimentoLeito/regist
     EcgService,
     NasService,
     FilterService,
+    EstratificacaoRiscoService,
     RegistroAtendimentoLeitoService
 
   ]
