@@ -3,6 +3,8 @@ package br.com.hospitaldocoracaoal.aria
 import grails.gorm.transactions.ReadOnly
 import grails.gorm.transactions.Transactional
 import grails.plugin.springsecurity.annotation.Secured
+import grails.plugins.jasper.JasperReportDef
+import grails.plugins.jasper.JasperService
 import grails.validation.ValidationException
 
 import static org.springframework.http.HttpStatus.*
@@ -11,6 +13,7 @@ import static org.springframework.http.HttpStatus.*
 class EstratificacaoRiscoController {
 
     EstratificacaoRiscoService estratificacaoRiscoService
+    JasperService jasperService
 
     static responseFormats = ['json', 'xml']
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
@@ -83,5 +86,18 @@ class EstratificacaoRiscoController {
         estratificacaoRiscoService.delete(id)
 
         render status: NO_CONTENT
+    }
+
+    @Secured('ROLE_ESTRATIFICACAO_REPORT')
+    def printPDFReport() {
+        def reportParams = [
+                _format: 'PDF',
+                _file: 'estratificacao_risco'
+        ]
+
+        JasperReportDef reportDef = jasperService.buildReportDefinition(reportParams, request.locale, [data: [estratificacaoRiscoService.resume()]])
+        ByteArrayOutputStream reportStream = jasperService.generateReport reportDef
+        response.outputStream << reportStream.toByteArray()
+        reportStream.flush()
     }
 }

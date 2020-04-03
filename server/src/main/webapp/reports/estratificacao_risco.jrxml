@@ -1,0 +1,791 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.9.0.final using JasperReports Library version 6.9.0-cb8f9004be492ccc537180b49c026951f4220bf3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="EstratificacaoRisco" language="javascript" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b776617a-93b0-4d4c-9b5b-b76893110001">
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="paciente" class="java.lang.String"/>
+	<field name="nascimento" class="java.util.Date"/>
+	<field name="alergia" class="java.lang.String"/>
+	<field name="riscoFlebite" class="java.lang.String"/>
+	<field name="riscoBroncoaspiracao" class="java.lang.String"/>
+	<field name="riscoSangramento" class="java.lang.String"/>
+	<field name="riscoDelirium" class="java.lang.String"/>
+	<field name="riscoPerdaSne" class="java.lang.String"/>
+	<field name="riscoDor" class="java.lang.String"/>
+	<field name="riscoGlicemiaInstavel" class="java.lang.String"/>
+	<field name="riscoTevClinico" class="java.lang.String"/>
+	<field name="riscoTevCirurgico" class="java.lang.String"/>
+	<field name="escalaBraden" class="java.lang.String"/>
+	<field name="escalaBradenQ" class="java.lang.String"/>
+	<field name="quedaAdulto" class="java.lang.String"/>
+	<field name="quedaPediatria" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="98" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="32" width="53" height="19" uuid="882d947f-f55f-41fe-b00e-d7ba05f7605c"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Paciente:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="57" width="70" height="16" uuid="c83acf0c-ccc1-49c5-9744-32a6bf08db86">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Nascimento:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="320" height="20" uuid="57139fe7-9581-493d-87d7-d3a5d6da7478"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ESTRATIFICAÇÃO DE RISCOS ASSISTENCIAIS]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="55" y="33" width="469" height="14" uuid="40a69322-df5e-45e5-98ea-8a177295ad9a"/>
+				<textFieldExpression><![CDATA[$F{paciente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="75" y="59" width="135" height="13" uuid="f2029f33-2442-49be-8f51-0f2f700a71ba">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{nascimento}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="699" splitType="Immediate">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<rectangle>
+				<reportElement x="0" y="13" width="555" height="110" uuid="76fdbbea-a2d0-4db0-aca0-f38981d9d74c">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="11" y="13" width="49" height="20" uuid="0ba53e5c-bab7-41c7-859b-32c2634706cc">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ALERGIA:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="33" width="555" height="1" uuid="8ef1dae2-4698-4319-83b4-13b0e58177c7">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement x="10" y="35" width="100" height="20" uuid="2bfe1677-0482-4ee8-8169-d9f73094358c">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RISCO DE FLEBITE:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="265" y="35" width="119" height="20" uuid="20be09b3-f77e-491a-a175-c87e60f7d0d8">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RISCO DE PERDA SNE:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="57" width="170" height="20" uuid="dec68631-91f2-444a-a4c3-d4238ee21cef">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RISCO DE BRONCOASPIRAÇÃO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="80" width="139" height="20" uuid="c658915f-af3a-4101-be82-1754812e60cb">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RISCO DE SANGRAMENTO:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="101" width="555" height="1" uuid="f6e78442-f56f-4bfb-a54c-93434db561c3">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="255" y="13" width="1" height="110" uuid="acaa2a03-2ba0-4f2e-a662-3a0156a3f5d6">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement x="265" y="13" width="111" height="20" uuid="eb7f4838-a457-432a-90d5-0a08ef601fac">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RISCO DE DELIRIUM:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="265" y="58" width="82" height="20" uuid="a6c6b575-224e-45fa-91ce-183cd73c80d6">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RISCO DE DOR:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="265" y="80" width="165" height="20" uuid="4fbe03e5-e122-4f46-b4c9-7bc7b2300b1f">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RISCO DE GLICEMIA INSTÁVEL:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="103" width="120" height="20" uuid="54ceb7cd-dee8-4c29-876c-bbb237b0f20a">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RISCO TEV CLÍNICO:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="505" y="13" width="1" height="88" uuid="9f7c40ca-7897-41ee-9ca6-9efe98038840">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement x="264" y="103" width="120" height="20" uuid="e001cbad-72ca-4e8d-b2a7-183784952e9a">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RISCO TEV CIRÚRGICO:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="200" y="13" width="1" height="88" uuid="c5f7eec7-bd7e-484c-a1b9-ff95871f6b42">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="1" y="55" width="555" height="1" uuid="0f8a953e-1385-46ee-88e6-d6270ed1a132">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="0" y="78" width="555" height="1" uuid="6d3fbdc4-27d4-44d0-a1fe-071016c5bced">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</line>
+			<rectangle>
+				<reportElement mode="Transparent" x="0" y="139" width="555" height="80" uuid="3b79a25d-99b0-400f-85ff-ea502ce2addc">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</rectangle>
+			<line>
+				<reportElement x="0" y="159" width="555" height="1" uuid="05f48d4c-f410-4530-9926-8b1ec82fd91f">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="0" y="178" width="555" height="1" uuid="aacdd31b-98b4-4b6b-9ce4-fb92d26affd0">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="0" y="198" width="555" height="1" uuid="47ce8458-49c7-4a09-b0d2-d869e22cc0c5">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement x="11" y="179" width="170" height="18" uuid="f4180160-c0c3-44e6-86a9-170ab0ff601c">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RISCO DE QUEDA PARA  ADULTO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="200" width="189" height="18" uuid="6032ee0d-a744-407b-8312-c85c8f40f74b">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RISCO DE QUEDA PARA  PEDIATRIA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="160" width="288" height="18" uuid="da2249a7-d19b-4a1f-838a-1ce9db81065a">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RISCO DE LESÃO POR PRESSÃO - ESCALA DE BRADEN Q:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="140" width="278" height="18" uuid="67e2b515-c915-428b-950e-43ba10f39a87">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RISCO DE LESÃO POR PRESSÃO - ESCALA DE BRADEN:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="133" y="101" width="1" height="22" uuid="73b2f91d-491d-4186-a8b4-bb41cb4d2125">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="393" y="101" width="1" height="22" uuid="6c991b22-5885-44ed-b845-3a554703492f">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement x="11" y="472" width="318" height="15" uuid="fa155f23-cb40-4621-af68-48c4b42bb70a">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Paciente/Responsável encontra-se orientado e ciente dos riscos estratificados:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="327" y="483" width="228" height="1" uuid="7610cb4c-df89-444d-a0a9-d235191fb1ba">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement x="11" y="498" width="65" height="15" uuid="78c3e1d3-3933-4ebf-b448-e3ae459529b6">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Enfermeiro (a):]]></text>
+			</staticText>
+			<line>
+				<reportElement x="72" y="511" width="200" height="1" uuid="b9622b1a-99bf-44b3-8474-9b145e8f81d3">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement x="276" y="498" width="25" height="15" uuid="4c3bff4c-4ef4-4ddb-9500-545785d320cd">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Data:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="302" y="510" width="120" height="1" uuid="84536768-60ca-48c8-9ad2-afc4bdae9a97">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</line>
+			<line direction="BottomUp">
+				<reportElement x="335" y="493" width="5" height="16" uuid="c911f123-b863-41d7-8ee6-8a8e709fafd0"/>
+			</line>
+			<line direction="BottomUp">
+				<reportElement x="378" y="493" width="5" height="16" uuid="734ecd6d-612f-415d-a002-9045c9571983"/>
+			</line>
+			<staticText>
+				<reportElement x="424" y="498" width="25" height="15" uuid="66ef444b-9ba8-4154-ac9e-b3fe007f29bb">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Hora:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="450" y="510" width="105" height="1" uuid="5ba08880-3331-4195-9a53-7fa20a6e5a77">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</line>
+			<rectangle>
+				<reportElement x="3" y="526" width="551" height="80" uuid="3e6864be-3767-4fbe-8c0d-d5571b3f0bac"/>
+			</rectangle>
+			<line>
+				<reportElement x="139" y="526" width="1" height="80" uuid="a403244f-b6a0-4b78-8342-8f733b005406">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="277" y="526" width="1" height="80" uuid="692c1217-0b47-479c-9d83-d33b8ffe6912">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="416" y="526" width="1" height="80" uuid="859b068a-bca3-48d9-a065-7347657319c5">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+			</line>
+			<rectangle>
+				<reportElement x="3" y="617" width="551" height="80" uuid="6034e033-522c-4a97-93cc-5dd0990123c2"/>
+			</rectangle>
+			<line>
+				<reportElement x="139" y="617" width="1" height="80" uuid="39e8e5cf-4d51-4ad9-a16e-76f6b1ed5cc3">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="277" y="617" width="1" height="80" uuid="6caecece-3a36-4aed-a425-8951db106528">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="416" y="617" width="1" height="80" uuid="751ed650-6703-46f5-bb4b-258d5876a09c">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement x="8" y="538" width="55" height="15" uuid="81e3f622-b690-486e-a037-18918f16fe5b">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Validado em:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="62" y="550" width="72" height="1" uuid="30eeed6b-60fa-48e0-9c33-680fe0461f6a">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</line>
+			<line direction="BottomUp">
+				<reportElement x="81" y="534" width="5" height="14" uuid="3c0f7111-3e2a-45ef-94cf-9b554d247aad">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
+			<line direction="BottomUp">
+				<reportElement x="109" y="534" width="5" height="14" uuid="ba8a0491-3863-47bb-a933-db9de582bbd2">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement x="20" y="591" width="106" height="10" uuid="5c0f562e-8edb-4158-8ea2-706379f25904">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="5"/>
+				</textElement>
+				<text><![CDATA[ASSINATURA E CABIMBO DO ENFERMEIRO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="145" y="538" width="55" height="15" uuid="de68b3e3-bd94-4286-b95b-263f93712337">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Validado em:]]></text>
+			</staticText>
+			<line direction="BottomUp">
+				<reportElement x="218" y="534" width="5" height="14" uuid="6b23dd58-a7c7-422d-a331-ccba816bf819">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
+			<line direction="BottomUp">
+				<reportElement x="246" y="534" width="5" height="14" uuid="574c79a2-db6e-4707-ad37-88c087006d2a">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="199" y="550" width="72" height="1" uuid="2a40c30f-73ab-4b45-ab1d-1b1459b0bebb">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement x="157" y="591" width="106" height="10" uuid="b92aeacb-c2be-4d16-bca3-c5fc9cc501f1">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="5"/>
+				</textElement>
+				<text><![CDATA[ASSINATURA E CABIMBO DO ENFERMEIRO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="285" y="538" width="55" height="15" uuid="9ffbe207-4019-4205-a398-a3681ecf7a13">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Validado em:]]></text>
+			</staticText>
+			<line direction="BottomUp">
+				<reportElement x="358" y="534" width="5" height="14" uuid="5994ada9-ce30-4560-a83a-456fbc36e69f">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
+			<line direction="BottomUp">
+				<reportElement x="386" y="534" width="5" height="14" uuid="f9aebf2d-209c-44b2-904c-9ee2335c52e6">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="339" y="550" width="72" height="1" uuid="eded0f23-ec83-4a43-953b-56146ed6cdac">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement x="297" y="591" width="106" height="10" uuid="a5c70b3b-e739-41fd-ba9c-c3008f52efe1">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="5"/>
+				</textElement>
+				<text><![CDATA[ASSINATURA E CABIMBO DO ENFERMEIRO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="423" y="538" width="55" height="15" uuid="a7135290-d023-43fb-b1f7-42aa50972956">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Validado em:]]></text>
+			</staticText>
+			<line direction="BottomUp">
+				<reportElement x="496" y="534" width="5" height="14" uuid="49ecb36c-b101-46f2-992f-fb333eab67c2">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
+			<line direction="BottomUp">
+				<reportElement x="524" y="534" width="5" height="14" uuid="7a22afca-9f40-4d53-88eb-022b2d2df791">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="477" y="550" width="72" height="1" uuid="ff3bb4aa-432c-4238-addf-0a08a26e9ed2">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement x="435" y="591" width="106" height="10" uuid="48662daa-d060-480b-b85a-c28ffe4f8f1c">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="5"/>
+				</textElement>
+				<text><![CDATA[ASSINATURA E CABIMBO DO ENFERMEIRO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="423" y="627" width="55" height="15" uuid="726fde7b-c059-4c53-81a9-502ac08fb054">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Validado em:]]></text>
+			</staticText>
+			<line direction="BottomUp">
+				<reportElement x="496" y="623" width="5" height="14" uuid="81bcfe79-b207-49bc-a21f-c5bda4662e64">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
+			<line direction="BottomUp">
+				<reportElement x="524" y="623" width="5" height="14" uuid="f0f82070-6a67-4007-b354-eb81ef1cdc3f">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="477" y="639" width="72" height="1" uuid="7dee6195-757b-4da1-97d8-f324a4228f4b">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement x="435" y="680" width="106" height="10" uuid="124648c0-43a5-453b-877f-28a8d523d3f4">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="5"/>
+				</textElement>
+				<text><![CDATA[ASSINATURA E CABIMBO DO ENFERMEIRO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="283" y="627" width="55" height="15" uuid="6684f2af-7a48-4283-afc7-c731a41614a9">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Validado em:]]></text>
+			</staticText>
+			<line direction="BottomUp">
+				<reportElement x="356" y="623" width="5" height="14" uuid="5aa38bd1-62a1-41eb-8c8c-0224db7efa1c">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
+			<line direction="BottomUp">
+				<reportElement x="384" y="623" width="5" height="14" uuid="4e1e851c-3bd4-4130-9891-5b02b657d81a">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="337" y="639" width="72" height="1" uuid="8573f6c3-127d-429c-84d9-481501cde89a">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement x="295" y="680" width="106" height="10" uuid="fed1cd34-9824-498d-8df1-5baa3755589e">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="5"/>
+				</textElement>
+				<text><![CDATA[ASSINATURA E CABIMBO DO ENFERMEIRO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="145" y="627" width="55" height="15" uuid="683c4774-dfb7-4e70-ad0f-8fbe477d7051">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Validado em:]]></text>
+			</staticText>
+			<line direction="BottomUp">
+				<reportElement x="218" y="623" width="5" height="14" uuid="bbdbf494-114d-4192-860b-352a9138e3f5">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
+			<line direction="BottomUp">
+				<reportElement x="246" y="623" width="5" height="14" uuid="20c9e565-b78c-4094-99bf-7d4108db693b">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="199" y="639" width="72" height="1" uuid="05c7ff5d-32ba-49c1-b884-e10d95d3f1fb">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement x="157" y="680" width="106" height="10" uuid="1595f463-eb1f-4958-9c22-0372a5ad0d46">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="5"/>
+				</textElement>
+				<text><![CDATA[ASSINATURA E CABIMBO DO ENFERMEIRO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="9" y="627" width="55" height="15" uuid="a4ca2370-0558-4378-9ddd-f62bf2f81a23">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Validado em:]]></text>
+			</staticText>
+			<line direction="BottomUp">
+				<reportElement x="82" y="623" width="5" height="14" uuid="5c5c75e6-9678-4665-ab08-f5f62361369e">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
+			<line direction="BottomUp">
+				<reportElement x="110" y="623" width="5" height="14" uuid="bec04070-d4ba-422e-8cb5-6d168089d8ab">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="63" y="639" width="72" height="1" uuid="8d24708b-cac4-41dd-8b0b-dce9e860ff37">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement x="21" y="680" width="106" height="10" uuid="f585dfd9-f59b-4f5c-9250-3f22391d4627">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="5"/>
+				</textElement>
+				<text><![CDATA[ASSINATURA E CABIMBO DO ENFERMEIRO]]></text>
+			</staticText>
+			<line>
+				<reportElement x="310" y="139" width="1" height="80" uuid="2991fdab-8e93-48fd-9ccc-20152ef1c28d">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
+			<textField>
+				<reportElement x="201" y="13" width="51" height="20" uuid="8f58026b-758a-40ec-8d13-681855b845bf">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{alergia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="201" y="34" width="51" height="20" uuid="4c187763-40a0-4888-ac36-6d9add656b15">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{riscoFlebite}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="201" y="57" width="51" height="20" uuid="065d1724-3c11-4092-b6be-f06a29de98dc">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{riscoBroncoaspiracao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="201" y="79" width="51" height="20" uuid="782266f7-65f8-4566-a719-bece7c05f456">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{riscoSangramento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="134" y="102" width="121" height="20" uuid="5323ccc5-a175-45d8-b361-08d56ecc18d0">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{riscoTevClinico}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="393" y="102" width="161" height="20" uuid="bac3dbea-85d6-4845-bb11-ce4c59142d8d">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{riscoTevCirurgico}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="505" y="13" width="51" height="20" uuid="709e1273-4a66-4f73-9f4b-c211f9fd6e82">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{riscoDelirium}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="505" y="34" width="51" height="20" uuid="0826c6cc-ed2c-436d-90fe-455e5daa77f4">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{riscoPerdaSne}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="505" y="56" width="51" height="20" uuid="eeedfd61-a9e0-4d72-9e3b-1bf3fff2fde4">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{riscoDor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="505" y="79" width="51" height="20" uuid="51620bea-1e62-4f7d-a689-7dfd809e910e">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{riscoGlicemiaInstavel}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="311" y="140" width="243" height="20" uuid="e883a975-a9ae-4ec3-8ffd-5d1d6ed3511e">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{escalaBraden}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="311" y="160" width="243" height="18" uuid="fc221c0c-9d46-44d9-859e-d2fd8d02b6de">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{escalaBradenQ}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="311" y="178" width="243" height="18" uuid="13aaa2c3-1361-40c4-b39e-d0c4d6ffb63c">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{quedaAdulto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="311" y="199" width="243" height="18" uuid="71a37f9c-34b4-4cf5-9c29-95fed03c647f">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{quedaPediatria}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

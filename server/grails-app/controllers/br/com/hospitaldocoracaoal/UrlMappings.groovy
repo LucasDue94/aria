@@ -20,6 +20,7 @@ class UrlMappings {
             get '/apache/relatorio'(controller: "apache", action: 'report')
             get '/apache/notificacoes'(controller: "apache", action: 'notificacoes')
             get '/incidente/relatorio'(controller: "incidente", action: 'report')
+            get '/estratificacaoRisco/print'(controller: 'estratificacaoRisco', action: 'printPDFReport')
         }
 
         "/"(uri: 'index.html')

@@ -1,0 +1,179 @@
+@import "constants";
+
+.no-view {
+  display: none;
+}
+
+@page { size: landscape; margin: 0 auto; }
+
+.btn-print-novas-inclusoes {
+  margin-top: 23px;
+}
+
+.print-reintervencao {
+  margin: -50.7px 0 0 37.5%;
+  float: left;
+}
+
+@media print {
+
+  .chart-perfil-relatorio {
+    margin-top: -12px !important;
+  }
+
+  .title-eventos-relatorio, .title-novas-inclusoes, .title-eventos-relatorio{
+    text-align: center;
+  }
+
+  #title-reintervencao {
+    display: block !important;
+    text-align: justify;
+  }
+
+  .table-cancelada tr td {
+    padding: 5px !important;
+  }
+
+  .table-perfil-relatorio td {
+    padding: 0 !important;
+  }
+
+  .print {
+    display: block !important;
+  }
+
+  .pagination {
+    display: none !important;
+  }
+
+  h3.title-novas-inclusoes {
+    text-align: justify;
+  }
+
+  .table-checklist-relatorio {
+    width: 80% !important;
+    margin: 25px 0 0 10% !important;
+    tr, th, td {
+      padding: 0 !important;
+    }
+  }
+
+  h3#checklist-relatorio::before {
+    content: '- ';
+    color: #fff !important;
+  }
+
+  h3#checklist-relatorio {
+    margin: 28.5px 0 0 165px;
+    font-size: 14px;
+    float: left;
+    position: absolute;
+    color: #fff !important;
+    font-weight: 700 !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  div#chart {
+    float: left;
+    margin: 50px 0 0 -30px;
+  }
+
+  .highcharts-button-symbol, .highcharts-credits {
+    display: none !important;
+  }
+
+  #title-relatorio {
+    text-align: center;
+  }
+
+  a[href]::after {
+    content: none !important;
+  }
+
+  .app-table {
+    width: 100%;
+    margin: 1.44rem 0 2.72rem;
+
+    .list-unstyled {
+      margin: 0;
+    }
+
+    .btn {
+      margin-left: 1.6rem;
+    }
+
+    tr {
+      &:first-child td {
+        border-top: none !important;
+      }
+
+      &:nth-child(even) {
+        background-color: #bae4db !important;
+      }
+    }
+
+    th, td {
+      padding: 0.8rem;
+    }
+
+    th, tfoot td {
+      color: $light-text !important;
+      background-color: $main-color !important;
+      border: 1px solid $main-color !important;
+    }
+
+    tfoot td {
+      font-weight: bold;
+    }
+
+    td {
+      position: relative;
+      vertical-align: top;
+      border-top: 1px solid $sec-color !important;
+      border-left: 1px solid $sec-color !important;
+      border-bottom: 1px solid $sec-color !important;
+
+      &.numero {
+        text-align: right;
+      }
+
+      &:last-child {
+        border-right: 1px solid $sec-color !important;
+      }
+
+      .action-button {
+        top: 0.9rem;
+        right: 1.6rem;
+        cursor: pointer;
+        position: absolute;
+        display: inline-block;
+
+        svg {
+          $size: 18px;
+          width: $size;
+          height: $size;
+          fill: $dark-text;
+        }
+      }
+    }
+  }
+
+  .print-date {
+    width: 200px;
+    margin: 34px 0 0 370px;
+    float: left;
+    position: absolute;
+    border: none !important;
+    font-size: 20px !important;
+    font-family: Arial, serif;
+  }
+
+  .print-date-cancelada {
+    display: block;
+    margin: 0 0 0 20cm;
+    position: absolute;
+  }
+}

@@ -3,16 +3,37 @@ package br.com.hospitaldocoracaoal.aria
 import grails.gorm.services.Service
 
 @Service(EstratificacaoRisco)
-interface EstratificacaoRiscoService {
+abstract class EstratificacaoRiscoService {
 
-    EstratificacaoRisco get(Serializable id)
+    abstract EstratificacaoRisco get(Serializable id)
 
-    List<EstratificacaoRisco> list(Map args)
+    abstract List<EstratificacaoRisco> list(Map args)
 
-    Long count()
+    abstract Long count()
 
-    void delete(Serializable id)
+    abstract void delete(Serializable id)
 
-    EstratificacaoRisco save(EstratificacaoRisco estratificacaoRisco)
+    abstract EstratificacaoRisco save(EstratificacaoRisco estratificacaoRisco)
+
+    def resume() {
+        return [
+                paciente: 'John Doe',
+                nascimento: new Date(),
+                alergia: true,
+                riscoFlebite: true,
+                riscoBroncoaspiracao: false,
+                riscoSangramento: false,
+                riscoDelirium: false,
+                riscoPerdaSne: false,
+                riscoDor: false,
+                riscoGlicemiaInstavel: false,
+                riscoTevClinico: false,
+                riscoTevCirurgico: false,
+                escalaBraden: 'Baixo Risco',
+                escalaBradenQ: 'Não se aplica',
+                quedaAdulto: 'Risco Alto',
+                quedaPediatria: 'Não se aplica'
+        ]
+    }
 
 }

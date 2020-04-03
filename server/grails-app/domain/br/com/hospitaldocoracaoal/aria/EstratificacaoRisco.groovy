@@ -17,7 +17,7 @@ class EstratificacaoRisco {
     // Risco de sangramento
     Boolean anticoagulante                  // Uso de anticoagulante
     Boolean plaquetopenia                   // Plaquetopenia (<50.000)
-    Boolean operatorio_imediato             // Pos operatorio imediato
+    Boolean operatorio_imediato             // Pos-operatorio imediato
 
     // Risco de Delirium
 //    Boolean idade_65                      // Idade > 65 anos
