@@ -1,0 +1,22 @@
+@import "../../../assets/colors";
+
+.paciente-situacao-label {
+  flex: 1;
+  color: $gray-80;
+  padding: 8px;
+  font-weight: 600;
+  text-align: left !important;
+  text-transform: uppercase;
+  background-color: $gray-60;
+  border-bottom: 1px solid $gray-70;
+  border-top: 1px solid $gray-70;
+  margin-bottom: 5px;
+}
+
+.done{
+  border-left: 10px solid $success;
+}
+
+.pending{
+  border-left: 10px solid $danger;
+}

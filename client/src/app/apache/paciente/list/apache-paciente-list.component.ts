@@ -45,7 +45,7 @@ export class ApachePacienteListComponent implements OnInit {
     this.filterService.receive().subscribe(this.search);
     this.listLoading = true;
     this.titleService.send('Apache II - Lista de Pacientes');
-    this.getRegistros()
+    // this.getRegistros()
   }
 
   search(params) {
@@ -53,7 +53,7 @@ export class ApachePacienteListComponent implements OnInit {
     this.offset = 0;
     this.registrosLeito = [];
     this.setFilterParams(params);
-    this.getRegistros()
+    // this.getRegistros()
   }
 
   scrollDown() {
@@ -92,7 +92,7 @@ export class ApachePacienteListComponent implements OnInit {
     this.params.setorId = params.setor;
   }
 
-  getRegistros() {
+ /* getRegistros() {
     this.registroAtendimentoLeitoService.list(this.params, this.offset, this.max).subscribe(registrosLeito => {
       registrosLeito.forEach(registroLeito => {
         this.registrosLeito.push(registroLeito);
@@ -101,5 +101,5 @@ export class ApachePacienteListComponent implements OnInit {
       console.log(this.registrosLeito)
       this.listLoading = false;
     })
-  }
+  }*/
 }

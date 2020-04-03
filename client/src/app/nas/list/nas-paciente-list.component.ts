@@ -12,7 +12,8 @@ import {RegistroAtendimentoLeito} from "../../core/registroAtendimentoLeito/regi
   styleUrls: ['./nas-paciente-list.component.scss']
 })
 export class NasPacienteListComponent implements OnInit {
-  registros: RegistroAtendimentoLeito[] = [];
+  outrosPacientes: RegistroAtendimentoLeito[] = [];
+  pacientesInternos: RegistroAtendimentoLeito[] = [];
   showListScrollSpinner = false;
   offset = 0;
   max = 30;
@@ -47,6 +48,33 @@ export class NasPacienteListComponent implements OnInit {
     })
   }
 
+  sortPacientesInternos() {
+    this.pacientesInternos.sort(function (a, b) {
+      if (a.registroAtendimento.paciente.nome > b.registroAtendimento.paciente.nome)
+        return 1;
+      else
+        return -1;
+    });
+    this.pacientesInternos.sort(function (a, b) {
+      const escoreA = a.lastNas() ? (a.lastNas().escore) : 0;
+      const escoreB = b.lastNas() ? (b.lastNas().escore) : 0;
+
+      if (escoreA > escoreB)
+        return 1;
+      else if (escoreA < escoreB)
+        return -1;
+    });
+  }
+
+  static sortByDataEntrada(array) {
+    array.sort(function (a, b) {
+      if (a.dataEntrada < b.dataEntrada)
+        return 1;
+      else
+        return -1;
+    });
+  }
+
   scrollDown() {
     this.showListScrollSpinner = true;
     this.offset += 30;
@@ -61,20 +89,36 @@ export class NasPacienteListComponent implements OnInit {
   }
 
   search(params) {
+    this.pacientesInternos = [];
+    this.outrosPacientes = [];
     this.offset = 0;
     this.listLoading = true;
-    this.registros = [];
     this.setFilterParams(params);
     if (params) this.getRegistros()
   }
 
   getRegistros() {
-    this.registroAtendimentoLeitoService.list(this.params, this.offset, this.max).subscribe(registros => {
-      registros.forEach(registro => {
-        this.registros.push(registro);
+    this.pacientesInternos = [];
+    this.registroAtendimentoLeitoService.list('', 'U', this.offset, this.max)
+      .subscribe(data => {
+        this.pushItems(this.pacientesInternos, data['pacientesInternos']);
+        this.pushItems(this.outrosPacientes, data['outrosPacientes']);
+        this.sortPacientesInternos();
+        NasPacienteListComponent.sortByDataEntrada(this.outrosPacientes);
+        this.listLoading = false;
         this.showListScrollSpinner = false;
       });
-      this.listLoading = false;
-    })
+  }
+
+  pushItems = (array, items) => items.forEach(item => array.push(item));
+
+  isToday(dataEntrada: string) {
+    const currentDate = new Date(dataEntrada);
+    const today = new Date();
+    return currentDate.toLocaleString().slice(0, 10) == today.toLocaleString().slice(0, 10);
+  }
+
+  roundEscore(escore){
+    return parseFloat(escore).toFixed(1)
   }
 }

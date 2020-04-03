@@ -13,7 +13,61 @@ abstract class RegistroAtendimentoLeitoService {
 
     abstract RegistroAtendimentoLeito get(Serializable id)
 
-    abstract List<RegistroAtendimentoLeito> list(Map args)
+    def list(Map args, String setorId, String tipoSetor) {
+
+        def query = ''
+        def queryParams = [:]
+
+        if (setorId != null && !setorId.empty) {
+            Setor setorAria = Setor.get setorId
+            query = 'and s.id = :setorWpd'
+            queryParams.put('setorWpd', setorAria.setorWpdId)
+        } else {
+            List<Setor> setoresAria = Setor.findAllByTipoSetor(TipoSetor.tipoSetorPorId(tipoSetor))
+            List<SetorWpd> setoresWpd = tipoSetor == null || tipoSetor == '' ? SetorWpd.getAll() : setoresAria.setorWpd
+            query = 'and s.id in :setoresWpd'
+            queryParams.put('setoresWpd', setoresWpd.id)
+        }
+
+        String hqlInternos = """select ral
+            from RegistroAtendimentoLeito ral
+                inner join ral.registroAtendimento r
+                inner join ral.leito l
+                inner join l.setor s
+            where r.dataAlta is null
+              and not exists(from RegistroAtendimentoLeito ral2
+                                inner join ral2.registroAtendimento r2
+                                inner join ral2.leito l2
+                                inner join l2.setor s2
+                            where r2.id = r.id
+                              and s2.id <> s.id
+                              and ral2.dataEntrada > ral.dataEntrada)
+                $query"""
+
+        List<RegistroAtendimentoLeito> pacienteInternos = RegistroAtendimentoLeito.findAll hqlInternos, queryParams
+
+        String hqlOutros = """select ral
+              from RegistroAtendimentoLeito ral
+                  inner join ral.registroAtendimento r
+                  inner join ral.leito l
+                  inner join l.setor s
+              where r.dataAlta is not null
+                or exists(from RegistroAtendimentoLeito ral2
+                                  inner join ral2.registroAtendimento r2
+                                  inner join ral2.leito l2
+                                  inner join l2.setor s2
+                              where r2.id = r.id
+                                and s2.id <> s.id
+                                and ral2.dataEntrada > ral.dataEntrada)
+               $query"""
+
+        List<RegistroAtendimentoLeito> outrosPacientes = RegistroAtendimentoLeito.findAll hqlOutros, queryParams, [offset:args.offset, max: 30]
+
+        return [
+                pacientesInternos: pacienteInternos,
+                outrosPacientes  : outrosPacientes
+        ]
+    }
 
     List<RegistroAtendimentoLeito> admissoesSetor(GrailsParameterMap args, String termo, String setorId, String dataEntradaInicio,
                                                   String dataEntradaFim) {

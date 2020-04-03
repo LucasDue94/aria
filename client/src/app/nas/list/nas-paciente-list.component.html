@@ -7,22 +7,44 @@
       <span class="th flex-3">Mãe</span>
       <span class="th flex-1">Sexo</span>
       <span class="th flex-2">Entrada</span>
+      <span class="th flex-1">Escore</span>
     </section>
     <section class="tbody content-paciente" [scrollWindow]="false" infinite-scroll (scrolled)="scrollDown()">
       <spinner [loading]="listLoading"></spinner>
-      <div (click)="edit(registroLeito)" class="row" *ngFor="let registroLeito of registros">
-        <span class="td flex-1">{{registroLeito?.registroAtendimento?.id}}</span>
-        <span class="td flex-3">{{registroLeito?.registroAtendimento?.paciente.nome}}</span>
-        <span class="td flex-1">{{registroLeito?.registroAtendimento?.paciente.nascimento | date: "dd/MM/yyyy" }}</span>
-        <span class="td flex-3">{{registroLeito?.registroAtendimento?.paciente.nomeMae}}</span>
-        <span class="td flex-1">{{registroLeito?.registroAtendimento?.paciente.sexo}}</span>
-        <span class="td flex-2">{{registroLeito.dataEntrada | date: "dd/MM/yyyy - HH:mm"}}</span>
-      </div>
+      <div class="paciente-situacao-label">Pacientes Internados</div>
+      <section *ngFor="let internos of pacientesInternos">
+        <div (click)="edit(internos)" class="row" [ngClass]="[isToday(internos.lastNas()?.dataCriacao) ? 'done' : 'pending']">
+          <span class="td flex-1">{{internos?.registroAtendimento?.id}}</span>
+          <span class="td flex-3">{{internos?.registroAtendimento?.paciente.nome}}</span>
+          <span
+            class="td flex-1">{{internos?.registroAtendimento?.paciente.nascimento | date: "dd/MM/yyyy" }}</span>
+          <span class="td flex-3">{{internos?.registroAtendimento?.paciente.nomeMae}}</span>
+          <span class="td flex-1">{{internos?.registroAtendimento?.paciente.sexo}}</span>
+          <span class="td flex-2">{{internos?.dataEntrada | date: "dd/MM/yyyy - HH:mm"}}</span>
+          <span class="td flex-1">{{isToday(internos.lastNas()?.dataCriacao) ? roundEscore(internos.lastNas()?.escore) : '--'}}</span>
+        </div>
+        <div class="empty" *ngIf="pacientesInternos?.length == 0">
+          <p>Nenhum paciente encontrado!</p>
+          <fa-icon class="icon" [icon]="faFrown" size="2x"></fa-icon>
+        </div>
+      </section>
+        <app-scroll-spinner [show]="showListScrollSpinner"></app-scroll-spinner>
+      <div class="paciente-situacao-label">Outros Registros</div>
+      <section *ngFor="let outros of outrosPacientes">
+        <div (click)="edit(outros)" class="row">
+          <span class="td flex-1">{{outros?.registroAtendimento?.id}}</span>
+          <span class="td flex-3">{{outros?.registroAtendimento?.paciente.nome}}</span>
+          <span class="td flex-1">{{outros?.registroAtendimento?.paciente.nascimento | date: "dd/MM/yyyy" }}</span>
+          <span class="td flex-3">{{outros?.registroAtendimento?.paciente.nomeMae}}</span>
+          <span class="td flex-1">{{outros?.registroAtendimento?.paciente.sexo}}</span>
+          <span class="td flex-2">{{outros.dataEntrada | date: "dd/MM/yyyy - HH:mm"}}</span>
+        </div>
+        <div class="empty" *ngIf="outrosPacientes?.length == 0">
+          <p>Nenhum paciente encontrado!</p>
+          <fa-icon class="icon" [icon]="faFrown" size="2x"></fa-icon>
+        </div>
+      </section>
       <app-scroll-spinner [show]="showListScrollSpinner"></app-scroll-spinner>
-      <div class="empty" *ngIf="registros?.length == 0">
-        <p>Nenhum paciente encontrado!</p>
-        <fa-icon class="icon" [icon]="faFrown" size="2x"></fa-icon>
-      </div>
     </section>
   </div>
 </main>

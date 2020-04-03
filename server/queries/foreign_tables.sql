@@ -46,6 +46,7 @@ create foreign table leito(
 alter foreign table leito owner to aria;
 
 
+drop foreign table registro_atendimento_leito;
 /*REGISTRO ATENDIMENTO LEITO*/
 create foreign table registro_atendimento_leito (
     registro_atendimento_id varchar(9) options (key 'true') not null,
@@ -54,7 +55,7 @@ create foreign table registro_atendimento_leito (
 ) server wpd
 options (table '(select his.COD_PAC, his.LEITO,
        to_date(to_char(his.DATA, ''DD-MM-YYYY'') || '' '' || to_char(his.HORA, ''HH24:MI:SS''), ''DD-MM-YYYY HH24:MI:SS'') as data
-from ADMWPD.FALEHCAD his inner join ADMWPD.FALEICAD lei on lei.LEITO = his.LEITO)', readonly 'true');
+from ADMWPD.FALEHCAD his inner join ADMWPD.FALEICAD lei on lei.LEITO = his.LEITO inner join ADMWPD.FAAPTCAD apt on lei.COD_APT = apt.COD_APT)', readonly 'true');
 
 
 /*SETOR*/
