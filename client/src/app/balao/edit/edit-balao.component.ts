@@ -66,7 +66,7 @@ export class EditBalaoComponent implements OnInit {
         atendimentoId: this.registroId
       });
 
-    delete balao.atendimento;
+    delete balao.registroAtendimento;
     this.balaoService.save(balao).subscribe( res => {
       setTimeout( () => {
         this.alertService.send({message: 'Balão Alterado com sucesso!', type: 'success', icon: faCheck});

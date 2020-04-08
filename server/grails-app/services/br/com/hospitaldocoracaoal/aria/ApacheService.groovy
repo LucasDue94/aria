@@ -25,7 +25,7 @@ abstract class ApacheService {
             createAlias 'l.setor', 's', JoinType.INNER_JOIN
 
             between 'rl.dataEntrada', dataInicio, dataFim
-            eq('s.id', args.long('setorId'))
+            eq('s.id', args.get('setorId'))
         } as List<Apache>
 
         def cirurgico = apacheList.findAll { !it.registroLeito.atendimento.cirurgias?.isEmpty() }
