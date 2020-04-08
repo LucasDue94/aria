@@ -1,16 +1,18 @@
 import {Component, OnInit} from '@angular/core';
 import {DatePipe} from "@angular/common";
-import {RegistroAtendimento} from "../../core/atendimento/atendimento";
+
 import {Balao} from "../../core/balao/balao";
 import {FormBuilder, Validators} from "@angular/forms";
 import {TitleService} from "../../core/title/title.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {BalaoService} from "../../core/balao/balao.service";
-import {RegistroAtendimentoService} from "../../core/atendimento/atendimento.service";
+
 import {SpinnerService} from "../../core/spinner/spinner.service";
 import {AlertService} from "../../core/alert/alert.service";
 import {ErrorService} from "../../core/error/error.service";
 import {faCheck} from "@fortawesome/free-solid-svg-icons";
+import {RegistroAtendimento} from "../../core/registroAtendimento/registroAtendimento";
+import {RegistroAtendimentoService} from "../../core/registroAtendimento/registroAtendimento.service";
 
 @Component({
   selector: 'app-edit-balao',

@@ -20,13 +20,12 @@ abstract class ApacheService {
         def criteria = Apache.createCriteria()
 
         List<Apache> apacheList = criteria.list() {
-            createAlias 'registroLeito', 'ral', JoinType.INNER_JOIN
-            createAlias 'ral.leito', 'l', JoinType.INNER_JOIN
+            createAlias 'registroLeito', 'rl', JoinType.INNER_JOIN
+            createAlias 'rl.leito', 'l', JoinType.INNER_JOIN
             createAlias 'l.setor', 's', JoinType.INNER_JOIN
-            createAlias 's.setor', 'set', JoinType.INNER_JOIN
 
-            between 'ral.dataEntrada', dataInicio, dataFim
-            eq('set.id', args.long('setorId'))
+            between 'rl.dataEntrada', dataInicio, dataFim
+            eq('s.id', args.long('setorId'))
         } as List<Apache>
 
         def cirurgico = apacheList.findAll { !it.registroLeito.atendimento.cirurgias?.isEmpty() }
