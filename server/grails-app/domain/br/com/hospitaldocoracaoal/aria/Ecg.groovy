@@ -1,17 +1,17 @@
 package br.com.hospitaldocoracaoal.aria
 
-import br.com.hospitaldocoracaoal.integracao.Paciente
-import br.com.hospitaldocoracaoal.integracao.RegistroAtendimento
+
+import br.com.hospitaldocoracaoal.integracao.Atendimento
 
 class Ecg {
 
     Date dataHoraEcg
     Date dataHoraPorta
 
-    static belongsTo = [registroAtendimento: RegistroAtendimento]
+    static belongsTo = [atendimento: Atendimento]
 
     static constraints = {
         dataHoraEcg nullable: false
-        registroAtendimento unique: true
+        atendimento unique: true
     }
 }

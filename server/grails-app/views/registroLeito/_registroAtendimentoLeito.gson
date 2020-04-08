@@ -1,7 +1,7 @@
-import br.com.hospitaldocoracaoal.integracao.RegistroAtendimentoLeito
+import br.com.hospitaldocoracaoal.integracao.RegistroLeito
 
 model {
-	RegistroAtendimentoLeito registroAtendimentoLeito
+	RegistroLeito registroAtendimentoLeito
 }
 
 json g.render(registroAtendimentoLeito, [expand: ['registroAtendimento', 'registroAtendimento.paciente', 'registroAtendimento.motivoAlta', 'nas'], excludes: ['leito'], resolveTemplate: false]) {

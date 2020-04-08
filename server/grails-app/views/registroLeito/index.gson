@@ -1,0 +1,11 @@
+import br.com.hospitaldocoracaoal.integracao.RegistroLeito
+
+model {
+	List<RegistroLeito> pacientesInternos
+	List<RegistroLeito> outrosPacientes
+}
+
+json {
+	pacientesInternos tmpl.registroAtendimentoLeito(pacientesInternos ?: [])
+	outrosPacientes tmpl.registroAtendimentoLeito(outrosPacientes ?: [])
+}

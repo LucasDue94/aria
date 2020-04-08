@@ -1,10 +1,10 @@
 package br.com.hospitaldocoracaoal.aria
 
 
-import br.com.hospitaldocoracaoal.integracao.RegistroAtendimentoLeito
+import br.com.hospitaldocoracaoal.integracao.RegistroLeito
 
 class Nas {
-    RegistroAtendimentoLeito registroAtendimentoLeito
+    RegistroLeito registroLeito
     String monitorizacao                      //Questão 1
     boolean investigacoes                     //Questão 2
     boolean medicacao                         //Questão 3
@@ -29,7 +29,7 @@ class Nas {
     boolean intervencoesDentroUnidade         //Questão 22
     boolean intervencoesForaUnidade           //Questão 23
     float escore
-    static belongsTo = [RegistroAtendimentoLeito]
+    static belongsTo = [RegistroLeito]
     Date dateCreated
 
     static constraints = {
@@ -56,14 +56,14 @@ class Nas {
         alimentacaoEnteral nullabe: false, blank: false
         intervencoesDentroUnidade nullabe: false, blank: false
         intervencoesForaUnidade nullabe: false, blank: false
-        registroAtendimentoLeito validator: { val, obj, errors ->
-            def reg = RegistroAtendimentoLeito.where {
-                registroAtendimento.id == val.registroAtendimentoId
+        registroLeito validator: { val, obj, errors ->
+            def reg = RegistroLeito.where {
+                atendimento.id == val.atendimentoId
                 leito.id == val.leitoId
                 dataEntrada == val.dataEntrada
             }.count()
             if (reg == 0) {
-                errors.rejectValue('registroAtendimentoLeito', 'nas.registroAtendimentoLeito.doesnt.exist')
+                errors.rejectValue('registroLeito', 'nas.registroLeito.doesnt.exist')
             }
         }
         escore nullabe: false

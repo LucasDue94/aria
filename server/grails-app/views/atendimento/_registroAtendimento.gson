@@ -1,7 +1,7 @@
-import br.com.hospitaldocoracaoal.integracao.RegistroAtendimento
+import br.com.hospitaldocoracaoal.integracao.Atendimento
 
 model {
-    RegistroAtendimento registroAtendimento
+    Atendimento registroAtendimento
 }
 
 json g.render(registroAtendimento, [expand: ['motivoAlta', 'ecg', 'balao'],excludes: ['paciente', 'setor'], resolveTemplate: false]) {

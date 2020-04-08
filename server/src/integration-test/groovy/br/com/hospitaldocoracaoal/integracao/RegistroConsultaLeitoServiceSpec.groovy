@@ -7,9 +7,9 @@ import org.hibernate.SessionFactory
 
 @Integration
 @Rollback
-class RegistroAtendimentoLeitoServiceSpec extends Specification {
+class RegistroConsultaLeitoServiceSpec extends Specification {
 
-    RegistroAtendimentoLeitoService registroAtendimentoLeitoService
+    RegistroLeitoService registroAtendimentoLeitoService
     SessionFactory sessionFactory
 
     private Long setupData() {
@@ -34,7 +34,7 @@ class RegistroAtendimentoLeitoServiceSpec extends Specification {
         setupData()
 
         when:
-        List<RegistroAtendimentoLeito> registroAtendimentoLeitoList = registroAtendimentoLeitoService.list(max: 2, offset: 2)
+        List<RegistroLeito> registroAtendimentoLeitoList = registroAtendimentoLeitoService.list(max: 2, offset: 2)
 
         then:
         registroAtendimentoLeitoList.size() == 2
@@ -65,7 +65,7 @@ class RegistroAtendimentoLeitoServiceSpec extends Specification {
     void "test save"() {
         when:
         assert false, "TODO: Provide a valid instance to save"
-        RegistroAtendimentoLeito registroAtendimentoLeito = new RegistroAtendimentoLeito()
+        RegistroLeito registroAtendimentoLeito = new RegistroLeito()
         registroAtendimentoLeitoService.save(registroAtendimentoLeito)
 
         then:

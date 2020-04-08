@@ -1,7 +1,7 @@
 package br.com.hospitaldocoracaoal.aria
 
 import br.com.hospitaldocoracaoal.aria.utils.DataUtils
-import br.com.hospitaldocoracaoal.integracao.RegistroAtendimento
+import br.com.hospitaldocoracaoal.integracao.Atendimento
 import grails.gorm.services.Service
 import grails.validation.ValidationException
 import grails.web.servlet.mvc.GrailsParameterMap
@@ -19,16 +19,16 @@ abstract class BalaoService {
     abstract void delete(Serializable id)
 
     def save(Balao balao) {
-        RegistroAtendimento ultimoRegistro = balao.registroAtendimento.paciente.registrosAtendimento
-                .findAll { r -> r.dataEntrada < balao.registroAtendimento.dataEntrada }
+        Atendimento ultimoRegistro = balao.atendimento.paciente.registrosAtendimento
+                .findAll { r -> r.dataEntrada < balao.atendimento.dataEntrada }
                 .sort { r1, r2 -> r1.dataEntrada <=> r2.dataEntrada }
                 .last()
 
-        if (ultimoRegistro.tipo == RegistroAtendimento.TIPO_EMERGENCIA && ultimoRegistro.ecg != null) {
+        if (ultimoRegistro.tipo == Atendimento.TIPO_EMERGENCIA && ultimoRegistro.ecg != null) {
             balao.save()
         } else {
             balao.errors.reject(
-                    'ecocardiograma.registroAtendimento.doesnt.exist',
+                    'ecocardiograma.atendimento.doesnt.exist',
                     'Ecocardiograma não encontrado.'
             )
 
@@ -49,10 +49,10 @@ abstract class BalaoService {
             ecg.list(args) {
                 between 'dataHoraPorta', dataInicio, dataFim
             }.each { Ecg e ->
-                RegistroAtendimento proximoRegistro = e.registroAtendimento.paciente.registrosAtendimento.sort { e1, e2 ->
+                Atendimento proximoRegistro = e.atendimento.paciente.registrosAtendimento.sort { e1, e2 ->
                     e1.dataEntrada <=> e2.dataEntrada
                 }.find {
-                    it.dataEntrada > e.registroAtendimento.dataEntrada
+                    it.dataEntrada > e.atendimento.dataEntrada
                 }
 
                 if (proximoRegistro != null && proximoRegistro.balao != null) {

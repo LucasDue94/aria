@@ -1,16 +1,16 @@
 package br.com.hospitaldocoracaoal.aria
 
-import br.com.hospitaldocoracaoal.integracao.RegistroAtendimentoLeito
+import br.com.hospitaldocoracaoal.integracao.RegistroLeito
 
 class Notificacao {
 
     Date dateCreated
-    RegistroAtendimentoLeito registroAtendimentoLeito
+    RegistroLeito registroLeito
 
     static hasMany = [responsaveis: Usuario]
 
     static constraints = {
-        registroAtendimentoLeito nullable: false
+        registroLeito nullable: false
         responsaveis nullable: false, minSize: 1
     }
 }

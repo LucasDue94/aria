@@ -8,10 +8,10 @@ import grails.web.servlet.mvc.GrailsParameterMap
 
 import static org.hibernate.sql.JoinType.INNER_JOIN
 
-@Service(RegistroAtendimentoLeito)
-abstract class RegistroAtendimentoLeitoService {
+@Service(RegistroLeito)
+abstract class RegistroLeitoService {
 
-    abstract RegistroAtendimentoLeito get(Serializable id)
+    abstract RegistroLeito get(Serializable id)
 
     def list(Map args, String setorId, String tipoSetor) {
 
@@ -24,7 +24,8 @@ abstract class RegistroAtendimentoLeitoService {
             queryParams.put('setorWpd', setorAria.setorWpdId)
         } else {
             List<Setor> setoresAria = Setor.findAllByTipoSetor(TipoSetor.tipoSetorPorId(tipoSetor))
-            List<SetorWpd> setoresWpd = tipoSetor == null || tipoSetor == '' ? SetorWpd.getAll() : setoresAria.setorWpd
+            // TODO: refactoring
+            List<Setor> setoresWpd = tipoSetor == null || tipoSetor == '' ? SetorWpd.getAll() : setoresAria.setorWpd
             query = 'and s.id in :setoresWpd'
             queryParams.put('setoresWpd', setoresWpd.id)
         }
@@ -44,7 +45,7 @@ abstract class RegistroAtendimentoLeitoService {
                               and ral2.dataEntrada > ral.dataEntrada)
                 $query"""
 
-        List<RegistroAtendimentoLeito> pacienteInternos = RegistroAtendimentoLeito.findAll hqlInternos, queryParams
+        List<RegistroLeito> pacienteInternos = RegistroLeito.findAll hqlInternos, queryParams
 
         String hqlOutros = """select ral
               from RegistroAtendimentoLeito ral
@@ -61,7 +62,7 @@ abstract class RegistroAtendimentoLeitoService {
                                 and ral2.dataEntrada > ral.dataEntrada)
                $query"""
 
-        List<RegistroAtendimentoLeito> outrosPacientes = RegistroAtendimentoLeito.findAll hqlOutros, queryParams, [offset:args.offset, max: 30]
+        List<RegistroLeito> outrosPacientes = RegistroLeito.findAll hqlOutros, queryParams, [offset:args.offset, max: 30]
 
         return [
                 pacientesInternos: pacienteInternos,
@@ -69,10 +70,10 @@ abstract class RegistroAtendimentoLeitoService {
         ]
     }
 
-    List<RegistroAtendimentoLeito> admissoesSetor(GrailsParameterMap args, String termo, String setorId, String dataEntradaInicio,
-                                                  String dataEntradaFim) {
+    List<RegistroLeito> admissoesSetor(GrailsParameterMap args, String termo, String setorId, String dataEntradaInicio,
+                                       String dataEntradaFim) {
 
-        def criteria = RegistroAtendimentoLeito.createCriteria()
+        def criteria = RegistroLeito.createCriteria()
         Map queryArgs = (Map) args.clone()
         if (termo != null && !termo.empty) {
             queryArgs.remove 'sort'
@@ -99,7 +100,7 @@ abstract class RegistroAtendimentoLeitoService {
                 eq 'setorWpd.id', s.setorWpdId
             } else {
                 List<Setor> setoresAria = Setor.findAllByTipoSetor(TipoSetor.UTI)
-                List<SetorWpd> setores = SetorWpd.getAll(setoresAria.setorWpd.id)
+                List<Setor> setores = SetorWpd.getAll(setoresAria.setorWpd.id)
 
                 'in' 'setorWpd.id', setores.id
             }
@@ -110,13 +111,13 @@ abstract class RegistroAtendimentoLeitoService {
 
                 between 'dataEntrada', dataInicio, dataFim
             }
-        } as List<RegistroAtendimentoLeito>
+        } as List<RegistroLeito>
     }
 
     abstract Long count()
 
     abstract void delete(Serializable id)
 
-    abstract RegistroAtendimentoLeito save(RegistroAtendimentoLeito registroAtendimentoLeito)
+    abstract RegistroLeito save(RegistroLeito registroAtendimentoLeito)
 
 }

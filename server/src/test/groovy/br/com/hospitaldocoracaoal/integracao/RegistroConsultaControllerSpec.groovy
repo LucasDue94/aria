@@ -10,7 +10,7 @@ import grails.validation.ValidationException
 import grails.testing.web.controllers.ControllerUnitTest
 import grails.testing.gorm.DomainUnitTest
 
-class RegistroAtendimentoLeitoControllerSpec extends Specification implements ControllerUnitTest<RegistroAtendimentoLeitoController>, DomainUnitTest<RegistroAtendimentoLeito> {
+class RegistroConsultaControllerSpec extends Specification implements ControllerUnitTest<AtendimentoController>, DomainUnitTest<Atendimento> {
 
     def populateValidParams(params) {
         assert params != null
@@ -22,7 +22,7 @@ class RegistroAtendimentoLeitoControllerSpec extends Specification implements Co
 
     void "Test the index action returns the correct response"() {
         given:
-        controller.registroAtendimentoLeitoService = Mock(RegistroAtendimentoLeitoService) {
+        controller.registroAtendimentoService = Mock(AtendimentoService) {
             1 * list(_) >> []
             1 * count() >> 0
         }
@@ -47,8 +47,8 @@ class RegistroAtendimentoLeitoControllerSpec extends Specification implements Co
 
     void "Test the save action correctly persists"() {
         given:
-        controller.registroAtendimentoLeitoService = Mock(RegistroAtendimentoLeitoService) {
-            1 * save(_ as RegistroAtendimentoLeito)
+        controller.registroAtendimentoService = Mock(AtendimentoService) {
+            1 * save(_ as Atendimento)
         }
 
         when:
@@ -56,7 +56,7 @@ class RegistroAtendimentoLeitoControllerSpec extends Specification implements Co
         request.contentType = JSON_CONTENT_TYPE
         request.method = 'POST'
         populateValidParams(params)
-        request.json = new RegistroAtendimentoLeito(params)
+        request.json = new Atendimento(params)
         controller.save()
 
         then:
@@ -66,9 +66,9 @@ class RegistroAtendimentoLeitoControllerSpec extends Specification implements Co
 
     void "Test the save action with an invalid instance"() {
         given:
-        controller.registroAtendimentoLeitoService = Mock(RegistroAtendimentoLeitoService) {
-            1 * save(_ as RegistroAtendimentoLeito) >> { RegistroAtendimentoLeito registroAtendimentoLeito ->
-                throw new ValidationException("Invalid instance", registroAtendimentoLeito.errors)
+        controller.registroAtendimentoService = Mock(AtendimentoService) {
+            1 * save(_ as Atendimento) >> { Atendimento registroAtendimento ->
+                throw new ValidationException("Invalid instance", registroAtendimento.errors)
             }
         }
 
@@ -76,7 +76,7 @@ class RegistroAtendimentoLeitoControllerSpec extends Specification implements Co
         request.contentType = JSON_CONTENT_TYPE
         request.method = 'POST'
         populateValidParams(params)
-        request.json = new RegistroAtendimentoLeito(params)
+        request.json = new Atendimento(params)
         controller.save()
 
         then:
@@ -86,7 +86,7 @@ class RegistroAtendimentoLeitoControllerSpec extends Specification implements Co
 
     void "Test the show action with a null id"() {
         given:
-        controller.registroAtendimentoLeitoService = Mock(RegistroAtendimentoLeitoService) {
+        controller.registroAtendimentoService = Mock(AtendimentoService) {
             1 * get(null) >> null
         }
 
@@ -99,8 +99,8 @@ class RegistroAtendimentoLeitoControllerSpec extends Specification implements Co
 
     void "Test the show action with a valid id"() {
         given:
-        controller.registroAtendimentoLeitoService = Mock(RegistroAtendimentoLeitoService) {
-            1 * get(2) >> new RegistroAtendimentoLeito()
+        controller.registroAtendimentoService = Mock(AtendimentoService) {
+            1 * get(2) >> new Atendimento()
         }
 
         when:"A domain instance is passed to the show action"
@@ -124,8 +124,8 @@ class RegistroAtendimentoLeitoControllerSpec extends Specification implements Co
 
     void "Test the update action correctly persists"() {
         given:
-        controller.registroAtendimentoLeitoService = Mock(RegistroAtendimentoLeitoService) {
-            1 * save(_ as RegistroAtendimentoLeito)
+        controller.registroAtendimentoService = Mock(AtendimentoService) {
+            1 * save(_ as Atendimento)
         }
 
         when:
@@ -133,7 +133,7 @@ class RegistroAtendimentoLeitoControllerSpec extends Specification implements Co
         request.contentType = JSON_CONTENT_TYPE
         request.method = 'PUT'
         populateValidParams(params)
-        def instance = new RegistroAtendimentoLeito(params)
+        def instance = new Atendimento(params)
         instance.id = 1
         instance.version = 0
         controller.update(instance)
@@ -145,16 +145,16 @@ class RegistroAtendimentoLeitoControllerSpec extends Specification implements Co
 
     void "Test the update action with an invalid instance"() {
         given:
-        controller.registroAtendimentoLeitoService = Mock(RegistroAtendimentoLeitoService) {
-            1 * save(_ as RegistroAtendimentoLeito) >> { RegistroAtendimentoLeito registroAtendimentoLeito ->
-                throw new ValidationException("Invalid instance", registroAtendimentoLeito.errors)
+        controller.registroAtendimentoService = Mock(AtendimentoService) {
+            1 * save(_ as Atendimento) >> { Atendimento registroAtendimento ->
+                throw new ValidationException("Invalid instance", registroAtendimento.errors)
             }
         }
 
         when:
         request.contentType = JSON_CONTENT_TYPE
         request.method = 'PUT'
-        def instance = new RegistroAtendimentoLeito(params)
+        def instance = new Atendimento(params)
         instance.id = 1
         instance.version = 0
         controller.update(instance)
@@ -176,7 +176,7 @@ class RegistroAtendimentoLeitoControllerSpec extends Specification implements Co
 
     void "Test the delete action with an instance"() {
         given:
-        controller.registroAtendimentoLeitoService = Mock(RegistroAtendimentoLeitoService) {
+        controller.registroAtendimentoService = Mock(AtendimentoService) {
             1 * delete(2)
         }
 

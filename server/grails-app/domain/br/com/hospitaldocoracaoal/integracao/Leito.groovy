@@ -1,12 +1,14 @@
 package br.com.hospitaldocoracaoal.integracao
 
+import br.com.hospitaldocoracaoal.aria.Setor
+
 class Leito {
 
     String id
     String descricao
-    SetorWpd setor
+    Setor setor
 
-    static hasMany = [registroAtendimentoLeitos: RegistroAtendimentoLeito]
+    static hasMany = [registroLeitos: RegistroLeito]
 
     static mapping = {
         id generator: 'assigned'

@@ -1,6 +1,12 @@
-drop foreign table registro_atendimento;
-/*REGISTRO DE ATENDIMENTO*/
-create foreign table registro_atendimento
+/* -- Ambcor -- */
+CREATE SERVER ambcor_dev FOREIGN DATA WRAPPER postgres_fdw OPTIONS (host 'dev.hcal.lan', dbname 'hamb_dev', port '5432');
+drop server ambcor_dev cascade;
+CREATE USER MAPPING FOR aria SERVER ambcor_dev OPTIONS (user 'aria', password 'aria@123-hcor');
+/* --/ Ambcor -- */
+
+drop foreign table atendimento;
+/* -- ATENDIMENTO -- */
+create foreign table atendimento
     (
         id varchar(9) options (key 'true') not null,
         data_entrada timestamp not null,
@@ -10,7 +16,7 @@ create foreign table registro_atendimento
         motivo_alta_id varchar(9) not null,
         tipo char(1) not null ,
         paciente_id varchar(9) not null
-    )
+        )
     server wpd
     options (table '(select PAC.COD_PAC,
        TO_DATE(TO_CHAR(PAC.DATA_ENT, ''DD-MM-YYYY'') || '' '' || TO_CHAR(PAC.HORA_ENT, ''HH24:MI:SS''),
@@ -30,36 +36,57 @@ from ADMWPD.FAPACCAD PAC
          LEFT JOIN ADMWPD.FAPACCOM COM ON COM.COD_PAC = PAC.COD_PAC
          LEFT JOIN ADMWPD.URCIDCAD CID ON CID.PK_UR_CID = PAC.FK_UR_CID)', readonly 'true');
 
-alter foreign table registro_atendimento owner to aria;
 
+alter foreign table atendimento owner to aria;
+
+drop foreign table Consulta;
+
+CREATE FOREIGN TABLE Consulta (
+    id bigint not null,
+    version bigint,
+    cid_id varchar(255) not null,
+    atendimento_id varchar(255) options(column_name 'registro_atendimento_id') not null,
+    data_atendimento timestamp not null,
+    conteudo text
+    )
+    SERVER ambcor_dev OPTIONS (table_name 'atendimento');
 
 
 /*LEITO*/
+drop foreign table leito;
+
 create foreign table leito(
         id varchar(9) options (key 'true') not null,
         descricao varchar(70) not null,
-        setor_id varchar(9) not null
+        setor_id varchar(9) not null,
+        atendimento_id varchar(9)
     )
     server wpd
-    options (table '(select LEI.LEITO, LEI.DESCRICAO, APT.COD_SET from ADMWPD.FALEICAD LEI inner join ADMWPD.FAAPTCAD APT on LEI.COD_APT = APT.COD_APT)', readonly 'true');
+    options (table '(select LEI.LEITO, LEI.DESCRICAO, APT.COD_SET, LEI.COD_PAC from ADMWPD.FALEICAD LEI inner join ADMWPD.FAAPTCAD APT on LEI.COD_APT = APT.COD_APT)', readonly 'true');
 
 alter foreign table leito owner to aria;
 
 
-drop foreign table registro_atendimento_leito;
-/*REGISTRO ATENDIMENTO LEITO*/
-create foreign table registro_atendimento_leito (
-    registro_atendimento_id varchar(9) options (key 'true') not null,
-    leito_id varchar(9) options (key 'true') not null,
+/*REGISTRO LEITO*/
+drop foreign table registro_leito;
+
+create foreign table registro_leito (
+    id bigint options (key 'true') not null,
+    atendimento_id varchar(9) not null,
+    leito_id varchar(9) not null,
     data_entrada timestamp not null
 ) server wpd
-options (table '(select his.COD_PAC, his.LEITO,
+options (table '(select his.ID_REG, his.COD_PAC, his.LEITO,
        to_date(to_char(his.DATA, ''DD-MM-YYYY'') || '' '' || to_char(his.HORA, ''HH24:MI:SS''), ''DD-MM-YYYY HH24:MI:SS'') as data
 from ADMWPD.FALEHCAD his inner join ADMWPD.FALEICAD lei on lei.LEITO = his.LEITO inner join ADMWPD.FAAPTCAD apt on lei.COD_APT = apt.COD_APT)', readonly 'true');
 
 
 /*SETOR*/
-create foreign table setor
+create schema wpd;
+
+drop foreign table wpd.setor_wpd;
+
+create foreign table wpd.setor_wpd
     (
         id varchar(9) options (key 'true') not null,
         descricao varchar(70) not null,
@@ -68,7 +95,7 @@ create foreign table setor
     server wpd
     options (table '(select COD_SET, DESCRICAO, TIPO_SETOR from ADMWPD.FASETCAD)', readonly 'true');
 
-alter foreign table setor owner to aria;
+alter foreign table wpd.setor_wpd owner to aria;
 
 
 
@@ -131,10 +158,12 @@ create foreign table motivo_alta
 
 alter foreign table motivo_alta owner to aria;
 
-/*MOTIVO DA ALTA*/
+/*EXAME*/
+drop foreign table exame;
+
 create foreign table exame (
     id varchar(9) options (key 'true') not null,
-    registro_id varchar(9),
+    atendimento_id varchar(9),
     setor_id varchar(4) not null
 ) server wpd options (table '(select exa.COD_PRT_PROV,
        exa.COD_PAC,
@@ -145,8 +174,10 @@ from ADMWPD.IMAGNEXA exa
 
 alter foreign table exame owner to aria;
 
+drop foreign table cirurgia;
+
 create foreign table cirurgia (
     id varchar(6) options (key 'true') not null,
-    registro_atendimento_id varchar(9),
+    atendimento_id varchar(9),
     cancelada boolean
 ) server wpd options (table '(select CD_CIRU_REALIZADA, COD_PAC, decode(MOT_CANCELAMENTO, null, 0, 1) as cancelada from admwpd.BLCIRU_REALIZADA)');

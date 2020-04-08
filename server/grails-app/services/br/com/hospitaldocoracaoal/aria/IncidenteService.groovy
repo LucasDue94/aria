@@ -1,9 +1,8 @@
 package br.com.hospitaldocoracaoal.aria
 
 import br.com.hospitaldocoracaoal.aria.utils.DataUtils
-import br.com.hospitaldocoracaoal.integracao.RegistroAtendimento
-import br.com.hospitaldocoracaoal.integracao.RegistroAtendimentoLeito
-import br.com.hospitaldocoracaoal.integracao.SetorWpd
+import br.com.hospitaldocoracaoal.integracao.Atendimento
+import br.com.hospitaldocoracaoal.integracao.RegistroLeito
 import grails.gorm.services.Service
 import grails.validation.ValidationException
 import grails.web.servlet.mvc.GrailsParameterMap
@@ -27,22 +26,22 @@ abstract class IncidenteService {
 
         Setor setor = Setor.get args.long('setorId')
 
-        def criteria = RegistroAtendimento.createCriteria()
+        def criteria = Atendimento.createCriteria()
         def result = criteria.list {
             createAlias 'incidentes', 'i', JoinType.LEFT_OUTER_JOIN
             createAlias 'i.tipoIncidente', 'ti', JoinType.LEFT_OUTER_JOIN
-            createAlias 'registroAtendimentoLeitos', 'ral', JoinType.LEFT_OUTER_JOIN
+            createAlias 'registroLeitos', 'ral', JoinType.LEFT_OUTER_JOIN
             createAlias 'ral.leito', 'l', JoinType.LEFT_OUTER_JOIN
 
             or {
                 and {
-                    ne 'tipo', RegistroAtendimento.TIPO_INTERNO
+                    ne 'tipo', Atendimento.TIPO_INTERNO
                     eq 'setor', setor.setorWpd
                     between 'dataEntrada', dataInicio, dataFim
                 }
 
                 and {
-                    eq 'tipo', RegistroAtendimento.TIPO_INTERNO
+                    eq 'tipo', Atendimento.TIPO_INTERNO
                     between 'ral.dataEntrada', dataInicio, dataFim
                     eq 'l.setor', setor.setorWpd
                 }
@@ -67,7 +66,7 @@ abstract class IncidenteService {
     }
 
     Incidente save(Incidente incidente, String pacienteId) {
-        List<RegistroAtendimento> registros = (List<RegistroAtendimento>) RegistroAtendimento.createCriteria().list(sort: 'dataEntrada') {
+        List<Atendimento> registros = (List<Atendimento>) Atendimento.createCriteria().list(sort: 'dataEntrada') {
             paciente {
                 eq 'id', pacienteId
             }
@@ -80,36 +79,37 @@ abstract class IncidenteService {
         }
 
         if (registros != null && !registros.isEmpty()) {
-            RegistroAtendimento registroAtendimento = registros.last()
-            SetorWpd setorWpd = null
+            Atendimento atendimento = registros.last()
+//            Todo: Setor WPD
+//            SetorWpd setorWpd = null
 
-            switch (registroAtendimento.tipo) {
+            switch (atendimento.tipo) {
                 case 'I':
-                    RegistroAtendimentoLeito registroAtendimentoLeito = registroAtendimento.registroAtendimentoLeitos
+                    RegistroLeito registroLeito = atendimento.registroLeitos
                             .sort { ral1, ral2 -> ral1.dataEntrada <=> ral2.dataEntrada }
                             .find {  it.dataEntrada <= incidente.dataHora }
-                    setorWpd = registroAtendimentoLeito.leito.setor
+                    setorWpd = registroLeito.leito.setor
                     break;
                 case 'A':
                 case 'E':
                 case 'U':
-                    setorWpd = registroAtendimento.setor
+                    setorWpd = atendimento.setor
                     break;
                 default:
                     incidente.errors.reject(
-                            'incidente.registroAtendimento.doesnt.exist',
+                            'incidente.atendimento.doesnt.exist',
                             'Não foi possível criar um incidente. Tipo de registro inválido.'
                     )
                     throw new ValidationException('Incidente inválido.', incidente.errors)
             }
 
-            incidente.registroAtendimento = registroAtendimento
+            incidente.atendimento = atendimento
             incidente.setor = Setor.findBySetorWpd setorWpd
 
             incidente.validate()
         } else {
             incidente.errors.reject(
-                    'incidente.registroAtendimento.doesnt.exist',
+                    'incidente.atendimento.doesnt.exist',
                     'Registro não encontrado para a data e hora informados.'
             )
             throw new ValidationException('Incidente inválido.', incidente.errors)

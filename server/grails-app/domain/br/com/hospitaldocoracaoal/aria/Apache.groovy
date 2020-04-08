@@ -1,12 +1,12 @@
 package br.com.hospitaldocoracaoal.aria
 
 import br.com.hospitaldocoracaoal.aria.utils.DataUtils
-import br.com.hospitaldocoracaoal.integracao.RegistroAtendimentoLeito
+import br.com.hospitaldocoracaoal.integracao.RegistroLeito
 
 import java.time.ZoneId
 
 class Apache {
-    RegistroAtendimentoLeito registroAtendimentoLeito
+    RegistroLeito registroLeito
     String temperatura
     Integer pas
     Integer pad
@@ -39,14 +39,14 @@ class Apache {
         leucocitos nullable: false, blank: false, inList: ['> 40', '20 - 39.9', '15 - 19.9', '3 - 14.9', '1 - 2.9', '< 1']
         glasgow nullable: false, blank: false, size: 3..15
         problemasCronicos nullable: false, blank: false, inList: ['Nenhum', 'Não - Cirúrgico', 'Cirurgia de Emergência', 'Cirurgia Eletiva']
-        registroAtendimentoLeito validator: { val, obj, errors ->
-            def reg = RegistroAtendimentoLeito.where {
-                registroAtendimento.id == val.registroAtendimentoId
+        registroLeito validator: { val, obj, errors ->
+            def reg = RegistroLeito.where {
+                atendimento.id == val.atendimentoId
                 leito.id == val.leitoId
                 dataEntrada == val.dataEntrada
             }.count()
             if (reg == 0) {
-                errors.rejectValue('registroAtendimentoLeito', 'nas.registroAtendimentoLeito.doesnt.exist')
+                errors.rejectValue('registroLeito', 'nas.registroLeito.doesnt.exist')
             }
         }
     }
@@ -423,8 +423,8 @@ class Apache {
     }
 
     def calculaEscoreIdade() {
-        int idade = DataUtils.calculaIdadeEntreDatas(this.registroAtendimentoLeito.registroAtendimento
-                .paciente.nascimento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), this.registroAtendimentoLeito.dataEntrada.toInstant().atZone(ZoneId.systemDefault()).toLocalDate())
+        int idade = DataUtils.calculaIdadeEntreDatas(this.registroLeito.atendimento
+                .paciente.nascimento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), this.registroLeito.dataEntrada.toInstant().atZone(ZoneId.systemDefault()).toLocalDate())
         int result = 0
 
         if (idade >= 75) {

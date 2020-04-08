@@ -1,12 +1,14 @@
 package br.com.hospitaldocoracaoal.integracao
 
+import br.com.hospitaldocoracaoal.aria.Setor
+
 class Comanda implements Serializable{
 
     String tipo
     String comanda
-    RegistroAtendimento registroAtendimento
+    Atendimento registroAtendimento
     String dataMovimento
-    SetorWpd setor
+    Setor setor
 
     static constraints = {
     }

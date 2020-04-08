@@ -2,7 +2,7 @@ package br.com.hospitaldocoracaoal.integracao
 
 class Cirurgia {
     String id
-    RegistroAtendimento registroAtendimento
+    Atendimento atendimento
     boolean cancelada
 
     static mapping = {

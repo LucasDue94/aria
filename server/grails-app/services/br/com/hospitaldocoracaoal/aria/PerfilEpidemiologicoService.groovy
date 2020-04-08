@@ -1,24 +1,20 @@
 package br.com.hospitaldocoracaoal.aria
 
 import br.com.hospitaldocoracaoal.integracao.Cid
-import br.com.hospitaldocoracaoal.integracao.RegistroAtendimento
-import grails.compiler.GrailsCompileStatic
+import br.com.hospitaldocoracaoal.integracao.Atendimento
 import org.grails.datastore.mapping.query.api.BuildableCriteria
 import org.hibernate.FetchMode
 import org.hibernate.sql.JoinType
-import org.springframework.security.access.prepost.PostFilter
-import org.springframework.security.access.prepost.PreAuthorize
-
 
 class PerfilEpidemiologicoService {
 
 
     private static final Closure FILTROS = { BuildableCriteria criteria, Date inicio, Date fim, Character[] tipos ->
-        criteria.createAlias "atendimentos", "a", JoinType.LEFT_OUTER_JOIN
+        criteria.createAlias "consultas", "con", JoinType.LEFT_OUTER_JOIN
         criteria.createAlias "a.cid", "ac", JoinType.LEFT_OUTER_JOIN
         criteria.createAlias "cid", "c", JoinType.LEFT_OUTER_JOIN
 
-        criteria.fetchMode "a", FetchMode.JOIN
+        criteria.fetchMode "con", FetchMode.JOIN
         criteria.fetchMode "c", FetchMode.JOIN
         criteria.fetchMode "paciente", FetchMode.JOIN
         criteria.fetchMode "ac", FetchMode.JOIN
@@ -39,47 +35,47 @@ class PerfilEpidemiologicoService {
         }
     }
 
-    private Set<RegistroAtendimento> examesPorSetor(Date inicio, Date fim, Character[] tipos, Collection<Setor> setores) {
-        def criteria = RegistroAtendimento.createCriteria()
+    private Set<Atendimento> examesPorSetor(Date inicio, Date fim, Character[] tipos, Collection<Setor> setores) {
+        def criteria = Atendimento.createCriteria()
         return criteria.listDistinct {
             FILTROS(criteria, inicio, fim, tipos)
 
             exames {
-                'in' 'setor', setores.setorWpd
+                'in' 'setor', setores
             }
-        } as Set<RegistroAtendimento>
+        } as Set<Atendimento>
     }
 
-    private Set<RegistroAtendimento> leitosPorSetor(Date inicio, Date fim, Character[] tipos, Collection<Setor> setores) {
-        def criteria = RegistroAtendimento.createCriteria()
+    private Set<Atendimento> leitosPorSetor(Date inicio, Date fim, Character[] tipos, Collection<Setor> setores) {
+        def criteria = Atendimento.createCriteria()
         return criteria.listDistinct {
-            createAlias 'registroAtendimentoLeitos', 'ral', JoinType.INNER_JOIN
+            createAlias 'registroLeitos', 'ral', JoinType.INNER_JOIN
             createAlias 'ral.leito', 'l', JoinType.INNER_JOIN
             'in' 'l.setor', setores.setorWpd
 
             FILTROS(criteria, inicio, fim, tipos)
-        } as Set<RegistroAtendimento>
+        } as Set<Atendimento>
     }
 
-    private Set<RegistroAtendimento> comandasPorSetor(Date inicio, Date fim, Character[] tipos, Collection<Setor> setores) {
-        def criteria = RegistroAtendimento.createCriteria()
+    private Set<Atendimento> comandasPorSetor(Date inicio, Date fim, Character[] tipos, Collection<Setor> setores) {
+        def criteria = Atendimento.createCriteria()
         return criteria.listDistinct {
             FILTROS(criteria, inicio, fim, tipos)
 
             comandas {
                 'in' 'setor', setores.setorWpd
             }
-        } as Set<RegistroAtendimento>
+        } as Set<Atendimento>
     }
 
     def gerarPerfil(Date inicio, Date fim, Character[] tipos = null, Collection<Setor> setores = null, Boolean perfilGeral = true) {
-        def criteria = RegistroAtendimento.createCriteria()
+        def criteria = Atendimento.createCriteria()
 
-        Set<RegistroAtendimento> registros = (Set<RegistroAtendimento>) criteria.listDistinct {
+        Set<Atendimento> registros = (Set<Atendimento>) criteria.listDistinct {
             FILTROS(criteria, inicio, fim, tipos)
 
             if (setores != null && !setores.empty) {
-                'in' 'setor', setores.setorWpd
+                'in' 'setor', setores
             }
         }
 

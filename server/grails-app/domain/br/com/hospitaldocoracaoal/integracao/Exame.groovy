@@ -1,11 +1,13 @@
 package br.com.hospitaldocoracaoal.integracao
 
+import br.com.hospitaldocoracaoal.aria.Setor
+
 class Exame {
     String id
-    RegistroAtendimento registro
-    SetorWpd setor
+    Atendimento atendimento
+    Setor setor
 
-    static belongsTo = RegistroAtendimento
+    static belongsTo = Atendimento
 
     static mapping = {
         id generator: 'assigned'

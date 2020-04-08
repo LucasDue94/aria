@@ -9,13 +9,13 @@ import grails.web.servlet.mvc.GrailsParameterMap
 import static org.hibernate.sql.JoinType.INNER_JOIN
 import static org.hibernate.sql.JoinType.LEFT_OUTER_JOIN
 
-@Service(RegistroAtendimento)
-abstract class RegistroAtendimentoService {
+@Service(Atendimento)
+abstract class AtendimentoService {
 
 
-    List<RegistroAtendimento> list(GrailsParameterMap args, String termo, String setorId, String dataEntradaInicio,
-                                   String dataEntradaFim, Character tipoRegistro) {
-        def criteria = RegistroAtendimento.createCriteria()
+    List<Atendimento> list(GrailsParameterMap args, String termo, String setorId, String dataEntradaInicio,
+                           String dataEntradaFim, Character tipoRegistro) {
+        def criteria = Atendimento.createCriteria()
         criteria.list(args) {
             createAlias 'paciente', 'p', INNER_JOIN
 
@@ -27,11 +27,11 @@ abstract class RegistroAtendimentoService {
 
                 or {
                     and {
-                        eq 'tipo', RegistroAtendimento.TIPO_INTERNO
+                        eq 'tipo', Atendimento.TIPO_INTERNO
                         eq 'setorWpd.id', s.setorWpdId
                     }
                     and {
-                        ne'tipo', RegistroAtendimento.TIPO_INTERNO
+                        ne'tipo', Atendimento.TIPO_INTERNO
                         setor {
                             eq 'id', s.setorWpdId
                         }
@@ -39,7 +39,7 @@ abstract class RegistroAtendimentoService {
                 }
             }
 
-            if (tipoRegistro == RegistroAtendimento.TIPO_EMERGENCIA || tipoRegistro == RegistroAtendimento.TIPO_INTERNO) {
+            if (tipoRegistro == Atendimento.TIPO_EMERGENCIA || tipoRegistro == Atendimento.TIPO_INTERNO) {
                 eq 'tipo', tipoRegistro
             }
 
@@ -57,12 +57,12 @@ abstract class RegistroAtendimentoService {
 
                 between 'dataEntrada', dataInicio, dataFim
             }
-        } as List<RegistroAtendimento>
+        } as List<Atendimento>
     }
 
     abstract Long count()
 
-    abstract RegistroAtendimento get(Serializable id)
+    abstract Atendimento get(Serializable id)
 
 }
 

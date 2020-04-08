@@ -5,9 +5,9 @@ import grails.gorm.transactions.ReadOnly
 import grails.plugin.springsecurity.annotation.Secured
 
 @ReadOnly
-class RegistroAtendimentoController {
+class AtendimentoController {
 
-    RegistroAtendimentoService registroAtendimentoService
+    AtendimentoService atendimentoService
 
     static responseFormats = ['json', 'xml']
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
@@ -17,8 +17,8 @@ class RegistroAtendimentoController {
               String dataEntradaFim, Character tipoRegistro) {
         params.max = Math.min(max ?: 30, 100)
         try {
-            respond registroAtendimentoService.list(params, termo, setorId, dataEntradaInicio,
-                    dataEntradaFim, tipoRegistro), model: [registroAtendimentoCount: registroAtendimentoService.count()]
+            respond atendimentoService.list(params, termo, setorId, dataEntradaInicio,
+                    dataEntradaFim, tipoRegistro), model: [registroAtendimentoCount: atendimentoService.count()]
         } catch (IllegalArgumentException e) {
             render([error: e.message] as JSON)
         }
@@ -26,6 +26,6 @@ class RegistroAtendimentoController {
 
     @Secured('ROLE_REGISTRO_ATENDIMENTO_SHOW')
     def show(String id) {
-        respond registroAtendimentoService.get(id)
+        respond atendimentoService.get(id)
     }
 }

@@ -1,10 +1,10 @@
 package br.com.hospitaldocoracaoal
 
-import br.com.hospitaldocoracaoal.integracao.RegistroAtendimentoService
+import br.com.hospitaldocoracaoal.integracao.AtendimentoService
 import grails.testing.services.ServiceUnitTest
 import spock.lang.Specification
 
-class RegistroAtendimentoServiceSpec extends Specification implements ServiceUnitTest<RegistroAtendimentoService>{
+class RegistroConsultaServiceSpec extends Specification implements ServiceUnitTest<AtendimentoService>{
 
     def setup() {
     }

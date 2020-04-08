@@ -1,9 +1,8 @@
 package br.com.hospitaldocoracaoal.aria
 
 import br.com.hospitaldocoracaoal.aria.db.TipoSetor
-import br.com.hospitaldocoracaoal.integracao.RegistroAtendimentoLeito
+import br.com.hospitaldocoracaoal.integracao.RegistroLeito
 import groovy.util.logging.Slf4j
-import org.springframework.scheduling.annotation.Scheduled
 
 import javax.transaction.Transactional
 
@@ -28,13 +27,13 @@ class NotificacaoApacheService {
         Notificacao.withTransaction { status ->
             List<Setor> setores = Setor.findAllByTipoSetor TipoSetor.UTI
 
-            def criteria = RegistroAtendimentoLeito.withCriteria {
+            def criteria = RegistroLeito.withCriteria {
                 createAlias 'apache', 'a', LEFT_OUTER_JOIN
                 createAlias 'leito', 'l', INNER_JOIN
                 createAlias 'l.setor', 's', INNER_JOIN
                 createAlias 'notificacoes', 'n', LEFT_OUTER_JOIN
 
-                isNull 'a.registroAtendimentoLeito'
+                isNull 'a.registroLeito'
                 isNull 'n.id'
                 le 'dataEntrada', ontem
                 'in' 's.id', setores.setorWpd.id
@@ -42,22 +41,22 @@ class NotificacaoApacheService {
             }
 
             def apacheSetores = criteria.leito.setor.unique()
-            def notificacoes = criteria.collect { RegistroAtendimentoLeito ral ->
+            def notificacoes = criteria.collect { RegistroLeito ral ->
                 def responsaveis = ral.leito.setor.setor.usuarios.id.collect { Usuario.load it }
-                new Notificacao(responsaveis: responsaveis, registroAtendimentoLeito: ral)
+                new Notificacao(responsaveis: responsaveis, registroLeito: ral)
             }
             notificacoes*.save()
             status.flush()
 
             apacheSetores.each { set ->
-                def setorNotificacoes = notificacoes.findAll { it.registroAtendimentoLeito.leito.setor.id == set.id }
+                def setorNotificacoes = notificacoes.findAll { it.registroLeito.leito.setor.id == set.id }
                 def responsaveis = setorNotificacoes.responsaveis.findAll { !it.empty }.unique()
 
                 if (responsaveis != null && !responsaveis.empty) {
                     sendMail {
                         to responsaveis.email.unique()
                         subject 'Alerta Apache'
-                        html view: '/apache/notificationEmail', model: [pacientes: setorNotificacoes.registroAtendimentoLeito.registroAtendimento.paciente.nome]
+                        html view: '/apache/notificationEmail', model: [pacientes: setorNotificacoes.registroLeito.atendimento.paciente.nome]
                     }
                 }
             }

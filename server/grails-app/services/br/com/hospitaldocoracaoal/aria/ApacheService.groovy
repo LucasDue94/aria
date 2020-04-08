@@ -20,7 +20,7 @@ abstract class ApacheService {
         def criteria = Apache.createCriteria()
 
         List<Apache> apacheList = criteria.list() {
-            createAlias 'registroAtendimentoLeito', 'ral', JoinType.INNER_JOIN
+            createAlias 'registroLeito', 'ral', JoinType.INNER_JOIN
             createAlias 'ral.leito', 'l', JoinType.INNER_JOIN
             createAlias 'l.setor', 's', JoinType.INNER_JOIN
             createAlias 's.setor', 'set', JoinType.INNER_JOIN
@@ -29,15 +29,15 @@ abstract class ApacheService {
             eq('set.id', args.long('setorId'))
         } as List<Apache>
 
-        def cirurgico = apacheList.findAll { !it.registroAtendimentoLeito.registroAtendimento.cirurgias?.isEmpty() }
+        def cirurgico = apacheList.findAll { !it.registroLeito.atendimento.cirurgias?.isEmpty() }
         def naoCirurgicos = apacheList - cirurgico
         def pacientesObito = []
 
         Closure closureAltas = {
-            it.registroAtendimentoLeito.registroAtendimento?.motivoAlta?.classificacao != 'O' || !it.registroAtendimentoLeito.ultimo
+            it.registroLeito.atendimento?.motivoAlta?.classificacao != 'O' || !it.registroLeito.ultimo
         }
         Closure closureObitos = {
-            it.registroAtendimentoLeito.ultimo && it.registroAtendimentoLeito.registroAtendimento?.motivoAlta?.classificacao == 'O'
+            it.registroLeito.ultimo && it.registroLeito.atendimento?.motivoAlta?.classificacao == 'O'
         }
 
         // Smr Cirúrgico
@@ -240,7 +240,7 @@ abstract class ApacheService {
                         ]
                 ],
 
-                pacientesObito   : pacientesObito.registroAtendimentoLeito.registroAtendimento.paciente
+                pacientesObito   : pacientesObito.registroLeito.atendimento.paciente
         ]
     }
 

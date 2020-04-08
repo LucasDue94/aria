@@ -1,6 +1,6 @@
 package br.com.hospitaldocoracaoal.aria
 
-import br.com.hospitaldocoracaoal.integracao.RegistroAtendimentoLeitoService
+import br.com.hospitaldocoracaoal.integracao.RegistroLeitoService
 import grails.gorm.transactions.ReadOnly
 import grails.gorm.transactions.Transactional
 import grails.plugin.springsecurity.annotation.Secured
@@ -12,7 +12,7 @@ import static org.springframework.http.HttpStatus.*
 class SetorController {
 
     SetorService setorService
-    RegistroAtendimentoLeitoService registroAtendimentoLeitoService
+    RegistroLeitoService registroLeitoService
 
     static responseFormats = ['json', 'xml']
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]

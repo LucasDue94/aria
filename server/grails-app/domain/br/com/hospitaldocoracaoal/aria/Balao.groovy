@@ -1,16 +1,16 @@
 package br.com.hospitaldocoracaoal.aria
 
-import br.com.hospitaldocoracaoal.integracao.RegistroAtendimento
+import br.com.hospitaldocoracaoal.integracao.Atendimento
 
 class Balao {
 
     Date dataHoraBalao
 
     static belongsTo = [
-            registroAtendimento: RegistroAtendimento
+            atendimento: Atendimento
     ]
     static constraints = {
-        registroAtendimento unique: true
+        atendimento unique: true
         dataHoraBalao nullable: false
     }
 

@@ -1,8 +1,8 @@
 import br.com.hospitaldocoracaoal.aria.Apache
-import br.com.hospitaldocoracaoal.integracao.RegistroAtendimentoLeito
+import br.com.hospitaldocoracaoal.integracao.RegistroLeito
 
 model {
-	RegistroAtendimentoLeito registroAtendimentoLeito
+	RegistroLeito registroAtendimentoLeito
 }
 
 json g.render(registroAtendimentoLeito, [expand: ['registroAtendimento', 'registroAtendimento.paciente'], resolveTemplate: false]) {
