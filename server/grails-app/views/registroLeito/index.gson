@@ -6,6 +6,6 @@ model {
 }
 
 json {
-	pacientesInternos tmpl.registroAtendimentoLeito(pacientesInternos ?: [])
-	outrosPacientes tmpl.registroAtendimentoLeito(outrosPacientes ?: [])
+	pacientesInternos tmpl.registroLeito(pacientesInternos ?: [])
+	outrosPacientes tmpl.registroLeito(outrosPacientes ?: [])
 }

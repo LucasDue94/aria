@@ -32,7 +32,7 @@ abstract class PacienteService {
                     tipo == args.char('tipo')
                 }
                 if (setor != null) {
-                    registroAtendimentoLeitos {
+                    registroLeitos {
                         leito in setor.leitos
                     }
                 }

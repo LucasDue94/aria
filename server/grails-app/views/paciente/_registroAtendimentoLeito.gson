@@ -1,9 +1,9 @@
 import br.com.hospitaldocoracaoal.integracao.RegistroLeito
 
 model {
-	RegistroLeito registroAtendimentoLeito
+	RegistroLeito registroLeito
 }
 
-json g.render(registroAtendimentoLeito, [excludes: ['registroAtendimento', 'leito'], resolveTemplate: false]) {
-	leito g.render(registroAtendimentoLeito.leito, [excludes: ['registroAtendimentoLeitos'], resolveTemplate: false])
+json g.render(registroLeito, [excludes: ['atendimento', 'leito'], resolveTemplate: false]) {
+	leito g.render(registroLeito.leito, [excludes: ['registroLeitos'], resolveTemplate: false])
 }

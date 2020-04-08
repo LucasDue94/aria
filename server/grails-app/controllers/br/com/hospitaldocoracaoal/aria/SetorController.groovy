@@ -33,7 +33,7 @@ class SetorController {
         params.sort = 'dataEntrada'
         params.order = 'desc'
         params.max = Math.min(max ?: 10, 100)
-        respond registroAtendimentoLeitoService.admissoesSetor(params, termo)
+        respond registroLeitoService.admissoesSetor(params, termo)
     }
 */
     @Secured('ROLE_SETOR_SAVE')

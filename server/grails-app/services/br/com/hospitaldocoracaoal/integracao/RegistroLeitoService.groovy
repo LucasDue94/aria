@@ -31,12 +31,12 @@ abstract class RegistroLeitoService {
         }
 
         String hqlInternos = """select ral
-            from RegistroAtendimentoLeito ral
+            from RegistroLeito ral
                 inner join ral.registroAtendimento r
                 inner join ral.leito l
                 inner join l.setor s
             where r.dataAlta is null
-              and not exists(from RegistroAtendimentoLeito ral2
+              and not exists(from RegistroLeito ral2
                                 inner join ral2.registroAtendimento r2
                                 inner join ral2.leito l2
                                 inner join l2.setor s2
@@ -48,12 +48,12 @@ abstract class RegistroLeitoService {
         List<RegistroLeito> pacienteInternos = RegistroLeito.findAll hqlInternos, queryParams
 
         String hqlOutros = """select ral
-              from RegistroAtendimentoLeito ral
+              from RegistroLeito ral
                   inner join ral.registroAtendimento r
                   inner join ral.leito l
                   inner join l.setor s
               where r.dataAlta is not null
-                or exists(from RegistroAtendimentoLeito ral2
+                or exists(from RegistroLeito ral2
                                   inner join ral2.registroAtendimento r2
                                   inner join ral2.leito l2
                                   inner join l2.setor s2
@@ -118,6 +118,6 @@ abstract class RegistroLeitoService {
 
     abstract void delete(Serializable id)
 
-    abstract RegistroLeito save(RegistroLeito registroAtendimentoLeito)
+    abstract RegistroLeito save(RegistroLeito registroLeito)
 
 }

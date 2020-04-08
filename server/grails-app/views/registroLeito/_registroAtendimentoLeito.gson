@@ -1,15 +1,15 @@
 import br.com.hospitaldocoracaoal.integracao.RegistroLeito
 
 model {
-	RegistroLeito registroAtendimentoLeito
+	RegistroLeito registroLeito
 }
 
-json g.render(registroAtendimentoLeito, [expand: ['registroAtendimento', 'registroAtendimento.paciente', 'registroAtendimento.motivoAlta', 'nas'], excludes: ['leito'], resolveTemplate: false]) {
-	dataAlta registroAtendimentoLeito.dataAlta
-	leito g.render(registroAtendimentoLeito.leito, [resolveTemplate: false]) {
+json g.render(registroLeito, [expand: ['atendimento', 'atendimento.paciente', 'atendimento.motivoAlta', 'nas'], excludes: ['leito'], resolveTemplate: false]) {
+	dataAlta registroLeito.dataAlta
+	leito g.render(registroLeito.leito, [resolveTemplate: false]) {
 		setor {
-			descricao registroAtendimentoLeito.leito?.setor?.setor?.descricao
-			sigla registroAtendimentoLeito.leito?.setor?.setor?.sigla
+			descricao registroLeito.leito?.setor?.setor?.descricao
+			sigla registroLeito.leito?.setor?.setor?.sigla
 		}
 	}
 }

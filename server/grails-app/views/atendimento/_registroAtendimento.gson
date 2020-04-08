@@ -1,10 +1,10 @@
 import br.com.hospitaldocoracaoal.integracao.Atendimento
 
 model {
-    Atendimento registroAtendimento
+    Atendimento atendimento
 }
 
-json g.render(registroAtendimento, [expand: ['motivoAlta', 'ecg', 'balao'],excludes: ['paciente', 'setor'], resolveTemplate: false]) {
-    paciente g.render(registroAtendimento.paciente, [excludes: 'registrosAtendimento', resolveTemplate: false])
-    setor g.render(registroAtendimento.setor, [expand:'setor', excludes: 'registrosAtendimento', resolveTemplate: false])
+json g.render(atendimento, [expand: ['motivoAlta', 'ecg', 'balao'],excludes: ['paciente', 'setor'], resolveTemplate: false]) {
+    paciente g.render(atendimento.paciente, [excludes: 'atendimentos', resolveTemplate: false])
+    setor g.render(atendimento.setor, [expand:'setor', excludes: 'atendimentos', resolveTemplate: false])
 }

@@ -11,19 +11,18 @@ class RegistroLeitoController {
     static responseFormats = ['json', 'xml']
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    @Secured('ROLE_REGISTRO_ATENDIMENTO_INDEX')
+    @Secured('ROLE_ATENDIMENTO_INDEX')
     def index(Integer max, String setorId, String tipoSetor) {
         params.max = Math.min(max ?: 10, 100)
         respond registroLeitoService.list(params, setorId, tipoSetor)
     }
 
-    @Secured('ROLE_REGISTRO_ATENDIMENTO_SHOW')
+    @Secured('ROLE_ATENDIMENTO_SHOW')
     def show(String registro, String leito, String dataEntrada) {
         respond registroLeitoService.get(new RegistroLeito(registroAtendimento: Atendimento.load(registro), leito: Leito.load(leito), dataEntrada: dataEntrada))
     }
 
-    //TODO mudar a role
-    @Secured('ROLE_REGISTRO_ATENDIMENTO_INDEX')
+    @Secured('ROLE_ATENDIMENTO_INDEX')
     def admissions(Integer max, String termo, String setorId, String dataEntradaInicio,
                    String dataEntradaFim) {
         params.sort = 'dataEntrada'

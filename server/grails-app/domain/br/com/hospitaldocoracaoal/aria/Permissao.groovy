@@ -47,10 +47,6 @@ class Permissao implements Serializable {
             findOrSaveWhere(authority: 'ROLE_SETOR_UPDATE', nome: 'Atualizar setor', alias: 'setor')
             findOrSaveWhere(authority: 'ROLE_SETOR_DELETE', nome: 'Excluir setor', alias: 'setor')
 
-            // -- SETOR WPD --
-            findOrSaveWhere(authority: 'ROLE_SETOR_WPD_INDEX', nome: 'Listar setores do wpd', alias: 'setor wpd')
-            findOrSaveWhere(authority: 'ROLE_SETOR_WPD_SHOW', nome: 'Ver setor do wpd', alias: 'setor wpd')
-
             // -- PERFIL --
             findOrSaveWhere(authority: 'ROLE_PERFIL_EPIDEMIOLOGICO_INDEX', nome: 'Listar Perfis Epidemiológicos', alias: 'perfil epidemiológico')
 
@@ -58,9 +54,9 @@ class Permissao implements Serializable {
             findOrSaveWhere(authority: 'ROLE_PACIENTE_INDEX', nome: 'Listar Pacientes', alias: 'paciente')
             findOrSaveWhere(authority: 'ROLE_PACIENTE_SHOW', nome: 'Ver Paciente', alias: 'paciente')
 
-            // -- REGISTRO DE ATENDIMENTO --
-            findOrSaveWhere(authority: 'ROLE_REGISTRO_ATENDIMENTO_INDEX', nome: 'Listar Registros de Atendimento', alias: 'registro de atendimento')
-            findOrSaveWhere(authority: 'ROLE_REGISTRO_ATENDIMENTO_SHOW', nome: 'Ver Registros de Atendimento', alias: 'registro de atendimento')
+            // -- ATENDIMENTO --
+            findOrSaveWhere(authority: 'ROLE_ATENDIMENTO_INDEX', nome: 'Listar Atendimentos', alias: 'atendimento')
+            findOrSaveWhere(authority: 'ROLE_ATENDIMENTO_SHOW', nome: 'Ver Atendimento', alias: 'atendimento')
 
             // -- USUARIO --
             findOrSaveWhere(authority: 'ROLE_USUARIO_SHOW', nome: 'Ver usuário', alias: 'usuario')

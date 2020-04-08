@@ -8,7 +8,7 @@ class Paciente {
     Date nascimento
     String nomeMae
     static hasMany = [
-            atendimento: Atendimento
+            atendimentos: Atendimento
     ]
 
     static mapping = {

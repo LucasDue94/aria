@@ -61,7 +61,7 @@ class IncidenteController {
         }
 
         try {
-            incidenteService.save(incidente, incidente.registroAtendimento.paciente.id)
+            incidenteService.save(incidente, incidente.atendimento.paciente.id)
         } catch (ValidationException e) {
             transactionStatus.setRollbackOnly()
             respond incidente.errors

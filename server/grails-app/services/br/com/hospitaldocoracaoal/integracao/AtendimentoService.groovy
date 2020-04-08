@@ -20,7 +20,7 @@ abstract class AtendimentoService {
             createAlias 'paciente', 'p', INNER_JOIN
 
             if (setorId != null && setorId != '') {
-                createAlias 'registroAtendimentoLeitos', 'registroLeitos', LEFT_OUTER_JOIN
+                createAlias 'registroLeitos', 'registroLeitos', LEFT_OUTER_JOIN
                 createAlias 'registroLeitos.leito', 'leito', LEFT_OUTER_JOIN
                 createAlias 'leito.setor', 'setorWpd', LEFT_OUTER_JOIN
                 Setor s = Setor.get(setorId)

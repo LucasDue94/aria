@@ -6,7 +6,7 @@ class Comanda implements Serializable{
 
     String tipo
     String comanda
-    Atendimento registroAtendimento
+    Atendimento atendimento
     String dataMovimento
     Setor setor
 

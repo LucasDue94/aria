@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {DatePipe} from "@angular/common";
-import {RegistroAtendimento} from "../../core/registroAtendimento/registroAtendimento";
+import {RegistroAtendimento} from "../../core/atendimento/atendimento";
 import {Balao} from "../../core/balao/balao";
 import {FormBuilder, Validators} from "@angular/forms";
 import {TitleService} from "../../core/title/title.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {BalaoService} from "../../core/balao/balao.service";
-import {RegistroAtendimentoService} from "../../core/registroAtendimento/registroAtendimento.service";
+import {RegistroAtendimentoService} from "../../core/atendimento/atendimento.service";
 import {SpinnerService} from "../../core/spinner/spinner.service";
 import {AlertService} from "../../core/alert/alert.service";
 import {ErrorService} from "../../core/error/error.service";
@@ -21,7 +21,7 @@ export class EditBalaoComponent implements OnInit {
   registroId;
   today = new Date();
   datePipe = new DatePipe('en-US');
-  registroAtendimento = {id: null};
+  atendimento = {id: null};
   registro: RegistroAtendimento;
   balao: Balao;
   searchForm = this.fb.group({searchControl: ['']});
@@ -34,7 +34,7 @@ export class EditBalaoComponent implements OnInit {
     private titleService: TitleService,
     private fb: FormBuilder, private route: ActivatedRoute,
     private balaoService: BalaoService,
-    private registroAtendimentoService: RegistroAtendimentoService,
+    private atendimentoService: RegistroAtendimentoService,
     private router: Router, private spinner: SpinnerService,
     private alertService: AlertService, datePipe: DatePipe,
     private errorService: ErrorService) {
@@ -43,7 +43,7 @@ export class EditBalaoComponent implements OnInit {
   ngOnInit() {
     this.titleService.send('Balão - Formulário');
     this.registroId = this.route.snapshot.params.id;
-    this.registroAtendimentoService.get(this.registroId).subscribe(registro => {
+    this.atendimentoService.get(this.registroId).subscribe(registro => {
       this.registro = registro;
       this.form = this.resetForm();
     });
@@ -61,10 +61,10 @@ export class EditBalaoComponent implements OnInit {
       {
         id: this.registro.balao.id,
         dataHoraBalao: this.form.get('dataBalao').value + " " + this.form.get('horaBalao').value,
-        registroAtendimentoId: this.registroId
+        atendimentoId: this.registroId
       });
 
-    delete balao.registroAtendimento;
+    delete balao.atendimento;
     this.balaoService.save(balao).subscribe( res => {
       setTimeout( () => {
         this.alertService.send({message: 'Balão Alterado com sucesso!', type: 'success', icon: faCheck});
