@@ -11,7 +11,7 @@ class PerfilEpidemiologicoController {
     static responseFormats = ['json', 'xml']
     PerfilEpidemiologicoService perfilEpidemiologicoService
 
-    @Secured(['ROLE_PERFIL_EPIDEMIOLOGICO_INDEX'])
+    @Secured('ROLE_PERFIL_EPIDEMIOLOGICO_INDEX')
     def index() {
         Map entradas = this.carregarFiltros()
         Date inicio = entradas.inicio

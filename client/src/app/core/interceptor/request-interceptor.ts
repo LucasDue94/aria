@@ -31,6 +31,7 @@ export class RequestInterceptor implements HttpInterceptor {
     }
     return next.handle(cloneReq).pipe(
       catchError((error: HttpErrorResponse) => {
+        debugger
         if(error.status == 401) {
           localStorage.clear();
           this.router.navigate(['/']);
