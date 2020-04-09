@@ -1,0 +1,661 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "ARIA",
+    "description": "Documentação do sistema ARIA"
+  },
+  "host": "localhost:3002",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/apache": {
+      "get": {
+        "tags": [
+          "Apache"
+        ],
+        "summary": "Retorna um JSON array de apaches",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Apache"
+            }
+          }
+        }
+      }
+    },
+    "/atendimento": {
+      "get": {
+        "tags": [
+          "Atendimento"
+        ],
+        "summary": "Retorna um JSON array de atendimentos",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Atendimento"
+            }
+          }
+        }
+      }
+    },
+    "/balao": {
+      "get": {
+        "tags": [
+          "Balão"
+        ],
+        "summary": "Retorna um JSON array de porta balão",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Balao"
+            }
+          }
+        }
+      }
+    },
+    "/cid": {
+      "get": {
+        "tags": [
+          "Cid"
+        ],
+        "summary": "Retorna um JSON array de cids",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Cid"
+            }
+          }
+        }
+      }
+    },
+    "/cirurgia": {
+      "get": {
+        "tags": [
+          "Cirurgia"
+        ],
+        "summary": "Retorna um JSON array de cirurgias",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/comanda": {
+      "get": {
+        "tags": [
+          "Comanda"
+        ],
+        "summary": "Retorna um JSON array de comandas",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/consulta": {
+      "get": {
+        "tags": [
+          "Consulta"
+        ],
+        "summary": "Retorna um JSON array de consultas",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Consulta"
+            }
+          }
+        }
+      }
+    },
+    "/exame": {
+      "get": {
+        "tags": [
+          "Exame"
+        ],
+        "summary": "Retorna um JSON array de exames",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Exame"
+            }
+          }
+        }
+      }
+    },
+    "/ecg": {
+      "get": {
+        "tags": [
+          "Ecg"
+        ],
+        "summary": "Retorna um JSON array de ecg",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Ecg"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Ecg"
+        ],
+        "operationId": "addEcg",
+        "summary": "Adiciona um novo ecg",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Ecg"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Ecg"
+        ],
+        "summary": "Atualiza um ecg existente ",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/leito": {
+      "get": {
+        "tags": [
+          "Leito"
+        ],
+        "summary": "Retorna um JSON array de leitos",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Leito"
+            }
+          }
+        }
+      }
+    },
+    "/motivoAlta": {
+      "get": {
+        "tags": [
+          "Motivo Alta"
+        ],
+        "summary": "Retorna um JSON array motivos de alta",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/MotivoAlta"
+            }
+          }
+        }
+      }
+    },
+    "/setor": {
+      "get": {
+        "tags": [
+          "Setor"
+        ],
+        "summary": "Retorna um JSON array de setor",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Setor"
+            }
+          }
+        }
+      }
+    },
+    "/registroLeito": {
+      "get": {
+        "tags": [
+          "Registro Leito"
+        ],
+        "summary": "Retorna um JSON array de exames",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/RegistroLeito"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Apache": {
+      "required": [
+        "registroLeito",
+        "temperatura",
+        "pas",
+        "pad",
+        "frequenciaCardiaca",
+        "frequenciaRespiratoria",
+        "aapo",
+        "arterialPh",
+        "naSerico",
+        "creatininaSerica",
+        "hematocrito",
+        "leucocitos",
+        "glasgow",
+        "problemasCronicos",
+        "escore"
+      ],
+      "type": "object",
+      "properties": {
+        "registroLeito": {
+          "type": "object",
+          "$ref": "#/definitions/RegistroLeito"
+        },
+        "temperatura": {
+          "type": "string"
+        },
+        "pas": {
+          "type": "integer"
+        },
+        "pad": {
+          "type": "integer"
+        },
+        "frequenciaCardiaca": {
+          "type": "string"
+        },
+        "frequenciaRespiratoria": {
+          "type": "string"
+        },
+        "aapo": {
+          "type": "string"
+        },
+        "arterialPh": {
+          "type": "string"
+        },
+        "naSerico": {
+          "type": "string"
+        },
+        "creatininaSerica": {
+          "type": "string"
+        },
+        "hematocrito": {
+          "type": "string"
+        },
+        "leucocitos": {
+          "type": "string"
+        },
+        "glasgow": {
+          "type": "integer"
+        },
+        "problemasCronicos": {
+          "type": "string"
+        },
+        "escore": {
+          "type": "integer"
+        }
+      }
+    },
+    "Atendimento": {
+      "required": [
+        "paciente",
+        "dataEntrada",
+        "tipo"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "dataEntrada": {
+          "type": "string",
+          "format": "timestamp"
+        },
+        "dataAlta": {
+          "type": "string",
+          "format": "timestamp"
+        },
+        "tipo": {
+          "type": "string",
+          "format": "char"
+        },
+        "setor": {
+          "type": "object",
+          "$ref": "#/definitions/Setor"
+        },
+        "cid": {
+          "type": "object",
+          "$ref": "#/definitions/Cid"
+        },
+        "motivoAlta": {
+          "type": "object",
+          "$ref": "#/definitions/MotivoAlta"
+        },
+        "paciente": {
+          "type": "object",
+          "$ref": "#/definitions/Paciente"
+        },
+        "comandas": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Comanda"
+          }
+        },
+        "exames": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Exame"
+          }
+        },
+        "registroLeitos": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RegistroLeito"
+          }
+        },
+        "cirurgias": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Cirurgia"
+          }
+        },
+        "incidentes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Incidente"
+          }
+        },
+        "balao": {
+          "type": "object",
+          "$ref": "#/definitions/Balao"
+        },
+        "ecg": {
+          "type": "object",
+          "$ref": "#/definitions/Ecg"
+        }
+      }
+    },
+    "Balao": {
+      "type": "object",
+      "properties": {
+        "dataHoraBalao": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    },
+    "Cid": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "diagnostico": {
+          "type": "string"
+        }
+      }
+    },
+    "Consulta": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "cid": {
+          "type": "object",
+          "$ref": "#/definitions/Cid"
+        },
+        "atendimento": {
+          "type": "object",
+          "$ref": "#/definitions/Atendimento"
+        },
+        "dataAtendimento": {
+          "type": "string",
+          "format": "date"
+        },
+        "conteudo": {
+          "type": "string"
+        }
+      }
+    },
+    "Cirurgia": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "atendimento": {
+          "type": "object",
+          "$ref": "#/definitions/Atendimento"
+        },
+        "cancelada": {
+          "type": "boolean"
+        }
+      }
+    },
+    "Comanda": {
+      "type": "object",
+      "properties": {
+        "tipo": {
+          "type": "string"
+        },
+        "comanda": {
+          "type": "string"
+        },
+        "atendimento": {
+          "type": "object",
+          "$ref": "#/definitions/Atendimento"
+        },
+        "dataMovimento": {
+          "type": "string"
+        },
+        "setor": {
+          "type": "object",
+          "$ref": "#/definitions/Setor"
+        }
+      }
+    },
+    "Ecg": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "dataHoraEcg": {
+          "type": "string",
+          "format": "date"
+        },
+        "dataHoraPorta": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    },
+    "Exame": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "atendimento": {
+          "type": "object",
+          "$ref": "#/definitions/Atendimento"
+        }
+      }
+    },
+    "Incidente": {
+      "required": [
+        "tipoIncidente",
+        "setor",
+        "dataHora",
+        "consulta",
+        "atendimento"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "dataHora": {
+          "type": "string",
+          "format": "date"
+        },
+        "obs": {
+          "type": "string"
+        }
+      }
+    },
+    "Leito": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "descricao": {
+          "type": "string"
+        },
+        "setor": {
+          "type": "object",
+          "$ref": "#/definitions/Setor"
+        }
+      }
+    },
+    "MotivoAlta": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "descricao": {
+          "type": "string"
+        },
+        "classificacao": {
+          "type": "string",
+          "format": "char"
+        }
+      }
+    },
+    "Paciente": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "nome": {
+          "type": "string"
+        },
+        "sexo": {
+          "type": "string",
+          "format": "char"
+        },
+        "nomeMae": {
+          "type": "string"
+        },
+        "atendimentos": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Atendimento"
+          }
+        }
+      }
+    },
+    "RegistroLeito": {
+      "type": "object",
+      "properties": {
+        "atendimento": {
+          "type": "object",
+          "$ref": "#/definitions/Atendimento"
+        },
+        "leito": {
+          "type": "object",
+          "$ref": "#/definitions/Leito"
+        },
+        "dataEntrada": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    },
+    "Risco": {
+      "required": [
+        "habilitado"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "nome": {
+          "type": "string"
+        },
+        "habilitado": {
+          "type": "boolean"
+        }
+      }
+    },
+    "Setor": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "descricao": {
+          "type": "string"
+        }
+      }
+    },
+    "TipoIncidente": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "nome": {
+          "type": "string"
+        },
+        "riscos": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Risco"
+          }
+        }
+      }
+    }
+  }
+}

@@ -61,3 +61,8 @@ import 'zone.js/dist/zone';  // Included with Angular CLI.
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
+
+import {SwaggerUIBundle, SwaggerUIStandalonePreset} from 'swagger-ui-dist';
+
+export const swaggerUIBundle = SwaggerUIBundle;
+export const swaggerUIStandalonePreset = SwaggerUIStandalonePreset;
