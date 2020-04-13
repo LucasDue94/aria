@@ -13,7 +13,7 @@ SELECT * FROM cron.job;
 -- Create job to update aria.setores table from wpd every hour
 SELECT cron.schedule(
   '0 * * * *',
-  $$INSERT INTO setor (id, descricao) SELECT sw.id, sw.descricao
+  $$INSERT INTO setor (id, descricao, habilitado, prazo_apache) SELECT sw.id, sw.descricao, false, 0
          FROM wpd.setor_wpd sw
                   LEFT JOIN setor s ON sw.id = s.id
          WHERE s.id IS NULL$$
@@ -21,7 +21,7 @@ SELECT cron.schedule(
 
 
 -- Update setor table from wpd
-INSERT INTO setor (id, descricao) SELECT sw.id, sw.descricao
+INSERT INTO setor (id, descricao, habilitado, prazo_apache) SELECT sw.id, sw.descricao, false, 0
          FROM wpd.setor_wpd sw
                   LEFT JOIN setor s ON sw.id = s.id
          WHERE s.id IS NULL;
@@ -32,7 +32,7 @@ FROM wpd.setor_wpd sw
          LEFT JOIN setor s ON sw.id = s.id WHERE s.id IS NULL;
 
 -- Stop screduled job
-select cron.unschedule(5);
+select cron.unschedule(6);
 
 -- drop table tipo_incidente_risco cascade;
 
