@@ -14,6 +14,7 @@ abstract class SetorService {
 
         def criteria = Setor.createCriteria()
         criteria.list(args) {
+            eq('habilitado', true)
             if (tipoSetor != null && !tipoSetor.empty) {
                 eq 'tipoSetor', tipo
             }
