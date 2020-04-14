@@ -9,6 +9,7 @@ class Setor {
     String sigla
     TipoSetor tipoSetor
     Integer prazoApache
+    Boolean habilitado
     static hasMany = [usuarios: Usuario, leitos: Leito]
     static belongsTo = [Usuario]
 
@@ -23,5 +24,7 @@ class Setor {
         id generator: 'assigned'
         version false
         tipoSetor enumType: 'identity'
+        habilitado defaultValue: false
+        prazoApache defaultValue: 0
     }
 }

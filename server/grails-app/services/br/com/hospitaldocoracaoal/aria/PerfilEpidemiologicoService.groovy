@@ -11,7 +11,7 @@ class PerfilEpidemiologicoService {
 
     private static final Closure FILTROS = { BuildableCriteria criteria, Date inicio, Date fim, Character[] tipos ->
         criteria.createAlias "consultas", "con", JoinType.LEFT_OUTER_JOIN
-        criteria.createAlias "a.cid", "ac", JoinType.LEFT_OUTER_JOIN
+        criteria.createAlias "con.cid", "ac", JoinType.LEFT_OUTER_JOIN
         criteria.createAlias "cid", "c", JoinType.LEFT_OUTER_JOIN
 
         criteria.fetchMode "con", FetchMode.JOIN
@@ -51,7 +51,7 @@ class PerfilEpidemiologicoService {
         return criteria.listDistinct {
             createAlias 'registroLeitos', 'ral', JoinType.INNER_JOIN
             createAlias 'ral.leito', 'l', JoinType.INNER_JOIN
-            'in' 'l.setor', setores.setorWpd
+            'in' 'l.setor', setores
 
             FILTROS(criteria, inicio, fim, tipos)
         } as Set<Atendimento>
@@ -63,7 +63,7 @@ class PerfilEpidemiologicoService {
             FILTROS(criteria, inicio, fim, tipos)
 
             comandas {
-                'in' 'setor', setores.setorWpd
+                'in' 'setor', setores
             }
         } as Set<Atendimento>
     }
@@ -71,7 +71,7 @@ class PerfilEpidemiologicoService {
     def gerarPerfil(Date inicio, Date fim, Character[] tipos = null, Collection<Setor> setores = null, Boolean perfilGeral = true) {
         def criteria = Atendimento.createCriteria()
 
-        Set<Atendimento> registros = (Set<Atendimento>) criteria.listDistinct {
+        Set<Atendimento> atendimentos = (Set<Atendimento>) criteria.listDistinct {
             FILTROS(criteria, inicio, fim, tipos)
 
             if (setores != null && !setores.empty) {
@@ -80,22 +80,22 @@ class PerfilEpidemiologicoService {
         }
 
         if (setores != null && !setores.empty) {
-            registros.addAll examesPorSetor(inicio, fim, tipos, setores)
-            registros.addAll comandasPorSetor(inicio, fim, tipos, setores)
-            registros.addAll leitosPorSetor(inicio, fim, tipos, setores)
+            atendimentos.addAll examesPorSetor(inicio, fim, tipos, setores)
+            atendimentos.addAll comandasPorSetor(inicio, fim, tipos, setores)
+            atendimentos.addAll leitosPorSetor(inicio, fim, tipos, setores)
         }
 
         final long UM_DIA_MILIS = 24l * 60 * 60 * 1000
         final long UM_ANO = 365
 
         if (!perfilGeral) {
-            registros = registros.findAll { registro ->
+            atendimentos = atendimentos.findAll { registro ->
                 Math.floorDiv(registro.dataEntrada.time - registro.paciente.nascimento.time, UM_ANO * UM_DIA_MILIS) < 18
             }
         }
 
-        def total = registros.size()
-        def homens = registros.count { it.paciente.sexo == 'M' }
+        def total = atendimentos.size()
+        def homens = atendimentos.count { it.paciente.sexo == 'M' }
         def mulheres = total - homens
 
         def cids = []
@@ -152,7 +152,7 @@ class PerfilEpidemiologicoService {
             ]
         }
 
-        registros.each { registro ->
+        atendimentos.each { registro ->
 
             def motivoAlta = motivosAltas.find { it.motivoAltaId == registro.motivoAlta.id }
             if (motivoAlta != null) {
@@ -169,8 +169,8 @@ class PerfilEpidemiologicoService {
 
 
             Cid cid = registro.cid
-            if (cid == null && !registro.atendimentos.empty) {
-                cid = registro.atendimentos.last().cid
+            if (cid == null && !registro.consultas.empty) {
+                cid = registro.consultas.last().cid
             }
             def perfilCid = cids.find { c -> c.codigo == cid?.id }
 
