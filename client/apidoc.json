@@ -10,6 +10,13 @@
   "schemes": [
     "http"
   ],
+  "securityDefinitions": {
+    "APIKeyHeader": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "X-Auth-Token"
+    }
+  },
   "paths": {
     "/apache": {
       "get": {
@@ -125,32 +132,17 @@
         }
       }
     },
-    "/exame": {
-      "get": {
-        "tags": [
-          "Exame"
-        ],
-        "summary": "Retorna um JSON array de exames",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/Exame"
-            }
-          }
-        }
-      }
-    },
     "/ecg": {
       "get": {
         "tags": [
           "Ecg"
         ],
         "summary": "Retorna um JSON array de ecg",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -176,6 +168,11 @@
             }
           }
         ],
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -190,6 +187,73 @@
         "responses": {
           "200": {
             "description": "OK"
+          }
+        }
+      }
+    },
+    "/estratificacaoRisco": {
+      "get": {
+        "tags": [
+          "Estratificação de risco"
+        ],
+        "summary": "Retorna um JSON array de estratificação",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/EstratificacaoRisco"
+            }
+          }
+        }
+      }
+    },
+    "/exame": {
+      "get": {
+        "tags": [
+          "Exame"
+        ],
+        "summary": "Retorna um JSON array de exames",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Exame"
+            }
+          }
+        }
+      }
+    },
+    "/grupo": {
+      "get": {
+        "tags": [
+          "Grupo"
+        ],
+        "summary": "Retorna um JSON array de grupo",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Grupo"
+            }
           }
         }
       }
@@ -230,22 +294,6 @@
         }
       }
     },
-    "/setor": {
-      "get": {
-        "tags": [
-          "Setor"
-        ],
-        "summary": "Retorna um JSON array de setor",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/Setor"
-            }
-          }
-        }
-      }
-    },
     "/registroLeito": {
       "get": {
         "tags": [
@@ -257,6 +305,48 @@
             "description": "OK",
             "schema": {
               "$ref": "#/definitions/RegistroLeito"
+            }
+          }
+        }
+      }
+    },
+    "/setor": {
+      "get": {
+        "tags": [
+          "Setor"
+        ],
+        "summary": "Retorna um JSON array de setor",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Setor"
+            }
+          }
+        }
+      }
+    },
+    "/usuario": {
+      "get": {
+        "tags": [
+          "Usuário"
+        ],
+        "summary": "Retorna um JSON array de usuário",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Usuario"
             }
           }
         }
@@ -431,29 +521,6 @@
         }
       }
     },
-    "Consulta": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "cid": {
-          "type": "object",
-          "$ref": "#/definitions/Cid"
-        },
-        "atendimento": {
-          "type": "object",
-          "$ref": "#/definitions/Atendimento"
-        },
-        "dataAtendimento": {
-          "type": "string",
-          "format": "date"
-        },
-        "conteudo": {
-          "type": "string"
-        }
-      }
-    },
     "Cirurgia": {
       "type": "object",
       "properties": {
@@ -491,6 +558,29 @@
         }
       }
     },
+    "Consulta": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "cid": {
+          "type": "object",
+          "$ref": "#/definitions/Cid"
+        },
+        "atendimento": {
+          "type": "object",
+          "$ref": "#/definitions/Atendimento"
+        },
+        "dataAtendimento": {
+          "type": "string",
+          "format": "date"
+        },
+        "conteudo": {
+          "type": "string"
+        }
+      }
+    },
     "Ecg": {
       "type": "object",
       "properties": {
@@ -507,6 +597,170 @@
         }
       }
     },
+    "EstratificacaoRisco": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "alergia": {
+          "type": "boolean"
+        },
+        "acesso_periferico": {
+          "type": "boolean"
+        },
+        "sonda_nasoenteral": {
+          "type": "boolean"
+        },
+        "doencas_neuro_resp": {
+          "type": "boolean"
+        },
+        "doenciru_cabeca_pescoco": {
+          "type": "boolean"
+        },
+        "drogas_sedativas": {
+          "type": "boolean"
+        },
+        "disfagia_orofaringea": {
+          "type": "boolean"
+        },
+        "iot_tqt": {
+          "type": "boolean"
+        },
+        "anticoagulante": {
+          "type": "boolean"
+        },
+        "plaquetopenia": {
+          "type": "boolean"
+        },
+        "deficit_cognitivo_demencia": {
+          "type": "boolean"
+        },
+        "proced_cirug_restric_fisica": {
+          "type": "boolean"
+        },
+        "confusional_agudo": {
+          "type": "boolean"
+        },
+        "alteracao_consciencia": {
+          "type": "boolean"
+        },
+        "comorbidades_clinico_critico": {
+          "type": "boolean"
+        },
+        "historia_dor": {
+          "type": "boolean"
+        },
+        "paciente_paliativos": {
+          "type": "boolean"
+        },
+        "analgesicos_opioides": {
+          "type": "boolean"
+        },
+        "posoperatorio_imediato": {
+          "type": "boolean"
+        },
+        "paciente_diabetico": {
+          "type": "boolean"
+        },
+        "jejum_prolongado": {
+          "type": "boolean"
+        },
+        "hipoglicemiante_corticoide": {
+          "type": "boolean"
+        },
+        "tev_clinico_3": {
+          "type": "boolean"
+        },
+        "tev_clinico_2": {
+          "type": "boolean"
+        },
+        "tev_clinico_1": {
+          "type": "boolean"
+        },
+        "tev_cirurgico_5": {
+          "type": "boolean"
+        },
+        "tev_cirurgico_3": {
+          "type": "boolean"
+        },
+        "tev_cirurgico_2": {
+          "type": "boolean"
+        },
+        "tev_cirurgico_1": {
+          "type": "boolean"
+        },
+        "braden_percepcao_sensorial": {
+          "type": "string"
+        },
+        "braden_umidade": {
+          "type": "string"
+        },
+        "braden_atividade": {
+          "type": "string"
+        },
+        "braden_mobilidade": {
+          "type": "string"
+        },
+        "braden_nutricao": {
+          "type": "string"
+        },
+        "braden_friccao_cisalhamento": {
+          "type": "string"
+        },
+        "bradenq_mobilidade": {
+          "type": "string"
+        },
+        "bradenq_atividade": {
+          "type": "string"
+        },
+        "bradenq_percepcao_sensorial": {
+          "type": "string"
+        },
+        "bradenq_umidade": {
+          "type": "string"
+        },
+        "bradenq_friccao_deslizamento": {
+          "type": "string"
+        },
+        "bradenq_nutricao": {
+          "type": "string"
+        },
+        "bradenq_perfusao_tecidual_oxigenacao": {
+          "type": "string"
+        },
+        "jh_eliminacoes_intestinais": {
+          "type": "string"
+        },
+        "jh_mobilidade": {
+          "type": "string"
+        },
+        "jh_equipamentos_assistenciais": {
+          "type": "string"
+        },
+        "jh_uso_medicamentos_risco_quedas": {
+          "type": "string"
+        },
+        "jh_cognicao": {
+          "type": "string"
+        },
+        "hd_diagnostico": {
+          "type": "string"
+        },
+        "hd_cirurgia_sedacao_anestesia": {
+          "type": "string"
+        },
+        "hd_deterioracao_cognitiva": {
+          "type": "string"
+        },
+        "hd_historia_pregressa": {
+          "type": "string"
+        },
+        "hd_uso_medicamentos": {
+          "type": "string"
+        }
+      }
+    },
     "Exame": {
       "type": "object",
       "properties": {
@@ -516,6 +770,32 @@
         "atendimento": {
           "type": "object",
           "$ref": "#/definitions/Atendimento"
+        }
+      }
+    },
+    "Grupo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "habilitado": {
+          "type": "boolean"
+        },
+        "usuarios": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Usuario"
+          }
+        },
+        "permissoes": {
+          "type": "array",
+          "items": {
+            "$ref": ""
+          }
         }
       }
     },
@@ -571,6 +851,95 @@
         }
       }
     },
+    "Nas": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "monitorizacao": {
+          "type": "boolean"
+        },
+        "investigacoes": {
+          "type": "boolean"
+        },
+        "medicacao": {
+          "type": "boolean"
+        },
+        "procedimentoHigiene": {
+          "type": "string"
+        },
+        "cuidadosDreno": {
+          "type": "boolean"
+        },
+        "mobilizacaoPosicionamento": {
+          "type": "string"
+        },
+        "suporteCuidado": {
+          "type": "string"
+        },
+        "tarefasAdministrativas": {
+          "type": "string"
+        },
+        "suporteRespiratorio": {
+          "type": "boolean"
+        },
+        "cuidadosViasAereas": {
+          "type": "boolean"
+        },
+        "tratamentoFuncaoPulmonar": {
+          "type": "boolean"
+        },
+        "medicacaoVasoativa": {
+          "type": "boolean"
+        },
+        "reposicaoIntravenosa": {
+          "type": "boolean"
+        },
+        "monitorizacaoAtrioEsquerdo": {
+          "type": "boolean"
+        },
+        "reanimacaoCardioRespiratoria": {
+          "type": "boolean"
+        },
+        "tecnicasHemofiltracao": {
+          "type": "boolean"
+        },
+        "medidaQuantitativa": {
+          "type": "boolean"
+        },
+        "medidaPressaoIntracraniana": {
+          "type": "boolean"
+        },
+        "tratamentoAcidose": {
+          "type": "boolean"
+        },
+        "hiperAlimentacaoIntravenosa": {
+          "type": "boolean"
+        },
+        "alimentacaoEnteral": {
+          "type": "boolean"
+        },
+        "intervencoesDentroUnidade": {
+          "type": "boolean"
+        },
+        "intervencoesForaUnidade": {
+          "type": "boolean"
+        },
+        "escore": {
+          "type": "number",
+          "format": "float"
+        },
+        "dateCreated": {
+          "type": "string",
+          "format": "date"
+        },
+        "registroLeito": {
+          "type": "object",
+          "$ref": "#/definitions/RegistroLeito"
+        }
+      }
+    },
     "Paciente": {
       "type": "object",
       "properties": {
@@ -591,6 +960,29 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/Atendimento"
+          }
+        }
+      }
+    },
+    "Permissao": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "authority": {
+          "type": "string"
+        },
+        "nome": {
+          "type": "string"
+        },
+        "alias": {
+          "type": "string"
+        },
+        "grupos": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Grupo"
           }
         }
       }
@@ -637,6 +1029,37 @@
         },
         "descricao": {
           "type": "string"
+        },
+        "sigla": {
+          "type": "string"
+        },
+        "tipoSetor": {
+          "type": "string",
+          "enum": [
+            "AMBULATORIO ('A')",
+            "EMERGENCIA ('E')",
+            "INTERNACAO ('I')",
+            "HEMODINAMICA ('H')",
+            "UTI ('U')"
+          ]
+        },
+        "prazoApache": {
+          "type": "integer"
+        },
+        "habilitado": {
+          "type": "boolean"
+        },
+        "usuarios": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Usuario"
+          }
+        },
+        "leitos": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Leito"
+          }
         }
       }
     },
@@ -653,6 +1076,42 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/Risco"
+          }
+        }
+      }
+    },
+    "Usuario": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "nome": {
+          "type": "string"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "accountExpired": {
+          "type": "boolean"
+        },
+        "accountLocked": {
+          "type": "boolean"
+        },
+        "email": {
+          "type": "string"
+        },
+        "grupo": {
+          "type": "object",
+          "$ref": ""
+        },
+        "setores": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Setor"
           }
         }
       }
