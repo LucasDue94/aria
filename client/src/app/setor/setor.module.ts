@@ -6,7 +6,6 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {RouterModule} from "@angular/router";
 import {FastSearchModule} from "../components/fast-search/fast-search.module";
 import {ReactiveFormsModule} from "@angular/forms";
-import {SetorCreateComponent} from "./create/setor-create.component";
 import {FilterModule} from "../components/filter/filter.module";
 
 
@@ -14,8 +13,7 @@ import {FilterModule} from "../components/filter/filter.module";
 @NgModule({
   declarations: [
     SetorEditComponent,
-    SetorListComponent,
-    SetorCreateComponent
+    SetorListComponent
   ],
   imports: [
     CommonModule,

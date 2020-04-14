@@ -13,7 +13,7 @@ import {ErrorService} from "../../core/error/error.service";
 @Component({
   selector: 'app-setor-edit',
   templateUrl: './setor-edit.component.html',
-  styleUrls: ['../create/setor-create.component.scss']
+  styleUrls: ['./setor-edit.component.scss']
 })
 export class SetorEditComponent implements OnInit {
   form = this.fb.group({
