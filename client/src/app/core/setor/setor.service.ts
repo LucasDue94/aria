@@ -14,9 +14,9 @@ export class SetorService {
   constructor(private http: HttpClient) {
   }
 
-  list(tipoSetor: string = '', offset: any = '', max: any = ''): Observable<Setor[]> {
+  list(tipoSetor: string = '', offset: any = '', max: any = '', fetchAll: boolean = false): Observable<Setor[]> {
     let subject = new Subject<Setor[]>();
-    let url = this.baseUrl + 'setor?' + 'offset=' + offset + '&max=' + max;
+    let url = this.baseUrl + 'setor?' + 'offset=' + offset + '&max=' + max + '&fetchAll=' + fetchAll;
     if(tipoSetor != null && tipoSetor != '') {
       url += '&tipoSetor=' + tipoSetor
     }

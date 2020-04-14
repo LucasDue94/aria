@@ -9,14 +9,14 @@
   <section class="table">
     <section class="thead">
       <span class="th">COD</span>
-      <span class="th sigla">SIGLA</span>
       <span class="th">DESCRIÇÃO</span>
+      <span class="th sigla">SIGLA</span>
     </section>
     <section *ngIf="setores!=null" class="tbody content-setor">
-      <div [routerLink]="['/setor','edit',setor.id]" *ngFor="let setor of setores" class="row">
+      <div [routerLink]="['/setor','edit',setor.id]" *ngFor="let setor of setores" class="row" [class.row-disabled]="!setor.habilitado">
         <span class="td">{{setor.id}}</span>
-        <span class="td sigla">{{setor.sigla}}</span>
         <span class="td">{{setor.descricao}}</span>
+        <span class="td sigla">{{setor.sigla}}</span>
       </div>
       <div class="empty" *ngIf="setores?.length == 0">
         <p>Nenhum setor encontrado!</p>

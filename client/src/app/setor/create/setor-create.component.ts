@@ -72,7 +72,6 @@ export class SetorCreateComponent implements OnInit, AfterViewInit {
   }
 
   setValues() {
-    this.newSetor.setorWpd.id = this.form.get('codWpd').value;
     this.newSetor.descricao = this.form.get('descricao').value;
     this.newSetor.sigla = this.form.get('sigla').value;
     this.newSetor.tipoSetor = this.form.get('tipo').value;
