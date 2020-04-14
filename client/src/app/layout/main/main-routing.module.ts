@@ -130,7 +130,7 @@ const routes: Routes = [
         ],
       },
       {
-        path: 'doc', component: DocComponent
+        path: 'documentacao', component: DocComponent
       },
       {
         path: 'apache-report',

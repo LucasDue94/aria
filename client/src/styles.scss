@@ -68,6 +68,14 @@ app-main {
   flex-direction: column;
 }
 
+//style swagger editor
+app-doc {
+  & .swagger-ui .topbar {
+    display: none !important;
+  }
+
+}
+
 //Highcharts
 tspan {
   font-size: 12px !important;

@@ -1,5 +1,6 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import { swaggerUIBundle, swaggerUIStandalonePreset } from '../../polyfills';
+import {TitleService} from "../core/title/title.service";
 
 @Component({
   selector: 'app-doc',
@@ -8,14 +9,15 @@ import { swaggerUIBundle, swaggerUIStandalonePreset } from '../../polyfills';
 })
 export class DocComponent implements OnInit, AfterViewInit {
 
-  constructor() { }
+  constructor(private titleService: TitleService) { }
 
   ngOnInit(): void {
+   this.titleService.send('Documentação')
   }
 
   ngAfterViewInit(): void {
     const ui = swaggerUIBundle({
-      url: 'http://localhost:3002',
+      url: 'http://localhost:3002/v1/doc',
       dom_id: '#swagger-ui',
       deepLinking: true,
       presets: [

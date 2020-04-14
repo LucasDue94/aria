@@ -8,7 +8,7 @@ import {
   faUsers,
   faExclamation,
   faEdit,
-  faUserInjured, faProcedures, faPager
+  faUserInjured, faProcedures, faPager, faBook
 } from "@fortawesome/free-solid-svg-icons";
 import {AuthService} from "../../core/auth/auth.service";
 import {Menu} from "../../core/menu/menu";
@@ -85,11 +85,11 @@ export class MenuComponent implements OnInit {
       router: ['/pacientes']
     },
     {
-      name: 'Doc',
+      name: 'Documentação',
       status: false,
       permission: '',
-      faIcon: faPager,
-      router: ['']
+      faIcon: faBook,
+      router: ['/documentacao']
     }
   ];
 

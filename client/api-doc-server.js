@@ -1,14 +1,17 @@
 const express = require('express');
-const docJson = require('../client/ariaDoc');
-const http = require('http');
-let app = express();
+const apiDoc = require('./apidoc');
+const cors = require('cors');
+const app = express();
 
-app = http.createServer(function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
-  res.setHeader("Access-Control-Allow-Headers", "X-Requested-With");
-  res.end(JSON.stringify(docJson));
+app.use(cors());
+
+
+app.get('/', (req, res) => {
+  res.redirect('/v1/doc')
 });
 
+app.get('/v1/doc', function (req, res) {
+  res.json(apiDoc)
+});
 
 app.listen(3002);
