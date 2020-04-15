@@ -3,7 +3,6 @@ import {RouterModule, Routes} from "@angular/router";
 import {PerfilDashboardComponent} from "../../perfil-dashboard/perfil-dashboard.component";
 import {SetorListComponent} from "../../setor/list/setor-list.component";
 import {SetorEditComponent} from "../../setor/edit/setor-edit.component";
-import {SetorCreateComponent} from "../../setor/create/setor-create.component";
 import {ApachePacienteListComponent} from "../../apache/paciente/list/apache-paciente-list.component";
 import {ApacheFormComponent} from "../../apache/form/apache-form.component";
 import {MainComponent} from "./main.component";
@@ -65,11 +64,7 @@ const routes: Routes = [
             path: 'edit/:id',
             component: SetorEditComponent,
             canActivate: [AuthGuard]
-          }, {
-            path: 'create',
-            component: SetorCreateComponent,
-            canActivate: [AuthGuard],
-          },
+          }
         ]
       },
       {

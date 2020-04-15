@@ -13,24 +13,24 @@ import {ErrorService} from "../../core/error/error.service";
 @Component({
   selector: 'app-setor-edit',
   templateUrl: './setor-edit.component.html',
-  styleUrls: ['../create/setor-create.component.scss']
+  styleUrls: ['./setor-edit.component.scss']
 })
 export class SetorEditComponent implements OnInit {
   form = this.fb.group({
-    codWpd: ['', Validators.required],
+    id: ['', Validators.required],
     descricao: ['', Validators.required],
     sigla: ['', Validators.required],
     tipo: ['', Validators.required],
-    prazoApache: ['', Validators.required]
+    prazoApache: ['', Validators.required],
+    habilitado: ['', Validators.required]
   });
 
   selectItems = [
-    {id: '', setor: 'SELECIONE'},
-    {id: 'U', setor: 'UTI'},
-    {id: 'I', setor: 'INTERNACAO'},
-    {id: 'H', setor: 'HEMODINAMICA'},
-    {id: 'E', setor: 'EMERGENCIA'},
-    {id: 'A', setor: 'AMBULATORIO'},
+    {id: 'U', tipoSetor: 'UTI'},
+    {id: 'I', tipoSetor: 'INTERNACAO'},
+    {id: 'H', tipoSetor: 'HEMODINAMICA'},
+    {id: 'E', tipoSetor: 'EMERGENCIA'},
+    {id: 'A', tipoSetor: 'AMBULATORIO'},
   ];
 
   setor: Setor;
@@ -62,20 +62,21 @@ export class SetorEditComponent implements OnInit {
   }
 
   setForm() {
-    this.form.get('codWpd').setValue(this.setor.id);
+    this.form.get('id').setValue(this.setor.id);
     this.form.get('descricao').setValue(this.setor.descricao);
     this.form.get('sigla').setValue(this.setor.sigla);
-    let setor = this.selectItems.find((el) => el.setor == this.setor.tipoSetor);
-    this.form.get('tipo').setValue(setor['id']);
+    const tipoSetor = this.selectItems.find((el) => el.tipoSetor == this.setor.tipoSetor);
+    this.form.get('tipo').setValue((tipoSetor || {})['id']);
     this.form.get('prazoApache').setValue(this.setor.prazoApache);
+    this.form.get('habilitado').setValue(this.setor.habilitado);
   }
 
   setValues() {
-    this.setor.id = this.form.get('codWpd').value;
-    this.setor.descricao = this.form.get('descricao').value;
-    this.setor.sigla = this.form.get('sigla').value;
-    this.setor.tipoSetor = this.form.get('tipo').value;
-    this.setor.prazoApache = this.form.get('prazoApache').value;
+    this.setor.descricao =    this.form.get('descricao').value;
+    this.setor.sigla =        this.form.get('sigla').value;
+    this.setor.tipoSetor =    this.form.get('tipo').value;
+    this.setor.prazoApache =  this.form.get('prazoApache').value;
+    this.setor.habilitado =   this.form.get('habilitado').value;
   }
 
   save() {

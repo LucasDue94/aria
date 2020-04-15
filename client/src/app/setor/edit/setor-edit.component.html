@@ -3,7 +3,7 @@
     <form [formGroup]="form" action="#" class="form-container">
       <div class="form-group flex-row">
         <label class="form-label">Código</label>
-        <input class="form-control control-disable" formControlName="codWpd" id="cod-wpd" type="text">
+        <input class="form-control control-disable" formControlName="id" id="id" type="text">
       </div>
       <div class="form-group flex-row">
         <label class="form-label" for="descricao">Descrição</label>
@@ -25,7 +25,7 @@
         <label class="form-label" for="tipo">Tipo</label>
         <select [ngStyle]="{'border' : this.form.get('tipo').invalid ? '2px solid #c26267':''}"
                 class="form-control" formControlName="tipo" id="tipo">
-          <option *ngFor="let item of selectItems" [value]="item.id">{{item.setor}}</option>
+          <option *ngFor="let item of selectItems" [value]="item.id">{{item.tipoSetor}}</option>
         </select>
         <p *ngIf="this.form.get('tipo').invalid" class="errors">Selecione um tipo</p>
       </div>
@@ -38,6 +38,10 @@
 ">
         <p *ngIf="this.form.get('prazoApache').invalid" class="errors">não pode ser
           branco</p>
+      </div>
+      <div class="form-group flex-row">
+        <label class="form-label" for="tipo">Habilitado</label>
+        <input class="form-control" formControlName="habilitado" id="habilitado" type="checkbox">
       </div>
       <button (click)="save()" class="button button-blue btn-save">Salvar</button>
     </form>

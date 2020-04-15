@@ -19,12 +19,12 @@ class SetorController {
 
     @Secured('ROLE_SETOR_INDEX')
     def index(Integer max, String tipoSetor) {
-        params.max = Math.min(max ?: 100, 100)
+        params.max = max ?: 100
         respond setorService.list(params, tipoSetor), model:[setorCount: setorService.count()]
     }
 
     @Secured('ROLE_SETOR_SHOW')
-    def show(Long id) {
+    def show(String id) {
         respond setorService.get(id)
     }
 
