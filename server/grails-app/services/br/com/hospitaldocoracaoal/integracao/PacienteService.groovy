@@ -27,7 +27,7 @@ abstract class PacienteService {
                 (nome =~ "%${termo}%") || (id =~ "%${termo}%")
             }
 
-            registrosAtendimento {
+            atendimentos {
                 if(args.containsKey('tipo')) {
                     tipo == args.char('tipo')
                 }
