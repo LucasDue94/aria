@@ -19,7 +19,7 @@ abstract class BalaoService {
     abstract void delete(Serializable id)
 
     def save(Balao balao) {
-        Atendimento ultimoRegistro = balao.atendimento.paciente.registrosAtendimento
+        Atendimento ultimoRegistro = balao.atendimento.paciente.atendimentos
                 .findAll { r -> r.dataEntrada < balao.atendimento.dataEntrada }
                 .sort { r1, r2 -> r1.dataEntrada <=> r2.dataEntrada }
                 .last()
@@ -49,7 +49,7 @@ abstract class BalaoService {
             ecg.list(args) {
                 between 'dataHoraPorta', dataInicio, dataFim
             }.each { Ecg e ->
-                Atendimento proximoRegistro = e.atendimento.paciente.registrosAtendimento.sort { e1, e2 ->
+                Atendimento proximoRegistro = e.atendimento.paciente.atendimentos.sort { e1, e2 ->
                     e1.dataEntrada <=> e2.dataEntrada
                 }.find {
                     it.dataEntrada > e.atendimento.dataEntrada

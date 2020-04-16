@@ -6,7 +6,7 @@
     "description": "Documentação do sistema ARIA"
   },
   "host": "localhost:8080",
-  "basePath": "/",
+  "basePath": "/api",
   "schemes": [
     "http"
   ],
@@ -24,6 +24,11 @@
           "Apache"
         ],
         "summary": "Retorna um JSON array de apaches",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -40,10 +45,6 @@
           "Atendimento"
         ],
         "summary": "Retorna um JSON array de atendimentos",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [],
         "responses": {
           "200": {
             "description": "OK",
@@ -60,6 +61,11 @@
           "Balão"
         ],
         "summary": "Retorna um JSON array de porta balão",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -68,66 +74,31 @@
             }
           }
         }
-      }
-    },
-    "/cid": {
-      "get": {
+      },
+      "post": {
         "tags": [
-          "Cid"
+          "Balão"
         ],
-        "summary": "Retorna um JSON array de cids",
-        "responses": {
-          "200": {
-            "description": "OK",
+        "summary": "Adiciona um balão",
+        "description": "Para adicionar um balão o atendimento deve ser do tipo urgência",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
             "schema": {
-              "$ref": "#/definitions/Cid"
+              "$ref": "#/definitions/Balao"
             }
           }
-        }
-      }
-    },
-    "/cirurgia": {
-      "get": {
-        "tags": [
-          "Cirurgia"
         ],
-        "summary": "Retorna um JSON array de cirurgias",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
-          }
-        }
-      }
-    },
-    "/comanda": {
-      "get": {
-        "tags": [
-          "Comanda"
-        ],
-        "summary": "Retorna um JSON array de comandas",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/consulta": {
-      "get": {
-        "tags": [
-          "Consulta"
-        ],
-        "summary": "Retorna um JSON array de consultas",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/Consulta"
-            }
           }
         }
       }
@@ -145,10 +116,7 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/Ecg"
-            }
+            "description": "OK"
           }
         }
       },
@@ -188,7 +156,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       }
     },
     "/estratificacaoRisco": {
@@ -207,31 +180,6 @@
             "description": "OK",
             "schema": {
               "$ref": "#/definitions/EstratificacaoRisco"
-            }
-          }
-        }
-      }
-    },
-    "/exame": {
-      "get": {
-        "tags": [
-          "Exame"
-        ],
-        "summary": "Retorna um JSON array de exames",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [],
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/Exame"
             }
           }
         }
@@ -256,39 +204,61 @@
             }
           }
         }
-      }
-    },
-    "/leito": {
-      "get": {
+      },
+      "put": {
         "tags": [
-          "Leito"
+          "Grupo"
         ],
-        "summary": "Retorna um JSON array de leitos",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [],
+        "summary": "Atualiza um grupo",
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Grupo"
+        ],
+        "summary": "Adiciona um novo grupo",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
             "schema": {
-              "$ref": "#/definitions/Leito"
+              "$ref": "#/definitions/Grupo"
             }
+          }
+        ],
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         }
       }
     },
-    "/motivoAlta": {
+    "/risco": {
       "get": {
         "tags": [
-          "Motivo Alta"
+          "Risco"
         ],
-        "summary": "Retorna um JSON array motivos de alta",
+        "summary": "Retorna um JSON array de riscos",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/MotivoAlta"
+              "$ref": "#/definitions/Risco"
             }
           }
         }
@@ -300,12 +270,35 @@
           "Registro Leito"
         ],
         "summary": "Retorna um JSON array de exames",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
             "schema": {
               "$ref": "#/definitions/RegistroLeito"
             }
+          }
+        }
+      }
+    },
+    "/paciente": {
+      "get": {
+        "tags": [
+          "Paciente"
+        ],
+        "summary": "Retorna um JSON array de pacientes",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         }
       }
@@ -365,6 +358,7 @@
         "aapo",
         "arterialPh",
         "naSerico",
+        "kSerico",
         "creatininaSerica",
         "hematocrito",
         "leucocitos",
@@ -400,6 +394,9 @@
           "type": "string"
         },
         "naSerico": {
+          "type": "string"
+        },
+        "kSerico": {
           "type": "string"
         },
         "creatininaSerica": {
@@ -501,12 +498,40 @@
         }
       }
     },
+    "AuthenticationToken": {
+      "type": "object",
+      "required": [
+        "username",
+        "tokenValue",
+        "lastUsed"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "username": {
+          "type": "string"
+        },
+        "tokenValue": {
+          "type": "string"
+        },
+        "lastUsed": {
+          "type": "string",
+          "format": "Date"
+        }
+      }
+    },
     "Balao": {
       "type": "object",
       "properties": {
         "dataHoraBalao": {
           "type": "string",
           "format": "date"
+        },
+        "atendimento": {
+          "type": "object",
+          "example": "AtendimentoId",
+          "$ref": "#/definitions/Atendimento"
         }
       }
     },
@@ -584,16 +609,16 @@
     "Ecg": {
       "type": "object",
       "properties": {
-        "id": {
-          "type": "integer"
+        "dataHoraPorta": {
+          "type": "string",
+          "format": "date"
         },
         "dataHoraEcg": {
           "type": "string",
           "format": "date"
         },
-        "dataHoraPorta": {
-          "type": "string",
-          "format": "date"
+        "atendimento": {
+          "type": "string"
         }
       }
     },

@@ -4,4 +4,4 @@ model {
 	Ecg ecg
 }
 
-json g.render(ecg, [excludes: ['paciente', 'registroAtendimento'], resolveTemplate: false])
+json g.render(ecg, [excludes: ['paciente', 'atendimento'], resolveTemplate: false])
