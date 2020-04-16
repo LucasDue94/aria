@@ -1,7 +1,0 @@
-import br.com.hospitaldocoracaoal.integracao.SetorWpd
-
-model {
-	SetorWpd setorWpd
-}
-
-json tmpl.setorWpd(setorWpd)
