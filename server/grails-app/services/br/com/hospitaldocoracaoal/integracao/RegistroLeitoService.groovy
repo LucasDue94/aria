@@ -19,47 +19,45 @@ abstract class RegistroLeitoService {
         def queryParams = [:]
 
         if (setorId != null && !setorId.empty) {
-            Setor setorAria = Setor.get setorId
-            query = 'and s.id = :setorWpd'
-            queryParams.put('setorWpd', setorAria.setorWpdId)
+            Setor setor = Setor.get setorId
+            query = 'and s.id = :setor'
+            queryParams.put('setor', setor.id)
         } else {
-            List<Setor> setoresAria = Setor.findAllByTipoSetor(TipoSetor.tipoSetorPorId(tipoSetor))
-            // TODO: refactoring
-            List<Setor> setoresWpd = tipoSetor == null || tipoSetor == '' ? SetorWpd.getAll() : setoresAria.setorWpd
-            query = 'and s.id in :setoresWpd'
-            queryParams.put('setoresWpd', setoresWpd.id)
+            List<Setor> setores = Setor.where{ habilitado == true }.findAllByTipoSetor(TipoSetor.tipoSetorPorId(tipoSetor))
+            query = 'and s.id in :setores'
+            queryParams.put('setor', setores.id)
         }
 
-        String hqlInternos = """select ral
-            from RegistroLeito ral
-                inner join ral.registroAtendimento r
-                inner join ral.leito l
+        String hqlInternos = """select rl
+            from RegistroLeito rl
+                inner join rl.atendimento a
+                inner join rl.leito l
                 inner join l.setor s
             where r.dataAlta is null
-              and not exists(from RegistroLeito ral2
-                                inner join ral2.registroAtendimento r2
-                                inner join ral2.leito l2
+              and not exists(from RegistroLeito rl2
+                                inner join rl2.atendimento r2
+                                inner join rl2.leito l2
                                 inner join l2.setor s2
                             where r2.id = r.id
                               and s2.id <> s.id
-                              and ral2.dataEntrada > ral.dataEntrada)
+                              and rl2.dataEntrada > rl.dataEntrada)
                 $query"""
 
         List<RegistroLeito> pacienteInternos = RegistroLeito.findAll hqlInternos, queryParams
 
-        String hqlOutros = """select ral
-              from RegistroLeito ral
-                  inner join ral.registroAtendimento r
-                  inner join ral.leito l
+        String hqlOutros = """select rl
+              from RegistroLeito rl
+                  inner join rl.atendimento r
+                  inner join rl.leito l
                   inner join l.setor s
               where r.dataAlta is not null
-                or exists(from RegistroLeito ral2
-                                  inner join ral2.registroAtendimento r2
-                                  inner join ral2.leito l2
+                or exists(from RegistroLeito rl2
+                                  inner join rl2.atendimento r2
+                                  inner join rl2.leito l2
                                   inner join l2.setor s2
                               where r2.id = r.id
                                 and s2.id <> s.id
-                                and ral2.dataEntrada > ral.dataEntrada)
+                                and rl2.dataEntrada > rl.dataEntrada)
                $query"""
 
         List<RegistroLeito> outrosPacientes = RegistroLeito.findAll hqlOutros, queryParams, [offset:args.offset, max: 30]
@@ -82,14 +80,14 @@ abstract class RegistroLeitoService {
 
         criteria.list(queryArgs) {
             createAlias 'leito', 'lei', INNER_JOIN
-            createAlias 'lei.setor', 'setorWpd', INNER_JOIN
+            createAlias 'lei.setor', 'setor', INNER_JOIN
 
             if (termo != null && !termo.empty) {
-                createAlias 'registroAtendimento', 'ra', INNER_JOIN
-                createAlias 'ra.paciente', 'paciente', INNER_JOIN
+                createAlias 'atendimento', 'at', INNER_JOIN
+                createAlias 'at.paciente', 'paciente', INNER_JOIN
 
                 or {
-                    ilike 'ra.id', "%$termo%"
+                    ilike 'at.id', "%$termo%"
                     ilike 'paciente.id', "%$termo%"
                     ilike 'paciente.nome', "%$termo%"
                 }
@@ -97,12 +95,12 @@ abstract class RegistroLeitoService {
 
             if (setorId != null && setorId != '' && setorId != 'null') {
                 Setor s = Setor.get setorId
-                eq 'setorWpd.id', s.setorWpdId
+                eq 'id', s.id
             } else {
                 List<Setor> setoresAria = Setor.findAllByTipoSetor(TipoSetor.UTI)
                 List<Setor> setores = SetorWpd.getAll(setoresAria.setorWpd.id)
 
-                'in' 'setorWpd.id', setores.id
+                'in' 'id', setores.id
             }
 
             if (dataEntradaInicio != null && dataEntradaInicio != '' && dataEntradaFim != null && dataEntradaFim != '') {
