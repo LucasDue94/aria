@@ -1,4 +1,4 @@
-import {RegistroAtendimentoLeito} from '../registroAtendimentoLeito/registroAtendimentoLeito';
+import {RegistroLeito} from '../registroLeito/registroLeito';
 
 export class Apache {
   id: number;
@@ -16,14 +16,14 @@ export class Apache {
   leucocitos: string;
   glasgow: number;
   problemasCronicos: string;
-  registroAtendimentoLeito: RegistroAtendimentoLeito;
+  registroAtendimentoLeito: RegistroLeito;
   escore: any;
 
   constructor(object?: any) {
     if (object) {
 
       if (object.hasOwnProperty('registroAtendimentoLeito')) {
-        this.registroAtendimentoLeito = new RegistroAtendimentoLeito(object['registroAtendimentoLeito']);
+        this.registroAtendimentoLeito = new RegistroLeito(object['registroAtendimentoLeito']);
         delete object['registroAtendimentoLeito'];
       }
 

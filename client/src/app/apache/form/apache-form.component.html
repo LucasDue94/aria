@@ -1,10 +1,10 @@
 <main class="container-apache">
-  <paciente-info [paciente]="registroAtendimentoLeito?.registroAtendimento?.paciente"
-                 [extras]="[{label: 'Registro', value: registroAtendimentoLeito?.registroAtendimento?.id},
-                 {label: 'Entrada',value:registroAtendimentoLeito?.dataEntrada | date:'dd/MM/yyyy - HH:mm'},
-                 {label: 'Saída', value: (registroAtendimentoLeito?.dataAlta || registroAtendimentoLeito?.registroAtendimento?.dataAlta) | date:'dd/MM/yyyy - HH:mm'},
-                 {label:'Motivo alta', value: registroAtendimentoLeito?.registroAtendimento?.motivoAlta?.descricao},
-                 {label: 'Setor', value: registroAtendimentoLeito?.leito?.setor?.sigla}]"></paciente-info>
+  <paciente-info [paciente]="registroLeito?.registroAtendimento?.paciente"
+                 [extras]="[{label: 'Registro', value: registroLeito?.registroAtendimento?.id},
+                 {label: 'Entrada',value:registroLeito?.dataEntrada | date:'dd/MM/yyyy - HH:mm'},
+                 {label: 'Saída', value: (registroLeito?.dataAlta || registroLeito?.registroAtendimento?.dataAlta) | date:'dd/MM/yyyy - HH:mm'},
+                 {label:'Motivo alta', value: registroLeito?.registroAtendimento?.motivoAlta?.descricao},
+                 {label: 'Setor', value: registroLeito?.leito?.setor?.sigla}]"></paciente-info>
   <section class="container-form-apache">
     <section class="flex-row align-selects">
       <article class="col-container container-pressao">

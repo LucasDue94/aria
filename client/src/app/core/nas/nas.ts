@@ -1,4 +1,4 @@
-import {RegistroAtendimentoLeito} from "../registroAtendimentoLeito/registroAtendimentoLeito";
+import {RegistroLeito} from "../registroLeito/registroLeito";
 
 export class Nas {
   id: number;
@@ -25,7 +25,7 @@ export class Nas {
   alimentacaoEnteral: boolean;                                //Questão 21
   intervencoesDentroUnidade: boolean;                         //Questão 22
   intervencoesForaUnidade: boolean;                           //Questão 23
-  registroAtendimentoLeito: RegistroAtendimentoLeito;
+  registroAtendimentoLeito: RegistroLeito;
   escore: any;
   dataCriacao: string;
 
@@ -33,7 +33,7 @@ export class Nas {
     if (object) {
 
       if (object.hasOwnProperty('registroAtendimentoLeito')) {
-        this.registroAtendimentoLeito = new RegistroAtendimentoLeito(object['registroAtendimentoLeito']);
+        this.registroAtendimentoLeito = new RegistroLeito(object['registroAtendimentoLeito']);
         delete object['registroAtendimentoLeito'];
       }
 

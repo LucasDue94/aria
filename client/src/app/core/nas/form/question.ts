@@ -1,5 +1,5 @@
 import {Alternative} from "./alternative";
-import {RegistroAtendimento} from "../../registroAtendimento/registroAtendimento";
+import {Atendimento} from "../../atendimento/atendimento";
 
 export class Question {
   number: string;
@@ -12,7 +12,7 @@ export class Question {
     if (object) {
       if (object.hasOwnProperty('alternatives')) {
         this.alternatives = object['alternatives'].map((obj: any) => {
-          return new RegistroAtendimento(obj);
+          return new Atendimento(obj);
         });
         delete object['alternatives'];
       }

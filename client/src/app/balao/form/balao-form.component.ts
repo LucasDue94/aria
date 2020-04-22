@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {TitleService} from "../../core/title/title.service";
 import {FormBuilder, Validators} from "@angular/forms";
-import {RegistroAtendimento} from "../../core/registroAtendimento/registroAtendimento";
-import {RegistroAtendimentoService} from "../../core/registroAtendimento/registroAtendimento.service";
+import {Atendimento} from "../../core/atendimento/atendimento";
+import {AtendimentoService} from "../../core/atendimento/atendimento.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Balao} from "../../core/balao/balao";
 import {BalaoService} from "../../core/balao/balao.service";
@@ -23,7 +23,7 @@ export class BalaoFormComponent implements OnInit {
   today = new Date();
   datePipe = new DatePipe('en-US');
   registroAtendimento = {id: null};
-  registro: RegistroAtendimento;
+  registro: Atendimento;
   balao: Balao = new Balao();
   searchForm = this.fb.group({searchControl: ['']});
   form = this.fb.group({
@@ -36,7 +36,7 @@ export class BalaoFormComponent implements OnInit {
     private titleService: TitleService,
     private fb: FormBuilder, private route: ActivatedRoute,
     private balaoService: BalaoService,
-    private registroAtendimentoService: RegistroAtendimentoService,
+    private registroAtendimentoService: AtendimentoService,
     private router: Router, private spinner: SpinnerService,
     private alertService: AlertService) {
   }

@@ -1,20 +1,20 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
-import {Alternative} from "../../core/nas/form/alternative";
-import {Question} from "../../core/nas/form/question";
-import {Nas} from "../../core/nas/nas";
-import {NasService} from "../../core/nas/nas.service";
-import {TitleService} from "../../core/title/title.service";
-import {ErrorService} from "../../core/error/error.service";
-import {SpinnerService} from "../../core/spinner/spinner.service";
-import {AlertService} from "../../core/alert/alert.service";
-import {faExclamationCircle} from "@fortawesome/free-solid-svg-icons/faExclamationCircle";
-import {RegistroAtendimentoLeito} from "../../core/registroAtendimentoLeito/registroAtendimentoLeito";
-import {faCheck} from "@fortawesome/free-solid-svg-icons/faCheck";
-import {faFrown} from "@fortawesome/free-solid-svg-icons/faFrown";
-import {RegistroAtendimentoLeitoService} from "../../core/registroAtendimentoLeito/registroAtendimentoLeito.service";
-import {Leito} from "../../core/leito/leito";
-import {RegistroAtendimento} from "../../core/registroAtendimento/registroAtendimento";
+import {ActivatedRoute, Router} from '@angular/router';
+import {Alternative} from '../../core/nas/form/alternative';
+import {Question} from '../../core/nas/form/question';
+import {Nas} from '../../core/nas/nas';
+import {NasService} from '../../core/nas/nas.service';
+import {TitleService} from '../../core/title/title.service';
+import {ErrorService} from '../../core/error/error.service';
+import {SpinnerService} from '../../core/spinner/spinner.service';
+import {AlertService} from '../../core/alert/alert.service';
+import {faExclamationCircle} from '@fortawesome/free-solid-svg-icons/faExclamationCircle';
+import {RegistroLeito} from '../../core/registroLeito/registroLeito';
+import {faCheck} from '@fortawesome/free-solid-svg-icons/faCheck';
+import {faFrown} from '@fortawesome/free-solid-svg-icons/faFrown';
+import {RegistroLeitoService} from '../../core/registroLeito/registro-leito.service';
+import {Leito} from '../../core/leito/leito';
+import {Atendimento} from '../../core/atendimento/atendimento';
 
 @Component({
   selector: 'nas-form',
@@ -392,15 +392,15 @@ export class NasFormComponent implements OnInit {
   });
 
   submitted = false;
-  registroAtendimentoLeito: RegistroAtendimentoLeito;
+  registroAtendimentoLeito: RegistroLeito;
 
-  constructor(private route: ActivatedRoute, private registroAtendimentoLeitoService: RegistroAtendimentoLeitoService,
+  constructor(private route: ActivatedRoute, private registroAtendimentoLeitoService: RegistroLeitoService,
               private nasService: NasService, private titleService: TitleService, private errorService: ErrorService,
               private spinner: SpinnerService, private alertService: AlertService, private router: Router) {
   }
 
   ngOnInit() {
-    this.titleService.send('NAS - Formulário')
+    this.titleService.send('NAS - Formulário');
     this.spinner.show();
     this.form.push(this.group1, this.group2, this.group3, this.group4, this.group5,
       this.group6, this.group7, this.group8, this.group9, this.group10, this.group11);
@@ -415,17 +415,21 @@ export class NasFormComponent implements OnInit {
   }
 
   formIsValid() {
-    for (const key in this.newNas) if (this.newNas[key] == '') return false;
+    for (const key in this.newNas) {
+      if (this.newNas[key] === '') {
+        return false;
+      }
+    }
 
     return true;
   }
 
-  isEmpty = (key) => this.newNas[key] == '';
+  isEmpty = (key) => this.newNas[key] === '';
 
   setFields() {
-    this.newNas.registroAtendimentoLeito = new RegistroAtendimentoLeito();
-    this.newNas.registroAtendimentoLeito.registroAtendimento = new RegistroAtendimento({
-      id: this.registroAtendimentoLeito.registroAtendimento.id
+    this.newNas.registroAtendimentoLeito = new RegistroLeito();
+    this.newNas.registroAtendimentoLeito.atendimento = new Atendimento({
+      id: this.registroAtendimentoLeito.atendimento.id
     });
     this.newNas.registroAtendimentoLeito.dataEntrada = this.registroAtendimentoLeito.dataEntrada;
     this.newNas.registroAtendimentoLeito.leito = new Leito({id: this.registroAtendimentoLeito.leito.id});

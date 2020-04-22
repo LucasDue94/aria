@@ -3,8 +3,8 @@ import {TitleService} from "../../core/title/title.service";
 import {EcgService} from "../../core/ecg/ecg.service";
 import {SpinnerService} from "../../core/spinner/spinner.service";
 import {faFrown, faSearch} from '@fortawesome/free-solid-svg-icons';
-import {RegistroAtendimento} from "../../core/registroAtendimento/registroAtendimento";
-import {RegistroAtendimentoService} from "../../core/registroAtendimento/registroAtendimento.service";
+import {Atendimento} from "../../core/atendimento/atendimento";
+import {AtendimentoService} from "../../core/atendimento/atendimento.service";
 import {Router} from "@angular/router";
 import {FilterService} from "../../core/filter/filter.service";
 
@@ -15,7 +15,7 @@ import {FilterService} from "../../core/filter/filter.service";
 })
 export class EcgListComponent implements OnInit {
 
-  registros: RegistroAtendimento[] = [];
+  registros: Atendimento[] = [];
   showListScrollSpinner = false;
   offset = 0;
   max = 30;
@@ -31,7 +31,7 @@ export class EcgListComponent implements OnInit {
 
   constructor(private ecgService: EcgService, private titleService: TitleService,
               private spinner: SpinnerService, private router: Router,
-              private registroAtendimentoService: RegistroAtendimentoService,
+              private registroAtendimentoService: AtendimentoService,
               private filterService: FilterService) {
     this.search = this.search.bind(this);
   }
@@ -43,7 +43,7 @@ export class EcgListComponent implements OnInit {
     this.getRegistros();
   }
 
-  edit(registro: RegistroAtendimento) {
+  edit(registro: Atendimento) {
     this.router.navigate(['/ecg', registro.ecg ? 'edit' : 'create', registro.id]);
   }
 

@@ -1,9 +1,9 @@
-import {RegistroAtendimento} from '../registroAtendimento/registroAtendimento';
+import {Atendimento} from '../atendimento/atendimento';
 import {Paciente} from "../paciente/paciente";
 
 export class Balao {
   id: number;
-  registroAtendimento: RegistroAtendimento;
+  registroAtendimento: Atendimento;
   dataHoraBalao: any;
   paciente: Paciente;
   registroAtendimentoId: number;
@@ -12,7 +12,7 @@ export class Balao {
     if (object) {
 
       if (object.hasOwnProperty('registroAtendimento')) {
-        this.registroAtendimento = new RegistroAtendimento(object['registroAtendimento']);
+        this.registroAtendimento = new Atendimento(object['registroAtendimento']);
         delete object['registroAtendimento'];
       }
 

@@ -1,9 +1,9 @@
-import {RegistroAtendimento} from '../registroAtendimento/registroAtendimento';
+import {Atendimento} from '../atendimento/atendimento';
 
 export class Paciente {
   id: string;
   nome: string;
-  registrosAtendimento: RegistroAtendimento[];
+  registrosAtendimento: Atendimento[];
   sexo: any;
   nomeMae: string;
   nascimento: any;
@@ -13,7 +13,7 @@ export class Paciente {
 
       if (object.hasOwnProperty('registrosAtendimento')) {
         this.registrosAtendimento = object['registrosAtendimento'].map((obj: any) => {
-          return new RegistroAtendimento(obj);
+          return new Atendimento(obj);
         });
         delete object['registrosAtendimento'];
       }

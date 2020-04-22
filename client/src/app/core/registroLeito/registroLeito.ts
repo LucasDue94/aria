@@ -1,10 +1,10 @@
-import {Leito} from "../leito/leito";
-import {RegistroAtendimento} from "../registroAtendimento/registroAtendimento";
-import {Nas} from "../nas/nas";
+import {Leito} from '../leito/leito';
+import {Atendimento} from '../atendimento/atendimento';
+import {Nas} from '../nas/nas';
 
 
-export class RegistroAtendimentoLeito {
-  registroAtendimento: RegistroAtendimento;
+export class RegistroLeito {
+  atendimento: Atendimento;
   leito: Leito;
   dataEntrada: string;
   dataAlta: string;
@@ -13,8 +13,8 @@ export class RegistroAtendimentoLeito {
   constructor(object?: any) {
     if (object) {
 
-      if (object.hasOwnProperty('registroAtendimento')) {
-        this.registroAtendimento = new RegistroAtendimento(object.registroAtendimento);
+      if (object.hasOwnProperty('atendimento')) {
+        this.atendimento = new Atendimento(object.registroAtendimento);
         delete object['registroAtendimento'];
       }
 
@@ -37,17 +37,18 @@ export class RegistroAtendimentoLeito {
   }
 
   lastNas() {
-    this.nas = this.nas.sort(function (a, b) {
-      if (a.dataCriacao > b.dataCriacao)
+    this.nas = this.nas.sort(function(a, b) {
+      if (a.dataCriacao > b.dataCriacao) {
         return 1;
-      else
+      } else {
         return -1;
+      }
     });
 
     return this.nas[this.nas.length - 1];
   }
 
   toString(): string {
-    return 'br.com.hospitaldocoracaoal.integracao.RegistroAtendimentoLeito : ' + (this.registroAtendimento.id ? this.registroAtendimento.id : '(unsaved)');
+    return 'br.com.hospitaldocoracaoal.integracao.RegistroLeito : ' + (this.atendimento.id ? this.atendimento.id : '(unsaved)');
   }
 }
