@@ -13,7 +13,7 @@ abstract class RegistroLeitoService {
 
     abstract RegistroLeito get(Serializable id)
 
-    def list(Map args, String setorId, String tipoSetorId, Boolean internos) {
+    def list(GrailsParameterMap args, String setorId, String tipoSetorId, Boolean internos) {
         StringBuilder query = new StringBuilder()
         def queryParams = [:]
 
@@ -53,7 +53,8 @@ abstract class RegistroLeitoService {
                 inner join rl.atendimento a
                 inner join rl.leito l
                 inner join l.setor s
-            where $query"""
+            where $query
+            order by rl.dataEntrada desc"""
 
         RegistroLeito.findAll hql, queryParams, args
     }
