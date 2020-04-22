@@ -12,9 +12,9 @@ class RegistroLeitoController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     @Secured('ROLE_ATENDIMENTO_INDEX')
-    def index(Integer max, String setorId, String tipoSetor) {
+    def index(Integer max, String setorId, String tipoSetor, Boolean internos) {
         params.max = Math.min(max ?: 10, 100)
-        respond registroLeitoService.list(params, setorId, tipoSetor)
+        respond registroLeitoService.list(params, setorId, tipoSetor, internos)
     }
 
     @Secured('ROLE_ATENDIMENTO_SHOW')

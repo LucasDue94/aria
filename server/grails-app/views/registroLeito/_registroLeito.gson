@@ -6,10 +6,5 @@ model {
 
 json g.render(registroLeito, [expand: ['atendimento', 'atendimento.paciente', 'atendimento.motivoAlta', 'nas'], excludes: ['leito'], resolveTemplate: false]) {
 	dataAlta registroLeito.dataAlta
-	leito g.render(registroLeito.leito, [resolveTemplate: false]) {
-		setor {
-			descricao registroLeito.leito?.setor?.setor?.descricao
-			sigla registroLeito.leito?.setor?.setor?.sigla
-		}
-	}
+	leito g.render(registroLeito.leito, [resolveTemplate: false])
 }

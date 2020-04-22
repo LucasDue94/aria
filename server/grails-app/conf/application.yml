@@ -104,7 +104,7 @@ dataSource:
 environments:
     development:
         dataSource:
-#            logSql: true
+            logSql: true
             dbCreate: update
             dialect: org.hibernate.dialect.PostgreSQL94Dialect
             url: jdbc:postgresql://10.10.1.23:5432/aria_dev
