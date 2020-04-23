@@ -56,27 +56,12 @@ export class ApacheFormComponent implements OnInit {
     this.registroLeitoService.get(this.route.snapshot.params.id)
       .subscribe((registroLeito: RegistroLeito) => {
         this.registroLeito = registroLeito;
-        console.log(registroLeito);
-        this.spinner.hide();
-      });
-    /*if (apacheId) {
-      this.apacheService.get(apacheId).subscribe(res => {
-        if (res.hasOwnProperty('error')) {
-          const messageError = res.error.error.message;
-          this.alertService.send({
-            message: messageError,
-            type: 'error',
-            icon: faFrown
-          });
-        } else {
-          this.apache = res;
+        if(this.registroLeito.apache) {
+          this.apache = this.registroLeito.apache;
           this.calculaPressaoMedia();
         }
         this.spinner.hide();
       });
-    } else {
-      this.spinner.hide();
-    }*/
   }
 
   calculaPressaoMedia() {

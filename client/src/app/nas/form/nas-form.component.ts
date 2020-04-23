@@ -404,14 +404,14 @@ export class NasFormComponent implements OnInit {
     this.spinner.show();
     this.form.push(this.group1, this.group2, this.group3, this.group4, this.group5,
       this.group6, this.group7, this.group8, this.group9, this.group10, this.group11);
-    this.registroAtendimentoLeitoService.get(
-      this.route.snapshot.queryParamMap.get('registro'),
-      this.route.snapshot.queryParamMap.get('leito'),
-      this.route.snapshot.queryParamMap.get('dataEntrada')).subscribe((registroAtendimentoLeito) => {
-      this.registroAtendimentoLeito = registroAtendimentoLeito;
-      this.spinner.hide();
-      console.log(this.registroAtendimentoLeito);
-    });
+    // this.registroAtendimentoLeitoService.get(
+    //   this.route.snapshot.queryParamMap.get('registro'),
+    //   this.route.snapshot.queryParamMap.get('leito'),
+    //   this.route.snapshot.queryParamMap.get('dataEntrada')).subscribe((registroAtendimentoLeito) => {
+    //   this.registroAtendimentoLeito = registroAtendimentoLeito;
+    //   this.spinner.hide();
+    //   console.log(this.registroAtendimentoLeito);
+    // });
   }
 
   formIsValid() {
