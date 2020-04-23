@@ -5,8 +5,8 @@ import {FormBuilder} from "@angular/forms";
 import {SpinnerService} from "../../core/spinner/spinner.service";
 import {ErrorService} from "../../core/error/error.service";
 import {faFrown, faSearch} from '@fortawesome/free-solid-svg-icons';
-import {RegistroAtendimento} from "../../core/registroAtendimento/registroAtendimento";
-import {RegistroAtendimentoService} from "../../core/registroAtendimento/registroAtendimento.service";
+import {Atendimento} from "../../core/atendimento/atendimento";
+import {AtendimentoService} from "../../core/atendimento/atendimento.service";
 import {Router} from "@angular/router";
 import {FilterService} from "../../core/filter/filter.service";
 
@@ -17,7 +17,7 @@ import {FilterService} from "../../core/filter/filter.service";
 })
 export class BalaoListComponent implements OnInit {
 
-  registros: RegistroAtendimento[] = [];
+  registros: Atendimento[] = [];
   showListScrollSpinner = false;
   offset = 0;
   max = 30;
@@ -33,7 +33,7 @@ export class BalaoListComponent implements OnInit {
 
   constructor(private ecgService: EcgService, private titleService: TitleService,
               private fb: FormBuilder, private spinner: SpinnerService, private router: Router,
-              private errorService: ErrorService, private registroAtendimentoService: RegistroAtendimentoService,
+              private errorService: ErrorService, private registroAtendimentoService: AtendimentoService,
               private filterService: FilterService) {
     this.search = this.search.bind(this);
   }
@@ -45,7 +45,7 @@ export class BalaoListComponent implements OnInit {
     this.filterService.receive().subscribe(this.search)
   }
 
-  edit(registro: RegistroAtendimento) {
+  edit(registro: Atendimento) {
     this.router.navigate(['/balao', registro.balao ? 'edit' : 'create', registro.id]);
   }
 

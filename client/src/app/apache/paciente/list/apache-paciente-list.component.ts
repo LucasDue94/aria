@@ -1,15 +1,15 @@
 import {Component, OnInit} from '@angular/core';
-import {faFrown, faSearch} from "@fortawesome/free-solid-svg-icons";
-import {Setor} from "../../../core/setor/setor";
-import {ApacheService} from "../../../core/apache/apache.service";
-import {SetorService} from "../../../core/setor/setor.service";
-import {FormBuilder} from "@angular/forms";
-import {TitleService} from "../../../core/title/title.service";
-import {ErrorService} from "../../../core/error/error.service";
+import {faFrown, faSearch} from '@fortawesome/free-solid-svg-icons';
+import {Setor} from '../../../core/setor/setor';
+import {ApacheService} from '../../../core/apache/apache.service';
+import {SetorService} from '../../../core/setor/setor.service';
+import {FormBuilder} from '@angular/forms';
+import {TitleService} from '../../../core/title/title.service';
+import {ErrorService} from '../../../core/error/error.service';
 import * as moment from 'moment';
-import {FilterService} from "../../../core/filter/filter.service";
-import {RegistroAtendimentoLeitoService} from "../../../core/registroAtendimentoLeito/registroAtendimentoLeito.service";
-import {RegistroAtendimentoLeito} from "../../../core/registroAtendimentoLeito/registroAtendimentoLeito";
+import {FilterService} from '../../../core/filter/filter.service';
+import {RegistroLeitoService} from '../../../core/registroLeito/registro-leito.service';
+import {RegistroLeito} from '../../../core/registroLeito/registroLeito';
 
 @Component({
   selector: 'apache-paciente-list',
@@ -23,7 +23,7 @@ export class ApachePacienteListComponent implements OnInit {
   faSearch = faSearch;
   showListScrollSpinner = false;
   listLoading = false;
-  registrosLeito: RegistroAtendimentoLeito[] = [];
+  registrosLeito: RegistroLeito[] = [];
   arrayListSetor: Setor[] = [];
   setorId = null;
   offset = 0;
@@ -37,7 +37,7 @@ export class ApachePacienteListComponent implements OnInit {
 
   constructor(private apacheService: ApacheService, private setorService: SetorService, private errorService: ErrorService,
               private titleService: TitleService, private fb: FormBuilder, private filterService: FilterService,
-              private registroAtendimentoLeitoService: RegistroAtendimentoLeitoService) {
+              private registroLeitoService: RegistroLeitoService) {
     this.search = this.search.bind(this);
   }
 
@@ -46,6 +46,7 @@ export class ApachePacienteListComponent implements OnInit {
     this.listLoading = true;
     this.titleService.send('Apache II - Lista de Pacientes');
     // this.getRegistros()
+    this.registroLeitoService.list({});
   }
 
   search(params) {
@@ -92,14 +93,14 @@ export class ApachePacienteListComponent implements OnInit {
     this.params.setorId = params.setor;
   }
 
- /* getRegistros() {
-    this.registroAtendimentoLeitoService.list(this.params, this.offset, this.max).subscribe(registrosLeito => {
-      registrosLeito.forEach(registroLeito => {
-        this.registrosLeito.push(registroLeito);
-        this.showListScrollSpinner = false;
-      });
-      console.log(this.registrosLeito)
-      this.listLoading = false;
-    })
-  }*/
+  /* getRegistros() {
+     this.registroAtendimentoLeitoService.list(this.params, this.offset, this.max).subscribe(registrosLeito => {
+       registrosLeito.forEach(registroLeito => {
+         this.registrosLeito.push(registroLeito);
+         this.showListScrollSpinner = false;
+       });
+       console.log(this.registrosLeito)
+       this.listLoading = false;
+     })
+   }*/
 }

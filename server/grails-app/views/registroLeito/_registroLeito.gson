@@ -6,5 +6,5 @@ model {
 
 json g.render(registroLeito, [expand: ['atendimento', 'atendimento.paciente', 'atendimento.motivoAlta', 'nas'], excludes: ['leito'], resolveTemplate: false]) {
 	dataAlta registroLeito.dataAlta
-	leito g.render(registroLeito.leito, [resolveTemplate: false])
+	leito g.render(registroLeito.leito, [expand: ['setor'], resolveTemplate: false])
 }

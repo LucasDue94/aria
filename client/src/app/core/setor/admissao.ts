@@ -1,10 +1,10 @@
 import {Leito} from "../leito/leito";
-import {RegistroAtendimento} from "../registroAtendimento/registroAtendimento";
+import {Atendimento} from "../atendimento/atendimento";
 
 export class Admissao {
   dataEntrada: string;
   leito: Leito;
-  registroAtendimento: RegistroAtendimento;
+  registroAtendimento: Atendimento;
 
   constructor(object?) {
     if (object) {

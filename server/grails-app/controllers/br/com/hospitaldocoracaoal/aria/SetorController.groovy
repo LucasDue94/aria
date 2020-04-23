@@ -28,14 +28,6 @@ class SetorController {
         respond setorService.get(id)
     }
 
-   /* @Secured('ROLE_SETOR_SHOW')
-    def admissions(Integer max, String termo) {
-        params.sort = 'dataEntrada'
-        params.order = 'desc'
-        params.max = Math.min(max ?: 10, 100)
-        respond registroLeitoService.admissoesSetor(params, termo)
-    }
-*/
     @Secured('ROLE_SETOR_SAVE')
     @Transactional
     def save(Setor setor) {

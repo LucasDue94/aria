@@ -2,12 +2,12 @@ import {Component, OnInit} from '@angular/core';
 import {TitleService} from "../../core/title/title.service";
 import {FormBuilder, Validators} from "@angular/forms";
 import {DatePipe} from "@angular/common";
-import {RegistroAtendimento} from "../../core/registroAtendimento/registroAtendimento";
+import {Atendimento} from "../../core/atendimento/atendimento";
 import {ActivatedRoute, Router} from "@angular/router";
 import {SpinnerService} from "../../core/spinner/spinner.service";
 import {AlertService} from "../../core/alert/alert.service";
 import {ErrorService} from "../../core/error/error.service";
-import {RegistroAtendimentoService} from "../../core/registroAtendimento/registroAtendimento.service";
+import {AtendimentoService} from "../../core/atendimento/atendimento.service";
 import {faCheck, faFrown} from "@fortawesome/free-solid-svg-icons";
 import {Ecg} from "../../core/ecg/ecg";
 import {EcgService} from "../../core/ecg/ecg.service";
@@ -24,7 +24,7 @@ export class EcgFormComponent implements OnInit {
   datePipe = new DatePipe('en-US');
   paciente = {id: null};
   registroAtendimento = {id: null};
-  registro: RegistroAtendimento;
+  registro: Atendimento;
   ecg: Ecg = new Ecg();
   searchForm = this.fb.group({searchControl: ['']});
   form = this.fb.group({
@@ -41,7 +41,7 @@ export class EcgFormComponent implements OnInit {
     private router: Router, private spinner: SpinnerService,
     private alertService: AlertService, datePipe: DatePipe,
     private errorService: ErrorService,
-    private registroAtendimentoService: RegistroAtendimentoService) {
+    private registroAtendimentoService: AtendimentoService) {
   }
 
   get f() {

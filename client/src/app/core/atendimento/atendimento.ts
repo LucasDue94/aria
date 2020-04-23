@@ -7,7 +7,7 @@ import {Ecg} from "../ecg/ecg";
 import {Balao} from "../balao/balao";
 
 
-export class RegistroAtendimento {
+export class Atendimento {
   id: string;
   dataEntrada: string;
   dataAlta: string;
@@ -36,6 +36,6 @@ export class RegistroAtendimento {
   }
 
   toString(): string {
-    return 'br.com.hospitaldocoracaoal.integracao.RegistroAtendimento : ' + (this.id ? this.id : '(unsaved)');
+    return 'br.com.hospitaldocoracaoal.integracao.Atendimento : ' + (this.id ? this.id : '(unsaved)');
   }
 }

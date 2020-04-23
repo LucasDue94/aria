@@ -11,7 +11,7 @@ import {SetorWpdService} from "./setor-wpd/setorWpd.service";
 import {MotivoAltaService} from './motivoAlta/motivoAlta.service';
 import {CidService} from './cid/cid.service';
 import {PacienteService} from './paciente/paciente.service';
-import {RegistroAtendimentoService} from './registroAtendimento/registroAtendimento.service';
+import {AtendimentoService} from './atendimento/atendimento.service';
 import {LeitoService} from './leito/leito.service';
 import {TitleService} from "./title/title.service";
 import {AuthService} from "./auth/auth.service";
@@ -27,7 +27,7 @@ import {EcgService} from './ecg/ecg.service';
 import {NasService} from './nas/nas.service';
 import {BalaoService} from "./balao/balao.service";
 import {FilterService} from "./filter/filter.service";
-import {RegistroAtendimentoLeitoService} from "./registroAtendimentoLeito/registroAtendimentoLeito.service";
+import {RegistroLeitoService} from "./registroLeito/registro-leito.service";
 import {EstratificacaoRiscoService} from "./estratificacaoRisco/estratificacaoRisco.service";
 
 
@@ -48,7 +48,7 @@ import {EstratificacaoRiscoService} from "./estratificacaoRisco/estratificacaoRi
     MotivoAltaService,
     CidService,
     PacienteService,
-    RegistroAtendimentoService,
+    AtendimentoService,
     LeitoService,
     TitleService,
     AuthService,
@@ -65,7 +65,7 @@ import {EstratificacaoRiscoService} from "./estratificacaoRisco/estratificacaoRi
     NasService,
     FilterService,
     EstratificacaoRiscoService,
-    RegistroAtendimentoLeitoService
+    RegistroLeitoService
 
   ]
 })

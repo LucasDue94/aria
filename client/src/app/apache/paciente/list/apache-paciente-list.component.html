@@ -19,15 +19,15 @@
       <spinner [loading]="listLoading"></spinner>
       <div [ngClass]="getRowClass(registro)" class="row" *ngFor="let registro of registrosLeito"
            [routerLink]="['/apache','form']"
-           [queryParams]="{registro:registro.registroAtendimento.id, dataEntrada: registro.dataEntrada, leito:registro.leito.id, apacheId: registro.apache ? registro.apache.id : null, dataAlta: registro.dataAlta }">
-        <span class="td flex-1"><span class="label-card">Registro:</span> {{registro.registroAtendimento.id}}</span>
-        <span class="td flex-4"><span class="label-card">Paciente:</span> {{registro.registroAtendimento.paciente.nome}}</span>
+           [queryParams]="{registro:registro.atendimento.id, dataEntrada: registro.dataEntrada, leito:registro.leito.id, apacheId: registro.apache ? registro.apache.id : null, dataAlta: registro.dataAlta }">
+        <span class="td flex-1"><span class="label-card">Registro:</span> {{registro.atendimento.id}}</span>
+        <span class="td flex-4"><span class="label-card">Paciente:</span> {{registro.atendimento.paciente.nome}}</span>
         <span class="td flex-1"><span
-          class="label-card">Nascimento:</span> {{registro.registroAtendimento.paciente.nascimento | date:'dd/MM/yyyy'}}</span>
+          class="label-card">Nascimento:</span> {{registro.atendimento.paciente.nascimento | date:'dd/MM/yyyy'}}</span>
         <span class="td flex-3"><span
-          class="label-card">Mãe:</span> {{registro.registroAtendimento.paciente.nomeMae}}</span>
+          class="label-card">Mãe:</span> {{registro.atendimento.paciente.nomeMae}}</span>
         <span class="td flex-1"><span
-          class="label-card">Sexo:</span> {{registro.registroAtendimento.paciente.sexo}}</span>
+          class="label-card">Sexo:</span> {{registro.atendimento.paciente.sexo}}</span>
         <span class="td flex-2"><span
           class="label-card">Entrada:</span> {{registro.dataEntrada | date: 'dd/MM/yyyy - HH:mm'}}</span>
       </div>

@@ -14,12 +14,12 @@
       <div class="paciente-situacao-label">Pacientes Internados</div>
       <section *ngFor="let internos of pacientesInternos">
         <div (click)="edit(internos)" class="row" [ngClass]="[isToday(internos.lastNas()?.dataCriacao) ? 'done' : 'pending']">
-          <span class="td flex-1">{{internos?.registroAtendimento?.id}}</span>
-          <span class="td flex-3">{{internos?.registroAtendimento?.paciente.nome}}</span>
+          <span class="td flex-1">{{internos?.atendimento?.id}}</span>
+          <span class="td flex-3">{{internos?.atendimento?.paciente.nome}}</span>
           <span
-            class="td flex-1">{{internos?.registroAtendimento?.paciente.nascimento | date: "dd/MM/yyyy" }}</span>
-          <span class="td flex-3">{{internos?.registroAtendimento?.paciente.nomeMae}}</span>
-          <span class="td flex-1">{{internos?.registroAtendimento?.paciente.sexo}}</span>
+            class="td flex-1">{{internos?.atendimento?.paciente.nascimento | date: "dd/MM/yyyy" }}</span>
+          <span class="td flex-3">{{internos?.atendimento?.paciente.nomeMae}}</span>
+          <span class="td flex-1">{{internos?.atendimento?.paciente.sexo}}</span>
           <span class="td flex-2">{{internos?.dataEntrada | date: "dd/MM/yyyy - HH:mm"}}</span>
           <span class="td flex-1">{{isToday(internos.lastNas()?.dataCriacao) ? roundEscore(internos.lastNas()?.escore) : '--'}}</span>
         </div>
@@ -32,11 +32,11 @@
       <div class="paciente-situacao-label">Outros Registros</div>
       <section *ngFor="let outros of outrosPacientes">
         <div (click)="edit(outros)" class="row">
-          <span class="td flex-1">{{outros?.registroAtendimento?.id}}</span>
-          <span class="td flex-3">{{outros?.registroAtendimento?.paciente.nome}}</span>
-          <span class="td flex-1">{{outros?.registroAtendimento?.paciente.nascimento | date: "dd/MM/yyyy" }}</span>
-          <span class="td flex-3">{{outros?.registroAtendimento?.paciente.nomeMae}}</span>
-          <span class="td flex-1">{{outros?.registroAtendimento?.paciente.sexo}}</span>
+          <span class="td flex-1">{{outros?.atendimento?.id}}</span>
+          <span class="td flex-3">{{outros?.atendimento?.paciente.nome}}</span>
+          <span class="td flex-1">{{outros?.atendimento?.paciente.nascimento | date: "dd/MM/yyyy" }}</span>
+          <span class="td flex-3">{{outros?.atendimento?.paciente.nomeMae}}</span>
+          <span class="td flex-1">{{outros?.atendimento?.paciente.sexo}}</span>
           <span class="td flex-2">{{outros.dataEntrada | date: "dd/MM/yyyy - HH:mm"}}</span>
         </div>
         <div class="empty" *ngIf="outrosPacientes?.length == 0">

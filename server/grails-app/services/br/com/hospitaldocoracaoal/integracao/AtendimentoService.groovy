@@ -14,7 +14,7 @@ abstract class AtendimentoService {
 
 
     List<Atendimento> list(GrailsParameterMap args, String termo, String setorId, String dataEntradaInicio,
-                           String dataEntradaFim, Character tipoRegistro) {
+                           String dataEntradaFim, Character tipoAtendimento) {
         def criteria = Atendimento.createCriteria()
         criteria.list(args) {
             createAlias 'paciente', 'p', INNER_JOIN
@@ -22,25 +22,25 @@ abstract class AtendimentoService {
             if (setorId != null && setorId != '') {
                 createAlias 'registroLeitos', 'registroLeitos', LEFT_OUTER_JOIN
                 createAlias 'registroLeitos.leito', 'leito', LEFT_OUTER_JOIN
-                createAlias 'leito.setor', 'setorWpd', LEFT_OUTER_JOIN
+                createAlias 'leito.setor', 'setor', LEFT_OUTER_JOIN
                 Setor s = Setor.get(setorId)
 
                 or {
                     and {
                         eq 'tipo', Atendimento.TIPO_INTERNO
-                        eq 'setorWpd.id', s.setorWpdId
+                        eq 'setor.id', s.id
                     }
                     and {
                         ne'tipo', Atendimento.TIPO_INTERNO
                         setor {
-                            eq 'id', s.setorWpdId
+                            eq 'id', s.id
                         }
                     }
                 }
             }
 
-            if (tipoRegistro == Atendimento.TIPO_EMERGENCIA || tipoRegistro == Atendimento.TIPO_INTERNO) {
-                eq 'tipo', tipoRegistro
+            if (tipoAtendimento == Atendimento.TIPO_EMERGENCIA || tipoAtendimento == Atendimento.TIPO_INTERNO) {
+                eq 'tipo', tipoAtendimento
             }
 
             if (termo != null && termo != '') {

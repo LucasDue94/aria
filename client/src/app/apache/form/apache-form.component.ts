@@ -1,14 +1,14 @@
 import {Component, OnInit} from '@angular/core';
-import {SpinnerService} from "../../core/spinner/spinner.service";
-import {AlertService} from "../../core/alert/alert.service";
-import {TitleService} from "../../core/title/title.service";
-import {FormBuilder} from "@angular/forms";
-import {ActivatedRoute, Router} from "@angular/router";
-import {ApacheService} from "../../core/apache/apache.service";
-import {faCheck, faExclamationCircle, faFrown, faInfoCircle} from "@fortawesome/free-solid-svg-icons";
-import {RegistroAtendimentoService} from "../../core/registroAtendimento/registroAtendimento.service";
-import {Apache} from "../../core/apache/apache";
-import {RegistroAtendimentoLeito} from "../../core/registroAtendimentoLeito/registroAtendimentoLeito";
+import {SpinnerService} from '../../core/spinner/spinner.service';
+import {AlertService} from '../../core/alert/alert.service';
+import {TitleService} from '../../core/title/title.service';
+import {FormBuilder} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {ApacheService} from '../../core/apache/apache.service';
+import {faCheck, faExclamationCircle, faFrown, faInfoCircle} from '@fortawesome/free-solid-svg-icons';
+import {AtendimentoService} from '../../core/atendimento/atendimento.service';
+import {Apache} from '../../core/apache/apache';
+import {RegistroLeito} from '../../core/registroLeito/registroLeito';
 
 @Component({
   selector: 'apache-form',
@@ -18,7 +18,7 @@ import {RegistroAtendimentoLeito} from "../../core/registroAtendimentoLeito/regi
 export class ApacheFormComponent implements OnInit {
   faInfoCircle = faInfoCircle;
   apache: Apache = new Apache();
-  registroAtendimentoLeito: any;
+  registroLeito: any;
   temperatura = ['> 41', '39 - 40.9', '38.5 - 38.9', '36 - 38.4', '34 - 35.9', '32 - 33.9', '30 - 31.9', '< 29.9'];
   kSerico = ['> 7', '6 - 6.9', '5.5 - 5.9', '3.5 - 5.4', '3 - 3.4', '2.5 - 2.9', '< 2.5'];
   naSerico = ['> 180', '160 - 179', '155 - 159', '150 - 154', '130 - 149', '120 - 129', '111 - 119', '< 110'];
@@ -33,29 +33,31 @@ export class ApacheFormComponent implements OnInit {
   creatinina = ['> 3.5', '> 3.5 in ARF', '2 - 3.4', '2 - 3.4 in ARF', '1.5 - 1.9', '1.5 - 1.9 in ARF', '0.6 - 1.4', '< 0.6'];
   pressaoMedia = 0;
   showProblemas = false;
-  messageError = "Este campo não pode ser vazio.";
-  messagePressao = "";
+  messageError = 'Este campo não pode ser vazio.';
+  messagePressao = '';
   labelPosition = 'left';
   send = false;
 
   constructor(private spinner: SpinnerService, private alert: AlertService,
               private title: TitleService, private fb: FormBuilder,
               private route: ActivatedRoute, private apacheService: ApacheService,
-              private registroAtendimentoService: RegistroAtendimentoService,
+              private registroAtendimentoService: AtendimentoService,
               private alertService: AlertService, private router: Router) {
 
   }
 
   ngOnInit() {
-    if (window.innerWidth < 1024) this.labelPosition = 'top';
+    if (window.innerWidth < 1024) {
+      this.labelPosition = 'top';
+    }
     this.title.send('Apache II - Formulário');
     this.spinner.show();
     this.registroAtendimentoService.getRegistroAtendimetoLeito(
       this.route.snapshot.queryParamMap.get('registro'),
       this.route.snapshot.queryParamMap.get('leito'),
       this.route.snapshot.queryParamMap.get('dataEntrada'))
-      .subscribe((registroAtendimentoLeito) => {
-        this.registroAtendimentoLeito = registroAtendimentoLeito;
+      .subscribe((registroLeito) => {
+        this.registroLeito = registroLeito;
       });
     const apacheId = this.route.snapshot.queryParamMap.get('apacheId');
     if (apacheId) {
@@ -69,7 +71,7 @@ export class ApacheFormComponent implements OnInit {
           });
         } else {
           this.apache = res;
-          this.calculaPressaoMedia()
+          this.calculaPressaoMedia();
         }
         this.spinner.hide();
       });
@@ -89,11 +91,11 @@ export class ApacheFormComponent implements OnInit {
     if ((this.pressaoMedia > 300 || this.pressaoMedia < 20) || (this.apache.pas < this.apache.pad)) {
       this.messagePressao = 'A pressao média deve estar entre o intervalo 20 > PM > 300.' +
         ' Além disso a pressão sistólica precisa ser maior que a diastólica.';
-      return true
+      return true;
     }
 
     this.messagePressao = '';
-    return false
+    return false;
   }
 
   clear() {
@@ -103,7 +105,7 @@ export class ApacheFormComponent implements OnInit {
     this.send = false;
   }
 
-  checkFieldError = (field) => field == undefined && this.send;
+  checkFieldError = (field) => field === undefined && this.send;
 
   hasErrors() {
     if (this.isEmpty(this.apache)) {
@@ -111,26 +113,28 @@ export class ApacheFormComponent implements OnInit {
       return true;
     }
     for (const key in this.apache) {
-      if (this.apache.hasOwnProperty(key) && this.apache[key] != undefined && this.apache[key] != ''
-        && key != 'escore' && key != 'id' && this.checkPressao()) {
-        return true
+      if (this.apache.hasOwnProperty(key) && this.apache[key] !== undefined && this.apache[key] != ''
+        && key !== 'escore' && key !== 'id' && this.checkPressao()) {
+        return true;
       }
     }
-    return false
+    return false;
   }
 
   isEmpty(obj) {
     for (const key in obj) {
-      if (obj.hasOwnProperty(key)) return false;
+      if (obj.hasOwnProperty(key)) {
+        return false;
+      }
     }
-    return true
+    return true;
   }
 
   setFields() {
-    this.apache.registroAtendimentoLeito = new RegistroAtendimentoLeito();
-    this.apache.registroAtendimentoLeito.registroAtendimento = this.registroAtendimentoLeito.registroAtendimento.id;
-    this.apache.registroAtendimentoLeito.dataEntrada = this.registroAtendimentoLeito.dataEntrada;
-    this.apache.registroAtendimentoLeito.leito = this.registroAtendimentoLeito.leito.id;
+    this.apache.registroAtendimentoLeito = new RegistroLeito();
+    this.apache.registroAtendimentoLeito.atendimento = this.registroLeito.registroAtendimento.id;
+    this.apache.registroAtendimentoLeito.dataEntrada = this.registroLeito.dataEntrada;
+    this.apache.registroAtendimentoLeito.leito = this.registroLeito.leito.id;
   }
 
   save() {

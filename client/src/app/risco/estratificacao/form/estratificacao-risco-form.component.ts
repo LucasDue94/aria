@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {RegistroAtendimentoService} from "../../../core/registroAtendimento/registroAtendimento.service";
-import {RegistroAtendimento} from "../../../core/registroAtendimento/registroAtendimento";
+import {AtendimentoService} from "../../../core/atendimento/atendimento.service";
+import {Atendimento} from "../../../core/atendimento/atendimento";
 import {TitleService} from "../../../core/title/title.service";
 import {
   faCheck,
@@ -29,7 +29,7 @@ export class EstratificacaoRiscoFormComponent implements OnInit {
   groupBradenQ: FormGroup;
   groupJhfrat: FormGroup;
   groupHumptyDumpty: FormGroup;
-  registroAtendimento: RegistroAtendimento[];
+  registroAtendimento: Atendimento[];
   faFrown = faFrown;
   faSmile = faSmile;
   faMeh = faMeh;
@@ -600,7 +600,7 @@ export class EstratificacaoRiscoFormComponent implements OnInit {
   estratificacao = new EstratificacaoRisco();
   controlStateIsEmpty: boolean = false;
 
-  constructor(private registroAtendimentoService?: RegistroAtendimentoService,
+  constructor(private registroAtendimentoService?: AtendimentoService,
               private estratificacaoRiscoService?: EstratificacaoRiscoService,
               private fb?: FormBuilder, private titleService?: TitleService) {
   }

@@ -13,9 +13,34 @@ abstract class RegistroLeitoService {
 
     abstract RegistroLeito get(Serializable id)
 
-    def list(Map args, String setorId, String tipoSetorId, Boolean internos) {
-        StringBuilder query = new StringBuilder()
+    def list(GrailsParameterMap args) {
         def queryParams = [:]
+        StringBuilder query = new StringBuilder()
+
+        String setorId = args.setorId
+        String tipoSetorId = args.tipoSetor
+        String termo = args.termo
+        Boolean internos = args.boolean('internos')
+        Date dataEntradaInicio = null
+        Date dataEntradaFim = null
+
+        if (args.dataEntradaInicio != null && args.dataEntradaInicio != '' && args.dataEntradaFim != null && args.dataEntradaFim != '') {
+            dataEntradaInicio = DataUtils.getFormatterToDate(args.dataEntradaInicio)
+            dataEntradaFim = DataUtils.endOfDay(DataUtils.getFormatterToDate(args.dataEntradaFim))
+
+            if (query.length() > 0) query.append 'and '
+            query.append('rl.dataEntrada between :dataEntradaInicio and :dataEntradaFim\n')
+            queryParams.put('dataEntradaInicio', dataEntradaInicio)
+            queryParams.put('dataEntradaFim', dataEntradaFim)
+        }
+
+        if(termo != null && !termo.empty) {
+            if (query.length() > 0) query.append 'and '
+            query.append('lower(p.nome) like lower(:termo) or ')
+            query.append('a.id like :atendimentoId\n')
+            queryParams.put('termo', '%' + termo +'%')
+            queryParams.put('atendimentoId', termo + '%')
+        }
 
         if (setorId != null && !setorId.empty) {
             Setor setor = Setor.get setorId
@@ -27,7 +52,7 @@ abstract class RegistroLeitoService {
         if (tipoSetorId != null && !tipoSetorId.empty) {
             TipoSetor tipoSetor = TipoSetor.tipoSetorPorId(tipoSetorId)
             if (query.length() > 0) query.append 'and '
-            query.append 's.tipoSetor = :tipoSetor\n'
+            query.append 's.id in (select id from Setor where tipoSetor = :tipoSetor)\n'
             queryParams.put('tipoSetor', tipoSetor)
         }
 
@@ -48,58 +73,19 @@ abstract class RegistroLeitoService {
                               and rl2.dataEntrada > rl.dataEntrada)\n"""
         }
 
+
+        if (query.length() > 0) query.insert (0, 'where ')
+
         String hql = """select rl
             from RegistroLeito rl
                 inner join rl.atendimento a
+                inner join a.paciente p
                 inner join rl.leito l
                 inner join l.setor s
-            where $query"""
+                $query
+                order by rl.dataEntrada desc"""
 
         RegistroLeito.findAll hql, queryParams, args
-    }
-
-    List<RegistroLeito> admissoesSetor(GrailsParameterMap args, String termo, String setorId, String dataEntradaInicio,
-                                       String dataEntradaFim) {
-
-        def criteria = RegistroLeito.createCriteria()
-        Map queryArgs = (Map) args.clone()
-        if (termo != null && !termo.empty) {
-            queryArgs.remove 'sort'
-            queryArgs.remove 'order'
-        }
-
-        criteria.list(queryArgs) {
-            createAlias 'leito', 'lei', INNER_JOIN
-            createAlias 'lei.setor', 'setor', INNER_JOIN
-
-            if (termo != null && !termo.empty) {
-                createAlias 'atendimento', 'at', INNER_JOIN
-                createAlias 'at.paciente', 'paciente', INNER_JOIN
-
-                or {
-                    ilike 'at.id', "%$termo%"
-                    ilike 'paciente.id', "%$termo%"
-                    ilike 'paciente.nome', "%$termo%"
-                }
-            }
-
-            if (setorId != null && setorId != '' && setorId != 'null') {
-                Setor s = Setor.get setorId
-                eq 'id', s.id
-            } else {
-                List<Setor> setoresAria = Setor.findAllByTipoSetor(TipoSetor.UTI)
-                List<Setor> setores = SetorWpd.getAll(setoresAria.setorWpd.id)
-
-                'in' 'id', setores.id
-            }
-
-            if (dataEntradaInicio != null && dataEntradaInicio != '' && dataEntradaFim != null && dataEntradaFim != '') {
-                Date dataInicio = DataUtils.getFormatterToDate(dataEntradaInicio)
-                Date dataFim = DataUtils.endOfDay(DataUtils.getFormatterToDate(dataEntradaFim))
-
-                between 'dataEntrada', dataInicio, dataFim
-            }
-        } as List<RegistroLeito>
     }
 
     abstract Long count()

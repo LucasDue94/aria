@@ -1,4 +1,4 @@
-import {RegistroAtendimento} from '../registroAtendimento/registroAtendimento';
+import {Atendimento} from '../atendimento/atendimento';
 import {Paciente} from "../paciente/paciente";
 
 export class Ecg {
@@ -7,13 +7,13 @@ export class Ecg {
   dataHoraPorta: any;
   registroAtendimentoId: number;
   paciente: Paciente;
-  registroAtendimento: RegistroAtendimento = new RegistroAtendimento();
+  registroAtendimento: Atendimento = new Atendimento();
 
   constructor(object?: any) {
     if (object) {
 
       if (object.hasOwnProperty('registroAtendimento')) {
-        this.registroAtendimento = new RegistroAtendimento(object['registroAtendimento']);
+        this.registroAtendimento = new Atendimento(object['registroAtendimento']);
         delete object['registroAtendimento'];
       }
 

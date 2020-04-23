@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {faFrown, faSearch} from "@fortawesome/free-solid-svg-icons";
-import {Router} from "@angular/router";
-import {TitleService} from "../../core/title/title.service";
-import {FilterService} from "../../core/filter/filter.service";
-import {RegistroAtendimentoLeitoService} from "../../core/registroAtendimentoLeito/registroAtendimentoLeito.service";
-import {RegistroAtendimentoLeito} from "../../core/registroAtendimentoLeito/registroAtendimentoLeito";
+import {faFrown, faSearch} from '@fortawesome/free-solid-svg-icons';
+import {Router} from '@angular/router';
+import {TitleService} from '../../core/title/title.service';
+import {FilterService} from '../../core/filter/filter.service';
+import {RegistroLeitoService} from '../../core/registroLeito/registro-leito.service';
+import {RegistroLeito} from '../../core/registroLeito/registroLeito';
 
 @Component({
   selector: 'nas-paciente-list',
@@ -12,8 +12,8 @@ import {RegistroAtendimentoLeito} from "../../core/registroAtendimentoLeito/regi
   styleUrls: ['./nas-paciente-list.component.scss']
 })
 export class NasPacienteListComponent implements OnInit {
-  outrosPacientes: RegistroAtendimentoLeito[] = [];
-  pacientesInternos: RegistroAtendimentoLeito[] = [];
+  outrosPacientes: RegistroLeito[] = [];
+  pacientesInternos: RegistroLeito[] = [];
   showListScrollSpinner = false;
   offset = 0;
   max = 30;
@@ -27,7 +27,7 @@ export class NasPacienteListComponent implements OnInit {
     setorId: null,
   };
 
-  constructor(private registroAtendimentoLeitoService: RegistroAtendimentoLeitoService, private router: Router,
+  constructor(private registroAtendimentoLeitoService: RegistroLeitoService, private router: Router,
               private titleService: TitleService, private filterService: FilterService) {
   }
 
@@ -38,40 +38,43 @@ export class NasPacienteListComponent implements OnInit {
     this.getRegistros();
   }
 
-  edit(registroLeito: RegistroAtendimentoLeito) {
-    this.router.navigate(['nas', 'create', registroLeito.registroAtendimento.id], {
+  edit(registroLeito: RegistroLeito) {
+    this.router.navigate(['nas', 'create', registroLeito.atendimento.id], {
       queryParams: {
         dataEntrada: registroLeito.dataEntrada,
         leito: registroLeito.leito.id,
-        registro: registroLeito.registroAtendimento.id
+        registro: registroLeito.atendimento.id
       }
-    })
+    });
   }
 
   sortPacientesInternos() {
-    this.pacientesInternos.sort(function (a, b) {
-      if (a.registroAtendimento.paciente.nome > b.registroAtendimento.paciente.nome)
+    this.pacientesInternos.sort(function(a, b) {
+      if (a.atendimento.paciente.nome > b.atendimento.paciente.nome) {
         return 1;
-      else
+      } else {
         return -1;
+      }
     });
-    this.pacientesInternos.sort(function (a, b) {
+    this.pacientesInternos.sort(function(a, b) {
       const escoreA = a.lastNas() ? (a.lastNas().escore) : 0;
       const escoreB = b.lastNas() ? (b.lastNas().escore) : 0;
 
-      if (escoreA > escoreB)
+      if (escoreA > escoreB) {
         return 1;
-      else if (escoreA < escoreB)
+      } else if (escoreA < escoreB) {
         return -1;
+      }
     });
   }
 
   static sortByDataEntrada(array) {
-    array.sort(function (a, b) {
-      if (a.dataEntrada < b.dataEntrada)
+    array.sort(function(a, b) {
+      if (a.dataEntrada < b.dataEntrada) {
         return 1;
-      else
+      } else {
         return -1;
+      }
     });
   }
 
@@ -94,12 +97,15 @@ export class NasPacienteListComponent implements OnInit {
     this.offset = 0;
     this.listLoading = true;
     this.setFilterParams(params);
-    if (params) this.getRegistros()
+    if (params) {
+      this.getRegistros();
+    }
   }
 
   getRegistros() {
     this.pacientesInternos = [];
-    this.registroAtendimentoLeitoService.list('', 'U', this.offset, this.max)
+    // TODO send params
+    this.registroAtendimentoLeitoService.list({})
       .subscribe(data => {
         this.pushItems(this.pacientesInternos, data['pacientesInternos']);
         this.pushItems(this.outrosPacientes, data['outrosPacientes']);
@@ -118,7 +124,7 @@ export class NasPacienteListComponent implements OnInit {
     return currentDate.toLocaleString().slice(0, 10) == today.toLocaleString().slice(0, 10);
   }
 
-  roundEscore(escore){
-    return parseFloat(escore).toFixed(1)
+  roundEscore(escore) {
+    return parseFloat(escore).toFixed(1);
   }
 }
