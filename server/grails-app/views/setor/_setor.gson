@@ -4,4 +4,4 @@ model {
     Setor setor
 }
 
-json g.render(setor, [expand: ['errors'], excludes: ['setorWpd'], resolveTemplate: false])
+json g.render(setor, [expand: ['errors'], resolveTemplate: false])

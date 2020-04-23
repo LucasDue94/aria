@@ -39,16 +39,7 @@ class Apache {
         leucocitos nullable: false, blank: false, inList: ['> 40', '20 - 39.9', '15 - 19.9', '3 - 14.9', '1 - 2.9', '< 1']
         glasgow nullable: false, blank: false, size: 3..15
         problemasCronicos nullable: false, blank: false, inList: ['Nenhum', 'Não - Cirúrgico', 'Cirurgia de Emergência', 'Cirurgia Eletiva']
-        registroLeito validator: { val, obj, errors ->
-            def reg = RegistroLeito.where {
-                atendimento.id == val.atendimentoId
-                leito.id == val.leitoId
-                dataEntrada == val.dataEntrada
-            }.count()
-            if (reg == 0) {
-                errors.rejectValue('registroLeito', 'nas.registroLeito.doesnt.exist')
-            }
-        }
+        registroLeito unique: true
     }
 
     def beforeValidate() {

@@ -16,15 +16,15 @@ export class Apache {
   leucocitos: string;
   glasgow: number;
   problemasCronicos: string;
-  registroAtendimentoLeito: RegistroLeito;
+  registroLeito: RegistroLeito;
   escore: any;
 
   constructor(object?: any) {
     if (object) {
 
-      if (object.hasOwnProperty('registroAtendimentoLeito')) {
-        this.registroAtendimentoLeito = new RegistroLeito(object['registroAtendimentoLeito']);
-        delete object['registroAtendimentoLeito'];
+      if (object.hasOwnProperty('registroLeito')) {
+        this.registroLeito = new RegistroLeito(object['registroLeito']);
+        delete object['registroLeito'];
       }
 
       for (var prop in object) {

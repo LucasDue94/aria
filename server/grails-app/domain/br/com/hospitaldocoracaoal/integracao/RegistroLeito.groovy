@@ -12,7 +12,6 @@ class RegistroLeito implements Serializable {
     static belongsTo = [Atendimento, Leito]
 
     static mapping = {
-//        id composite: ['atendimento', 'leito', 'dataEntrada']
         version false
     }
 

@@ -17,9 +17,9 @@
     </section>
     <section class="tbody content" [scrollWindow]="false" infinite-scroll (scrolled)="scrollDown()">
       <spinner [loading]="listLoading"></spinner>
-      <div [ngClass]="getRowClass(registro)" class="row" *ngFor="let registro of registrosLeito"
-           [routerLink]="['/apache','form']"
-           [queryParams]="{registro:registro.atendimento.id, dataEntrada: registro.dataEntrada, leito:registro.leito.id, apacheId: registro.apache ? registro.apache.id : null, dataAlta: registro.dataAlta }">
+      <div [ngClass]="getRowClass(registro)" [class.d-none]="!this.isTimeOverflow(registro.dataEntrada)" class="row"
+           *ngFor="let registro of registrosLeito"
+           [routerLink]="['/apache','form',registro.id]">
         <span class="td flex-1"><span class="label-card">Registro:</span> {{registro.atendimento.id}}</span>
         <span class="td flex-4"><span class="label-card">Paciente:</span> {{registro.atendimento.paciente.nome}}</span>
         <span class="td flex-1"><span
@@ -34,7 +34,6 @@
       <app-scroll-spinner [show]="showListScrollSpinner"></app-scroll-spinner>
       <div class="empty" *ngIf="registrosLeito?.length == 0">
         <p>Nenhum paciente encontrado!</p>
-        <fa-icon class="icon" [icon]="faFrown" size="2x"></fa-icon>
       </div>
     </section>
   </section>

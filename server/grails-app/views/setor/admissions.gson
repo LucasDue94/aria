@@ -1,7 +1,0 @@
-import br.com.hospitaldocoracaoal.integracao.RegistroLeito
-
-model {
-	Iterable<RegistroLeito> registroLeitoList
-}
-
-json tmpl.'/setor/registroLeitos'(registroLeitoList ?: [])

@@ -102,7 +102,7 @@ const routes: Routes = [
             component: ApachePacienteListComponent,
             canActivate: [AuthGuard]
           }, {
-            path: 'form',
+            path: 'form/:id',
             component: ApacheFormComponent,
             canActivate: [AuthGuard],
           }

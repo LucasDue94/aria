@@ -18,7 +18,7 @@ class RegistroLeitoController {
     }
 
     @Secured('ROLE_ATENDIMENTO_SHOW')
-    def show(String registro, String leito, String dataEntrada) {
-        respond registroLeitoService.get(new RegistroLeito(registroAtendimento: Atendimento.load(registro), leito: Leito.load(leito), dataEntrada: dataEntrada))
+    def show(String id) {
+        respond registroLeitoService.get(id)
     }
 }

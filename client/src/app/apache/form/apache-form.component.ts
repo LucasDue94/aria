@@ -9,6 +9,7 @@ import {faCheck, faExclamationCircle, faFrown, faInfoCircle} from '@fortawesome/
 import {AtendimentoService} from '../../core/atendimento/atendimento.service';
 import {Apache} from '../../core/apache/apache';
 import {RegistroLeito} from '../../core/registroLeito/registroLeito';
+import {RegistroLeitoService} from '../../core/registroLeito/registro-leito.service';
 
 @Component({
   selector: 'apache-form',
@@ -41,43 +42,26 @@ export class ApacheFormComponent implements OnInit {
   constructor(private spinner: SpinnerService, private alert: AlertService,
               private title: TitleService, private fb: FormBuilder,
               private route: ActivatedRoute, private apacheService: ApacheService,
-              private registroAtendimentoService: AtendimentoService,
+              private registroLeitoService: RegistroLeitoService,
               private alertService: AlertService, private router: Router) {
 
   }
 
   ngOnInit() {
+    this.spinner.show();
+    this.title.send('Apache II - Formulário');
     if (window.innerWidth < 1024) {
       this.labelPosition = 'top';
     }
-    this.title.send('Apache II - Formulário');
-    this.spinner.show();
-    this.registroAtendimentoService.getRegistroAtendimetoLeito(
-      this.route.snapshot.queryParamMap.get('registro'),
-      this.route.snapshot.queryParamMap.get('leito'),
-      this.route.snapshot.queryParamMap.get('dataEntrada'))
-      .subscribe((registroLeito) => {
+    this.registroLeitoService.get(this.route.snapshot.params.id)
+      .subscribe((registroLeito: RegistroLeito) => {
         this.registroLeito = registroLeito;
-      });
-    const apacheId = this.route.snapshot.queryParamMap.get('apacheId');
-    if (apacheId) {
-      this.apacheService.get(apacheId).subscribe(res => {
-        if (res.hasOwnProperty('error')) {
-          const messageError = res.error.error.message;
-          this.alertService.send({
-            message: messageError,
-            type: 'error',
-            icon: faFrown
-          });
-        } else {
-          this.apache = res;
+        if(this.registroLeito.apache) {
+          this.apache = this.registroLeito.apache;
           this.calculaPressaoMedia();
         }
         this.spinner.hide();
       });
-    } else {
-      this.spinner.hide();
-    }
   }
 
   calculaPressaoMedia() {
@@ -130,17 +114,10 @@ export class ApacheFormComponent implements OnInit {
     return true;
   }
 
-  setFields() {
-    this.apache.registroAtendimentoLeito = new RegistroLeito();
-    this.apache.registroAtendimentoLeito.atendimento = this.registroLeito.registroAtendimento.id;
-    this.apache.registroAtendimentoLeito.dataEntrada = this.registroLeito.dataEntrada;
-    this.apache.registroAtendimentoLeito.leito = this.registroLeito.leito.id;
-  }
-
   save() {
-    this.setFields();
     this.send = true;
     if (!this.hasErrors()) {
+      this.apache.registroLeito = this.registroLeito.id;
       this.apacheService.save(this.apache).subscribe(res => {
         let messageError = '';
         if (res.hasOwnProperty('error')) {
