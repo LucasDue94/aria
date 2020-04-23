@@ -64,13 +64,16 @@ abstract class RegistroLeitoService {
                               and rl2.dataEntrada > rl.dataEntrada)\n"""
         }
 
+
+        if (query.length() > 0) query.insert (0, 'where ')
+
         String hql = """select rl
             from RegistroLeito rl
                 inner join rl.atendimento a
                 inner join rl.leito l
                 inner join l.setor s
-            where $query
-            order by rl.dataEntrada desc"""
+                $query
+                order by rl.dataEntrada desc"""
 
         RegistroLeito.findAll hql, queryParams, args
     }
