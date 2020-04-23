@@ -1,43 +1,50 @@
 import {Leito} from '../leito/leito';
 import {Atendimento} from '../atendimento/atendimento';
 import {Nas} from '../nas/nas';
+import {Apache} from '../apache/apache';
 
 
 export class RegistroLeito {
+  id: string;
   atendimento: Atendimento;
   leito: Leito;
   dataEntrada: string;
   dataAlta: string;
   nas: Nas[];
+  apache: Apache;
 
   constructor(object?: any) {
     if (object) {
-
       if (object.hasOwnProperty('atendimento')) {
-        this.atendimento = new Atendimento(object.registroAtendimento);
-        delete object['registroAtendimento'];
+        this.atendimento = new Atendimento(object.atendimento);
+        delete object.atendimento;
+      }
+
+      if (object.hasOwnProperty('apache')) {
+        this.apache = new Apache(object.apache);
+        delete object.apache;
       }
 
       if (object.hasOwnProperty('nas')) {
-        this.nas = object['nas'].map((obj: any) => {
+        this.nas = object.nas.map((obj: any) => {
           return new Nas(obj);
         });
-        delete object['nas'];
+        delete object.nas;
       }
 
       if (object.hasOwnProperty('leito')) {
-        this.leito = object['leito'];
-        delete object['leito'];
+        this.leito = object.leito;
+        delete object.leito;
       }
 
-      for (var prop in object) {
+      for (const prop in object) {
         this[prop] = object[prop];
       }
     }
   }
 
   lastNas() {
-    this.nas = this.nas.sort(function(a, b) {
+    this.nas = this.nas.sort((a, b) => {
       if (a.dataCriacao > b.dataCriacao) {
         return 1;
       } else {

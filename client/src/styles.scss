@@ -487,10 +487,6 @@ tspan {
   border-color: $gray-100 !important;
 }
 
-.hiden {
-  display: none !important;
-}
-
 // -- Flex --
 .flex-1 {
   flex: 1 !important;
@@ -510,4 +506,8 @@ tspan {
 
 .flex-5 {
   flex: 5 !important;
+}
+
+.d-none{
+  display: none;
 }

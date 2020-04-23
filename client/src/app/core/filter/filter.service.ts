@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {Alert} from "../alert/alert";
-import {Observable, Subject} from "rxjs";
+import {Alert} from '../alert/alert';
+import {Observable, Subject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class FilterService {
   }
 
   receive(): Observable<any> {
-    return this.subject.asObservable()
+    return this.subject.asObservable();
   }
 
   send(params) {

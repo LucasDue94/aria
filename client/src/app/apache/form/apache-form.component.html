@@ -1,9 +1,9 @@
 <main class="container-apache">
-  <paciente-info [paciente]="registroLeito?.registroAtendimento?.paciente"
-                 [extras]="[{label: 'Registro', value: registroLeito?.registroAtendimento?.id},
+  <paciente-info [paciente]="registroLeito?.atendimento?.paciente"
+                 [extras]="[{label: 'Registro', value: registroLeito?.atendimento?.id},
                  {label: 'Entrada',value:registroLeito?.dataEntrada | date:'dd/MM/yyyy - HH:mm'},
-                 {label: 'Saída', value: (registroLeito?.dataAlta || registroLeito?.registroAtendimento?.dataAlta) | date:'dd/MM/yyyy - HH:mm'},
-                 {label:'Motivo alta', value: registroLeito?.registroAtendimento?.motivoAlta?.descricao},
+                 {label: 'Saída', value: (registroLeito?.dataAlta || registroLeito?.atendimento?.dataAlta) | date:'dd/MM/yyyy - HH:mm'},
+                 {label:'Motivo alta', value: registroLeito?.atendimento?.motivoAlta?.descricao},
                  {label: 'Setor', value: registroLeito?.leito?.setor?.sigla}]"></paciente-info>
   <section class="container-form-apache">
     <section class="flex-row align-selects">

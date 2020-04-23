@@ -1,14 +1,14 @@
-import {SetorWpd} from "../setor-wpd/setorWpd";
+import {Setor} from '../setor/setor';
 
 export class Leito {
   id: string;
   descricao: string;
-  setor: SetorWpd;
+  setor: Setor;
 
   constructor(object?: any) {
     if (object) {
       if (object.hasOwnProperty('setor')) {
-        this.setor = new SetorWpd(object['setor']);
+        this.setor = new Setor(object['setor']);
         delete object['setor'];
       }
 
