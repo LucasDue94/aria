@@ -16,7 +16,6 @@ class UrlMappings {
             get "/report/balao(.$format)?"(controller: "balao", action: 'gerarBalao')
             get '/atendimento/urgencias'(controller: "atendimento", action: 'listUrgencias')
             get '/atendimentos/show'(controller: "atendimento", action: 'show')
-            get '/registroLeito/admissoes'(controller: "registroLeito", action: 'admissions')
             get '/apache/relatorio'(controller: "apache", action: 'report')
             get '/apache/notificacoes'(controller: "apache", action: 'notificacoes')
             get '/incidente/relatorio'(controller: "incidente", action: 'report')

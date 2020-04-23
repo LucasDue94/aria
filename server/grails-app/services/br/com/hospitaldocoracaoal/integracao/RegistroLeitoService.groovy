@@ -88,50 +88,6 @@ abstract class RegistroLeitoService {
         RegistroLeito.findAll hql, queryParams, args
     }
 
-    List<RegistroLeito> admissoesSetor(GrailsParameterMap args, String termo, String setorId, String dataEntradaInicio,
-                                       String dataEntradaFim) {
-
-        def criteria = RegistroLeito.createCriteria()
-        Map queryArgs = (Map) args.clone()
-        if (termo != null && !termo.empty) {
-            queryArgs.remove 'sort'
-            queryArgs.remove 'order'
-        }
-
-        criteria.list(queryArgs) {
-            createAlias 'leito', 'lei', INNER_JOIN
-            createAlias 'lei.setor', 'setor', INNER_JOIN
-
-            if (termo != null && !termo.empty) {
-                createAlias 'atendimento', 'at', INNER_JOIN
-                createAlias 'at.paciente', 'paciente', INNER_JOIN
-
-                or {
-                    ilike 'at.id', "%$termo%"
-                    ilike 'paciente.id', "%$termo%"
-                    ilike 'paciente.nome', "%$termo%"
-                }
-            }
-
-            if (setorId != null && setorId != '' && setorId != 'null') {
-                Setor s = Setor.get setorId
-                eq 'id', s.id
-            } else {
-                List<Setor> setoresAria = Setor.findAllByTipoSetor(TipoSetor.UTI)
-                List<Setor> setores = SetorWpd.getAll(setoresAria.setorWpd.id)
-
-                'in' 'id', setores.id
-            }
-
-            if (dataEntradaInicio != null && dataEntradaInicio != '' && dataEntradaFim != null && dataEntradaFim != '') {
-                Date dataInicio = DataUtils.getFormatterToDate(dataEntradaInicio)
-                Date dataFim = DataUtils.endOfDay(DataUtils.getFormatterToDate(dataEntradaFim))
-
-                between 'dataEntrada', dataInicio, dataFim
-            }
-        } as List<RegistroLeito>
-    }
-
     abstract Long count()
 
     abstract void delete(Serializable id)

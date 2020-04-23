@@ -21,13 +21,4 @@ class RegistroLeitoController {
     def show(String id) {
         respond registroLeitoService.get(id)
     }
-
-    @Secured('ROLE_ATENDIMENTO_INDEX')
-    def admissions(Integer max, String termo, String setorId, String dataEntradaInicio,
-                   String dataEntradaFim) {
-        params.sort = 'dataEntrada'
-        params.order = 'desc'
-        params.max = Math.min(max ?: 10, 100)
-        respond registroLeitoService.admissoesSetor(params, termo, setorId, dataEntradaInicio, dataEntradaFim)
-    }
 }
