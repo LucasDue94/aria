@@ -61,6 +61,7 @@
           "Balão"
         ],
         "summary": "Retorna um JSON array de porta balão",
+        "description": "A URI /balao retorna um porta balão.",
         "security": [
           {
             "APIKeyHeader": []
@@ -79,15 +80,30 @@
         "tags": [
           "Balão"
         ],
-        "summary": "Adiciona um balão",
-        "description": "Para adicionar um balão o atendimento deve ser do tipo urgência",
+        "summary": "O método adiciona um novo porta balão",
+        "operationId": "addBalao",
+        "description": "Para criar um novo porta balão é necessário passar no corpo da requisição um objeto do tipo balão como mostrado no exemplo abaixo.",
         "parameters": [
           {
             "in": "body",
             "name": "body",
-            "required": true,
             "schema": {
-              "$ref": "#/definitions/Balao"
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "dataHoraBalao": {
+                  "type": "string"
+                },
+                "atendimento": {
+                  "type": "string"
+                }
+              },
+              "example": {
+                "id": 21,
+                "dataHoraBalao": "2009-07-31 09:10",
+                "atendimento": "0003149"
+              }
             }
           }
         ],
@@ -103,12 +119,45 @@
         }
       }
     },
+    "/balao/{id}": {
+      "put": {
+        "tags": [
+          "Balão"
+        ],
+        "summary": "O método atualiza um porta balão",
+        "operationId": "updateBalao",
+        "description": "Para atualizar um porta balão é necessário passar o ID por url e o objeto atualizado no corpo da requisição.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "balão",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/ecg": {
       "get": {
         "tags": [
           "Ecg"
         ],
         "summary": "Retorna um JSON array de ecg",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/Ecg"
+            }
+          }
+        ],
         "security": [
           {
             "APIKeyHeader": []
@@ -146,22 +195,29 @@
             "description": "OK"
           }
         }
-      },
+      }
+    },
+    "/ecg/{id}": {
       "put": {
         "tags": [
           "Ecg"
         ],
-        "summary": "Atualiza um ecg existente ",
+        "operationId": "ecgUpdate",
+        "summary": "Atualiza um Ecg",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Ecg",
+            "type": "integer",
+            "required": true
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
           }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ]
+        }
       }
     },
     "/estratificacaoRisco": {
@@ -190,7 +246,38 @@
         "tags": [
           "Grupo"
         ],
-        "summary": "Retorna um JSON array de grupo",
+        "summary": "Retorna um JSON array de grupos",
+        "description": "De forma a simplificar o retorno do método, no exemplo a seguir retornamos um único grupo, importante enfatizar que o método retorna todos os grupos da aplicação.",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Grupo"
+            }
+          }
+        }
+      }
+    },
+    "/grupo/{id}": {
+      "get": {
+        "tags": [
+          "Grupo"
+        ],
+        "summary": "Retorna um JSON de grupo em específico.",
+        "description": "O método retorna um grupo específico baseado no ID que será passado no path da consulta, ex: /grupo/40. A resposta retornará o grupo de ID 40 de nome Padrão, como mostrado no exemplo abaixo.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          }
+        ],
         "security": [
           {
             "APIKeyHeader": []
@@ -209,36 +296,22 @@
         "tags": [
           "Grupo"
         ],
-        "summary": "Atualiza um grupo",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Grupo"
-        ],
-        "summary": "Adiciona um novo grupo",
+        "summary": "Atualiza um grupo em específico",
+        "description": "Para atualizar um grupo é necessário passar um ID no path da requisição, ex: /grupo/40 e no corpo da requisição passamos um objeto com a propriedade name e o valor a ser alterado.",
         "parameters": [
           {
-            "in": "body",
-            "name": "body",
-            "required": true,
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
             "schema": {
               "$ref": "#/definitions/Grupo"
             }
-          }
-        ],
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
           }
         }
       }
@@ -270,16 +343,61 @@
           "Registro Leito"
         ],
         "summary": "Retorna um JSON array de exames",
-        "security": [
+        "parameters": [
           {
-            "APIKeyHeader": []
+            "in": "query",
+            "name": "setorId",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "tipoSetor",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "dataEntradaInicio",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "dataEntradaFinal",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "internados",
+            "type": "boolean"
+          },
+          {
+            "in": "query",
+            "name": "termo",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "type": "integer"
           }
         ],
         "responses": {
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/RegistroLeito"
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "dataHoraBalao": {
+                  "type": "string"
+                },
+                "atendimento": {
+                  "type": "string"
+                }
+              },
+              "example": {
+                "id": 10421
+              }
             }
           }
         }
@@ -524,15 +642,20 @@
     "Balao": {
       "type": "object",
       "properties": {
+        "id": {
+          "type": "integer"
+        },
         "dataHoraBalao": {
           "type": "string",
           "format": "date"
         },
-        "atendimento": {
-          "type": "object",
-          "example": "AtendimentoId",
-          "$ref": "#/definitions/Atendimento"
+        "atendimentoId": {
+          "type": "string"
         }
+      },
+      "example": {
+        "id": 21,
+        "dataHoraBalao": "2009-07-31 09:10"
       }
     },
     "Cid": {
@@ -609,6 +732,9 @@
     "Ecg": {
       "type": "object",
       "properties": {
+        "id": {
+          "type": "integer"
+        },
         "dataHoraPorta": {
           "type": "string",
           "format": "date"
@@ -616,10 +742,12 @@
         "dataHoraEcg": {
           "type": "string",
           "format": "date"
-        },
-        "atendimento": {
-          "type": "string"
         }
+      },
+      "example": {
+        "id": 61,
+        "dataHoraPorta": "2013-01-15 15:02",
+        "dataHoraEcg": "2013-01-15 18:02"
       }
     },
     "EstratificacaoRisco": {
@@ -796,6 +924,9 @@
           "type": "object",
           "$ref": "#/definitions/Atendimento"
         }
+      },
+      "example": {
+        "id": "0003967"
       }
     },
     "Grupo": {
@@ -822,6 +953,20 @@
             "$ref": ""
           }
         }
+      },
+      "example": {
+        "id": 40,
+        "habilitado": true,
+        "name": "Padrão",
+        "permissoes": [
+          {
+            "id": 142,
+            "alias": "perfil_epidemiológico",
+            "authority": "ROLE_PERFIL_EPIDEMIOLOGICO_INDEX",
+            "nome": "Listar Perfis Epidemiológicos"
+          }
+        ],
+        "userCount": 3
       }
     },
     "Incidente": {
