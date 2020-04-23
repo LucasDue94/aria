@@ -19,6 +19,7 @@ abstract class RegistroLeitoService {
 
         String setorId = args.setorId
         String tipoSetorId = args.tipoSetor
+        String termo = args.termo
         Boolean internos = args.boolean('internos')
         Date dataEntradaInicio = null
         Date dataEntradaFim = null
@@ -28,9 +29,17 @@ abstract class RegistroLeitoService {
             dataEntradaFim = DataUtils.endOfDay(DataUtils.getFormatterToDate(args.dataEntradaFim))
 
             if (query.length() > 0) query.append 'and '
-            query.append('rl.dataEntrada between :dataEntradaInicio and :dataEntradaFim')
+            query.append('rl.dataEntrada between :dataEntradaInicio and :dataEntradaFim\n')
             queryParams.put('dataEntradaInicio', dataEntradaInicio)
             queryParams.put('dataEntradaFim', dataEntradaFim)
+        }
+
+        if(termo != null && !termo.empty) {
+            if (query.length() > 0) query.append 'and '
+            query.append('lower(p.nome) like lower(:termo) or ')
+            query.append('a.id like :atendimentoId\n')
+            queryParams.put('termo', '%' + termo +'%')
+            queryParams.put('atendimentoId', termo + '%')
         }
 
         if (setorId != null && !setorId.empty) {
@@ -70,6 +79,7 @@ abstract class RegistroLeitoService {
         String hql = """select rl
             from RegistroLeito rl
                 inner join rl.atendimento a
+                inner join a.paciente p
                 inner join rl.leito l
                 inner join l.setor s
                 $query
