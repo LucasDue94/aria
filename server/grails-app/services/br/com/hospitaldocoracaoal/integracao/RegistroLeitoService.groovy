@@ -27,7 +27,7 @@ abstract class RegistroLeitoService {
         if (tipoSetorId != null && !tipoSetorId.empty) {
             TipoSetor tipoSetor = TipoSetor.tipoSetorPorId(tipoSetorId)
             if (query.length() > 0) query.append 'and '
-            query.append 's.tipoSetor = :tipoSetor\n'
+            query.append 's.id in (select id from Setor where tipoSetor = :tipoSetor)\n'
             queryParams.put('tipoSetor', tipoSetor)
         }
 
