@@ -13,9 +13,25 @@ abstract class RegistroLeitoService {
 
     abstract RegistroLeito get(Serializable id)
 
-    def list(GrailsParameterMap args, String setorId, String tipoSetorId, Boolean internos) {
-        StringBuilder query = new StringBuilder()
+    def list(GrailsParameterMap args) {
         def queryParams = [:]
+        StringBuilder query = new StringBuilder()
+
+        String setorId = args.setorId
+        String tipoSetorId = args.tipoSetor
+        Boolean internos = args.boolean('internos')
+        Date dataEntradaInicio = null
+        Date dataEntradaFim = null
+
+        if (args.dataEntradaInicio != null && args.dataEntradaInicio != '' && args.dataEntradaFim != null && args.dataEntradaFim != '') {
+            dataEntradaInicio = DataUtils.getFormatterToDate(args.dataEntradaInicio)
+            dataEntradaFim = DataUtils.endOfDay(DataUtils.getFormatterToDate(args.dataEntradaFim))
+
+            if (query.length() > 0) query.append 'and '
+            query.append('rl.dataEntrada between :dataEntradaInicio and :dataEntradaFim')
+            queryParams.put('dataEntradaInicio', dataEntradaInicio)
+            queryParams.put('dataEntradaFim', dataEntradaFim)
+        }
 
         if (setorId != null && !setorId.empty) {
             Setor setor = Setor.get setorId
