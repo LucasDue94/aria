@@ -44,18 +44,126 @@
         "tags": [
           "Atendimento"
         ],
-        "summary": "Retorna um JSON array de atendimentos",
+        "summary": "Retorna um JSON array de grupos",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/Atendimento"
+              "properties": {
+                "items": {
+                  "type": "object"
+                }
+              },
+              "example": [
+                {
+                  "id": "0232948",
+                  "dataEntrada": "2020-04-23 14:40",
+                  "setor": {
+                    "id": "0003",
+                    "sigla": "EMER",
+                    "habilitado": true,
+                    "descricao": "EMERGENCIA CARDIOLOGIA HCOR",
+                    "prazoApache": 0,
+                    "tipoSetor": "EMERGENCIA"
+                  },
+                  "tipo": "U",
+                  "paciente": {
+                    "id": "000404053",
+                    "nome": "ALESSANDRA LAMENHA FEITOSA SAMPAIO",
+                    "sexo": "F",
+                    "nomeMae": "MARIA AUXILIADORA LAMENHA FEITOSA",
+                    "nascimento": "1970-06-10 00:00"
+                  }
+                },
+                {
+                  "id": "0232947",
+                  "dataEntrada": "2020-04-23 14:18",
+                  "setor": {
+                    "id": "0003",
+                    "sigla": "EMER",
+                    "habilitado": true,
+                    "descricao": "EMERGENCIA CARDIOLOGIA HCOR",
+                    "prazoApache": 0,
+                    "tipoSetor": "EMERGENCIA"
+                  },
+                  "tipo": "U",
+                  "paciente": {
+                    "id": "000351908",
+                    "nome": "TEREZA PEREIRA ALENCAR",
+                    "sexo": "F",
+                    "nomeMae": "ATELVINA DE ARAUJO",
+                    "nascimento": "1932-04-06 01:00"
+                  }
+                }
+              ]
             }
           }
         }
       }
     },
     "/balao": {
+      "post": {
+        "tags": [
+          "Balão"
+        ],
+        "summary": "O método adiciona um novo porta balão",
+        "operationId": "addBalao",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "dataHoraBalao": {
+                  "type": "string"
+                },
+                "atendimento": {
+                  "type": "string"
+                }
+              },
+              "example": {
+                "dataHoraBalao": "2009-07-31 09:10",
+                "atendimento": "0003149"
+              }
+            }
+          }
+        ],
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "dataHoraBalao": {
+                  "type": "string"
+                },
+                "atendimento": {
+                  "type": "string"
+                }
+              },
+              "example": {
+                "id": 1,
+                "dataHoraBalao": "2009-07-31 09:10"
+              }
+            }
+          }
+        }
+      },
       "get": {
         "tags": [
           "Balão"
@@ -70,56 +178,83 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/Balao"
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "dataHoraBalao": {
+                  "type": "string"
+                }
+              },
+              "example": {
+                "id": 1,
+                "dataHoraBalao": "2009-07-31 09:10"
+              }
             }
           }
         }
-      },
-      "post": {
+      }
+    },
+    "/balao/{id}": {
+      "put": {
         "tags": [
           "Balão"
         ],
-        "summary": "Adiciona um balão",
-        "description": "Para adicionar um balão o atendimento deve ser do tipo urgência",
+        "summary": "O método atualiza um porta balão",
+        "operationId": "updateBalao",
+        "description": "Para atualizar um porta balão é necessário passar o ID no path da requisão e as propriedades do objeto que deseja atualizar no corpo da requisição  no exemplo abaixo foi atualizado a dataHoraBalao.",
         "parameters": [
           {
-            "in": "body",
-            "name": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/Balao"
-            }
-          }
-        ],
-        "security": [
+            "name": "id",
+            "in": "path",
+            "description": "balão",
+            "type": "integer",
+            "required": true
+          },
           {
-            "APIKeyHeader": []
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "properties": {
+                "dataHoraBalao": {
+                  "type": "string"
+                },
+                "atendimento": {
+                  "type": "string"
+                }
+              },
+              "example": {
+                "dataHoraBalao": "09:20"
+              }
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "schema": {
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "dataHoraBalao": {
+                  "type": "string"
+                },
+                "atendimento": {
+                  "type": "string"
+                }
+              },
+              "example": {
+                "id": 1,
+                "dataHoraBalao": "2009-07-31 09:20",
+                "atendimento": "0003149"
+              }
+            }
           }
         }
       }
     },
     "/ecg": {
-      "get": {
-        "tags": [
-          "Ecg"
-        ],
-        "summary": "Retorna um JSON array de ecg",
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
       "post": {
         "tags": [
           "Ecg"
@@ -131,6 +266,65 @@
             "in": "body",
             "name": "body",
             "required": true,
+            "schema": {
+              "properties": {
+                "dataHoraPorta": {
+                  "type": "string"
+                },
+                "dataHoraEcg": {
+                  "type": "string"
+                },
+                "atendimento": {
+                  "type": "string"
+                }
+              },
+              "example": {
+                "dataHoraPorta": "2013-01-15 15:02",
+                "dataHoraEcg": "2013-01-15 18:02",
+                "atendimento": "0062147"
+              }
+            }
+          }
+        ],
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "dataHoraPorta": {
+                  "type": "string"
+                },
+                "dataHoraEcg": {
+                  "type": "string"
+                }
+              },
+              "example": {
+                "id": 1,
+                "dataHoraPorta": "2013-01-15 15:02",
+                "dataHoraEcg": "2013-01-15 18:02"
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Ecg"
+        ],
+        "summary": "Retorna um JSON array de ecg",
+        "description": "De forma a simplificar o retorno do método, no exemplo a seguir é retornado um único ECG, importante enfatizar que o método retorna um array de ECG.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
             "schema": {
               "$ref": "#/definitions/Ecg"
             }
@@ -146,22 +340,70 @@
             "description": "OK"
           }
         }
-      },
+      }
+    },
+    "/ecg/{id}": {
       "put": {
         "tags": [
           "Ecg"
         ],
-        "summary": "Atualiza um ecg existente ",
+        "operationId": "ecgUpdate",
+        "summary": "Atualiza um Ecg",
+        "description": "No exemplo abaixo passamos o ID do ecg a ser atualizado, através do path ex: /ecg/1 e no corpo da aplicação é passado os parametros dataHoraPorta e dataHoraEcg como mostrado no exemplo abaixo.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Ecg",
+            "type": "integer",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "dataHoraPorta": {
+                  "type": "string"
+                },
+                "dataHoraEcg": {
+                  "type": "string"
+                }
+              },
+              "example": {
+                "dataHoraPorta": "2013-01-15 15:00",
+                "dataHoraEcg": "2013-01-15 15:30"
+              }
+            }
+          }
+        ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "schema": {
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "dataHoraPorta": {
+                  "type": "string"
+                },
+                "dataHoraEcg": {
+                  "type": "string"
+                }
+              },
+              "example": {
+                "id": 1,
+                "dataHoraPorta": "2013-01-15 15:00",
+                "dataHoraEcg": "2013-01-15 15:30 "
+              }
+            }
           }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ]
+        }
       }
     },
     "/estratificacaoRisco": {
@@ -186,11 +428,84 @@
       }
     },
     "/grupo": {
+      "post": {
+        "tags": [
+          "Grupo"
+        ],
+        "summary": "Cria um novo Grupo",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "items": {
+                  "type": "object"
+                }
+              },
+              "example": {
+                "name": "Enfermagem",
+                "permissoes": [
+                  {
+                    "id": 1,
+                    "alias": "perfil epidemiológico",
+                    "authority": "ROLE_PERFIL_EPIDEMIOLOGICO_INDEX",
+                    "nome": "Listar Perfis Epidemiológicos"
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "habilitado": {
+                  "type": "boolean"
+                },
+                "permissoes": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              },
+              "example": {
+                "id": 1,
+                "habilitado": true,
+                "name": "Enfermagem",
+                "permissoes": [
+                  {
+                    "id": 1,
+                    "alias": "perfil epidemiológico",
+                    "authority": "ROLE_PERFIL_EPIDEMIOLOGICO_INDEX",
+                    "nome": "Listar Perfis Epidemiológicos"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      },
       "get": {
         "tags": [
           "Grupo"
         ],
-        "summary": "Retorna um JSON array de grupo",
+        "summary": "Retorna um JSON array de grupos",
         "security": [
           {
             "APIKeyHeader": []
@@ -200,35 +515,84 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/Grupo"
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "habilitado": {
+                  "type": "boolean"
+                },
+                "permissoes": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              },
+              "example": [
+                {
+                  "id": 1,
+                  "habilitado": true,
+                  "name": "Enfermagem",
+                  "permissoes": [
+                    {
+                      "id": 1,
+                      "alias": "perfil epidemiológico",
+                      "authority": "ROLE_PERFIL_EPIDEMIOLOGICO_INDEX",
+                      "nome": "Listar Perfis Epidemiológicos"
+                    }
+                  ],
+                  "usersCount": 0
+                },
+                {
+                  "id": 2,
+                  "habilitado": true,
+                  "name": "Padrão",
+                  "permissoes": [
+                    {
+                      "id": 1,
+                      "alias": "perfil epidemiológico",
+                      "authority": "ROLE_PERFIL_EPIDEMIOLOGICO_INDEX",
+                      "nome": "Listar Perfis Epidemiológicos"
+                    }
+                  ],
+                  "usersCount": 0
+                },
+                {
+                  "id": 3,
+                  "habilitado": true,
+                  "name": "Administrador",
+                  "permissoes": [],
+                  "usersCount": 0
+                },
+                {
+                  "id": 4,
+                  "habilitado": true,
+                  "name": "Qualidade",
+                  "permissoes": [],
+                  "usersCount": 0
+                }
+              ]
             }
           }
         }
-      },
-      "put": {
+      }
+    },
+    "/grupo/{id}": {
+      "get": {
         "tags": [
           "Grupo"
         ],
-        "summary": "Atualiza um grupo",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Grupo"
-        ],
-        "summary": "Adiciona um novo grupo",
+        "summary": "Retorna um JSON de grupo em específico.",
         "parameters": [
           {
-            "in": "body",
-            "name": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/Grupo"
-            }
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "required": true
           }
         ],
         "security": [
@@ -238,12 +602,149 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "schema": {
+              "properties": {
+                "items": {
+                  "type": "object"
+                }
+              },
+              "example": {
+                "id": 1,
+                "habilitado": true,
+                "name": "Enfermagem",
+                "permissoes": [
+                  {
+                    "id": 1,
+                    "alias": "perfil epidemiológico",
+                    "authority": "ROLE_PERFIL_EPIDEMIOLOGICO_INDEX",
+                    "nome": "Listar Perfis Epidemiológicos"
+                  }
+                ],
+                "userCount": 0
+              }
+            }
           }
         }
+      },
+      "put": {
+        "tags": [
+          "Grupo"
+        ],
+        "summary": "Atualiza um grupo em específico",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "properties": {
+                "items": {
+                  "type": "object"
+                }
+              },
+              "example": {
+                "habilitado": false,
+                "name": "Enfermagem Hcal",
+                "permissoes": [
+                  {
+                    "id": 2,
+                    "alias": "porta balão",
+                    "authority": "ROLE_BALAO_INDEX",
+                    "nome": "Listar porta balão"
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "properties": {
+                "items": {
+                  "type": "object"
+                }
+              },
+              "example": {
+                "id": 1,
+                "habilitado": false,
+                "name": "Enfermagem Hcal",
+                "permissoes": [
+                  {
+                    "id": 2,
+                    "alias": "porta balão",
+                    "authority": "ROLE_BALAO_INDEX",
+                    "nome": "Listar porta balão"
+                  }
+                ],
+                "usersCount": 0
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       }
     },
     "/risco": {
+      "post": {
+        "tags": [
+          "Risco"
+        ],
+        "summary": "Cria um novo Risco",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "items": {
+                  "type": "object"
+                }
+              },
+              "example": {
+                "habilitado": true,
+                "nome": "Risco de queda"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "properties": {
+                "items": {
+                  "type": "object"
+                }
+              },
+              "example": [
+                {
+                  "id": 1,
+                  "habilitado": true,
+                  "nome": "Risco de queda"
+                }
+              ]
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      },
       "get": {
         "tags": [
           "Risco"
@@ -258,18 +759,47 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/Risco"
+              "properties": {
+                "items": {
+                  "type": "object"
+                }
+              },
+              "example": [
+                {
+                  "id": 1,
+                  "habilitado": true,
+                  "nome": "Risco de queda"
+                },
+                {
+                  "id": 2,
+                  "habilitado": true,
+                  "nome": "Risco de flebite"
+                },
+                {
+                  "id": 3,
+                  "habilitado": true,
+                  "nome": "Risco de alergia"
+                }
+              ]
             }
           }
         }
       }
     },
-    "/registroLeito": {
+    "/risco/{id}": {
       "get": {
         "tags": [
-          "Registro Leito"
+          "Risco"
         ],
-        "summary": "Retorna um JSON array de exames",
+        "summary": "Retorna um JSON de risco específico.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          }
+        ],
         "security": [
           {
             "APIKeyHeader": []
@@ -279,10 +809,252 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/RegistroLeito"
+              "properties": {
+                "items": {
+                  "type": "object"
+                }
+              },
+              "example": [
+                {
+                  "id": 1,
+                  "habilitado": true,
+                  "nome": "Risco de queda"
+                }
+              ]
             }
           }
         }
+      },
+      "put": {
+        "tags": [
+          "Risco"
+        ],
+        "summary": "Atualiza um risco em específico",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "properties": {
+                "items": {
+                  "type": "object"
+                }
+              },
+              "example": {
+                "habilitado": true,
+                "nome": "Alteração da consciencia"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "properties": {
+                "items": {
+                  "type": "object"
+                }
+              },
+              "example": [
+                {
+                  "id": 1,
+                  "habilitado": true,
+                  "nome": "Alteração da consciencia"
+                }
+              ]
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/registroLeito": {
+      "get": {
+        "tags": [
+          "Registro Leito"
+        ],
+        "summary": "Retorna um JSON array de exames",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "setorId",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "tipoSetor",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "dataEntradaInicio",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "dataEntradaFinal",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "internados",
+            "type": "boolean"
+          },
+          {
+            "in": "query",
+            "name": "termo",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "properties": {
+                "items": {
+                  "type": "object"
+                }
+              },
+              "example": [
+                {
+                  "id": 446206,
+                  "dataEntrada": "2020-04-23 14:11",
+                  "nas": [],
+                  "atendimento": {
+                    "id": "0232946",
+                    "dataEntrada": "2020-04-23 14:11",
+                    "setor": {
+                      "id": "0125",
+                      "sigla": "UPO",
+                      "habilitado": true,
+                      "descricao": "CTI - UPO",
+                      "prazoApache": 0,
+                      "tipoSetor": "UTI"
+                    },
+                    "tipo": "I",
+                    "paciente": {
+                      "id": "000403366",
+                      "nome": "ALEXANDRE RAMOS DE LIMA",
+                      "sexo": "M",
+                      "nomeMae": "SANDRA MARIA DA SILVA BEZERRA",
+                      "nascimento": "1984-02-26 00:00"
+                    }
+                  },
+                  "dataAlta": null,
+                  "leito": {
+                    "id": "UPO01",
+                    "descricao": "CTI UPO 01",
+                    "setor": {
+                      "id": "0125",
+                      "sigla": "UPO",
+                      "habilitado": true,
+                      "descricao": "CTI - UPO",
+                      "prazoApache": 0,
+                      "tipoSetor": "UTI"
+                    }
+                  }
+                },
+                {
+                  "id": 446203,
+                  "dataEntrada": "2020-04-23 13:00",
+                  "nas": [],
+                  "atendimento": {
+                    "id": "0232882",
+                    "dataEntrada": "2020-04-22 17:16",
+                    "setor": {
+                      "id": "0037",
+                      "sigla": "UN II",
+                      "habilitado": true,
+                      "descricao": "UNIDADE II",
+                      "prazoApache": 0,
+                      "tipoSetor": "INTERNACAO"
+                    },
+                    "tipo": "I",
+                    "paciente": {
+                      "id": "000404042",
+                      "nome": "FRANCISCO MEDEIROS",
+                      "sexo": "M",
+                      "nomeMae": "MARIA OLIVIA DE MEDEIROS",
+                      "nascimento": "1933-03-06 01:00"
+                    }
+                  },
+                  "dataAlta": null,
+                  "leito": {
+                    "id": "URT01",
+                    "descricao": "CTI URTE 01",
+                    "setor": {
+                      "id": "0126",
+                      "sigla": "URTE",
+                      "habilitado": true,
+                      "descricao": "CTI - URTE",
+                      "prazoApache": 0,
+                      "tipoSetor": "UTI"
+                    }
+                  }
+                },
+                {
+                  "id": 446198,
+                  "dataEntrada": "2020-04-23 12:31",
+                  "nas": [],
+                  "atendimento": {
+                    "id": "0232940",
+                    "dataEntrada": "2020-04-23 12:31",
+                    "setor": {
+                      "id": "0037",
+                      "sigla": "UN II",
+                      "habilitado": true,
+                      "descricao": "UNIDADE II",
+                      "prazoApache": 0,
+                      "tipoSetor": "INTERNACAO"
+                    },
+                    "tipo": "I",
+                    "paciente": {
+                      "id": "000404044",
+                      "nome": "LUCAS DE MENEZES SANTOS",
+                      "sexo": "M",
+                      "nomeMae": "SUELY TELES DE MENEZES",
+                      "nascimento": "1995-12-09 00:00"
+                    }
+                  },
+                  "dataAlta": null,
+                  "leito": {
+                    "id": "EN206",
+                    "descricao": "ENFERMARIA 206",
+                    "setor": {
+                      "id": "0037",
+                      "sigla": "UN II",
+                      "habilitado": true,
+                      "descricao": "UNIDADE II",
+                      "prazoApache": 0,
+                      "tipoSetor": "INTERNACAO"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       }
     },
     "/paciente": {
@@ -290,7 +1062,7 @@
         "tags": [
           "Paciente"
         ],
-        "summary": "Retorna um JSON array de pacientes",
+        "summary": "Retorna um JSON array de grupos",
         "security": [
           {
             "APIKeyHeader": []
@@ -298,7 +1070,153 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "schema": {
+              "properties": {
+                "items": {
+                  "type": "object"
+                }
+              },
+              "example": [
+                {
+                  "id": "000348302",
+                  "nome": "IRANI BARROS ALVES",
+                  "sexo": "F",
+                  "nomeMae": "OTACILIA DOS SANTOS BARROS",
+                  "nascimento": "1965-04-14 01:00",
+                  "registrosAtendimento": [
+                    {
+                      "id": "0036083",
+                      "incidentes": [],
+                      "paciente": {
+                        "id": "000348302"
+                      },
+                      "dataEntrada": "2010-12-22 09:54",
+                      "setor": {
+                        "id": "0003"
+                      },
+                      "tipo": "U",
+                      "dataAlta": "2010-12-22 21:54",
+                      "motivoAlta": {
+                        "id": "12"
+                      },
+                      "registroLeitos": []
+                    },
+                    {
+                      "id": "0108305",
+                      "incidentes": [],
+                      "paciente": {
+                        "id": "000348302"
+                      },
+                      "dataEntrada": "2015-08-24 16:00",
+                      "setor": {
+                        "id": "0003"
+                      },
+                      "tipo": "U",
+                      "dataAlta": "2015-08-25 04:00",
+                      "motivoAlta": {
+                        "id": "12"
+                      },
+                      "registroLeitos": []
+                    }
+                  ]
+                },
+                {
+                  "id": "000348303",
+                  "nome": "RUTH COELHO DE BARROS PINTO",
+                  "sexo": "F",
+                  "nomeMae": "DALVA GONCALVES C DE BARROS",
+                  "nascimento": "1953-03-05 01:00",
+                  "registrosAtendimento": [
+                    {
+                      "id": "0123645",
+                      "incidentes": [],
+                      "paciente": {
+                        "id": "000348303"
+                      },
+                      "dataEntrada": "2016-04-29 10:55",
+                      "setor": {
+                        "id": "0003"
+                      },
+                      "tipo": "U",
+                      "dataAlta": "2016-04-29 22:55",
+                      "motivoAlta": {
+                        "id": "12"
+                      },
+                      "registroLeitos": []
+                    },
+                    {
+                      "id": "0036084",
+                      "incidentes": [],
+                      "paciente": {
+                        "id": "000348303"
+                      },
+                      "dataEntrada": "2010-12-22 10:47",
+                      "setor": {
+                        "id": "0003"
+                      },
+                      "tipo": "U",
+                      "dataAlta": "2010-12-22 22:47",
+                      "motivoAlta": {
+                        "id": "12"
+                      },
+                      "registroLeitos": []
+                    },
+                    {
+                      "id": "0146652",
+                      "incidentes": [],
+                      "paciente": {
+                        "id": "000348303"
+                      },
+                      "dataEntrada": "2017-05-04 18:52",
+                      "setor": {
+                        "id": "0003"
+                      },
+                      "tipo": "U",
+                      "dataAlta": "2017-05-05 06:52",
+                      "motivoAlta": {
+                        "id": "12"
+                      },
+                      "registroLeitos": []
+                    },
+                    {
+                      "id": "0099553",
+                      "incidentes": [],
+                      "paciente": {
+                        "id": "000348303"
+                      },
+                      "dataEntrada": "2015-03-27 11:28",
+                      "setor": {
+                        "id": "0003"
+                      },
+                      "tipo": "U",
+                      "dataAlta": "2015-03-27 23:28",
+                      "motivoAlta": {
+                        "id": "12"
+                      },
+                      "registroLeitos": []
+                    },
+                    {
+                      "id": "0178459",
+                      "incidentes": [],
+                      "paciente": {
+                        "id": "000348303"
+                      },
+                      "dataEntrada": "2018-07-11 18:06",
+                      "setor": {
+                        "id": "0003"
+                      },
+                      "tipo": "U",
+                      "dataAlta": "2018-07-12 06:06",
+                      "motivoAlta": {
+                        "id": "12"
+                      },
+                      "registroLeitos": []
+                    }
+                  ]
+                }
+              ]
+            }
           }
         }
       }
@@ -318,7 +1236,85 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/Setor"
+              "properties": {
+                "items": {
+                  "type": "object"
+                }
+              },
+              "example": [
+                {
+                  "id": "0037",
+                  "sigla": "UN II",
+                  "habilitado": true,
+                  "descricao": "UNIDADE II",
+                  "prazoApache": 0,
+                  "tipoSetor": "INTERNACAO"
+                },
+                {
+                  "id": "0008",
+                  "sigla": "UTI",
+                  "habilitado": true,
+                  "descricao": "UTI HC",
+                  "prazoApache": 0,
+                  "tipoSetor": "UTI"
+                },
+                {
+                  "id": "0125",
+                  "sigla": "UPO",
+                  "habilitado": true,
+                  "descricao": "CTI - UPO",
+                  "prazoApache": 0,
+                  "tipoSetor": "UTI"
+                },
+                {
+                  "id": "0003",
+                  "sigla": "EMER",
+                  "habilitado": true,
+                  "descricao": "EMERGENCIA CARDIOLOGIA HCOR",
+                  "prazoApache": 0,
+                  "tipoSetor": "EMERGENCIA"
+                },
+                {
+                  "id": "0126",
+                  "sigla": "URTE",
+                  "habilitado": true,
+                  "descricao": "CTI - URTE",
+                  "prazoApache": 0,
+                  "tipoSetor": "UTI"
+                },
+                {
+                  "id": "0031",
+                  "sigla": "UN I",
+                  "habilitado": true,
+                  "descricao": "UNIDADE I HCOR",
+                  "prazoApache": 0,
+                  "tipoSetor": "INTERNACAO"
+                },
+                {
+                  "id": "0004",
+                  "sigla": "HEMO",
+                  "habilitado": true,
+                  "descricao": "HEMODINAMICA CD",
+                  "prazoApache": 0,
+                  "tipoSetor": "HEMODINAMICA"
+                },
+                {
+                  "id": "0034",
+                  "sigla": "AMB",
+                  "habilitado": true,
+                  "descricao": "AMBULATORIO - HCOR",
+                  "prazoApache": 0,
+                  "tipoSetor": "AMBULATORIO"
+                },
+                {
+                  "id": "0059",
+                  "sigla": "CD",
+                  "habilitado": true,
+                  "descricao": "RECEPCAO CENTRO DE DIAGNOSTICO",
+                  "prazoApache": 0,
+                  "tipoSetor": "AMBULATORIO"
+                }
+              ]
             }
           }
         }
@@ -339,7 +1335,1080 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/Usuario"
+              "properties": {
+                "items": {
+                  "type": "object"
+                }
+              },
+              "example": [
+                {
+                  "id": 54,
+                  "setores": [],
+                  "passwordExpired": false,
+                  "grupo": {
+                    "id": 39,
+                    "habilitado": true,
+                    "name": "Admin",
+                    "permissoes": [
+                      {
+                        "id": 166,
+                        "alias": "ecocardiograma",
+                        "authority": "ROLE_ECG_INDEX",
+                        "nome": "Listar ecg"
+                      },
+                      {
+                        "id": 141,
+                        "alias": "setor",
+                        "authority": "ROLE_SETOR_DELETE",
+                        "nome": "Excluir setor"
+                      },
+                      {
+                        "id": 169,
+                        "alias": "ecocardiograma",
+                        "authority": "ROLE_ECG_UPDATE",
+                        "nome": "Atualizar ecg"
+                      },
+                      {
+                        "id": 156,
+                        "alias": "tipo de incidente",
+                        "authority": "ROLE_TIPO_INCIDENTE_INDEX",
+                        "nome": "Listar tipos de incidente"
+                      },
+                      {
+                        "id": 177,
+                        "alias": "estratificação risco",
+                        "authority": "ROLE_ESTRATIFICACAO_INDEX",
+                        "nome": "Listar estratificações de risco"
+                      },
+                      {
+                        "id": 165,
+                        "alias": "porta balão",
+                        "authority": "ROLE_BALAO_DELETE",
+                        "nome": "Excluir porta balão"
+                      },
+                      {
+                        "id": 164,
+                        "alias": "porta balão",
+                        "authority": "ROLE_BALAO_UPDATE",
+                        "nome": "Atualizar porta balão"
+                      },
+                      {
+                        "id": 157,
+                        "alias": "tipo de incidente",
+                        "authority": "ROLE_TIPO_INCIDENTE_SHOW",
+                        "nome": "Ver tipo de incidente"
+                      },
+                      {
+                        "id": 158,
+                        "alias": "tipo de incidente",
+                        "authority": "ROLE_TIPO_INCIDENTE_SAVE",
+                        "nome": "Salvar tipo de incidente"
+                      },
+                      {
+                        "id": 140,
+                        "alias": "setor",
+                        "authority": "ROLE_SETOR_UPDATE",
+                        "nome": "Atualizar setor"
+                      },
+                      {
+                        "id": 170,
+                        "alias": "ecocardiograma",
+                        "authority": "ROLE_ECG_DELETE",
+                        "nome": "Excluir ecg"
+                      },
+                      {
+                        "id": 162,
+                        "alias": "porta balão",
+                        "authority": "ROLE_BALAO_SHOW",
+                        "nome": "Ver porta balão"
+                      },
+                      {
+                        "id": 163,
+                        "alias": "porta balão",
+                        "authority": "ROLE_BALAO_SAVE",
+                        "nome": "Salvar porta balão"
+                      },
+                      {
+                        "id": 154,
+                        "alias": "risco",
+                        "authority": "ROLE_RISCO_UPDATE",
+                        "nome": "Atualizar risco"
+                      },
+                      {
+                        "id": 161,
+                        "alias": "porta balão",
+                        "authority": "ROLE_BALAO_INDEX",
+                        "nome": "Listar porta balão"
+                      },
+                      {
+                        "id": 160,
+                        "alias": "tipo de incidente",
+                        "authority": "ROLE_TIPO_INCIDENTE_DELETE",
+                        "nome": "Excluir tipo de incidente"
+                      },
+                      {
+                        "id": 135,
+                        "alias": "grupo",
+                        "authority": "ROLE_GRUPO_UPDATE",
+                        "nome": "Atualizar grupo de usuário"
+                      },
+                      {
+                        "id": 147,
+                        "alias": "usuario",
+                        "authority": "ROLE_USUARIO_SHOW",
+                        "nome": "Ver usuário"
+                      },
+                      {
+                        "id": 142,
+                        "alias": "perfil epidemiológico",
+                        "authority": "ROLE_PERFIL_EPIDEMIOLOGICO_INDEX",
+                        "nome": "Listar Perfis Epidemiológicos"
+                      },
+                      {
+                        "id": 144,
+                        "alias": "paciente",
+                        "authority": "ROLE_PACIENTE_SHOW",
+                        "nome": "Ver Paciente"
+                      },
+                      {
+                        "id": 151,
+                        "alias": "risco",
+                        "authority": "ROLE_RISCO_INDEX",
+                        "nome": "Listar riscos"
+                      },
+                      {
+                        "id": 149,
+                        "alias": "usuario",
+                        "authority": "ROLE_USUARIO_UPDATE",
+                        "nome": "Atualizar usuário"
+                      },
+                      {
+                        "id": 128,
+                        "alias": "apache",
+                        "authority": "ROLE_APACHE_REPORT",
+                        "nome": "Ver relatório apache"
+                      },
+                      {
+                        "id": 180,
+                        "alias": "estratificação risco",
+                        "authority": "ROLE_ESTRATIFICACAO_UPDATE",
+                        "nome": "Atualizar estratificação de risco"
+                      },
+                      {
+                        "id": 179,
+                        "alias": "estratificação risco",
+                        "authority": "ROLE_ESTRATIFICACAO_SAVE",
+                        "nome": "Salvar estratificação de risco"
+                      },
+                      {
+                        "id": 178,
+                        "alias": "estratificação risco",
+                        "authority": "ROLE_ESTRATIFICACAO_SHOW",
+                        "nome": "Ver estratificação de risco"
+                      },
+                      {
+                        "id": 176,
+                        "alias": "incidente",
+                        "authority": "ROLE_INCIDENTE_REPORT",
+                        "nome": "Relatório incidente"
+                      },
+                      {
+                        "id": 150,
+                        "alias": "permissao",
+                        "authority": "ROLE_PERMISSAO_INDEX",
+                        "nome": "Listar Permissões"
+                      },
+                      {
+                        "id": 181,
+                        "alias": "estratificação risco",
+                        "authority": "ROLE_ESTRATIFICACAO_DELETE",
+                        "nome": "Excluir estratificação de risco"
+                      },
+                      {
+                        "id": 132,
+                        "alias": "grupo",
+                        "authority": "ROLE_GRUPO_INDEX",
+                        "nome": "Listar grupos de usuários"
+                      },
+                      {
+                        "id": 175,
+                        "alias": "incidente",
+                        "authority": "ROLE_INCIDENTE_DELETE",
+                        "nome": "Excluir incidente"
+                      },
+                      {
+                        "id": 138,
+                        "alias": "setor",
+                        "authority": "ROLE_SETOR_SHOW",
+                        "nome": "Ver setor"
+                      },
+                      {
+                        "id": 139,
+                        "alias": "setor",
+                        "authority": "ROLE_SETOR_SAVE",
+                        "nome": "Salvar setor"
+                      },
+                      {
+                        "id": 174,
+                        "alias": "incidente",
+                        "authority": "ROLE_INCIDENTE_UPDATE",
+                        "nome": "Atualizar incidente"
+                      },
+                      {
+                        "id": 167,
+                        "alias": "ecocardiograma",
+                        "authority": "ROLE_ECG_SHOW",
+                        "nome": "Ver ecg"
+                      },
+                      {
+                        "id": 168,
+                        "alias": "ecocardiograma",
+                        "authority": "ROLE_ECG_SAVE",
+                        "nome": "Salvar ecg"
+                      },
+                      {
+                        "id": 155,
+                        "alias": "risco",
+                        "authority": "ROLE_RISCO_DELETE",
+                        "nome": "Excluir risco"
+                      },
+                      {
+                        "id": 136,
+                        "alias": "grupo",
+                        "authority": "ROLE_GRUPO_DELETE",
+                        "nome": "Excluir grupo de usuário"
+                      },
+                      {
+                        "id": 159,
+                        "alias": "tipo de incidente",
+                        "authority": "ROLE_TIPO_INCIDENTE_UPDATE",
+                        "nome": "Atualizar tipo de incidente"
+                      },
+                      {
+                        "id": 172,
+                        "alias": "incidente",
+                        "authority": "ROLE_INCIDENTE_SHOW",
+                        "nome": "Ver incidente"
+                      },
+                      {
+                        "id": 173,
+                        "alias": "incidente",
+                        "authority": "ROLE_INCIDENTE_SAVE",
+                        "nome": "Salvar incidente"
+                      },
+                      {
+                        "id": 145,
+                        "alias": "atendimento",
+                        "authority": "ROLE_ATENDIMENTO_INDEX",
+                        "nome": "Listar Atendimentos"
+                      },
+                      {
+                        "id": 133,
+                        "alias": "grupo",
+                        "authority": "ROLE_GRUPO_SHOW",
+                        "nome": "Ver grupo de usuário"
+                      },
+                      {
+                        "id": 134,
+                        "alias": "grupo",
+                        "authority": "ROLE_GRUPO_SAVE",
+                        "nome": "Salvar grupo de usuário"
+                      },
+                      {
+                        "id": 129,
+                        "alias": "apache",
+                        "authority": "ROLE_APACHE_SAVE",
+                        "nome": "Salvar Apache"
+                      },
+                      {
+                        "id": 130,
+                        "alias": "apache",
+                        "authority": "ROLE_APACHE_SHOW",
+                        "nome": "Ver Apache"
+                      },
+                      {
+                        "id": 171,
+                        "alias": "incidentes",
+                        "authority": "ROLE_INCIDENTE_INDEX",
+                        "nome": "Listar incidentes"
+                      },
+                      {
+                        "id": 143,
+                        "alias": "paciente",
+                        "authority": "ROLE_PACIENTE_INDEX",
+                        "nome": "Listar Pacientes"
+                      },
+                      {
+                        "id": 146,
+                        "alias": "atendimento",
+                        "authority": "ROLE_ATENDIMENTO_SHOW",
+                        "nome": "Ver Atendimento"
+                      },
+                      {
+                        "id": 148,
+                        "alias": "usuario",
+                        "authority": "ROLE_USUARIO_INDEX",
+                        "nome": "Listar usuários"
+                      },
+                      {
+                        "id": 131,
+                        "alias": "apache",
+                        "authority": "ROLE_APACHE_UPDATE",
+                        "nome": "Atualizar Apache"
+                      },
+                      {
+                        "id": 182,
+                        "alias": "estratificação risco",
+                        "authority": "ROLE_ESTRATIFICACAO_REPORT",
+                        "nome": "Relatório estratificação de risco"
+                      },
+                      {
+                        "id": 152,
+                        "alias": "risco",
+                        "authority": "ROLE_RISCO_SHOW",
+                        "nome": "Ver risco"
+                      },
+                      {
+                        "id": 153,
+                        "alias": "risco",
+                        "authority": "ROLE_RISCO_SAVE",
+                        "nome": "Salvar risco"
+                      },
+                      {
+                        "id": 137,
+                        "alias": "setor",
+                        "authority": "ROLE_SETOR_INDEX",
+                        "nome": "Listar setores"
+                      }
+                    ],
+                    "usersCount": 3
+                  },
+                  "username": "nywton.barros",
+                  "accountLocked": false,
+                  "nome": "Nywton R. B. Silva",
+                  "accountExpired": false,
+                  "enabled": true,
+                  "email": "nywton.barros@gmail.com"
+                },
+                {
+                  "id": 55,
+                  "setores": [],
+                  "passwordExpired": false,
+                  "grupo": {
+                    "id": 39,
+                    "habilitado": true,
+                    "name": "Admin",
+                    "permissoes": [
+                      {
+                        "id": 166,
+                        "alias": "ecocardiograma",
+                        "authority": "ROLE_ECG_INDEX",
+                        "nome": "Listar ecg"
+                      },
+                      {
+                        "id": 141,
+                        "alias": "setor",
+                        "authority": "ROLE_SETOR_DELETE",
+                        "nome": "Excluir setor"
+                      },
+                      {
+                        "id": 169,
+                        "alias": "ecocardiograma",
+                        "authority": "ROLE_ECG_UPDATE",
+                        "nome": "Atualizar ecg"
+                      },
+                      {
+                        "id": 156,
+                        "alias": "tipo de incidente",
+                        "authority": "ROLE_TIPO_INCIDENTE_INDEX",
+                        "nome": "Listar tipos de incidente"
+                      },
+                      {
+                        "id": 177,
+                        "alias": "estratificação risco",
+                        "authority": "ROLE_ESTRATIFICACAO_INDEX",
+                        "nome": "Listar estratificações de risco"
+                      },
+                      {
+                        "id": 165,
+                        "alias": "porta balão",
+                        "authority": "ROLE_BALAO_DELETE",
+                        "nome": "Excluir porta balão"
+                      },
+                      {
+                        "id": 164,
+                        "alias": "porta balão",
+                        "authority": "ROLE_BALAO_UPDATE",
+                        "nome": "Atualizar porta balão"
+                      },
+                      {
+                        "id": 157,
+                        "alias": "tipo de incidente",
+                        "authority": "ROLE_TIPO_INCIDENTE_SHOW",
+                        "nome": "Ver tipo de incidente"
+                      },
+                      {
+                        "id": 158,
+                        "alias": "tipo de incidente",
+                        "authority": "ROLE_TIPO_INCIDENTE_SAVE",
+                        "nome": "Salvar tipo de incidente"
+                      },
+                      {
+                        "id": 140,
+                        "alias": "setor",
+                        "authority": "ROLE_SETOR_UPDATE",
+                        "nome": "Atualizar setor"
+                      },
+                      {
+                        "id": 170,
+                        "alias": "ecocardiograma",
+                        "authority": "ROLE_ECG_DELETE",
+                        "nome": "Excluir ecg"
+                      },
+                      {
+                        "id": 162,
+                        "alias": "porta balão",
+                        "authority": "ROLE_BALAO_SHOW",
+                        "nome": "Ver porta balão"
+                      },
+                      {
+                        "id": 163,
+                        "alias": "porta balão",
+                        "authority": "ROLE_BALAO_SAVE",
+                        "nome": "Salvar porta balão"
+                      },
+                      {
+                        "id": 154,
+                        "alias": "risco",
+                        "authority": "ROLE_RISCO_UPDATE",
+                        "nome": "Atualizar risco"
+                      },
+                      {
+                        "id": 161,
+                        "alias": "porta balão",
+                        "authority": "ROLE_BALAO_INDEX",
+                        "nome": "Listar porta balão"
+                      },
+                      {
+                        "id": 160,
+                        "alias": "tipo de incidente",
+                        "authority": "ROLE_TIPO_INCIDENTE_DELETE",
+                        "nome": "Excluir tipo de incidente"
+                      },
+                      {
+                        "id": 135,
+                        "alias": "grupo",
+                        "authority": "ROLE_GRUPO_UPDATE",
+                        "nome": "Atualizar grupo de usuário"
+                      },
+                      {
+                        "id": 147,
+                        "alias": "usuario",
+                        "authority": "ROLE_USUARIO_SHOW",
+                        "nome": "Ver usuário"
+                      },
+                      {
+                        "id": 142,
+                        "alias": "perfil epidemiológico",
+                        "authority": "ROLE_PERFIL_EPIDEMIOLOGICO_INDEX",
+                        "nome": "Listar Perfis Epidemiológicos"
+                      },
+                      {
+                        "id": 144,
+                        "alias": "paciente",
+                        "authority": "ROLE_PACIENTE_SHOW",
+                        "nome": "Ver Paciente"
+                      },
+                      {
+                        "id": 151,
+                        "alias": "risco",
+                        "authority": "ROLE_RISCO_INDEX",
+                        "nome": "Listar riscos"
+                      },
+                      {
+                        "id": 149,
+                        "alias": "usuario",
+                        "authority": "ROLE_USUARIO_UPDATE",
+                        "nome": "Atualizar usuário"
+                      },
+                      {
+                        "id": 128,
+                        "alias": "apache",
+                        "authority": "ROLE_APACHE_REPORT",
+                        "nome": "Ver relatório apache"
+                      },
+                      {
+                        "id": 180,
+                        "alias": "estratificação risco",
+                        "authority": "ROLE_ESTRATIFICACAO_UPDATE",
+                        "nome": "Atualizar estratificação de risco"
+                      },
+                      {
+                        "id": 179,
+                        "alias": "estratificação risco",
+                        "authority": "ROLE_ESTRATIFICACAO_SAVE",
+                        "nome": "Salvar estratificação de risco"
+                      },
+                      {
+                        "id": 178,
+                        "alias": "estratificação risco",
+                        "authority": "ROLE_ESTRATIFICACAO_SHOW",
+                        "nome": "Ver estratificação de risco"
+                      },
+                      {
+                        "id": 176,
+                        "alias": "incidente",
+                        "authority": "ROLE_INCIDENTE_REPORT",
+                        "nome": "Relatório incidente"
+                      },
+                      {
+                        "id": 150,
+                        "alias": "permissao",
+                        "authority": "ROLE_PERMISSAO_INDEX",
+                        "nome": "Listar Permissões"
+                      },
+                      {
+                        "id": 181,
+                        "alias": "estratificação risco",
+                        "authority": "ROLE_ESTRATIFICACAO_DELETE",
+                        "nome": "Excluir estratificação de risco"
+                      },
+                      {
+                        "id": 132,
+                        "alias": "grupo",
+                        "authority": "ROLE_GRUPO_INDEX",
+                        "nome": "Listar grupos de usuários"
+                      },
+                      {
+                        "id": 175,
+                        "alias": "incidente",
+                        "authority": "ROLE_INCIDENTE_DELETE",
+                        "nome": "Excluir incidente"
+                      },
+                      {
+                        "id": 138,
+                        "alias": "setor",
+                        "authority": "ROLE_SETOR_SHOW",
+                        "nome": "Ver setor"
+                      },
+                      {
+                        "id": 139,
+                        "alias": "setor",
+                        "authority": "ROLE_SETOR_SAVE",
+                        "nome": "Salvar setor"
+                      },
+                      {
+                        "id": 174,
+                        "alias": "incidente",
+                        "authority": "ROLE_INCIDENTE_UPDATE",
+                        "nome": "Atualizar incidente"
+                      },
+                      {
+                        "id": 167,
+                        "alias": "ecocardiograma",
+                        "authority": "ROLE_ECG_SHOW",
+                        "nome": "Ver ecg"
+                      },
+                      {
+                        "id": 168,
+                        "alias": "ecocardiograma",
+                        "authority": "ROLE_ECG_SAVE",
+                        "nome": "Salvar ecg"
+                      },
+                      {
+                        "id": 155,
+                        "alias": "risco",
+                        "authority": "ROLE_RISCO_DELETE",
+                        "nome": "Excluir risco"
+                      },
+                      {
+                        "id": 136,
+                        "alias": "grupo",
+                        "authority": "ROLE_GRUPO_DELETE",
+                        "nome": "Excluir grupo de usuário"
+                      },
+                      {
+                        "id": 159,
+                        "alias": "tipo de incidente",
+                        "authority": "ROLE_TIPO_INCIDENTE_UPDATE",
+                        "nome": "Atualizar tipo de incidente"
+                      },
+                      {
+                        "id": 172,
+                        "alias": "incidente",
+                        "authority": "ROLE_INCIDENTE_SHOW",
+                        "nome": "Ver incidente"
+                      },
+                      {
+                        "id": 173,
+                        "alias": "incidente",
+                        "authority": "ROLE_INCIDENTE_SAVE",
+                        "nome": "Salvar incidente"
+                      },
+                      {
+                        "id": 145,
+                        "alias": "atendimento",
+                        "authority": "ROLE_ATENDIMENTO_INDEX",
+                        "nome": "Listar Atendimentos"
+                      },
+                      {
+                        "id": 133,
+                        "alias": "grupo",
+                        "authority": "ROLE_GRUPO_SHOW",
+                        "nome": "Ver grupo de usuário"
+                      },
+                      {
+                        "id": 134,
+                        "alias": "grupo",
+                        "authority": "ROLE_GRUPO_SAVE",
+                        "nome": "Salvar grupo de usuário"
+                      },
+                      {
+                        "id": 129,
+                        "alias": "apache",
+                        "authority": "ROLE_APACHE_SAVE",
+                        "nome": "Salvar Apache"
+                      },
+                      {
+                        "id": 130,
+                        "alias": "apache",
+                        "authority": "ROLE_APACHE_SHOW",
+                        "nome": "Ver Apache"
+                      },
+                      {
+                        "id": 171,
+                        "alias": "incidentes",
+                        "authority": "ROLE_INCIDENTE_INDEX",
+                        "nome": "Listar incidentes"
+                      },
+                      {
+                        "id": 143,
+                        "alias": "paciente",
+                        "authority": "ROLE_PACIENTE_INDEX",
+                        "nome": "Listar Pacientes"
+                      },
+                      {
+                        "id": 146,
+                        "alias": "atendimento",
+                        "authority": "ROLE_ATENDIMENTO_SHOW",
+                        "nome": "Ver Atendimento"
+                      },
+                      {
+                        "id": 148,
+                        "alias": "usuario",
+                        "authority": "ROLE_USUARIO_INDEX",
+                        "nome": "Listar usuários"
+                      },
+                      {
+                        "id": 131,
+                        "alias": "apache",
+                        "authority": "ROLE_APACHE_UPDATE",
+                        "nome": "Atualizar Apache"
+                      },
+                      {
+                        "id": 182,
+                        "alias": "estratificação risco",
+                        "authority": "ROLE_ESTRATIFICACAO_REPORT",
+                        "nome": "Relatório estratificação de risco"
+                      },
+                      {
+                        "id": 152,
+                        "alias": "risco",
+                        "authority": "ROLE_RISCO_SHOW",
+                        "nome": "Ver risco"
+                      },
+                      {
+                        "id": 153,
+                        "alias": "risco",
+                        "authority": "ROLE_RISCO_SAVE",
+                        "nome": "Salvar risco"
+                      },
+                      {
+                        "id": 137,
+                        "alias": "setor",
+                        "authority": "ROLE_SETOR_INDEX",
+                        "nome": "Listar setores"
+                      }
+                    ],
+                    "usuarios": [
+                      {
+                        "id": 55
+                      },
+                      {
+                        "id": 54
+                      },
+                      {
+                        "id": 56
+                      }
+                    ],
+                    "usersCount": 3
+                  },
+                  "username": "franklin.farias",
+                  "accountLocked": false,
+                  "nome": "Franklin T. Farias",
+                  "accountExpired": false,
+                  "enabled": true
+                },
+                {
+                  "id": 56,
+                  "setores": [],
+                  "passwordExpired": false,
+                  "grupo": {
+                    "id": 39,
+                    "habilitado": true,
+                    "name": "Admin",
+                    "permissoes": [
+                      {
+                        "id": 166,
+                        "alias": "ecocardiograma",
+                        "authority": "ROLE_ECG_INDEX",
+                        "nome": "Listar ecg"
+                      },
+                      {
+                        "id": 141,
+                        "alias": "setor",
+                        "authority": "ROLE_SETOR_DELETE",
+                        "nome": "Excluir setor"
+                      },
+                      {
+                        "id": 169,
+                        "alias": "ecocardiograma",
+                        "authority": "ROLE_ECG_UPDATE",
+                        "nome": "Atualizar ecg"
+                      },
+                      {
+                        "id": 156,
+                        "alias": "tipo de incidente",
+                        "authority": "ROLE_TIPO_INCIDENTE_INDEX",
+                        "nome": "Listar tipos de incidente"
+                      },
+                      {
+                        "id": 177,
+                        "alias": "estratificação risco",
+                        "authority": "ROLE_ESTRATIFICACAO_INDEX",
+                        "nome": "Listar estratificações de risco"
+                      },
+                      {
+                        "id": 165,
+                        "alias": "porta balão",
+                        "authority": "ROLE_BALAO_DELETE",
+                        "nome": "Excluir porta balão"
+                      },
+                      {
+                        "id": 164,
+                        "alias": "porta balão",
+                        "authority": "ROLE_BALAO_UPDATE",
+                        "nome": "Atualizar porta balão"
+                      },
+                      {
+                        "id": 157,
+                        "alias": "tipo de incidente",
+                        "authority": "ROLE_TIPO_INCIDENTE_SHOW",
+                        "nome": "Ver tipo de incidente"
+                      },
+                      {
+                        "id": 158,
+                        "alias": "tipo de incidente",
+                        "authority": "ROLE_TIPO_INCIDENTE_SAVE",
+                        "nome": "Salvar tipo de incidente"
+                      },
+                      {
+                        "id": 140,
+                        "alias": "setor",
+                        "authority": "ROLE_SETOR_UPDATE",
+                        "nome": "Atualizar setor"
+                      },
+                      {
+                        "id": 170,
+                        "alias": "ecocardiograma",
+                        "authority": "ROLE_ECG_DELETE",
+                        "nome": "Excluir ecg"
+                      },
+                      {
+                        "id": 162,
+                        "alias": "porta balão",
+                        "authority": "ROLE_BALAO_SHOW",
+                        "nome": "Ver porta balão"
+                      },
+                      {
+                        "id": 163,
+                        "alias": "porta balão",
+                        "authority": "ROLE_BALAO_SAVE",
+                        "nome": "Salvar porta balão"
+                      },
+                      {
+                        "id": 154,
+                        "alias": "risco",
+                        "authority": "ROLE_RISCO_UPDATE",
+                        "nome": "Atualizar risco"
+                      },
+                      {
+                        "id": 161,
+                        "alias": "porta balão",
+                        "authority": "ROLE_BALAO_INDEX",
+                        "nome": "Listar porta balão"
+                      },
+                      {
+                        "id": 160,
+                        "alias": "tipo de incidente",
+                        "authority": "ROLE_TIPO_INCIDENTE_DELETE",
+                        "nome": "Excluir tipo de incidente"
+                      },
+                      {
+                        "id": 135,
+                        "alias": "grupo",
+                        "authority": "ROLE_GRUPO_UPDATE",
+                        "nome": "Atualizar grupo de usuário"
+                      },
+                      {
+                        "id": 147,
+                        "alias": "usuario",
+                        "authority": "ROLE_USUARIO_SHOW",
+                        "nome": "Ver usuário"
+                      },
+                      {
+                        "id": 142,
+                        "alias": "perfil epidemiológico",
+                        "authority": "ROLE_PERFIL_EPIDEMIOLOGICO_INDEX",
+                        "nome": "Listar Perfis Epidemiológicos"
+                      },
+                      {
+                        "id": 144,
+                        "alias": "paciente",
+                        "authority": "ROLE_PACIENTE_SHOW",
+                        "nome": "Ver Paciente"
+                      },
+                      {
+                        "id": 151,
+                        "alias": "risco",
+                        "authority": "ROLE_RISCO_INDEX",
+                        "nome": "Listar riscos"
+                      },
+                      {
+                        "id": 149,
+                        "alias": "usuario",
+                        "authority": "ROLE_USUARIO_UPDATE",
+                        "nome": "Atualizar usuário"
+                      },
+                      {
+                        "id": 128,
+                        "alias": "apache",
+                        "authority": "ROLE_APACHE_REPORT",
+                        "nome": "Ver relatório apache"
+                      },
+                      {
+                        "id": 180,
+                        "alias": "estratificação risco",
+                        "authority": "ROLE_ESTRATIFICACAO_UPDATE",
+                        "nome": "Atualizar estratificação de risco"
+                      },
+                      {
+                        "id": 179,
+                        "alias": "estratificação risco",
+                        "authority": "ROLE_ESTRATIFICACAO_SAVE",
+                        "nome": "Salvar estratificação de risco"
+                      },
+                      {
+                        "id": 178,
+                        "alias": "estratificação risco",
+                        "authority": "ROLE_ESTRATIFICACAO_SHOW",
+                        "nome": "Ver estratificação de risco"
+                      },
+                      {
+                        "id": 176,
+                        "alias": "incidente",
+                        "authority": "ROLE_INCIDENTE_REPORT",
+                        "nome": "Relatório incidente"
+                      },
+                      {
+                        "id": 150,
+                        "alias": "permissao",
+                        "authority": "ROLE_PERMISSAO_INDEX",
+                        "nome": "Listar Permissões"
+                      },
+                      {
+                        "id": 181,
+                        "alias": "estratificação risco",
+                        "authority": "ROLE_ESTRATIFICACAO_DELETE",
+                        "nome": "Excluir estratificação de risco"
+                      },
+                      {
+                        "id": 132,
+                        "alias": "grupo",
+                        "authority": "ROLE_GRUPO_INDEX",
+                        "nome": "Listar grupos de usuários"
+                      },
+                      {
+                        "id": 175,
+                        "alias": "incidente",
+                        "authority": "ROLE_INCIDENTE_DELETE",
+                        "nome": "Excluir incidente"
+                      },
+                      {
+                        "id": 138,
+                        "alias": "setor",
+                        "authority": "ROLE_SETOR_SHOW",
+                        "nome": "Ver setor"
+                      },
+                      {
+                        "id": 139,
+                        "alias": "setor",
+                        "authority": "ROLE_SETOR_SAVE",
+                        "nome": "Salvar setor"
+                      },
+                      {
+                        "id": 174,
+                        "alias": "incidente",
+                        "authority": "ROLE_INCIDENTE_UPDATE",
+                        "nome": "Atualizar incidente"
+                      },
+                      {
+                        "id": 167,
+                        "alias": "ecocardiograma",
+                        "authority": "ROLE_ECG_SHOW",
+                        "nome": "Ver ecg"
+                      },
+                      {
+                        "id": 168,
+                        "alias": "ecocardiograma",
+                        "authority": "ROLE_ECG_SAVE",
+                        "nome": "Salvar ecg"
+                      },
+                      {
+                        "id": 155,
+                        "alias": "risco",
+                        "authority": "ROLE_RISCO_DELETE",
+                        "nome": "Excluir risco"
+                      },
+                      {
+                        "id": 136,
+                        "alias": "grupo",
+                        "authority": "ROLE_GRUPO_DELETE",
+                        "nome": "Excluir grupo de usuário"
+                      },
+                      {
+                        "id": 159,
+                        "alias": "tipo de incidente",
+                        "authority": "ROLE_TIPO_INCIDENTE_UPDATE",
+                        "nome": "Atualizar tipo de incidente"
+                      },
+                      {
+                        "id": 172,
+                        "alias": "incidente",
+                        "authority": "ROLE_INCIDENTE_SHOW",
+                        "nome": "Ver incidente"
+                      },
+                      {
+                        "id": 173,
+                        "alias": "incidente",
+                        "authority": "ROLE_INCIDENTE_SAVE",
+                        "nome": "Salvar incidente"
+                      },
+                      {
+                        "id": 145,
+                        "alias": "atendimento",
+                        "authority": "ROLE_ATENDIMENTO_INDEX",
+                        "nome": "Listar Atendimentos"
+                      },
+                      {
+                        "id": 133,
+                        "alias": "grupo",
+                        "authority": "ROLE_GRUPO_SHOW",
+                        "nome": "Ver grupo de usuário"
+                      },
+                      {
+                        "id": 134,
+                        "alias": "grupo",
+                        "authority": "ROLE_GRUPO_SAVE",
+                        "nome": "Salvar grupo de usuário"
+                      },
+                      {
+                        "id": 129,
+                        "alias": "apache",
+                        "authority": "ROLE_APACHE_SAVE",
+                        "nome": "Salvar Apache"
+                      },
+                      {
+                        "id": 130,
+                        "alias": "apache",
+                        "authority": "ROLE_APACHE_SHOW",
+                        "nome": "Ver Apache"
+                      },
+                      {
+                        "id": 171,
+                        "alias": "incidentes",
+                        "authority": "ROLE_INCIDENTE_INDEX",
+                        "nome": "Listar incidentes"
+                      },
+                      {
+                        "id": 143,
+                        "alias": "paciente",
+                        "authority": "ROLE_PACIENTE_INDEX",
+                        "nome": "Listar Pacientes"
+                      },
+                      {
+                        "id": 146,
+                        "alias": "atendimento",
+                        "authority": "ROLE_ATENDIMENTO_SHOW",
+                        "nome": "Ver Atendimento"
+                      },
+                      {
+                        "id": 148,
+                        "alias": "usuario",
+                        "authority": "ROLE_USUARIO_INDEX",
+                        "nome": "Listar usuários"
+                      },
+                      {
+                        "id": 131,
+                        "alias": "apache",
+                        "authority": "ROLE_APACHE_UPDATE",
+                        "nome": "Atualizar Apache"
+                      },
+                      {
+                        "id": 182,
+                        "alias": "estratificação risco",
+                        "authority": "ROLE_ESTRATIFICACAO_REPORT",
+                        "nome": "Relatório estratificação de risco"
+                      },
+                      {
+                        "id": 152,
+                        "alias": "risco",
+                        "authority": "ROLE_RISCO_SHOW",
+                        "nome": "Ver risco"
+                      },
+                      {
+                        "id": 153,
+                        "alias": "risco",
+                        "authority": "ROLE_RISCO_SAVE",
+                        "nome": "Salvar risco"
+                      },
+                      {
+                        "id": 137,
+                        "alias": "setor",
+                        "authority": "ROLE_SETOR_INDEX",
+                        "nome": "Listar setores"
+                      }
+                    ],
+                    "usuarios": [
+                      {
+                        "id": 55
+                      },
+                      {
+                        "id": 54
+                      },
+                      {
+                        "id": 56
+                      }
+                    ],
+                    "usersCount": 3
+                  },
+                  "username": "lucas.due",
+                  "accountLocked": false,
+                  "nome": "Lucas D. de O. Farias",
+                  "accountExpired": false,
+                  "enabled": true
+                }
+              ]
             }
           }
         }
@@ -524,15 +2593,21 @@
     "Balao": {
       "type": "object",
       "properties": {
+        "id": {
+          "type": "integer"
+        },
         "dataHoraBalao": {
           "type": "string",
           "format": "date"
         },
-        "atendimento": {
-          "type": "object",
-          "example": "AtendimentoId",
-          "$ref": "#/definitions/Atendimento"
+        "atendimentoId": {
+          "type": "string"
         }
+      },
+      "example": {
+        "id": 1,
+        "dataHoraBalao": "2009-07-31 09:10",
+        "atendimentoId": "0003149"
       }
     },
     "Cid": {
@@ -609,6 +2684,9 @@
     "Ecg": {
       "type": "object",
       "properties": {
+        "id": {
+          "type": "integer"
+        },
         "dataHoraPorta": {
           "type": "string",
           "format": "date"
@@ -616,10 +2694,12 @@
         "dataHoraEcg": {
           "type": "string",
           "format": "date"
-        },
-        "atendimento": {
-          "type": "string"
         }
+      },
+      "example": {
+        "id": 1,
+        "dataHoraPorta": "2013-01-15 15:02",
+        "dataHoraEcg": "2013-01-15 18:02"
       }
     },
     "EstratificacaoRisco": {
@@ -796,6 +2876,9 @@
           "type": "object",
           "$ref": "#/definitions/Atendimento"
         }
+      },
+      "example": {
+        "id": "0003967"
       }
     },
     "Grupo": {
@@ -822,6 +2905,13 @@
             "$ref": ""
           }
         }
+      },
+      "example": {
+        "id": 1,
+        "habilitado": true,
+        "name": "Padrão",
+        "permissoes": [],
+        "userCount": 0
       }
     },
     "Incidente": {
