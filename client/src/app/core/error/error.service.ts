@@ -52,7 +52,6 @@ export class ErrorService {
     let error = this.errorsList.find((el) => el.cod == httpResponse.error.status);
     if (error == undefined) error = this.UNKNOW;
     if (error == this.UNAUTHORIZED) {
-      // this.authService.logout(localStorage.getItem('token'));
       this.router.navigate(['/']);
     } else {
       this.router.navigate(['error'], {state: {cod: error.cod, message: error.message}});
