@@ -37,9 +37,11 @@ abstract class RegistroLeitoService {
         if(termo != null && !termo.empty) {
             if (query.length() > 0) query.append 'and '
             query.append('lower(p.nome) like lower(:termo) or ')
-            query.append('a.id like :atendimentoId\n')
+            query.append('a.id like :atendimentoId or ')
+            query.append('p.id like :pacienteId\n')
             queryParams.put('termo', '%' + termo +'%')
             queryParams.put('atendimentoId', termo + '%')
+            queryParams.put('pacienteId', termo + '%')
         }
 
         if (setorId != null && !setorId.empty) {
