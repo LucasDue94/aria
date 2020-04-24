@@ -83,7 +83,7 @@ export class ApachePacienteListComponent implements OnInit {
 
   getRowClass(registroLeito: RegistroLeito) {
     let rowClass = '';
-    if (registroLeito.apache) {
+    if (registroLeito.apache.id) {
       rowClass = 'row-success';
     } else if (this.isTimeOverflow(registroLeito.dataEntrada)) { // Testa se passaram 24 horas da entrada
       rowClass = 'row-available';
