@@ -15,8 +15,6 @@ export class NasPacienteListComponent implements OnInit {
   outrosPacientes: RegistroLeito[] = [];
   pacientesInternos: RegistroLeito[] = [];
   showListScrollSpinner = false;
-  offset = 0;
-  max = 30;
   faFrown = faFrown;
   faSearch = faSearch;
   listLoading: boolean = false;
@@ -24,10 +22,12 @@ export class NasPacienteListComponent implements OnInit {
     termo: '',
     inicio: '',
     fim: '',
-    setorId: null,
+    setorId: '',
+    offset: 0,
+    max: 30
   };
 
-  constructor(private registroAtendimentoLeitoService: RegistroLeitoService, private router: Router,
+  constructor(private registroLeitoService: RegistroLeitoService, private router: Router,
               private titleService: TitleService, private filterService: FilterService) {
   }
 
@@ -38,15 +38,7 @@ export class NasPacienteListComponent implements OnInit {
     this.getRegistros();
   }
 
-  edit(registroLeito: RegistroLeito) {
-    this.router.navigate(['nas', 'create', registroLeito.atendimento.id], {
-      queryParams: {
-        dataEntrada: registroLeito.dataEntrada,
-        leito: registroLeito.leito.id,
-        registro: registroLeito.atendimento.id
-      }
-    });
-  }
+  edit = (registroLeito: RegistroLeito) => this.router.navigate(['nas', 'create', registroLeito.id]);
 
   sortPacientesInternos() {
     this.pacientesInternos.sort(function(a, b) {
@@ -80,7 +72,7 @@ export class NasPacienteListComponent implements OnInit {
 
   scrollDown() {
     this.showListScrollSpinner = true;
-    this.offset += 30;
+    this.params.offset += 30;
     this.getRegistros();
   }
 
@@ -94,9 +86,10 @@ export class NasPacienteListComponent implements OnInit {
   search(params) {
     this.pacientesInternos = [];
     this.outrosPacientes = [];
-    this.offset = 0;
+    this.params.offset = 0;
     this.listLoading = true;
     this.setFilterParams(params);
+
     if (params) {
       this.getRegistros();
     }
@@ -104,16 +97,24 @@ export class NasPacienteListComponent implements OnInit {
 
   getRegistros() {
     this.pacientesInternos = [];
-    // TODO send params
-    this.registroAtendimentoLeitoService.list({})
-      .subscribe(data => {
-        this.pushItems(this.pacientesInternos, data['pacientesInternos']);
-        this.pushItems(this.outrosPacientes, data['outrosPacientes']);
+    this.registroLeitoService.list({tipoSetor: 'U', internos: true})
+      .subscribe((pacientesInternos: RegistroLeito[]) => {
+        this.pushItems(this.pacientesInternos, pacientesInternos);
         this.sortPacientesInternos();
-        NasPacienteListComponent.sortByDataEntrada(this.outrosPacientes);
         this.listLoading = false;
         this.showListScrollSpinner = false;
       });
+
+    this.registroLeitoService.list({
+      tipoSetor: 'U', internos: false,
+      offset: this.params.offset, max: this.params.max
+    }).subscribe((outrosPacientes: RegistroLeito[]) => {
+      this.pushItems(this.outrosPacientes, outrosPacientes);
+      NasPacienteListComponent.sortByDataEntrada(this.outrosPacientes);
+      this.listLoading = false;
+      this.showListScrollSpinner = false;
+    });
+
   }
 
   pushItems = (array, items) => items.forEach(item => array.push(item));
@@ -124,7 +125,5 @@ export class NasPacienteListComponent implements OnInit {
     return currentDate.toLocaleString().slice(0, 10) == today.toLocaleString().slice(0, 10);
   }
 
-  roundEscore(escore) {
-    return parseFloat(escore).toFixed(1);
-  }
+  roundEscore = (escore) => parseFloat(escore).toFixed(1);
 }

@@ -4,7 +4,6 @@ package br.com.hospitaldocoracaoal.aria
 import br.com.hospitaldocoracaoal.integracao.RegistroLeito
 
 class Nas {
-    RegistroLeito registroLeito
     String monitorizacao                      //Questão 1
     boolean investigacoes                     //Questão 2
     boolean medicacao                         //Questão 3
@@ -56,16 +55,6 @@ class Nas {
         alimentacaoEnteral nullabe: false, blank: false
         intervencoesDentroUnidade nullabe: false, blank: false
         intervencoesForaUnidade nullabe: false, blank: false
-        registroLeito validator: { val, obj, errors ->
-            def reg = RegistroLeito.where {
-                atendimento.id == val.atendimentoId
-                leito.id == val.leitoId
-                dataEntrada == val.dataEntrada
-            }.count()
-            if (reg == 0) {
-                errors.rejectValue('registroLeito', 'nas.registroLeito.doesnt.exist')
-            }
-        }
         escore nullabe: false
     }
 

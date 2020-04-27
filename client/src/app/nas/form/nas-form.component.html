@@ -1,11 +1,11 @@
 <main class="nas-container">
-  <paciente-info [paciente]="registroAtendimentoLeito?.atendimento?.paciente"></paciente-info>
+  <paciente-info [paciente]="registroLeito?.atendimento?.paciente"></paciente-info>
   <header class="main-title">ATIVIDADE BÁSICA</header>
   <form class="container-groups">
     <nas-group *ngFor="let group of form" [groupLabel]="group.name">
       <nas-question [ngClass]="[isEmpty(question.value.name) && submitted ? 'invalid' : 'valid']"
                     *ngFor="let question of group.questions"
-                    [answer]="newNas" [isBoolQuestion]="question.isBool"
+                    [answer]="novoNas" [isBoolQuestion]="question.isBool"
                     [question]="question.value">
       </nas-question>
     </nas-group>

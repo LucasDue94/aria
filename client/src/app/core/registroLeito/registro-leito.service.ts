@@ -29,7 +29,8 @@ export class RegistroLeitoService {
    * dataEntradaInicio : string
    * dataEntradaFim : string
    * offset : number
-   * max : number )
+   * max : number
+   * internos: boolean )
    */
   list(params?: object): Observable<RegistroLeito[]> {
     const subject = new Subject<RegistroLeito[]>();

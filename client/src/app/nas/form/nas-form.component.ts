@@ -364,7 +364,7 @@ export class NasFormComponent implements OnInit {
     ]
   };
 
-  newNas = new Nas({
+  novoNas = new Nas({
     monitorizacao: '',
     investigacoes: '',
     medicacao: '',
@@ -388,13 +388,13 @@ export class NasFormComponent implements OnInit {
     alimentacaoEnteral: '',
     intervencoesDentroUnidade: '',
     intervencoesForaUnidade: '',
-    registroAtendimentoLeito: '',
+    registroLeito: '',
   });
+  registroLeito: RegistroLeito
 
   submitted = false;
-  registroAtendimentoLeito: RegistroLeito;
 
-  constructor(private route: ActivatedRoute, private registroAtendimentoLeitoService: RegistroLeitoService,
+  constructor(private route: ActivatedRoute, private registroLeitoService: RegistroLeitoService,
               private nasService: NasService, private titleService: TitleService, private errorService: ErrorService,
               private spinner: SpinnerService, private alertService: AlertService, private router: Router) {
   }
@@ -404,19 +404,21 @@ export class NasFormComponent implements OnInit {
     this.spinner.show();
     this.form.push(this.group1, this.group2, this.group3, this.group4, this.group5,
       this.group6, this.group7, this.group8, this.group9, this.group10, this.group11);
-    // this.registroAtendimentoLeitoService.get(
-    //   this.route.snapshot.queryParamMap.get('registro'),
-    //   this.route.snapshot.queryParamMap.get('leito'),
-    //   this.route.snapshot.queryParamMap.get('dataEntrada')).subscribe((registroAtendimentoLeito) => {
-    //   this.registroAtendimentoLeito = registroAtendimentoLeito;
-    //   this.spinner.hide();
-    //   console.log(this.registroAtendimentoLeito);
-    // });
+
+    this.registroLeitoService.get(this.route.snapshot.params.id).subscribe((registroLeito: RegistroLeito) => {
+      if (!registroLeito.hasOwnProperty('error')) {
+        this.registroLeito = registroLeito;
+        console.log(registroLeito)
+      } else {
+        this.errorService.sendError(registroLeito);
+      }
+      this.spinner.hide();
+    });
   }
 
   formIsValid() {
-    for (const key in this.newNas) {
-      if (this.newNas[key] === '') {
+    for (const key in this.novoNas) {
+      if (this.novoNas[key] === '') {
         return false;
       }
     }
@@ -424,22 +426,13 @@ export class NasFormComponent implements OnInit {
     return true;
   }
 
-  isEmpty = (key) => this.newNas[key] === '';
-
-  setFields() {
-    this.newNas.registroAtendimentoLeito = new RegistroLeito();
-    this.newNas.registroAtendimentoLeito.atendimento = new Atendimento({
-      id: this.registroAtendimentoLeito.atendimento.id
-    });
-    this.newNas.registroAtendimentoLeito.dataEntrada = this.registroAtendimentoLeito.dataEntrada;
-    this.newNas.registroAtendimentoLeito.leito = new Leito({id: this.registroAtendimentoLeito.leito.id});
-  }
+  isEmpty = (key) => this.novoNas[key] === '';
 
   save() {
+    this.novoNas.registroLeito = new RegistroLeito({id: this.registroLeito})
     this.submitted = true;
-    this.setFields();
     if (this.formIsValid()) {
-      this.nasService.save(this.newNas).subscribe(res => {
+      this.nasService.save(this.novoNas).subscribe(res => {
         if (res.hasOwnProperty('error')) {
           this.alertService.send({
             message: 'Ocorreu um erro.. não foi possível salvar este NAS.',
