@@ -330,6 +330,7 @@ tspan {
   font-size: 17px;
 
   .thead, .row {
+    align-items: center;
     margin-bottom: 6px;
     padding: 5px 0;
     background-color: $gray-60;

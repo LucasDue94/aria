@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterContentChecked, AfterViewChecked, Component, OnInit} from '@angular/core';
 import {faFrown, faSearch} from '@fortawesome/free-solid-svg-icons';
 import {Router} from '@angular/router';
 import {TitleService} from '../../core/title/title.service';
@@ -11,7 +11,7 @@ import {RegistroLeito} from '../../core/registroLeito/registroLeito';
   templateUrl: './nas-paciente-list.component.html',
   styleUrls: ['./nas-paciente-list.component.scss']
 })
-export class NasPacienteListComponent implements OnInit {
+export class NasPacienteListComponent implements OnInit, AfterViewChecked {
   outrosPacientes: RegistroLeito[] = [];
   pacientesInternos: RegistroLeito[] = [];
   showListScrollSpinner = false;
@@ -24,18 +24,25 @@ export class NasPacienteListComponent implements OnInit {
     fim: '',
     setorId: '',
     offset: 0,
-    max: 30
+    max: 15,
+    internos: false
   };
 
   constructor(private registroLeitoService: RegistroLeitoService, private router: Router,
               private titleService: TitleService, private filterService: FilterService) {
+    this.search = this.search.bind(this);
   }
 
   ngOnInit() {
     this.filterService.receive().subscribe(this.search);
     this.listLoading = true;
     this.titleService.send('NAS - Lista de pacientes');
-    this.getRegistros();
+    this.getRegistros(this.pacientesInternos, {tipoSetor: 'U', internos: true});
+    this.getRegistros(this.outrosPacientes, {tipoSetor: 'U', internos: false, max: 15});
+  }
+
+  ngAfterViewChecked(): void {
+    this.sortPacientesInternos();
   }
 
   edit = (registroLeito: RegistroLeito) => this.router.navigate(['nas', 'create', registroLeito.id]);
@@ -60,20 +67,11 @@ export class NasPacienteListComponent implements OnInit {
     });
   }
 
-  static sortByDataEntrada(array) {
-    array.sort(function(a, b) {
-      if (a.dataEntrada < b.dataEntrada) {
-        return 1;
-      } else {
-        return -1;
-      }
-    });
-  }
-
   scrollDown() {
     this.showListScrollSpinner = true;
-    this.params.offset += 30;
-    this.getRegistros();
+    this.params.offset += 15;
+    this.params.internos = false;
+    this.getRegistros(this.outrosPacientes, this.params);
   }
 
   setFilterParams(params) {
@@ -83,38 +81,33 @@ export class NasPacienteListComponent implements OnInit {
     this.params.setorId = params.setor;
   }
 
-  search(params) {
+  cleanFields() {
     this.pacientesInternos = [];
     this.outrosPacientes = [];
     this.params.offset = 0;
-    this.listLoading = true;
-    this.setFilterParams(params);
-
-    if (params) {
-      this.getRegistros();
-    }
   }
 
-  getRegistros() {
-    this.pacientesInternos = [];
-    this.registroLeitoService.list({tipoSetor: 'U', internos: true})
-      .subscribe((pacientesInternos: RegistroLeito[]) => {
-        this.pushItems(this.pacientesInternos, pacientesInternos);
-        this.sortPacientesInternos();
+  search(params) {
+    this.cleanFields();
+    this.setFilterParams(params);
+    this.listLoading = true;
+    this.params.internos = true;
+    this.getRegistros(this.pacientesInternos, this.params);
+    this.params.internos = false;
+    this.getRegistros(this.outrosPacientes, this.params);
+  }
+
+  getRegistros(array, params) {
+    this.showListScrollSpinner = true;
+    this.registroLeitoService.list(params)
+      .subscribe((registrosLeito: RegistroLeito[]) => {
+        this.pushItems(array, registrosLeito);
+        if (params.internos) {
+          this.sortPacientesInternos();
+        }
         this.listLoading = false;
         this.showListScrollSpinner = false;
       });
-
-    this.registroLeitoService.list({
-      tipoSetor: 'U', internos: false,
-      offset: this.params.offset, max: this.params.max
-    }).subscribe((outrosPacientes: RegistroLeito[]) => {
-      this.pushItems(this.outrosPacientes, outrosPacientes);
-      NasPacienteListComponent.sortByDataEntrada(this.outrosPacientes);
-      this.listLoading = false;
-      this.showListScrollSpinner = false;
-    });
-
   }
 
   pushItems = (array, items) => items.forEach(item => array.push(item));

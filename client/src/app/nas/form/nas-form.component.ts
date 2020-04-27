@@ -408,6 +408,7 @@ export class NasFormComponent implements OnInit {
     this.registroLeitoService.get(this.route.snapshot.params.id).subscribe((registroLeito: RegistroLeito) => {
       if (!registroLeito.hasOwnProperty('error')) {
         this.registroLeito = registroLeito;
+        if(this.registroLeito.nas)
         console.log(registroLeito)
       } else {
         this.errorService.sendError(registroLeito);
@@ -429,7 +430,7 @@ export class NasFormComponent implements OnInit {
   isEmpty = (key) => this.novoNas[key] === '';
 
   save() {
-    this.novoNas.registroLeito = new RegistroLeito({id: this.registroLeito})
+    this.novoNas.registroLeito = new RegistroLeito({id: this.registroLeito.id})
     this.submitted = true;
     if (this.formIsValid()) {
       this.nasService.save(this.novoNas).subscribe(res => {
