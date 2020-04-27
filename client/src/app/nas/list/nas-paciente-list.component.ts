@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterContentChecked, AfterViewChecked, Component, OnInit} from '@angular/core';
 import {faFrown, faSearch} from '@fortawesome/free-solid-svg-icons';
 import {Router} from '@angular/router';
 import {TitleService} from '../../core/title/title.service';
@@ -11,7 +11,7 @@ import {RegistroLeito} from '../../core/registroLeito/registroLeito';
   templateUrl: './nas-paciente-list.component.html',
   styleUrls: ['./nas-paciente-list.component.scss']
 })
-export class NasPacienteListComponent implements OnInit {
+export class NasPacienteListComponent implements OnInit, AfterViewChecked {
   outrosPacientes: RegistroLeito[] = [];
   pacientesInternos: RegistroLeito[] = [];
   showListScrollSpinner = false;
@@ -24,56 +24,67 @@ export class NasPacienteListComponent implements OnInit {
     fim: '',
     setorId: '',
     offset: 0,
-    max: 30
+    max: 15,
+    internos: false,
+    tipoSetor: 'U'
   };
 
   constructor(private registroLeitoService: RegistroLeitoService, private router: Router,
               private titleService: TitleService, private filterService: FilterService) {
+    this.search = this.search.bind(this);
   }
 
   ngOnInit() {
     this.filterService.receive().subscribe(this.search);
     this.listLoading = true;
     this.titleService.send('NAS - Lista de pacientes');
-    this.getRegistros();
+    this.getRegistros(this.pacientesInternos, this.params, true);
+    this.getRegistros(this.outrosPacientes, this.params);
   }
+
+  ngAfterViewChecked(): void {
+    this.sortPacientesInternos();
+  }
+
+  getRegistros(array, params, internos = false) {
+    if (internos) this.params.internos = true;
+    this.showListScrollSpinner = true;
+    this.registroLeitoService.list(params)
+      .subscribe((registrosLeito: RegistroLeito[]) => {
+        this.pushItems(array, registrosLeito);
+        if (params.internos) this.sortPacientesInternos();
+        this.listLoading = false;
+        this.showListScrollSpinner = false;
+      });
+  }
+
+  search(params) {
+    this.cleanFields();
+    this.setFilterParams(params);
+    this.listLoading = true;
+    this.getRegistros(this.pacientesInternos, this.params, true);
+    this.getRegistros(this.outrosPacientes, this.params);
+  }
+
+  pushItems = (array, items) => items.forEach(item => array.push(item));
 
   edit = (registroLeito: RegistroLeito) => this.router.navigate(['nas', 'create', registroLeito.id]);
 
   sortPacientesInternos() {
-    this.pacientesInternos.sort(function(a, b) {
-      if (a.atendimento.paciente.nome > b.atendimento.paciente.nome) {
-        return 1;
-      } else {
-        return -1;
-      }
-    });
-    this.pacientesInternos.sort(function(a, b) {
+    this.pacientesInternos.sort((a, b) =>
+      a.atendimento.paciente.nome > b.atendimento.paciente.nome ? 1 : -1);
+
+    this.pacientesInternos.sort((a, b) => {
       const escoreA = a.lastNas() ? (a.lastNas().escore) : 0;
       const escoreB = b.lastNas() ? (b.lastNas().escore) : 0;
-
-      if (escoreA > escoreB) {
-        return 1;
-      } else if (escoreA < escoreB) {
-        return -1;
-      }
-    });
-  }
-
-  static sortByDataEntrada(array) {
-    array.sort(function(a, b) {
-      if (a.dataEntrada < b.dataEntrada) {
-        return 1;
-      } else {
-        return -1;
-      }
+      return escoreA > escoreB ? 1 : -1;
     });
   }
 
   scrollDown() {
     this.showListScrollSpinner = true;
-    this.params.offset += 30;
-    this.getRegistros();
+    this.params.offset += 15;
+    this.getRegistros(this.outrosPacientes, this.params);
   }
 
   setFilterParams(params) {
@@ -83,41 +94,11 @@ export class NasPacienteListComponent implements OnInit {
     this.params.setorId = params.setor;
   }
 
-  search(params) {
+  cleanFields() {
     this.pacientesInternos = [];
     this.outrosPacientes = [];
     this.params.offset = 0;
-    this.listLoading = true;
-    this.setFilterParams(params);
-
-    if (params) {
-      this.getRegistros();
-    }
   }
-
-  getRegistros() {
-    this.pacientesInternos = [];
-    this.registroLeitoService.list({tipoSetor: 'U', internos: true})
-      .subscribe((pacientesInternos: RegistroLeito[]) => {
-        this.pushItems(this.pacientesInternos, pacientesInternos);
-        this.sortPacientesInternos();
-        this.listLoading = false;
-        this.showListScrollSpinner = false;
-      });
-
-    this.registroLeitoService.list({
-      tipoSetor: 'U', internos: false,
-      offset: this.params.offset, max: this.params.max
-    }).subscribe((outrosPacientes: RegistroLeito[]) => {
-      this.pushItems(this.outrosPacientes, outrosPacientes);
-      NasPacienteListComponent.sortByDataEntrada(this.outrosPacientes);
-      this.listLoading = false;
-      this.showListScrollSpinner = false;
-    });
-
-  }
-
-  pushItems = (array, items) => items.forEach(item => array.push(item));
 
   isToday(dataEntrada: string) {
     const currentDate = new Date(dataEntrada);

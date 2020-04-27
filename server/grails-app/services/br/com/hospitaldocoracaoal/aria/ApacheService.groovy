@@ -15,7 +15,7 @@ abstract class ApacheService {
 
     def report(GrailsParameterMap args) {
         Date dataInicio = DataUtils.getFormatterToDate(args.dataInicio)
-        Date dataFim = DataUtils.getFormatterToDate(args.dataFim)
+        Date dataFim = DataUtils.endOfDay(DataUtils.getFormatterToDate(args.dataFim))
 
         def criteria = Apache.createCriteria()
 
