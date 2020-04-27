@@ -29,16 +29,6 @@
     padding: 2px;
   }
 
-  .question {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    width: 49%;
-    margin: 0 10px;
-    background-color: $gray-30;
-    box-shadow: 0 0 5px $gray-80;
-  }
-
   .nas-footer {
     padding: 5px;
     width: 100%;
@@ -85,5 +75,29 @@
   }
   .question {
     width: 100% !important;
+  }
+}
+
+.container-data-nas {
+  display: flex;
+  flex-direction: column;
+  margin: 0 10px;
+  background-color: $gray-30;
+  box-shadow: 0 0 5px $gray-80;
+  flex: 1;
+
+  .data-nas {
+    border-bottom: 1px solid $gray-70;
+    border-radius: 2px;
+    text-align: center;
+    padding: 8px;
+    margin: 0;
+    background-color: $gray-60;
+  }
+
+  .form-group-float {
+    font-size: 22px;
+    margin: auto !important;
+    width: 50%;
   }
 }

@@ -512,3 +512,40 @@ tspan {
 .d-none{
   display: none;
 }
+
+.form-group-float {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 10px 20px 10px;
+  min-width: 200px;
+
+  .label-float {
+    font-size: 14px;
+    font-weight: 500;
+    margin-right: 5px;
+  }
+
+  .control {
+    border-radius: 5px;
+    padding: 8px;
+    border: 1px solid $gray-60;
+    transition: 0.3s;
+
+    &:focus {
+      transition: 0.3s;
+      background-color: $gray-30;
+    }
+  }
+
+  .control-date {
+    background-color: transparent;
+    padding: 10px 6px 0 0;
+    border-bottom: 1px solid $gray-60;
+  }
+
+  .message-error {
+    color: $danger;
+    bottom: 0;
+    position: absolute;
+  }
+}
