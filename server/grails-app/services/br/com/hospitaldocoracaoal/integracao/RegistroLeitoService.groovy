@@ -24,7 +24,7 @@ abstract class RegistroLeitoService {
         Date dataEntradaInicio = null
         Date dataEntradaFim = null
 
-        if (args.dataEntradaInicio != null && args.dataEntradaInicio != '' && args.dataEntradaFim != null && args.dataEntradaFim != '') {
+        if (args.dataEntradaInicio != null && !args.dataEntradaInicio.empty && args.dataEntradaFim != null && !args.dataEntradaFim.empty) {
             dataEntradaInicio = DataUtils.getFormatterToDate(args.dataEntradaInicio)
             dataEntradaFim = DataUtils.endOfDay(DataUtils.getFormatterToDate(args.dataEntradaFim))
 
@@ -36,12 +36,12 @@ abstract class RegistroLeitoService {
 
         if(termo != null && !termo.empty) {
             if (query.length() > 0) query.append 'and '
-            query.append('lower(p.nome) like lower(:termo) or ')
+            query.append('(lower(p.nome) like lower(:termo) or ')
             query.append('a.id like :atendimentoId or ')
-            query.append('p.id like :pacienteId\n')
-            queryParams.put('termo', '%' + termo +'%')
-            queryParams.put('atendimentoId', termo + '%')
-            queryParams.put('pacienteId', termo + '%')
+            query.append('p.id like :pacienteId)\n')
+            queryParams.put('termo', "%$termo%")
+            queryParams.put('atendimentoId', "%$termo%")
+            queryParams.put('pacienteId', "%$termo%")
         }
 
         if (setorId != null && !setorId.empty) {
