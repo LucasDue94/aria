@@ -81,19 +81,19 @@ abstract class IncidenteService {
         if (registros != null && !registros.isEmpty()) {
             Atendimento atendimento = registros.last()
 //            Todo: Setor WPD
-//            SetorWpd setorWpd = null
+              Setor setor = null
 
             switch (atendimento.tipo) {
                 case 'I':
                     RegistroLeito registroLeito = atendimento.registroLeitos
                             .sort { ral1, ral2 -> ral1.dataEntrada <=> ral2.dataEntrada }
                             .find {  it.dataEntrada <= incidente.dataHora }
-                    setorWpd = registroLeito.leito.setor
+                    setor = registroLeito.leito.setor
                     break;
                 case 'A':
                 case 'E':
                 case 'U':
-                    setorWpd = atendimento.setor
+                    setor = atendimento.setor
                     break;
                 default:
                     incidente.errors.reject(
@@ -104,7 +104,7 @@ abstract class IncidenteService {
             }
 
             incidente.atendimento = atendimento
-            incidente.setor = Setor.findBySetorWpd setorWpd
+            incidente.setor = setor
 
             incidente.validate()
         } else {
