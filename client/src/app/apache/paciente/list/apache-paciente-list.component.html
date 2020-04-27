@@ -13,6 +13,7 @@
       <span class="th flex-1">NASCIMENTO</span>
       <span class="th flex-3">MÃE</span>
       <span class="th flex-1">SEXO</span>
+      <span class="th flex-1">LEITO</span>
       <span class="th flex-2">ENTRADA</span>
     </section>
     <section class="tbody content" [scrollWindow]="false" infinite-scroll (scrolled)="scrollDown()">
@@ -28,6 +29,8 @@
           class="label-card">Mãe:</span> {{registro.atendimento.paciente.nomeMae}}</span>
         <span class="td flex-1"><span
           class="label-card">Sexo:</span> {{registro.atendimento.paciente.sexo}}</span>
+        <span class="td flex-1"><span
+          class="label-card">Leito:</span> {{registro.leito?.id}}</span>
         <span class="td flex-2"><span
           class="label-card">Entrada:</span> {{registro.dataEntrada | date: 'dd/MM/yyyy - HH:mm'}}</span>
       </div>
