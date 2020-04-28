@@ -76,7 +76,6 @@ export class ApachePacienteListComponent implements OnInit {
         this.registrosLeito.push(registroLeito);
         this.showListScrollSpinner = false;
       });
-      console.log(this.registrosLeito);
       this.listLoading = false;
     });
   }

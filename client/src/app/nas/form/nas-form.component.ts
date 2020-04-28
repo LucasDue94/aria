@@ -13,8 +13,6 @@ import {RegistroLeito} from '../../core/registroLeito/registroLeito';
 import {faCheck} from '@fortawesome/free-solid-svg-icons/faCheck';
 import {faFrown} from '@fortawesome/free-solid-svg-icons/faFrown';
 import {RegistroLeitoService} from '../../core/registroLeito/registro-leito.service';
-import {Leito} from '../../core/leito/leito';
-import {Atendimento} from '../../core/atendimento/atendimento';
 
 @Component({
   selector: 'nas-form',
@@ -389,8 +387,9 @@ export class NasFormComponent implements OnInit {
     intervencoesDentroUnidade: '',
     intervencoesForaUnidade: '',
     registroLeito: '',
+    data: ''
   });
-  registroLeito: RegistroLeito
+  registroLeito: RegistroLeito;
 
   submitted = false;
 
@@ -408,8 +407,6 @@ export class NasFormComponent implements OnInit {
     this.registroLeitoService.get(this.route.snapshot.params.id).subscribe((registroLeito: RegistroLeito) => {
       if (!registroLeito.hasOwnProperty('error')) {
         this.registroLeito = registroLeito;
-        if(this.registroLeito.nas)
-        console.log(registroLeito)
       } else {
         this.errorService.sendError(registroLeito);
       }
@@ -430,7 +427,7 @@ export class NasFormComponent implements OnInit {
   isEmpty = (key) => this.novoNas[key] === '';
 
   save() {
-    this.novoNas.registroLeito = new RegistroLeito({id: this.registroLeito.id})
+    this.novoNas.registroLeito = new RegistroLeito({id: this.registroLeito.id});
     this.submitted = true;
     if (this.formIsValid()) {
       this.nasService.save(this.novoNas).subscribe(res => {

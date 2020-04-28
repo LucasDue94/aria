@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
-import {Alternative} from "../../core/nas/form/alternative";
-import {Question} from "../../core/nas/form/question";
+import {Alternative} from '../../core/nas/form/alternative';
+import {Question} from '../../core/nas/form/question';
 
 @Component({
   selector: 'nas-question',

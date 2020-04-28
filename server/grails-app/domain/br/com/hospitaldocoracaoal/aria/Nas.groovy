@@ -30,6 +30,7 @@ class Nas {
     float escore
     static belongsTo = [registroLeito: RegistroLeito]
     Date dateCreated
+    Date data
 
     static constraints = {
         monitorizacao nullabe: false, blank: false, inList: ['1a', '1b', '1c']
@@ -56,6 +57,7 @@ class Nas {
         intervencoesDentroUnidade nullabe: false, blank: false
         intervencoesForaUnidade nullabe: false, blank: false
         escore nullabe: false
+        data nullabe: false , blank: false
     }
 
     def beforeValidate() {
