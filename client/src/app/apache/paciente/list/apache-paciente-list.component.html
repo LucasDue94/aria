@@ -18,8 +18,31 @@
     </section>
     <section class="tbody content" [scrollWindow]="false" infinite-scroll (scrolled)="scrollDown()">
       <spinner [loading]="listLoading"></spinner>
+      <div class="paciente-situacao-label">Pacientes Internados</div>
       <div [ngClass]="getRowClass(registro)" [class.d-none]="!this.isTimeOverflow(registro.dataEntrada)" class="row"
-           *ngFor="let registro of registrosLeito"
+        *ngFor="let registro of pacientesInternos"
+        [routerLink]="['/apache','form',registro.id]">
+        <span class="td flex-1"><span class="label-card">Registro:</span> {{registro.atendimento.id}}</span>
+        <span class="td flex-4"><span class="label-card">Paciente:</span> {{registro.atendimento.paciente.nome}}</span>
+        <span class="td flex-1"><span
+          class="label-card">Nascimento:</span> {{registro.atendimento.paciente.nascimento | date:'dd/MM/yyyy'}}</span>
+        <span class="td flex-3"><span
+          class="label-card">Mãe:</span> {{registro.atendimento.paciente.nomeMae}}</span>
+        <span class="td flex-1"><span
+          class="label-card">Sexo:</span> {{registro.atendimento.paciente.sexo}}</span>
+        <span class="td flex-1"><span
+          class="label-card">Leito:</span> {{registro.leito?.id}}</span>
+        <span class="td flex-2"><span
+          class="label-card">Entrada:</span> {{registro.dataEntrada | date: 'dd/MM/yyyy - HH:mm'}}</span>
+      </div>
+
+      <div class="empty" *ngIf="outrosPacientes?.length == 0">
+        <p>Nenhum paciente encontrado!</p>
+      </div>
+
+      <div class="paciente-situacao-label">Outros Registros</div>
+      <div [ngClass]="getRowClass(registro)" [class.d-none]="!this.isTimeOverflow(registro.dataEntrada)" class="row"
+           *ngFor="let registro of outrosPacientes"
            [routerLink]="['/apache','form',registro.id]">
         <span class="td flex-1"><span class="label-card">Registro:</span> {{registro.atendimento.id}}</span>
         <span class="td flex-4"><span class="label-card">Paciente:</span> {{registro.atendimento.paciente.nome}}</span>
@@ -34,10 +57,10 @@
         <span class="td flex-2"><span
           class="label-card">Entrada:</span> {{registro.dataEntrada | date: 'dd/MM/yyyy - HH:mm'}}</span>
       </div>
-      <app-scroll-spinner [show]="showListScrollSpinner"></app-scroll-spinner>
-      <div class="empty" *ngIf="registrosLeito?.length == 0">
+      <div class="empty" *ngIf="outrosPacientes?.length == 0">
         <p>Nenhum paciente encontrado!</p>
       </div>
+      <app-scroll-spinner [show]="showListScrollSpinner"></app-scroll-spinner>
     </section>
   </section>
 </main>
