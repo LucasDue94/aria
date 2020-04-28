@@ -104,7 +104,7 @@ create foreign table comanda
     (
         tipo varchar(9) options (key 'true') not null,
         comanda varchar(9) options (key 'true') not null,
-        registro_atendimento_id varchar(9) not null,
+        atendimento_id varchar(9) not null,
         data_movimento timestamp not null,
         setor_id varchar(9) not null
         )

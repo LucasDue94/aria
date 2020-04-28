@@ -6,8 +6,6 @@ import br.com.hospitaldocoracaoal.aria.utils.DataUtils
 import grails.gorm.services.Service
 import grails.web.servlet.mvc.GrailsParameterMap
 
-import static org.hibernate.sql.JoinType.INNER_JOIN
-
 @Service(RegistroLeito)
 abstract class RegistroLeitoService {
 
