@@ -17,15 +17,18 @@ export class ApachePacienteListComponent implements OnInit {
 
   showListScrollSpinner = false;
   listLoading = false;
-  registrosLeito: RegistroLeito[] = [];
+  outrosPacientes: RegistroLeito[] = [];
+  pacientesInternos: RegistroLeito[] = [];
+
   params = {
     termo: '',
     inicio: '',
     fim: '',
     setorId: '',
-    tipoSetor: 'U',
-    max: 30,
-    offset: 0
+    offset: 0,
+    max: 15,
+    internos: false,
+    tipoSetor: 'U'
   };
 
   constructor(private apacheService: ApacheService, private setorService: SetorService,
@@ -38,29 +41,40 @@ export class ApachePacienteListComponent implements OnInit {
     this.filterService.receive().subscribe(this.search);
     this.listLoading = true;
     this.titleService.send('Apache II - Lista de Pacientes');
-    this.registroLeitoService.list(this.params).subscribe((registrosLeito: RegistroLeito[]) => {
-      this.registrosLeito = registrosLeito;
-      this.listLoading = false;
-    });
+    this.getRegistros(this.pacientesInternos, this.params, true);
+    this.getRegistros(this.outrosPacientes, this.params);
+  }
+
+  getRegistros(array, params, internos = false) {
+    if (internos) this.params.internos = true;
+    this.showListScrollSpinner = true;
+    this.registroLeitoService.list(params)
+      .subscribe((registrosLeito: RegistroLeito[]) => {
+        if (internos) this.pacientesInternos = this.pacientesInternos.concat(registrosLeito);
+        else this.outrosPacientes = this.outrosPacientes.concat(registrosLeito);
+        this.listLoading = false;
+        this.showListScrollSpinner = false;
+      });
   }
 
   search(params) {
-    this.listLoading = true;
-    this.params.offset = 0;
-    this.registrosLeito = [];
+    this.cleanFields();
     this.setFilterParams(params);
-    this.getRegistros();
+    this.listLoading = true;
+    this.getRegistros(this.pacientesInternos, this.params, true);
+    this.getRegistros(this.outrosPacientes, this.params);
+  }
+
+  cleanFields() {
+    this.pacientesInternos = [];
+    this.outrosPacientes = [];
+    this.params.offset = 0;
   }
 
   scrollDown() {
     this.showListScrollSpinner = true;
-    this.params.offset += 10;
-    this.registroLeitoService.list(this.params).subscribe(registrosLeito => {
-      registrosLeito.forEach(registro => {
-        this.registrosLeito.push(registro);
-        this.showListScrollSpinner = false;
-      });
-    });
+    this.params.offset += 15;
+    this.getRegistros(this.outrosPacientes, this.params);
   }
 
   setFilterParams(params) {
@@ -68,16 +82,6 @@ export class ApachePacienteListComponent implements OnInit {
     this.params.inicio = params.inicio;
     this.params.fim = params.fim;
     this.params.setorId = params.setor;
-  }
-
-  getRegistros() {
-    this.registroLeitoService.list(this.params).subscribe(registrosLeito => {
-      registrosLeito.forEach(registroLeito => {
-        this.registrosLeito.push(registroLeito);
-        this.showListScrollSpinner = false;
-      });
-      this.listLoading = false;
-    });
   }
 
   getRowClass(registroLeito: RegistroLeito) {
