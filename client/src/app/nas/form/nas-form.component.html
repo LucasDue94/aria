@@ -11,9 +11,9 @@
     </nas-group>
     <section class="container-data-nas">
       <h2 class="data-nas">Este NAS é referente a qual data?</h2>
-      <div class="form-group-float">
+      <div class="form-group-float" [ngClass]="[novoNas?.data == '' && submitted ? 'invalid' : 'valid '] ">
         <label for="data-nas" class="label-float">Data</label>
-        <input id="data-nas" class="control-date" type="date">
+        <input [(ngModel)]="novoNas.data" id="data-nas" class="control-date" type="date" name="data-nas">
       </div>
     </section>
     <footer class="nas-footer">

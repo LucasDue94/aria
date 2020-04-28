@@ -19,11 +19,98 @@
   },
   "paths": {
     "/apache": {
+      "post": {
+        "tags": [
+          "Apache"
+        ],
+        "summary": "Cria um novo Apache",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "items": {
+                  "type": "object"
+                }
+              },
+              "example": {
+                "pas": 28,
+                "pad": 20,
+                "temperatura": "39 - 40.9",
+                "arterialPh": "7.5 - 7.59; 32 - 40.9",
+                "naSerico": "130 - 149",
+                "leucocitos": "1 - 2.9",
+                "glasgow": 4,
+                "problemasCronicos": "Não - Cirúrgico",
+                "frequenciaCardiaca": "55 - 69",
+                "frequenciaRespiratoria": "10 - 11",
+                "kSerico": "5.5 - 5.9",
+                "hematocrito": "50 - 59.9",
+                "aapo": "PaO2 < 55",
+                "creatininaSerica": "1.5 - 1.9",
+                "registroLeito": 446329
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "dataHoraBalao": {
+                  "type": "string"
+                },
+                "atendimento": {
+                  "type": "string"
+                }
+              },
+              "example": {
+                "id": 25,
+                "kSerico": "5.5 - 5.9",
+                "frequenciaRespiratoria": "10 - 11",
+                "problemasCronicos": "Não - Cirúrgico",
+                "registroLeito": {
+                  "id": 446329
+                },
+                "arterialPh": "7.5 - 7.59; 32 - 40.9",
+                "naSerico": "130 - 149",
+                "pas": 28,
+                "escore": 44,
+                "temperatura": "39 - 40.9",
+                "pad": 20,
+                "glasgow": 4,
+                "creatininaSerica": "1.5 - 1.9",
+                "frequenciaCardiaca": "55 - 69",
+                "aapo": "PaO2 < 55",
+                "leucocitos": "1 - 2.9",
+                "hematocrito": "50 - 59.9"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apache/{id}": {
       "get": {
         "tags": [
           "Apache"
         ],
         "summary": "Retorna um JSON array de apaches",
+        "description": "Para fazer a listagem, o endpoint requer ID de um apache especifíco",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer"
+          }
+        ],
         "security": [
           {
             "APIKeyHeader": []
@@ -33,7 +120,108 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/Apache"
+              "properties": {
+                "items": {
+                  "type": "object"
+                }
+              },
+              "example": {
+                "id": 25,
+                "kSerico": "5.5 - 5.9",
+                "frequenciaRespiratoria": "10 - 11",
+                "problemasCronicos": "Não - Cirúrgico",
+                "registroLeito": {
+                  "id": 446329
+                },
+                "arterialPh": "7.5 - 7.59; 32 - 40.9",
+                "naSerico": "130 - 149",
+                "pas": 28,
+                "escore": 44,
+                "temperatura": "39 - 40.9",
+                "pad": 20,
+                "glasgow": 4,
+                "creatininaSerica": "1.5 - 1.9",
+                "frequenciaCardiaca": "55 - 69",
+                "aapo": "PaO2 < 55",
+                "leucocitos": "1 - 2.9",
+                "hematocrito": "50 - 59.9"
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Apache"
+        ],
+        "summary": "Atualiza um apache em específico",
+        "description": "No exemplo abaixo foi atualizado o apache de ID - 28 o valor da propriedade glasgow de 4 para 3.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "properties": {
+                "items": {
+                  "type": "object"
+                }
+              },
+              "example": {
+                "pas": 28,
+                "pad": 20,
+                "temperatura": "39 - 40.9",
+                "arterialPh": "7.5 - 7.59; 32 - 40.9",
+                "naSerico": "130 - 149",
+                "leucocitos": "1 - 2.9",
+                "glasgow": 3,
+                "problemasCronicos": "Não - Cirúrgico",
+                "frequenciaCardiaca": "55 - 69",
+                "frequenciaRespiratoria": "10 - 11",
+                "kSerico": "5.5 - 5.9",
+                "hematocrito": "50 - 59.9",
+                "aapo": "PaO2 < 55",
+                "creatininaSerica": "1.5 - 1.9",
+                "registroLeito": 446329
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "properties": {
+                "items": {
+                  "type": "object"
+                }
+              },
+              "example": {
+                "id": 25,
+                "kSerico": "5.5 - 5.9",
+                "frequenciaRespiratoria": "10 - 11",
+                "problemasCronicos": "Não - Cirúrgico",
+                "registroLeito": {
+                  "id": 446329
+                },
+                "arterialPh": "7.5 - 7.59; 32 - 40.9",
+                "naSerico": "130 - 149",
+                "pas": 28,
+                "escore": 44,
+                "temperatura": "39 - 40.9",
+                "pad": 20,
+                "glasgow": 4,
+                "creatininaSerica": "1.5 - 1.9",
+                "frequenciaCardiaca": "55 - 69",
+                "aapo": "PaO2 < 55",
+                "leucocitos": "1 - 2.9",
+                "hematocrito": "50 - 59.9"
+              }
             }
           }
         }
@@ -45,6 +233,132 @@
           "Atendimento"
         ],
         "summary": "Retorna um JSON array de grupos",
+        "description": "Nenhum dos parâmetros são obrigatório, mas é possível filtrar antendimentos específicos, o exemplo abaixo foi realizado um filtro por setorId = 0008 | dataEntradaInicio = 2020-04-20 e dataEntradaFim = 2020-04-27, no body temos vários atendimentos de forma a exemplificar e o response retorna os valores específicos da filtragem.",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "setorId",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "dataEntradaInicio",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "dataEntradaFim",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "tipoRegistro",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "termo: (id, nome paciente, prontuario)",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "properties": {
+                "items": {
+                  "type": "object"
+                }
+              },
+              "example": [
+                {
+                  "id": "0233166",
+                  "dataEntrada": "2020-04-27 15:52",
+                  "setor": {
+                    "id": "0032",
+                    "habilitado": false,
+                    "descricao": "UNIDADE IIA HCOR",
+                    "prazoApache": 0
+                  },
+                  "tipo": "E",
+                  "dataAlta": "2020-04-27 17:52",
+                  "motivoAlta": {
+                    "id": "12",
+                    "descricao": "ALTA MELHORADO",
+                    "classificacao": "M"
+                  },
+                  "paciente": {
+                    "id": "000404099",
+                    "nome": "BRUNO JOSE LIMA DOS SANTOS",
+                    "sexo": "M",
+                    "nomeMae": "ADRIANA BORGES DE LIMA SANTANA",
+                    "nascimento": "2015-10-19 00:00"
+                  }
+                },
+                {
+                  "id": "0233164",
+                  "dataEntrada": "2020-04-27 15:46",
+                  "setor": {
+                    "id": "0003",
+                    "sigla": "EMER",
+                    "habilitado": true,
+                    "descricao": "EMERGENCIA CARDIOLOGIA HCOR",
+                    "prazoApache": 0,
+                    "tipoSetor": "EMERGENCIA"
+                  },
+                  "tipo": "U",
+                  "paciente": {
+                    "id": "000359673",
+                    "nome": "DANNIEL BRUNO DE ARAUJO",
+                    "sexo": "M",
+                    "nomeMae": "MARIA DO CARMO DE ARAUJO",
+                    "nascimento": "1977-11-19 00:00"
+                  }
+                },
+                {
+                  "id": "0233162",
+                  "dataEntrada": "2020-04-27 15:24",
+                  "setor": {
+                    "id": "0003",
+                    "sigla": "EMER",
+                    "habilitado": true,
+                    "descricao": "EMERGENCIA CARDIOLOGIA HCOR",
+                    "prazoApache": 0,
+                    "tipoSetor": "EMERGENCIA"
+                  },
+                  "tipo": "U",
+                  "paciente": {
+                    "id": "000357072",
+                    "nome": "JOSE RENIVALDO MENDES SANTOS",
+                    "sexo": "M",
+                    "nomeMae": "CLEONILDES MENDES SANTOS",
+                    "nascimento": "1949-04-10 01:00"
+                  }
+                },
+                {
+                  "id": "0233161",
+                  "dataEntrada": "2020-04-27 15:19",
+                  "setor": {
+                    "id": "0003",
+                    "sigla": "EMER",
+                    "habilitado": true,
+                    "descricao": "EMERGENCIA CARDIOLOGIA HCOR",
+                    "prazoApache": 0,
+                    "tipoSetor": "EMERGENCIA"
+                  },
+                  "tipo": "U",
+                  "paciente": {
+                    "id": "000404092",
+                    "nome": "CLEBER COSTA DE OLIVEIRA",
+                    "sexo": "M",
+                    "nomeMae": "NAZARITA COSTA DE OLIVEIRA",
+                    "nascimento": "1952-07-09 01:00"
+                  }
+                }
+              ]
+            }
+          }
+        ],
         "security": [
           {
             "APIKeyHeader": []
@@ -61,8 +375,13 @@
               },
               "example": [
                 {
-                  "id": "0232948",
-                  "dataEntrada": "2020-04-23 14:40",
+                  "id": "0232967",
+                  "dataEntrada": "2020-04-24 07:33",
+                  "registroLeitos": [
+                    {
+                      "id": 446229
+                    }
+                  ],
                   "setor": {
                     "id": "0003",
                     "sigla": "EMER",
@@ -71,33 +390,13 @@
                     "prazoApache": 0,
                     "tipoSetor": "EMERGENCIA"
                   },
-                  "tipo": "U",
+                  "tipo": "I",
                   "paciente": {
-                    "id": "000404053",
-                    "nome": "ALESSANDRA LAMENHA FEITOSA SAMPAIO",
-                    "sexo": "F",
-                    "nomeMae": "MARIA AUXILIADORA LAMENHA FEITOSA",
-                    "nascimento": "1970-06-10 00:00"
-                  }
-                },
-                {
-                  "id": "0232947",
-                  "dataEntrada": "2020-04-23 14:18",
-                  "setor": {
-                    "id": "0003",
-                    "sigla": "EMER",
-                    "habilitado": true,
-                    "descricao": "EMERGENCIA CARDIOLOGIA HCOR",
-                    "prazoApache": 0,
-                    "tipoSetor": "EMERGENCIA"
-                  },
-                  "tipo": "U",
-                  "paciente": {
-                    "id": "000351908",
-                    "nome": "TEREZA PEREIRA ALENCAR",
-                    "sexo": "F",
-                    "nomeMae": "ATELVINA DE ARAUJO",
-                    "nascimento": "1932-04-06 01:00"
+                    "id": "000400550",
+                    "nome": "JOSE FRANCISCO ALVES",
+                    "sexo": "M",
+                    "nomeMae": "JULIA EUGENIO ALVES",
+                    "nascimento": "1949-09-08 01:00"
                   }
                 }
               ]
@@ -117,6 +416,7 @@
           {
             "in": "body",
             "name": "body",
+            "required": true,
             "schema": {
               "properties": {
                 "id": {
@@ -696,12 +996,13 @@
         ]
       }
     },
-    "/risco": {
+    "/incidente": {
       "post": {
         "tags": [
-          "Risco"
+          "Incidente"
         ],
-        "summary": "Cria um novo Risco",
+        "summary": "Cria um novo Incidente",
+        "description": "O pacienteId a ser passado deve ter um registro de atendimento do tipo internação.",
         "parameters": [
           {
             "name": "body",
@@ -714,8 +1015,12 @@
                 }
               },
               "example": {
-                "habilitado": true,
-                "nome": "Risco de queda"
+                "dataHora": "2020-04-27 16:24",
+                "obs": "Caiu da cama na hora do banho no leito.",
+                "tipoIncidente": {
+                  "id": "16"
+                },
+                "pacienteId": "000404099"
               }
             }
           }
@@ -724,32 +1029,46 @@
           "200": {
             "description": "OK",
             "schema": {
-              "properties": {
-                "items": {
-                  "type": "object"
-                }
-              },
+              "type": "object",
+              "properties": {},
               "example": [
                 {
-                  "id": 1,
-                  "habilitado": true,
-                  "nome": "Risco de queda"
+                  "id": 28,
+                  "tipoIncidente": {
+                    "id": 16,
+                    "riscos": [
+                      {
+                        "id": 22,
+                        "habilitado": true,
+                        "nome": "Risco"
+                      }
+                    ],
+                    "nome": "Queda"
+                  },
+                  "obs": "Caiu da cama na hora do banho no leito.",
+                  "setor": {
+                    "id": "0037",
+                    "sigla": "UN II",
+                    "habilitado": true,
+                    "descricao": "UNIDADE II",
+                    "prazoApache": 0,
+                    "tipoSetor": "INTERNACAO"
+                  },
+                  "dataHora": "2020-04-27 16:24",
+                  "atendimento": {
+                    "id": "0233166"
+                  }
                 }
               ]
             }
           }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ]
+        }
       },
       "get": {
         "tags": [
-          "Risco"
+          "Incidente"
         ],
-        "summary": "Retorna um JSON array de riscos",
+        "summary": "Retorna um JSON array de incidentes",
         "security": [
           {
             "APIKeyHeader": []
@@ -766,19 +1085,31 @@
               },
               "example": [
                 {
-                  "id": 1,
-                  "habilitado": true,
-                  "nome": "Risco de queda"
-                },
-                {
-                  "id": 2,
-                  "habilitado": true,
-                  "nome": "Risco de flebite"
-                },
-                {
-                  "id": 3,
-                  "habilitado": true,
-                  "nome": "Risco de alergia"
+                  "id": 28,
+                  "tipoIncidente": {
+                    "id": 16,
+                    "riscos": [
+                      {
+                        "id": 22,
+                        "habilitado": true,
+                        "nome": "Risco"
+                      }
+                    ],
+                    "nome": "Queda"
+                  },
+                  "obs": "Caiu da cama na hora do banho no leito.",
+                  "setor": {
+                    "id": "0037",
+                    "sigla": "UN II",
+                    "habilitado": true,
+                    "descricao": "UNIDADE II",
+                    "prazoApache": 0,
+                    "tipoSetor": "INTERNACAO"
+                  },
+                  "dataHora": "2020-04-27 16:24",
+                  "atendimento": {
+                    "id": "0233166"
+                  }
                 }
               ]
             }
@@ -786,12 +1117,13 @@
         }
       }
     },
-    "/risco/{id}": {
+    "/incidente/{id}": {
       "get": {
         "tags": [
-          "Risco"
+          "Incidente"
         ],
-        "summary": "Retorna um JSON de risco específico.",
+        "summary": "Retorna um JSON array de incidentes",
+        "description": "No exemplo abaixo a pesquisa foi realizada passando o ID - 28.",
         "parameters": [
           {
             "name": "id",
@@ -816,9 +1148,31 @@
               },
               "example": [
                 {
-                  "id": 1,
-                  "habilitado": true,
-                  "nome": "Risco de queda"
+                  "id": 28,
+                  "tipoIncidente": {
+                    "id": 16,
+                    "riscos": [
+                      {
+                        "id": 22,
+                        "habilitado": true,
+                        "nome": "Risco"
+                      }
+                    ],
+                    "nome": "Queda"
+                  },
+                  "obs": "Caiu da cama na hora do banho no leito.",
+                  "setor": {
+                    "id": "0037",
+                    "sigla": "UN II",
+                    "habilitado": true,
+                    "descricao": "UNIDADE II",
+                    "prazoApache": 0,
+                    "tipoSetor": "INTERNACAO"
+                  },
+                  "dataHora": "2020-04-27 16:24",
+                  "atendimento": {
+                    "id": "0233166"
+                  }
                 }
               ]
             }
@@ -827,9 +1181,10 @@
       },
       "put": {
         "tags": [
-          "Risco"
+          "Incidente"
         ],
-        "summary": "Atualiza um risco em específico",
+        "summary": "Atualiza um incidente em específico",
+        "description": "No exemplo abaixo alteramos o incidente de ID - 28 a propriedade de observação do incidente.",
         "parameters": [
           {
             "name": "id",
@@ -847,8 +1202,12 @@
                 }
               },
               "example": {
-                "habilitado": true,
-                "nome": "Alteração da consciencia"
+                "dataHora": "2020-04-27 16:24",
+                "obs": "Caiu da cama na hora do banho no leito.",
+                "tipoIncidente": {
+                  "id": "16"
+                },
+                "pacienteId": "000404099"
               }
             }
           }
@@ -862,199 +1221,44 @@
                   "type": "object"
                 }
               },
-              "example": [
-                {
-                  "id": 1,
-                  "habilitado": true,
-                  "nome": "Alteração da consciencia"
-                }
-              ]
+              "example": {
+                "dataHora": "2020-04-27 16:24",
+                "obs": "Caiu da cama na hora do banho.",
+                "tipoIncidente": {
+                  "id": "16"
+                },
+                "pacienteId": "000404099"
+              }
             }
           }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ]
+        }
       }
     },
-    "/registroLeito": {
-      "get": {
+    "/nas": {
+      "post": {
         "tags": [
-          "Registro Leito"
+          "Nas"
         ],
-        "summary": "Retorna um JSON array de exames",
+        "summary": "Cria um novo NAS",
         "parameters": [
           {
-            "in": "query",
-            "name": "setorId",
-            "type": "integer"
-          },
-          {
-            "in": "query",
-            "name": "tipoSetor",
-            "type": "string"
-          },
-          {
-            "in": "query",
-            "name": "dataEntradaInicio",
-            "type": "string"
-          },
-          {
-            "in": "query",
-            "name": "dataEntradaFinal",
-            "type": "string"
-          },
-          {
-            "in": "query",
-            "name": "internados",
-            "type": "boolean"
-          },
-          {
-            "in": "query",
-            "name": "termo",
-            "type": "string"
-          },
-          {
-            "in": "query",
-            "name": "offset",
-            "type": "integer"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
+            "name": "body",
+            "in": "body",
+            "required": true,
             "schema": {
               "properties": {
                 "items": {
                   "type": "object"
                 }
-              },
-              "example": [
-                {
-                  "id": 446206,
-                  "dataEntrada": "2020-04-23 14:11",
-                  "nas": [],
-                  "atendimento": {
-                    "id": "0232946",
-                    "dataEntrada": "2020-04-23 14:11",
-                    "setor": {
-                      "id": "0125",
-                      "sigla": "UPO",
-                      "habilitado": true,
-                      "descricao": "CTI - UPO",
-                      "prazoApache": 0,
-                      "tipoSetor": "UTI"
-                    },
-                    "tipo": "I",
-                    "paciente": {
-                      "id": "000403366",
-                      "nome": "ALEXANDRE RAMOS DE LIMA",
-                      "sexo": "M",
-                      "nomeMae": "SANDRA MARIA DA SILVA BEZERRA",
-                      "nascimento": "1984-02-26 00:00"
-                    }
-                  },
-                  "dataAlta": null,
-                  "leito": {
-                    "id": "UPO01",
-                    "descricao": "CTI UPO 01",
-                    "setor": {
-                      "id": "0125",
-                      "sigla": "UPO",
-                      "habilitado": true,
-                      "descricao": "CTI - UPO",
-                      "prazoApache": 0,
-                      "tipoSetor": "UTI"
-                    }
-                  }
-                },
-                {
-                  "id": 446203,
-                  "dataEntrada": "2020-04-23 13:00",
-                  "nas": [],
-                  "atendimento": {
-                    "id": "0232882",
-                    "dataEntrada": "2020-04-22 17:16",
-                    "setor": {
-                      "id": "0037",
-                      "sigla": "UN II",
-                      "habilitado": true,
-                      "descricao": "UNIDADE II",
-                      "prazoApache": 0,
-                      "tipoSetor": "INTERNACAO"
-                    },
-                    "tipo": "I",
-                    "paciente": {
-                      "id": "000404042",
-                      "nome": "FRANCISCO MEDEIROS",
-                      "sexo": "M",
-                      "nomeMae": "MARIA OLIVIA DE MEDEIROS",
-                      "nascimento": "1933-03-06 01:00"
-                    }
-                  },
-                  "dataAlta": null,
-                  "leito": {
-                    "id": "URT01",
-                    "descricao": "CTI URTE 01",
-                    "setor": {
-                      "id": "0126",
-                      "sigla": "URTE",
-                      "habilitado": true,
-                      "descricao": "CTI - URTE",
-                      "prazoApache": 0,
-                      "tipoSetor": "UTI"
-                    }
-                  }
-                },
-                {
-                  "id": 446198,
-                  "dataEntrada": "2020-04-23 12:31",
-                  "nas": [],
-                  "atendimento": {
-                    "id": "0232940",
-                    "dataEntrada": "2020-04-23 12:31",
-                    "setor": {
-                      "id": "0037",
-                      "sigla": "UN II",
-                      "habilitado": true,
-                      "descricao": "UNIDADE II",
-                      "prazoApache": 0,
-                      "tipoSetor": "INTERNACAO"
-                    },
-                    "tipo": "I",
-                    "paciente": {
-                      "id": "000404044",
-                      "nome": "LUCAS DE MENEZES SANTOS",
-                      "sexo": "M",
-                      "nomeMae": "SUELY TELES DE MENEZES",
-                      "nascimento": "1995-12-09 00:00"
-                    }
-                  },
-                  "dataAlta": null,
-                  "leito": {
-                    "id": "EN206",
-                    "descricao": "ENFERMARIA 206",
-                    "setor": {
-                      "id": "0037",
-                      "sigla": "UN II",
-                      "habilitado": true,
-                      "descricao": "UNIDADE II",
-                      "prazoApache": 0,
-                      "tipoSetor": "INTERNACAO"
-                    }
-                  }
-                }
-              ]
+              }
             }
           }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
           }
-        ]
+        }
       }
     },
     "/paciente": {
@@ -1063,14 +1267,28 @@
           "Paciente"
         ],
         "summary": "Retorna um JSON array de grupos",
-        "security": [
+        "description": "No exemplo abaixo temos uma lista de pacientes exemplificada no body, a titulo de demonstração foi feito uma busca através do termo passando o nome do paciente,Ex: Termo: = RUTH COELHO DE BARROS PINTO no response da aplicação teremo como retorno o objeto especifíco de acordo com a busca realizada.",
+        "parameters": [
           {
-            "APIKeyHeader": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
+            "in": "query",
+            "name": "termo",
+            "description": "nome do paciente / prontuário",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "setorId",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "tipo",
+            "description": "(A, E, I, H, U)",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
             "schema": {
               "properties": {
                 "items": {
@@ -1218,15 +1436,7 @@
               ]
             }
           }
-        }
-      }
-    },
-    "/setor": {
-      "get": {
-        "tags": [
-          "Setor"
         ],
-        "summary": "Retorna um JSON array de setor",
         "security": [
           {
             "APIKeyHeader": []
@@ -1235,6 +1445,408 @@
         "responses": {
           "200": {
             "description": "OK",
+            "schema": {
+              "properties": {
+                "items": {
+                  "type": "object"
+                }
+              },
+              "example": [
+                {
+                  "id": "000348303",
+                  "nome": "RUTH COELHO DE BARROS PINTO",
+                  "sexo": "F",
+                  "nomeMae": "DALVA GONCALVES C DE BARROS",
+                  "nascimento": "1953-03-05 01:00",
+                  "registrosAtendimento": [
+                    {
+                      "id": "0123645",
+                      "incidentes": [],
+                      "paciente": {
+                        "id": "000348303"
+                      },
+                      "dataEntrada": "2016-04-29 10:55",
+                      "setor": {
+                        "id": "0003"
+                      },
+                      "tipo": "U",
+                      "dataAlta": "2016-04-29 22:55",
+                      "motivoAlta": {
+                        "id": "12"
+                      },
+                      "registroLeitos": []
+                    },
+                    {
+                      "id": "0036084",
+                      "incidentes": [],
+                      "paciente": {
+                        "id": "000348303"
+                      },
+                      "dataEntrada": "2010-12-22 10:47",
+                      "setor": {
+                        "id": "0003"
+                      },
+                      "tipo": "U",
+                      "dataAlta": "2010-12-22 22:47",
+                      "motivoAlta": {
+                        "id": "12"
+                      },
+                      "registroLeitos": []
+                    },
+                    {
+                      "id": "0146652",
+                      "incidentes": [],
+                      "paciente": {
+                        "id": "000348303"
+                      },
+                      "dataEntrada": "2017-05-04 18:52",
+                      "setor": {
+                        "id": "0003"
+                      },
+                      "tipo": "U",
+                      "dataAlta": "2017-05-05 06:52",
+                      "motivoAlta": {
+                        "id": "12"
+                      },
+                      "registroLeitos": []
+                    },
+                    {
+                      "id": "0099553",
+                      "incidentes": [],
+                      "paciente": {
+                        "id": "000348303"
+                      },
+                      "dataEntrada": "2015-03-27 11:28",
+                      "setor": {
+                        "id": "0003"
+                      },
+                      "tipo": "U",
+                      "dataAlta": "2015-03-27 23:28",
+                      "motivoAlta": {
+                        "id": "12"
+                      },
+                      "registroLeitos": []
+                    },
+                    {
+                      "id": "0178459",
+                      "incidentes": [],
+                      "paciente": {
+                        "id": "000348303"
+                      },
+                      "dataEntrada": "2018-07-11 18:06",
+                      "setor": {
+                        "id": "0003"
+                      },
+                      "tipo": "U",
+                      "dataAlta": "2018-07-12 06:06",
+                      "motivoAlta": {
+                        "id": "12"
+                      },
+                      "registroLeitos": []
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/perfilEpidemiologico": {
+      "get": {
+        "tags": [
+          "Perfil Epidemiologico"
+        ],
+        "summary": "Lista perfil epidemiologico",
+        "description": "Caso não seja passado parametros o endpoint retorna o perfil epidemiologico geral (Adulto e Infantil) no intervalo de 1 mês referente ao mês atual e o mês passado",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "inicio",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "fim",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "setores",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "tipo",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "perfilGeral",
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "properties": {
+                "items": {
+                  "type": "object"
+                }
+              },
+              "example": {
+                "sexo": {
+                  "Masculino": 544,
+                  "Feminino": 609
+                },
+                "cids": [
+                  {
+                    "codigo": null,
+                    "diagnostico": "Não cadastrado",
+                    "quantidade": 390
+                  },
+                  {
+                    "codigo": "R074",
+                    "diagnostico": "DOR TORACICA NE",
+                    "quantidade": 184
+                  },
+                  {
+                    "codigo": "I10",
+                    "diagnostico": "HIPERTENSAO ESSENCIAL",
+                    "quantidade": 106
+                  },
+                  {
+                    "codigo": "J11",
+                    "diagnostico": "INFLUENZA DEV VIRUS NAO IDENTIFICADO",
+                    "quantidade": 57
+                  },
+                  {
+                    "codigo": "R060",
+                    "diagnostico": "DISPNEIA",
+                    "quantidade": 35
+                  },
+                  {
+                    "codigo": "R002",
+                    "diagnostico": "PALPITACOES",
+                    "quantidade": 32
+                  },
+                  {
+                    "codigo": "I20",
+                    "diagnostico": "ANGINA PECTORIS",
+                    "quantidade": 30
+                  },
+                  {
+                    "codigo": "R53",
+                    "diagnostico": "MAL ESTAR FADIGA",
+                    "quantidade": 16
+                  },
+                  {
+                    "codigo": "I50",
+                    "diagnostico": "INSUF CARDIACA",
+                    "quantidade": 13
+                  },
+                  {
+                    "codigo": "I21",
+                    "diagnostico": "INFARTO AGUDO DO MIOCARDIO",
+                    "quantidade": 12
+                  }
+                ],
+                "idades": [
+                  {
+                    "faixaEtaria": "Até 15 anos",
+                    "quantidade": 14
+                  },
+                  {
+                    "faixaEtaria": "De 15 a 30 anos",
+                    "quantidade": 64
+                  },
+                  {
+                    "faixaEtaria": "De 31 a 60 anos",
+                    "quantidade": 513
+                  },
+                  {
+                    "faixaEtaria": "De 61 a 79 anos",
+                    "quantidade": 394
+                  },
+                  {
+                    "faixaEtaria": "Maior que 80 anos",
+                    "quantidade": 117
+                  }
+                ],
+                "motivoAltas": [
+                  {
+                    "motivoAltaId": "12",
+                    "descricao": "ALTA MELHORADO",
+                    "quantidade": 855
+                  },
+                  {
+                    "motivoAltaId": "11",
+                    "descricao": "ALTA CURADO",
+                    "quantidade": 177
+                  },
+                  {
+                    "motivoAltaId": "15",
+                    "descricao": "ALTA INTERNADO PARA DIAGNOSTICO",
+                    "quantidade": 76
+                  },
+                  {
+                    "motivoAltaId": "39",
+                    "descricao": "TRANSFERENCIA PARA OUTROS (CTI,RADIOTERAPIA,ETC)",
+                    "quantidade": 15
+                  },
+                  {
+                    "motivoAltaId": "16",
+                    "descricao": "ALTA ADMINISTRATIVO",
+                    "quantidade": 10
+                  },
+                  {
+                    "motivoAltaId": "53",
+                    "descricao": "OBITO SEM NECROPSIA APOS 48H",
+                    "quantidade": 5
+                  },
+                  {
+                    "motivoAltaId": "76",
+                    "descricao": "ALTA POR EVASAO",
+                    "quantidade": 5
+                  },
+                  {
+                    "motivoAltaId": "33",
+                    "descricao": "TRANSFERENCIA PARA CLINICA MEDICA",
+                    "quantidade": 3
+                  },
+                  {
+                    "motivoAltaId": "13",
+                    "descricao": "ALTA INALTERADO",
+                    "quantidade": 2
+                  },
+                  {
+                    "motivoAltaId": "14",
+                    "descricao": "ALTA A PEDIDO",
+                    "quantidade": 2
+                  },
+                  {
+                    "motivoAltaId": "18",
+                    "descricao": "ALTA POR OUTROS MOTIVOS",
+                    "quantidade": 1
+                  },
+                  {
+                    "motivoAltaId": "77",
+                    "descricao": "ALTA CONSENSUAL",
+                    "quantidade": 1
+                  },
+                  {
+                    "motivoAltaId": "56",
+                    "descricao": "OBITO",
+                    "quantidade": 1
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/registroLeito": {
+      "get": {
+        "tags": [
+          "Registro Leito"
+        ],
+        "summary": "Retorna um JSON array de exames",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "setorId",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "tipoSetorId",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "dataEntradaInicio",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "dataEntradaFim",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "internos",
+            "type": "boolean"
+          },
+          {
+            "in": "query",
+            "name": "termo",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "properties": {
+                "items": {
+                  "type": "object"
+                }
+              },
+              "example": [
+                {
+                  "id": "0008",
+                  "sigla": "UTI",
+                  "habilitado": true,
+                  "descricao": "UTI HC",
+                  "prazoApache": 0,
+                  "tipoSetor": "UTI"
+                },
+                {
+                  "id": "0125",
+                  "sigla": "UPO",
+                  "habilitado": true,
+                  "descricao": "CTI - UPO",
+                  "prazoApache": 0,
+                  "tipoSetor": "UTI"
+                },
+                {
+                  "id": "0126",
+                  "sigla": "URTE",
+                  "habilitado": true,
+                  "descricao": "CTI - URTE",
+                  "prazoApache": 0,
+                  "tipoSetor": "UTI"
+                }
+              ]
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/setor": {
+      "get": {
+        "tags": [
+          "Setor"
+        ],
+        "summary": "Retorna um JSON array de setor",
+        "description": "O endpoint não requer parametros obrigatórios, mas pode-se realizar uma busca filtrando por tipo de setor, em caso de uma busca personalizada o parametro a ser passado query é definido como tipoSetor. Observação: O objeto que é passado no body é apenas uma exemplificação da lista de setores sem filtro e no response foi criado um exemplo de retorno filtrando por tipo de setor U.",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "tipoSetor",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
             "schema": {
               "properties": {
                 "items": {
@@ -1317,10 +1929,126 @@
               ]
             }
           }
+        ],
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "properties": {
+                "items": {
+                  "type": "object"
+                }
+              },
+              "example": [
+                {
+                  "id": "0008",
+                  "sigla": "UTI",
+                  "habilitado": true,
+                  "descricao": "UTI HC",
+                  "prazoApache": 0,
+                  "tipoSetor": "UTI"
+                },
+                {
+                  "id": "0125",
+                  "sigla": "UPO",
+                  "habilitado": true,
+                  "descricao": "CTI - UPO",
+                  "prazoApache": 0,
+                  "tipoSetor": "UTI"
+                },
+                {
+                  "id": "0126",
+                  "sigla": "URTE",
+                  "habilitado": true,
+                  "descricao": "CTI - URTE",
+                  "prazoApache": 0,
+                  "tipoSetor": "UTI"
+                }
+              ]
+            }
+          }
         }
       }
     },
     "/usuario": {
+      "post": {
+        "tags": [
+          "Usuário"
+        ],
+        "summary": "Cria um novo Usuário",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "items": {
+                  "type": "object"
+                }
+              },
+              "example": {
+                "name": "Enfermagem",
+                "permissoes": [
+                  {
+                    "id": 1,
+                    "alias": "perfil epidemiológico",
+                    "authority": "ROLE_PERFIL_EPIDEMIOLOGICO_INDEX",
+                    "nome": "Listar Perfis Epidemiológicos"
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "habilitado": {
+                  "type": "boolean"
+                },
+                "permissoes": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              },
+              "example": {
+                "id": 1,
+                "habilitado": true,
+                "name": "Enfermagem",
+                "permissoes": [
+                  {
+                    "id": 1,
+                    "alias": "perfil epidemiológico",
+                    "authority": "ROLE_PERFIL_EPIDEMIOLOGICO_INDEX",
+                    "nome": "Listar Perfis Epidemiológicos"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      },
       "get": {
         "tags": [
           "Usuário"
@@ -2409,6 +3137,182 @@
                   "enabled": true
                 }
               ]
+            }
+          }
+        }
+      }
+    },
+    "/tipoincidente": {
+      "post": {
+        "tags": [
+          "Tipo de incidente"
+        ],
+        "summary": "Cria um novo tipo de Incidente",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "items": {
+                  "type": "object"
+                }
+              },
+              "example": {
+                "nome": "Flebite",
+                "riscos": [
+                  {
+                    "nome": "Risco 5"
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Tipo de incidente"
+        ],
+        "summary": "Retorna uma lista de tipo de Incidente",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "properties": {
+                "items": {
+                  "type": "object"
+                }
+              },
+              "example": [
+                {
+                  "id": 16,
+                  "riscos": [
+                    {
+                      "id": 22,
+                      "habilitado": true,
+                      "nome": "Risco"
+                    }
+                  ],
+                  "nome": "Queda"
+                },
+                {
+                  "id": 17,
+                  "riscos": [
+                    {
+                      "id": 32,
+                      "habilitado": true,
+                      "nome": "Risco 5"
+                    }
+                  ],
+                  "nome": "Flebite"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/tipoincidente/{id}": {
+      "get": {
+        "tags": [
+          "Tipo de incidente"
+        ],
+        "summary": "Retorna um JSON array de tipo de incidente",
+        "description": "No exemplo abaixo a pesquisa foi realizada passando o ID - 17.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "properties": {
+                "items": {
+                  "type": "object"
+                }
+              },
+              "example": {
+                "id": 17,
+                "riscos": [
+                  {
+                    "id": 32,
+                    "habilitado": true,
+                    "nome": "Risco 5"
+                  }
+                ],
+                "nome": "Flebite"
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Tipo de incidente"
+        ],
+        "summary": "Atualiza um tipo de incidente em específico",
+        "description": "No exemplo abaixo alteramos o tipo de incidente de ID - 17, a propriedade nome de Flebite para Troboflebite.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "properties": {
+                "items": {
+                  "type": "object"
+                }
+              },
+              "example": {
+                "nome": "Tromboflebite",
+                "riscos": [
+                  {
+                    "nome": "Risco 5"
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "properties": {
+                "items": {
+                  "type": "object"
+                }
+              },
+              "example": {
+                "dataHora": "2020-04-27 16:24",
+                "obs": "Caiu da cama na hora do banho.",
+                "tipoIncidente": {
+                  "id": "16"
+                },
+                "pacienteId": "000404099"
+              }
             }
           }
         }
