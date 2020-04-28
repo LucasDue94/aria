@@ -19,7 +19,7 @@
     <section class="tbody content" [scrollWindow]="false" infinite-scroll (scrolled)="scrollDown()">
       <spinner [loading]="listLoading"></spinner>
       <div class="paciente-situacao-label">Pacientes Internados</div>
-      <div [ngClass]="getRowClass(registro)" [class.d-none]="!this.isTimeOverflow(registro.dataEntrada)" class="row"
+      <div [ngClass]="getRowClass(registro)" class="row"
         *ngFor="let registro of pacientesInternos"
         [routerLink]="['/apache','form',registro.id]">
         <span class="td flex-1"><span class="label-card">Registro:</span> {{registro.atendimento.id}}</span>

@@ -50,7 +50,8 @@ export class ApachePacienteListComponent implements OnInit {
     this.showListScrollSpinner = true;
     this.registroLeitoService.list(params)
       .subscribe((registrosLeito: RegistroLeito[]) => {
-        array = array.concat(registrosLeito);
+        if (internos) this.pacientesInternos = this.pacientesInternos.concat(registrosLeito);
+        else this.outrosPacientes = this.outrosPacientes.concat(registrosLeito);
         this.listLoading = false;
         this.showListScrollSpinner = false;
       });
