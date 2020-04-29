@@ -3,7 +3,7 @@ import {Atendimento} from '../atendimento/atendimento';
 export class Paciente {
   id: string;
   nome: string;
-  registrosAtendimento: Atendimento[];
+  atendimentos: Atendimento[];
   sexo: any;
   nomeMae: string;
   nascimento: any;
@@ -11,11 +11,11 @@ export class Paciente {
   constructor(object?: any) {
     if (object) {
 
-      if (object.hasOwnProperty('registrosAtendimento')) {
-        this.registrosAtendimento = object['registrosAtendimento'].map((obj: any) => {
+      if (object.hasOwnProperty('atendimentos')) {
+        this.atendimentos = object['atendimentos'].map((obj: any) => {
           return new Atendimento(obj);
         });
-        delete object['registrosAtendimento'];
+        delete object['atendimentos'];
       }
 
       for (var prop in object) {

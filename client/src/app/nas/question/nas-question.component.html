@@ -4,7 +4,7 @@
     <p>{{alternative?.option}}.</p>
     <div class="form-group">
       <input required [(ngModel)]="answer[question.name]" class="form-control" id="{{ alternative?.value }}"
-             type="radio" name="{{ question.name}}" value="{{ alternative?.value }}">
+             type="radio" name="{{ question.name }}" [value]="alternative?.value">
       <label class="form-label" for="{{ alternative?.value }}">{{alternative?.description}}</label>
     </div>
   </section>
@@ -12,9 +12,9 @@
 
 <article *ngIf="isBoolQuestion">
   <section class="alternative">
-    <div class="form-group  bool-group" *ngFor="let bool of boolQuestion">
+    <div class="form-group bool-group" *ngFor="let bool of boolQuestion">
       <input id="{{question.number + '-' + bool.option }}" [(ngModel)]="answer[question.name]"
-             value="{{ bool.value }}" class="form-control"
+             [value]="bool?.value" class="form-control"
              type="radio" name="{{ question.name }}">
       <label for="{{question.number + '-' + bool.option }}" class="form-label bool-label">{{ bool.option }}</label>
     </div>

@@ -5,16 +5,15 @@ export class Ecg {
   id: number;
   dataHoraEcg: any;
   dataHoraPorta: any;
-  registroAtendimentoId: number;
   paciente: Paciente;
-  registroAtendimento: Atendimento = new Atendimento();
+  atendimento: Atendimento = new Atendimento();
 
   constructor(object?: any) {
     if (object) {
 
-      if (object.hasOwnProperty('registroAtendimento')) {
-        this.registroAtendimento = new Atendimento(object['registroAtendimento']);
-        delete object['registroAtendimento'];
+      if (object.hasOwnProperty('atendimento')) {
+        this.atendimento = new Atendimento(object['atendimento']);
+        delete object['atendimento'];
       }
 
       for (var prop in object) {

@@ -13,10 +13,10 @@ export class NasQuestionComponent {
   @Input() question: Question;
   boolQuestion = [new Alternative({
     option: 'Sim',
-    value: 'true'
+    value: true
   }), new Alternative({
     option: 'Não',
-    value: 'false'
+    value: false
   })];
 
   constructor() {

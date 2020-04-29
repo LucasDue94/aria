@@ -5,6 +5,7 @@ import {Paciente} from "../paciente/paciente";
 import {Incidente} from "../incidente/incidente";
 import {Ecg} from "../ecg/ecg";
 import {Balao} from "../balao/balao";
+import {Nas} from '../nas/nas';
 
 
 export class Atendimento {
@@ -19,6 +20,7 @@ export class Atendimento {
   balao: Balao;
   paciente: Paciente;
   incidentes?: Incidente[] = new Array<Incidente>();
+  ultimoNas: Nas;
 
   constructor(object?: any) {
     if (object) {
