@@ -1,4 +1,10 @@
 <main class="container">
+  <div class="legend-container">
+    <ul class="legend">
+      <li><span class="legend-success"></span> Realizado</li>
+      <li><span class="legend-alert"></span> Pendente</li>
+    </ul>
+  </div>
   <div class="table table-list">
     <section class="thead">
       <span class="th flex-1">Registro</span>
@@ -13,7 +19,8 @@
       <spinner [loading]="listLoading"></spinner>
       <div class="paciente-situacao-label">Pacientes Internados</div>
       <section *ngFor="let internos of pacientesInternos">
-        <div (click)="edit(internos)" class="row" [ngClass]="[isToday(internos.getLastNas()?.data) ? 'done' : 'pending']">
+        <div (click)="edit(internos)" class="row"
+             [ngClass]="[isToday(internos.getLastNas()?.data) ? 'done' : 'pending']">
           <span class="td flex-1">{{internos?.atendimento?.id}}</span>
           <span class="td flex-3">{{internos?.atendimento?.paciente.nome}}</span>
           <span
@@ -21,7 +28,8 @@
           <span class="td flex-3">{{internos?.atendimento?.paciente.nomeMae}}</span>
           <span class="td flex-1">{{internos?.atendimento?.paciente.sexo}}</span>
           <span class="td flex-2">{{internos?.dataEntrada | date: "dd/MM/yyyy - HH:mm"}}</span>
-          <span class="td flex-1">{{internos.getLastNas() ? roundEscore(internos.getLastNas()?.escore) : '--'}}</span>
+          <span class="td flex-1">{{internos.getLastNas() ? roundEscore(internos.getLastNas()?.escore) : '--'}}
+            <p class="date-nas">{{ internos.getLastNas() ? (internos.getLastNas().dateCreated | date: "dd/MM/yyyy") : '' }}</p> </span>
         </div>
         <div class="empty" *ngIf="pacientesInternos?.length == 0">
           <p>Nenhum paciente encontrado!</p>
