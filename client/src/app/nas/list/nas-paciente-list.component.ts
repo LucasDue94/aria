@@ -70,12 +70,12 @@ export class NasPacienteListComponent implements OnInit, AfterViewChecked {
   edit = (registroLeito: RegistroLeito) => this.router.navigate(['nas', 'create', registroLeito.id]);
 
   sortPacientesInternos() {
-    const comNas = this.pacientesInternos.filter((p) => p.lastNas() && this.isToday(p.lastNas().data));
-    const semNas = this.pacientesInternos.filter((p) => !p.lastNas() || !this.isToday(p.lastNas().data));
+    const comNas = this.pacientesInternos.filter((p) => p.getLastNas() && this.isToday(p.getLastNas().data));
+    const semNas = this.pacientesInternos.filter((p) => !p.getLastNas() || !this.isToday(p.getLastNas().data));
 
     comNas.sort((a, b) => {
-      const escoreA = a.lastNas() && this.isToday(a.lastNas().data) ? (a.lastNas().escore) : 0;
-      const escoreB = b.lastNas() && this.isToday(b.lastNas().data) ? (b.lastNas().escore) : 0;
+      const escoreA = a.getLastNas() && this.isToday(a.getLastNas().data) ? (a.getLastNas().escore) : 0;
+      const escoreB = b.getLastNas() && this.isToday(b.getLastNas().data) ? (b.getLastNas().escore) : 0;
 
       return escoreA < escoreB ? 1 : -1;
     });

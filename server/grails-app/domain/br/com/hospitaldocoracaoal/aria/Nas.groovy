@@ -5,8 +5,8 @@ import br.com.hospitaldocoracaoal.integracao.RegistroLeito
 
 class Nas {
     String monitorizacao                      //Questão 1
-    boolean investigacoes                     //Questão 2
-    boolean medicacao                         //Questão 3
+    Boolean investigacoes                     //Questão 2
+    Boolean medicacao                         //Questão 3
     String procedimentoHigiene                //Questão 4
     boolean cuidadosDreno                     //Questão 5
     String mobilizacaoPosicionamento          //Questão 6
