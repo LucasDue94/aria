@@ -407,11 +407,19 @@ export class NasFormComponent implements OnInit {
     this.registroLeitoService.get(this.route.snapshot.params.id).subscribe((registroLeito: RegistroLeito) => {
       if (!registroLeito.hasOwnProperty('error')) {
         this.registroLeito = registroLeito;
+        const ultimoNas = this.registroLeito.atendimento.ultimoNas;
+        if (ultimoNas && this.isToday(ultimoNas.data)) this.novoNas = new Nas(ultimoNas);
       } else {
         this.errorService.sendError(registroLeito);
       }
       this.spinner.hide();
     });
+  }
+
+  isToday(dataEntrada: string) {
+    const currentDate = new Date(dataEntrada);
+    const today = new Date();
+    return currentDate.toLocaleString().slice(0, 10) == today.toLocaleString().slice(0, 10);
   }
 
   formIsValid() {

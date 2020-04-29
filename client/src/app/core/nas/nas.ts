@@ -3,7 +3,7 @@ import {RegistroLeito} from '../registroLeito/registroLeito';
 export class Nas {
   id: number;
   monitorizacao: string;                                      //Questão 1
-  investigacoes: boolean;                                     //Questão 2
+  investigacoes: string;                                     //Questão 2
   medicacao: boolean;                                         //Questão 3
   procedimentoHigiene: string;                                //Questão 4
   cuidadosDreno: boolean;                                     //Questão 5
