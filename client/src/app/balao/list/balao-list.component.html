@@ -10,16 +10,16 @@
     </section>
     <section class="tbody content-paciente" [scrollWindow]="false" infinite-scroll (scrolled)="scrollDown()">
       <spinner [loading]="listLoading"></spinner>
-      <div (click)="edit(registro)" class="row" *ngFor="let registro of registros">
-        <span class="td flex-1">{{registro.id}}</span>
-        <span class="td flex-3">{{registro.paciente.nome}}</span>
-        <span class="td flex-1">{{registro.paciente.nascimento | date: "dd/MM/yyyy" }}</span>
-        <span class="td flex-3">{{registro.paciente.nomeMae}}</span>
-        <span class="td flex-1">{{registro.paciente.sexo}}</span>
-        <span class="td flex-2">{{registro.dataEntrada | date: "dd/MM/yyyy - HH:mm"}}</span>
+      <div (click)="edit(atendimento)" class="row" *ngFor="let atendimento of atendimentos">
+        <span class="td flex-1">{{atendimento.id}}</span>
+        <span class="td flex-3">{{atendimento.paciente.nome}}</span>
+        <span class="td flex-1">{{atendimento.paciente.nascimento | date: "dd/MM/yyyy" }}</span>
+        <span class="td flex-3">{{atendimento.paciente.nomeMae}}</span>
+        <span class="td flex-1">{{atendimento.paciente.sexo}}</span>
+        <span class="td flex-2">{{atendimento.dataEntrada | date: "dd/MM/yyyy - HH:mm"}}</span>
       </div>
       <app-scroll-spinner [show]="showListScrollSpinner"></app-scroll-spinner>
-      <div class="empty" *ngIf="registros?.length == 0">
+      <div class="empty" *ngIf="atendimentos?.length == 0">
         <p>Nenhum paciente encontrado!</p>
         <fa-icon class="icon" [icon]="faFrown" size="2x"></fa-icon>
       </div>

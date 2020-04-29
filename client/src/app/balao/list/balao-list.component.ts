@@ -17,7 +17,7 @@ import {FilterService} from "../../core/filter/filter.service";
 })
 export class BalaoListComponent implements OnInit {
 
-  registros: Atendimento[] = [];
+  atendimentos: Atendimento[] = [];
   showListScrollSpinner = false;
   offset = 0;
   max = 30;
@@ -65,7 +65,7 @@ export class BalaoListComponent implements OnInit {
   search(params) {
     this.offset = 0;
     this.listLoading = true;
-    this.registros = [];
+    this.atendimentos = [];
     this.setFilterParams(params);
     if (params) this.getRegistros();
   }
@@ -73,7 +73,7 @@ export class BalaoListComponent implements OnInit {
   getRegistros() {
     this.registroAtendimentoService.list(this.params, this.offset, this.max, 'I').subscribe(registros => {
       registros.forEach(registro => {
-        this.registros.push(registro);
+        this.atendimentos.push(registro);
         this.showListScrollSpinner = false;
       });
       this.listLoading = false;

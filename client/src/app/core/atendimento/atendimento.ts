@@ -41,3 +41,4 @@ export class Atendimento {
     return 'br.com.hospitaldocoracaoal.integracao.Atendimento : ' + (this.id ? this.id : '(unsaved)');
   }
 }
+

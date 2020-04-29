@@ -9,8 +9,7 @@ import {BalaoService} from '../../core/balao/balao.service';
 
 import {SpinnerService} from '../../core/spinner/spinner.service';
 import {AlertService} from '../../core/alert/alert.service';
-import {ErrorService} from '../../core/error/error.service';
-import {faCheck} from '@fortawesome/free-solid-svg-icons';
+import {faCheck, faFrown} from '@fortawesome/free-solid-svg-icons';
 import {Atendimento} from '../../core/atendimento/atendimento';
 import {AtendimentoService} from '../../core/atendimento/atendimento.service';
 
@@ -20,16 +19,14 @@ import {AtendimentoService} from '../../core/atendimento/atendimento.service';
   styleUrls: ['./edit-balao.component.scss']
 })
 export class EditBalaoComponent implements OnInit {
-  registroId;
-  today = new Date();
+  atendimentoId;
   datePipe = new DatePipe('en-US');
-  atendimento = {id: null};
-  registro: Atendimento;
+  atendimento: Atendimento = new Atendimento();
   balao: Balao;
   searchForm = this.fb.group({searchControl: ['']});
   form = this.fb.group({
-    dataBalao: [this.datePipe.transform('', 'yyyy-MM-dd', '', 'en-US'), Validators.required],
-    horaBalao: [this.datePipe.transform('', 'HH:mm', '', 'en-US'), Validators.required]
+    dataBalao: ['', Validators.required],
+    horaBalao: ['', Validators.required]
   });
 
   constructor(
@@ -38,40 +35,41 @@ export class EditBalaoComponent implements OnInit {
     private balaoService: BalaoService,
     private atendimentoService: AtendimentoService,
     private router: Router, private spinner: SpinnerService,
-    private alertService: AlertService, datePipe: DatePipe,
-    private errorService: ErrorService) {
+    private alertService: AlertService) {
   }
 
   ngOnInit() {
     this.titleService.send('Balão - Formulário');
-    this.registroId = this.route.snapshot.params.id;
-    this.atendimentoService.get(this.registroId).subscribe(registro => {
-      this.registro = registro;
-      this.form = this.resetForm();
-    });
-  }
-
-  resetForm() {
-    return this.fb.group({
-      dataBalao: [this.datePipe.transform(this.registro.balao.dataHoraBalao, 'yyyy-MM-dd', '', 'en-US'), Validators.required],
-      horaBalao: [this.datePipe.transform(this.registro.balao.dataHoraBalao, 'HH:mm', '', 'en-US'), Validators.required],
+    this.atendimentoId = this.route.snapshot.params.id;
+    this.atendimentoService.get(this.atendimentoId).subscribe(atendimento => {
+      this.atendimento = atendimento;
+      this.form.get('dataBalao').setValue(this.datePipe.transform(atendimento[0].balao.dataHoraBalao, 'yyyy-MM-dd', '', 'en-US'));
+      this.form.get('horaBalao').setValue(this.datePipe.transform(atendimento[0].balao.dataHoraBalao, 'HH:mm', '', 'en-US'));
     });
   }
 
   update() {
     const balao: Balao = new Balao(
       {
-        id: this.registro.balao.id,
+        id: this.atendimento[0].balao.id,
         dataHoraBalao: this.form.get('dataBalao').value + ' ' + this.form.get('horaBalao').value,
-        atendimentoId: this.registroId
       });
 
-    delete balao.registroAtendimento;
-    this.balaoService.save(balao).subscribe(res => {
-      setTimeout(() => {
-        this.alertService.send({message: 'Balão Alterado com sucesso!', type: 'success', icon: faCheck});
-        this.router.navigate(['/balao', 'paciente-list']);
-      }, 300);
-    });
+    console.log(this.form);
+    if (this.form.get('dataBalao').value == "" || this.form.get('horaBalao').value == "") {
+      this.alertService.send({
+        message: 'Ops... A data/hora deve ser preenchida!',
+        type: 'warning',
+        icon: faFrown
+      })
+    } else {
+      this.balaoService.save(balao).subscribe(() => {
+        setTimeout(() => {
+          this.alertService.send({message: 'Balão Alterado com sucesso!', type: 'success', icon: faCheck});
+          this.router.navigate(['/pacientes']);
+        }, 300);
+      });
+    }
+
   }
 }
