@@ -22,9 +22,9 @@ abstract class RegistroLeitoService {
         Date dataEntradaInicio = null
         Date dataEntradaFim = null
 
-        if (args.dataEntradaInicio != null && !args.dataEntradaInicio.empty && args.dataEntradaFim != null && !args.dataEntradaFim.empty) {
-            dataEntradaInicio = DataUtils.getFormatterToDate(args.dataEntradaInicio)
-            dataEntradaFim = DataUtils.endOfDay(DataUtils.getFormatterToDate(args.dataEntradaFim))
+        if (args.inicio != null && !args.inicio.empty && args.fim != null && !args.fim.empty) {
+            dataEntradaInicio = DataUtils.getFormatterToDate(args.inicio)
+            dataEntradaFim = DataUtils.endOfDay(DataUtils.getFormatterToDate(args.fim))
 
             if (query.length() > 0) query.append 'and '
             query.append('rl.dataEntrada between :dataEntradaInicio and :dataEntradaFim\n')

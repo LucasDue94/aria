@@ -97,6 +97,10 @@ export class ApachePacienteListComponent implements OnInit {
     return rowClass;
   }
 
+  ngOnDestroy() {
+    this.filterService.unsu
+  }
+
   isTimeOverflow(data, time = 0) {
     return moment() > moment(data).add((24 + time), 'hours');
   }
