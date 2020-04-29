@@ -45,7 +45,7 @@ export class RegistroLeito {
 
   lastNas() {
     this.nas = this.nas.sort((a, b) => {
-      if (a.dataCriacao > b.dataCriacao) {
+      if (a.data > b.data) {
         return 1;
       } else {
         return -1;

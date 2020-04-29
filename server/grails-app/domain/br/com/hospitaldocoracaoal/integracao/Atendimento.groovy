@@ -3,6 +3,7 @@ package br.com.hospitaldocoracaoal.integracao
 import br.com.hospitaldocoracaoal.aria.Balao
 import br.com.hospitaldocoracaoal.aria.Ecg
 import br.com.hospitaldocoracaoal.aria.Incidente
+import br.com.hospitaldocoracaoal.aria.Nas
 import br.com.hospitaldocoracaoal.aria.Setor
 
 class Atendimento {
@@ -44,9 +45,19 @@ class Atendimento {
         version  false
     }
 
-    static transients = ['ultimoRegistroLeito']
+    static transients = ['ultimoRegistroLeito', 'ultimoNas']
 
     RegistroLeito getUltimoRegistroLeito() {
         registroLeitos.sort { r1, r2 -> r1.dataEntrada <=> r2.dataEntrada }.last()
+    }
+
+    Nas getUltimoNas() {
+        Nas ultimoNas = null
+        List<Nas> nasList = (List<Nas>) registroLeitos.nas.flatten()
+        if (!nasList.empty) {
+            ultimoNas = nasList.sort { n1, n2 -> n1.data <=> n2.data }.last()
+        }
+
+        return ultimoNas
     }
 }

@@ -6,4 +6,5 @@ model {
 
 json g.render(atendimento, [expand: ['motivoAlta', 'ecg', 'balao', 'setor'],excludes: ['paciente'], resolveTemplate: false]) {
     paciente g.render(atendimento.paciente, [excludes: 'atendimentos', resolveTemplate: false])
+    ultimoNas g.render(atendimento.ultimoNas, [resolveTemplate: false])
 }

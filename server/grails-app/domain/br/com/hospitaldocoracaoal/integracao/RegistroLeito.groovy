@@ -38,4 +38,6 @@ class RegistroLeito implements Serializable {
         def regs = this.atendimento.registroLeitos.findAll { element -> element.dataEntrada > this.dataEntrada }
         regs.any() ? regs.first().dataEntrada : null
     }
+
+
 }
