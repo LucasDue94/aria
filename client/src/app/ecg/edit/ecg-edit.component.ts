@@ -22,8 +22,7 @@ export class EcgEditComponent implements OnInit {
   today = new Date();
   datePipe = new DatePipe('en-US');
   paciente = {id: null};
-  registroAtendimento = {id: null};
-  registro: Atendimento = new Atendimento();
+  atendimento: Atendimento = new Atendimento();
   ecg: Ecg;
   searchForm = this.fb.group({searchControl: ['']});
   form = this.fb.group({
@@ -40,44 +39,35 @@ export class EcgEditComponent implements OnInit {
     private router: Router, private spinner: SpinnerService,
     private alertService: AlertService, datePipe: DatePipe,
     private errorService: ErrorService,
-    private registroAtendimentoService: AtendimentoService) {
+    private atendimentoService: AtendimentoService) {
 
   }
 
   ngOnInit() {
     this.titleService.send('Ecg - Editar Ecg');
-    this.registroId = this.route.snapshot.params.id;
-    this.registroAtendimentoService.get(this.registroId).subscribe(registro => {
-      this.registro = registro;
-      this.form = this.resetForm();
+    this.registroId = this.route.snapshot.params['id'];
+    this.atendimentoService.get(this.registroId).subscribe(atendimento => {
+      this.atendimento = atendimento;
+      this.form.get('dataPorta').setValue(this.datePipe.transform(atendimento[0].ecg.dataHoraPorta, 'yyyy-MM-dd', '', 'en-US'));
+      this.form.get('horaPorta').setValue(this.datePipe.transform(atendimento[0].ecg.dataHoraPorta, 'HH:mm', '', 'en-US'));
     });
   }
 
-  resetForm() {
-    return this.fb.group({
-      dataPorta: [this.datePipe.transform(this.registro.ecg.dataHoraPorta, 'yyyy-MM-dd', '', 'en-US'), Validators.required],
-      horaPorta: [this.datePipe.transform(this.registro.ecg.dataHoraPorta, 'HH:mm', '', 'en-US'), Validators.required],
-      dataECG: [this.datePipe.transform(this.today, 'yyyy-MM-dd', '', 'en-US'), Validators.required],
-      horaECG: [this.datePipe.transform(this.today, 'HH:mm', '', 'en-US'), Validators.required]
-    });
-  }
 
   update() {
-    const ecg: Ecg = new Ecg (
+    const ecg: Ecg = new Ecg(
       {
-        id: this.registro.ecg.id,
+        id: this.atendimento[0].ecg.id,
         dataHoraPorta: this.form.get('dataPorta').value + " " + this.form.get('horaPorta').value,
         dataHoraEcg: this.form.get('dataECG').value + " " + this.form.get('horaECG').value,
         registroAtendimentoId: this.registroId
       });
-
-    delete ecg.registroAtendimento;
-    this.ecgService.save(ecg).subscribe( res => {
-      setTimeout( () => {
+    delete ecg.atendimento;
+    this.ecgService.save(ecg).subscribe(res => {
+      setTimeout(() => {
         this.alertService.send({message: 'ECG Alterado com sucesso!', type: 'success', icon: faCheck});
         this.router.navigate(['pacientes'])
       }, 300)
     });
   }
-
 }

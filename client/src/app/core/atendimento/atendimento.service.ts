@@ -16,7 +16,7 @@ export class AtendimentoService {
 
   list(filterParams?, offset?: number, max?: number, tipoRegistro?: string): Observable<Atendimento[]> {
     let subject = new Subject<Atendimento[]>();
-    this.http.get<Atendimento[]>(this.baseUrl + `registroAtendimento?tipoRegistro=${tipoRegistro ? tipoRegistro : ''}&setorId=${filterParams.setorId ? filterParams.setorId : ''}&termo=${filterParams.termo ? filterParams.termo : ''}&dataEntradaInicio=${filterParams.inicio ? filterParams.inicio : ''}&dataEntradaFim=${filterParams.fim ? filterParams.fim : ''}&offset=${offset ? offset : ''}&max=${max ? max : ''}`)
+    this.http.get<Atendimento[]>(this.baseUrl + `atendimento?tipoRegistro=${tipoRegistro ? tipoRegistro : ''}&setorId=${filterParams.setorId ? filterParams.setorId : ''}&termo=${filterParams.termo ? filterParams.termo : ''}&dataEntradaInicio=${filterParams.inicio ? filterParams.inicio : ''}&dataEntradaFim=${filterParams.fim ? filterParams.fim : ''}&offset=${offset ? offset : ''}&max=${max ? max : ''}`)
       .subscribe((json: any[]) => {
         subject.next(json.map((propertyName: any) => new Atendimento(propertyName)));
       });
@@ -38,7 +38,7 @@ export class AtendimentoService {
 
   get(id: string): Observable<any> {
     let subject = new Subject<any>();
-    this.http.get<Atendimento>(this.baseUrl + 'atendimento/' + id)
+    this.http.get<Atendimento>(this.baseUrl + 'atendimento?termo=' + id)
       .pipe(
         catchError(error => of({error})
         )).subscribe((json: any) => {
