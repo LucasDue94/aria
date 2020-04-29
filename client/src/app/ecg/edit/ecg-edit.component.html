@@ -3,19 +3,19 @@
     <form [formGroup]="form" action="#" class="form">
       <div class="row">
         <label class="label-ecg">Paciente:</label>
-        <span class="text">{{registro?.paciente?.nome}}</span>
+        <span class="text">{{atendimento[0]?.paciente?.nome}}</span>
         <label class="label-ecg">Sexo:</label>
-        <span class="text">{{registro?.paciente?.sexo}}</span>
+        <span class="text">{{atendimento[0]?.paciente?.sexo}}</span>
       </div>
       <div class="row">
         <label class="label-ecg">Nascimento:</label>
-        <span class="text">{{registro?.paciente?.nascimento | date: 'dd/MM/yyyy'}}</span>
+        <span class="text">{{atendimento[0]?.paciente?.nascimento | date: 'dd/MM/yyyy'}}</span>
         <label class="label-ecg">Mãe:</label>
-        <span class="text">{{registro?.paciente?.nomeMae}}</span>
+        <span class="text">{{atendimento[0]?.paciente?.nomeMae}}</span>
       </div>
       <div class="row">
-        <label class="label-ecg">Registro:</label>
-        <span class="text">{{registro?.id}}</span>
+        <label class="label-ecg">atendimento:</label>
+        <span class="text">{{atendimento[0]?.id}}</span>
       </div>
       <div class="row row-between">
         <label class="label-ecg">Data de Porta:</label>
