@@ -3,17 +3,16 @@ import {Paciente} from "../paciente/paciente";
 
 export class Balao {
   id: number;
-  registroAtendimento: Atendimento;
+  atendimento: Atendimento;
   dataHoraBalao: any;
   paciente: Paciente;
-  registroAtendimentoId: number;
 
   constructor(object?: any) {
     if (object) {
 
-      if (object.hasOwnProperty('registroAtendimento')) {
-        this.registroAtendimento = new Atendimento(object['registroAtendimento']);
-        delete object['registroAtendimento'];
+      if (object.hasOwnProperty('atendimento')) {
+        this.atendimento = new Atendimento(object['atendimento']);
+        delete object['atendimento'];
       }
 
       for (var prop in object) {

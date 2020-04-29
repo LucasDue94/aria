@@ -19,11 +19,11 @@ import {Paciente} from "../../core/paciente/paciente";
 })
 export class BalaoFormComponent implements OnInit {
 
-  registroId;
+  atendimentoId;
   today = new Date();
   datePipe = new DatePipe('en-US');
   registroAtendimento = {id: null};
-  registro: Atendimento;
+  atendimento: Atendimento;
   balao: Balao = new Balao();
   searchForm = this.fb.group({searchControl: ['']});
   form = this.fb.group({
@@ -36,7 +36,7 @@ export class BalaoFormComponent implements OnInit {
     private titleService: TitleService,
     private fb: FormBuilder, private route: ActivatedRoute,
     private balaoService: BalaoService,
-    private registroAtendimentoService: AtendimentoService,
+    private atendimentoService: AtendimentoService,
     private router: Router, private spinner: SpinnerService,
     private alertService: AlertService) {
   }
@@ -44,17 +44,16 @@ export class BalaoFormComponent implements OnInit {
   ngOnInit() {
     this.spinner.show();
     this.titleService.send('Balão - Formulário');
-    this.registroId = this.route.snapshot.params.id;
-    this.registroAtendimentoService.get(this.registroId).subscribe(registro => {
-      this.registro = registro;
+    this.atendimentoId = this.route.snapshot.params.id;
+    this.atendimentoService.get(this.atendimentoId).subscribe(atendimento => {
+      this.atendimento = atendimento;
       this.spinner.hide();
     });
   }
 
   save() {
-    this.balao.registroAtendimento = this.registroAtendimento.id = this.registroId;
+    this.balao.atendimento = this.atendimentoId;
     this.balao.dataHoraBalao = this.form.get('dataBalao').value + " " + this.form.get('horaBalao').value;
-    this.balao.paciente = new Paciente({id: this.registro.paciente.id});
     if (this.form.get('dataBalao').value == '' || this.form.get('horaBalao').value == '') {
       this.alertService.send({
         message: 'Ops... A data/hora deve ser preenchida!',

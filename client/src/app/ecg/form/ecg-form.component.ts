@@ -66,7 +66,7 @@ export class EcgFormComponent implements OnInit {
     this.ecg.atendimento = this.registroId;
     this.ecg.dataHoraPorta = this.form.get('dataPorta').value + " " + this.form.get('horaPorta').value;
     this.ecg.dataHoraEcg = this.form.get('dataECG').value + " " + this.form.get('horaECG').value;
-    if (this.form.get('dataECG').value == '' || this.form.get('horaECG').value == '' || this.form.get('dataPorta').value == '' || this.form.get('horaPorta').value == '') {
+    if (this.form.get('dataECG').value == null || this.form.get('horaECG').value == null || this.form.get('dataPorta').value == null || this.form.get('horaPorta').value == null) {
       this.alertService.send({
         message: 'Ops... A data/hora deve ser preenchida!',
         type: 'warning',
