@@ -59,10 +59,11 @@ create foreign table leito(
         id varchar(9) options (key 'true') not null,
         descricao varchar(70) not null,
         setor_id varchar(9) not null,
+        tipo varchar(20),
         atendimento_id varchar(9)
     )
     server wpd
-    options (table '(select LEI.LEITO, LEI.DESCRICAO, APT.COD_SET, LEI.COD_PAC from ADMWPD.FALEICAD LEI inner join ADMWPD.FAAPTCAD APT on LEI.COD_APT = APT.COD_APT)', readonly 'true');
+    options (table '(select LEI.LEITO, LEI.DESCRICAO, APT.COD_SET, TIPO_LEI.DESCRICAO as TIPO, LEI.COD_PAC from ADMWPD.FALEICAD LEI inner join ADMWPD.FAAPTCAD APT on LEI.COD_APT = APT.COD_APT INNER JOIN ADMWPD.FALETCAD TIPO_LEI on LEI.TIPO = TIPO_LEI.COD_TIPO)', readonly 'true');
 
 alter foreign table leito owner to aria;
 
@@ -181,3 +182,5 @@ create foreign table cirurgia (
     atendimento_id varchar(9),
     cancelada boolean
 ) server wpd options (table '(select CD_CIRU_REALIZADA, COD_PAC, decode(MOT_CANCELAMENTO, null, 0, 1) as cancelada from admwpd.BLCIRU_REALIZADA)');
+
+drop foreign table
