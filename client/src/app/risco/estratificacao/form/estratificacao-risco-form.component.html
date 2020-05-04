@@ -1,7 +1,8 @@
 <main class="stratification-container">
   <section class="tabs-container">
     <form [formGroup]="form" (ngSubmit)="save()">
-      <h2 class="title">{{title}}</h2>
+      <h2 class="title" *ngIf="currentTab != 3">{{title}}</h2>
+      <h2 class="title" *ngIf="currentTab == 3">RESUMO</h2>
 
       <section class="tab-item" [class.active]="currentTab == 0">
         <grupo-fator-risco [risks_stratification]="risks_stratification"

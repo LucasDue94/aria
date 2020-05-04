@@ -653,8 +653,16 @@ export class EstratificacaoRiscoFormComponent implements OnInit {
 
   createForm() {
     this.form = this.fb.array(
-      [this.groupRisks, this.groupTevClinical, this.groupTevSurgical, this.groupBraden,
-        this.groupBradenQ, this.groupJhfrat, this.groupHumptyDumpty]);
+      [
+        this.groupRisks,
+        this.groupTevClinical,
+        this.groupTevSurgical,
+        this.groupBraden,
+        this.groupBradenQ,
+        this.groupJhfrat,
+        this.groupHumptyDumpty
+      ]
+    );
   }
 
   createFormGroups() {
@@ -669,7 +677,7 @@ export class EstratificacaoRiscoFormComponent implements OnInit {
 
   getEstratificacao(): EstratificacaoRisco {
     const estratifcacao = this.form.getRawValue().reduce((obj, group) => Object.assign(obj, group));
-    return  this.estratificacao = new EstratificacaoRisco(estratifcacao);
+    return this.estratificacao = new EstratificacaoRisco(estratifcacao);
   }
 
   save() {

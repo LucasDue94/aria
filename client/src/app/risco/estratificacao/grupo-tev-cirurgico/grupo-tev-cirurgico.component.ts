@@ -1,6 +1,3 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-
 @Component({
   selector: 'grupo-tev-cirurgico',
   templateUrl: './grupo-tev-cirurgico.component.html',
@@ -19,11 +16,15 @@ export class GrupoTevCirurgicoComponent implements OnInit {
     this.createGroup();
   }
 
+
   createGroup() {
     this.formGroupTevSurgical.addControl('tev_cirurgico_5', new FormControl(false, Validators.required));
     this.formGroupTevSurgical.addControl('tev_cirurgico_3', new FormControl(false, Validators.required));
     this.formGroupTevSurgical.addControl('tev_cirurgico_2', new FormControl(false, Validators.required));
     this.formGroupTevSurgical.addControl('tev_cirurgico_1', new FormControl(false, Validators.required));
   }
-
 }
+
+import {Component, Input, OnInit} from '@angular/core';
+
+import {FormControl, FormGroup, Validators} from "@angular/forms";
