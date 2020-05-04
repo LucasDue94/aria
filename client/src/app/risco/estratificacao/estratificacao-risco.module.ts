@@ -13,6 +13,10 @@ import {GrupoBradenqComponent} from './grupo-bradenq/grupo-bradenq.component';
 import {GrupoEscalaJhFratComponent} from './grupo-escala-jh-frat/grupo-escala-jh-frat.component';
 import {GrupoHumptyDumptyComponent} from './grupo-humpty-dumpty/grupo-humpty-dumpty.component';
 import { ResumoComponent } from './resumo/resumo.component';
+import { EstratificacaoListComponent } from './list/estratificacao-list.component';
+import {SpinnerModule} from "../../components/spinner/spinner.module";
+import {InfiniteScrollModule} from "ngx-infinite-scroll";
+import {RouterModule} from "@angular/router";
 
 
 @NgModule({
@@ -25,17 +29,22 @@ import { ResumoComponent } from './resumo/resumo.component';
     GrupoBradenqComponent,
     GrupoEscalaJhFratComponent,
     GrupoHumptyDumptyComponent,
-    ResumoComponent
+    ResumoComponent,
+    EstratificacaoListComponent
   ],
   imports: [
     CommonModule,
     PacienteInfoModule,
     FontAwesomeModule,
     NgSelectModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SpinnerModule,
+    InfiniteScrollModule,
+    RouterModule
   ],
   exports: [
-    EstratificacaoRiscoFormComponent
+    EstratificacaoRiscoFormComponent,
+    EstratificacaoListComponent
   ]
 })
 export class EstratificacaoRiscoModule {

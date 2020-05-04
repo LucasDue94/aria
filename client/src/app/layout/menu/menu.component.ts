@@ -8,8 +8,8 @@ import {
   faUsers,
   faExclamation,
   faEdit,
-  faUserInjured, faProcedures, faPager, faBook
-} from "@fortawesome/free-solid-svg-icons";
+  faUserInjured, faProcedures, faPager, faBook, faBed
+} from '@fortawesome/free-solid-svg-icons';
 import {AuthService} from "../../core/auth/auth.service";
 import {Menu} from "../../core/menu/menu";
 import {EnumPermisson} from "../../core/permissao/enumPermisson";
@@ -90,6 +90,12 @@ export class MenuComponent implements OnInit {
       permission: '',
       faIcon: faBook,
       router: ['/documentacao']
+    } ,{
+      name: 'Leitos',
+      status: false,
+      permission: '',
+      faIcon: faBed,
+      router: ['/painel-leitos']
     }
   ];
 
