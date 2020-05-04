@@ -3,7 +3,7 @@ import {Atendimento} from '../atendimento/atendimento';
 export class Paciente {
   id: string;
   nome: string;
-  atendimentos: Atendimento[];
+  registrosAtendimento: Atendimento[];
   sexo: any;
   nomeMae: string;
   nascimento: any;
@@ -11,11 +11,11 @@ export class Paciente {
   constructor(object?: any) {
     if (object) {
 
-      if (object.hasOwnProperty('atendimentos')) {
-        this.atendimentos = object['atendimentos'].map((obj: any) => {
+      if (object.hasOwnProperty('registrosAtendimento')) {
+        this.registrosAtendimento = object['registrosAtendimento'].map((obj: any) => {
           return new Atendimento(obj);
         });
-        delete object['atendimentos'];
+        delete object['registrosAtendimento'];
       }
 
       for (var prop in object) {
@@ -30,3 +30,5 @@ export class Paciente {
     return 'br.com.hospitaldocoracaoal.integracao.Paciente : ' + (this.id ? this.id : '(unsaved)');
   }
 }
+
+
