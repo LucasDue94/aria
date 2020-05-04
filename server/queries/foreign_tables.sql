@@ -11,6 +11,7 @@ create foreign table atendimento
         id varchar(9) options (key 'true') not null,
         data_entrada timestamp not null,
         data_alta timestamp not null,
+        data_alta_medica timestamp,
         setor_id varchar(9),
         cid_id varchar(9),
         motivo_alta_id varchar(9) not null,
@@ -27,6 +28,7 @@ create foreign table atendimento
                        ''DD-MM-YYYY HH24:MI:SS'')
            else null
        end                          AS DATA_ALTA,
+       PAC.DATA_ALTA_MEDICA,
        COM.COD_SET,
        CID.COD_CID,
        PAC.COD_MOT_ALTA,
@@ -94,7 +96,7 @@ create foreign table wpd.setor_wpd
         tipo varchar(70) not null
         )
     server wpd
-    options (table '(select COD_SET, DESCRICAO, TIPO_SETOR from ADMWPD.FASETCAD)', readonly 'true');
+    options (table '(select COD_SET, DESCRICAO, TIPO_SETOR from ADMWPD.FASETCAD WHERE COD_CEL = ''001'' )', readonly 'true');
 
 alter foreign table wpd.setor_wpd owner to aria;
 
@@ -111,7 +113,7 @@ create foreign table comanda
         )
     server wpd
     options (table '(select TIPO_COMANDA, COMANDA, COD_PAC,
-    TO_DATE(TO_CHAR(DATA_MOV, ''DD-MM-YYYY'') || '' '' || TO_CHAR(HORA_MOV, ''HH24:MI:SS''),
+     ,
                    ''DD-MM-YYYY HH24:MI:SS'') AS DATA_MOV,
     SET_ORI from ADMWPD.FAMOVCAD)', readonly 'true');
 
@@ -183,4 +185,47 @@ create foreign table cirurgia (
     cancelada boolean
 ) server wpd options (table '(select CD_CIRU_REALIZADA, COD_PAC, decode(MOT_CANCELAMENTO, null, 0, 1) as cancelada from admwpd.BLCIRU_REALIZADA)');
 
-drop foreign table
+drop foreign table cirurgia;
+
+create foreign table reserva_leito (
+    id varchar(6) options (key 'true') not null,
+    data_inicio timestamp,
+    data_fim timestamp,
+    tipo varchar(1),
+    leito_id varchar(9) not null
+) server wpd options (table '(select COD_RSV,
+       to_date(to_char(DATA_INICIAL, ''DD-MM-YYYY'') || '' '' || to_char(HORA_INICIAL, ''HH24:MI:SS''),
+               ''DD-MM-YYYY HH24:MI:SS'') as data_inicio,
+       to_date(to_char(DATA_FINAL, ''DD-MM-YYYY'') || '' '' || to_char(HORA_FINAL, ''HH24:MI:SS''),
+               ''DD-MM-YYYY HH24:MI:SS'') as data_fim,
+       TIPO_RSV, leito
+from ADMWPD.RCRSVCAD where TIPO_RSV = ''L'')');
+
+drop foreign table reserva_leito;
+
+create foreign table interdicao_leito (
+    id varchar(6) options (key 'true') not null,
+    data_inicio timestamp,
+    data_fim timestamp,
+    leito_id varchar(9) not null
+    ) server wpd options (table '(select COD_INT,
+       to_date(to_char(DATA_INI, ''DD-MM-YYYY'') || '' '' || to_char(HORA_INI, ''HH24:MI:SS''),
+               ''DD-MM-YYYY HH24:MI:SS'') as data_inicio,
+       to_date(to_char(DATA_FIN, ''DD-MM-YYYY'') || '' '' || to_char(HORA_FIN, ''HH24:MI:SS''),
+               ''DD-MM-YYYY HH24:MI:SS'') as data_fim,
+       leito
+from ADMWPD.RCINTCAD)');
+
+drop foreign table interdicao_leito;
+
+create foreign table higienizacao_leito (
+    leito_id varchar(5) not null,
+    data_abertura timestamp,
+    status varchar(1)
+    ) server wpd options (table '(select LEITO, DATA_HORA_ABERTURA, STATUS_ATUAL from ADMWPD.LIMPEZA_LEITO)');
+
+drop foreign table higienizacao_leito;
+
+
+
+
