@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {EstratificacaoRiscoFormComponent} from "../form/estratificacao-risco-form.component";
+import {FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'resumo',
@@ -15,7 +16,7 @@ export class ResumoComponent implements OnInit {
   @Input() tev_clinical;
   @Input() formGroupTevClinical;
   @Input() tev_surgical;
-  @Input() formGroupTevSurgical;
+  @Input() formGroupTevSurgical: FormGroup;
   @Input() braden;
   @Input() formGroupBraden;
   @Input() bradenq;
@@ -28,6 +29,7 @@ export class ResumoComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log(this.formGroupTevSurgical);
   }
 
 }
