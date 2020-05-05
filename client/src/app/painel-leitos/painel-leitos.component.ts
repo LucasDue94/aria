@@ -38,6 +38,11 @@ export class PainelLeitosComponent implements OnInit {
 
 
   ngOnInit() {
+    const nav = document.getElementsByClassName('aria-nav')[0]
+    const mainContainer = document.getElementsByClassName('main-container')[0]
+    this.render.setStyle(nav,'display','none');
+    this.render.setStyle(mainContainer,'margin','0');
+    this.render.setStyle(mainContainer,'margin-top','50px');
     this.refresh();
     // this.refresh();
     // setInterval(this.refresh, 60000);

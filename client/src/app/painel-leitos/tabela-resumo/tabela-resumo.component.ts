@@ -1,11 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'tabela-resumo',
   templateUrl: './tabela-resumo.component.html',
   styleUrls: ['./tabela-resumo.component.scss']
 })
-export class TabelaResumoComponent implements OnInit {
+export class TabelaResumoComponent {
 
   @Input() statusArray;
   @Input() leitos;
@@ -14,13 +14,10 @@ export class TabelaResumoComponent implements OnInit {
   constructor() {
   }
 
-  ngOnInit() {
-  }
-
   countByStatusAndSetor(status, setor) {
     let leitos = this.filterLeitos(setor);
-    let filtered = leitos.filter(function (el) {
-      return el.status == status.id
+    let filtered = leitos.filter((el) => {
+      return el.status == status.id;
     });
     return filtered.length;
   }
@@ -28,8 +25,8 @@ export class TabelaResumoComponent implements OnInit {
   countByStatus(status) {
     let leitos = [];
     if (this.leitos != undefined) {
-      let leitos = this.leitos.filter(function (el) {
-        return el.status == status.id
+      let leitos = this.leitos.filter((el) => {
+        return el.status == status.id;
       });
       return leitos.length;
     }
@@ -40,8 +37,8 @@ export class TabelaResumoComponent implements OnInit {
     let leitos = [];
 
     if (this.leitos != undefined) {
-      leitos = this.leitos.filter(function (leito) {
-        return leito.setor == setor;
+      leitos = this.leitos.filter((leito) => {
+        return leito.setorWpd == setor;
       });
     }
 
@@ -49,7 +46,7 @@ export class TabelaResumoComponent implements OnInit {
       const numbA = parseInt(this.removeChar(a.numero));
       const numbB = parseInt(this.removeChar(b.numero));
       if (numbA > numbB) return 1;
-      if (numbA < numbB) return -1
+      if (numbA < numbB) return -1;
     });
 
     leitos.sort((a, b) => {

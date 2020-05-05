@@ -1,5 +1,17 @@
 @import '../../../assets/colors';
 
+$red: #c55151;
+$green-default:#4DC2B3;
+$green: #389060;
+$orange: #FF955E;
+$yellow: #F9DD28;
+$blue: #4860c1;
+$purple: #671dc1;
+$white: #FFFFFF;
+$brown: #695A35;
+$black: #000000;
+$gray: #585858;
+
 .table, .tcol, .trow, .thead {
   display: flex;
 }
@@ -57,7 +69,7 @@
 .trow {
   text-align: end;
   flex-direction: row;
-  border-top: 1px solid $gray-30;
+  border-top: 1px solid $gray-60;
 
   .total-status {
     text-align: center;
@@ -66,4 +78,47 @@
 
 .total-row {
   font-weight: 600;
+}
+
+.ocupado {
+  background-color: $red;
+  color: $white;
+}
+
+.higienizacao {
+  background-color: $blue;
+  color: $white;
+}
+
+.reservado {
+  background-color: $orange;
+}
+
+.manutencao {
+  background-color: $brown;
+  color: $white;
+}
+
+.interditado {
+  background-color: $yellow;
+}
+
+.liberado {
+  background-color: $white;
+  color: $gray-80;
+}
+
+.alta-medica {
+  background-color: $green;
+  color: $white;
+}
+
+.alta-adm {
+  background-color: $gray;
+  color: $white;
+}
+
+.ocupado, .higienizacao, .manutencao, .reservado, .liberado, .interditado, .alta-adm, .alta-medica {
+  box-shadow: 1px 1px 5px $black;
+  text-align: center;
 }
