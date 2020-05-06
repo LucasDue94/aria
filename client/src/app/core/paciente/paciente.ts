@@ -8,6 +8,13 @@ export class Paciente {
   nomeMae: string;
   nascimento: any;
 
+  prontuario: string;
+  registro: string
+  leito: string;
+  paciente: string;
+  mae: string;
+  convenio: string;
+
   constructor(object?: any) {
     if (object) {
 

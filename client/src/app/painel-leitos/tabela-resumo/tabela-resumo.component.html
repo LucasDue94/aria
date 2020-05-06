@@ -1,0 +1,21 @@
+<section class="table">
+  <header class="thead">
+    <h3 class="thead-item"></h3>
+            <h3 class="thead-item" *ngFor="let setor of setoresOrdenados"> {{setor}}</h3>
+    <h3 class="thead-item">Total</h3>
+  </header>
+  <main class="tbody">
+    <article *ngFor="let status of statusArray" class="trow">
+      <div class="tbody-item"><span [ngClass]="[status.class]" class=" table-status">{{status.desc}}</span></div>
+                <section class="tbody-item" *ngFor="let setor of setoresOrdenados">
+                  <span>{{countByStatusAndSetor(status, setor)}}</span>
+                </section>
+      <span class="tbody-item total-row ">{{countByStatus(status)}} ({{toPercent(countByStatus(status))}}%) </span>
+    </article>
+    <article class="trow total-row">
+      <span class="tbody-item total-status ">Total</span>
+      <span *ngFor="let setor of setoresOrdenados" class="tbody-item">{{filterLeitos(setor)?.length}}</span>
+      <span class="tbody-item ">{{leitos?.length}}</span>
+    </article>
+  </main>
+</section>

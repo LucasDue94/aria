@@ -1,0 +1,25 @@
+<section class="container-painel">
+  <main class="main-content-painel">
+    <div (click)="show()" class="container-icon-table" #buttonResumo>
+      <h3 class="resumo">Resumo</h3>
+      <fa-icon class="table-icon" [icon]="icon"></fa-icon>
+    </div>
+    <section class="row-leitos" *ngFor="let setor of setoresOrdenados">
+      <h2 class="setor">{{setor}}</h2>
+      <div class="leito-container" *ngFor="let leito of filterLeitos(setor)">
+        <h3 *ngIf="isFirstOfType(leito)" class="tipo-leito">{{leito.tipo}}</h3>
+        <span (mouseleave)="hiddenPaciente($event.target)" (mouseover)="showPaciente($event.target)"
+              id="{{leito.numero}}" [ngClass]="[getColor(leito?.status)]"
+              class="leito">{{padText(leito?.numero)}}</span>
+        <paciente-card [hidden]="true" [paciente]="leito?.paciente"></paciente-card>
+      </div>
+    </section>
+    <div class="center">
+      <tabela-resumo class="table-responsive" [setoresOrdenados]="setoresOrdenados" [leitos]="leitos"
+                     [statusArray]="statusArray"></tabela-resumo>
+    </div>
+    <tabela-resumo class="hide" [setoresOrdenados]="setoresOrdenados" [leitos]="leitos"
+                   [statusArray]="statusArray" #tabela></tabela-resumo>
+
+  </main>
+</section>
