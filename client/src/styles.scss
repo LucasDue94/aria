@@ -81,6 +81,14 @@ tspan {
   font-size: 12px !important;
 }
 
+status-card {
+  width: 100%;
+
+  @media (min-width: 1080px) {
+    display: none;
+  }
+}
+
 .menu-hidden {
   margin-left: 10px !important;
 }
@@ -509,7 +517,7 @@ tspan {
   flex: 5 !important;
 }
 
-.d-none{
+.d-none {
   display: none;
 }
 

@@ -5,12 +5,14 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {TabelaResumoComponent} from './tabela-resumo/tabela-resumo.component';
 import {PacienteInfoModule} from '../paciente-info/paciente-info.module';
 import {PacienteCardModule} from './paciente-card/paciente-card.module';
+import {StatusCardComponent} from './status-card/status-card.component';
 
 
 @NgModule({
   declarations: [
     PainelLeitosComponent,
-    TabelaResumoComponent
+    TabelaResumoComponent,
+    StatusCardComponent
   ],
   imports: [
     CommonModule,
@@ -20,7 +22,8 @@ import {PacienteCardModule} from './paciente-card/paciente-card.module';
   ],
   exports: [
     PainelLeitosComponent,
-    TabelaResumoComponent
+    TabelaResumoComponent,
+    StatusCardComponent
   ]
 })
 export class PainelLeitosModule {
