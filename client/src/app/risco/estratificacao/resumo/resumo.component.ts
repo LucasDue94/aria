@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {EstratificacaoRiscoFormComponent} from "../form/estratificacao-risco-form.component";
-import {FormGroup} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'resumo',
@@ -9,6 +8,7 @@ import {FormGroup} from "@angular/forms";
 })
 export class ResumoComponent implements OnInit {
 
+  @Input() estratificacao;
   @Input() stratification;
   @Input() risks_stratification;
   @Input() formGroupRisk;
@@ -26,10 +26,10 @@ export class ResumoComponent implements OnInit {
   @Input() escala_humpty_dumpty;
   @Input() formGroupHumptyDumpty;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
-    console.log(this.formGroupTevSurgical);
   }
 
 }
