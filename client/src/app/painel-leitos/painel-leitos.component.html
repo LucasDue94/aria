@@ -21,5 +21,8 @@
     <tabela-resumo class="hide" [setoresOrdenados]="setoresOrdenados" [leitos]="leitos"
                    [statusArray]="statusArray" #tabela></tabela-resumo>
 
+    <status-card *ngFor="let setor of setoresOrdenados" [setor]="setor"
+                 [statusArray]="statusArray" [leitos]="filterLeitos(setor)"></status-card>
   </main>
 </section>
+
