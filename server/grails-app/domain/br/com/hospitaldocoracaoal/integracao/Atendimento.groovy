@@ -31,6 +31,8 @@ class Atendimento {
 
     static hasOne = [ecg: Ecg, balao: Balao]
 
+    static belongsTo = [convenio: Convenio]
+
     static constraints = {
         cid nullable: true
         setor nullable: true

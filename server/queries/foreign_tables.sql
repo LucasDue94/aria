@@ -16,7 +16,8 @@ create foreign table atendimento
         cid_id varchar(9),
         motivo_alta_id varchar(9) not null,
         tipo char(1) not null ,
-        paciente_id varchar(9) not null
+        paciente_id varchar(9) not null,
+        convenio_id varchar(3)
         )
     server wpd
     options (table '(select PAC.COD_PAC,
@@ -33,8 +34,9 @@ create foreign table atendimento
        CID.COD_CID,
        PAC.COD_MOT_ALTA,
        PAC.TIPO_PAC,
-       PAC.COD_PRT
-from ADMWPD.FAPACCAD PAC
+       PAC.COD_PRT,
+       PAC.COD_CON
+    from ADMWPD.FAPACCAD PAC
          LEFT JOIN ADMWPD.FAPACCOM COM ON COM.COD_PAC = PAC.COD_PAC
          LEFT JOIN ADMWPD.URCIDCAD CID ON CID.PK_UR_CID = PAC.FK_UR_CID)', readonly 'true');
 
