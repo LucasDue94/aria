@@ -1,15 +1,11 @@
 package br.com.hospitaldocoracaoal.integracao
 
-import grails.plugin.springsecurity.annotation.Secured
-import grails.validation.ValidationException
-import static org.springframework.http.HttpStatus.CREATED
-import static org.springframework.http.HttpStatus.NOT_FOUND
-import static org.springframework.http.HttpStatus.NO_CONTENT
-import static org.springframework.http.HttpStatus.OK
-import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY
-
 import grails.gorm.transactions.ReadOnly
 import grails.gorm.transactions.Transactional
+import grails.plugin.springsecurity.annotation.Secured
+import grails.validation.ValidationException
+
+import static org.springframework.http.HttpStatus.*
 
 @ReadOnly
 class LeitoController {
@@ -21,7 +17,6 @@ class LeitoController {
 
     @Secured('ROLE_ATENDIMENTO_INDEX')
     def index(Integer max) {
-//        params.max = Math.min(max ?: 10, 1000)
         params.max = Leito.count
         respond leitoService.list(params), model:[leitoCount: leitoService.count()]
     }
