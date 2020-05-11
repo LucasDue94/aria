@@ -4,7 +4,8 @@ class ReservaLeito {
     Date dataInicio
     Date dataFim
     String tipo
-    Leito leito
+
+    static belongsTo = [leito: Leito]
 
     static constraints = {
     }

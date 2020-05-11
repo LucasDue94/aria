@@ -13,6 +13,7 @@ class Atendimento {
     String id
     Date dataEntrada
     Date dataAlta
+    Date dataAltaMedica
     Setor setor
     Cid cid
     MotivoAlta motivoAlta

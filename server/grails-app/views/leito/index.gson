@@ -1,0 +1,8 @@
+import br.com.hospitaldocoracaoal.integracao.Leito
+
+model {
+	Iterable<Leito> leitoList
+}
+
+json tmpl.leito(leitoList ?: [])
+

@@ -226,6 +226,13 @@ create foreign table higienizacao_leito (
 
 drop foreign table higienizacao_leito;
 
+create foreign table convenio (
+    id varchar(3) not null,
+    fantasia varchar(15)
+    ) server wpd options (table '(select COD_CON, FANTASIA from ADMWPD.FACONCAD)');
+
+drop foreign table convenio;
+
 
 
 

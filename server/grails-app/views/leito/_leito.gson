@@ -5,5 +5,5 @@ model {
 }
 
 json g.render(leito, [resolveTemplate: false]) {
-	status
+	status leito.status
 }
