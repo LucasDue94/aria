@@ -46,7 +46,7 @@ export class ApachePacienteListComponent implements OnInit {
   }
 
   getRegistros(array, params, internos = false) {
-    if (internos) this.params.internos = true;
+    this.params.internos = internos;
     this.showListScrollSpinner = true;
     this.registroLeitoService.list(params)
       .subscribe((registrosLeito: RegistroLeito[]) => {
@@ -69,6 +69,7 @@ export class ApachePacienteListComponent implements OnInit {
     this.pacientesInternos = [];
     this.outrosPacientes = [];
     this.params.offset = 0;
+    this.params.internos = null;
   }
 
   scrollDown() {

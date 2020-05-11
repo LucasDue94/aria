@@ -1,15 +1,14 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'tabela-resumo',
-  templateUrl: './tabela-resumo.component.html',
-  styleUrls: ['./tabela-resumo.component.scss']
+  selector: 'status-card',
+  templateUrl: './status-card.component.html',
+  styleUrls: ['../painel-leitos.component.scss']
 })
-export class TabelaResumoComponent {
-
+export class StatusCardComponent implements OnInit {
+  @Input() setor;
   @Input() statusArray;
   @Input() leitos;
-  @Input() setoresOrdenados;
 
   constructor() {
   }
@@ -58,8 +57,7 @@ export class TabelaResumoComponent {
 
   removeChar = (text) => text.replace(/\D+/, '');
 
-  toPercent(number) {
-    if (this.leitos != undefined) return Math.round((parseInt(number) / this.leitos.length) * 100);
+  ngOnInit() {
   }
 
 }

@@ -13,6 +13,8 @@ import {
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {EstratificacaoRisco} from "../../../core/estratificacaoRisco/estratificacaoRisco";
 import {EstratificacaoRiscoService} from "../../../core/estratificacaoRisco/estratificacaoRisco.service";
+import {ActivatedRoute} from "@angular/router";
+import {PacienteService} from "../../../core/paciente/paciente.service";
 
 @Component({
   selector: 'estratificacao-risco-form',
@@ -29,7 +31,7 @@ export class EstratificacaoRiscoFormComponent implements OnInit {
   groupBradenQ: FormGroup;
   groupJhfrat: FormGroup;
   groupHumptyDumpty: FormGroup;
-  registroAtendimento: Atendimento[];
+  atendimento: Atendimento[];
   faFrown = faFrown;
   faSmile = faSmile;
   faMeh = faMeh;
@@ -598,49 +600,56 @@ export class EstratificacaoRiscoFormComponent implements OnInit {
   title = 'ESTRATIFICAÇÃO DE RISCOS';
   form = this.fb.array([{}]);
   estratificacao = new EstratificacaoRisco();
-  controlStateIsEmpty: boolean = false;
+  controlState;
+  idade;
 
-  constructor(private registroAtendimentoService?: AtendimentoService,
+  constructor(private atendimentoService?: AtendimentoService,
               private estratificacaoRiscoService?: EstratificacaoRiscoService,
-              private fb?: FormBuilder, private titleService?: TitleService) {
+              private fb?: FormBuilder, private titleService?: TitleService,
+              private route?: ActivatedRoute, private pacienteService?: PacienteService) {
   }
 
 
   ngOnInit() {
+    const prontuario = this.route.snapshot.params['id'];
+    this.pacienteService.get(prontuario).subscribe(paciente => {
+      const today = new Date().getFullYear();
+      const nascimento = new Date(paciente.nascimento).getFullYear();
+      this.idade = today - nascimento;
+    });
     this.createFormGroups();
     this.createForm();
     this.titleService.send('Estratificação de riscos - Formulário');
-    this.registroAtendimentoService.list('0230022').subscribe(registroAtendimento => {
-      this.registroAtendimento = registroAtendimento;
-    });
   }
 
   nextTab() {
-    let valid;
+    let invalid;
     switch (this.currentTab) {
       case 0: {
-        this.controlStateIsEmpty = this.groupRisks.invalid;
-        valid = this.groupRisks.valid && this.controlStateIsEmpty != true;
-        if (valid) {
+        this.controlState = this.groupRisks.invalid;
+        invalid = this.controlState;
+        if (!invalid) {
           this.currentTab += 1;
         }
         break;
       }
       case 1: {
-        this.controlStateIsEmpty = this.groupBraden.invalid;
-        this.controlStateIsEmpty = this.groupBradenQ.invalid;
-        valid = this.groupBraden.valid || this.groupBradenQ.valid && this.controlStateIsEmpty != true;
-        valid == true ? this.currentTab += 1 : null;
-        break;
-      }
-      case 2: {
-        this.controlStateIsEmpty = this.groupJhfrat.invalid;
-        this.controlStateIsEmpty = this.groupHumptyDumpty.invalid;
-        valid = this.groupJhfrat.valid || this.groupHumptyDumpty && this.controlStateIsEmpty != true;
-        if (valid) {
+        this.controlState = (this.groupBraden.invalid || this.groupBradenQ.invalid);
+        invalid = this.controlState;
+        if (!invalid) {
           this.currentTab += 1;
         }
         break;
+      }
+      case 2: {
+        this.controlState = (this.groupJhfrat.invalid || this.groupHumptyDumpty.invalid);
+        invalid = this.controlState;
+        if (!invalid) {
+          this.currentTab += 1;
+        }
+        break;
+      }
+      case 3: {
       }
     }
   }
@@ -676,8 +685,12 @@ export class EstratificacaoRiscoFormComponent implements OnInit {
   }
 
   getEstratificacao(): EstratificacaoRisco {
-    const estratifcacao = this.form.getRawValue().reduce((obj, group) => Object.assign(obj, group));
-    return this.estratificacao = new EstratificacaoRisco(estratifcacao);
+    const estratificacao = this.form.getRawValue().reduce((obj, group) => Object.assign(obj, group));
+    return this.estratificacao = new EstratificacaoRisco(estratificacao);
+  }
+
+  getForm() {
+
   }
 
   save() {

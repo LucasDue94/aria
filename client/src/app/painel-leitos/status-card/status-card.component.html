@@ -1,0 +1,7 @@
+<main class="container-card-status">
+  <h3 class="card-status-setor">{{setor}}</h3>
+  <section class="container-status" *ngFor="let stat of statusArray">
+    <div [ngClass]="[stat.class,'square']"></div>
+    <h3 class="status-desc">{{stat.desc + ': ' + countByStatusAndSetor(stat, setor)}}</h3>
+  </section>
+</main>

@@ -10,7 +10,6 @@ import {AlertService} from "../../core/alert/alert.service";
 import {DatePipe} from "@angular/common";
 import {faCheck, faFrown} from "@fortawesome/free-solid-svg-icons";
 import {SpinnerService} from "../../core/spinner/spinner.service";
-import {Paciente} from "../../core/paciente/paciente";
 
 @Component({
   selector: 'app-porta-balao-form',
