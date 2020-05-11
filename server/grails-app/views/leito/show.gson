@@ -4,6 +4,4 @@ model {
 	Leito leito
 }
 
-json g.render(leito, [resolveTemplate: false]) {
-	status
-}
+json tmpl.leito(leito)
