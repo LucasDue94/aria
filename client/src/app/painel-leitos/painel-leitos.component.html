@@ -11,7 +11,7 @@
         <span (mouseleave)="hiddenPaciente($event.target)" (mouseover)="showPaciente($event.target)"
               id="{{leito.numero}}" [ngClass]="[getColor(leito?.status)]"
               class="leito">{{padText(leito?.numero)}}</span>
-        <paciente-card [paciente]="leito?.paciente"></paciente-card>
+        <paciente-card [hidden]="true" [paciente]="leito?.paciente"></paciente-card>
       </div>
     </section>
     <div class="center">

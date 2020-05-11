@@ -861,8 +861,8 @@ export class PainelLeitosComponent implements OnInit {
   }
 
   showPaciente(leitoSpan) {
-    const pacienteInfo = this.render.nextSibling(leitoSpan);
-    this.render.setProperty(pacienteInfo, 'display', 'flex !important');
+    let pacienteInfo = this.render.nextSibling(leitoSpan);
+    this.render.setProperty(pacienteInfo, 'hidden', false);
     this.setPositionCard(pacienteInfo, leitoSpan);
   }
 
@@ -880,13 +880,13 @@ export class PainelLeitosComponent implements OnInit {
         }
       }
       if (leitoDiv.top + pacienteCard.offsetHeight > body.offsetHeight - 50) {
-        this.render.setStyle(pacienteCard, 'top', `${-pacienteCard.offsetHeight - 50}px`);
+        this.render.setStyle(pacienteCard, 'top', `${-pacienteCard.offsetHeight - 10}px`);
       }
     }
   }
 
   hiddenPaciente(leitoSpan) {
-    const pacienteInfo = this.render.nextSibling(leitoSpan);
-    this.render.setProperty(pacienteInfo, 'display', 'none !important');
+    let pacienteInfo = this.render.nextSibling(leitoSpan);
+    this.render.setProperty(pacienteInfo, 'hidden', true);
   }
 }
