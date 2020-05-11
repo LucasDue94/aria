@@ -21,17 +21,6 @@ export class StatusCardComponent implements OnInit {
     return filtered.length;
   }
 
-  countByStatus(status) {
-    let leitos = [];
-    if (this.leitos != undefined) {
-      let leitos = this.leitos.filter((el) => {
-        return el.status == status.id;
-      });
-      return leitos.length;
-    }
-    return leitos;
-  }
-
   filterLeitos(setor) {
     let leitos = [];
 

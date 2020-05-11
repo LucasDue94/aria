@@ -6,7 +6,7 @@
   background-color: $gray-20;
   flex-wrap: wrap;
   width: 400px;
-  z-index: 99;
+  z-index: 5000;
   left: 4px;
   top: 30px;
   box-shadow: 0 0 5px $gray-100;
@@ -26,11 +26,22 @@
       font-size: 16px;
     }
   }
-  .w-100{
+
+  .w-100 {
     width: 100% !important;
   }
 
-  .w-40{
+  .w-40 {
     width: 45% !important;
   }
+
+  @media (max-width: 375px) and (max-height: 812px) {
+    left: 0 !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    width: 100vw !important;
+    flex-direction: column !important;
+
+  }
 }
+
