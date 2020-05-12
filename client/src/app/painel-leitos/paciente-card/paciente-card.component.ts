@@ -1,4 +1,4 @@
-import {AfterViewChecked, Component, Input, OnChanges, OnInit, Renderer2, SimpleChanges} from '@angular/core';
+import {AfterViewChecked, Component, Input, OnInit, Renderer2} from '@angular/core';
 
 @Component({
   selector: 'paciente-card',
@@ -26,6 +26,4 @@ export class PacienteCardComponent implements OnInit, AfterViewChecked {
     let nascimento = new Date(nasc);
     return Math.floor(Math.ceil(Math.abs(nascimento.getTime() - (new Date()).getTime()) / (1000 * 3600 * 24)) / 365.25);
   }
-
-
 }
