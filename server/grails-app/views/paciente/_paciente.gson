@@ -5,5 +5,5 @@ model {
 }
 
 json g.render(paciente, [expand: ['ecg', 'balao'],resolveTemplate: false]) {
-	registrosAtendimento tmpl.'/paciente/atendimento'(paciente.atendimentos ?: [])
+	atendimentos tmpl.'/paciente/atendimento'(paciente.atendimentos ?: [])
 }

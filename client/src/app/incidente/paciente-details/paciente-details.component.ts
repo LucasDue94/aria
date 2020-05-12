@@ -28,7 +28,7 @@ export class PacienteDetailsComponent implements OnInit {
     this.title.send('Incidente - Detalhes de Paciente');
     this.pacienteService.get(this.route.snapshot.paramMap.get('id')).subscribe( paciente => {
       this.paciente = paciente;
-      this.paciente.registrosAtendimento.map((atendimento) => atendimento.incidentes).forEach(incArray => {
+      this.paciente.atendimentos.map((atendimento) => atendimento.incidentes).forEach(incArray => {
         this.incidentes = this.incidentes.concat(incArray);
       });
       this.spinnerService.hide();

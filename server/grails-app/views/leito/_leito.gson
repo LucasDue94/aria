@@ -6,5 +6,5 @@ model {
 
 json g.render(leito, [expand: ['setor'], excludes: ['atendimento'], resolveTemplate: false]) {
 	status leito.status
-	atendimento g.render(leito.atendimento, [expand: ['convenio']])
+	atendimento g.render(leito.atendimento, [expand: ['convenio', 'paciente']])
 }

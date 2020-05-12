@@ -1302,7 +1302,7 @@
                   "sexo": "F",
                   "nomeMae": "OTACILIA DOS SANTOS BARROS",
                   "nascimento": "1965-04-14 01:00",
-                  "registrosAtendimento": [
+                  "atendimentos": [
                     {
                       "id": "0036083",
                       "incidentes": [],
@@ -1345,7 +1345,7 @@
                   "sexo": "F",
                   "nomeMae": "DALVA GONCALVES C DE BARROS",
                   "nascimento": "1953-03-05 01:00",
-                  "registrosAtendimento": [
+                  "atendimentos": [
                     {
                       "id": "0123645",
                       "incidentes": [],
@@ -1458,7 +1458,7 @@
                   "sexo": "F",
                   "nomeMae": "DALVA GONCALVES C DE BARROS",
                   "nascimento": "1953-03-05 01:00",
-                  "registrosAtendimento": [
+                  "atendimentos": [
                     {
                       "id": "0123645",
                       "incidentes": [],

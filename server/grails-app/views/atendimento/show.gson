@@ -1,7 +1,7 @@
 import br.com.hospitaldocoracaoal.integracao.Atendimento
 
 model {
-	Atendimento registroAtendimento
+	Atendimento atendimento
 }
 
-json tmpl.registroAtendimento(registroAtendimento)
+json tmpl.registroAtendimento(atendimento)
