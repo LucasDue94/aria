@@ -12,11 +12,6 @@ export class PacienteCardComponent implements OnInit, AfterViewChecked {
   }
 
   ngOnInit() {
-   /* let pacienteCard = document.getElementById('paciente-card');
-    if (pacienteCard) {
-      let leitoContainer = this.render.parentNode(pacienteCard);
-      this.render.setStyle(pacienteCard, 'top', `${leitoContainer.offsetTop + 20}px`);
-    }*/
   }
 
   ngAfterViewChecked(): void {

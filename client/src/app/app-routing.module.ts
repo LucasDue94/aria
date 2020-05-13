@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {LoginComponent} from "./layout/login/login.component";
-import {MainComponent} from "./layout/main/main.component";
+import {LoginComponent} from './layout/login/login.component';
+import {MainComponent} from './layout/main/main.component';
 
 
 const routes: Routes = [
@@ -13,7 +13,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {anchorScrolling: "enabled"})],
   exports: [RouterModule]
 })
 export class AppRoutingModule {

@@ -5,6 +5,7 @@ import {Paciente} from '../core/paciente/paciente';
 import {Leito} from '../core/leito/leito';
 import {PacienteService} from '../core/paciente/paciente.service';
 import {RegistroLeitoService} from '../core/registroLeito/registro-leito.service';
+import {ViewportScroller} from '@angular/common';
 
 @Component({
   selector: 'app-painel-leitos',
@@ -32,7 +33,8 @@ export class PainelLeitosComponent implements OnInit {
     {id: 'am', desc: 'Alta Médica', class: 'alta-medica'}];
 
   constructor(private leitoService: LeitoService, private render: Renderer2,
-              private pacienteService: PacienteService, private registroLeitoService: RegistroLeitoService) {
+              private pacienteService: PacienteService, private registroLeitoService: RegistroLeitoService,
+              private viewportScroller: ViewportScroller) {
     // this.refresh = this.refresh.bind(this);
   }
 
@@ -860,10 +862,18 @@ export class PainelLeitosComponent implements OnInit {
     return found;
   }
 
-  showPaciente(leitoSpan) {
-    let pacienteInfo = this.render.nextSibling(leitoSpan);
-    this.render.setProperty(pacienteInfo, 'hidden', false);
-    this.setPositionCard(pacienteInfo, leitoSpan);
+  showPaciente(event) {
+    const leitoSpan = event.target;
+    let pacienteCard = this.render.nextSibling(leitoSpan);
+    const row = leitoSpan.parentNode.parentNode;
+    this.render.setStyle(pacienteCard, 'display', 'flex');
+    if (window.innerWidth > 700) {
+      this.setPositionCard(pacienteCard, leitoSpan);
+    } else {
+      this.render.setStyle(pacienteCard.firstChild, 'top', `${leitoSpan.getBoundingClientRect().top - row.getBoundingClientRect().top + 30}px`);
+      console.log(leitoSpan.id)
+      this.viewportScroller.scrollToAnchor(leitoSpan.id)
+    }
   }
 
   setPositionCard(pacienteInfo, leitoSpan) {
@@ -885,8 +895,9 @@ export class PainelLeitosComponent implements OnInit {
     }
   }
 
-  hiddenPaciente(leitoSpan) {
+  hiddenPaciente(event) {
+    const leitoSpan = event.target;
     let pacienteInfo = this.render.nextSibling(leitoSpan);
-    this.render.setProperty(pacienteInfo, 'hidden', true);
+    this.render.setStyle(pacienteInfo, 'display', 'none');
   }
 }

@@ -8,10 +8,10 @@
       <h2 class="setor">{{setor}}</h2>
       <div class="leito-container" *ngFor="let leito of filterLeitos(setor)">
         <h3 *ngIf="isFirstOfType(leito)" class="tipo-leito">{{leito.tipo}}</h3>
-        <span (mouseleave)="hiddenPaciente($event.target)" (mouseover)="showPaciente($event.target)"
+        <span (click)="showPaciente($event)" (mouseout)="hiddenPaciente($event)" (mouseover)="showPaciente($event)"
               id="{{leito.numero}}" [ngClass]="[getColor(leito?.status)]"
               class="leito">{{padText(leito?.numero)}}</span>
-        <paciente-card [hidden]="true" [paciente]="leito?.paciente"></paciente-card>
+        <paciente-card [paciente]="leito?.paciente"></paciente-card>
       </div>
     </section>
     <div class="center">
