@@ -1,14 +1,13 @@
 import {Setor} from '../setor/setor';
-import {Paciente} from '../paciente/paciente';
+import {Atendimento} from '../atendimento/atendimento';
 
 export class Leito {
   id: string;
   descricao: string;
   setor: Setor;
-  setorWpd: string
   numero: string;
   tipo: string;
-  paciente: Paciente;
+  atendimento: Atendimento
   status: string
 
   constructor(object?: any) {

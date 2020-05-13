@@ -1,5 +1,3 @@
-import {SetorWpd} from "../setor-wpd/setorWpd";
-
 export class Setor {
 
   id: string;

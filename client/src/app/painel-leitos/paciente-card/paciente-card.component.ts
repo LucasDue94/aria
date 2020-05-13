@@ -5,16 +5,10 @@ import {AfterViewChecked, Component, Input, OnInit, Renderer2} from '@angular/co
   templateUrl: './paciente-card.component.html',
   styleUrls: ['./paciente-card.component.scss']
 })
-export class PacienteCardComponent implements OnInit, AfterViewChecked {
-  @Input() paciente;
+export class PacienteCardComponent {
+  @Input() atendimento;
 
-  constructor(private render: Renderer2) {
-  }
-
-  ngOnInit() {
-  }
-
-  ngAfterViewChecked(): void {
+  constructor() {
   }
 
   getIdade(nasc) {

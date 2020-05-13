@@ -1,11 +1,12 @@
-import {Setor} from "../setor/setor";
-import {Cid} from "../cid/cid";
-import {MotivoAlta} from "../motivoAlta/motivoAlta";
-import {Paciente} from "../paciente/paciente";
-import {Incidente} from "../incidente/incidente";
-import {Ecg} from "../ecg/ecg";
-import {Balao} from "../balao/balao";
+import {Setor} from '../setor/setor';
+import {Cid} from '../cid/cid';
+import {MotivoAlta} from '../motivoAlta/motivoAlta';
+import {Paciente} from '../paciente/paciente';
+import {Incidente} from '../incidente/incidente';
+import {Ecg} from '../ecg/ecg';
+import {Balao} from '../balao/balao';
 import {Nas} from '../nas/nas';
+import {Convenio} from '../convenio/convenio';
 
 
 export class Atendimento {
@@ -21,6 +22,7 @@ export class Atendimento {
   paciente: Paciente;
   incidentes?: Incidente[] = new Array<Incidente>();
   ultimoNas: Nas;
+  convenio: Convenio;
 
   constructor(object?: any) {
     if (object) {
