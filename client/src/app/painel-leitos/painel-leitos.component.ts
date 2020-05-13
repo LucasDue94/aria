@@ -35,15 +35,12 @@ export class PainelLeitosComponent implements OnInit {
   constructor(private leitoService: LeitoService, private render: Renderer2,
               private pacienteService: PacienteService, private registroLeitoService: RegistroLeitoService,
               private viewportScroller: ViewportScroller) {
-    // this.refresh = this.refresh.bind(this);
   }
 
 
   ngOnInit() {
     this.buildLayout();
     this.refresh();
-    // this.refresh();
-    // setInterval(this.refresh, 60000);
   }
 
   buildLayout() {
