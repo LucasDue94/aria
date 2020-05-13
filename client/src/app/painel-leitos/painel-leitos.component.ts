@@ -863,6 +863,7 @@ export class PainelLeitosComponent implements OnInit {
   }
 
   showPaciente(event) {
+    event.stopPropagation();
     const leitoSpan = event.target;
     let pacienteCard = this.render.nextSibling(leitoSpan);
     const row = leitoSpan.parentNode.parentNode;
@@ -871,8 +872,7 @@ export class PainelLeitosComponent implements OnInit {
       this.setPositionCard(pacienteCard, leitoSpan);
     } else {
       this.render.setStyle(pacienteCard.firstChild, 'top', `${leitoSpan.getBoundingClientRect().top - row.getBoundingClientRect().top + 30}px`);
-      console.log(leitoSpan.id)
-      this.viewportScroller.scrollToAnchor(leitoSpan.id)
+      leitoSpan.scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"})
     }
   }
 

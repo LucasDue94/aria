@@ -8,7 +8,7 @@ abstract class LeitoService {
     abstract  Leito get(Serializable id)
 
     List<Leito> list(Map args) {
-        return Leito.where{
+        return Leito.where {
             (tipo != 'VIRTUAL') && (unidade == '0001') && (dataDesativacao == null)
         }.list(args)
     }
