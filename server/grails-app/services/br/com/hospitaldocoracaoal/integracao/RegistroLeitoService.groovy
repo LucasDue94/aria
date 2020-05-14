@@ -32,7 +32,7 @@ abstract class RegistroLeitoService {
             queryParams.put('dataEntradaFim', dataEntradaFim)
         }
 
-        if(termo != null && !termo.empty) {
+        if (termo != null && !termo.empty) {
             if (query.length() > 0) query.append 'and '
             query.append('(lower(p.nome) like lower(:termo) or ')
             query.append('a.id like :atendimentoId or ')
@@ -61,7 +61,7 @@ abstract class RegistroLeitoService {
             if (internos) {
                 query.append 'a.dataAlta is null and not '
             } else {
-                query.append 'a.dataAlta is not null or '
+                query.append '(a.dataAlta is not null or '
             }
 
             query.append """exists(from RegistroLeito rl2
@@ -70,11 +70,13 @@ abstract class RegistroLeitoService {
                                 inner join l2.setor s2
                             where a2.id = a.id
                               and s2.id <> s.id
-                              and rl2.dataEntrada > rl.dataEntrada)\n"""
+                              and rl2.dataEntrada > rl.dataEntrada)"""
+
+            if (!internos) query.append ')'
+            query.append '\n'
         }
 
-
-        if (query.length() > 0) query.insert (0, 'where ')
+        if (query.length() > 0) query.insert(0, 'where ')
 
         String hql = """select rl
             from RegistroLeito rl
@@ -85,7 +87,7 @@ abstract class RegistroLeitoService {
                 $query
                 order by rl.dataEntrada desc"""
 
-        RegistroLeito.findAll hql, queryParams, args
+        RegistroLeito.findAll(hql, queryParams, args)
     }
 
     abstract Long count()
