@@ -62,8 +62,6 @@ export class PainelLeitosComponent implements OnInit {
         this.reArrangeSetores();
       });
       this.spinner.hide();
-      console.log(this.leitos);
-      console.log(this.setores);
     });
   }
 

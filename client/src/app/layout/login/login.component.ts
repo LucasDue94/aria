@@ -1,7 +1,7 @@
 import {Component, HostListener, OnInit, Renderer2, ViewChild} from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {AuthService} from "../../core/auth/auth.service";
-import {Router} from "@angular/router";
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {AuthService} from '../../core/auth/auth.service';
+import {Router} from '@angular/router';
 import {
   faEye,
   faEyeSlash,
@@ -10,7 +10,7 @@ import {
   faPaperPlane,
   faQuestionCircle,
   faUser
-} from "@fortawesome/free-solid-svg-icons";
+} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'login',
@@ -38,12 +38,14 @@ export class LoginComponent implements OnInit {
   faQuestionCircle = faQuestionCircle;
   faEye = faEye;
   faEyeSlash = faEyeSlash;
+  mobileSize: boolean;
 
   constructor(private authService: AuthService, private router: Router,
               private render: Renderer2) {
   }
 
   ngOnInit() {
+    if(window.innerWidth < 700) this.mobileSize = true;
     if (this.authService.isLogged()) {
       this.router.navigate(['/perfil']);
     }
@@ -56,9 +58,11 @@ export class LoginComponent implements OnInit {
 
 
   @HostListener('window:keyup', ['$event']) keyEvent(event: KeyboardEvent) {
-    this.capsOn = event.getModifierState('CapsLock');
-    this.numLock = event.getModifierState('NumLock');
-    if (event.key == "Enter") this.login();
+    if (!this.mobileSize) {
+      this.capsOn = event.getModifierState('CapsLock');
+      this.numLock = event.getModifierState('NumLock');
+    }
+      if (event.key == 'Enter') this.login();
   }
 
 
@@ -101,8 +105,8 @@ export class LoginComponent implements OnInit {
         });
     } else {
       this.error = true;
-      this.messageError = 'Login e senha em branco!';
-      this.showErrors()
+      this.messageError = 'Login e senha em branco';
+      this.showErrors();
     }
   }
 }

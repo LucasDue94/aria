@@ -26,7 +26,7 @@
           {{messageError}}
           <fa-icon class="icon-sad" [icon]="faFrown"></fa-icon>
         </div>
-        <section class="container-alerts">
+        <section class="container-alerts" *ngIf="!mobileSize">
           <div *ngIf="capsOn" [ngClass]="capsOn ? 'capsLockOn':''">
             <p>Atenção: CapsLock ativo</p>
           </div>
@@ -35,6 +35,7 @@
           </div>
         </section>
       </div>
+        <h3 class="copyright"> &#169; Hospital do Coração de Alagoas</h3>
     </section>
   </section>
 </main>
