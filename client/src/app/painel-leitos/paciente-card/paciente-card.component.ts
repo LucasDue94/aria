@@ -5,21 +5,10 @@ import {AfterViewChecked, Component, Input, OnInit, Renderer2} from '@angular/co
   templateUrl: './paciente-card.component.html',
   styleUrls: ['./paciente-card.component.scss']
 })
-export class PacienteCardComponent implements OnInit, AfterViewChecked {
-  @Input() paciente;
+export class PacienteCardComponent {
+  @Input() atendimento;
 
-  constructor(private render: Renderer2) {
-  }
-
-  ngOnInit() {
-   /* let pacienteCard = document.getElementById('paciente-card');
-    if (pacienteCard) {
-      let leitoContainer = this.render.parentNode(pacienteCard);
-      this.render.setStyle(pacienteCard, 'top', `${leitoContainer.offsetTop + 20}px`);
-    }*/
-  }
-
-  ngAfterViewChecked(): void {
+  constructor() {
   }
 
   getIdade(nasc) {

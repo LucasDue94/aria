@@ -1,26 +1,28 @@
-<main id="paciente-card" class="container-paciente" *ngIf="paciente.hasOwnProperty('prontuario')">
+<main id="paciente-card" class="container-paciente"
+      [ngStyle]="{'display': !atendimento?.paciente?.id ? 'none':'flex'}">
   <section class="item-info w-100">
     <h3 class="label">Paciente</h3>
-    <h4 class="info">{{paciente?.nome}}</h4>
+    <h4 class="info">{{atendimento?.paciente?.nome}}</h4>
   </section>
   <section class="item-info w-100">
     <h3 class="label">Mãe</h3>
-    <h4 class="info">{{paciente?.mae}}</h4>
+    <h4 class="info">{{atendimento?.paciente?.nomeMae}}</h4>
   </section>
   <section class="item-info w-40">
     <h3 class="label">Prontuário</h3>
-    <h4 class="info">{{paciente?.prontuario}}</h4>
+    <h4 class="info">{{atendimento?.paciente?.id}}</h4>
   </section>
   <section class="item-info w-40">
     <h3 class="label">Registro</h3>
-    <h4 class="info">{{paciente?.registro}}</h4>
+    <h4 class="info">{{atendimento?.id}}</h4>
   </section>
   <section class="item-info w-40">
     <h3 class="label">Convênio</h3>
-    <h4 class="info">{{paciente?.convenio}}</h4>
+    <h4 class="info">{{atendimento?.convenio?.fantasia}}</h4>
   </section>
   <section class="item-info w-40">
     <h3 class="label">Nascimento</h3>
-    <h4 class="info">{{paciente?.nascimento | date: 'dd/MM/yyyy'}} ({{getIdade(paciente?.nascimento)}} anos)</h4>
+    <h4 class="info">{{atendimento?.paciente?.nascimento | date: 'dd/MM/yyyy'}}
+      ({{getIdade(atendimento?.paciente?.nascimento)}} anos)</h4>
   </section>
 </main>

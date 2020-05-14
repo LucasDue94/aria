@@ -64,10 +64,17 @@ create foreign table leito(
         descricao varchar(70) not null,
         setor_id varchar(9) not null,
         tipo varchar(20),
-        atendimento_id varchar(9)
+        atendimento_id varchar(9),
+        unidade varchar(6),
+        data_desativacao timestamp
     )
     server wpd
-    options (table '(select LEI.LEITO, LEI.DESCRICAO, APT.COD_SET, TIPO_LEI.DESCRICAO as TIPO, LEI.COD_PAC from ADMWPD.FALEICAD LEI inner join ADMWPD.FAAPTCAD APT on LEI.COD_APT = APT.COD_APT INNER JOIN ADMWPD.FALETCAD TIPO_LEI on LEI.TIPO = TIPO_LEI.COD_TIPO)', readonly 'true');
+    options (table '(select LEI.LEITO, LEI.DESCRICAO, APT.COD_SET, TIPO_LEI.DESCRICAO as TIPO, LEI.COD_PAC, CEL.COD_UNIDADE, LEI.DESATIVADO as data_desativacao
+                    from ADMWPD.FALEICAD LEI
+                    inner join ADMWPD.FAAPTCAD APT on LEI.COD_APT = APT.COD_APT
+                    inner join ADMWPD.FALETCAD TIPO_LEI on LEI.TIPO = TIPO_LEI.COD_TIPO
+                    inner join ADMWPD.FASETCAD SE on APT.COD_SET = SE.COD_SET
+                    inner join ADMWPD.FACELCAD CEL on CEL.COD_CEL = SE.COD_CEL)', readonly 'true');
 
 alter foreign table leito owner to aria;
 

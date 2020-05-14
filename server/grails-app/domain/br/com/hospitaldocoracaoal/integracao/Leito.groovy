@@ -9,6 +9,8 @@ class Leito {
     Setor setor
     String tipo
     Atendimento atendimento
+    String unidade
+    Date dataDesativacao
 
     static hasMany = [registroLeitos: RegistroLeito, higienizacaoLeitos: HigienizacaoLeito,
                       reservaLeitos: ReservaLeito, interdicaoLeitos: InterdicaoLeito]

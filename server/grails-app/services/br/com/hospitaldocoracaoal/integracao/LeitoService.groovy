@@ -3,16 +3,20 @@ package br.com.hospitaldocoracaoal.integracao
 import grails.gorm.services.Service
 
 @Service(Leito)
-interface LeitoService {
+abstract class LeitoService {
 
-    Leito get(Serializable id)
+    abstract  Leito get(Serializable id)
 
-    List<Leito> list(Map args)
+    List<Leito> list(Map args) {
+        return Leito.where {
+            (tipo != 'VIRTUAL') && (unidade == '0001') && (dataDesativacao == null)
+        }.list(args)
+    }
 
-    Long count()
+    abstract  Long count()
 
-    void delete(Serializable id)
+    abstract  void delete(Serializable id)
 
-    Leito save(Leito leito)
+    abstract  Leito save(Leito leito)
 
 }

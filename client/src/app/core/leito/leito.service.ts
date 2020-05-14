@@ -1,10 +1,9 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {Observable, Subject} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Leito} from './leito';
-import {Paciente} from '../paciente/paciente';
 
 
 @Injectable()
@@ -15,9 +14,9 @@ export class LeitoService {
   constructor(private http: HttpClient) {
   }
 
-  list(max?: any, offset?: any): Observable<Leito[]> {
+  list(): Observable<Leito[]> {
     let subject = new Subject<Leito[]>();
-    this.http.get(this.baseUrl + `leito?offset=` + offset + '&max=' + max)
+    this.http.get(this.baseUrl + 'leito')
       .subscribe((json: any[]) => {
         subject.next(json.map((propertyName: any) => new Leito(propertyName)));
       });
