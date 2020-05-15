@@ -22,7 +22,7 @@ class BootStrap {
         if (padrao == null) {
             Grupo.withTransaction {
                 padrao = new Grupo(name: 'Padrão')
-                padrao.permissoes = Permissao.findAllByAuthorityInList(['ROLE_ATENDIMENTO_INDEX']) as Set<Permissao>
+                padrao.permissoes = Permissao.findAllByAuthorityInList(['ROLE_PERFIL_EPIDEMIOLOGICO_INDEX', 'ROLE_ATENDIMENTO_INDEX']) as Set<Permissao>
                 padrao.save flush: true
             }
         }
