@@ -7,8 +7,6 @@ import org.hibernate.FetchMode
 import org.hibernate.sql.JoinType
 
 class PerfilEpidemiologicoService {
-
-
     private static final Closure FILTROS = { BuildableCriteria criteria, Date inicio, Date fim, Character[] tipos ->
         criteria.createAlias "consultas", "con", JoinType.LEFT_OUTER_JOIN
         criteria.createAlias "con.cid", "ac", JoinType.LEFT_OUTER_JOIN
@@ -24,7 +22,6 @@ class PerfilEpidemiologicoService {
             calendar.time = fim
             calendar.add Calendar.DATE, 1
             fim = calendar.time
-
 
             criteria.ge 'dataAlta', inicio
             criteria.lt 'dataAlta', fim

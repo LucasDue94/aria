@@ -1,0 +1,9 @@
+import br.com.hospitaldocoracaoal.integracao.Atendimento
+
+model {
+    Atendimento atendimento
+}
+
+json g.render(atendimento, [expand: ['incidentes', 'convenio'],resolveTemplate: false, excludes: ['registroleitos']]) {
+//    registroLeitos tmpl.'/paciente/registroLeito'(atendimento.registroLeitos)
+}
