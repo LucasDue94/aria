@@ -5,7 +5,7 @@ import {Paciente} from '../core/paciente/paciente';
 import {Leito} from '../core/leito/leito';
 import {PacienteService} from '../core/paciente/paciente.service';
 import {RegistroLeitoService} from '../core/registroLeito/registro-leito.service';
-import {ViewportScroller} from '@angular/common';
+import {Location, ViewportScroller} from '@angular/common';
 import {SpinnerService} from '../core/spinner/spinner.service';
 import {ErrorService} from "../core/error/error.service";
 
@@ -35,7 +35,8 @@ export class PainelLeitosComponent implements OnInit {
 
   constructor(private leitoService: LeitoService, private render: Renderer2,
               private pacienteService: PacienteService, private registroLeitoService: RegistroLeitoService,
-              private viewportScroller: ViewportScroller, private spinner: SpinnerService, private errorService: ErrorService) {
+              private viewportScroller: ViewportScroller, private spinner: SpinnerService,
+              private errorService: ErrorService, private location: Location) {
     this.refresh = this.refresh.bind(this);
   }
 
@@ -58,7 +59,7 @@ export class PainelLeitosComponent implements OnInit {
   refresh() {
     this.leitoService.list().subscribe(leitos => {
       if (leitos.hasOwnProperty('error')) {
-        this.errorService.sendError(res);
+        this.errorService.sendError(leitos);
         this.location.back();
       } else {
         this.leitos = leitos;
