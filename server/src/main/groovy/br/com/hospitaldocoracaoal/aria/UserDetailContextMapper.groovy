@@ -18,7 +18,7 @@ class UserDetailContextMapper implements UserDetailsContextMapper {
     UserDetails mapUserFromContext(DirContextOperations ctx, String username, Collection<? extends GrantedAuthority> authorities) {
         String nome = ctx.getStringAttribute('displayName')
         String email = ctx.getStringAttribute('mail')
-
+        username = username?.toLowerCase()
         Usuario.withTransaction {
             Usuario usuario = Usuario.findByUsername(username)
             if(usuario == null) {
