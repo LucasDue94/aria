@@ -7,6 +7,7 @@ import {PacienteService} from '../core/paciente/paciente.service';
 import {RegistroLeitoService} from '../core/registroLeito/registro-leito.service';
 import {ViewportScroller} from '@angular/common';
 import {SpinnerService} from '../core/spinner/spinner.service';
+import {ErrorService} from "../core/error/error.service";
 
 @Component({
   selector: 'app-painel-leitos',
@@ -34,7 +35,7 @@ export class PainelLeitosComponent implements OnInit {
 
   constructor(private leitoService: LeitoService, private render: Renderer2,
               private pacienteService: PacienteService, private registroLeitoService: RegistroLeitoService,
-              private viewportScroller: ViewportScroller, private spinner: SpinnerService) {
+              private viewportScroller: ViewportScroller, private spinner: SpinnerService, private errorService: ErrorService) {
     this.refresh = this.refresh.bind(this);
   }
 
@@ -56,11 +57,16 @@ export class PainelLeitosComponent implements OnInit {
 
   refresh() {
     this.leitoService.list().subscribe(leitos => {
-      this.leitos = leitos;
-      this.leitos.forEach((leito: Leito) => {
-        leito.setor.descricao = PainelLeitosComponent.textTransform(leito.setor.descricao.toLowerCase());
-        this.reArrangeSetores();
-      });
+      if (leitos.hasOwnProperty('error')) {
+        this.errorService.sendError(res);
+        this.location.back();
+      } else {
+        this.leitos = leitos;
+        this.leitos.forEach((leito: Leito) => {
+          leito.setor.descricao = PainelLeitosComponent.textTransform(leito.setor.descricao.toLowerCase());
+          this.reArrangeSetores();
+        });
+      }
       this.spinner.hide();
     });
   }
