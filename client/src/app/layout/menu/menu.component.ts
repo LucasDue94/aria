@@ -42,13 +42,13 @@ export class MenuComponent implements OnInit {
       faIcon: faFolderOpen,
       router: ['/setor']
     },
-    {
-      name: 'Relatorios',
-      status: false,
-      permission: '',
-      faIcon: faChartPie,
-      router: ['/relatorio']
-    },
+    // {
+    //   name: 'Relatorios',
+    //   status: false,
+    //   permission: '',
+    //   faIcon: faChartPie,
+    //   router: ['/relatorio']
+    // },
     {
       name: 'Usuarios',
       status: false,
