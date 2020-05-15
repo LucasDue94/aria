@@ -84,13 +84,14 @@ export class MenuComponent implements OnInit {
       faIcon: faCommentMedical,
       router: ['/pacientes']
     },
+    // {
+    //   name: 'Documentação',
+    //   status: false,
+    //   permission: '',
+    //   faIcon: faBook,
+    //   router: ['/documentacao']
+    // } ,
     {
-      name: 'Documentação',
-      status: false,
-      permission: '',
-      faIcon: faBook,
-      router: ['/documentacao']
-    } ,{
       name: 'Leitos',
       status: false,
       permission: '',
