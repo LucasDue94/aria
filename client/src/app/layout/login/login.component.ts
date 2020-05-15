@@ -100,7 +100,7 @@ export class LoginComponent implements OnInit {
         },
         error => {
           this.error = true;
-          this.messageError = 'Usuário ou senha iválida!';
+          this.messageError = 'Usuário ou senha inválida!';
           this.showErrors();
         });
     } else {
