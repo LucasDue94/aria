@@ -25,11 +25,11 @@
             "aot": false,
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/resources"
             ],
             "styles": [
               "src/styles.scss",
-              "src/assets/colors.scss",
+              "src/resources/colors.scss",
               "node_modules/swagger-ui-dist/swagger-ui.css"
             ],
             "scripts": [
@@ -92,11 +92,11 @@
             "karmaConfig": "karma.conf.js",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/resources"
             ],
             "styles": [
               "src/styles.scss",
-              "src/assets/colors.scss"
+              "src/resources/colors.scss"
             ],
             "scripts": [
             ]
