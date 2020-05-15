@@ -34,7 +34,6 @@ import {EditBalaoComponent} from "../../balao/edit/edit-balao.component";
 import {FilterComponent} from "../../components/filter/filter.component";
 import {EstratificacaoRiscoFormComponent} from "../../risco/estratificacao/form/estratificacao-risco-form.component";
 import {PacienteListComponent} from "../../paciente-list/paciente-list.component";
-import {DocComponent} from "../../doc/doc.component";
 import {PainelLeitosComponent} from '../../painel-leitos/painel-leitos.component';
 
 const routes: Routes = [
@@ -124,9 +123,6 @@ const routes: Routes = [
             canActivate: [AuthGuard]
           }
         ],
-      },
-      {
-        path: 'documentacao', component: DocComponent
       },
       {
         path: 'apache-report',

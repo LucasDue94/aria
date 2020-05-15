@@ -35,7 +35,6 @@
     "moment": "^2.24.0",
     "ngx-infinite-scroll": "^8.0.1",
     "npm": "^6.13.6",
-    "swagger-ui-dist": "^3.25.0",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"
   },

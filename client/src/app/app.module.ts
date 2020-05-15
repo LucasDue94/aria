@@ -36,7 +36,6 @@ import {HttpClientModule} from '@angular/common/http';
 import {FilterModule} from './components/filter/filter.module';
 import {EstratificacaoRiscoModule} from './risco/estratificacao/estratificacao-risco.module';
 import {PacienteListModule} from './paciente-list/paciente-list.module';
-import {DocComponent} from './doc/doc.component';
 import {PainelLeitosModule} from './painel-leitos/painel-leitos.module';
 
 @NgModule({
@@ -44,8 +43,7 @@ import {PainelLeitosModule} from './painel-leitos/painel-leitos.module';
   declarations: [
     AppComponent,
     PerfilDashboardComponent,
-    ErrorComponent,
-    DocComponent
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
