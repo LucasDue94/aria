@@ -4,6 +4,12 @@ model {
     Atendimento atendimento
 }
 
-json g.render(atendimento, [expand: ['incidentes', 'convenio'],resolveTemplate: false, excludes: ['registroleitos']]) {
-//    registroLeitos tmpl.'/paciente/registroLeito'(atendimento.registroLeitos)
+json g.render(atendimento, [expand: ['incidentes', 'convenio'], excludes: ['paciente'],resolveTemplate: false, excludes: ['registroleitos']]) {
+    paciente {
+        id atendimento.paciente?.id
+        nome atendimento.paciente?.nome
+        sexo atendimento.paciente?.sexo
+        nomeMae atendimento.paciente?.nomeMae
+        nascimento atendimento.paciente?.nascimento
+    }
 }
