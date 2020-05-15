@@ -7,7 +7,7 @@ import {PacienteService} from '../core/paciente/paciente.service';
 import {RegistroLeitoService} from '../core/registroLeito/registro-leito.service';
 import {Location, ViewportScroller} from '@angular/common';
 import {SpinnerService} from '../core/spinner/spinner.service';
-import {ErrorService} from "../core/error/error.service";
+import {ErrorService} from '../core/error/error.service';
 
 @Component({
   selector: 'app-painel-leitos',
@@ -44,7 +44,7 @@ export class PainelLeitosComponent implements OnInit {
   ngOnInit() {
     this.spinner.show();
     this.buildLayout();
-    this.refresh();
+    setInterval(this.refresh, 30000);
   }
 
   buildLayout() {
@@ -169,7 +169,7 @@ export class PainelLeitosComponent implements OnInit {
       this.setPositionCard(pacienteCard, leitoSpan);
     } else {
       this.render.setStyle(pacienteCard.firstChild, 'top', `${leitoSpan.getBoundingClientRect().top - row.getBoundingClientRect().top + 30}px`);
-      leitoSpan.scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"})
+      leitoSpan.scrollIntoView({behavior: 'smooth', block: 'center', inline: 'nearest'});
     }
   }
 
