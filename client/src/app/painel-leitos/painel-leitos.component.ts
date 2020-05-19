@@ -44,6 +44,7 @@ export class PainelLeitosComponent implements OnInit {
   ngOnInit() {
     this.spinner.show();
     this.buildLayout();
+    this.refresh()
     setInterval(this.refresh, 30000);
   }
 
