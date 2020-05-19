@@ -22,7 +22,7 @@ class LeitoController {
     }
 
     @Secured('ROLE_ATENDIMENTO_SHOW')
-    def show(Long id) {
+    def show(String id) {
         respond leitoService.get(id)
     }
 
