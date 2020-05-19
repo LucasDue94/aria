@@ -26,8 +26,6 @@
     "angular-highcharts": "^8.0.3",
     "body-parser": "^1.19.0",
     "canvg": "^2.0.0",
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
     "highcharts": "^7.2.1",
     "install": "^0.13.0",
     "jspdf": "^1.5.3",
