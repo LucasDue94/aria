@@ -15,4 +15,8 @@ export class PacienteCardComponent {
     let nascimento = new Date(nasc);
     return Math.floor(Math.ceil(Math.abs(nascimento.getTime() - (new Date()).getTime()) / (1000 * 3600 * 24)) / 365.25);
   }
+
+stringToDate(date) {
+    return Date.parse(date)
+  }
 }

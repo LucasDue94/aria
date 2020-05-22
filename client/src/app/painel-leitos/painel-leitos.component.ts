@@ -198,6 +198,4 @@ export class PainelLeitosComponent implements OnInit {
       }
     }
   }
-
-
 }

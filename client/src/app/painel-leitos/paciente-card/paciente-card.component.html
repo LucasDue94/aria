@@ -22,7 +22,7 @@
   </section>
   <section class="item-info w-40">
     <h3 class="label">Nascimento</h3>
-    <h4 class="info">{{atendimento?.paciente?.nascimento | date: 'dd/MM/yyyy'}}
+    <h4 class="info">{{stringToDate(atendimento?.paciente?.nascimento) | date: 'dd/MM/yyyy'}}
       ({{getIdade(atendimento?.paciente?.nascimento)}} anos)</h4>
   </section>
 </main>
