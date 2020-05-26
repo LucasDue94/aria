@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostListener, OnInit, Renderer2, ViewChild} from '@angular/core';
+import {Component, ElementRef, HostListener, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {LeitoService} from '../core/leito/leito.service';
 import {faInfoCircle} from '@fortawesome/free-solid-svg-icons';
 import {Paciente} from '../core/paciente/paciente';
@@ -14,7 +14,7 @@ import {ErrorService} from '../core/error/error.service';
   templateUrl: './painel-leitos.component.html',
   styleUrls: ['./painel-leitos.component.scss']
 })
-export class PainelLeitosComponent implements OnInit {
+export class PainelLeitosComponent implements OnInit, OnDestroy {
 
   @ViewChild('tabela', {static: false, read: ElementRef}) tabela: ElementRef;
   @ViewChild('buttonResumo', {static: false, read: ElementRef}) buttonResumo: ElementRef;
@@ -40,12 +40,14 @@ export class PainelLeitosComponent implements OnInit {
     this.refresh = this.refresh.bind(this);
   }
 
+  interval;
+
 
   ngOnInit() {
     this.spinner.show();
     this.buildLayout();
-    this.refresh()
-    setInterval(this.refresh, 30000);
+    this.refresh();
+    this.interval = setInterval(this.refresh, 30000);
   }
 
   buildLayout() {
@@ -198,4 +200,11 @@ export class PainelLeitosComponent implements OnInit {
       }
     }
   }
+
+  ngOnDestroy(): void {
+    debugger
+    clearInterval(this.interval);
+  }
+
+
 }
