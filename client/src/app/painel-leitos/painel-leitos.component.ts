@@ -167,15 +167,14 @@ export class PainelLeitosComponent implements OnInit, OnDestroy {
     const leitoSpan = event.target;
     let pacienteCard = this.render.nextSibling(leitoSpan);
     const messageDiv = this.render.nextSibling(pacienteCard);
-    console.log(pacienteId);
     const row = leitoSpan.parentNode.parentNode;
     this.render.setStyle(pacienteCard, 'display', 'flex');
     if (pacienteId == null) {
       this.render.setStyle(messageDiv, 'display', 'flex');
     }
     if (window.innerWidth > 700) {
-      this.setPositionCard(pacienteCard, leitoSpan);
-      this.setPositionMessage(messageDiv, leitoSpan);
+      this.setPosition(pacienteCard, leitoSpan);
+      this.setPosition(messageDiv, leitoSpan);
     } else {
       this.render.setStyle(pacienteCard.firstChild, 'top', `${leitoSpan.getBoundingClientRect().top - row.getBoundingClientRect().top + 30}px`);
       this.render.setStyle(messageDiv, 'top', `${leitoSpan.getBoundingClientRect().top - row.getBoundingClientRect().top + 30}px`);
@@ -191,46 +190,43 @@ export class PainelLeitosComponent implements OnInit, OnDestroy {
     this.render.setStyle(messageDiv, 'display', 'none');
   }
 
-  setPositionMessage(messageDiv, leitoSpan) {
+  setPosition(element, leitoSpan) {
+    let container = element.tagName == 'PACIENTE-CARD' ? element.children[0] : element ;
     const body = document.getElementsByTagName('body')[0];
     const leitoDiv = this.render.parentNode(leitoSpan).getBoundingClientRect();
 
-    if (messageDiv) {
-      if (leitoDiv.left + messageDiv.offsetWidth >= body.offsetWidth) {
-        const condition = leitoDiv.left - messageDiv.offsetWidth <= 0;
-        this.render.setStyle(messageDiv, 'left', condition ? `-200px` : `-${messageDiv.offsetWidth - 65}px`);
+    if (container) {
+      if (leitoDiv.left + container.offsetWidth >= body.offsetWidth) {
+        const condition = leitoDiv.left - container.offsetWidth <= 0;
+        this.render.setStyle(container, 'left', condition ? `-200px` : `-${container.offsetWidth - 65}px`);
       }
-      if (leitoDiv.top + messageDiv.offsetHeight > body.offsetHeight - 20) {
-        this.render.setStyle(messageDiv, 'top', `${-messageDiv.offsetHeight - 10}px`);
-      }
-    }
-  }
-
-  setPositionCard(pacienteInfo, leitoSpan) {
-    let pacienteCard = pacienteInfo.children[0];
-    const body = document.getElementsByTagName('body')[0];
-    const leitoDiv = this.render.parentNode(leitoSpan).getBoundingClientRect();
-
-    if (pacienteCard) {
-      if (leitoDiv.left + pacienteCard.offsetWidth >= body.offsetWidth) {
-        const condition = leitoDiv.left - pacienteCard.offsetWidth <= 0;
-        this.render.setStyle(pacienteCard, 'left', condition ? `-200px` : `-${pacienteCard.offsetWidth - 65}px`);
-      }
-      if (leitoDiv.top + pacienteCard.offsetHeight > body.offsetHeight - 50) {
-        this.render.setStyle(pacienteCard, 'top', `${-pacienteCard.offsetHeight - 10}px`);
+      if (leitoDiv.top + container.offsetHeight > body.offsetHeight - 50) {
+        this.render.setStyle(container, 'top', `${-container.offsetHeight - 10}px`);
       }
     }
   }
 
   getStatusMessage(id) {
     const leito = document.getElementById(id);
-    return Array.from(leito.classList).filter(el => el != 'leito');
+    let status = Array.from(leito.classList).filter(el => el != 'leito').join();
+    switch (status) {
+      case 'higienizacao':
+        status = 'higienização';
+        break;
+      case 'manutencao':
+        status = 'manutenção';
+        break;
+      case 'alta-medica':
+        status = 'alta médica';
+        break;
+      case 'alta-adm':
+        status = 'alta administrativa';
+        break;
+    }
+    return status;
   }
 
   ngOnDestroy(): void {
-    debugger
     clearInterval(this.interval);
   }
-
-
 }

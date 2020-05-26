@@ -321,6 +321,7 @@ $black: #000000;
     border-radius: 3px;
     text-transform: capitalize;
     background-color: $white;
+    border: 1px solid $gray-80;
     box-shadow: 1px 1px 5px $gray-100;
   }
 }

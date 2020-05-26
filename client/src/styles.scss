@@ -33,6 +33,7 @@ body, app-main {
 setor-list, apache-form, grupo-list, nas-form {
   position: relative;
   height: 100%;
+  width: 100%;
 }
 
 app-filter {
@@ -63,7 +64,8 @@ paciente-info {
   position: relative;
 }
 
-paciente-list{
+paciente-list, usuario-list, risco-list,
+tipo-incidente-list{
   width: 100%;
 }
 
