@@ -14,7 +14,7 @@ import {ErrorService} from '../core/error/error.service';
   templateUrl: './painel-leitos.component.html',
   styleUrls: ['./painel-leitos.component.scss']
 })
-export class PainelLeitosComponent implements OnInit {
+export class PainelLeitosComponent implements OnInit, OnDestroy {
 
   @ViewChild('tabela', {static: false, read: ElementRef}) tabela: ElementRef;
   @ViewChild('buttonResumo', {static: false, read: ElementRef}) buttonResumo: ElementRef;
@@ -40,12 +40,14 @@ export class PainelLeitosComponent implements OnInit {
     this.refresh = this.refresh.bind(this);
   }
 
+  interval;
+
 
   ngOnInit() {
     this.spinner.show();
     this.buildLayout();
     this.refresh();
-    setInterval(this.refresh, 30000);
+    this.interval = setInterval(this.refresh, 30000);
   }
 
   buildLayout() {
@@ -224,4 +226,11 @@ export class PainelLeitosComponent implements OnInit {
     const leito = document.getElementById(id);
     return Array.from(leito.classList).filter(el => el != 'leito');
   }
+
+  ngOnDestroy(): void {
+    debugger
+    clearInterval(this.interval);
+  }
+
+
 }
