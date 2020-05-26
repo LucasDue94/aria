@@ -63,6 +63,10 @@ paciente-info {
   position: relative;
 }
 
+paciente-list{
+  width: 100%;
+}
+
 paciente-card{
   display: none;
 }
@@ -351,6 +355,7 @@ status-card {
   }
 
   .thead {
+    flex-wrap: wrap;
     border: 1px solid rgba($gray-70, 0.5);
     font-weight: 600;
     box-shadow: 1px 1px 3px $gray-70;

@@ -8,10 +8,13 @@
       <h2 class="setor">{{setor}}</h2>
       <div class="leito-container" *ngFor="let leito of filterLeitos(setor)">
         <h3 *ngIf="isFirstOfType(leito)" class="tipo-leito">{{leito.tipo.toLowerCase()}}</h3>
-        <span (mouseout)="hiddenPaciente($event)" (mouseover)="showPaciente($event)"
+        <span (mouseout)="hiddenPaciente($event)" (mouseover)="showInfo($event, leito?.atendimento?.paciente?.id)"
               id="{{leito?.id}}" [ngClass]="[getColor(leito?.status)]"
               class="leito">{{padText(leito?.id)}}</span>
         <paciente-card [atendimento]="leito?.atendimento"></paciente-card>
+        <div  class="message-status">
+          {{ getStatusMessage(leito?.id) }}
+        </div>
       </div>
     </section>
     <div class="center">
