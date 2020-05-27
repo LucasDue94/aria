@@ -227,6 +227,11 @@ export class PainelLeitosComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    const nav = document.getElementsByClassName('aria-nav')[0];
+    const mainContainer = document.getElementsByClassName('main-container')[0];
+    this.render.setStyle(nav, 'display', 'flex');
+    this.render.setStyle(mainContainer, 'margin', '10px');
+    this.render.setStyle(mainContainer.firstChild, 'padding', '0');
     clearInterval(this.interval);
   }
 }
