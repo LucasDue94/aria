@@ -17,6 +17,6 @@ export class PacienteCardComponent {
   }
 
 stringToDate(date) {
-    return Date.parse(date)
+    return new Date(Date.parse(date)).toLocaleDateString('pt-BR')
   }
 }
