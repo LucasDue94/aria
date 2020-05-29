@@ -29,7 +29,21 @@
       </section>
 
       <section class="tab-item" [class.active]="currentTab == 3">
-        <resumo></resumo>
+        <resumo
+          [form]="form"
+          [risks_stratification]="risks_stratification"
+          [groupRisks]="groupRisks"
+          [groupTevClinical]="groupTevClinical"
+          [tevClinico]="tev_clinical"
+          [groupTevSurgical]="groupTevSurgical"
+          [tevSurgical]="tev_surgical"
+          [groupBraden]="groupBraden"
+          [braden]="escala_braden"
+          [groupBradenQ]="groupBradenQ"
+          [bradenQ]="escala_braden_q"
+          [groupJhfrat]="groupJhfrat"
+          [groupHumptyDumpty]="groupHumptyDumpty"
+        ></resumo>
       </section>
     </form>
   </section>

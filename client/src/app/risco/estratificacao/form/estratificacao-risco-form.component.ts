@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {AtendimentoService} from "../../../core/atendimento/atendimento.service";
 import {Atendimento} from "../../../core/atendimento/atendimento";
 import {TitleService} from "../../../core/title/title.service";
@@ -622,44 +622,6 @@ export class EstratificacaoRiscoFormComponent implements OnInit {
     this.titleService.send('Estratificação de riscos - Formulário');
   }
 
-  nextTab() {
-    let invalid;
-    switch (this.currentTab) {
-      case 0: {
-        this.controlState = this.groupRisks.invalid;
-        invalid = this.controlState;
-        if (!invalid) {
-          this.currentTab += 1;
-        }
-        break;
-      }
-      case 1: {
-        this.controlState = (this.groupBraden.invalid || this.groupBradenQ.invalid);
-        invalid = this.controlState;
-        if (!invalid) {
-          this.currentTab += 1;
-        }
-        break;
-      }
-      case 2: {
-        this.controlState = (this.groupJhfrat.invalid || this.groupHumptyDumpty.invalid);
-        invalid = this.controlState;
-        if (!invalid) {
-          this.currentTab += 1;
-        }
-        break;
-      }
-      case 3: {
-      }
-    }
-  }
-
-  previousTab() {
-    if (this.currentTab > 0) {
-      this.currentTab -= 1;
-    }
-  }
-
   createForm() {
     this.form = this.fb.array(
       [
@@ -689,9 +651,47 @@ export class EstratificacaoRiscoFormComponent implements OnInit {
     return this.estratificacao = new EstratificacaoRisco(estratificacao);
   }
 
-  getForm() {
 
+  nextTab() {
+    let invalid;
+    switch (this.currentTab) {
+      case 0: {
+      /*  this.controlState = this.groupRisks.invalid;
+        invalid = this.controlState;
+        if (!invalid) {
+          this.currentTab += 1;
+        }*/
+        this.currentTab += 1;
+        break;
+      }
+      case 1: {
+      /*  this.controlState = (this.groupBraden.invalid || this.groupBradenQ.invalid);
+        invalid = this.controlState;
+        if (!invalid) {
+          this.currentTab += 1;
+        }*/
+        this.currentTab += 1;
+        break;
+      }
+      case 2: {
+     /*   this.controlState = (this.groupJhfrat.invalid || this.groupHumptyDumpty.invalid);
+        invalid = this.controlState;
+        if (!invalid) {
+          this.currentTab += 1;
+        }*/
+        this.currentTab += 1;
+        break;
+
+      }
+    }
   }
+
+  previousTab() {
+    if (this.currentTab > 0) {
+      this.currentTab -= 1;
+    }
+  }
+
 
   save() {
     this.estratificacaoRiscoService.save(this.getEstratificacao()).subscribe();

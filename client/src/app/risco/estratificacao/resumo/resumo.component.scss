@@ -11,12 +11,91 @@
   margin-top: 20px;
 }
 
+.hr {
+  border-bottom: 1px solid #5A5B5B;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.title {
+  font-size: 18px;
+}
+
 .resume-title {
   background-color: #2B517E;
   color: #FFFFFF;
   width: 100%;
   text-align: center;
   border-radius: 7px;
+}
+
+.resume-body {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  .row-resume {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+
+    & .column {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      vertical-align: center;
+      align-items: center;
+      width: 41.66%;
+      margin: 10px 35px 0 0;
+
+      & .descricao {
+        width: 50%;
+        line-height: 20px;
+      }
+
+      & .span-bold {
+        font-weight: bold;
+        margin-right: 5px;
+      }
+
+      & .check {
+        min-width: 15px;
+        min-height: 15px;
+        border-radius: 2px;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        flex-basis: 200px;
+        text-align: justify;
+        position: relative;
+        left: 0;
+
+
+        & .icon-default, .icon-unCheck, .icon-check {
+          margin: 5px;
+          font-size: 18px;
+        }
+
+        & .icon-default {
+          color: lightgray;
+        }
+
+        & .icon-check {
+          color: #19d47a;
+        }
+
+        & .icon-unCheck {
+          color: #de757a;
+        }
+      }
+    }
+  }
+
 }
 
 grupo-fator-risco {

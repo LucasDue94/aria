@@ -1,3 +1,62 @@
-<div class="scale-content">
+<div class="resume-body">
+  <h2 class="subtitle hr">Riscos</h2>
+  <div class="row-resume">
+    <div class="column" *ngFor="let risk of propertiesRisco">
+      <span class="span-bold">{{risk.id}}) </span>
+      <div class="descricao">{{risk.descricao}}</div>
+      <div class="check">
+        <span class="icon-default" [class.icon-check]="risk.valor == true"><fa-icon [icon]="faCheck"></fa-icon></span>
+        <span class="icon-default" [class.icon-unCheck]="risk.valor == false"><fa-icon [icon]="faTimesCircle"></fa-icon></span>
+      </div>
+    </div>
+
+    <h2 class="subtitle hr">Tev Cliníco</h2>
+    <div class="column" *ngFor="let tevClinico of propertiesTevClinical">
+      <span class="span-bold">{{tevClinico.id}}) </span>{{tevClinico.descricao}}
+      <div class="check">
+        <span class="icon-default" [class.icon-check]="tevClinico.valor == true"><fa-icon
+          [icon]="faCheck"></fa-icon></span>
+        <span class="icon-default" [class.icon-unCheck]="tevClinico.valor == false"><fa-icon
+          [icon]="faTimesCircle"></fa-icon></span>
+      </div>
+    </div>
+
+    <h2 class="subtitle hr">Tev Cirúrgico</h2>
+    <div class="column" *ngFor="let tevSurgical of propertiesTevSurgical">
+      <span class="span-bold">{{tevSurgical.id}}) </span>{{tevSurgical.descricao}}
+      <div class="check">
+        <span class="icon-default" [class.icon-check]="tevSurgical.valor == true"><fa-icon
+          [icon]="faCheck"></fa-icon></span>
+        <span class="icon-default" [class.icon-unCheck]="tevSurgical.valor == false"><fa-icon
+          [icon]="faTimesCircle"></fa-icon></span>
+      </div>
+    </div>
+
+    <h2 class="subtitle hr">Braden</h2>
+    <div class="column" *ngFor="let braden of propertiesBraden">
+      <span class="span-bold">{{braden.id}}) </span>{{braden.descricao}}
+      <div class="check">
+        <span class="icon-default" [class.icon-check]="braden.valor == true"><fa-icon
+          [icon]="faCheck"></fa-icon></span>
+        <span class="icon-default" [class.icon-unCheck]="braden.valor == false"><fa-icon
+          [icon]="faTimesCircle"></fa-icon></span>
+      </div>
+    </div>
+
+    <h2 class="subtitle hr">BradenQ</h2>
+    <div class="column" *ngFor="let bradenQ of propertiesBradenQ">
+      <span class="span-bold">{{bradenQ.id}}) </span>{{bradenQ.descricao}}
+      <div class="check">
+        <span class="icon-default" [class.icon-check]="bradenQ.valor == true"><fa-icon
+          [icon]="faCheck"></fa-icon></span>
+        <span class="icon-default" [class.icon-unCheck]="bradenQ.valor == false"><fa-icon
+          [icon]="faTimesCircle"></fa-icon></span>
+      </div>
+    </div>
+
+
+  </div>
 
 </div>
+
+
