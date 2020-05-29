@@ -1,13 +1,13 @@
-import {AfterViewInit, Component, Input, OnInit, Renderer2, ViewChild} from '@angular/core';
-import {faHeart} from "@fortawesome/free-solid-svg-icons/faHeart";
-import {SpinnerService} from "../../core/spinner/spinner.service";
+import {AfterViewInit, Component, Input, OnChanges, OnInit, Renderer2, SimpleChanges, ViewChild} from '@angular/core';
+import {faHeart} from '@fortawesome/free-solid-svg-icons/faHeart';
+import {SpinnerService} from '../../core/spinner/spinner.service';
 
 @Component({
   selector: 'spinner',
   templateUrl: './spinner.component.html',
   styleUrls: ['./spinner.component.scss']
 })
-export class SpinnerComponent implements OnInit, AfterViewInit {
+export class SpinnerComponent implements OnInit, AfterViewInit, OnChanges {
   @Input('status') status: boolean;
   @Input('loading') loading: boolean = false;
   faHeart = faHeart;
@@ -20,8 +20,15 @@ export class SpinnerComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.spinnerService.listen().subscribe(res => this.status = res);
+    this.spinnerService.listen().subscribe(res => {
+      this.status = res
+    const content = document.getElementsByClassName('main-content')[0];
+    this.render.setStyle(content, 'display', this.status ? 'none' : 'flex');
+    });
     if (this.height != undefined) this.status = true;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
   }
 
   ngAfterViewInit(): void {

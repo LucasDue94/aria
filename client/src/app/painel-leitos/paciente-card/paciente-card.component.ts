@@ -12,7 +12,14 @@ export class PacienteCardComponent {
   }
 
   getIdade(nasc) {
-    let nascimento = new Date(nasc);
-    return Math.floor(Math.ceil(Math.abs(nascimento.getTime() - (new Date()).getTime()) / (1000 * 3600 * 24)) / 365.25);
+    if(nasc != null) {
+      let nascimento = new Date(nasc.replace(/-/g, "/"));
+      return Math.floor(Math.ceil(Math.abs(nascimento.getTime() - (new Date()).getTime()) / (1000 * 3600 * 24)) / 365.25);
+    }
+    return ''
+  }
+
+stringToDate(date) {
+    return date != null ? new Date(date.replace(/-/g, "/")).toLocaleDateString('pt-BR') : '';
   }
 }

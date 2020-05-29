@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostListener, OnInit, Renderer2, ViewChild} from '@angular/core';
+import {Component, ElementRef, HostListener, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {LeitoService} from '../core/leito/leito.service';
 import {faInfoCircle} from '@fortawesome/free-solid-svg-icons';
 import {Paciente} from '../core/paciente/paciente';
@@ -14,7 +14,7 @@ import {ErrorService} from '../core/error/error.service';
   templateUrl: './painel-leitos.component.html',
   styleUrls: ['./painel-leitos.component.scss']
 })
-export class PainelLeitosComponent implements OnInit {
+export class PainelLeitosComponent implements OnInit, OnDestroy {
 
   @ViewChild('tabela', {static: false, read: ElementRef}) tabela: ElementRef;
   @ViewChild('buttonResumo', {static: false, read: ElementRef}) buttonResumo: ElementRef;
@@ -40,11 +40,14 @@ export class PainelLeitosComponent implements OnInit {
     this.refresh = this.refresh.bind(this);
   }
 
+  interval;
+
 
   ngOnInit() {
     this.spinner.show();
     this.buildLayout();
-    setInterval(this.refresh, 30000);
+    this.refresh();
+    this.interval = setInterval(this.refresh, 30000);
   }
 
   buildLayout() {
@@ -159,16 +162,22 @@ export class PainelLeitosComponent implements OnInit {
     return found;
   }
 
-  showPaciente(event) {
+  showInfo(event, pacienteId) {
     event.stopPropagation();
     const leitoSpan = event.target;
     let pacienteCard = this.render.nextSibling(leitoSpan);
+    const messageDiv = this.render.nextSibling(pacienteCard);
     const row = leitoSpan.parentNode.parentNode;
     this.render.setStyle(pacienteCard, 'display', 'flex');
+    if (pacienteId == null) {
+      this.render.setStyle(messageDiv, 'display', 'flex');
+    }
     if (window.innerWidth > 700) {
-      this.setPositionCard(pacienteCard, leitoSpan);
+      this.setPosition(pacienteCard, leitoSpan);
+      this.setPosition(messageDiv, leitoSpan);
     } else {
       this.render.setStyle(pacienteCard.firstChild, 'top', `${leitoSpan.getBoundingClientRect().top - row.getBoundingClientRect().top + 30}px`);
+      this.render.setStyle(messageDiv, 'top', `${leitoSpan.getBoundingClientRect().top - row.getBoundingClientRect().top + 30}px`);
       leitoSpan.scrollIntoView({behavior: 'smooth', block: 'center', inline: 'nearest'});
     }
   }
@@ -176,27 +185,53 @@ export class PainelLeitosComponent implements OnInit {
   hiddenPaciente(event) {
     const leitoSpan = event.target;
     let pacienteInfo = this.render.nextSibling(leitoSpan);
+    const messageDiv = this.render.nextSibling(pacienteInfo);
     this.render.setStyle(pacienteInfo, 'display', 'none');
+    this.render.setStyle(messageDiv, 'display', 'none');
   }
 
-  setPositionCard(pacienteInfo, leitoSpan) {
-    let pacienteCard = pacienteInfo.children[0];
+  setPosition(element, leitoSpan) {
+    let container = element.tagName == 'PACIENTE-CARD' ? element.children[0] : element ;
     const body = document.getElementsByTagName('body')[0];
     const leitoDiv = this.render.parentNode(leitoSpan).getBoundingClientRect();
 
-    if (pacienteCard) {
-      if (leitoDiv.left + pacienteCard.offsetWidth >= body.offsetWidth) {
-        if (leitoDiv.left - pacienteCard.offsetWidth <= 0) {
-          this.render.setStyle(pacienteCard, 'left', `-200px`);
-        } else {
-          this.render.setStyle(pacienteCard, 'left', `-${pacienteCard.offsetWidth - 65}px`);
-        }
+    if (container) {
+      if (leitoDiv.left + container.offsetWidth >= body.offsetWidth) {
+        const condition = leitoDiv.left - container.offsetWidth <= 0;
+        this.render.setStyle(container, 'left', condition ? `-200px` : `-${container.offsetWidth - 65}px`);
       }
-      if (leitoDiv.top + pacienteCard.offsetHeight > body.offsetHeight - 50) {
-        this.render.setStyle(pacienteCard, 'top', `${-pacienteCard.offsetHeight - 10}px`);
+      if (leitoDiv.top + container.offsetHeight > body.offsetHeight - 50) {
+        this.render.setStyle(container, 'top', `${-container.offsetHeight - 10}px`);
       }
     }
   }
 
+  getStatusMessage(id) {
+    const leito = document.getElementById(id);
+    let status = Array.from(leito.classList).filter(el => el != 'leito').join();
+    switch (status) {
+      case 'higienizacao':
+        status = 'higienização';
+        break;
+      case 'manutencao':
+        status = 'manutenção';
+        break;
+      case 'alta-medica':
+        status = 'alta médica';
+        break;
+      case 'alta-adm':
+        status = 'alta administrativa';
+        break;
+    }
+    return status;
+  }
 
+  ngOnDestroy(): void {
+    const nav = document.getElementsByClassName('aria-nav')[0];
+    const mainContainer = document.getElementsByClassName('main-container')[0];
+    this.render.setStyle(nav, 'display', 'flex');
+    this.render.setStyle(mainContainer, 'margin', '10px');
+    this.render.setStyle(mainContainer.firstChild, 'padding', '0');
+    clearInterval(this.interval);
+  }
 }

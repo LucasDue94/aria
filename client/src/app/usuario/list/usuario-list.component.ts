@@ -11,7 +11,7 @@ import {AuthService} from "../../core/auth/auth.service";
 import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-list',
+  selector: 'usuario-list',
   templateUrl: './usuario-list.component.html',
   styleUrls: ['./usuario-list.component.scss']
 })

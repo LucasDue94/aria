@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {SetorService} from "../core/setor/setor.service";
 
 @Component({
-  selector: 'app-paciente-list',
+  selector: 'paciente-list',
   templateUrl: './paciente-list.component.html',
   styleUrls: ['./paciente-list.component.scss']
 })
