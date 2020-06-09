@@ -133,7 +133,10 @@ export class PainelLeitosComponent implements OnInit, OnDestroy {
     this.setores = array;
   }
 
-  removeChar = (text) => text.replace(/\D+/, '');
+  removeChar = (text) => {
+    const filteredText = text.match(/\d+(.\d+)?/)
+    return filteredText != null ? filteredText[0] : null;
+  }
 
   padText = (text) => this.removeChar(text).padStart(3, '0');
 

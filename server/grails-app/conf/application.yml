@@ -36,6 +36,8 @@ management:
 
 ---
 grails:
+    assets:
+        mapping: 'grailAssets'
     views:
         json:
             compileStatic: false
@@ -125,6 +127,9 @@ environments:
 grails:
     resources:
         pattern: /**
+    web:
+        servlet:
+            path: /
     plugin:
         springsecurity:
             ldap:
