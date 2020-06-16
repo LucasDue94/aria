@@ -1,5 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {SetorService} from "../core/setor/setor.service";
+import {PacienteService} from "../core/paciente/paciente.service";
+import {Paciente} from "../core/paciente/paciente";
+import {Setor} from "../core/setor/setor";
+import {faMinus, faPlus} from "@fortawesome/free-solid-svg-icons";
+import {TitleService} from "../core/title/title.service";
 
 @Component({
   selector: 'paciente-list',
@@ -9,38 +14,49 @@ import {SetorService} from "../core/setor/setor.service";
 
 export class PacienteListComponent implements OnInit {
 
-  tabs = [{name: 'APACHE II', actived: true}, {name: 'NAS', actived: false}, {name: 'FUGULIN', actived: false},
-    {name: 'ECG', actived: false}, {name: 'PORTA BALÃO', actived: false}, {name: 'INCIDENTES', actived: false},
-    {name: 'ESTRAT. RISCO', actived: false}];
-  setores = [];
-  currentTab;
+  @ViewChild('collapse', {static: false}) collapse: ElementRef;
+  setores: Setor[] = [];
+  faPlus = faPlus;
+  faMin = faMinus;
+  listLoading;
+  pacientes: Paciente[] = [];
 
-  constructor(private setorService: SetorService) {
+  constructor(private titleService: TitleService, private setorService: SetorService, private pacienteService: PacienteService, private render: Renderer2) {
   }
 
   ngOnInit(): void {
-    this.currentTab = localStorage.getItem('pacienteTab') != undefined ? localStorage.getItem('pacienteTab') : 'APACHE II';
-    localStorage.setItem('pacienteTab', this.currentTab);
-    this.select(this.findTab(this.currentTab));
-    this.setorService.list().subscribe(setores => {
-      this.setores = setores
+    this.titleService.send('Evoluções - Pacientes Internos');
+    this.setorService.list().subscribe(setor => {
+      this.setores = setor;
     });
-    this.orderByName();
-  }
-
-  findTab = (tabName) => this.tabs.find(element => element.name == tabName);
-
-  select(currentTab) {
-    this.currentTab = currentTab;
-    localStorage.setItem('pacienteTab', this.currentTab.name);
-    this.tabs.forEach(tab => tab.actived = false);
-    if (!currentTab.actived) currentTab.actived = true;
-    history.pushState({tab: this.currentTab.name}, '', '');
-  }
-
-  orderByName() {
-    this.tabs.sort(function (a, b) {
-      return a.name > b.name ? 1 : -1
+    this.pacienteService.list().subscribe(paciente => {
+      this.pacientes = paciente;
     })
+  }
+
+  scrollDown() {
+
+  }
+
+  open(id?: any) {
+    this.collapse.nativeElement.childNodes.forEach(node => {
+      if (node.id === id) {
+        if (node.lastChild.classList.contains('collapse-none')) {
+          this.render.removeClass(node.lastChild, 'collapse-none');
+          this.render.addClass(node.childNodes[0].lastChild, 'collapse-none');
+        }
+      }
+    });
+  }
+
+  close(id: any) {
+    this.collapse.nativeElement.childNodes.forEach(node => {
+      if (node.id === id) {
+        if (node.lastChild.classList.contains('collapse-content')) {
+          this.render.addClass(node.lastChild, 'collapse-none');
+          this.render.removeClass(node.childNodes[0].lastChild, 'collapse-none');
+        }
+      }
+    });
   }
 }
