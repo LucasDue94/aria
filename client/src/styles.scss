@@ -30,10 +30,15 @@ body, app-main {
   background-color: $white;
 }
 
-setor-list, apache-form, grupo-list, nas-form {
+setor-list, apache-form, grupo-list, nas-form, prontuario {
   position: relative;
   height: 100%;
   width: 100%;
+}
+
+aria-card {
+  width: 100%;
+  //border: 1px dashed green;
 }
 
 app-filter {
@@ -65,11 +70,11 @@ paciente-info {
 }
 
 paciente-list, usuario-list, risco-list,
-tipo-incidente-list{
+tipo-incidente-list {
   width: 100%;
 }
 
-paciente-card{
+paciente-card {
   display: none;
 }
 
