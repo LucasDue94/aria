@@ -20,13 +20,17 @@ export class ResumoComponent implements OnInit {
   @Input() groupBradenQ;
   @Input() bradenQ;
   @Input() groupJhfrat;
+  @Input() jh_frat;
   @Input() groupHumptyDumpty;
+  @Input() humptyDumpty;
 
   propertiesRisco = [];
   propertiesTevClinical = [];
   propertiesTevSurgical = [];
   propertiesBraden = [];
   propertiesBradenQ = [];
+  propertiesJhFrat = [];
+  propertiesHumptyDumpty = [];
   faCheck = faCheckCircle;
   faTimesCircle = faTimesCircle;
 
@@ -67,16 +71,20 @@ export class ResumoComponent implements OnInit {
       }));
       this.propertiesTevSurgical = this.propertiesTevSurgical.map((tevSurgical, index) => Object.assign({}, tevSurgical, obj[index]));
     });
-
-    this.propertiesBraden = this.tevSurgical.map((braden, index) => {
-      return {id: index + 1, descricao: braden.description, valor: null};
+    this.propertiesBraden = this.braden.map((braden, index) => {
+      return {id: index + 1, descricao: braden.description, valor: null, checked: false};
     });
+
     this.groupBraden.valueChanges.subscribe(braden => {
       const resultBraden = Object.values(braden);
       const obj = Object.values(resultBraden.map(result => {
         return {valor: result};
       }));
-      this.propertiesBraden = this.propertiesBraden.map((braden, index) => Object.assign({}, braden, obj[index]));
+
+      this.propertiesBraden = this.propertiesBraden.map((braden, index) => {
+        return Object.assign({}, braden, obj[index])
+      });
+
     });
 
     this.propertiesBradenQ = this.propertiesBradenQ.map((bradenQ, index) => {
@@ -90,8 +98,20 @@ export class ResumoComponent implements OnInit {
       this.propertiesBradenQ = this.propertiesBradenQ.map((bradenQ, index) => Object.assign({}, bradenQ, obj[index]));
     });
 
+    this.propertiesJhFrat = this.jh_frat.map((jh, index) => {
+      return {id: index + 1, descricao: jh.description, valor: null};
+    });
+    this.groupJhfrat.valueChanges.subscribe(jhFrat => {
+      const resultJhFrat = Object.values(jhFrat);
+      const obj = Object.values(resultJhFrat.map(result => {
+        return {valor: result}
+      }));
+      this.propertiesJhFrat = this.propertiesJhFrat.map((jh, index) => Object.assign({}, jh, obj[index]));
+    });
 
   }
+
+
 
 }
 
