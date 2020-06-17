@@ -4,7 +4,7 @@ import {AfterViewChecked, Component, ElementRef, Input, OnInit, Renderer2, ViewC
   selector: 'aria-card',
   styleUrls: ['./card.component.scss'],
   template: `
-    <main #container [ngStyle]="{'width': width, 'height':height}" class="card">
+    <main #container [ngStyle]="{'width': width, 'height':height, 'flex-direction':direction}" class="card">
       <ng-content></ng-content>
     </main>
   `
@@ -13,6 +13,7 @@ import {AfterViewChecked, Component, ElementRef, Input, OnInit, Renderer2, ViewC
 export class CardComponent implements OnInit, AfterViewChecked {
   @Input() width;
   @Input() height;
+  @Input() direction = 'row';
   @ViewChild('container', {static: false}) container: ElementRef;
 
   constructor(private render: Renderer2) {

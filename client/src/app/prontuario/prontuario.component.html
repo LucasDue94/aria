@@ -1,10 +1,60 @@
 <main class="prontuario-container">
   <article class="resume">
-    <aria-card>info</aria-card>
+    <aria-card>
+      <h2 class="nome">{{paciente.nome}}</h2>
+      <section *ngIf="paciente?.prontuario" class="item-info">
+        <h3 class="label">Prontuário</h3>
+        <h4 class="info">{{paciente.prontuario}}</h4>
+      </section>
+      <section *ngIf="paciente?.sexo" class="item-info">
+        <h3 class="label">Sexo</h3>
+        <h4 class="info">{{paciente.sexo}}</h4>
+      </section>
+      <section *ngIf="paciente?.nascimento" class="item-info">
+        <h3 class="label">Idade</h3>
+        <h4 class="info">{{paciente.nascimento}}</h4>
+      </section>
+      <section *ngIf="paciente?.convenio" class="item-info">
+        <h3 class="label">Convênio</h3>
+        <h4 class="info">{{paciente.convenio}}</h4>
+      </section>
+      <section *ngIf="paciente?.mae" class="item-info mae">
+        <h3 class="label">Mãe</h3>
+        <h4 class="info">{{paciente.mae}}</h4>
+      </section>
+      <section *ngIf="paciente?.status == 'Intersnado'" class="item-info">
+        <h3 class="label">Registro</h3>
+        <h4 class="info">{{paciente.registro}}</h4>
+      </section>
+      <footer class="footer">
+        <article class="content-footer">
+          <section *ngIf="paciente?.status" class="item-info">
+            <h3 class="label">Status</h3>
+            <h4 class="info">{{paciente.status}}</h4>
+          </section>
+          <section *ngIf="paciente?.setor" class="item-info">
+            <h3 class="label">Setor</h3>
+            <h4 class="info">{{paciente.setor}}</h4>
+          </section>
+          <section *ngIf="paciente?.leito" class="item-info">
+            <h3 class="label">Leito</h3>
+            <h4 class="info">{{paciente.leito}}</h4>
+          </section>
+        </article>
+      </footer>
+    </aria-card>
     <aria-card class="others-info">
-      <aria-card>evolução</aria-card>
+      <aria-card>
+        <section class="evolucao-card">
+          <h2 class="card-title">Evoluções</h2>
+          <p>{{ cutText(evolucao.conteudo) }}</p>
+          <footer class="evolucao-footer">
+            <div class="item-footer">{{ evolucao.data}}</div>
+            <div  class="item-footer">{{ evolucao.crm + ' - ' + evolucao.medico}}</div>
+          </footer>
+        </section>
+      </aria-card>
       <aria-card>nas</aria-card>
-      <aria-card>carai a 4</aria-card>
     </aria-card>
   </article>
   <article class="chart">

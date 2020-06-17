@@ -8,7 +8,6 @@
   width: 100%;
 }
 
-
 .resume {
   display: flex;
   align-items: flex-start;
@@ -17,6 +16,8 @@
   min-width: 450px;
   height: 100%;
   border: 1px dashed $gray-100;
+  color: $gray-90;
+  margin-right: 5px;
 
   .others-info {
     flex: 1;
@@ -29,4 +30,90 @@
   min-width: 500px;
   height: 100%;
   border: 1px dashed $gray-100;
+}
+
+.item-info {
+  margin: 5px;
+  width: 45%;
+
+  .label {
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  .info {
+    flex: 1;
+    text-transform: capitalize;
+    font-size: 16px;
+  }
+}
+
+.nome {
+  margin: 5px;
+  width: 100%;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+
+.mae {
+  flex: 3;
+  width: 100%;
+}
+
+.footer {
+  width: 100%;
+  margin-top: 5px;
+  border-top: 1px solid $gray-60;
+  padding-top: 5px;
+
+  .content-footer {
+    display: flex;
+    border-radius: 5px;
+
+    & {
+      color: $white;
+      background-color: $danger;
+    }
+
+    .info {
+      font-weight: 500;
+    }
+  }
+}
+
+.card-title {
+  font-size: 20px;
+  font-weight: 400;
+  margin-bottom: 5px;
+}
+
+.evolucao-footer {
+  margin-top: 5px;
+  display: flex;
+  flex-direction: row;
+  font-size: 14px;
+  font-weight: 500;
+  color: $gray-80;
+  width: 100%;
+
+  .item-footer {
+  }
+}
+
+.evolucao-card {
+  cursor: pointer;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &:hover {
+    transition: 0.3s;
+    color: $green-default;
+
+    .evolucao-footer {
+      transition: 0.3s;
+      color: $green-default;
+    }
+  }
 }
