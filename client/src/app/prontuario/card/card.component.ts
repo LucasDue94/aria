@@ -4,7 +4,8 @@ import {AfterViewChecked, Component, ElementRef, Input, OnInit, Renderer2, ViewC
   selector: 'aria-card',
   styleUrls: ['./card.component.scss'],
   template: `
-    <main #container [ngStyle]="{'width': width, 'height':height, 'flex-direction':direction}" class="card">
+    <main #container [ngStyle]="{'width':width, 'height':buildSize(height), 'flex-direction':direction}"
+          class="card">
       <ng-content></ng-content>
     </main>
   `
@@ -22,10 +23,11 @@ export class CardComponent implements OnInit, AfterViewChecked {
   ngOnInit() {
   }
 
+  buildSize = (size) => size ? `calc(${size} - 40px)` : '';
+
   ngAfterViewChecked(): void {
     let parent = this.render.parentNode(this.container.nativeElement);
     this.render.setStyle(parent, 'width', `calc(${this.width} - 20px)`);
-
   }
 
 }

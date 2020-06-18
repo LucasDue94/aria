@@ -6,33 +6,53 @@
   flex-direction: row;
   height: 100%;
   width: 100%;
-}
 
-.resume {
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-  flex: 1;
-  min-width: 450px;
-  height: 100%;
-  border: 1px dashed $gray-100;
-  color: $gray-90;
-  margin-right: 5px;
+  @media screen and (max-width: 1000px) {
+    overflow-y: auto;
+  }
 
-  .others-info {
+  .resume {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
     flex: 1;
     height: 100%;
+    min-width: 450px;
+    color: $gray-90;
+    padding-left: 5px;
+    padding-top: 5px;
+
+    @media screen and (max-width: 1000px) {
+      min-width: 300px;
+      height: auto;
+    }
+
+    .paciente-forms {
+      flex: 1;
+      height: 100%;
+    }
+  }
+
+  .charts {
+    flex: 3;
+    min-width: 500px;
+    //height: calc(100% - 5px);
+    height: 100%;
+    padding-top: 5px;
+    padding-right: 5px;
+
+    @media screen and (max-width: 1000px) {
+      min-width: 300px;
+      padding-left: 5px;
+      padding-right: 0;
+    }
   }
 }
 
-.chart {
-  flex: 3;
-  min-width: 500px;
-  height: 100%;
-  border: 1px dashed $gray-100;
-}
 
 .item-info {
+  display: flex;
+  flex-direction: column;
   margin: 5px;
   width: 45%;
 
@@ -48,35 +68,56 @@
   }
 }
 
-.nome {
-  margin: 5px;
-  width: 100%;
-  font-size: 20px;
-  text-transform: uppercase;
-}
-
 .mae {
   flex: 3;
-  width: 100%;
+  word-break: initial;
 }
 
-.footer {
-  width: 100%;
-  margin-top: 5px;
-  border-top: 1px solid $gray-60;
-  padding-top: 5px;
+#paciente-card-info {
+  margin-bottom: 0;
 
-  .content-footer {
-    display: flex;
-    border-radius: 5px;
+  .nome {
+    margin: 0 5px 5px 5px;
+    width: 100%;
+    font-size: 20px;
+    text-transform: uppercase;
+  }
 
-    & {
+  .footer {
+    width: 100%;
+    margin-top: 5px;
+    border-top: 1px solid $gray-60;
+    padding-top: 5px;
+
+    .content-footer {
+      display: flex;
+      border-radius: 5px;
+
+      & {
+        color: $white;
+        background-color: $danger;
+      }
+
+      .info {
+        font-weight: 500;
+      }
+    }
+
+    .internado {
       color: $white;
       background-color: $danger;
     }
 
-    .info {
-      font-weight: 500;
+    .reservado {
+      background-color: $orange;
+    }
+
+    .alta-medica {
+      background-color: $green;
+    }
+
+    .alta {
+      background-color: $gray-70;
     }
   }
 }
@@ -88,15 +129,16 @@
 }
 
 .evolucao-footer {
-  margin-top: 5px;
   display: flex;
   flex-direction: row;
-  font-size: 14px;
-  font-weight: 500;
-  color: $gray-80;
+  margin-top: 5px;
   width: 100%;
+  justify-content: space-between;
 
-  .item-footer {
+  & {
+    font-size: 14px;
+    font-weight: 500;
+    color: $gray-80;
   }
 }
 
