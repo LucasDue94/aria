@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {ModalService} from "../core/modal/modal.service";
 
 @Component({
   selector: 'prontuario',
@@ -26,10 +27,14 @@ export class ProntuarioComponent {
     crm: '5320',
     data: '01/07/2019 10:13:44'
   }
+  count = 2;
 
-  constructor() {
+  constructor(private modalService: ModalService) {
   }
 
   cutText = (text, width) => text.length > 120 ? text.slice(0, width) + '...' : text;
 
+  callModal() {
+    this.modalService.open();
+  }
 }

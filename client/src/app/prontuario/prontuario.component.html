@@ -45,7 +45,7 @@
     </aria-card>
     <article class="paciente-forms">
       <aria-card>
-        <section class="evolucao-card">
+        <section class="evolucao-card" (click)="callModal()">
           <h2 class="card-title">Evoluções</h2>
           <p>{{ cutText(evolucao.conteudo,150) }}</p>
           <footer class="evolucao-footer">

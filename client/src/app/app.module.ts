@@ -39,6 +39,7 @@ import {PacienteListModule} from './paciente-list/paciente-list.module';
 import {PainelLeitosModule} from './painel-leitos/painel-leitos.module';
 import { ProntuarioComponent } from './prontuario/prontuario.component';
 import { CardComponent } from './prontuario/card/card.component';
+import { ModalComponent } from './components/modal/modal.component';
 
 @NgModule({
   exports: [],
@@ -47,7 +48,8 @@ import { CardComponent } from './prontuario/card/card.component';
     PerfilDashboardComponent,
     ErrorComponent,
     ProntuarioComponent,
-    CardComponent
+    CardComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
