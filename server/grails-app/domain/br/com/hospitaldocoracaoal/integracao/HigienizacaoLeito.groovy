@@ -6,6 +6,7 @@ class HigienizacaoLeito implements Serializable{
     static belongsTo = [leito: Leito]
 
     static constraints = {
+        status nullable: true
     }
 
     static mapping = {

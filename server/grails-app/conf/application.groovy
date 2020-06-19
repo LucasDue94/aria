@@ -31,7 +31,7 @@ grails.plugin.springsecurity.rest.token.storage.gorm.tokenValuePropertyName = 't
 grails.plugin.springsecurity.rest.token.storage.gorm.usernamePropertyName = 'username'
 
 grails.plugin.springsecurity.roleHierarchy = """
- 	 ROLE_PERFIL_EPIDEMIOLOGICO_INDEX > ROLE_SETOR_INDEX
+ 	 ROLE_PERFIL_EPIDEMIOLOGICO_INDEX > ROLE_SETOR_INDEXinformation_schema
  	 ROLE_PERFIL_EPIDEMIOLOGICO_INDEX > ROLE_PERMISSAO_INDEX
 """
 
@@ -52,3 +52,7 @@ grails.plugin.springsecurity.filterChain.chainMap = [
         [pattern: '/api/**',         filters: 'JOINED_FILTERS,-anonymousAuthenticationFilter,-exceptionTranslationFilter,-authenticationProcessingFilter,-securityContextPersistenceFilter,-rememberMeAuthenticationFilter'],
         [pattern: '/**',             filters: 'JOINED_FILTERS,-anonymousAuthenticationFilter,-exceptionTranslationFilter,-authenticationProcessingFilter,-securityContextPersistenceFilter,-rememberMeAuthenticationFilter']
 ]
+
+// Added by the Audit-Logging plugin:
+grails.plugin.auditLog.auditDomainClassName = 'br.com.hospitaldocoracaoal.aria.AuditTrail'
+
