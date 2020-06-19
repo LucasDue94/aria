@@ -13,6 +13,7 @@ class Usuario implements Serializable {
 
     String username
     String nome
+    String crm
     boolean enabled = true
     boolean accountExpired
     boolean accountLocked
@@ -29,6 +30,7 @@ class Usuario implements Serializable {
     static constraints = {
         username nullable: false, blank: false, unique: true
         email nullable: true
+        crm nullable: true
     }
 
 

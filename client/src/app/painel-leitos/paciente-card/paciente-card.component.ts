@@ -19,7 +19,7 @@ export class PacienteCardComponent {
     return ''
   }
 
-stringToDate(date) {
+  stringToDate(date) {
     return date != null ? new Date(date.replace(/-/g, "/")).toLocaleDateString('pt-BR') : '';
   }
 }
