@@ -1,0 +1,65 @@
+<main class="prontuario-container">
+  <article class="resume">
+    <aria-card id="paciente-card-info">
+      <h2 class="nome">{{paciente.nome}}</h2>
+      <section *ngIf="paciente?.prontuario" class="item-info">
+        <h3 class="label">Prontuário</h3>
+        <h4 class="info">{{paciente.prontuario}}</h4>
+      </section>
+      <section *ngIf="paciente?.sexo" class="item-info">
+        <h3 class="label">Sexo</h3>
+        <h4 class="info">{{paciente.sexo}}</h4>
+      </section>
+      <section  *ngIf="paciente?.status == 'internado'" class="item-info">
+        <h3 class="label">Registro</h3>
+        <h4 class="info">{{paciente.registro}}</h4>
+      </section>
+      <section *ngIf="paciente?.nascimento" class="item-info">
+        <h3 class="label">Idade</h3>
+        <h4 class="info">{{paciente.nascimento}}</h4>
+      </section>
+      <section *ngIf="paciente?.convenio" class="item-info">
+        <h3 class="label">Convênio</h3>
+        <h4 class="info">{{paciente.convenio}}</h4>
+      </section>
+      <section *ngIf="paciente?.mae" class="item-info mae">
+        <h3 class="label">Mãe</h3>
+        <h4 class="info">{{paciente.mae}}</h4>
+      </section>
+      <footer class="footer">
+        <article [ngClass]="paciente?.status" class="content-footer">
+          <section *ngIf="paciente?.status" class="item-info">
+            <h3 class="label">Status</h3>
+            <h4 class="info">{{paciente.status}}</h4>
+          </section>
+          <section *ngIf="paciente?.setor" class="item-info">
+            <h3 class="label">Setor</h3>
+            <h4 class="info">{{paciente.setor}}</h4>
+          </section>
+          <section *ngIf="paciente?.leito" class="item-info">
+            <h3 class="label">Leito</h3>
+            <h4 class="info">{{paciente.leito}}</h4>
+          </section>
+        </article>
+      </footer>
+    </aria-card>
+    <article class="paciente-forms">
+      <aria-card>
+        <section class="evolucao-card">
+          <h2 class="card-title">Evoluções</h2>
+          <p>{{ cutText(evolucao.conteudo,150) }}</p>
+          <footer class="evolucao-footer">
+            <div>{{ evolucao.data}}</div>
+            <div>{{ evolucao.crm + ' - ' + evolucao.medico}}</div>
+          </footer>
+        </section>
+      </aria-card>
+    </article>
+  </article>
+  <article class="charts">
+    <aria-card [height]="'100%'">
+    <h2>charts e a lomba toda</h2>
+    </aria-card>
+  </article>
+</main>
+

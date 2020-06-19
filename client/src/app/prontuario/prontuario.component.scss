@@ -1,0 +1,161 @@
+@import "src/assets/colors";
+
+.prontuario-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+
+  @media screen and (max-width: 1000px) {
+    overflow-y: auto;
+  }
+
+  .resume {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    flex: 1;
+    height: 100%;
+    min-width: 450px;
+    color: $gray-90;
+    padding-left: 5px;
+    padding-top: 5px;
+
+    @media screen and (max-width: 1000px) {
+      min-width: 300px;
+      height: auto;
+    }
+
+    .paciente-forms {
+      flex: 1;
+      height: 100%;
+    }
+  }
+
+  .charts {
+    flex: 3;
+    min-width: 500px;
+    //height: calc(100% - 5px);
+    height: 100%;
+    padding-top: 5px;
+    padding-right: 5px;
+
+    @media screen and (max-width: 1000px) {
+      min-width: 300px;
+      padding-left: 5px;
+      padding-right: 0;
+    }
+  }
+}
+
+
+.item-info {
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+  width: 45%;
+
+  .label {
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  .info {
+    flex: 1;
+    text-transform: capitalize;
+    font-size: 16px;
+  }
+}
+
+.mae {
+  flex: 3;
+  word-break: initial;
+}
+
+#paciente-card-info {
+  margin-bottom: 0;
+
+  .nome {
+    margin: 0 5px 5px 5px;
+    width: 100%;
+    font-size: 20px;
+    text-transform: uppercase;
+  }
+
+  .footer {
+    width: 100%;
+    margin-top: 5px;
+    border-top: 1px solid $gray-60;
+    padding-top: 5px;
+
+    .content-footer {
+      display: flex;
+      border-radius: 5px;
+
+      & {
+        color: $white;
+        background-color: $danger;
+      }
+
+      .info {
+        font-weight: 500;
+      }
+    }
+
+    .internado {
+      color: $white;
+      background-color: $danger;
+    }
+
+    .reservado {
+      background-color: $orange;
+    }
+
+    .alta-medica {
+      background-color: $green;
+    }
+
+    .alta {
+      background-color: $gray-70;
+    }
+  }
+}
+
+.card-title {
+  font-size: 20px;
+  font-weight: 400;
+  margin-bottom: 5px;
+}
+
+.evolucao-footer {
+  display: flex;
+  flex-direction: row;
+  margin-top: 5px;
+  width: 100%;
+  justify-content: space-between;
+
+  & {
+    font-size: 14px;
+    font-weight: 500;
+    color: $gray-80;
+  }
+}
+
+.evolucao-card {
+  cursor: pointer;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &:hover {
+    transition: 0.3s;
+    color: $green-default;
+
+    .evolucao-footer {
+      transition: 0.3s;
+      color: $green-default;
+    }
+  }
+}

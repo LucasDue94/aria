@@ -37,13 +37,17 @@ import {FilterModule} from './components/filter/filter.module';
 import {EstratificacaoRiscoModule} from './risco/estratificacao/estratificacao-risco.module';
 import {PacienteListModule} from './paciente-list/paciente-list.module';
 import {PainelLeitosModule} from './painel-leitos/painel-leitos.module';
+import { ProntuarioComponent } from './prontuario/prontuario.component';
+import { CardComponent } from './prontuario/card/card.component';
 
 @NgModule({
   exports: [],
   declarations: [
     AppComponent,
     PerfilDashboardComponent,
-    ErrorComponent
+    ErrorComponent,
+    ProntuarioComponent,
+    CardComponent
   ],
   imports: [
     BrowserModule,
