@@ -1,26 +1,59 @@
 @import 'src/assets/colors';
 
 #modal-container {
-  display: none;
-  top: 0;
-  left: 0;
-  border: 1px dashed red;
-  border-radius: 5px;
-  background-color: $white ;
-  opacity: 1;
-  z-index: 2000;
-  width: 200px;
-  height: 200px;
+  position: absolute;
+  flex-direction: column;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 500px;
+  min-height: 350px;
+
+  & {
+    border-radius: 5px;
+    background-color: $white;
+    opacity: 1;
+    z-index: 2000;
+
+  }
+
+  * {
+    padding: 5px;
+  }
 
   #modal-header {
+    display: flex;
+    height: 50px;
+    box-shadow: 1px 0 6px $gray-70;
 
+
+    & {
+      align-content: space-between;
+      justify-content: space-between;
+      text-align: center;
+    }
+
+    * {
+      display: flex;
+      align-items: center;
+    }
+
+    #modal-title {
+    }
+
+    #close-modal {
+      cursor: pointer;
+    }
   }
 
   #modal-body {
-
+    flex: 1;
   }
 
   #modal-footer {
-
+    height: 50px;
+    background-color: $gray-50;
+    box-shadow: -1px 0 6px $gray-70;
+    border-radius: 0 0 5px 5px;
   }
 }

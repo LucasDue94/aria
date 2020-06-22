@@ -106,15 +106,10 @@ app-main {
 .modal-open {
   visibility: visible !important;
   position: fixed;
-  border: 1px dashed purple;
   z-index: 2000;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-
-  #modal-container {
-    display: flex !important;
-  }
 }
 
 aria-modal {
@@ -123,6 +118,7 @@ aria-modal {
 
 .blur {
   * {
+    overflow-y: hidden;
     -webkit-filter: blur(1px);
     -moz-filter: blur(1px);
     -o-filter: blur(1px);

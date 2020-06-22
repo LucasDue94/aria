@@ -27,14 +27,13 @@ export class ProntuarioComponent {
     crm: '5320',
     data: '01/07/2019 10:13:44'
   }
-  count = 2;
 
   constructor(private modalService: ModalService) {
   }
 
   cutText = (text, width) => text.length > 120 ? text.slice(0, width) + '...' : text;
 
-  callModal() {
+  openModal() {
     this.modalService.open();
   }
 }

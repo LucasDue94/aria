@@ -1,11 +1,14 @@
-<section #modalContainer [style]="{'display': this.currentStatus ?'flex': 'none'}" id="modal-container">
+<section #modalContainer [ngStyle]="{'display': this.status ? 'flex': 'none'}" id="modal-container">
   <header id="modal-header">
-    header
+    <ng-content select="[title]"></ng-content>
+
+    <h1 id="modal-title">header</h1>
+    <fa-icon id="close-modal" (click)="close()" [icon]="faTimes"></fa-icon>
   </header>
   <div id="modal-body">
-    body
+    <ng-content select="[body]"></ng-content>
   </div>
   <footer id="modal-footer">
-    <section>buttons</section>
+    <ng-content select="[footer]"></ng-content>
   </footer>
 </section>

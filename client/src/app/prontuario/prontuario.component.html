@@ -1,4 +1,4 @@
-<main class="prontuario-container">
+<main #prontuario class="prontuario-container">
   <article class="resume">
     <aria-card id="paciente-card-info">
       <h2 class="nome">{{paciente.nome}}</h2>
@@ -45,7 +45,7 @@
     </aria-card>
     <article class="paciente-forms">
       <aria-card>
-        <section class="evolucao-card" (click)="callModal()">
+        <section class="evolucao-card" (click)="openModal()">
           <h2 class="card-title">Evoluções</h2>
           <p>{{ cutText(evolucao.conteudo,150) }}</p>
           <footer class="evolucao-footer">
@@ -58,8 +58,17 @@
   </article>
   <article class="charts">
     <aria-card [height]="'100%'">
-    <h2>charts e a lomba toda</h2>
+    <h2>charts e afins</h2>
     </aria-card>
   </article>
+  <aria-modal>
+    <p title> é assim que passa o titulo</p>
+    <p body >aqui vai o corpo</p>
+    <section footer>
+      passando o footer
+      <button class="button btn-save">asdsad</button>
+      <button class="button btn-save">asdsad</button>
+    </section>
+  </aria-modal>
 </main>
 
