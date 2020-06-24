@@ -55,7 +55,6 @@ export class EditBalaoComponent implements OnInit {
         dataHoraBalao: this.form.get('dataBalao').value + ' ' + this.form.get('horaBalao').value,
       });
 
-    console.log(this.form);
     if (this.form.get('dataBalao').value == "" || this.form.get('horaBalao').value == "") {
       this.alertService.send({
         message: 'Ops... A data/hora deve ser preenchida!',

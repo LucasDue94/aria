@@ -12,18 +12,21 @@ import {SelectModule} from "../components/select/select.module";
 
 
 @NgModule({
-  declarations: [UsuarioListComponent, UsuarioEditComponent],
-  imports: [
-    CommonModule,
-    FontAwesomeModule,
-    RouterModule,
-    FastSearchModule,
-    ReactiveFormsModule,
-    SelectModule,
-    FormsModule
-  ],
-  providers: [
-    UsuarioService
-  ]
+    declarations: [UsuarioListComponent, UsuarioEditComponent],
+    imports: [
+        CommonModule,
+        FontAwesomeModule,
+        RouterModule,
+        FastSearchModule,
+        ReactiveFormsModule,
+        SelectModule,
+        FormsModule
+    ],
+    exports: [
+        UsuarioListComponent
+    ],
+    providers: [
+        UsuarioService
+    ]
 })
 export class UsuarioModule { }

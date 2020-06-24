@@ -1,0 +1,76 @@
+@import 'src/assets/colors';
+
+#modal-container {
+  position: absolute;
+  flex-direction: column;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 500px;
+  min-height: 350px;
+
+  & {
+    border-radius: 5px;
+    background-color: $white;
+    opacity: 1;
+    z-index: 2000;
+  }
+
+  @media screen and (max-width: 500px) {
+    width: 95% !important;
+    min-width: auto !important;
+  }
+
+  #modal-header {
+    display: flex;
+    height: 50px;
+    box-shadow: 1px 0 6px $gray-70;
+    padding: 10px;
+    border-radius: 5px 5px 0 0;
+
+    & {
+      align-content: space-between;
+      justify-content: space-between;
+      text-align: center;
+    }
+
+    * {
+      display: flex;
+      align-items: center;
+    }
+
+    #modal-title {
+      font-weight: 500;
+      font-size: 18px;
+    }
+
+    #close-modal {
+      cursor: pointer;
+    }
+  }
+
+  #modal-body {
+    padding: 10px;
+    flex: 1;
+  }
+
+  #modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 50px;
+    padding: 0 10px;
+
+    & {
+      background-color: $gray-50;
+      box-shadow: -1px 0 6px $gray-70;
+      border-radius: 0 0 5px 5px;
+    }
+  }
+
+}
+
+.button {
+  height: 35px !important;
+  width: 70px !important;
+}

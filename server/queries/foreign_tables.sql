@@ -230,8 +230,9 @@ drop foreign table interdicao_leito;
 create foreign table higienizacao_leito (
     leito_id varchar(5) not null,
     data_abertura timestamp,
-    status varchar(1)
-    ) server wpd options (table '(select LEITO, DATA_HORA_ABERTURA, STATUS_ATUAL from ADMWPD.LIMPEZA_LEITO)');
+    status varchar(1),
+    atendimento_id varchar(7)
+    ) server wpd options (table '(select LEITO, DATA_HORA_ABERTURA, STATUS_ATUAL, COD_PAC from ADMWPD.LIMPEZA_LEITO)');
 
 drop foreign table higienizacao_leito;
 

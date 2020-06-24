@@ -1,11 +1,11 @@
-@import '../../../assets/colors';
-@import '../../../assets/device-sizes';
+@import 'src/assets/colors';
+@import 'src/assets/device-sizes';
 @import '../../../fonts/manjari';
 
 $transition-links: 0.3s;
 $header-height: 55px;
 
-.container-header {
+#container-header {
   display: flex;
   position: fixed;
   width: 100%;

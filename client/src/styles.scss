@@ -30,9 +30,14 @@ body, app-main {
   background-color: $white;
 }
 
-setor-list, apache-form, grupo-list, nas-form {
+setor-list, apache-form, grupo-list, nas-form, prontuario {
   position: relative;
   height: 100%;
+  width: 100%;
+}
+
+aria-card {
+  position: relative;
   width: 100%;
 }
 
@@ -65,17 +70,61 @@ paciente-info {
 }
 
 paciente-list, usuario-list, risco-list,
-tipo-incidente-list{
+tipo-incidente-list {
   width: 100%;
 }
 
-paciente-card{
+paciente-card {
   display: none;
 }
 
 app-main {
   display: flex;
   flex-direction: column;
+}
+
+#background-modal {
+  visibility: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  & {
+    background-color: $gray-100;
+    opacity: 0.5;
+    z-index: 1900;
+  }
+}
+
+
+.active-background-modal {
+  height: 100%;
+  width: 100%;
+  visibility: visible !important;
+}
+
+.modal-open {
+  visibility: visible !important;
+  position: fixed;
+  z-index: 2000;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+aria-modal {
+  visibility: hidden;
+}
+
+.blur {
+  * {
+    overflow-y: hidden;
+    -webkit-filter: blur(1px);
+    -moz-filter: blur(1px);
+    -o-filter: blur(1px);
+    -ms-filter: blur(1px);
+    filter: blur(1px);
+  }
 }
 
 //style swagger editor

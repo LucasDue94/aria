@@ -35,6 +35,7 @@ import {FilterComponent} from "../../components/filter/filter.component";
 import {EstratificacaoRiscoFormComponent} from "../../risco/estratificacao/form/estratificacao-risco-form.component";
 import {PacienteListComponent} from "../../paciente-list/paciente-list.component";
 import {PainelLeitosComponent} from '../../painel-leitos/painel-leitos.component';
+import {ProntuarioComponent} from "../../prontuario/prontuario.component";
 
 const routes: Routes = [
   {
@@ -308,7 +309,7 @@ const routes: Routes = [
             canActivate: [AuthGuard],
           },
         ]
-      },{
+      }, {
         path: 'filter',
         children: [
           {
@@ -316,7 +317,7 @@ const routes: Routes = [
             component: FilterComponent,
           },
         ]
-      },{
+      }, {
         path: 'estratificacao',
         children: [
           {
@@ -325,16 +326,21 @@ const routes: Routes = [
             canActivate: [AuthGuard]
           }
         ]
-      },{
+      }, {
         path: 'pacientes',
-            component: PacienteListComponent,
-            canActivate: [AuthGuard],
-            pathMatch: 'full',
-      },{
+        component: PacienteListComponent,
+        canActivate: [AuthGuard],
+        pathMatch: 'full',
+      }, {
         path: 'painel-leitos',
-            component: PainelLeitosComponent,
-            canActivate: [AuthGuard],
-            pathMatch: 'full',
+        component: PainelLeitosComponent,
+        canActivate: [AuthGuard],
+        pathMatch: 'full',
+      }, {
+        path: 'prontuario',
+        component: ProntuarioComponent,
+        canActivate: [AuthGuard],
+        pathMatch: 'full',
       }
     ]
   }

@@ -1,0 +1,18 @@
+<section #modalContainer [ngStyle]="{'display': this.status ? 'flex': 'none', 'height':height, 'width': width}"
+         id="modal-container">
+  <header #header id="modal-header">
+    <section id="modal-title">
+      <ng-content select="[title]"></ng-content>
+      <h1>{{title}}</h1>
+    </section>
+    <fa-icon id="close-modal" (click)="close()" [icon]="faTimes"></fa-icon>
+  </header>
+  <div id="modal-body">
+    {{ message }}
+    <ng-content select="[body]"></ng-content>
+  </div>
+  <footer id="modal-footer">
+    {{ footer }}
+    <ng-content select="[footer]"></ng-content>
+  </footer>
+</section>
