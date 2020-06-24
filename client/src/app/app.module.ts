@@ -37,19 +37,14 @@ import {FilterModule} from './components/filter/filter.module';
 import {EstratificacaoRiscoModule} from './risco/estratificacao/estratificacao-risco.module';
 import {PacienteListModule} from './paciente-list/paciente-list.module';
 import {PainelLeitosModule} from './painel-leitos/painel-leitos.module';
-import { ProntuarioComponent } from './prontuario/prontuario.component';
-import { CardComponent } from './prontuario/card/card.component';
-import { ModalComponent } from './components/modal/modal.component';
+import {ProntuarioModule} from "./prontuario/prontuario.module";
+import {CardModule} from "./components/card/card.module";
 
 @NgModule({
-  exports: [],
   declarations: [
     AppComponent,
     PerfilDashboardComponent,
     ErrorComponent,
-    ProntuarioComponent,
-    CardComponent,
-    ModalComponent
   ],
   imports: [
     BrowserModule,
@@ -84,7 +79,9 @@ import { ModalComponent } from './components/modal/modal.component';
     FilterModule,
     EstratificacaoRiscoModule,
     PacienteListModule,
-    PainelLeitosModule
+    PainelLeitosModule,
+    ProntuarioModule,
+    CardModule
   ],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy},

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "./core/auth/auth.service";
 import {AlertService} from "./core/alert/alert.service";
-import {Router} from "@angular/router";
+import {Alert} from "./core/alert/alert";
 
 @Component({
   selector: 'app-root',
@@ -10,9 +10,9 @@ import {Router} from "@angular/router";
 })
 export class AppComponent implements OnInit {
   isLogged = false;
-  alert;
+  alert: Alert;
 
-  constructor(private auth: AuthService, private alertService: AlertService, private router: Router) {
+  constructor(private auth: AuthService, private alertService: AlertService) {
   }
 
   ngOnInit() {

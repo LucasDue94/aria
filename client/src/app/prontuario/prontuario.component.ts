@@ -36,4 +36,8 @@ export class ProntuarioComponent {
   openModal() {
     this.modalService.open();
   }
+
+  click(){
+    alert('foon')
+  }
 }

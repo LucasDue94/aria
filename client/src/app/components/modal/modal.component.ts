@@ -1,6 +1,6 @@
-import {Component, HostListener, OnInit, Renderer2, ViewChild} from '@angular/core';
+import {Component, EventEmitter, HostListener, Input, OnInit, Output, Renderer2, ViewChild} from '@angular/core';
 import {ModalService} from "../../core/modal/modal.service";
-import {faTimes} from "@fortawesome/free-solid-svg-icons/faTimes";
+import {faTimes} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'aria-modal',
@@ -8,9 +8,18 @@ import {faTimes} from "@fortawesome/free-solid-svg-icons/faTimes";
   styleUrls: ['./modal.component.scss']
 })
 export class ModalComponent implements OnInit {
+  @Input() title: string;
+  @Input() message: string;
+  @Input() footer: string;
+  @Input() theme: string; // info, danger, warning
+  @Input() size: string; //small, medium, larger
+  @Output() clickedElement = new EventEmitter();
+  @ViewChild('modalContainer', {static: false}) modalContainer;
+  @ViewChild('header', {static: false}) header;
   faTimes = faTimes
   private status: boolean;
-  @ViewChild('modalContainer', {static: false}) modalContainer;
+  private width: string;
+  private height: string;
 
   constructor(private modalService: ModalService, private render: Renderer2) {
   }
@@ -19,7 +28,51 @@ export class ModalComponent implements OnInit {
     this.modalService.listen().subscribe(status => {
       this.status = status
       this.handleModal(this.status);
+      this.setSize();
+      this.setTheme();
     })
+  }
+
+  setTheme() {
+    switch (this.theme) {
+      case 'info':
+        this.render.setStyle(this.header.nativeElement, 'background-color', '#007bff');
+        this.render.setStyle(this.header.nativeElement, 'color', '#FFFFFF');
+        break;
+      case 'warning':
+        this.render.setStyle(this.header.nativeElement, 'background-color', '#d48c00');
+        this.render.setStyle(this.header.nativeElement, 'color', '#FFFFFF');
+        break;
+      case 'danger':
+        this.render.setStyle(this.header.nativeElement, 'background-color', '#c26267');
+        this.render.setStyle(this.header.nativeElement, 'color', '#FFFFFF');
+        break;
+      default :
+        this.render.setStyle(this.header.nativeElement, 'background-color', '#2D9DD1');
+        this.render.setStyle(this.header.nativeElement, 'color', '#FFFFFF');
+        break;
+    }
+  }
+
+  setSize() {
+    switch (this.size) {
+      case 'small':
+        this.width = '30%';
+        this.height = '21%';
+        break;
+      case 'medium':
+        this.width = '55%';
+        this.height = '45%';
+        break;
+      case 'larger':
+        this.width = '80%';
+        this.height = '56%';
+        break;
+      default:
+        this.width = '30%';
+        this.height = '21%';
+        break;
+    }
   }
 
   handleModal(open: boolean) {
@@ -35,6 +88,7 @@ export class ModalComponent implements OnInit {
   }
 
   @HostListener('document:click', ['$event']) clickout(event) {
+    this.clickedElement.emit(event.target);
     const backgroundModal = document.getElementById('background-modal');
     if (event.target == backgroundModal) {
       this.status = false

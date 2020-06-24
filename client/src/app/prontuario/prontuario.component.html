@@ -10,7 +10,7 @@
         <h3 class="label">Sexo</h3>
         <h4 class="info">{{paciente.sexo}}</h4>
       </section>
-      <section  *ngIf="paciente?.status == 'internado'" class="item-info">
+      <section *ngIf="paciente?.status == 'internado'" class="item-info">
         <h3 class="label">Registro</h3>
         <h4 class="info">{{paciente.registro}}</h4>
       </section>
@@ -47,7 +47,7 @@
       <aria-card>
         <section class="evolucao-card" (click)="openModal()">
           <h2 class="card-title">Evoluções</h2>
-          <p>{{ cutText(evolucao.conteudo,150) }}</p>
+          <p>{{ cutText(evolucao.conteudo, 150) }}</p>
           <footer class="evolucao-footer">
             <div>{{ evolucao.data}}</div>
             <div>{{ evolucao.crm + ' - ' + evolucao.medico}}</div>
@@ -58,16 +58,12 @@
   </article>
   <article class="charts">
     <aria-card [height]="'100%'">
-    <h2>charts e afins</h2>
+      <h2>charts e afins</h2>
     </aria-card>
   </article>
-  <aria-modal>
-    <p title> é assim que passa o titulo</p>
-    <p body >aqui vai o corpo</p>
+  <aria-modal [title]="'Título do Modal'" [message]="'aqui vai o body'" [size]="'medium'">
     <section footer>
-      passando o footer
-      <button class="button btn-save">asdsad</button>
-      <button class="button btn-save">asdsad</button>
+      <button (click)="click()" class="button button-blue">click</button>
     </section>
   </aria-modal>
 </main>
