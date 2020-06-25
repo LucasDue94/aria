@@ -22,8 +22,6 @@ export class SpinnerComponent implements OnInit, AfterViewInit, OnChanges {
   ngOnInit() {
     this.spinnerService.listen().subscribe(res => {
       this.status = res
-    const content = document.getElementsByClassName('main-content')[0];
-    this.render.setStyle(content, 'display', this.status ? 'none' : 'flex');
     });
     if (this.height != undefined) this.status = true;
   }

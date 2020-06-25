@@ -38,7 +38,7 @@ import {PainelLeitosComponent} from '../../painel-leitos/painel-leitos.component
 import {ProntuarioComponent} from "../../prontuario/prontuario.component";
 
 const routes: Routes = [
-  {
+  /*{
     path: '',
     component: MainComponent,
     children: [
@@ -48,26 +48,7 @@ const routes: Routes = [
       }, {
         path: 'error', component: ErrorComponent
       },
-      {
-        path: 'setor',
-        children: [
-          {
-            path: '',
-            redirectTo: 'list',
-            pathMatch: 'full',
-            canActivate: [AuthGuard],
-          },
-          {
-            path: 'list',
-            component: SetorListComponent,
-            canActivate: [AuthGuard]
-          }, {
-            path: 'edit/:id',
-            component: SetorEditComponent,
-            canActivate: [AuthGuard]
-          }
-        ]
-      },
+
       {
         path: 'usuario',
         children: [
@@ -343,7 +324,7 @@ const routes: Routes = [
         pathMatch: 'full',
       }
     ]
-  }
+  }*/
 ];
 
 @NgModule({

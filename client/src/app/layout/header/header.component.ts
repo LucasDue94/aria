@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {faBars, faSignOutAlt} from "@fortawesome/free-solid-svg-icons";
 import {MenuService} from "../../core/menu/menu.service";
 import {AuthService} from "../../core/auth/auth.service";

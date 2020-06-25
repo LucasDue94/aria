@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     if(window.innerWidth < 700) this.mobileSize = true;
     if (this.authService.isLogged()) {
-      this.router.navigate(['/painel-leitos']);
+      this.router.navigate(['/grupo']);
     }
 
     this.loginForm = new FormGroup({
@@ -96,7 +96,7 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('grupo', res['grupo']);
             localStorage.setItem('token', res['access_token']);
           }
-          this.router.navigate(['/painel-leitos']);
+          this.router.navigate(['grupo']);
         },
         error => {
           this.error = true;

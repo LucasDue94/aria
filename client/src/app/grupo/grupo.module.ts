@@ -5,6 +5,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {GrupoListComponent} from "./list/grupo-list.component";
 import {RouterModule} from "@angular/router";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import {GrupoRoutingModule} from "./grupo-routing.module";
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
     CommonModule,
     ReactiveFormsModule,
     RouterModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    GrupoRoutingModule
   ]
 })
 export class GrupoModule {
