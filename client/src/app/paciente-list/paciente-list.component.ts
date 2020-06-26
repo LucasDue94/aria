@@ -47,12 +47,11 @@ export class PacienteListComponent implements OnInit {
     this.filterService.receive().subscribe(this.search);
   }
 
-  getRegistros(params?) {
-    if (params.collapseId) {
-      this.params.setorId = params.collapseId;
+  getRegistros(paramsCollapse?) {
+    if (paramsCollapse.collapseId) {
+      this.params.setorId = paramsCollapse.collapseId;
       this.params.termo = '';
     } else {
-      this.params.setorId = '';
       this.searchEmpty = true;
     }
     this.listLoading = true;
@@ -66,7 +65,7 @@ export class PacienteListComponent implements OnInit {
   scrollDown() {
     this.showListScrollSpinner = true;
     this.offset += 30;
-    this.getRegistros();
+    this.getRegistros(this.params);
   }
 
   getStatusSearch() {
