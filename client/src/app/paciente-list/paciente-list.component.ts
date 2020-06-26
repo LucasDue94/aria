@@ -40,7 +40,7 @@ export class PacienteListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.titleService.send('Evoluções - Pacientes Internos');
+    this.titleService.send('Evoluções - Pacientes');
     this.setorService.list().subscribe(setor => {
       this.setores = setor;
     });
@@ -53,6 +53,7 @@ export class PacienteListComponent implements OnInit {
       this.params.termo = '';
     } else {
       this.params.setorId = '';
+      this.searchEmpty = true;
     }
     this.listLoading = true;
     this.registroLeitoService.list(this.params).subscribe(registro => {
@@ -80,13 +81,14 @@ export class PacienteListComponent implements OnInit {
 
   search(params) {
     this.offset = 0;
-    this.searchEmpty = true;
     this.setFilterParams(params);
     if (params) {
-      this.listLoading = true;
       this.offset += 30;
-      this.getRegistros(this.params);
-      this.listLoading = params.busca === '' || params.busca === null;
+      if (params.busca != '') {
+        this.getRegistros(this.params);
+        this.searchEmpty = false;
+        this.listLoading = true;
+      }
     }
   }
 
