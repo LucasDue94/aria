@@ -11,25 +11,27 @@ import {NasModule} from "../nas/nas.module";
 import {InfiniteScrollModule} from "ngx-infinite-scroll";
 import {SpinnerModule} from "../components/spinner/spinner.module";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import {CollapseModule} from "../components/collapse/collapse.module";
 
 
 @NgModule({
   declarations: [
     PacienteListComponent
   ],
-    imports: [
-        CommonModule,
-        FilterModule,
-        ApacheModule,
-        IncidenteModule,
-        EcgModule,
-        BalaoModule,
-        EstratificacaoRiscoModule,
-        NasModule,
-        InfiniteScrollModule,
-        SpinnerModule,
-        FontAwesomeModule
-    ],
+  imports: [
+    CommonModule,
+    FilterModule,
+    CollapseModule,
+    ApacheModule,
+    IncidenteModule,
+    EcgModule,
+    BalaoModule,
+    EstratificacaoRiscoModule,
+    NasModule,
+    InfiniteScrollModule,
+    SpinnerModule,
+    FontAwesomeModule
+  ],
   exports: [
     PacienteListComponent
   ]

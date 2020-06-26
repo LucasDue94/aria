@@ -1,0 +1,69 @@
+@import '../../../assets/colors';
+@import '../../../assets/device-sizes';
+
+.container-collapse {
+  width: 100%;
+  height: calc(100% - 120px);
+  position: absolute;
+  overflow-y: scroll;
+
+  & .collapse {
+    margin: 10px;
+    position: relative;
+
+    & .collapse-header {
+      display: flex;
+      position: relative;
+      cursor: pointer;
+      padding-left: 10px;
+      font-size: 16px;
+      align-items: center;
+      justify-content: space-between;
+      vertical-align: center;
+      color: $gray-90;
+      height: 40px;
+      background-color: $gray-40;
+      box-shadow: 2px 2px 2px lightgray;
+      font-weight: bold;
+      letter-spacing: 1px;
+
+      &:hover > .btn-open {
+        color: $green-default;
+      }
+    }
+
+    & .btn-open, .btn-close {
+      position: absolute;
+      align-items: center;
+      justify-content: space-between;
+      vertical-align: center;
+      top: 12px;
+      right: 0;
+      color: $gray-80;
+      cursor: pointer;
+
+      &:hover {
+        color: $green-default;
+      }
+    }
+
+    & .active {
+      color: $green-default;
+    }
+
+    & .btn-open {
+      right: 25px;
+    }
+
+    & .btn-close {
+      right: 10px;
+    }
+
+    & .collapse-content {
+      min-height: 350px;
+      display: flex;
+      margin-top: 10px;
+      overflow-y: hidden;
+    }
+  }
+}

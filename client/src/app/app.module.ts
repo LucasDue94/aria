@@ -39,12 +39,14 @@ import {PacienteListModule} from './paciente-list/paciente-list.module';
 import {PainelLeitosModule} from './painel-leitos/painel-leitos.module';
 import {ProntuarioModule} from "./prontuario/prontuario.module";
 import {CardModule} from "./components/card/card.module";
+import { CollapseComponent } from './components/collapse/collapse.component';
+import {CollapseModule} from "./components/collapse/collapse.module";
 
 @NgModule({
   declarations: [
     AppComponent,
     PerfilDashboardComponent,
-    ErrorComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -81,11 +83,15 @@ import {CardModule} from "./components/card/card.module";
     PacienteListModule,
     PainelLeitosModule,
     ProntuarioModule,
-    CardModule
+    CardModule,
+    CollapseModule
   ],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy},
     AuthGuard, DatePipe],
+  exports: [
+    CollapseComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
