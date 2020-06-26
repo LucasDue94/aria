@@ -10,6 +10,7 @@ import {SpinnerModule} from "../components/spinner/spinner.module";
 import {ReportBalaoComponent} from './report/report-balao.component';
 import {ChartModule} from "angular-highcharts";
 import {EditBalaoComponent} from './edit/edit-balao.component';
+import {BalaoRoutingModule} from "./balao-routing.module";
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import {EditBalaoComponent} from './edit/edit-balao.component';
     InfiniteScrollModule,
     SpinnerModule,
     FormsModule,
-    ChartModule
+    ChartModule,
+    BalaoRoutingModule
   ],
   exports: [
     BalaoListComponent

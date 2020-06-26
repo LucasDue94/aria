@@ -10,6 +10,7 @@ import {NasPacienteListComponent} from "./list/nas-paciente-list.component";
 import {InfiniteScrollModule} from "ngx-infinite-scroll";
 import {SpinnerModule} from "../components/spinner/spinner.module";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import {NasRoutingModule} from "./nas-routing.module";
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
     CoreModule,
     InfiniteScrollModule,
     SpinnerModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    NasRoutingModule
   ], exports: [
     NasPacienteListComponent
   ]

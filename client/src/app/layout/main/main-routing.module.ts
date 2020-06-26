@@ -72,23 +72,7 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'apache',
-        children: [
-          {
-            path: '',
-            redirectTo: 'list',
-            pathMatch: 'full',
-            canActivate: [AuthGuard]
-          }, {
-            path: 'list',
-            component: ApachePacienteListComponent,
-            canActivate: [AuthGuard]
-          }, {
-            path: 'form/:id',
-            component: ApacheFormComponent,
-            canActivate: [AuthGuard],
-          }
-        ]
+
       },
       {
         path: 'relatorio',
@@ -110,30 +94,6 @@ const routes: Routes = [
         path: 'apache-report',
         component: ReportApacheComponent,
         canActivate: [AuthGuard]
-      },
-      {
-        path: 'grupo',
-        children: [
-          {
-            path: '',
-            redirectTo: 'list',
-            pathMatch: 'full',
-            canActivate: [AuthGuard],
-          },
-          {
-            path: 'list',
-            component: GrupoListComponent,
-            canActivate: [AuthGuard],
-          }, {
-            path: 'create',
-            component: GrupoFormComponent,
-            canActivate: [AuthGuard],
-          }, {
-            path: 'edit/:id',
-            component: GrupoFormComponent,
-            canActivate: [AuthGuard]
-          }
-        ]
       },
       {
         path: 'risco',
@@ -186,119 +146,12 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'balao',
-        children: [
-          {
-            path: '',
-            redirectTo: 'paciente-list',
-            pathMatch: 'full',
-            canActivate: [AuthGuard]
-          },
-          {
-            path: 'paciente-list',
-            component: BalaoListComponent,
-            canActivate: [AuthGuard]
-          },
-          {
-            path: 'create/:id',
-            component: BalaoFormComponent,
-            canActivate: [AuthGuard]
-          }, {
-            path: 'edit/:id',
-            component: EditBalaoComponent,
-            canActivate: [AuthGuard]
-          },
-          {
-            path: 'report',
-            component: ReportBalaoComponent,
-            canActivate: [AuthGuard]
-          }
-        ],
+
       },
+
       {
-        path: 'ecg',
-        children: [
-          {
-            path: '',
-            redirectTo: 'paciente-list',
-            pathMatch: 'full',
-            canActivate: [AuthGuard]
-          },
-          {
-            path: 'paciente-list',
-            component: EcgListComponent,
-            canActivate: [AuthGuard]
-          },
-          {
-            path: 'create/:id',
-            component: EcgFormComponent,
-            canActivate: [AuthGuard]
-          },
-          {
-            path: 'report',
-            component: ReportEcgComponent,
-            canActivate: [AuthGuard]
-          },
-          {
-            path: 'edit/:id',
-            component: EcgEditComponent,
-            canActivate: [AuthGuard]
-          }
-        ]
-      },
-      {
-        path: 'incidente',
-        children: [
-          {
-            path: '',
-            redirectTo: 'paciente-list',
-            pathMatch: 'full',
-            canActivate: [AuthGuard],
-          },
-          {
-            path: 'paciente-list',
-            component: IncidentePacienteListComponent,
-            canActivate: [AuthGuard],
-          },
-          {
-            path: 'paciente-details/:id',
-            component: PacienteDetailsComponent,
-            canActivate: [AuthGuard],
-          },
-          {
-            path: 'create',
-            component: IncidenteFormComponent,
-            canActivate: [AuthGuard]
-          },
-          {
-            path: 'edit/:id',
-            component: IncidenteFormComponent,
-            canActivate: [AuthGuard]
-          },
-          {
-            path: 'report',
-            component: IncidenteReportComponent,
-            canActivate: [AuthGuard]
-          }
-        ]
-      }, {
-        path: 'nas',
-        children: [
-          {
-            path: 'create/:id',
-            component: NasFormComponent,
-            canActivate: [AuthGuard],
-          },
-        ]
-      }, {
-        path: 'filter',
-        children: [
-          {
-            path: 'filter',
-            component: FilterComponent,
-          },
-        ]
-      }, {
+
+      } {
         path: 'estratificacao',
         children: [
           {

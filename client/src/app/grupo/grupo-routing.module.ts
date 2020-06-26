@@ -7,7 +7,6 @@ import {RouterModule, Routes} from "@angular/router";
 
 const grupoRouting: Routes = [{
   path: 'grupo',
-  component: GrupoListComponent,
   children: [
     {
       path: '',

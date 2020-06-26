@@ -12,6 +12,7 @@ import {ChartModule, HIGHCHARTS_MODULES} from "angular-highcharts";
 import * as more from "highcharts/highcharts-more.src";
 import * as exporting from "highcharts/modules/exporting.src";
 import {EcgEditComponent} from './edit/ecg-edit.component';
+import {EcgRoutingModule} from "./ecg-routing.module";
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import {EcgEditComponent} from './edit/ecg-edit.component';
     FontAwesomeModule,
     InfiniteScrollModule,
     SpinnerModule,
-    ChartModule
+    ChartModule,
+    EcgRoutingModule
   ],
   exports: [
     EcgListComponent

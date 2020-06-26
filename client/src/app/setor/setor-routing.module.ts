@@ -7,7 +7,6 @@ import {SetorEditComponent} from "./edit/setor-edit.component";
 
 const setorRouting: Routes = [{
   path: 'setor',
-  component: SetorListComponent,
   children: [
     {
       path: '',
