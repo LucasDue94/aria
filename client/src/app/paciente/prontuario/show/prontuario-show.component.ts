@@ -1,12 +1,12 @@
 import {Component} from '@angular/core';
-import {ModalService} from "../core/modal/modal.service";
+import {ModalService} from "../../../core/modal/modal.service";
 
 @Component({
   selector: 'prontuario',
-  templateUrl: './prontuario.component.html',
-  styleUrls: ['./prontuario.component.scss']
+  templateUrl: './prontuario-show.component.html',
+  styleUrls: ['./prontuario-show.component.scss']
 })
-export class ProntuarioComponent {
+export class ProntuarioShowComponent {
   paciente = {
     nome: 'Joaquim José da Silva Xavier',
     sexo: 'Masculino',

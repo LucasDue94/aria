@@ -1,13 +1,12 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from "@angular/router";
-import {PerfilDashboardComponent} from "../../perfil-dashboard/perfil-dashboard.component";
+import {PerfilDashboardComponent} from "../../perfil/perfil-dashboard.component";
 import {SetorListComponent} from "../../setor/list/setor-list.component";
 import {SetorEditComponent} from "../../setor/edit/setor-edit.component";
 import {ApachePacienteListComponent} from "../../apache/paciente/list/apache-paciente-list.component";
 import {ApacheFormComponent} from "../../apache/form/apache-form.component";
 import {MainComponent} from "./main.component";
 import {AuthGuard} from "../../core/guards/auth.guard";
-import {ListComponent} from "../../relatorio/list/list.component";
 import {ReportApacheComponent} from "../../apache/report/report-apache.component";
 import {UsuarioListComponent} from "../../usuario/list/usuario-list.component";
 import {UsuarioEditComponent} from "../../usuario/edit/usuario-edit.component";
@@ -16,8 +15,8 @@ import {GrupoFormComponent} from "../../grupo/form/grupo-form.component";
 import {ErrorComponent} from "../../components/error/error.component";
 import {RiscoListComponent} from "../../risco/list/risco-list.component";
 import {RiscoFormComponent} from "../../risco/form/risco-form.component";
-import {TipoIncidenteListComponent} from "../../tipo-incidente/list/tipo-incidente-list.component";
-import {TipoIncidenteFormComponent} from "../../tipo-incidente/form/tipo-incidente-form.component";
+import {TipoIncidenteListComponent} from "../../incidente/tipo/list/tipo-incidente-list.component";
+import {TipoIncidenteFormComponent} from "../../incidente/tipo/form/tipo-incidente-form.component";
 import {IncidentePacienteListComponent} from "../../incidente/incidente-paciente-list/incidente-paciente-list.component";
 import {BalaoFormComponent} from "../../balao/form/balao-form.component";
 import {BalaoListComponent} from "../../balao/list/balao-list.component";
@@ -33,19 +32,14 @@ import {EcgEditComponent} from "../../ecg/edit/ecg-edit.component";
 import {EditBalaoComponent} from "../../balao/edit/edit-balao.component";
 import {FilterComponent} from "../../components/filter/filter.component";
 import {EstratificacaoRiscoFormComponent} from "../../risco/estratificacao/form/estratificacao-risco-form.component";
-import {PacienteListComponent} from "../../paciente-list/paciente-list.component";
 import {PainelLeitosComponent} from '../../painel-leitos/painel-leitos.component';
-import {ProntuarioComponent} from "../../prontuario/prontuario.component";
 
 const routes: Routes = [
   /*{
     path: '',
     component: MainComponent,
     children: [
-      {
-        path: 'perfil', pathMatch: 'full',
-        component: PerfilDashboardComponent, canActivate: [AuthGuard],
-      }, {
+      , {
         path: 'error', component: ErrorComponent
       },
 
@@ -95,61 +89,6 @@ const routes: Routes = [
         component: ReportApacheComponent,
         canActivate: [AuthGuard]
       },
-      {
-        path: 'risco',
-        children: [
-          {
-            path: '',
-            redirectTo: 'list',
-            pathMatch: 'full',
-            canActivate: [AuthGuard],
-          },
-          {
-            path: 'list',
-            component: RiscoListComponent,
-            canActivate: [AuthGuard],
-          }, {
-            path: 'create',
-            component: RiscoFormComponent,
-            canActivate: [AuthGuard],
-          }, {
-            path: 'edit/:id',
-            component: RiscoFormComponent,
-            canActivate: [AuthGuard]
-          }
-        ]
-      },
-      {
-        path: 'tipo-incidente',
-        children: [
-          {
-            path: '',
-            redirectTo: 'list',
-            pathMatch: 'full',
-            canActivate: [AuthGuard],
-          },
-          {
-            path: 'list',
-            component: TipoIncidenteListComponent,
-            canActivate: [AuthGuard],
-          },
-          {
-            path: 'create',
-            component: TipoIncidenteFormComponent,
-            canActivate: [AuthGuard],
-          },
-          {
-            path: 'edit/:id',
-            component: TipoIncidenteFormComponent,
-            canActivate: [AuthGuard]
-          }
-        ]
-      },
-      {
-
-      },
-
-      {
 
       } {
         path: 'estratificacao',
@@ -162,7 +101,7 @@ const routes: Routes = [
         ]
       }, {
         path: 'pacientes',
-        component: PacienteListComponent,
+        component: ProntuarioListComponent,
         canActivate: [AuthGuard],
         pathMatch: 'full',
       }, {
@@ -172,7 +111,7 @@ const routes: Routes = [
         pathMatch: 'full',
       }, {
         path: 'prontuario',
-        component: ProntuarioComponent,
+        component: ProntuarioShowComponent,
         canActivate: [AuthGuard],
         pathMatch: 'full',
       }

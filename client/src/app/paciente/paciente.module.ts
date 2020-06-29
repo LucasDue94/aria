@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {PacienteListComponent} from './paciente-list.component';
 import {FilterModule} from "../components/filter/filter.module";
 import {ApacheModule} from "../apache/apache.module";
 import {IncidenteModule} from "../incidente/incidente.module";
@@ -11,29 +10,27 @@ import {NasModule} from "../nas/nas.module";
 import {InfiniteScrollModule} from "ngx-infinite-scroll";
 import {SpinnerModule} from "../components/spinner/spinner.module";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import {ProntuarioModule} from "./prontuario/prontuario.module";
+import {PacienteRoutingModule} from "./paciente-routing.module";
 
 
 @NgModule({
-  declarations: [
-    PacienteListComponent
+  imports: [
+    CommonModule,
+    FilterModule,
+    ApacheModule,
+    IncidenteModule,
+    EcgModule,
+    BalaoModule,
+    EstratificacaoRiscoModule,
+    NasModule,
+    InfiniteScrollModule,
+    SpinnerModule,
+    FontAwesomeModule,
+    ProntuarioModule,
+    PacienteRoutingModule
   ],
-    imports: [
-        CommonModule,
-        FilterModule,
-        ApacheModule,
-        IncidenteModule,
-        EcgModule,
-        BalaoModule,
-        EstratificacaoRiscoModule,
-        NasModule,
-        InfiniteScrollModule,
-        SpinnerModule,
-        FontAwesomeModule
-    ],
-  exports: [
-    PacienteListComponent
-  ]
 
 })
-export class PacienteListModule {
+export class PacienteModule {
 }

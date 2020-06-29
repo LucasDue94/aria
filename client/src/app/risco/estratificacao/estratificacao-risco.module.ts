@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {EstratificacaoRiscoFormComponent} from './form/estratificacao-risco-form.component';
-import {PacienteInfoModule} from "../../paciente-info/paciente-info.module";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {ReactiveFormsModule} from "@angular/forms";
@@ -17,6 +16,7 @@ import { EstratificacaoListComponent } from './list/estratificacao-list.componen
 import {SpinnerModule} from "../../components/spinner/spinner.module";
 import {InfiniteScrollModule} from "ngx-infinite-scroll";
 import {RouterModule} from "@angular/router";
+import {PacienteInfoModule} from "../../paciente/info/paciente-info.module";
 
 
 @NgModule({

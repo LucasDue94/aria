@@ -1,7 +1,7 @@
 import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
-import {Paciente} from "../core/paciente/paciente";
 import {faWindowMinimize} from "@fortawesome/free-solid-svg-icons/faWindowMinimize";
 import {faInfoCircle} from "@fortawesome/free-solid-svg-icons/faInfoCircle";
+import {Paciente} from "../../core/paciente/paciente";
 
 @Component({
   selector: 'paciente-info',
@@ -14,6 +14,7 @@ export class PacienteInfoComponent implements OnChanges {
   windowMinimizeIcon = faWindowMinimize;
   infoCircleIcon = faInfoCircle;
   minimize = false;
+
   constructor() {
   }
 

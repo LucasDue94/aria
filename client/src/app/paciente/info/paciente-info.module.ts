@@ -1,8 +1,7 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {PacienteInfoComponent} from "./paciente-info.component";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
-
 
 
 @NgModule({
@@ -13,4 +12,5 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
   ],
   exports: [PacienteInfoComponent]
 })
-export class PacienteInfoModule { }
+export class PacienteInfoModule {
+}

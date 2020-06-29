@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProntuarioComponent } from './prontuario.component';
+import { ProntuarioShowComponent } from './prontuario-show.component';
 
 describe('ProntuarioComponent', () => {
-  let component: ProntuarioComponent;
-  let fixture: ComponentFixture<ProntuarioComponent>;
+  let component: ProntuarioShowComponent;
+  let fixture: ComponentFixture<ProntuarioShowComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProntuarioComponent ]
+      declarations: [ ProntuarioShowComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProntuarioComponent);
+    fixture = TestBed.createComponent(ProntuarioShowComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

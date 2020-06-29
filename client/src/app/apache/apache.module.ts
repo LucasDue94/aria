@@ -14,8 +14,8 @@ import * as more from 'highcharts/highcharts-more.src';
 import * as exporting from 'highcharts/modules/exporting.src';
 import {SpinnerModule} from "../components/spinner/spinner.module";
 import {NgSelectModule} from "@ng-select/ng-select";
-import {PacienteInfoModule} from "../paciente-info/paciente-info.module";
 import {ApacheRoutingModule} from "./apache-routing.module";
+import {PacienteInfoModule} from "../paciente/info/paciente-info.module";
 
 @NgModule({
   declarations: [

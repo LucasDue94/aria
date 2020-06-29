@@ -1,12 +1,12 @@
 import {Component, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {FormBuilder} from "@angular/forms";
 import {faFrown, faPlus, faSearch} from '@fortawesome/free-solid-svg-icons';
-import {TitleService} from "../../core/title/title.service";
-import {SpinnerService} from "../../core/spinner/spinner.service";
-import {ErrorService} from "../../core/error/error.service";
+import {TitleService} from "../../../core/title/title.service";
+import {SpinnerService} from "../../../core/spinner/spinner.service";
+import {ErrorService} from "../../../core/error/error.service";
 import {debounceTime, switchMap} from "rxjs/operators";
-import {TipoIncidente} from "../../core/tipoIncidente/tipoIncidente";
-import {TipoIncidenteService} from "../../core/tipoIncidente/tipoIncidente.service";
+import {TipoIncidente} from "../../../core/tipoIncidente/tipoIncidente";
+import {TipoIncidenteService} from "../../../core/tipoIncidente/tipoIncidente.service";
 
 @Component({
   selector: 'tipo-incidente-list',

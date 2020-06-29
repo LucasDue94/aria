@@ -1,14 +1,14 @@
 import {Component, OnInit, Renderer2} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
-import {TitleService} from "../../core/title/title.service";
-import {ErrorService} from "../../core/error/error.service";
-import {AlertService} from "../../core/alert/alert.service";
+import {TitleService} from "../../../core/title/title.service";
+import {ErrorService} from "../../../core/error/error.service";
+import {AlertService} from "../../../core/alert/alert.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {SpinnerService} from "../../core/spinner/spinner.service";
+import {SpinnerService} from "../../../core/spinner/spinner.service";
 import {faCheck, faFrown} from "@fortawesome/free-solid-svg-icons";
-import {TipoIncidente} from "../../core/tipoIncidente/tipoIncidente";
-import {TipoIncidenteService} from "../../core/tipoIncidente/tipoIncidente.service";
-import {RiscoService} from "../../core/risco/risco.service";
+import {TipoIncidente} from "../../../core/tipoIncidente/tipoIncidente";
+import {TipoIncidenteService} from "../../../core/tipoIncidente/tipoIncidente.service";
+import {RiscoService} from "../../../core/risco/risco.service";
 
 @Component({
   selector: 'tipo-incidente-form',
