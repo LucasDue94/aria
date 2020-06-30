@@ -2,12 +2,14 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {environment} from "../../../environments/environment";
+import {Subject, Observable} from 'rxjs';
 
 @Injectable()
 export class AuthService {
 
   private baseUrl = environment.apiUrl;
   token: string;
+  private userLogged: boolean;
 
   getDefaultHttpOptions() {
     return new HttpHeaders({
@@ -56,7 +58,7 @@ export class AuthService {
     if (localStorage.getItem('roles') == null)
       return false;
 
-      return localStorage.getItem('roles').includes(value) || localStorage.getItem('roles').includes('ROLE_ADMIN');
+    return localStorage.getItem('roles').includes(value) || localStorage.getItem('roles').includes('ROLE_ADMIN');
   }
 
   isLogged = () => localStorage.getItem('token') != null

@@ -7,7 +7,7 @@ import {PacienteCardModule} from './paciente-card/paciente-card.module';
 import {StatusCardComponent} from './status-card/status-card.component';
 import {RouterModule} from '@angular/router';
 import {PainelLeitosRoutingModule} from "./painel-leitos-routing.module";
-import {PacienteInfoModule} from "../paciente/info/paciente-info.module";
+import {PacienteModule} from "../paciente/paciente.module";
 
 
 @NgModule({
@@ -19,10 +19,10 @@ import {PacienteInfoModule} from "../paciente/info/paciente-info.module";
   imports: [
     CommonModule,
     FontAwesomeModule,
-    PacienteInfoModule,
+    PacienteModule,
     PacienteCardModule,
     RouterModule,
-    PainelLeitosRoutingModule
+    PainelLeitosRoutingModule,
   ],
   exports: [
     PainelLeitosComponent,

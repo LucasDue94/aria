@@ -36,8 +36,7 @@
 .aria-nav {
   display: flex;
   align-items: center;
-  height: 40px;
-  margin: 10px;
+  margin: 10px 10px 0 10px;
 
   ::selection {
     background-color: transparent;
@@ -50,10 +49,10 @@
   .module-name {
     margin-left: 10px;
     letter-spacing: 1px;
-    font-size: 22px;
+    font-size: 20px;
 
     @media screen and (max-width: $smartphone-width) {
-      font-size: 20px;
+      font-size: 18px;
     }
   }
 }
@@ -61,7 +60,7 @@
 .icon-back {
   color: $gray-90;
   transition: 1s;
-  font-size: 25px;
+  font-size: 20px;
 
   &:hover {
     cursor: pointer;
@@ -71,8 +70,4 @@
   @media screen and (max-width: $smartphone-width) {
     font-size: 20px;
   }
-
 }
-
-
-@import 'src/assets/colors';

@@ -1,4 +1,13 @@
-import {Component, ElementRef, HostListener, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
+import {
+  AfterViewChecked,
+  Component,
+  ElementRef,
+  HostListener,
+  OnDestroy,
+  OnInit,
+  Renderer2,
+  ViewChild
+} from '@angular/core';
 import {LeitoService} from '../core/leito/leito.service';
 import {faInfoCircle} from '@fortawesome/free-solid-svg-icons';
 import {Paciente} from '../core/paciente/paciente';
@@ -8,13 +17,14 @@ import {RegistroLeitoService} from '../core/registroLeito/registro-leito.service
 import {Location, ViewportScroller} from '@angular/common';
 import {SpinnerService} from '../core/spinner/spinner.service';
 import {ErrorService} from '../core/error/error.service';
+import {TitleService} from "../core/title/title.service";
 
 @Component({
-  selector: 'app-painel-leitos',
+  selector: 'painel-leitos',
   templateUrl: './painel-leitos.component.html',
   styleUrls: ['./painel-leitos.component.scss']
 })
-export class PainelLeitosComponent implements OnInit, OnDestroy {
+export class PainelLeitosComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   @ViewChild('tabela', {static: false, read: ElementRef}) tabela: ElementRef;
   @ViewChild('buttonResumo', {static: false, read: ElementRef}) buttonResumo: ElementRef;
@@ -23,6 +33,7 @@ export class PainelLeitosComponent implements OnInit, OnDestroy {
   pacientes: Paciente[];
   setores = new Array<String>(8);
   showTable = false;
+  interval;
   statusArray = [
     {id: 'o', desc: 'Ocupado', class: 'ocupado'},
     {id: 'l', desc: 'Liberado', class: 'liberado'},
@@ -33,31 +44,23 @@ export class PainelLeitosComponent implements OnInit, OnDestroy {
     {id: 'a', desc: 'Alta', class: 'alta-adm'},
     {id: 'am', desc: 'Alta Médica', class: 'alta-medica'}];
 
-  constructor(private leitoService: LeitoService, private render: Renderer2,
+  constructor(private leitoService: LeitoService, private render: Renderer2, private titleService: TitleService,
               private pacienteService: PacienteService, private registroLeitoService: RegistroLeitoService,
               private viewportScroller: ViewportScroller, private spinner: SpinnerService,
               private errorService: ErrorService, private location: Location) {
     this.refresh = this.refresh.bind(this);
   }
 
-  interval;
-
-
   ngOnInit() {
     this.spinner.show();
-    this.buildLayout();
     this.refresh();
     this.interval = setInterval(this.refresh, 30000);
   }
 
-  buildLayout() {
-    const nav = document.getElementsByClassName('aria-nav')[0];
-    const mainContainer = document.getElementsByClassName('main-container')[0];
-    this.render.setStyle(nav, 'display', 'none');
-    this.render.setStyle(mainContainer, 'margin', '0');
-    this.render.setStyle(mainContainer, 'margin-top', '50px');
-    this.render.setStyle(mainContainer.firstChild, 'padding', '25px 0 0 0');
+  ngAfterViewChecked(): void {
+    this.titleService.send('Painel de Leitos')
   }
+
 
   refresh() {
     this.leitoService.list().subscribe(leitos => {
@@ -194,7 +197,7 @@ export class PainelLeitosComponent implements OnInit, OnDestroy {
   }
 
   setPosition(element, leitoSpan) {
-    let container = element.tagName == 'PACIENTE-CARD' ? element.children[0] : element ;
+    let container = element.tagName == 'PACIENTE-CARD' ? element.children[0] : element;
     const body = document.getElementsByTagName('body')[0];
     const leitoDiv = this.render.parentNode(leitoSpan).getBoundingClientRect();
 
@@ -230,11 +233,6 @@ export class PainelLeitosComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    const nav = document.getElementsByClassName('aria-nav')[0];
-    const mainContainer = document.getElementsByClassName('main-container')[0];
-    this.render.setStyle(nav, 'display', 'flex');
-    this.render.setStyle(mainContainer, 'margin', '10px');
-    this.render.setStyle(mainContainer.firstChild, 'padding', '0');
     clearInterval(this.interval);
   }
 }

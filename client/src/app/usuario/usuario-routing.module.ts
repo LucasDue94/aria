@@ -2,11 +2,11 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterModule, Routes} from "@angular/router";
 import {AuthGuard} from "../core/guards/auth.guard";
-import {ProntuarioShowComponent} from "./prontuario/show/prontuario-show.component";
-import {PacienteListComponent} from "./list/paciente-list.component";
+import {UsuarioListComponent} from "./list/usuario-list.component";
+import {UsuarioEditComponent} from "./edit/usuario-edit.component";
 
-const pacienteRouting: Routes = [{
-  path: 'paciente',
+const usuarioRouting: Routes = [{
+  path: 'usuario',
   children: [{
     path: '',
     redirectTo: 'list',
@@ -14,21 +14,22 @@ const pacienteRouting: Routes = [{
     canActivate: [AuthGuard]
   }, {
     path: 'list',
-    component: PacienteListComponent,
+    component: UsuarioListComponent,
     canActivate: [AuthGuard],
   }, {
-    path: 'show/:id',
-    component: ProntuarioShowComponent,
+    path: 'edit/:id',
+    component: UsuarioEditComponent,
     canActivate: [AuthGuard],
   }]
 }]
+
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    RouterModule.forChild(pacienteRouting)
+    RouterModule.forChild(usuarioRouting)
   ]
 })
-export class PacienteRoutingModule {
+export class UsuarioRoutingModule {
 }

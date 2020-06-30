@@ -1,14 +1,12 @@
 import {Component, ElementRef, HostListener, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {
-  faChartPie,
+  faBed,
   faDiagnoses,
-  faFolderOpen,
-  faNotesMedical,
-  faUserMd,
-  faUsers,
-  faExclamation,
   faEdit,
-  faUserInjured, faProcedures, faPager, faBook, faBed
+  faExclamation,
+  faFolderOpen,
+  faUserMd,
+  faUsers
 } from '@fortawesome/free-solid-svg-icons';
 import {AuthService} from "../../core/auth/auth.service";
 import {Menu} from "../../core/menu/menu";
@@ -82,7 +80,7 @@ export class MenuComponent implements OnInit {
       status: false,
       permission: EnumPermisson.role_paciente_index,
       faIcon: faCommentMedical,
-      router: ['/pacientes']
+      router: ['/paciente']
     },
     // {
     //   name: 'Documentação',
@@ -105,38 +103,28 @@ export class MenuComponent implements OnInit {
 
   ngOnInit() {
     this.createMenu();
-    if (!this.authService.hasPermission(EnumPermisson.role_apache_report)) {
-      this.menuList.forEach(item => {
-        item.name == 'relatorio' ? item.status = false : '';
-      })
-    }
     this.menuService.getStatus().subscribe(status => {
       this.toggle()
     })
   }
 
   toggle() {
-    if(this.menuContainer.nativeElement.classList.contains('menu-collapsed')) {
-      this.renderer.removeClass(this.menuContainer.nativeElement, 'menu-collapsed');
-      this.renderer.addClass(this.sidenavOverlay.nativeElement, 'sidenav-overlay-show');
-      this.show = true;
-    } else {
-      this.renderer.addClass(this.menuContainer.nativeElement, 'menu-collapsed');
-      this.renderer.removeClass(this.sidenavOverlay.nativeElement, 'sidenav-overlay-show');
-      this.show = false;
-    }
+    const condition: boolean = this.menuContainer.nativeElement && this.menuContainer.nativeElement.classList.contains('menu-collapsed');
+    this.renderer[condition ? 'removeClass' : 'addClass'](this.menuContainer.nativeElement, 'menu-collapsed');
+    this.renderer[condition ? 'addClass' : 'removeClass'](this.sidenavOverlay.nativeElement, 'sidenav-overlay-show');
+    this.show = condition;
   }
 
   createMenu(): Menu[] {
     this.menuList.forEach(item => {
-      this.authService.hasPermission(item.permission) ? item.status = true : item.status = false;
+      item.status = this.authService.hasPermission(item.permission)
     });
     return this.menuList;
   }
 
   @HostListener('document:click', ['$event'])
   clickout(event) {
-    if(this.show && this.sidenavOverlay.nativeElement.contains(event.target)) {
+    if (this.show && this.sidenavOverlay.nativeElement.contains(event.target)) {
       this.renderer.addClass(this.menuContainer.nativeElement, 'menu-collapsed');
       this.renderer.removeClass(this.sidenavOverlay.nativeElement, 'sidenav-overlay-show');
       this.show = false;

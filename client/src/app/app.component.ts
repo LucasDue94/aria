@@ -17,9 +17,8 @@ export class AppComponent implements OnInit, DoCheck {
   isLogged = false;
   alert: Alert;
   showMenu: boolean = false;
-  moduleName = 'Home';
+  moduleName = '';
   faArrowLeft = faChevronCircleLeft;
-
   @ViewChild(SpinnerComponent, {static: false}) spinner;
 
   constructor(private auth: AuthService, private alertService: AlertService, private menuService: MenuService,
@@ -27,10 +26,11 @@ export class AppComponent implements OnInit, DoCheck {
   }
 
   ngOnInit() {
-    this.alertService.receive().subscribe(res => this.alert = res);
     this.alertService.receive().subscribe(alert => this.alert = alert);
     this.menuService.getStatus().subscribe(status => this.showMenu = status);
-    this.titleService.receive().subscribe(title => this.moduleName = title);
+    this.titleService.receive().subscribe(title => {
+        this.moduleName = title
+    });
   }
 
   ngDoCheck(): void {

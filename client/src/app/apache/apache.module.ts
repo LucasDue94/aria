@@ -15,7 +15,7 @@ import * as exporting from 'highcharts/modules/exporting.src';
 import {SpinnerModule} from "../components/spinner/spinner.module";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {ApacheRoutingModule} from "./apache-routing.module";
-import {PacienteInfoModule} from "../paciente/info/paciente-info.module";
+import {PacienteModule} from "../paciente/paciente.module";
 
 @NgModule({
   declarations: [
@@ -34,7 +34,7 @@ import {PacienteInfoModule} from "../paciente/info/paciente-info.module";
     SelectModule,
     CoreModule,
     NgSelectModule,
-    PacienteInfoModule,
+    PacienteModule,
     ApacheRoutingModule
   ],
   exports: [

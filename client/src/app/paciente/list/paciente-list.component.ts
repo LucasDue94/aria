@@ -1,18 +1,18 @@
 import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
-import {SetorService} from "../../../core/setor/setor.service";
-import {PacienteService} from "../../../core/paciente/paciente.service";
-import {Paciente} from "../../../core/paciente/paciente";
-import {Setor} from "../../../core/setor/setor";
+import {SetorService} from "../../core/setor/setor.service";
+import {PacienteService} from "../../core/paciente/paciente.service";
+import {Paciente} from "../../core/paciente/paciente";
+import {Setor} from "../../core/setor/setor";
 import {faMinus, faPlus} from "@fortawesome/free-solid-svg-icons";
-import {TitleService} from "../../../core/title/title.service";
+import {TitleService} from "../../core/title/title.service";
 
 @Component({
   selector: 'paciente-list',
-  templateUrl: './prontuario-list.component.html',
-  styleUrls: ['./prontuario-list.component.scss']
+  templateUrl: './paciente-list.component.html',
+  styleUrls: ['./paciente-list.component.scss']
 })
 
-export class ProntuarioListComponent implements OnInit {
+export class PacienteListComponent implements OnInit {
 
   @ViewChild('collapse', {static: false}) collapse: ElementRef;
   setores: Setor[] = [];

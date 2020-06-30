@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ModalService} from "../../../core/modal/modal.service";
 
 @Component({
@@ -6,7 +6,7 @@ import {ModalService} from "../../../core/modal/modal.service";
   templateUrl: './prontuario-show.component.html',
   styleUrls: ['./prontuario-show.component.scss']
 })
-export class ProntuarioShowComponent {
+export class ProntuarioShowComponent implements OnInit{
   paciente = {
     nome: 'Joaquim José da Silva Xavier',
     sexo: 'Masculino',
@@ -29,6 +29,9 @@ export class ProntuarioShowComponent {
   }
 
   constructor(private modalService: ModalService) {
+  }
+  ngOnInit(): void {
+    console.log('sdlkfj')
   }
 
   cutText = (text, width) => text.length > 120 ? text.slice(0, width) + '...' : text;

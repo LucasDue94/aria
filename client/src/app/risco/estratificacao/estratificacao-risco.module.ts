@@ -16,7 +16,7 @@ import { EstratificacaoListComponent } from './list/estratificacao-list.componen
 import {SpinnerModule} from "../../components/spinner/spinner.module";
 import {InfiniteScrollModule} from "ngx-infinite-scroll";
 import {RouterModule} from "@angular/router";
-import {PacienteInfoModule} from "../../paciente/info/paciente-info.module";
+import {PacienteModule} from "../../paciente/paciente.module";
 
 
 @NgModule({
@@ -34,13 +34,13 @@ import {PacienteInfoModule} from "../../paciente/info/paciente-info.module";
   ],
   imports: [
     CommonModule,
-    PacienteInfoModule,
     FontAwesomeModule,
     NgSelectModule,
     ReactiveFormsModule,
     SpinnerModule,
     InfiniteScrollModule,
-    RouterModule
+    RouterModule,
+    PacienteModule
   ],
   exports: [
     EstratificacaoRiscoFormComponent,

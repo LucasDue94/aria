@@ -11,7 +11,7 @@ import {TitleService} from "../../core/title/title.service";
 import {ErrorService} from "../../core/error/error.service";
 
 @Component({
-  selector: 'app-setor-edit',
+  selector: 'setor-edit',
   templateUrl: './setor-edit.component.html',
   styleUrls: ['./setor-edit.component.scss']
 })
