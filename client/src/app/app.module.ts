@@ -32,12 +32,12 @@ import {HttpClientModule} from '@angular/common/http';
 import {FilterModule} from './components/filter/filter.module';
 import {EstratificacaoRiscoModule} from './risco/estratificacao/estratificacao-risco.module';
 import {PainelLeitosModule} from './painel-leitos/painel-leitos.module';
-import {CardModule} from "./components/card/card.module";
-import {PerfilModule} from "./perfil/perfil.module";
-import {RelatoriosModule} from "./relatorios/relatorios.module";
-import {PacienteModule} from "./paciente/paciente.module";
+import {CardModule} from './components/card/card.module';
+import {PerfilModule} from './perfil/perfil.module';
+import {RelatoriosModule} from './relatorios/relatorios.module';
+import {PacienteModule} from './paciente/paciente.module';
 import { CollapseComponent } from './components/collapse/collapse.component';
-import {CollapseModule} from "./components/collapse/collapse.module";
+import {CollapseModule} from './components/collapse/collapse.module';
 
 @NgModule({
   declarations: [
@@ -51,6 +51,8 @@ import {CollapseModule} from "./components/collapse/collapse.module";
     BalaoModule,
     BrowserModule,
     CoreModule,
+    CardModule,
+    CollapseModule,
     CardModule,
     ChartModule,
     EcgModule,
@@ -78,8 +80,6 @@ import {CollapseModule} from "./components/collapse/collapse.module";
     SelectModule,
     TipoIncidenteModule,
     UsuarioModule,
-    CardModule,
-    CollapseModule
   ],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy},

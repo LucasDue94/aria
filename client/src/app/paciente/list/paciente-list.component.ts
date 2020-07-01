@@ -1,11 +1,11 @@
 import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
-import {SetorService} from "../../core/setor/setor.service";
-import {PacienteService} from "../../core/paciente/paciente.service";
-import {Setor} from "../../core/setor/setor";
-import {TitleService} from "../core/title/title.service";
-import {RegistroLeitoService} from "../../core/registroLeito/registro-leito.service";
-import {RegistroLeito} from "../core/registroLeito/registroLeito";
-import {FilterService} from "../../core/filter/filter.service";
+import {SetorService} from '../../core/setor/setor.service';
+import {PacienteService} from '../../core/paciente/paciente.service';
+import {Setor} from '../../core/setor/setor';
+import {RegistroLeitoService} from '../../core/registroLeito/registro-leito.service';
+import {FilterService} from '../../core/filter/filter.service';
+import {TitleService} from '../../core/title/title.service';
+import {RegistroLeito} from '../../core/registroLeito/registroLeito';
 
 @Component({
   selector: 'paciente-list',
@@ -90,5 +90,4 @@ export class PacienteListComponent implements OnInit {
       }
     }
   }
-
 }
