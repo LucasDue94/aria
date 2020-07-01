@@ -10,7 +10,7 @@
     <span class="message-error" *ngIf="submitted && isDateValid('inicio')">Preencha este campo</span>
     <span class="message-error" *ngIf="this.dateMessage != ''">{{ this.dateMessage }}</span>
   </div>
-  <span id="crase">à</span>
+  <span id="crase" *ngIf="hasDateInterval">à</span>
   <div class="form-group-float" *ngIf="hasDateInterval"
        [ngClass]="[isDateValid('fim') && submitted || this.dateMessage != '' ? 'filter-errors' : '']">
     <label class="label-float" for="fim">Data Entrada</label>

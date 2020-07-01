@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
 import {faSearch} from "@fortawesome/free-solid-svg-icons/faSearch";
 import {FormBuilder} from "@angular/forms";
 import {FilterService} from "../../core/filter/filter.service";
@@ -8,7 +8,7 @@ import {FilterService} from "../../core/filter/filter.service";
   templateUrl: './filter.component.html',
   styleUrls: ['./filter.component.scss']
 })
-export class FilterComponent {
+export class FilterComponent implements OnInit {
 
   @Output() params = new EventEmitter();
   @Input() hasSearch: boolean = true;
@@ -17,18 +17,34 @@ export class FilterComponent {
   @Input() items = [];
   @Input() bindLabel: string = 'descricao';
   @Input() bindValue: string = 'id';
+  @Output() statusSearch = new EventEmitter();
 
-  faIconSearch = faSearch;
+  isEmpty;
   submitted;
   dateMessage = '';
+  faIconSearch = faSearch;
   form = this.fb.group({
     busca: [''],
     inicio: [''],
     fim: [''],
-    setor: [''],
+    setor: ['']
   });
 
   constructor(private fb: FormBuilder, private filter: FilterService) {
+  }
+
+  ngOnInit(): void {
+    this.getStatusSearch();
+  }
+
+  getStatusSearch() {
+    this.form.valueChanges.subscribe(control => {
+      control.busca === '' || control.busca === null ? this.isEmpty = true : this.isEmpty = false;
+      if(control.busca === '' || control.busca === null) {
+        this.params.emit(this.buildReturnParams());
+      }
+      this.statusSearch.emit(this.isEmpty);
+    });
   }
 
   removeUnusedControls() {
@@ -63,6 +79,12 @@ export class FilterComponent {
     return params;
   }
 
+  @HostListener('window:keyup', ['$event']) keyEvent(event: KeyboardEvent) {
+    if (event.key == "Enter") {
+      this.params.emit(this.buildReturnParams());
+    }
+  }
+
   send() {
     this.removeUnusedControls();
     if (this.hasDateInterval) this.checkDateInterval();
@@ -76,6 +98,7 @@ export class FilterComponent {
     this.form.reset();
     this.dateMessage = '';
     this.submitted = false;
+    this.params.emit(this.buildReturnParams());
   }
 
   isDateValid = (name: string) => this.getControl(name).value == ''

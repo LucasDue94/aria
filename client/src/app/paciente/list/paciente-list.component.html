@@ -1,31 +1,49 @@
 <main class="container">
-  <app-filter [items]="setores" [bindLabel]="'sigla'"></app-filter>
-  <div class="container-collapse" #collapse>
-    <div id="{{setor.id}}" class="collapse" *ngFor="let setor of setores">
-      <div class="collapse-header">
-        {{setor.descricao}}
-        <fa-icon class="btn-open" [icon]="faMin" (click)="close(setor.id)"></fa-icon>
-        <fa-icon class="btn-open" [icon]="faPlus" (click)="open(setor.id)"></fa-icon>
-      </div>
-      <section class="collapse-content collapse-none">
-        <div class="table table-list">
-          <section class="tbody content-paciente" [scrollWindow]="false" infinite-scroll (scrolled)="scrollDown()">
-            <spinner [loading]="listLoading"></spinner>
-            <div class="row" *ngFor="let paciente of pacientes">
-              <span class="td flex-1">{{paciente.id}}</span>
-              <span class="td flex-3">{{paciente.nome}}</span>
-              <span class="td flex-1">{{paciente.nascimento | date: "dd/MM/yyyy" }}</span>
-              <span class="td flex-3">{{paciente.nomeMae}}</span>
-              <span class="td flex-1">{{paciente.sexo}}</span>
-            </div>
-            <!-- <app-scroll-spinner [show]="showListScrollSpinner"></app-scroll-spinner>-->
-            <div class="empty" *ngIf="pacientes?.length == 0">
-              <p>Nenhum paciente encontrado!</p>
-              <!--<fa-icon class="icon" [icon]="faFrown" size="2x"></fa-icon>-->
-            </div>
-          </section>
+  <app-filter [hasDateInterval]="false" [hasSelect]="false" [bindLabel]="'sigla'"
+              (statusSearch)="getStatusSearch()"></app-filter>
+  <app-collapse *ngIf="searchEmpty" [items]="setores" [prop]="'descricao'" (open)="getRegistros($event)">
+    <div class="table table-list">
+      <spinner [loading]="listLoading"></spinner>
+      <section class="thead">
+        <span class="th flex-3">Paciente</span>
+        <span class="th flex-1">Nascimento</span>
+        <span class="th flex-3">Leito</span>
+        <span class="th flex-1">Convenio</span>
+      </section>
+      <section class="tbody content-paciente" [scrollWindow]="false" infinite-scroll
+               (scrolled)="scrollDown()">
+        <div class="row" *ngFor="let registroLeito of registroLeitos ">
+          <span class="td flex-3">{{registroLeito.atendimento.paciente.nome}}</span>
+          <span class="td flex-1">{{registroLeito.atendimento.paciente.nascimento | date: "dd/MM/yyyy" }}</span>
+          <span class="td flex-3">{{registroLeito.leito.descricao}}</span>
+          <span class="td flex-1">{{registroLeito.atendimento.convenio.fantasia}}</span>
+        </div>
+        <div class="empty" *ngIf="registroLeitos?.length == 0">
+          <p>Não existe paciente internado no setor!</p>
         </div>
       </section>
+      <app-scroll-spinner [show]="showListScrollSpinner"></app-scroll-spinner>
     </div>
+  </app-collapse>
+  <div class="table table-list" *ngIf="!searchEmpty">
+    <spinner [loading]="listLoading"></spinner>
+    <section class="thead">
+      <span class="th flex-3">Paciente</span>
+      <span class="th flex-1">Nascimento</span>
+      <span class="th flex-3">Leito</span>
+      <span class="th flex-1">Convenio</span>
+    </section>
+    <section class="tbody content-paciente" [scrollWindow]="false" infinite-scroll (scrolled)="scrollDown()">
+      <div class="row" *ngFor="let registroLeito of registroLeitos">
+        <span class="td flex-3">{{registroLeito.atendimento.paciente.nome}}</span>
+        <span class="td flex-1">{{registroLeito.atendimento.paciente.nascimento | date: "dd/MM/yyyy" }}</span>
+        <span class="td flex-3">{{registroLeito.leito.descricao}}</span>
+        <span class="td flex-1">{{registroLeito.atendimento.convenio.fantasia}}</span>
+      </div>
+      <div class="empty" *ngIf="registroLeitos?.length == 0">
+        <p>Não existe paciente internado no setor!</p>
+      </div>
+    </section>
+    <app-scroll-spinner [show]="showListScrollSpinner"></app-scroll-spinner>
   </div>
 </main>

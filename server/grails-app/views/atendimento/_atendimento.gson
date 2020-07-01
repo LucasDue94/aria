@@ -4,7 +4,7 @@ model {
     Atendimento atendimento
 }
 
-json g.render(atendimento, [expand: ['motivoAlta', 'ecg', 'balao', 'setor'],excludes: ['paciente'], resolveTemplate: false]) {
+json g.render(atendimento, [expand: ['motivoAlta', 'ecg', 'balao', 'setor', 'convenio'],excludes: ['paciente'], resolveTemplate: false]) {
     paciente g.render(atendimento.paciente, [excludes: 'atendimentos', resolveTemplate: false])
     ultimoNas g.render(atendimento.ultimoNas, [resolveTemplate: false])
 }

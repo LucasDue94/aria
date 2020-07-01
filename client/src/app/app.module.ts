@@ -36,6 +36,8 @@ import {CardModule} from "./components/card/card.module";
 import {PerfilModule} from "./perfil/perfil.module";
 import {RelatoriosModule} from "./relatorios/relatorios.module";
 import {PacienteModule} from "./paciente/paciente.module";
+import { CollapseComponent } from './components/collapse/collapse.component';
+import {CollapseModule} from "./components/collapse/collapse.module";
 
 @NgModule({
   declarations: [
@@ -76,10 +78,15 @@ import {PacienteModule} from "./paciente/paciente.module";
     SelectModule,
     TipoIncidenteModule,
     UsuarioModule,
+    CardModule,
+    CollapseModule
   ],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy},
     AuthGuard, DatePipe],
+  exports: [
+    CollapseComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

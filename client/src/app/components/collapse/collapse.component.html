@@ -1,0 +1,13 @@
+<div class="container-collapse">
+  <div class="collapse" *ngFor="let item of items">
+    <div class="collapse-header" (click)="toggle(item.id)">
+      {{item[prop]}}
+      <fa-icon class="btn-open" [icon]="faMin"></fa-icon>
+      <fa-icon class="btn-open" [icon]="faPlus"></fa-icon>
+    </div>
+    <section id="{{item.id}}" class="collapse-content" *ngIf="collapse.visible && item.id === collapse.collapseId">
+      <ng-content></ng-content>
+    </section>
+  </div>
+</div>
+

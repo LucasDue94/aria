@@ -1,10 +1,11 @@
 import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {SetorService} from "../../core/setor/setor.service";
 import {PacienteService} from "../../core/paciente/paciente.service";
-import {Paciente} from "../../core/paciente/paciente";
 import {Setor} from "../../core/setor/setor";
-import {faMinus, faPlus} from "@fortawesome/free-solid-svg-icons";
-import {TitleService} from "../../core/title/title.service";
+import {TitleService} from "../core/title/title.service";
+import {RegistroLeitoService} from "../../core/registroLeito/registro-leito.service";
+import {RegistroLeito} from "../core/registroLeito/registroLeito";
+import {FilterService} from "../../core/filter/filter.service";
 
 @Component({
   selector: 'paciente-list',
@@ -14,49 +15,80 @@ import {TitleService} from "../../core/title/title.service";
 
 export class PacienteListComponent implements OnInit {
 
-  @ViewChild('collapse', {static: false}) collapse: ElementRef;
-  setores: Setor[] = [];
-  faPlus = faPlus;
-  faMin = faMinus;
-  listLoading;
-  pacientes: Paciente[] = [];
 
-  constructor(private titleService: TitleService, private setorService: SetorService, private pacienteService: PacienteService, private render: Renderer2) {
+  @ViewChild('collapse', {static: false}) collapse: ElementRef;
+  offset = 0;
+  max = 30;
+  params = {
+    termo: '',
+    inicio: '',
+    fim: '',
+    setorId: '',
+    offset: this.offset,
+    max: this.max
+  };
+  searchEmpty = true;
+  listLoading = true;
+  showListScrollSpinner = false;
+  setores: Setor[] = [];
+  registroLeitos: RegistroLeito[] = [];
+
+  constructor(private titleService: TitleService, private setorService: SetorService,
+              private pacienteService: PacienteService, private render: Renderer2,
+              private registroLeitoService: RegistroLeitoService, private filterService: FilterService) {
+    this.search = this.search.bind(this);
   }
 
   ngOnInit(): void {
-    this.titleService.send('Evoluções - Pacientes Internos');
+    this.titleService.send('Evoluções - Pacientes');
     this.setorService.list().subscribe(setor => {
       this.setores = setor;
     });
-    this.pacienteService.list().subscribe(paciente => {
-      this.pacientes = paciente;
-    })
+    this.filterService.receive().subscribe(this.search);
+  }
+
+  getRegistros(paramsCollapse?) {
+    if (paramsCollapse.collapseId) {
+      this.params.setorId = paramsCollapse.collapseId;
+      this.params.termo = '';
+    } else {
+      this.searchEmpty = true;
+    }
+    this.listLoading = true;
+    this.registroLeitoService.list(this.params).subscribe(registro => {
+      this.registroLeitos = registro;
+      this.showListScrollSpinner = false;
+      this.listLoading = false;
+    });
   }
 
   scrollDown() {
-
+    this.showListScrollSpinner = true;
+    this.offset += 30;
+    this.getRegistros(this.params);
   }
 
-  open(id?: any) {
-    this.collapse.nativeElement.childNodes.forEach(node => {
-      if (node.id === id) {
-        if (node.lastChild.classList.contains('collapse-none')) {
-          this.render.removeClass(node.lastChild, 'collapse-none');
-          this.render.addClass(node.childNodes[0].lastChild, 'collapse-none');
-        }
+  getStatusSearch() {
+    this.searchEmpty = true;
+  }
+
+  setFilterParams(params) {
+    this.params.termo = '';
+    this.params.termo = params.busca;
+    this.searchEmpty = params.busca === '' || params.busca === null;
+  }
+
+  search(params) {
+    this.offset = 0;
+    this.setFilterParams(params);
+    if (params) {
+      this.offset += 30;
+      if (params.busca != '') {
+        this.getRegistros(this.params);
+        this.searchEmpty = false;
+        this.listLoading = true;
       }
-    });
+    }
   }
 
-  close(id: any) {
-    this.collapse.nativeElement.childNodes.forEach(node => {
-      if (node.id === id) {
-        if (node.lastChild.classList.contains('collapse-content')) {
-          this.render.addClass(node.lastChild, 'collapse-none');
-          this.render.removeClass(node.childNodes[0].lastChild, 'collapse-none');
-        }
-      }
-    });
-  }
 }
