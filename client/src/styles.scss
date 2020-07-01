@@ -23,17 +23,21 @@
 app-root {
   width: 100%;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-body, app-main {
+body {
   height: 100vh;
   background-color: $white;
 }
 
-setor-list, apache-form, grupo-list, nas-form, prontuario {
-  position: relative;
-  height: 100%;
-  width: 100%;
+.main-container{
+  > :not(:nth-child(odd)) {
+    position: relative;
+    height: 100%;
+    width: 100%;
+  }
 }
 
 aria-card {
@@ -46,16 +50,6 @@ app-filter {
   display: flex;;
 }
 
-nas-question {
-  width: 100%;
-  height: 100%;
-}
-
-nas-form {
-  position: absolute;
-  height: 100%;
-}
-
 multiple-select {
   height: calc(100% - 25px);
 }
@@ -65,22 +59,8 @@ nas-group {
   width: 50%;
 }
 
-paciente-info {
-  position: relative;
-}
-
-paciente-list, usuario-list, risco-list,
-tipo-incidente-list {
-  width: 100%;
-}
-
 paciente-card {
   display: none;
-}
-
-app-main {
-  display: flex;
-  flex-direction: column;
 }
 
 #background-modal {
@@ -146,10 +126,6 @@ status-card {
   @media (min-width: 1080px) {
     display: none;
   }
-}
-
-.menu-hidden {
-  margin-left: 10px !important;
 }
 
 .container {
@@ -578,7 +554,7 @@ status-card {
 }
 
 .d-none {
-  display: none;
+  display: none !important;
 }
 
 .form-group-float {

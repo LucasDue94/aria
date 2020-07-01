@@ -1,3 +1,16 @@
-<router-outlet></router-outlet>
+<app-header [class.d-none]="!isLogged"></app-header>
+<section id="body-app" class="flex-row">
+  <app-menu></app-menu>
+  <section class="flex-column">
+    <nav [class.d-none]="!isLogged" class="aria-nav">
+      <fa-icon class="icon-back" (click)="goRoute()" [icon]="faArrowLeft"></fa-icon>
+      <h1 class="module-name">{{moduleName}}</h1>
+    </nav>
+    <main class="main-container" [class.notLogged]="!isLogged" >
+      <router-outlet></router-outlet>
+      <spinner></spinner>
+    </main>
+  </section>
+</section>
 <app-alert [alert]="alert"></app-alert>
 <div id="background-modal"></div>

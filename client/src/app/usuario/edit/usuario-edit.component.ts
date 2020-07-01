@@ -13,7 +13,7 @@ import {GrupoService} from "../../core/grupo/grupo.service";
 import {Grupo} from "../../core/grupo/grupo";
 
 @Component({
-  selector: 'app-edit',
+  selector: 'usuario-edit',
   templateUrl: './usuario-edit.component.html',
   styleUrls: ['./usuario-edit.component.scss']
 })

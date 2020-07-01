@@ -12,6 +12,7 @@ import {ChartModule, HIGHCHARTS_MODULES} from "angular-highcharts";
 import {SpinnerModule} from "../components/spinner/spinner.module";
 import * as more from "highcharts/highcharts-more.src";
 import * as exporting from "highcharts/modules/exporting.src";
+import {IncidenteRoutingModule} from "./incidente-routing.module";
 
 
 
@@ -30,7 +31,8 @@ import * as exporting from "highcharts/modules/exporting.src";
     InfiniteScrollModule,
     SpinnerModule,
     FormsModule,
-    ChartModule
+    ChartModule,
+    IncidenteRoutingModule
   ],
   exports: [
     IncidentePacienteListComponent

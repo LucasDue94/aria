@@ -1,5 +1,5 @@
 import {Component, EventEmitter, HostListener, Input, OnInit, Output, Renderer2, ViewChild} from '@angular/core';
-import {ModalService} from "../../core/modal/modal.service";
+import {ModalService} from '../../core/modal/modal.service';
 import {faTimes} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -12,25 +12,25 @@ export class ModalComponent implements OnInit {
   @Input() message: string;
   @Input() footer: string;
   @Input() theme: string; // info, danger, warning
-  @Input() size: string; //small, medium, larger
+  @Input() size: string; // small, medium, larger
   @Output() clickedElement = new EventEmitter();
   @ViewChild('modalContainer', {static: false}) modalContainer;
   @ViewChild('header', {static: false}) header;
-  faTimes = faTimes
-  private status: boolean;
-  private width: string;
-  private height: string;
+  faTimes = faTimes;
+  status: boolean;
+  width: string;
+  height: string;
 
   constructor(private modalService: ModalService, private render: Renderer2) {
   }
 
   ngOnInit() {
     this.modalService.listen().subscribe(status => {
-      this.status = status
+      this.status = status;
       this.handleModal(this.status);
       this.setSize();
       this.setTheme();
-    })
+    });
   }
 
   setTheme() {
@@ -81,7 +81,7 @@ export class ModalComponent implements OnInit {
     const root = document.getElementsByTagName('app-root');
     const backgroundModal = document.getElementById('background-modal');
     const mainBody = document.getElementById('body-app');
-    this.render[call](parent, 'modal-open')
+    this.render[call](parent, 'modal-open');
     this.render[call](backgroundModal, 'active-background-modal');
     this.render[call](mainBody, 'blur');
     this.render.appendChild(root[0], this.modalContainer.nativeElement);
@@ -91,13 +91,13 @@ export class ModalComponent implements OnInit {
     this.clickedElement.emit(event.target);
     const backgroundModal = document.getElementById('background-modal');
     if (event.target == backgroundModal) {
-      this.status = false
+      this.status = false;
       this.handleModal(false);
     }
   }
 
   @HostListener('window:keyup', ['$event']) keyEvent(event: KeyboardEvent) {
-    if (event.key == "Escape") {
+    if (event.key === 'Escape') {
       this.close();
     }
   }
