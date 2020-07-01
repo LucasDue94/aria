@@ -18,18 +18,18 @@ class EvolucaoController {
     static responseFormats = ['json', 'xml']
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    @Secured('EVOLUCAO_INDEX')
+    @Secured('ROLE_EVOLUCAO_INDEX')
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond evolucaoService.list(params), model:[evolucaoCount: evolucaoService.count()]
     }
 
-    @Secured('EVOLUCAO_SHOW')
+    @Secured('ROLE_EVOLUCAO_SHOW')
     def show(Long id) {
         respond evolucaoService.get(id)
     }
 
-    @Secured('EVOLUCAO_SAVE')
+    @Secured('ROLE_EVOLUCAO_SAVE')
     @Transactional
     def save(Evolucao evolucao) {
         if (evolucao == null) {
@@ -52,7 +52,7 @@ class EvolucaoController {
         respond evolucao, [status: CREATED, view:"show"]
     }
 
-    @Secured('EVOLUCAO_UPDATE')
+    @Secured('ROLE_EVOLUCAO_UPDATE')
     @Transactional
     def update(Evolucao evolucao) {
         if (evolucao == null) {
@@ -75,7 +75,7 @@ class EvolucaoController {
         respond evolucao, [status: OK, view:"show"]
     }
 
-    @Secured('EVOLUCAO_DELETE')
+    @Secured('ROLE_EVOLUCAO_DELETE')
     @Transactional
     def delete(Long id) {
         if (id == null) {

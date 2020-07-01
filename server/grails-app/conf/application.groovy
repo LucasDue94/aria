@@ -55,4 +55,4 @@ grails.plugin.springsecurity.filterChain.chainMap = [
 
 // Added by the Audit-Logging plugin:
 grails.plugin.auditLog.auditDomainClassName = 'br.com.hospitaldocoracaoal.aria.AuditTrail'
-
+grails.plugin.auditLog.verbose = true

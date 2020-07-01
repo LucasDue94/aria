@@ -1,6 +1,8 @@
 package br.com.hospitaldocoracaoal.aria
 
 import grails.compiler.GrailsCompileStatic
+import grails.plugins.orm.auditable.Auditable
+import grails.plugins.orm.auditable.Stampable
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
