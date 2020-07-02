@@ -55,4 +55,7 @@ grails.plugin.springsecurity.filterChain.chainMap = [
 
 // Added by the Audit-Logging plugin:
 grails.plugin.auditLog.auditDomainClassName = 'br.com.hospitaldocoracaoal.aria.AuditTrail'
+// When enabled (default), per-property logging is enabled for all operations.
 grails.plugin.auditLog.verbose = true
+// You can log the object-ids of associated objects. Logging will be performed in the format: "[id:<objId>]objDetails"
+grails.plugin.auditLog.logIds = true
