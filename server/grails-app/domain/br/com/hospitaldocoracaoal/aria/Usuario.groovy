@@ -34,4 +34,4 @@ class Usuario implements Serializable, Auditable {
         email nullable: true
         crm nullable: true
     }
-''}
+}
