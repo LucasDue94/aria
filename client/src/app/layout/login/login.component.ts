@@ -89,12 +89,22 @@ export class LoginComponent implements OnInit {
       this.authService.authentication(this.authUser).subscribe(res => {
           this.currentUser = res;
           if (res.hasOwnProperty('access_token')) {
-            localStorage.setItem('id', res['id']);
-            localStorage.setItem('username', res['username']);
-            localStorage.setItem('nome', res['nome']);
-            localStorage.setItem('roles', res['roles']);
-            localStorage.setItem('grupo', res['grupo']);
-            localStorage.setItem('token', res['access_token']);
+            let aria = {
+              id: null,
+              username: null,
+              nome: null,
+              roles: null,
+              grupo: null,
+              token: null
+            };
+            aria.id =       res['id'];
+            aria.username = res['username'];
+            aria.nome =     res['nome'];
+            aria.roles =    res['roles'];
+            aria.grupo =    res['grupo'];
+            aria.token =    res['access_token'];
+
+            localStorage.setItem('aria', JSON.stringify(aria));
           }
           this.router.navigate(['painel-leitos']);
         },
