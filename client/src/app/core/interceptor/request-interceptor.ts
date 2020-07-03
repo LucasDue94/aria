@@ -25,7 +25,7 @@ export class RequestInterceptor implements HttpInterceptor {
         headers: new HttpHeaders({
           "Cache-Control": "no-cache",
           "Content-Type": "application/json",
-          "X-Auth-Token": JSON.parse(localStorage.getItem('aria')).token
+          "X-Auth-Token": (JSON.parse(localStorage.getItem('aria')) || {}).token
         })
       })
     }

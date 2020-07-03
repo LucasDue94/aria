@@ -55,12 +55,11 @@ export class AuthService {
   }
 
   hasPermission(value) {
-    if (JSON.parse(localStorage.getItem('aria')).roles == null)
-      return false;
-
-    return JSON.parse(localStorage.getItem('aria')).roles.includes(value) || JSON.parse(localStorage.getItem('aria')).roles.includes('ROLE_ADMIN');
+    const aria = JSON.parse(localStorage.getItem('aria')) || {}
+    if (aria.roles == null)  return false;
+    return aria.roles.includes(value) || aria.roles.includes('ROLE_ADMIN');
   }
 
-  isLogged = () => JSON.parse(localStorage.getItem('aria')).token != null
+  isLogged = () => (JSON.parse(localStorage.getItem('aria')) || {}).token != null
 
 }
