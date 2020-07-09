@@ -86,7 +86,8 @@ abstract class RegistroLeitoService {
             where l.unidade = '0001'
                 and l.tipo <> 'VIRTUAL'
                 $query
-            order by rl.dataEntrada desc"""
+            order by rl.dataEntrada desc
+            """
 
         RegistroLeito.findAll(hql, queryParams, args)
     }

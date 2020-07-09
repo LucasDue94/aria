@@ -7,6 +7,7 @@ import {Ecg} from '../ecg/ecg';
 import {Balao} from '../balao/balao';
 import {Nas} from '../nas/nas';
 import {Convenio} from '../convenio/convenio';
+import {RegistroLeito} from "../registroLeito/registroLeito";
 
 
 export class Atendimento {
@@ -21,6 +22,7 @@ export class Atendimento {
   balao: Balao;
   paciente: Paciente;
   incidentes?: Incidente[] = new Array<Incidente>();
+  ultimoRegistroLeito: RegistroLeito;
   ultimoNas: Nas;
   convenio: Convenio;
 

@@ -2,10 +2,12 @@ import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core
 import {SetorService} from "../../core/setor/setor.service";
 import {PacienteService} from "../../core/paciente/paciente.service";
 import {Setor} from "../../core/setor/setor";
-import {TitleService} from "../core/title/title.service";
+import {TitleService} from "../../core/title/title.service";
 import {RegistroLeitoService} from "../../core/registroLeito/registro-leito.service";
-import {RegistroLeito} from "../core/registroLeito/registroLeito";
 import {FilterService} from "../../core/filter/filter.service";
+import {RegistroLeito} from "../../core/registroLeito/registroLeito";
+import {AtendimentoService} from "../../core/atendimento/atendimento.service";
+import {Atendimento} from "../../core/atendimento/atendimento";
 
 @Component({
   selector: 'paciente-list',
@@ -17,24 +19,27 @@ export class PacienteListComponent implements OnInit {
 
 
   @ViewChild('collapse', {static: false}) collapse: ElementRef;
-  offset = 0;
-  max = 30;
+  setorId;
   params = {
     termo: '',
-    inicio: '',
-    fim: '',
     setorId: '',
-    offset: this.offset,
-    max: this.max
+    dataEntradaInicio: '',
+    dataEntradaFim: '',
+    tipoAtendimento: '',
+    offset: 0,
+    max: 100,
+    internos: true
   };
   searchEmpty = true;
   listLoading = true;
+  isVisibleCollapse;
   showListScrollSpinner = false;
   setores: Setor[] = [];
-  registroLeitos: RegistroLeito[] = [];
+  atendimentos: Atendimento[] = [];
 
   constructor(private titleService: TitleService, private setorService: SetorService,
               private pacienteService: PacienteService, private render: Renderer2,
+              private atendimentoService: AtendimentoService,
               private registroLeitoService: RegistroLeitoService, private filterService: FilterService) {
     this.search = this.search.bind(this);
   }
@@ -48,15 +53,16 @@ export class PacienteListComponent implements OnInit {
   }
 
   getRegistros(paramsCollapse?) {
+    this.setorId = paramsCollapse;
     if (paramsCollapse.collapseId) {
+      this.listLoading = true;
+      this.params.internos = true;
       this.params.setorId = paramsCollapse.collapseId;
-      this.params.termo = '';
     } else {
       this.searchEmpty = true;
     }
-    this.listLoading = true;
-    this.registroLeitoService.list(this.params).subscribe(registro => {
-      this.registroLeitos = registro;
+    this.atendimentoService.list(this.params).subscribe(registro => {
+      this.atendimentos = registro;
       this.showListScrollSpinner = false;
       this.listLoading = false;
     });
@@ -64,11 +70,11 @@ export class PacienteListComponent implements OnInit {
 
   scrollDown() {
     this.showListScrollSpinner = true;
-    this.offset += 30;
+    this.params.offset += 15;
     this.getRegistros(this.params);
   }
 
-  getStatusSearch() {
+  setStatusSearch() {
     this.searchEmpty = true;
   }
 
@@ -79,10 +85,12 @@ export class PacienteListComponent implements OnInit {
   }
 
   search(params) {
-    this.offset = 0;
+    this.params.offset = 0;
     this.setFilterParams(params);
     if (params) {
-      this.offset += 30;
+      this.params.offset += 15;
+      this.params.setorId = '';
+      this.params.internos = false;
       if (params.busca != '') {
         this.getRegistros(this.params);
         this.searchEmpty = false;

@@ -2,8 +2,9 @@
   <div class="collapse" *ngFor="let item of items">
     <div class="collapse-header" (click)="toggle(item.id)">
       {{item[prop]}}
-      <fa-icon class="btn-open" [icon]="faMin"></fa-icon>
-      <fa-icon class="btn-open" [icon]="faPlus"></fa-icon>
+      <fa-icon class="btn-open" [class.d-none]="collapse.visible && item.id || item.id === collapse.collapseId" [icon]="faPlus"></fa-icon>
+      <fa-icon class="btn-open" [icon]="faMin" *ngIf="collapse.visible && item.id === collapse.collapseId"></fa-icon>
+      <fa-icon class="btn-open" [icon]="faPlus" *ngIf="!collapse.visible && item.id === collapse.collapseId"></fa-icon>
     </div>
     <section id="{{item.id}}" class="collapse-content" *ngIf="collapse.visible && item.id === collapse.collapseId">
       <ng-content></ng-content>

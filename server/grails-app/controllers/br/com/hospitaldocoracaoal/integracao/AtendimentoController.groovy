@@ -14,11 +14,11 @@ class AtendimentoController {
 
     @Secured('ROLE_ATENDIMENTO_INDEX')
     def index(Integer max, String termo, String setorId, String dataEntradaInicio,
-              String dataEntradaFim, Character tipoRegistro) {
+              String dataEntradaFim, Character tipoAtendimento, Boolean internos) {
         params.max = Math.min(max ?: 30, 100)
         try {
             respond atendimentoService.list(params, termo, setorId, dataEntradaInicio,
-                    dataEntradaFim, tipoRegistro), model: [atendimentoCount: atendimentoService.count()]
+                    dataEntradaFim, tipoAtendimento, internos), model: [atendimentoCount: atendimentoService.count()]
         } catch (IllegalArgumentException e) {
             render([error: e.message] as JSON)
         }

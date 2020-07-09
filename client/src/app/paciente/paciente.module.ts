@@ -10,6 +10,7 @@ import {PacienteInfoComponent} from "./info/paciente-info.component";
 import {ProntuarioShowComponent} from "./prontuario/show/prontuario-show.component";
 import {CardModule} from "../components/card/card.module";
 import {ModalModule} from "../components/modal/modal.module";
+import {CollapseModule} from "../components/collapse/collapse.module";
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import {ModalModule} from "../components/modal/modal.module";
     FontAwesomeModule,
     PacienteRoutingModule,
     CardModule,
-    ModalModule
+    ModalModule,
+    CollapseModule
   ],
   exports: [
     PacienteListComponent,

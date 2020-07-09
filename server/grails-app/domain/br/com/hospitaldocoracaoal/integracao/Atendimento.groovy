@@ -51,7 +51,7 @@ class Atendimento {
     static transients = ['ultimoRegistroLeito', 'ultimoNas']
 
     RegistroLeito getUltimoRegistroLeito() {
-        registroLeitos.sort { r1, r2 -> r1.dataEntrada <=> r2.dataEntrada }.last()
+        registroLeitos.any() ? registroLeitos.sort { r1, r2 -> r1.dataEntrada <=> r2.dataEntrada }.last() : null
     }
 
     Nas getUltimoNas() {
