@@ -6,7 +6,7 @@ model {
 }
 
 json g.render(registroLeito, [excludes: ['atendimento', 'leito'], expand: ['nas'], resolveTemplate: false]) {
-    leito g.render(registroLeito.leito, [excludes: ['registroLeitos'], resolveTemplate: false])
+    leito g.render(registroLeito.leito, [expand: ['setor'], excludes: ['registroLeitos'], resolveTemplate: false])
     apache g.render(Apache.findByRegistroLeito(registroLeito), [excludes: ['registroLeito'], resolveTemplate: false])
     dataAlta registroLeito.dataAlta
 }

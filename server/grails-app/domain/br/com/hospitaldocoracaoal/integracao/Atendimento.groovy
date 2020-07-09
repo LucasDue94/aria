@@ -48,10 +48,14 @@ class Atendimento {
         version  false
     }
 
-    static transients = ['ultimoRegistroLeito', 'ultimoNas']
+    static transients = ['ultimoRegistroLeito', 'ultimoNas', 'ultimo', 'sortedRegistroLeitos']
 
     RegistroLeito getUltimoRegistroLeito() {
         registroLeitos.sort { r1, r2 -> r1.dataEntrada <=> r2.dataEntrada }.last()
+    }
+
+    List<RegistroLeito> getSortedRegistroLeitos() {
+        registroLeitos.any() ? registroLeitos.sort { r1, r2 -> r1.dataEntrada <=> r2.dataEntrada } : []
     }
 
     Nas getUltimoNas() {
@@ -62,5 +66,9 @@ class Atendimento {
         }
 
         return ultimoNas
+    }
+
+    boolean isUltimo() {
+        this == paciente.ultimoAtendimento
     }
 }
