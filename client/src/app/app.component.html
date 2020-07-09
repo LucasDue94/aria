@@ -1,6 +1,6 @@
 <app-header [class.d-none]="!isLogged"></app-header>
+<app-menu></app-menu>
 <section id="body-app" class="flex-row">
-  <app-menu></app-menu>
   <section class="flex-column">
     <nav [class.d-none]="!isLogged" class="aria-nav">
       <fa-icon class="icon-back" (click)="goRoute()" [icon]="faArrowLeft"></fa-icon>

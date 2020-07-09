@@ -18,7 +18,7 @@ export class HeaderComponent {
   }
 
   logout() {
-    this.authService.logout(localStorage.getItem('token'));
+    this.authService.logout((JSON.parse(localStorage.getItem('aria')) || {}).token);
   }
 
   changeStatusMenu() {

@@ -44,6 +44,7 @@ $animation-time: 300ms;
   position: fixed;
   z-index: 100;
   //margin-top: 70px;
+  top: 0;
   height: calc(100% - 10px);
   transition: width, transform;
   transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94),cubic-bezier(0.25, 0.46, 0.45, 0.94);

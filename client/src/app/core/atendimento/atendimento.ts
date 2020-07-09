@@ -22,7 +22,7 @@ export class Atendimento {
   balao: Balao;
   paciente: Paciente;
   incidentes?: Incidente[] = new Array<Incidente>();
-  ultimoRegistroLeito: RegistroLeito;
+  registroLeitos?: RegistroLeito[] = new Array<RegistroLeito>();
   ultimoNas: Nas;
   convenio: Convenio;
 
@@ -35,6 +35,13 @@ export class Atendimento {
         delete object['incidentes'];
       }
 
+      if (object.hasOwnProperty('registroLeitos')) {
+        this.registroLeitos = object['registroLeitos'].map((obj: any) => {
+          return new RegistroLeito(obj);
+        });
+        delete object['registroLeitos'];
+      }
+
       for (var prop in object) {
         this[prop] = object[prop];
       }
@@ -43,6 +50,10 @@ export class Atendimento {
 
   toString(): string {
     return 'br.com.hospitaldocoracaoal.integracao.Atendimento : ' + (this.id ? this.id : '(unsaved)');
+  }
+
+  getUltimoRegistroLeito() {
+    return this.registroLeitos.length > 0 ? this.registroLeitos[this.registroLeitos.length - 1] : null;
   }
 }
 

@@ -12,10 +12,10 @@
       </section>
       <section class="tbody content-paciente" [scrollWindow]="false" infinite-scroll
                (scrolled)="scrollDown()">
-        <div class="row" *ngFor="let atendimento of atendimentos ">
+        <div class="row" *ngFor="let atendimento of atendimentos" (click)="showProntuario(registroLeito.atendimento.paciente.id)">
           <span class="td flex-3">{{atendimento.paciente.nome}}</span>
           <span class="td flex-2">{{atendimento.paciente.nascimento | date: "dd/MM/yyyy" }}</span>
-          <span class="td flex-3">{{atendimento?.ultimoRegistroLeito?.leito?.descricao}}</span>
+          <span class="td flex-3">{{atendimento?.getUltimoRegistroLeito()?.leito?.descricao}}</span>
           <span class="td flex-1">{{atendimento.convenio.fantasia}}</span>
         </div>
         <div class="empty" *ngIf="atendimentos?.length == 0">
@@ -34,7 +34,7 @@
       <span class="th flex-1">Convenio</span>
     </section>
     <section class="tbody content-paciente" [scrollWindow]="false" infinite-scroll (scrolled)="scrollDown()">
-      <div class="row" *ngFor="let atendimento of atendimentos">
+      <div class="row" *ngFor="let atendimento of atendimentos" (click)="showProntuario(registroLeito.atendimento.paciente.id)">
         <span class="td flex-3">{{atendimento.paciente.nome}}</span>
         <span class="td flex-2">{{atendimento.paciente.nascimento | date: "dd/MM/yyyy" }}</span>
         <span class="td flex-2">{{atendimento.dataEntrada | date: "dd/MM/yyyy" }}</span>

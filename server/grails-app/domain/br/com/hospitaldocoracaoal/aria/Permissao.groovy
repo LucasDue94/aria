@@ -111,12 +111,12 @@ class Permissao implements Serializable {
             findOrSaveWhere(authority: 'ROLE_ESTRATIFICACAO_REPORT', nome: 'Relatório estratificação de risco', alias: 'estratificação risco')
 
             // -- EVOLUCAO --
-            findOrSaveWhere(authority: 'EVOLUCAO_INDEX', nome: 'Listar evoluções', alias: 'evolução')
-            findOrSaveWhere(authority: 'EVOLUCAO_SHOW', nome: 'Ver evolução', alias: 'evolução')
-            findOrSaveWhere(authority: 'EVOLUCAO_SAVE', nome: 'Salvar evolução', alias: 'evolução')
-            findOrSaveWhere(authority: 'EVOLUCAO_UPDATE', nome: 'Atualizar evolução', alias: 'evolução')
-            findOrSaveWhere(authority: 'EVOLUCAO_DELETE', nome: 'Excluir evolução', alias: 'evolução')
-            findOrSaveWhere(authority: 'EVOLUCAO_REPORT', nome: 'Relatório evolução', alias: 'evolução')
+            findOrSaveWhere(authority: 'ROLE_EVOLUCAO_INDEX', nome: 'Listar evoluções', alias: 'evolução')
+            findOrSaveWhere(authority: 'ROLE_EVOLUCAO_SHOW', nome: 'Ver evolução', alias: 'evolução')
+            findOrSaveWhere(authority: 'ROLE_EVOLUCAO_SAVE', nome: 'Salvar evolução', alias: 'evolução')
+            findOrSaveWhere(authority: 'ROLE_EVOLUCAO_UPDATE', nome: 'Atualizar evolução', alias: 'evolução')
+            findOrSaveWhere(authority: 'ROLE_EVOLUCAO_DELETE', nome: 'Excluir evolução', alias: 'evolução')
+            findOrSaveWhere(authority: 'ROLE_EVOLUCAO_REPORT', nome: 'Relatório evolução', alias: 'evolução')
 
             status.flush()
         }

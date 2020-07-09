@@ -1,13 +1,14 @@
 package br.com.hospitaldocoracaoal.aria
 
 import grails.compiler.GrailsCompileStatic
+import grails.plugins.orm.auditable.Auditable
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
 @GrailsCompileStatic
 @EqualsAndHashCode(includes='username')
 @ToString(includes='username', includeNames=true, includePackage=false)
-class Usuario implements Serializable {
+class Usuario implements Serializable, Auditable {
 
     private static final long serialVersionUID = 1
 
@@ -32,6 +33,4 @@ class Usuario implements Serializable {
         email nullable: true
         crm nullable: true
     }
-
-
 }

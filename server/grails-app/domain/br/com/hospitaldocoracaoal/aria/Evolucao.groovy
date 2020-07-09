@@ -10,7 +10,7 @@ class Evolucao implements Auditable, Stampable {
     Date data
     String texto
     Cid cid
-    static belongsTo = [Atendimento]
+    Atendimento atendimento
 
     static constraints = {
         medico nullable: false, blank: false, validator: { val ->

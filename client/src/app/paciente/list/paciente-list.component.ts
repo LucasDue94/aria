@@ -5,9 +5,9 @@ import {Setor} from "../../core/setor/setor";
 import {TitleService} from "../../core/title/title.service";
 import {RegistroLeitoService} from "../../core/registroLeito/registro-leito.service";
 import {FilterService} from "../../core/filter/filter.service";
-import {RegistroLeito} from "../../core/registroLeito/registroLeito";
 import {AtendimentoService} from "../../core/atendimento/atendimento.service";
 import {Atendimento} from "../../core/atendimento/atendimento";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'paciente-list',
@@ -40,7 +40,7 @@ export class PacienteListComponent implements OnInit {
   constructor(private titleService: TitleService, private setorService: SetorService,
               private pacienteService: PacienteService, private render: Renderer2,
               private atendimentoService: AtendimentoService,
-              private registroLeitoService: RegistroLeitoService, private filterService: FilterService) {
+              private router: Router, private filterService: FilterService) {
     this.search = this.search.bind(this);
   }
 
@@ -98,5 +98,10 @@ export class PacienteListComponent implements OnInit {
       }
     }
   }
+
+  showProntuario(id) {
+    this.router.navigate(['/paciente/show/', id]);
+  }
+
 
 }

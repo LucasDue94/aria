@@ -45,21 +45,21 @@ export class AuthService {
 
     return this.http.post(url, {}, {headers: header.auth, responseType: 'json'}).subscribe(
       resp => {
-        localStorage.clear();
+        localStorage.setItem('aria', '{}');
         this.router.navigate(['/']);
       },
       err => {
-        if (err.status == '404') localStorage.clear();
+        if (err.status == '404') localStorage.setItem('aria', '{}');
       }
     )
   }
 
   hasPermission(value) {
-    if (localStorage.getItem('roles') == null)
-      return false;
-
-    return localStorage.getItem('roles').includes(value) || localStorage.getItem('roles').includes('ROLE_ADMIN');
+    const aria = JSON.parse(localStorage.getItem('aria')) || {}
+    if (aria.roles == null)  return false;
+    return aria.roles.includes(value) || aria.roles.includes('ROLE_ADMIN');
   }
 
-  isLogged = () => localStorage.getItem('token') != null
+  isLogged = () => (JSON.parse(localStorage.getItem('aria')) || {}).token != null
+
 }

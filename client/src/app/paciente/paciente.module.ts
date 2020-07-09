@@ -20,17 +20,17 @@ import {CollapseModule} from "../components/collapse/collapse.module";
     ProntuarioShowComponent,
 
   ],
-  imports: [
-    CommonModule,
-    FilterModule,
-    InfiniteScrollModule,
-    SpinnerModule,
-    FontAwesomeModule,
-    PacienteRoutingModule,
-    CardModule,
-    ModalModule,
-    CollapseModule
-  ],
+    imports: [
+        CommonModule,
+        FilterModule,
+        InfiniteScrollModule,
+        SpinnerModule,
+        FontAwesomeModule,
+        PacienteRoutingModule,
+        CardModule,
+        ModalModule,
+        CollapseModule
+    ],
   exports: [
     PacienteListComponent,
     PacienteInfoComponent,

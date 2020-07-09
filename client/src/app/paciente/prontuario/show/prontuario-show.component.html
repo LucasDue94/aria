@@ -1,30 +1,30 @@
 <main #prontuario class="prontuario-container">
   <article class="resume">
     <aria-card id="paciente-card-info">
-      <h2 class="nome">{{paciente.nome}}</h2>
-      <section *ngIf="paciente?.prontuario" class="item-info">
+      <h2 class="nome">{{paciente?.nome}}</h2>
+      <section *ngIf="paciente?.id" class="item-info">
         <h3 class="label">Prontuário</h3>
-        <h4 class="info">{{paciente.prontuario}}</h4>
+        <h4 class="info">{{paciente.id}}</h4>
       </section>
-      <section *ngIf="paciente?.sexo" class="item-info">
+      <section *ngIf="paciente?.stringSexo()" class="item-info">
         <h3 class="label">Sexo</h3>
-        <h4 class="info">{{paciente.sexo}}</h4>
+        <h4 class="info">{{paciente.stringSexo()}}</h4>
       </section>
       <section *ngIf="paciente?.status == 'internado'" class="item-info">
         <h3 class="label">Registro</h3>
-        <h4 class="info">{{paciente.registro}}</h4>
+        <h4 class="info">{{paciente.getConvenio()}}</h4>
       </section>
       <section *ngIf="paciente?.nascimento" class="item-info">
         <h3 class="label">Idade</h3>
-        <h4 class="info">{{paciente.nascimento}}</h4>
+        <h4 class="info">{{paciente?.nascimento | date:'dd/MM/yyyy'}} ({{getIdade(paciente?.nascimento)}} anos) </h4>
       </section>
-      <section *ngIf="paciente?.convenio" class="item-info">
+      <section *ngIf="paciente?.atendimentos.length > 0" class="item-info">
         <h3 class="label">Convênio</h3>
-        <h4 class="info">{{paciente.convenio}}</h4>
+        <h4 class="info">{{paciente?.getConvenio()}}</h4>
       </section>
-      <section *ngIf="paciente?.mae" class="item-info mae">
+      <section *ngIf="paciente?.nomeMae" class="item-info mae">
         <h3 class="label">Mãe</h3>
-        <h4 class="info">{{paciente.mae}}</h4>
+        <h4 class="info">{{paciente.nomeMae}}</h4>
       </section>
       <footer class="footer">
         <article [ngClass]="paciente?.status" class="content-footer">
@@ -32,13 +32,13 @@
             <h3 class="label">Status</h3>
             <h4 class="info">{{paciente.status}}</h4>
           </section>
-          <section *ngIf="paciente?.setor" class="item-info">
+          <section *ngIf="paciente?.getSetor() != ''" class="item-info">
             <h3 class="label">Setor</h3>
-            <h4 class="info">{{paciente.setor}}</h4>
+            <h4 class="info">{{paciente?.getSetor().descricao}}</h4>
           </section>
-          <section *ngIf="paciente?.leito" class="item-info">
+          <section *ngIf="paciente?.getLeito()" class="item-info">
             <h3 class="label">Leito</h3>
-            <h4 class="info">{{paciente.leito}}</h4>
+            <h4 class="info">{{paciente.getLeito().id}}</h4>
           </section>
         </article>
       </footer>
