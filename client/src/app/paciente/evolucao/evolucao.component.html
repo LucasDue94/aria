@@ -1,0 +1,69 @@
+<main #evolucao class="evolucao-container">
+  <article class="resume">
+    <aria-card id="paciente-card-info">
+      <h2 class="nome">{{paciente?.nome}}</h2>
+      <section *ngIf="paciente?.id" class="item-info">
+        <h3 class="label">Prontuário</h3>
+        <h4 class="info">{{paciente.id}}</h4>
+      </section>
+      <section *ngIf="paciente?.stringSexo()" class="item-info">
+        <h3 class="label">Sexo</h3>
+        <h4 class="info">{{paciente.stringSexo()}}</h4>
+      </section>
+      <section *ngIf="paciente?.status == 'internado'" class="item-info">
+        <h3 class="label">Registro</h3>
+        <h4 class="info">{{paciente.getConvenio()}}</h4>
+      </section>
+      <section *ngIf="paciente?.nascimento" class="item-info">
+        <h3 class="label">Idade</h3>
+        <h4 class="info">{{paciente?.nascimento | date:'dd/MM/yyyy'}} ({{getIdade(paciente?.nascimento)}} anos) </h4>
+      </section>
+      <section *ngIf="paciente?.atendimentos.length > 0" class="item-info">
+        <h3 class="label">Convênio</h3>
+        <h4 class="info">{{paciente?.getConvenio()}}</h4>
+      </section>
+      <section *ngIf="paciente?.nomeMae" class="item-info mae">
+        <h3 class="label">Mãe</h3>
+        <h4 class="info">{{paciente.nomeMae}}</h4>
+      </section>
+      <footer class="footer">
+        <article [ngClass]="paciente?.status" class="content-footer">
+          <section *ngIf="paciente?.status" class="item-info">
+            <h3 class="label">Status</h3>
+            <h4 class="info">{{paciente.status}}</h4>
+          </section>
+          <section *ngIf="paciente?.getSetor() != ''" class="item-info">
+            <h3 class="label">Setor</h3>
+            <h4 class="info">{{paciente?.getSetor().descricao}}</h4>
+          </section>
+          <section *ngIf="paciente?.getLeito()" class="item-info">
+            <h3 class="label">Leito</h3>
+            <h4 class="info">{{paciente.getLeito().id}}</h4>
+          </section>
+        </article>
+      </footer>
+    </aria-card>
+    <article class="paciente-forms">
+      <aria-card>
+        <section class="evolucao-card" (click)="openModal()">
+          <h2 class="card-title">Evoluções</h2>
+          <p>{{ cutText(evolucao.conteudo, 150) }}</p>
+          <footer class="evolucao-footer">
+            <div>{{ evolucao.data}}</div>
+            <div>{{ evolucao.crm + ' - '}}</div>
+          </footer>
+        </section>
+      </aria-card>
+    </article>
+  </article>
+  <article class="charts">
+    <aria-card [height]="'100%'">
+      <h2>charts e afins</h2>
+    </aria-card>
+  </article>
+  <aria-modal [title]="'Título do Modal'" [message]="'aqui vai o body'" [size]="'medium'">
+    <section footer>
+      <button class="button button-blue">click</button>
+    </section>
+  </aria-modal>
+</main>

@@ -1,18 +1,20 @@
-import {Component, OnInit} from '@angular/core';
-import {ModalService} from "../../../core/modal/modal.service";
-import {PacienteService} from "../../../core/paciente/paciente.service";
-import {ActivatedRoute, Route, Router} from "@angular/router";
-import {SpinnerService} from "../../../core/spinner/spinner.service";
-import {ErrorService} from "../../../core/error/error.service";
+import { Component, OnInit } from '@angular/core';
+import {Paciente} from "../../core/paciente/paciente";
+import {ModalService} from "../../core/modal/modal.service";
+import {PacienteService} from "../../core/paciente/paciente.service";
 import {Location} from "@angular/common";
-import {Paciente} from "../../../core/paciente/paciente";
+import {ActivatedRoute, Router} from "@angular/router";
+import {SpinnerService} from "../../core/spinner/spinner.service";
+import {ErrorService} from "../../core/error/error.service";
+import {TitleService} from "../../core/title/title.service";
 
 @Component({
-  selector: 'prontuario',
-  templateUrl: './prontuario-show.component.html',
-  styleUrls: ['./prontuario-show.component.scss']
+  selector: 'app-evolucao',
+  templateUrl: './evolucao.component.html',
+  styleUrls: ['./evolucao.component.scss']
 })
-export class ProntuarioShowComponent implements OnInit{
+export class EvolucaoComponent implements OnInit {
+
   paciente: Paciente;
 
   evolucao = {
@@ -24,17 +26,19 @@ export class ProntuarioShowComponent implements OnInit{
   }
 
   constructor(private modalService: ModalService, private pacienteService: PacienteService,
-              private location: Location, private route: ActivatedRoute,
+              private location: Location, private route: ActivatedRoute, private titleService: TitleService,
               private router: Router, private spinner: SpinnerService, private errorService: ErrorService) {
   }
   ngOnInit(): void {
     const pacienteId = this.route.snapshot.params['id'];
+    this.titleService.send('Evolução');
     if (pacienteId != undefined) {
       this.spinner.show();
       this.pacienteService.get(pacienteId).subscribe(res => {
         this.spinner.hide();
         if (!res.hasOwnProperty('error')) {
           this.paciente = res;
+          this.titleService.send('Evolução - ' + this.paciente.nome);
         } else {
           this.errorService.sendError(res);
           this.location.back();
@@ -43,18 +47,16 @@ export class ProntuarioShowComponent implements OnInit{
     }
   }
 
-  cutText = (text, width) => text.length > 120 ? text.slice(0, width) + '...' : text;
-
   openModal() {
-    this.router.navigate(['/paciente/evolucao/', this.paciente.id]);
   }
 
-  click(){
-    alert('foon')
+  cutText(text, max) {
+
   }
 
   getIdade(nasc) {
     let nascimento = new Date(nasc);
     return Math.floor(Math.ceil(Math.abs(nascimento.getTime() - (new Date()).getTime()) / (1000 * 3600 * 24)) / 365.25);
   }
+
 }

@@ -4,6 +4,7 @@ import {RouterModule, Routes} from "@angular/router";
 import {AuthGuard} from "../core/guards/auth.guard";
 import {ProntuarioShowComponent} from "./prontuario/show/prontuario-show.component";
 import {PacienteListComponent} from "./list/paciente-list.component";
+import {EvolucaoComponent} from "./evolucao/evolucao.component";
 
 const pacienteRouting: Routes = [{
   path: 'paciente',
@@ -19,6 +20,10 @@ const pacienteRouting: Routes = [{
   }, {
     path: 'show/:id',
     component: ProntuarioShowComponent,
+    canActivate: [AuthGuard],
+  }, {
+    path: 'evolucao/:id',
+    component: EvolucaoComponent,
     canActivate: [AuthGuard],
   }]
 }]
