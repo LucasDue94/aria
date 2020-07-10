@@ -25,6 +25,7 @@ export class Atendimento {
   registroLeitos?: RegistroLeito[] = new Array<RegistroLeito>();
   ultimoNas: Nas;
   convenio: Convenio;
+  ultimoRegistroLeito: RegistroLeito;
 
   constructor(object?: any) {
     if (object) {

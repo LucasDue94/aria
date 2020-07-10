@@ -3,7 +3,6 @@ import {SetorService} from "../../core/setor/setor.service";
 import {PacienteService} from "../../core/paciente/paciente.service";
 import {Setor} from "../../core/setor/setor";
 import {TitleService} from "../../core/title/title.service";
-import {RegistroLeitoService} from "../../core/registroLeito/registro-leito.service";
 import {FilterService} from "../../core/filter/filter.service";
 import {AtendimentoService} from "../../core/atendimento/atendimento.service";
 import {Atendimento} from "../../core/atendimento/atendimento";
@@ -61,6 +60,11 @@ export class PacienteListComponent implements OnInit {
     } else {
       this.searchEmpty = true;
     }
+
+    if (this.params.setorId != '') {
+      this.params.termo = '';
+    }
+
     this.atendimentoService.list(this.params).subscribe(registro => {
       this.atendimentos = registro;
       this.showListScrollSpinner = false;
