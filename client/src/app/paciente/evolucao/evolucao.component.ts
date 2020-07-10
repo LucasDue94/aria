@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {Paciente} from "../../core/paciente/paciente";
+import {ModalService} from "../../core/modal/modal.service";
+import {PacienteService} from "../../core/paciente/paciente.service";
+import {Location} from "@angular/common";
+import {ActivatedRoute, Router} from "@angular/router";
+import {SpinnerService} from "../../core/spinner/spinner.service";
+import {ErrorService} from "../../core/error/error.service";
+import {TitleService} from "../../core/title/title.service";
 
 @Component({
   selector: 'app-evolucao',
@@ -18,11 +25,27 @@ export class EvolucaoComponent implements OnInit {
     data: '01/07/2019 10:13:44'
   }
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(private modalService: ModalService, private pacienteService: PacienteService,
+              private location: Location, private route: ActivatedRoute, private titleService: TitleService,
+              private router: Router, private spinner: SpinnerService, private errorService: ErrorService) {
   }
-
+  ngOnInit(): void {
+    const pacienteId = this.route.snapshot.params['id'];
+    this.titleService.send('Evolução');
+    if (pacienteId != undefined) {
+      this.spinner.show();
+      this.pacienteService.get(pacienteId).subscribe(res => {
+        this.spinner.hide();
+        if (!res.hasOwnProperty('error')) {
+          this.paciente = res;
+          this.titleService.send('Evolução - ' + this.paciente.nome);
+        } else {
+          this.errorService.sendError(res);
+          this.location.back();
+        }
+      });
+    }
+  }
 
   openModal() {
   }
