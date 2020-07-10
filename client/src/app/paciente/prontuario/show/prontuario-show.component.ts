@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ModalService} from "../../../core/modal/modal.service";
 import {PacienteService} from "../../../core/paciente/paciente.service";
-import {ActivatedRoute, Route} from "@angular/router";
+import {ActivatedRoute, Route, Router} from "@angular/router";
 import {SpinnerService} from "../../../core/spinner/spinner.service";
 import {ErrorService} from "../../../core/error/error.service";
 import {Location} from "@angular/common";
@@ -25,7 +25,7 @@ export class ProntuarioShowComponent implements OnInit{
 
   constructor(private modalService: ModalService, private pacienteService: PacienteService,
               private location: Location, private route: ActivatedRoute,
-              private spinner: SpinnerService, private errorService: ErrorService) {
+              private router: Router, private spinner: SpinnerService, private errorService: ErrorService) {
   }
   ngOnInit(): void {
     const pacienteId = this.route.snapshot.params['id'];
@@ -46,7 +46,7 @@ export class ProntuarioShowComponent implements OnInit{
   cutText = (text, width) => text.length > 120 ? text.slice(0, width) + '...' : text;
 
   openModal() {
-    this.modalService.open();
+    this.router.navigate(['/paciente/evolucao/', this.paciente.id]);
   }
 
   click(){
