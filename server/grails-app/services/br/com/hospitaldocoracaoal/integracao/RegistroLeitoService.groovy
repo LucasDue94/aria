@@ -69,14 +69,13 @@ abstract class RegistroLeitoService {
                                 inner join rl2.leito l2
                                 inner join l2.setor s2
                             where a2.id = a.id
-                              and s2.id <> s.id
                               and rl2.dataEntrada > rl.dataEntrada)"""
 
             if (!internos) query.append ')'
             query.append '\n'
         }
 
-        if (query.length() > 0) query.insert(0, 'where ')
+        if (query.length() > 0) query.insert(0, ' and ')
 
         String hql = """select rl
             from RegistroLeito rl
@@ -84,8 +83,11 @@ abstract class RegistroLeitoService {
                 inner join a.paciente p
                 inner join rl.leito l
                 inner join l.setor s
+            where l.unidade = '0001'
+                and l.tipo <> 'VIRTUAL'
                 $query
-                order by rl.dataEntrada desc"""
+            order by rl.dataEntrada desc
+            """
 
         RegistroLeito.findAll(hql, queryParams, args)
     }

@@ -4,8 +4,16 @@ model {
 	Leito leito
 }
 
+
+json g.render(leito, [expand: ['setor', 'atendimento'], resolveTemplate: false]) {
+	status leito.status
+}
+
+
+/*
 json g.render(leito, [expand: ['setor'], excludes: ['atendimento'], resolveTemplate: false]) {
 	status leito.status
 //	atendimento g.render(leito.atendimento, [expand: ['convenio', 'paciente'], resolveTemplate: false])
 	atendimento tmpl.'/leito/atendimento'(leito.atendimento)
 }
+*/

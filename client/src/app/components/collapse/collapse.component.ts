@@ -9,6 +9,7 @@ import {faMinus, faPlus} from "@fortawesome/free-solid-svg-icons";
 export class CollapseComponent implements OnInit {
 
   @Input() items;
+  @Input() isVisible = false;
   @Input() prop;
   @Output() open = new EventEmitter();
   @Output() close = new EventEmitter();

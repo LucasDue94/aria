@@ -557,6 +557,10 @@ status-card {
   display: none !important;
 }
 
+.active {
+  display: initial !important;
+}
+
 .form-group-float {
   display: flex;
   flex-direction: column;

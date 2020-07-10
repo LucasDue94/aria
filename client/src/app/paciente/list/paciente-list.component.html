@@ -1,25 +1,25 @@
 <main class="container">
   <app-filter [hasDateInterval]="false" [hasSelect]="false" [bindLabel]="'sigla'"
-              (statusSearch)="getStatusSearch()"></app-filter>
-  <app-collapse *ngIf="searchEmpty" [items]="setores" [prop]="'descricao'" (open)="getRegistros($event)">
+              (statusSearch)="setStatusSearch()"></app-filter>
+  <app-collapse *ngIf="searchEmpty" [items]="setores" [prop]="'descricao'" [isVisible]="isVisibleCollapse" (open)="getRegistros($event)">
     <div class="table table-list">
       <spinner [loading]="listLoading"></spinner>
       <section class="thead">
         <span class="th flex-3">Paciente</span>
-        <span class="th flex-1">Nascimento</span>
+        <span class="th flex-2">Idade</span>
         <span class="th flex-3">Leito</span>
         <span class="th flex-1">Convenio</span>
       </section>
       <section class="tbody content-paciente" [scrollWindow]="false" infinite-scroll
                (scrolled)="scrollDown()">
-        <div class="row" *ngFor="let registroLeito of registroLeitos" (click)="showProntuario(registroLeito.atendimento.paciente.id)">
-          <span class="td flex-3">{{registroLeito.atendimento.paciente.nome}}</span>
-          <span class="td flex-1">{{registroLeito.atendimento.paciente.nascimento | date: "dd/MM/yyyy" }}</span>
-          <span class="td flex-3">{{registroLeito.leito.descricao}}</span>
-          <span class="td flex-1">{{registroLeito.atendimento.convenio.fantasia}}</span>
-        </div>
-        <div class="empty" *ngIf="registroLeitos?.length == 0">
+        <div class="empty" *ngIf="atendimentos?.length == 0">
           <p>Não existe paciente internado no setor!</p>
+        </div>
+        <div class="row" *ngFor="let atendimento of atendimentos" (click)="showProntuario(atendimento.paciente.id)">
+          <span class="td flex-3">{{atendimento.paciente.nome}}</span>
+          <span class="td flex-2">{{atendimento.paciente.nascimento | date: "dd/MM/yyyy" }}</span>
+          <span class="td flex-3">{{atendimento?.ultimoRegistroLeito?.leito?.descricao}}</span>
+          <span class="td flex-1">{{atendimento.convenio.fantasia}}</span>
         </div>
       </section>
       <app-scroll-spinner [show]="showListScrollSpinner"></app-scroll-spinner>
@@ -29,18 +29,20 @@
     <spinner [loading]="listLoading"></spinner>
     <section class="thead">
       <span class="th flex-3">Paciente</span>
-      <span class="th flex-1">Nascimento</span>
-      <span class="th flex-3">Leito</span>
+      <span class="th flex-2">Idade</span>
+      <span class="th flex-2">Data Entrada</span>
+      <span class="th flex-2">Setor</span>
       <span class="th flex-1">Convenio</span>
     </section>
     <section class="tbody content-paciente" [scrollWindow]="false" infinite-scroll (scrolled)="scrollDown()">
-      <div class="row" *ngFor="let registroLeito of registroLeitos" (click)="showProntuario(registroLeito.atendimento.paciente.id)">
-        <span class="td flex-3">{{registroLeito.atendimento.paciente.nome}}</span>
-        <span class="td flex-1">{{registroLeito.atendimento.paciente.nascimento | date: "dd/MM/yyyy" }}</span>
-        <span class="td flex-3">{{registroLeito.leito.descricao}}</span>
-        <span class="td flex-1">{{registroLeito.atendimento.convenio.fantasia}}</span>
+      <div class="row" *ngFor="let atendimento of atendimentos" (click)="showProntuario(atendimento.paciente.id)">
+        <span class="td flex-3">{{atendimento.paciente.nome}}</span>
+        <span class="td flex-2">{{atendimento.paciente.nascimento | date: "dd/MM/yyyy" }}</span>
+        <span class="td flex-2">{{atendimento.dataEntrada | date: "dd/MM/yyyy" }}</span>
+        <span class="td flex-2">{{atendimento.setor.descricao}}</span>
+        <span class="td flex-1">{{atendimento.convenio.fantasia}}</span>
       </div>
-      <div class="empty" *ngIf="registroLeitos?.length == 0">
+      <div class="empty" *ngIf="atendimentos?.length == 0">
         <p>Não existe paciente internado no setor!</p>
       </div>
     </section>

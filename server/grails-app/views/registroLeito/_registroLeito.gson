@@ -8,5 +8,4 @@ json g.render(registroLeito, [expand: ['atendimento', 'atendimento.paciente', 'a
 	dataAlta registroLeito.dataAlta
 	leito g.render(registroLeito.leito, [expand: ['setor'], resolveTemplate: false])
 	apache g.render(Apache.findByRegistroLeito(registroLeito), [excludes: ['registroLeito'], resolveTemplate: false])
-	dataAlta registroLeito.dataAlta
 }
