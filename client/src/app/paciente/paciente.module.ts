@@ -11,6 +11,7 @@ import {ProntuarioShowComponent} from "./prontuario/show/prontuario-show.compone
 import {CardModule} from "../components/card/card.module";
 import {ModalModule} from "../components/modal/modal.module";
 import {CollapseModule} from "../components/collapse/collapse.module";
+import { EvolucaoComponent } from './evolucao/evolucao.component';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import {CollapseModule} from "../components/collapse/collapse.module";
     PacienteListComponent,
     PacienteInfoComponent,
     ProntuarioShowComponent,
+    EvolucaoComponent,
 
   ],
     imports: [
