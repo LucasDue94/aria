@@ -1,0 +1,7 @@
+import br.com.hospitaldocoracaoal.integracao.Cid
+
+model {
+	Cid cid
+}
+
+json tmpl.cid(cid)

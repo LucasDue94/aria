@@ -45,7 +45,7 @@
     </aria-card>
     <article class="paciente-forms">
       <aria-card>
-        <section class="evolucao-card" (click)="openModal()">
+        <section class="evolucao-card">
           <h2 class="card-title">Evoluções</h2>
           <p>{{ cutText(evolucao.conteudo, 150) }}</p>
           <footer class="evolucao-footer">
@@ -61,9 +61,9 @@
       <h2>charts e afins</h2>
     </aria-card>
   </article>
-  <aria-modal [title]="'Título do Modal'" [message]="'aqui vai o body'" [size]="'medium'">
-    <section footer>
-      <button class="button button-blue">click</button>
-    </section>
+  <aria-modal [title]="'Evolução de Admissão'" [size]="'medium'">
+    <div body>
+      <aria-diagnostico></aria-diagnostico>
+    </div>
   </aria-modal>
 </main>

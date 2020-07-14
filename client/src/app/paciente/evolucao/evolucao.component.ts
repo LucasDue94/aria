@@ -7,6 +7,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {SpinnerService} from "../../core/spinner/spinner.service";
 import {ErrorService} from "../../core/error/error.service";
 import {TitleService} from "../../core/title/title.service";
+import {faSearch} from "@fortawesome/free-solid-svg-icons";
+import {CidService} from "../../core/cid/cid.service";
 
 @Component({
   selector: 'app-evolucao',
@@ -16,20 +18,25 @@ import {TitleService} from "../../core/title/title.service";
 export class EvolucaoComponent implements OnInit {
 
   paciente: Paciente;
-
+  faSearch = faSearch;
   evolucao = {
     conteudo: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).\n' +
       '\n',
     medico: 'Patrícia Caldas de Oliveira',
     crm: '5320',
     data: '01/07/2019 10:13:44'
-  }
+  };
 
   constructor(private modalService: ModalService, private pacienteService: PacienteService,
               private location: Location, private route: ActivatedRoute, private titleService: TitleService,
-              private router: Router, private spinner: SpinnerService, private errorService: ErrorService) {
+              private router: Router, private spinner: SpinnerService, private errorService: ErrorService,
+              private cidService: CidService) {
   }
+
   ngOnInit(): void {
+    setTimeout(() => {
+      this.modalService.open();
+    }, 300);
     const pacienteId = this.route.snapshot.params['id'];
     this.titleService.send('Evolução');
     if (pacienteId != undefined) {
@@ -47,8 +54,6 @@ export class EvolucaoComponent implements OnInit {
     }
   }
 
-  openModal() {
-  }
 
   cutText(text, max) {
 

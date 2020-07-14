@@ -38,6 +38,7 @@ import {RelatoriosModule} from './relatorios/relatorios.module';
 import {PacienteModule} from './paciente/paciente.module';
 import { CollapseComponent } from './components/collapse/collapse.component';
 import {CollapseModule} from './components/collapse/collapse.module';
+import { DiagnosticoModule } from './diagnostico/diagnostico.module';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import {CollapseModule} from './components/collapse/collapse.module';
     SelectModule,
     TipoIncidenteModule,
     UsuarioModule,
-  ],
+    DiagnosticoModule
+],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy},
     AuthGuard, DatePipe],
