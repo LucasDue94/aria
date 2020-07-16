@@ -32,7 +32,7 @@ body {
   background-color: $white;
 }
 
-.main-container{
+.main-container {
   > :not(:nth-child(odd)) {
     position: relative;
     height: 100%;
@@ -256,9 +256,33 @@ status-card {
   }
 }
 
+.button-cancel {
+  color: $white;
+  background: $gray-80;
+  transition: 0.3s;
+
+  &:hover {
+    cursor: pointer;
+    transition: 0.3s;
+    background: $gray-100;
+  }
+}
+
+.button-next {
+  color: $white;
+  background: #42a5f5;
+  transition: 0.3s;
+
+  &:hover {
+    cursor: pointer;
+    transition: 0.3s;
+    background: #3484c5;
+  }
+}
+
 .button-add {
   position: fixed;
-  bottom: 30px;
+  bottom: 80px;
   right: 30px;
   display: flex;
   align-items: center;
@@ -596,4 +620,51 @@ status-card {
     bottom: 0;
     position: absolute;
   }
+}
+
+.diagnostic {
+
+  .search-container {
+    width: 91.66%;
+    margin: 0 auto;
+  }
+
+  .table {
+    .tbody {
+      .row {
+        background-color: $gray-40;
+        border-bottom: 1px solid $gray-70;
+        border-radius: 0;
+        height: 30px;
+        box-shadow: none;
+        margin: 0;
+
+        .td {
+          text-align: left;
+        }
+
+        &:hover {
+          border-radius: 0;
+          transition: 0.3s;
+          cursor: pointer;
+          background-color: $gray-60;
+        }
+      }
+    }
+  }
+
+  .content-search {
+    width: 91.66%;
+    margin: 0 auto;
+    min-height: 250px;
+    max-height: 550px;
+
+    & {
+      overflow-y: scroll;
+      background: $gray-50;
+      border-radius: 0;
+      box-shadow: none
+    }
+  }
+
 }

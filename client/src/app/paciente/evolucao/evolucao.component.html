@@ -61,9 +61,17 @@
       <h2>charts e afins</h2>
     </aria-card>
   </article>
-  <aria-modal [title]="'Evolução de Admissão'" [size]="'medium'">
-    <div body>
-      <aria-diagnostico></aria-diagnostico>
-    </div>
+  <aria-modal [title]="'Admissão'" [size]="'medium'">
+    <section body>
+      <aria-diagnostico [currentStep]="currentStep" (diagnostic)="getDiagnostic($event)"></aria-diagnostico>
+    </section>
+    <section footer>
+      <form class="form-footer-group">
+        <button class="button button-cancel">Cancelar</button>
+        <button class="button button-next" *ngIf="currentStep > 0" (click)="previousStep()">Voltar</button>
+        <button class="button button-next" *ngIf="currentStep === 0" (click)="nextStep()">Próximo</button>
+        <button class="button button-blue" (click)="save()">Salvar</button>
+      </form>
+    </section>
   </aria-modal>
 </main>

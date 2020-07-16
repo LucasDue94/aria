@@ -1,22 +1,23 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormControl, FormGroup} from "@angular/forms";
-import {debounceTime, switchMap} from "rxjs/operators";
-import {ErrorService} from "../../core/error/error.service";
-import {faFrown, faSearch} from "@fortawesome/free-solid-svg-icons";
+import {Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation} from '@angular/core';
+import {FormControl, FormGroup} from '@angular/forms';
+import {debounceTime, switchMap} from 'rxjs/operators';
+import {ErrorService} from '../../core/error/error.service';
+import {faFrown, faSearch} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'fast-search',
   templateUrl: './fast-search.component.html',
-  styleUrls: ['./fast-search.component.scss']
+  styleUrls: ['./fast-search.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class FastSearchComponent implements OnInit {
   faFrown = faFrown;
   faSearch = faSearch;
   @Input() service;
   /* Instância do service,passada pelo elemento pai cujo a busca será realizada  */
-  @Input() fields: String[] = [];
+  @Input() fields: string[] = [];
   /* Campos que serão mostrados da busca*/
-  @Input() widthField: String[] = [];
+  @Input() widthField: string[] = [];
   /* Tamanho de cada campo que será apresentado
   * ex: fields = ['Nome','CPF'] -- widthField=['2','1']
   * Neste exemplo o campo nome, ocupará 2x mais espaço que o CPF
@@ -27,6 +28,7 @@ export class FastSearchComponent implements OnInit {
   /* Tamanho do container que será apresentado os itens da busca. */
   @Output() getData: EventEmitter<any> = new EventEmitter();
   /*Evento emitido retornando o json com elemento clicado */
+  @Output() visible: EventEmitter<boolean> = new EventEmitter<boolean>();
   searchForm: FormGroup;
   searchControl: FormControl;
   dataArray;
@@ -34,7 +36,8 @@ export class FastSearchComponent implements OnInit {
   offset = 0;
   spinner = false;
 
-  constructor(private errorService: ErrorService) {}
+  constructor(private errorService: ErrorService) {
+  }
 
   ngOnInit() {
     this.loading();
@@ -45,14 +48,17 @@ export class FastSearchComponent implements OnInit {
     });
 
     this.service.list(this.max, this.offset).subscribe(res => {
-      if (this.errorService.hasError(res)) this.errorService.sendError(res);
+      if (this.errorService.hasError(res)) {
+        this.errorService.sendError(res);
+      }
       this.dataArray = res;
-        this.loaded();
-      });
-    this.search()
-  }
+      this.loaded();
+    });
 
+    this.search();
+  }
   emitData(data) {
+    this.visible.emit(false);
     this.getData.emit(data);
     this.dataArray = null;
   }
@@ -63,11 +69,15 @@ export class FastSearchComponent implements OnInit {
       switchMap(changes => {
         this.loading();
         this.offset = 0;
-        if (this.dataArray != undefined) this.dataArray.length = 0;
-        return this.service.list(changes, this.offset)
+        if (this.dataArray !== undefined) {
+          this.dataArray.length = 0;
+        }
+        return this.service.list(changes, this.offset);
       })
     ).subscribe(res => {
-      if (this.errorService.hasError(res)) this.errorService.sendError(res);
+      if (this.errorService.hasError(res)) {
+        this.errorService.sendError(res);
+      }
       this.dataArray = res;
       this.loaded();
     });
@@ -77,7 +87,10 @@ export class FastSearchComponent implements OnInit {
     this.loading();
     this.offset += 25;
     this.service.list(this.searchControl.value, this.offset, this.max).subscribe(data => {
-      if (this.errorService.hasError(data)) this.errorService.sendError(data);
+      if (this.errorService.hasError(data)) {
+        this.errorService.sendError(data);
+      }
+
       data.forEach(d => this.dataArray.push(d));
       this.loaded();
     });
