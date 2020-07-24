@@ -25,6 +25,7 @@ export class DiagnosticoListComponent implements OnInit {
   cids;
   faPlus = faPlus;
   cidList: Cid[] = [];
+  cds = new Set<Cid>();
   listAtendimentoCid: AtendimentoCid[] = [];
   cidsSelected: Cid[] = [];
   atendimento: Atendimento;
@@ -63,6 +64,7 @@ export class DiagnosticoListComponent implements OnInit {
 
   setCid(diagnostic: Cid) {
     let isEqualCid;
+    this.currentStep = 1;
     if (this.cidsSelected.length === 0) {
       this.cidsSelected.push(diagnostic);
     } else {
@@ -88,9 +90,9 @@ export class DiagnosticoListComponent implements OnInit {
   removeCid(diagnostic: Cid) {
     this.cidsSelected = this.cidsSelected.filter(c => c.id !== diagnostic.id);
     if (this.cidsSelected.length === 0) {
+      this.currentStep = 0;
       this.searchVisibility = true;
     }
-
     this.listAtendimentoCid = this.listAtendimentoCid.filter(atendimentoCid => atendimentoCid.cid !== diagnostic);
     this.diagnostic.emit(this.listAtendimentoCid);
   }
@@ -140,16 +142,24 @@ export class DiagnosticoListComponent implements OnInit {
   }
 
   setShowListCid() {
+    this.currentStep = 0;
     this.searchVisibility = true;
   }
 
   builderDiagnostic() {
-    this.form.get('atendimento').setValue(this.atendimento.id);
+    this.atendimentoId = this.atendimento.id;
+    this.form.get('atendimento').setValue(this.atendimentoId);
     this.registroAtendimento.emit(this.atendimentoId);
     this.form.valueChanges.subscribe(plan => {
       const planTherapeutic = [];
       planTherapeutic.push(plan);
-      this.planTherapeutic.emit(planTherapeutic);
+      if (this.form.valid) {
+        this.planTherapeutic.emit(planTherapeutic);
+      }
     });
+  }
+
+  get f() {
+    return this.form.controls;
   }
 }

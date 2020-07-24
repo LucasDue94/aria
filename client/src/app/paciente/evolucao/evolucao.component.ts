@@ -73,6 +73,7 @@ export class EvolucaoComponent implements OnInit {
 
   nextStep() {
     let existStatus;
+    this.currentStep = 1;
     this.diagnostic.forEach(diagnostic => {
       if (Object.is(diagnostic.status, '')) {
         this.alertService.send({message: 'Selecione um status!', type: 'warning', icon: faExclamationCircle});
@@ -81,7 +82,6 @@ export class EvolucaoComponent implements OnInit {
         existStatus = true;
       }
     });
-
     if (existStatus) {
       this.currentStep += 1;
     }
@@ -107,6 +107,10 @@ export class EvolucaoComponent implements OnInit {
     this.atendimento.id = attendanceRegister;
     this.atendimento.atendimentoCid = diagnostic;
     this.atendimento.planosTerapeutico = plan;
+  }
+
+  cancel() {
+    this.modalService.close();
   }
 
   save() {
