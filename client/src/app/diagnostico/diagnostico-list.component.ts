@@ -50,8 +50,8 @@ export class DiagnosticoListComponent implements OnInit {
   }
 
   ngOnInit() {
-    const pacienteId = this.route.snapshot.params.id;
     this.cids = this.cidService;
+    const pacienteId = this.route.snapshot.params.id;
     this.cidService.list().subscribe((cidList: Cid[]) => {
       this.cidList = cidList;
     });
@@ -121,7 +121,7 @@ export class DiagnosticoListComponent implements OnInit {
       if (btn.className !== tagertElementText.className && atendimentoCid.cid.id === btn.id) {
         const listBtnStatus = btn.childNodes.item(1).childNodes;
         listBtnStatus.forEach(span => {
-          if (span.classList !== undefined && span.classList.value !== '') {
+          if (!Object.is(span.classList, undefined) && !Object.is(span.classList, '')) {
             if (span.textContent !== targetElement) {
               this.render.addClass(span, 'disable-status');
             } else {
@@ -135,7 +135,7 @@ export class DiagnosticoListComponent implements OnInit {
     });
   }
 
-  getVisibility(fastSearchVisibility) {
+  getVisibilityFastSearch(fastSearchVisibility) {
     this.searchVisibility = fastSearchVisibility;
   }
 
@@ -144,8 +144,7 @@ export class DiagnosticoListComponent implements OnInit {
   }
 
   builderDiagnostic() {
-    this.atendimentoId = this.atendimento.id;
-    this.form.get('atendimento').setValue(this.atendimentoId);
+    this.form.get('atendimento').setValue(this.atendimento.id);
     this.registroAtendimento.emit(this.atendimentoId);
     this.form.valueChanges.subscribe(plan => {
       const planTherapeutic = [];

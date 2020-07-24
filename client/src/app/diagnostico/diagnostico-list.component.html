@@ -4,7 +4,7 @@
     - Essa é a primeira evolução desse registro. É importante que você informe o diagnóstico.
     <hr>
   </div>
-  <fast-search *ngIf="searchVisibility" (getData)="setCid($event)" (visible)="getVisibility($event)" [service]="cids"
+  <fast-search *ngIf="searchVisibility" (getData)="setCid($event)" (visible)="getVisibilityFastSearch($event)" [service]="cids"
                [fields]="['id', 'diagnostico']" [widthField]="['1', '11']"
                [height]="'150px'">
   </fast-search>

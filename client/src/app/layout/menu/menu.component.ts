@@ -1,4 +1,4 @@
-import {AfterViewChecked, Component, ElementRef, HostListener, OnInit, Renderer2, ViewChild} from '@angular/core';
+import {Component, ElementRef, HostListener, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {
   faBed,
   faDiagnoses,
@@ -19,7 +19,7 @@ import {faCommentMedical} from '@fortawesome/free-solid-svg-icons/faCommentMedic
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss']
 })
-export class MenuComponent implements OnInit, AfterViewChecked {
+export class MenuComponent implements OnInit {
 
   @ViewChild('menuContainer', {static: false}) menuContainer;
   @ViewChild('sidenavOverlay', {static: false}) sidenavOverlay;
@@ -90,11 +90,8 @@ export class MenuComponent implements OnInit, AfterViewChecked {
   ngOnInit() {
     this.menuService.getStatus().subscribe(status => {
       this.toggle();
+      this.createMenu();
     });
-  }
-
-  ngAfterViewChecked(): void {
-    this.createMenu();
   }
 
   toggle() {
