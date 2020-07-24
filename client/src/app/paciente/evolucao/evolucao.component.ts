@@ -76,7 +76,7 @@ export class EvolucaoComponent implements OnInit {
       if (diagnostic.status !== '') {
         this.currentStep += 1;
       } else {
-        this.alertService.send({message: 'Selecione um status!', type: 'warning', icon: faCheck});
+        this.alertService.send({message: 'Selecione um status!', type: 'warning', icon: faExclamationCircle});
       }
     });
   }
