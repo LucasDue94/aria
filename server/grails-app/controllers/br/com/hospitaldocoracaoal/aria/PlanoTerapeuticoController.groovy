@@ -1,5 +1,4 @@
-package br.com.hospitaldocoracaoal.integracao
-
+package br.com.hospitaldocoracaoal.aria
 
 import grails.gorm.transactions.ReadOnly
 import grails.gorm.transactions.Transactional
@@ -9,67 +8,67 @@ import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
 
 @ReadOnly
-class CidController {
+class PlanoTerapeuticoController {
 
-    CidService cidService
+    PlanoTerapeuticoService planoTerapeuticoService
 
     static responseFormats = ['json', 'xml']
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    @Secured('ROLE_CID_INDEX')
+    @Secured('ROLE_PLANO_TERAPEUTICO_INDEX')
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond cidService.list(params)
+        respond planoTerapeuticoService.list(params), model:[planoTerapeuticoCount: planoTerapeuticoService.count()]
     }
 
     def show(Long id) {
-        respond cidService.get(id)
+        respond planoTerapeuticoService.get(id)
     }
 
     @Transactional
-    @Secured('ROLE_CID_SAVE')
-    def save(Cid cid) {
-        if (cid == null) {
+    @Secured('ROLE_PLANO_TERAPEUTICO_SAVE')
+    def save(PlanoTerapeutico planoTerapeutico) {
+        if (planoTerapeutico == null) {
             render status: NOT_FOUND
             return
         }
-        if (cid.hasErrors()) {
+        if (planoTerapeutico.hasErrors()) {
             transactionStatus.setRollbackOnly()
-            respond cid.errors
+            respond planoTerapeutico.errors
             return
         }
 
         try {
-            cidService.save(cid)
+            planoTerapeuticoService.save(planoTerapeutico)
         } catch (ValidationException e) {
-            respond cid.errors
+            respond planoTerapeutico.errors
             return
         }
 
-        respond cid, [status: CREATED, view: "show"]
+        respond planoTerapeutico, [status: CREATED, view:"show"]
     }
 
     @Transactional
-    @Secured('ROLE_CID_UPDATE')
-    def update(Cid cid) {
-        if (cid == null) {
+    @Secured('ROLE_PLANO_TERAPEUTICO_UPDATE')
+    def update(PlanoTerapeutico planoTerapeutico) {
+        if (planoTerapeutico == null) {
             render status: NOT_FOUND
             return
         }
-        if (cid.hasErrors()) {
+        if (planoTerapeutico.hasErrors()) {
             transactionStatus.setRollbackOnly()
-            respond cid.errors
+            respond planoTerapeutico.errors
             return
         }
 
         try {
-            cidService.save(cid)
+            planoTerapeuticoService.save(planoTerapeutico)
         } catch (ValidationException e) {
-            respond cid.errors
+            respond planoTerapeutico.errors
             return
         }
 
-        respond cid, [status: OK, view: "show"]
+        respond planoTerapeutico, [status: OK, view:"show"]
     }
 
     @Transactional
@@ -79,7 +78,7 @@ class CidController {
             return
         }
 
-        cidService.delete(id)
+        planoTerapeuticoService.delete(id)
 
         render status: NO_CONTENT
     }

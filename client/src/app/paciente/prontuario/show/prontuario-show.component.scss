@@ -124,8 +124,7 @@
       background-color: $gray-70;
     }
 
-    .btn-admissao {
-      background: #2D9DD1;
+    .btn-admissao, .btn-alta {
       color: #FFFFFF;
       border-radius: 7px;
       cursor: pointer;
@@ -136,9 +135,21 @@
       & {
         font-size: 18px;
       }
+    }
+
+    .btn-admissao {
+      background: #2D9DD1;
 
       &:hover {
         background-color: #2d70aa;
+      }
+    }
+
+    .btn-alta {
+      background: #009859;
+
+      &:hover {
+        background-color: #179c55;
       }
     }
   }

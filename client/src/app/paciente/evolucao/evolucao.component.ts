@@ -7,8 +7,12 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {SpinnerService} from '../../core/spinner/spinner.service';
 import {ErrorService} from '../../core/error/error.service';
 import {TitleService} from '../../core/title/title.service';
-import {faSearch} from '@fortawesome/free-solid-svg-icons';
-import {CidService} from '../../core/cid/cid.service';
+import {faCheck, faExclamationCircle, faSearch} from '@fortawesome/free-solid-svg-icons';
+import {Atendimento} from '../../core/atendimento/atendimento';
+import {AtendimentoService} from '../../core/atendimento/atendimento.service';
+import {Planoterapeutico} from '../../core/planoTerapeutico/planoterapeutico';
+import {AtendimentoCid} from '../../core/atendimento/atendimentoCid';
+import {AlertService} from '../../core/alert/alert.service';
 
 @Component({
   selector: 'app-evolucao',
@@ -19,7 +23,11 @@ export class EvolucaoComponent implements OnInit {
 
   currentStep = 0;
   paciente: Paciente;
-  diagnostic;
+  registroAtendimento;
+  pacienteId;
+  atendimento = new Atendimento();
+  planTherapeutic = new Planoterapeutico({});
+  diagnostic = new AtendimentoCid({});
   faSearch = faSearch;
   evolucao = {
     conteudo: 'It is a long established fact that a reader will be distng \'Content here, content helike).\n' +
@@ -29,21 +37,20 @@ export class EvolucaoComponent implements OnInit {
     data: '01/07/2019 10:13:44'
   };
 
-  constructor(private modalService: ModalService, private pacienteService: PacienteService,
-              private location: Location, private route: ActivatedRoute, private titleService: TitleService,
-              private router: Router, private spinner: SpinnerService, private errorService: ErrorService,
-              private cidService: CidService) {
+  constructor(private modalService: ModalService, private pacienteService: PacienteService, private atendimentoService: AtendimentoService,
+              private location: Location, private route: ActivatedRoute, private titleService: TitleService, private alertService: AlertService,
+              private router: Router, private spinner: SpinnerService, private errorService: ErrorService) {
   }
 
   ngOnInit(): void {
     setTimeout(() => {
       this.modalService.open();
     }, 300);
-    const pacienteId = this.route.snapshot.params.id;
+    this.pacienteId = this.route.snapshot.params.id;
     this.titleService.send('Evolução');
-    if (pacienteId !== undefined) {
+    if (this.pacienteId !== undefined) {
       this.spinner.show();
-      this.pacienteService.get(pacienteId).subscribe(res => {
+      this.pacienteService.get(this.pacienteId).subscribe(res => {
         this.spinner.hide();
         if (!res.hasOwnProperty('error')) {
           this.paciente = res;
@@ -57,7 +64,6 @@ export class EvolucaoComponent implements OnInit {
   }
 
   cutText(text, max) {
-
   }
 
   getIdade(nasc) {
@@ -73,11 +79,39 @@ export class EvolucaoComponent implements OnInit {
     this.currentStep -= 1;
   }
 
+  getPlanTherapeutic(plan) {
+    this.planTherapeutic = plan;
+  }
+
   getDiagnostic(diagnostic) {
-    console.log(this.diagnostic = diagnostic);
+    this.diagnostic = diagnostic;
+  }
+
+  getAttendance(attendanceRegister) {
+    this.registroAtendimento = attendanceRegister;
+  }
+
+  buildAdmission(plan, diagnostic, attendanceRegister) {
+    this.atendimento.id = attendanceRegister;
+    this.atendimento.atendimentoCid = diagnostic;
+    this.atendimento.planosTerapeutico = plan;
   }
 
   save() {
-    console.log(this.diagnostic);
+    this.buildAdmission(this.planTherapeutic, this.diagnostic, this.registroAtendimento);
+    this.atendimentoService.save(this.atendimento).subscribe(atendimento => {
+      if (atendimento.hasOwnProperty('error')) {
+        this.alertService.send({
+          message: 'teste',
+          icon: faExclamationCircle,
+          type: 'Warning'
+        });
+      } else {
+        this.alertService.send({message: 'Admissão realizada com sucesso!', type: 'success', icon: faCheck});
+        setTimeout(() => {
+          this.modalService.close();
+        }, 300);
+      }
+    });
   }
 }

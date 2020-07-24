@@ -4,4 +4,4 @@ model {
 	Atendimento atendimento
 }
 
-json tmpl.registroAtendimento(atendimento)
+json tmpl.atendimento(atendimento)

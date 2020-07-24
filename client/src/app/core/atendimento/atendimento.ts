@@ -7,7 +7,9 @@ import {Ecg} from '../ecg/ecg';
 import {Balao} from '../balao/balao';
 import {Nas} from '../nas/nas';
 import {Convenio} from '../convenio/convenio';
-import {RegistroLeito} from "../registroLeito/registroLeito";
+import {RegistroLeito} from '../registroLeito/registroLeito';
+import {AtendimentoCid} from './atendimentoCid';
+import {Planoterapeutico} from '../planoTerapeutico/planoterapeutico';
 
 
 export class Atendimento {
@@ -15,6 +17,8 @@ export class Atendimento {
   dataEntrada: string;
   dataAlta: string;
   setor: Setor;
+  atendimentoCid: AtendimentoCid[] = new Array<AtendimentoCid>();
+  planosTerapeutico: Planoterapeutico[] = new Array<Planoterapeutico>();
   cid: Cid;
   motivoAlta: MotivoAlta;
   tipo: string;
@@ -27,23 +31,37 @@ export class Atendimento {
   convenio: Convenio;
   ultimoRegistroLeito: RegistroLeito;
 
-  constructor(object?: any) {
+  constructor(object?: Atendimento) {
     if (object) {
       if (object.hasOwnProperty('incidentes')) {
-        this.incidentes = object['incidentes'].map((obj: any) => {
+        this.incidentes = object.incidentes.map((obj: any) => {
           return new Incidente(obj);
         });
-        delete object['incidentes'];
+        delete object.incidentes;
+      }
+
+      if (object.hasOwnProperty('planosTerapeutico')) {
+        this.planosTerapeutico = object.planosTerapeutico.map((obj: any) => {
+          return new Planoterapeutico(obj);
+        });
+        delete object.planosTerapeutico;
+      }
+
+      if (object.hasOwnProperty('AtendimentoCid')) {
+        this.atendimentoCid = object['AtendimentoCid'].map((obj: any) => {
+          return new Planoterapeutico(obj);
+        });
+        delete object['AtendimentoCid'];
       }
 
       if (object.hasOwnProperty('registroLeitos')) {
-        this.registroLeitos = object['registroLeitos'].map((obj: any) => {
+        this.registroLeitos = object.registroLeitos.map((obj: any) => {
           return new RegistroLeito(obj);
         });
-        delete object['registroLeitos'];
+        delete object.registroLeitos;
       }
 
-      for (var prop in object) {
+      for (let prop in object) {
         this[prop] = object[prop];
       }
     }

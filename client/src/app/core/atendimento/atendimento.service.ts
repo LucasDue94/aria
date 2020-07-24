@@ -38,7 +38,7 @@ export class AtendimentoService {
 
   get(id: string): Observable<any> {
     let subject = new Subject<any>();
-    this.http.get<Atendimento>(this.baseUrl + 'atendimento?termo=' + id)
+    this.http.get<Atendimento>(this.baseUrl + `atendimento/${id}`)
       .pipe(
         catchError(error => of({error})
         )).subscribe((json: any) => {
@@ -63,13 +63,13 @@ export class AtendimentoService {
   }
 
 
-  save(registroAtendimento: Atendimento): Observable<Atendimento> {
-    if (registroAtendimento.id) {
-      return this.http.put<Atendimento>(this.baseUrl + `registroAtendimento/` + registroAtendimento.id, registroAtendimento, {
+  save(atendimento: Atendimento): Observable<Atendimento> {
+    if (atendimento.id) {
+      return this.http.put<Atendimento>(this.baseUrl + `atendimento/` + atendimento.id, atendimento, {
         responseType: 'json'
       });
     } else {
-      return this.http.post<Atendimento>(this.baseUrl + `registroAtendimento/`, registroAtendimento, {
+      return this.http.post<Atendimento>(this.baseUrl + `atendimento/`, atendimento, {
         responseType: 'json'
       });
     }

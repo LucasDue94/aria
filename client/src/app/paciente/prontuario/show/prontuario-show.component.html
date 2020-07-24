@@ -42,7 +42,8 @@
           </section>
         </article>
         <div>
-          <button class="btn-admissao" (click)="openModal()">Admissão</button>
+          <button *ngIf="notAdmission" class="btn-admissao" (click)="openModal()">Admissão</button>
+          <button *ngIf="!notAdmission" class="btn-alta" (click)="openModal()">Alta</button>
         </div>
       </footer>
     </aria-card>

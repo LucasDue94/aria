@@ -1,5 +1,4 @@
 import {Atendimento} from '../atendimento/atendimento';
-import {Setor} from "../setor/setor";
 
 export class Paciente {
   id: string;
@@ -28,26 +27,29 @@ export class Paciente {
 
   public stringSexo() {
     let sex = '';
-    if(this.sexo != null && this.sexo != '' && this.sexo.toLowerCase() == 'm') {
-      sex = 'Masculino'
-    } else if (this.sexo != null && this.sexo != '' && this.sexo.toLowerCase() == 'f') {
-      sex = 'Feminino'
+    if(this.sexo != null && this.sexo !== '' && this.sexo.toLowerCase() === 'm') {
+      sex = 'Masculino';
+    } else if (this.sexo !== null && this.sexo !== '' && this.sexo.toLowerCase() === 'f') {
+      sex = 'Feminino';
     }
     return sex;
   }
 
   getConvenio(): string {
-    return this.atendimentos.length > 0 ? (this.atendimentos[this.atendimentos.length - 1].convenio || {fantasia: ''}).fantasia : ''
+    return this.atendimentos.length > 0 ? (this.atendimentos[this.atendimentos.length - 1].convenio || {fantasia: ''}).fantasia : '';
   }
 
   getSetor() {
-    return this.atendimentos.length > 0 ? this.atendimentos[this.atendimentos.length - 1].getUltimoRegistroLeito().leito.setor : {}
+    return this.atendimentos.length > 0 ? this.atendimentos[this.atendimentos.length - 1].getUltimoRegistroLeito().leito.setor : {};
   }
 
   getLeito() {
-    return this.atendimentos.length > 0 ? this.atendimentos[this.atendimentos.length - 1].getUltimoRegistroLeito().leito : {}
+    return this.atendimentos.length > 0 ? this.atendimentos[this.atendimentos.length - 1].getUltimoRegistroLeito().leito : {};
   }
 
+  getUltimoRegistro() {
+    return this.atendimentos.length > 0 ? this.atendimentos[this.atendimentos.length - 1] : null;
+  }
 
   toString(): string {
     return 'br.com.hospitaldocoracaoal.integracao.Paciente : ' + (this.id ? this.id : '(unsaved)');
