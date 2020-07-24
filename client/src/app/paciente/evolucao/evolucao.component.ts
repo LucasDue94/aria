@@ -27,7 +27,7 @@ export class EvolucaoComponent implements OnInit {
   pacienteId;
   atendimento = new Atendimento();
   planTherapeutic = new Planoterapeutico({});
-  diagnostic = new AtendimentoCid({});
+  diagnostic: AtendimentoCid[] = [];
   faSearch = faSearch;
   evolucao = {
     conteudo: 'It is a long established fact that a reader will be distng \'Content here, content helike).\n' +
@@ -72,7 +72,13 @@ export class EvolucaoComponent implements OnInit {
   }
 
   nextStep() {
-    this.currentStep += 1;
+    this.diagnostic.forEach(diagnostic => {
+      if (diagnostic.status !== '') {
+        this.currentStep += 1;
+      } else {
+        this.alertService.send({message: 'Selecione um status!', type: 'warning', icon: faCheck});
+      }
+    });
   }
 
   previousStep() {
