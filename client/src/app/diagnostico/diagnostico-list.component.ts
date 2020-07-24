@@ -25,6 +25,7 @@ export class DiagnosticoListComponent implements OnInit {
   cids;
   faPlus = faPlus;
   cidList: Cid[] = [];
+  cds = new Set<Cid>();
   listAtendimentoCid: AtendimentoCid[] = [];
   cidsSelected: Cid[] = [];
   atendimento: Atendimento;
@@ -50,8 +51,8 @@ export class DiagnosticoListComponent implements OnInit {
   }
 
   ngOnInit() {
-    const pacienteId = this.route.snapshot.params.id;
     this.cids = this.cidService;
+    const pacienteId = this.route.snapshot.params.id;
     this.cidService.list().subscribe((cidList: Cid[]) => {
       this.cidList = cidList;
     });
@@ -63,6 +64,7 @@ export class DiagnosticoListComponent implements OnInit {
 
   setCid(diagnostic: Cid) {
     let isEqualCid;
+    this.currentStep = 1;
     if (this.cidsSelected.length === 0) {
       this.cidsSelected.push(diagnostic);
     } else {
@@ -88,9 +90,9 @@ export class DiagnosticoListComponent implements OnInit {
   removeCid(diagnostic: Cid) {
     this.cidsSelected = this.cidsSelected.filter(c => c.id !== diagnostic.id);
     if (this.cidsSelected.length === 0) {
+      this.currentStep = 0;
       this.searchVisibility = true;
     }
-
     this.listAtendimentoCid = this.listAtendimentoCid.filter(atendimentoCid => atendimentoCid.cid !== diagnostic);
     this.diagnostic.emit(this.listAtendimentoCid);
   }
@@ -121,7 +123,7 @@ export class DiagnosticoListComponent implements OnInit {
       if (btn.className !== tagertElementText.className && atendimentoCid.cid.id === btn.id) {
         const listBtnStatus = btn.childNodes.item(1).childNodes;
         listBtnStatus.forEach(span => {
-          if (span.classList !== undefined && span.classList.value !== '') {
+          if (!Object.is(span.classList, undefined) && !Object.is(span.classList, '')) {
             if (span.textContent !== targetElement) {
               this.render.addClass(span, 'disable-status');
             } else {
@@ -135,11 +137,12 @@ export class DiagnosticoListComponent implements OnInit {
     });
   }
 
-  getVisibility(fastSearchVisibility) {
+  getVisibilityFastSearch(fastSearchVisibility) {
     this.searchVisibility = fastSearchVisibility;
   }
 
   setShowListCid() {
+    this.currentStep = 0;
     this.searchVisibility = true;
   }
 
@@ -150,7 +153,13 @@ export class DiagnosticoListComponent implements OnInit {
     this.form.valueChanges.subscribe(plan => {
       const planTherapeutic = [];
       planTherapeutic.push(plan);
-      this.planTherapeutic.emit(planTherapeutic);
+      if (this.form.valid) {
+        this.planTherapeutic.emit(planTherapeutic);
+      }
     });
+  }
+
+  get f() {
+    return this.form.controls;
   }
 }

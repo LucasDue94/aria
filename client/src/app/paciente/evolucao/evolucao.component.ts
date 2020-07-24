@@ -72,13 +72,19 @@ export class EvolucaoComponent implements OnInit {
   }
 
   nextStep() {
+    let existStatus;
+    this.currentStep = 1;
     this.diagnostic.forEach(diagnostic => {
-      if (diagnostic.status !== '') {
-        this.currentStep += 1;
-      } else {
+      if (Object.is(diagnostic.status, '')) {
         this.alertService.send({message: 'Selecione um status!', type: 'warning', icon: faExclamationCircle});
+        existStatus = false;
+      } else {
+        existStatus = true;
       }
     });
+    if (existStatus) {
+      this.currentStep += 1;
+    }
   }
 
   previousStep() {
@@ -101,6 +107,10 @@ export class EvolucaoComponent implements OnInit {
     this.atendimento.id = attendanceRegister;
     this.atendimento.atendimentoCid = diagnostic;
     this.atendimento.planosTerapeutico = plan;
+  }
+
+  cancel() {
+    this.modalService.close();
   }
 
   save() {

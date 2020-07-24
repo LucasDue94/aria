@@ -1,4 +1,4 @@
-import {AfterContentInit, Component, ElementRef, HostListener, OnInit, Renderer2, ViewChild} from '@angular/core';
+import {Component, ElementRef, HostListener, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {
   faBed,
   faDiagnoses,

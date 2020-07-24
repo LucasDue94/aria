@@ -72,10 +72,10 @@
     </section>
     <section footer>
       <form class="form-footer-group">
-        <button class="button button-cancel">Cancelar</button>
-        <button class="button button-next" *ngIf="currentStep > 0" (click)="previousStep()">Voltar</button>
-        <button class="button button-next" *ngIf="currentStep === 0" (click)="nextStep()">Próximo</button>
-        <button (click)="save()" class="button button-blue">Salvar</button>
+        <button class="button button-cancel" (click)="cancel()">Cancelar</button>
+        <button class="button button-next" *ngIf="currentStep > 1" (click)="previousStep()">Voltar</button>
+        <button class="button button-next" *ngIf="currentStep >= 0 && currentStep < 2" (click)="nextStep()">Próximo</button>
+        <button (click)="save()" class="button button-blue" *ngIf="currentStep === 2">Salvar</button>
       </form>
     </section>
   </aria-modal>
