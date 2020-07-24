@@ -1,9 +1,10 @@
 <aside #menuContainer class="menu-container menu-collapsed">
   <nav class="menu">
-    <div *ngFor="let menu of menuList">
-      <a [routerLink]="menu.router" (click)="toggle()" [routerLinkActive]="['active-link']" *ngIf="menu.status" class="menu-item">
-        <fa-icon [icon]="menu.faIcon"></fa-icon>
-        <p class="description">{{menu.name}}</p>
+    <div *ngFor="let itemMenu of menuList">
+      <a [routerLink]="itemMenu.router" (click)="toggle()" [routerLinkActive]="['active-link']"
+        *ngIf="hasPermission(itemMenu)" class="menu-item">
+        <fa-icon [icon]="itemMenu.faIcon"></fa-icon>
+        <p class="description">{{itemMenu.name}}</p>
       </a>
     </div>
   </nav>
