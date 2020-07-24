@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostListener, OnInit, Renderer2, ViewChild} from '@angular/core';
+import {AfterViewChecked, Component, ElementRef, HostListener, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {
   faBed,
   faDiagnoses,
@@ -8,18 +8,18 @@ import {
   faUserMd,
   faUsers
 } from '@fortawesome/free-solid-svg-icons';
-import {AuthService} from "../../core/auth/auth.service";
-import {Menu} from "../../core/menu/menu";
-import {EnumPermisson} from "../../core/permissao/enumPermisson";
-import {MenuService} from "../../core/menu/menu.service";
-import {faCommentMedical} from "@fortawesome/free-solid-svg-icons/faCommentMedical";
+import {AuthService} from '../../core/auth/auth.service';
+import {Menu} from '../../core/menu/menu';
+import {EnumPermisson} from '../../core/permissao/enumPermisson';
+import {MenuService} from '../../core/menu/menu.service';
+import {faCommentMedical} from '@fortawesome/free-solid-svg-icons/faCommentMedical';
 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss']
 })
-export class MenuComponent implements OnInit {
+export class MenuComponent implements OnInit, AfterViewChecked {
 
   @ViewChild('menuContainer', {static: false}) menuContainer;
   @ViewChild('sidenavOverlay', {static: false}) sidenavOverlay;
@@ -40,13 +40,6 @@ export class MenuComponent implements OnInit {
       faIcon: faFolderOpen,
       router: ['/setor']
     },
-    // {
-    //   name: 'Relatorios',
-    //   status: false,
-    //   permission: '',
-    //   faIcon: faChartPie,
-    //   router: ['/relatorio']
-    // },
     {
       name: 'Usuarios',
       status: false,
@@ -82,13 +75,6 @@ export class MenuComponent implements OnInit {
       faIcon: faCommentMedical,
       router: ['/paciente']
     },
-    // {
-    //   name: 'Documentação',
-    //   status: false,
-    //   permission: '',
-    //   faIcon: faBook,
-    //   router: ['/documentacao']
-    // } ,
     {
       name: 'Leitos',
       status: false,
@@ -102,10 +88,13 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.createMenu();
     this.menuService.getStatus().subscribe(status => {
-      this.toggle()
-    })
+      this.toggle();
+    });
+  }
+
+  ngAfterViewChecked(): void {
+    this.createMenu();
   }
 
   toggle() {
@@ -117,7 +106,7 @@ export class MenuComponent implements OnInit {
 
   createMenu(): Menu[] {
     this.menuList.forEach(item => {
-      item.status = this.authService.hasPermission(item.permission)
+      item.status = this.authService.hasPermission(item.permission);
     });
     return this.menuList;
   }
