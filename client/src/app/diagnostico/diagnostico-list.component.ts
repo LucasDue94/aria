@@ -113,6 +113,8 @@ export class DiagnosticoListComponent implements OnInit {
 
         const targetElement = event.target.textContent;
         const targetElementText = event.target;
+
+        console.log(this.btnCidStatus);
         this.setStatusColors(atendimentoCid, targetElement, targetElementText);
       }
     });

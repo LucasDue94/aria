@@ -30,9 +30,11 @@
       color: $gray-90;
 
       .item {
+        width: 91.66%;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+        flex-wrap: wrap;
         align-items: center;
         padding: 7px;
         margin: 7px;
@@ -62,13 +64,14 @@
         }
 
         .item-cid {
-          flex: 12;
+          flex: 10;
+          margin-left: 5px;
         }
-      }
 
-      .item-signature {
-        width: 450px;
-        margin-left: 10px;
+        .item-signature {
+          width: 650px;
+          margin-left: 5px;
+        }
       }
     }
   }

@@ -13,8 +13,8 @@
 <section class="diagnostic" [class.active]="currentStep === 1">
   <h3 class="diagnostic-list-title">Diagnóstico(s) de Admissão</h3>
   <section class="diagnostic-list">
-    <div class="list" #btnCidStatus *ngFor="let cid of cidsSelected">
-      <div class="item" id="{{cid.id}}">
+    <ul class="list" #btnCidStatus>
+      <li class="item" id="{{cid.id}}" *ngFor="let cid of cidsSelected">
         <div class="item-cid">{{cid.id}} - {{cid.diagnostico}}</div>
         <div class="items-status">
             <span class="btn-status"
@@ -22,9 +22,9 @@
                   *ngFor="let status of diagnosticStatus"> {{status.description}}</span>
           <span (click)="removeCid(cid)"><fa-icon class="btn-minus" [icon]="faMinusCircle"></fa-icon></span>
         </div>
-      </div>
-      <div><span class="item-signature">5320 - Patrícia Caldas de Oliveira</span></div>
-    </div>
+        <div class="item-signature"><span>5320 - Patrícia Caldas de Oliveira</span></div>
+      </li>
+    </ul>
   </section>
   <div class="button-add" (click)="setShowListCid()">
     <fa-icon class="icon" [icon]="faPlus"></fa-icon>
