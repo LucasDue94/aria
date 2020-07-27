@@ -34,7 +34,6 @@ class AtendimentoController {
         respond atendimentoService.get(id)
     }
 
-    @Secured('ROLE_ATENDIMENTO_SAVE')
     @Transactional
     def save(Atendimento atendimento) {
         if (atendimento == null) {
@@ -57,7 +56,6 @@ class AtendimentoController {
         respond atendimento, [status: CREATED, view:"show"]
     }
 
-    @Secured('ROLE_ATENDIMENTO_UPDATE')
     @Transactional
     def update(Atendimento atendimento) {
         if (atendimento == null) {
