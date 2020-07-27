@@ -13,6 +13,8 @@ export class ModalComponent implements OnInit {
   @Input() footer: string;
   @Input() theme: string; // info, danger, warning
   @Input() size: string; // small, medium, larger
+  @Input() nextStep: boolean;
+  @Input() backStep: boolean;
   @Output() clickedElement = new EventEmitter();
   @ViewChild('modalContainer', {static: false}) modalContainer;
   @ViewChild('header', {static: false}) header;

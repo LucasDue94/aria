@@ -34,18 +34,18 @@
           </section>
           <section *ngIf="paciente?.getSetor() != ''" class="item-info">
             <h3 class="label">Setor</h3>
-            <h4 class="info">{{paciente?.getSetor().descricao}}</h4>
+            <h4 class="info">{{paciente?.getSetor()?.descricao}}</h4>
           </section>
           <section *ngIf="paciente?.getLeito()" class="item-info">
             <h3 class="label">Leito</h3>
-            <h4 class="info">{{paciente.getLeito().id}}</h4>
+            <h4 class="info">{{paciente?.getLeito()?.id}}</h4>
           </section>
         </article>
       </footer>
     </aria-card>
     <article class="paciente-forms">
       <aria-card>
-        <section class="evolucao-card" (click)="openModal()">
+        <section class="evolucao-card">
           <h2 class="card-title">Evoluções</h2>
           <p>{{ cutText(evolucao.conteudo, 150) }}</p>
           <footer class="evolucao-footer">
@@ -61,9 +61,22 @@
       <h2>charts e afins</h2>
     </aria-card>
   </article>
-  <aria-modal [title]="'Título do Modal'" [message]="'aqui vai o body'" [size]="'medium'">
+  <aria-modal [title]="'Admissão'" [size]="'medium'">
+    <section body>
+      <aria-diagnostico
+        [currentStep]="currentStep"
+        (diagnostic)="getDiagnostic($event)"
+        (planTherapeutic)="getPlanTherapeutic($event)"
+        (registroAtendimento)="getAttendance($event)">
+      </aria-diagnostico>
+    </section>
     <section footer>
-      <button class="button button-blue">click</button>
+      <form class="form-footer-group">
+        <button class="button button-cancel" (click)="cancel()">Cancelar</button>
+        <button class="button button-next" *ngIf="currentStep > 1" (click)="previousStep()">Voltar</button>
+        <button class="button button-next" *ngIf="currentStep >= 0 && currentStep < 2" (click)="nextStep()">Próximo</button>
+        <button (click)="save()" class="button button-blue" *ngIf="currentStep === 2">Salvar</button>
+      </form>
     </section>
   </aria-modal>
 </main>

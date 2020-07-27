@@ -159,3 +159,36 @@
     }
   }
 }
+
+.form-footer-group {
+  & .button {
+    margin-right: 10px !important;
+  }
+}
+
+.table {
+  width: 100%;
+  margin: 0;
+
+  .tbody {
+    width: 100%;
+
+    .row {
+      border-radius: 3px;
+      background: red !important;
+
+      .td {
+        text-align: left;
+      }
+
+      &:hover {
+        border-radius: 0;
+        transition: 0.3s;
+        cursor: pointer;
+        background-color: $gray-60;
+      }
+    }
+  }
+}
+
+

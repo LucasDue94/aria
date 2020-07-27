@@ -1,0 +1,164 @@
+@import "src/assets/colors";
+
+.diagnostic-title {
+  width: 91.66%;
+  color: $gray-90;
+  padding-left: 30px;
+  margin: 20px 0 20px 0;
+
+  .icon {
+    font-size: 24px;
+    margin-right: 5px;
+  }
+
+  hr {
+    border-bottom: 1px solid $gray-70;
+  }
+}
+
+.diagnostic {
+  display: none;
+  background: $white;
+
+  .diagnostic-list-title {
+    color: #14AC60;
+    padding-left: 12px;
+  }
+
+  .diagnostic-list {
+    .list {
+      color: $gray-90;
+
+      .item {
+        width: 91.66%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        align-items: center;
+        padding: 7px;
+        margin: 7px;
+        border-bottom: 1px solid $gray-60;
+
+        .items-status {
+          display: flex;
+          justify-content: space-between;
+          flex: 5;
+          vertical-align: center;
+          align-items: center;
+          background: $gray-30;
+          color: $gray-90;
+          padding: 5px;
+
+          & .btn-status {
+            margin-right: 10px;
+            cursor: pointer;
+            padding: 5px;
+          }
+        }
+
+        .btn-minus {
+          color: $danger-50;
+          padding: 5px;
+          cursor: pointer;
+        }
+
+        .item-cid {
+          flex: 10;
+          margin-left: 5px;
+        }
+
+        .item-signature {
+          width: 650px;
+          margin-left: 5px;
+        }
+      }
+    }
+  }
+
+  .button-add {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+.active-status-confirm {
+  background: #149553;
+  color: $white;
+}
+
+.active-status-descarded {
+  background: #C24D4D;
+  color: $white;
+}
+
+.active-status-suspicious {
+  background: #F8A232;
+  color: $white;
+}
+
+.disable-status {
+  background: none;
+  color: $gray-90;
+}
+
+.diagnostic-plan {
+  display: none;
+
+  .form-plan {
+    width: 91.66%;
+    color: $gray-80;
+    margin: 0 auto;
+
+    .form-group-diagnostic {
+      display: flex;
+      flex-direction: column;
+      margin: 25px 0 25px 0;
+
+      .label-diagnostic {
+        margin-bottom: 10px;
+
+        .span-diagnostic {
+          font-size: 12px;
+        }
+      }
+
+      .label-diagnostic-alert-error {
+        display: none;
+      }
+
+      .label-error-diagnostic {
+        display: block;
+        font-size: 12px;
+        color: #c26267;
+      }
+
+      .text-plan {
+        width: 100%;
+        height: 100px;
+        font-size: 14px;
+        padding: 5px;
+        border-radius: 7px;
+        box-shadow: 1px 1px 5px $gray-90;
+      }
+
+      .input-diagnostic {
+        border-radius: 3px;
+        width: 80px;
+        height: 30px;
+        box-shadow: 1px 1px 5px $gray-90;
+      }
+
+      .input-error {
+        border: 1px solid #c26267;
+        box-shadow: none;
+      }
+    }
+
+  }
+
+}
+
+
+
+

@@ -55,7 +55,7 @@ export class RiscoFormComponent implements OnInit {
 
     this.riscoService.save(risco).subscribe((res) => {
       if (!res.hasOwnProperty('error')) {
-        this.url == 'create' ?
+        this.url === 'create' ?
           this.alertService.send(
             {message: 'Risco Criado!', type: 'success', icon: faCheck}
           ) :  this.alertService.send(

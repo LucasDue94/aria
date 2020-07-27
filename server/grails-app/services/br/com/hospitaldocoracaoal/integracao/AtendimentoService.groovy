@@ -101,6 +101,8 @@ abstract class AtendimentoService {
 
     abstract Long count()
 
+    abstract Atendimento save(Atendimento atendimento)
+
     abstract Atendimento get(Serializable id)
 
 }

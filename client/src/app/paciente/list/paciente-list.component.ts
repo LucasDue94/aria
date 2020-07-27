@@ -51,14 +51,18 @@ export class PacienteListComponent implements OnInit {
     this.filterService.receive().subscribe(this.search);
   }
 
+  getIdade(nasc) {
+    let nascimento = new Date(nasc);
+    return Math.floor(Math.ceil(Math.abs(nascimento.getTime() - (new Date()).getTime()) / (1000 * 3600 * 24)) / 365.25);
+  }
+
+
   getRegistros(paramsCollapse?) {
     this.setorId = paramsCollapse;
     if (paramsCollapse.collapseId) {
       this.listLoading = true;
       this.params.internos = true;
       this.params.setorId = paramsCollapse.collapseId;
-    } else {
-      this.searchEmpty = true;
     }
 
     if (this.params.setorId != '') {
@@ -67,6 +71,9 @@ export class PacienteListComponent implements OnInit {
 
     this.atendimentoService.list(this.params).subscribe(registro => {
       this.atendimentos = registro;
+      this.atendimentos.forEach(atendimento => {
+        atendimento.paciente.nascimento = this.getIdade(atendimento.paciente.nascimento);
+      });
       this.showListScrollSpinner = false;
       this.listLoading = false;
     });

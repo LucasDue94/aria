@@ -8,11 +8,11 @@ import {
   faUserMd,
   faUsers
 } from '@fortawesome/free-solid-svg-icons';
-import {AuthService} from "../../core/auth/auth.service";
-import {Menu} from "../../core/menu/menu";
-import {EnumPermisson} from "../../core/permissao/enumPermisson";
-import {MenuService} from "../../core/menu/menu.service";
-import {faCommentMedical} from "@fortawesome/free-solid-svg-icons/faCommentMedical";
+import {AuthService} from '../../core/auth/auth.service';
+import {Menu} from '../../core/menu/menu';
+import {EnumPermisson} from '../../core/permissao/enumPermisson';
+import {MenuService} from '../../core/menu/menu.service';
+import {faCommentMedical} from '@fortawesome/free-solid-svg-icons/faCommentMedical';
 
 @Component({
   selector: 'app-menu',
@@ -26,86 +26,62 @@ export class MenuComponent implements OnInit {
 
   show = false;
   menuList: Menu[] = [
-    {
+    new Menu({
       name: 'Perfil',
-      status: false,
       permission: EnumPermisson.role_perfil_epidemiologico_index,
       faIcon: faDiagnoses,
       router: ['/perfil']
-    },
-    {
+    }),
+    new Menu({
       name: 'Setores',
-      status: false,
       permission: EnumPermisson.role_setor_index,
       faIcon: faFolderOpen,
       router: ['/setor']
-    },
-    // {
-    //   name: 'Relatorios',
-    //   status: false,
-    //   permission: '',
-    //   faIcon: faChartPie,
-    //   router: ['/relatorio']
-    // },
-    {
+    }),
+    new Menu({
       name: 'Usuarios',
-      status: false,
       permission: EnumPermisson.role_usuario_index,
       faIcon: faUserMd,
       router: ['/usuario']
-    },
-    {
+    }),
+    new Menu({
       name: 'Grupos',
-      status: false,
       permission: EnumPermisson.role_grupo_index,
       faIcon: faUsers,
       router: ['/grupo']
-    },
-    {
+    }),
+    new Menu({
       name: 'Riscos',
-      status: false,
       permission: EnumPermisson.role_risco_index,
       faIcon: faExclamation,
       router: ['/risco']
-    },
-    {
+    }),
+    new Menu({
       name: 'Tipos de Incidentes',
-      status: false,
       permission: EnumPermisson.role_tipo_incidente_index,
       faIcon: faEdit,
       router: ['/tipo-incidente']
-    },
-    {
+    }),
+    new Menu({
       name: 'Pacientes',
-      status: false,
       permission: EnumPermisson.role_paciente_index,
       faIcon: faCommentMedical,
       router: ['/paciente']
-    },
-    // {
-    //   name: 'Documentação',
-    //   status: false,
-    //   permission: '',
-    //   faIcon: faBook,
-    //   router: ['/documentacao']
-    // } ,
-    {
+    }),
+    new Menu({
       name: 'Leitos',
-      status: false,
-      permission: '',
       faIcon: faBed,
       router: ['/painel-leitos']
-    }
+    })
   ];
 
   constructor(private authService: AuthService, private eRef: ElementRef, private menuService: MenuService, private renderer: Renderer2) {
   }
 
   ngOnInit() {
-    this.createMenu();
     this.menuService.getStatus().subscribe(status => {
-      this.toggle()
-    })
+      this.toggle();
+    });
   }
 
   toggle() {
@@ -115,12 +91,7 @@ export class MenuComponent implements OnInit {
     this.show = condition;
   }
 
-  createMenu(): Menu[] {
-    this.menuList.forEach(item => {
-      item.status = this.authService.hasPermission(item.permission)
-    });
-    return this.menuList;
-  }
+  hasPermission = (item) => this.authService.hasPermission(item.permission) || !item.permission;
 
   @HostListener('document:click', ['$event'])
   clickout(event) {

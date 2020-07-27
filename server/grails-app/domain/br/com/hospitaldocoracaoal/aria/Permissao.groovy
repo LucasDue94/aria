@@ -27,11 +27,23 @@ class Permissao implements Serializable {
 
     static void createPermissoes() {
         withTransaction { status ->
+            //PLANO TERAPEUTICO --
+            findOrSaveWhere(authority: 'ROLE_PLANO_TERAPEUTICO_INDEX', nome: 'Listar plano terapeutico', alias: 'planoTerapeutico')
+            findOrSaveWhere(authority: 'ROLE_PLANO_TERAPEUTICO_SAVE', nome: 'Salvar plano terapeutico', alias: 'planoTerapeutico')
+            findOrSaveWhere(authority: 'ROLE_PLANO_TERAPEUTICO_SHOW', nome: 'Ver plano terapeutico', alias: 'planoTerapeutico')
+            findOrSaveWhere(authority: 'ROLE_PLANO_TERAPEUTICO_UPDATE', nome: 'Atualizar plano terapeutico', alias: 'planoTerapeutico')
+
             // -- APACHE --
             findOrSaveWhere(authority: 'ROLE_APACHE_REPORT', nome: 'Ver relatório apache', alias: 'apache')
             findOrSaveWhere(authority: 'ROLE_APACHE_SAVE', nome: 'Salvar Apache', alias: 'apache')
             findOrSaveWhere(authority: 'ROLE_APACHE_SHOW', nome: 'Ver Apache', alias: 'apache')
             findOrSaveWhere(authority: 'ROLE_APACHE_UPDATE', nome: 'Atualizar Apache', alias: 'apache')
+
+            // -- APACHE --
+            findOrSaveWhere(authority: 'ROLE_CID_REPORT', nome: 'Ver relatório Cid', alias: 'cid')
+            findOrSaveWhere(authority: 'ROLE_CID_SAVE', nome: 'Salvar Cid', alias: 'cid')
+            findOrSaveWhere(authority: 'ROLE_CID_SHOW', nome: 'Ver Cid', alias: 'cid')
+            findOrSaveWhere(authority: 'ROLE_CID_UPDATE', nome: 'Atualizar Cid', alias: 'cid')
 
             // -- GRUPOS DE USUARIOS --
             findOrSaveWhere(authority: 'ROLE_GRUPO_INDEX', nome: 'Listar grupos de usuários', alias: 'grupo')
@@ -56,6 +68,8 @@ class Permissao implements Serializable {
 
             // -- ATENDIMENTO --
             findOrSaveWhere(authority: 'ROLE_ATENDIMENTO_INDEX', nome: 'Listar Atendimentos', alias: 'atendimento')
+            findOrSaveWhere(authority: 'ROLE_ATENDIMENTO_SAVE', nome: 'Salvar Atendimentos', alias: 'atendimento')
+            findOrSaveWhere(authority: 'ROLE_ATENDIMENTO_UPDATE', nome: 'Atualizar Atendimentos', alias: 'atendimento')
             findOrSaveWhere(authority: 'ROLE_ATENDIMENTO_SHOW', nome: 'Ver Atendimento', alias: 'atendimento')
 
             // -- USUARIO --

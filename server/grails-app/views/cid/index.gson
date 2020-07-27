@@ -1,0 +1,8 @@
+import br.com.hospitaldocoracaoal.integracao.Cid
+
+model {
+	Iterable<Cid> cidList
+}
+
+json tmpl.cid(cidList ?: [])
+

@@ -1,0 +1,7 @@
+import br.com.hospitaldocoracaoal.aria.AtendimentoCid
+
+model {
+	AtendimentoCid atendimentoCid
+}
+
+json tmpl.atendimentoCid(atendimentoCid)

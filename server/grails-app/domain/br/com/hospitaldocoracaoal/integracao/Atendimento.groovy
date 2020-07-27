@@ -1,10 +1,6 @@
 package br.com.hospitaldocoracaoal.integracao
 
-import br.com.hospitaldocoracaoal.aria.Balao
-import br.com.hospitaldocoracaoal.aria.Ecg
-import br.com.hospitaldocoracaoal.aria.Incidente
-import br.com.hospitaldocoracaoal.aria.Nas
-import br.com.hospitaldocoracaoal.aria.Setor
+import br.com.hospitaldocoracaoal.aria.*
 
 class Atendimento {
 
@@ -24,9 +20,11 @@ class Atendimento {
             comandas: Comanda,
             consultas: Consulta,
             exames: Exame,
+            atendimentoCid: AtendimentoCid,
             registroLeitos: RegistroLeito,
             cirurgias: Cirurgia,
-            incidentes: Incidente
+            incidentes: Incidente,
+            planosTerapeutico: PlanoTerapeutico
     ]
 
     static hasOne = [ecg: Ecg, balao: Balao]
@@ -37,8 +35,10 @@ class Atendimento {
         cid nullable: true
         setor nullable: true
         dataAlta nullable: true
+        dataAltaMedica nullable: true
         motivoAlta nullable: true
         ecg nullable: true
+        planosTerapeutico nullable: true
         balao nullable: true
     }
 
