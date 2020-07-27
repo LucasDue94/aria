@@ -27,7 +27,7 @@ export class Paciente {
 
   public stringSexo() {
     let sex = '';
-    if(this.sexo != null && this.sexo !== '' && this.sexo.toLowerCase() === 'm') {
+    if (this.sexo != null && this.sexo !== '' && this.sexo.toLowerCase() === 'm') {
       sex = 'Masculino';
     } else if (this.sexo !== null && this.sexo !== '' && this.sexo.toLowerCase() === 'f') {
       sex = 'Feminino';
@@ -40,11 +40,11 @@ export class Paciente {
   }
 
   getSetor() {
-    return this.atendimentos.length > 0 ? this.atendimentos[this.atendimentos.length - 1].getUltimoRegistroLeito().leito.setor : {};
+    return this.atendimentos.length > 0 ? this.atendimentos[this.atendimentos.length - 1].getUltimoRegistroLeito().leito.setor : null;
   }
 
   getLeito() {
-    return this.atendimentos.length > 0 ? this.atendimentos[this.atendimentos.length - 1].getUltimoRegistroLeito().leito : {};
+    return this.atendimentos.length > 0 ? this.atendimentos[this.atendimentos.length - 1].getUltimoRegistroLeito().leito : null;
   }
 
   getUltimoRegistro() {

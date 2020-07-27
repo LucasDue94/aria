@@ -20,6 +20,6 @@ task assembleServerAndClient(dependsOn: ['copyClientResources', ':server:assembl
 copyClientResources.doFirst {
     copy {
         from "${project(':client').projectDir}/dist/client"
-        into "${project(':server').buildDir}/assets/main/public"
+        into "${project(':server').buildDir}/resources/main/public"
     }
 }
