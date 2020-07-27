@@ -153,8 +153,10 @@ export class DiagnosticoListComponent implements OnInit {
     this.form.valueChanges.subscribe(plan => {
       const planTherapeutic = [];
       planTherapeutic.push(plan);
-      if (this.form.valid) {
+      if (this.form.valid && this.form.value !== '') {
         this.planTherapeutic.emit(planTherapeutic);
+      } else {
+        this.planTherapeutic.emit(this.form.status);
       }
     });
   }

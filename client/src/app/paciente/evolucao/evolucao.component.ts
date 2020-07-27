@@ -76,7 +76,7 @@ export class EvolucaoComponent implements OnInit {
     this.currentStep = 1;
     this.diagnostic.forEach(diagnostic => {
       if (Object.is(diagnostic.status, '')) {
-        this.alertService.send({message: 'Selecione um status!', type: 'warning', icon: faExclamationCircle});
+        this.alertService.send({message: 'Selecione o status do cid!', type: 'warning', icon: faExclamationCircle});
         existStatus = false;
       } else {
         existStatus = true;
@@ -115,19 +115,23 @@ export class EvolucaoComponent implements OnInit {
 
   save() {
     this.buildAdmission(this.planTherapeutic, this.diagnostic, this.registroAtendimento);
-    this.atendimentoService.save(this.atendimento).subscribe(atendimento => {
-      if (atendimento.hasOwnProperty('error')) {
-        this.alertService.send({
-          message: 'teste',
-          icon: faExclamationCircle,
-          type: 'Warning'
-        });
-      } else {
-        this.alertService.send({message: 'Admissão realizada com sucesso!', type: 'success', icon: faCheck});
-        setTimeout(() => {
-          this.modalService.close();
-        }, 300);
-      }
-    });
+    if (!Object.is(this.planTherapeutic, 'INVALID')) {
+      this.atendimentoService.save(this.atendimento).subscribe(atendimento => {
+        if (atendimento.hasOwnProperty('error')) {
+          this.alertService.send({
+            message: 'teste',
+            icon: faExclamationCircle,
+            type: 'Warning'
+          });
+        } else {
+          this.alertService.send({message: 'Admissão realizada com sucesso!', type: 'success', icon: faCheck});
+          setTimeout(() => {
+            this.modalService.close();
+          }, 300);
+        }
+      });
+    } else {
+      this.alertService.send({message: 'Preencha os campos do formulário', type: 'warning', icon: faExclamationCircle});
+    }
   }
 }
