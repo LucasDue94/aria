@@ -27,24 +27,21 @@
 
   .diagnostic-list {
     .list {
-      list-style: none;
       color: $gray-90;
 
-      .item, .item-signature {
+      .item {
         display: flex;
-        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
         padding: 7px;
         margin: 7px;
         border-bottom: 1px solid $gray-60;
-      }
-
-      .item {
-        flex: 6;
-        justify-content: space-between;
 
         .items-status {
           display: flex;
           justify-content: space-between;
+          flex: 5;
           vertical-align: center;
           align-items: center;
           background: $gray-30;
@@ -63,6 +60,15 @@
           padding: 5px;
           cursor: pointer;
         }
+
+        .item-cid {
+          flex: 12;
+        }
+      }
+
+      .item-signature {
+        width: 450px;
+        margin-left: 10px;
       }
     }
   }
