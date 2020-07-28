@@ -1,0 +1,103 @@
+@import "src/assets/colors";
+
+.diagnostic-title {
+  width: 91.66%;
+  color: $gray-90;
+  padding-left: 30px;
+  margin: 20px 0 20px 0;
+
+  .icon {
+    font-size: 24px;
+    margin-right: 5px;
+  }
+
+  hr {
+    border-bottom: 1px solid $gray-70;
+  }
+}
+
+.diagnostic {
+  display: none;
+  background: $white;
+
+  .diagnostic-list-title {
+    color: #14AC60;
+    padding-left: 12px;
+  }
+
+  .diagnostic-list {
+    .list {
+      color: $gray-90;
+
+      .item {
+        width: 91.66%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        align-items: center;
+        padding: 7px;
+        margin: 7px;
+        border-bottom: 1px solid $gray-60;
+
+        .items-status {
+          display: flex;
+          justify-content: space-between;
+          flex: 5;
+          vertical-align: center;
+          align-items: center;
+          background: $gray-30;
+          color: $gray-90;
+          padding: 5px;
+
+          & .btn-status {
+            margin-right: 10px;
+            cursor: pointer;
+            padding: 5px;
+          }
+        }
+
+        .btn-minus {
+          color: $danger-50;
+          padding: 5px;
+          cursor: pointer;
+        }
+
+        .item-cid {
+          flex: 10;
+          margin-left: 5px;
+        }
+
+        .item-signature {
+          width: 650px;
+          margin-left: 5px;
+        }
+      }
+    }
+  }
+
+  .button-add {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+.active-status-confirm {
+  background: #149553;
+  color: $white;
+}
+
+.active-status-descarded {
+  background: #C24D4D;
+  color: $white;
+}
+
+.active-status-suspicious {
+  background: #F8A232;
+  color: $white;
+}
+
+.disable-status {
+  background: none;
+  color: $gray-90;
+}

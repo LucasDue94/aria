@@ -38,7 +38,8 @@ import {RelatoriosModule} from './relatorios/relatorios.module';
 import {PacienteModule} from './paciente/paciente.module';
 import { CollapseComponent } from './components/collapse/collapse.component';
 import {CollapseModule} from './components/collapse/collapse.module';
-import { DiagnosticoModule } from './diagnostico/diagnostico.module';
+import { AdmissaoModule } from './admissao/admissao.module';
+import {DiagnosticoModule} from './admissao/diagnostico/diagnostico.module';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { DiagnosticoModule } from './diagnostico/diagnostico.module';
     AlertModule,
     ApacheModule,
     BalaoModule,
+    DiagnosticoModule,
     BrowserModule,
     CoreModule,
     CardModule,
@@ -81,7 +83,7 @@ import { DiagnosticoModule } from './diagnostico/diagnostico.module';
     SelectModule,
     TipoIncidenteModule,
     UsuarioModule,
-    DiagnosticoModule
+    AdmissaoModule
 ],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy},

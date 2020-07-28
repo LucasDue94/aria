@@ -10,7 +10,6 @@ export class Cid {
         this[prop] = object[prop];
       }
     }
-
   }
 
   toString(): string {

@@ -11,10 +11,10 @@ import {Atendimento} from '../core/atendimento/atendimento';
 
 @Component({
   selector: 'aria-diagnostico',
-  templateUrl: './diagnostico-list.component.html',
-  styleUrls: ['diagnostico-list.scss']
+  templateUrl: './admissao-list.component.html',
+  styleUrls: ['admissao-list.scss']
 })
-export class DiagnosticoListComponent implements OnInit {
+export class AdmissaoListComponent implements OnInit {
 
   @Input() currentStep = 0;
   @ViewChild('btnCidStatus', {static: false}) btnCidStatus: ElementRef;
@@ -25,7 +25,6 @@ export class DiagnosticoListComponent implements OnInit {
   cids;
   faPlus = faPlus;
   cidList: Cid[] = [];
-  cds = new Set<Cid>();
   listAtendimentoCid: AtendimentoCid[] = [];
   cidsSelected: Cid[] = [];
   atendimento: Atendimento;
@@ -114,7 +113,6 @@ export class DiagnosticoListComponent implements OnInit {
         const targetElement = event.target.textContent;
         const targetElementText = event.target;
 
-        console.log(this.btnCidStatus);
         this.setStatusColors(atendimentoCid, targetElement, targetElementText);
       }
     });

@@ -12,7 +12,7 @@ import {CardModule} from "../components/card/card.module";
 import {ModalModule} from "../components/modal/modal.module";
 import {CollapseModule} from "../components/collapse/collapse.module";
 import { EvolucaoComponent } from './evolucao/evolucao.component';
-import {DiagnosticoModule} from "../diagnostico/diagnostico.module";
+import {AdmissaoModule} from "../admissao/admissao.module";
 
 
 @NgModule({
@@ -33,7 +33,7 @@ import {DiagnosticoModule} from "../diagnostico/diagnostico.module";
         CardModule,
         ModalModule,
         CollapseModule,
-        DiagnosticoModule
+        AdmissaoModule
     ],
   exports: [
     PacienteListComponent,
