@@ -57,6 +57,7 @@ class AtendimentoController {
     }
 
     @Transactional
+    @Secured('ROLE_ATENDIMENTO_SAVE')
     def update(Atendimento atendimento) {
         if (atendimento == null) {
             render status: NOT_FOUND
