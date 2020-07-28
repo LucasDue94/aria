@@ -5,7 +5,8 @@ import {AdmissaoListComponent} from './admissao-list.component';
 import {CoreModule} from '../core/core.module';
 import {FastSearchModule} from "../components/fast-search/fast-search.module";
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-import { DiagnosticoListComponent } from './diagnostico/diagnostico-list/diagnostico-list.component';
+import { DiagnosticoListComponent } from './diagnostico/list/diagnostico-list.component';
+import {DiagnosticoModule} from './diagnostico/diagnostico.module';
 
 @NgModule({
   declarations: [
@@ -15,13 +16,14 @@ import { DiagnosticoListComponent } from './diagnostico/diagnostico-list/diagnos
   exports: [
     AdmissaoListComponent
   ],
-    imports: [
-        CommonModule,
-        FormsModule,
-        CoreModule,
-        FastSearchModule,
-        FontAwesomeModule,
-        ReactiveFormsModule
-    ]
+  imports: [
+    CommonModule,
+    FormsModule,
+    CoreModule,
+    FastSearchModule,
+    FontAwesomeModule,
+    ReactiveFormsModule,
+    DiagnosticoModule
+  ]
 })
 export class AdmissaoModule {}

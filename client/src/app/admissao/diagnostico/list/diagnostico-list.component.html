@@ -1,3 +1,4 @@
+<!--
 <section class="diagnostic" [class.active]="currentStep === 0">
   <fast-search *ngIf="fastSearchVisibility" (getData)="setCid($event)" (visible)="getVisibilityFastSearch($event)"
                [service]="cidsService"
@@ -5,6 +6,10 @@
                [height]="'150px'">
   </fast-search>
 </section>
+-->
+
+<app-diagnostico-status></app-diagnostico-status>
+<!--
 <section class="diagnostic" [class.active]="currentStep === 1">
   <h3 class="diagnostic-list-title">Diagnóstico(s) de Admissão</h3>
   <section class="diagnostic-list">
@@ -25,4 +30,5 @@
     <fa-icon class="icon" [icon]="faPlus"></fa-icon>
   </div>
 </section>
+-->
 
