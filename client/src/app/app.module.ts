@@ -40,6 +40,7 @@ import { CollapseComponent } from './components/collapse/collapse.component';
 import {CollapseModule} from './components/collapse/collapse.module';
 import { AdmissaoModule } from './admissao/admissao.module';
 import {DiagnosticoModule} from './diagnostico/diagnostico.module';
+import {PainelCirurgicoModule} from "./painel-cirurgico/painel-cirurgico.module";
 
 @NgModule({
   declarations: [
@@ -83,7 +84,8 @@ import {DiagnosticoModule} from './diagnostico/diagnostico.module';
     SelectModule,
     TipoIncidenteModule,
     UsuarioModule,
-    AdmissaoModule
+    AdmissaoModule,
+    PainelCirurgicoModule
 ],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy},
