@@ -4,6 +4,7 @@ import {DiagnosticoRoutingModule} from './list/diagnostico-routing.module';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {DiagnosticoStatusComponent} from './status/diagnostico-status.component';
 import {DiagnosticoListComponent} from './list/diagnostico-list.component';
+import {FastSearchModule} from '../components/fast-search/fast-search.module';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import {DiagnosticoListComponent} from './list/diagnostico-list.component';
   imports: [
     CommonModule,
     FontAwesomeModule,
-    DiagnosticoRoutingModule
+    DiagnosticoRoutingModule,
+    FastSearchModule
   ]
 })
 export class DiagnosticoModule {
