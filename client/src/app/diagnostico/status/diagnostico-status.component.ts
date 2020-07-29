@@ -1,29 +1,25 @@
-import {AfterViewInit, Component, OnInit, Renderer2} from '@angular/core';
+import {Component, OnInit, Renderer2} from '@angular/core';
 import {faMinusCircle} from '@fortawesome/free-solid-svg-icons';
-import {EnumStatusCid} from '../../../core/cid/enumStatusCid';
+import {EnumStatusCid} from '../../core/cid/enumStatusCid';
 
 @Component({
   selector: 'app-diagnostico-status',
   templateUrl: './diagnostico-status.component.html',
   styleUrls: ['./diagnostico-status.component.scss']
 })
-export class DiagnosticoStatusComponent implements OnInit, AfterViewInit {
+export class DiagnosticoStatusComponent implements OnInit {
 
   faMinusCircle = faMinusCircle;
   diagnosticStatus = [
-    {id: 1, status: 'Suspeita'},
-    {id: 2, status: 'Confirmado'},
-    {id: 3, status: 'Descartado'}
+    {id: 1, status: EnumStatusCid.SUSPEITA},
+    {id: 2, status: EnumStatusCid.CONFIRMADO},
+    {id: 3, status: EnumStatusCid.DESCARTADO}
   ];
 
   constructor(private render: Renderer2) {
   }
 
   ngOnInit() {
-  }
-
-  ngAfterViewInit(): void {
-
   }
 
   setStatusColors(event) {

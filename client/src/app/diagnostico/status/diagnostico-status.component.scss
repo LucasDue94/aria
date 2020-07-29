@@ -2,19 +2,18 @@
 
 .diagnostic-list-status {
   display: flex;
-  border: 1px solid black;
-  width: 150px;
+  width: 450px;
   height: 50px;
   justify-content: flex-end;
   vertical-align: center;
   align-items: center;
-  background: $gray-30;
+  border: 1px solid $gray-50;
 
   .items-status {
     width: 25%;
     color: $gray-90;
     cursor: pointer;
-    padding: 5px;
+    text-align: center;
   }
 
   .group-minus {
@@ -34,6 +33,7 @@
   margin-left: 10px;
   cursor: pointer;
   background: $white;
+  height: 50px;
 }
 
 .active-status-confirm {

@@ -39,7 +39,7 @@ import {PacienteModule} from './paciente/paciente.module';
 import { CollapseComponent } from './components/collapse/collapse.component';
 import {CollapseModule} from './components/collapse/collapse.module';
 import { AdmissaoModule } from './admissao/admissao.module';
-import {DiagnosticoModule} from './admissao/diagnostico/diagnostico.module';
+import {DiagnosticoModule} from './diagnostico/diagnostico.module';
 
 @NgModule({
   declarations: [

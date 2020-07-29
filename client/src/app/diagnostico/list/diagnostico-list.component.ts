@@ -1,14 +1,17 @@
 import {Component, ElementRef, EventEmitter, Input, OnInit, Output, Renderer2, ViewChild} from '@angular/core';
-import {Cid} from '../../../core/cid/cid';
-import {CidService} from '../../../core/cid/cid.service';
+
 import {faClipboardCheck, faExclamationCircle, faMinusCircle, faPlus} from '@fortawesome/free-solid-svg-icons';
-import {AtendimentoCid} from '../../../core/atendimento/atendimentoCid';
-import {AlertService} from '../../../core/alert/alert.service';
-import {Atendimento} from '../../../core/atendimento/atendimento';
+
 import {ActivatedRoute} from '@angular/router';
-import {PacienteService} from '../../../core/paciente/paciente.service';
-import {EnumStatusCid} from '../../../core/cid/enumStatusCid';
+
 import {element} from 'protractor';
+import {Cid} from '../../core/cid/cid';
+import {Atendimento} from '../../core/atendimento/atendimento';
+import {AtendimentoCid} from '../../core/atendimento/atendimentoCid';
+import {CidService} from '../../core/cid/cid.service';
+import {AlertService} from '../../core/alert/alert.service';
+import {PacienteService} from '../../core/paciente/paciente.service';
+import {EnumStatusCid} from '../../core/cid/enumStatusCid';
 
 
 @Component({
