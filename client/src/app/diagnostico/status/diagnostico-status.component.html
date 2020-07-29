@@ -1,8 +1,5 @@
 <section class="diagnostic-list-status">
-  <div class="items-status" *ngFor="let cidStatus of diagnosticStatus">
-    <div class="btn-status" (click)="setStatusColors($event)">{{cidStatus.status}}</div>
-  </div>
-  <div class="group-minus">
-    <span><fa-icon class="btn-minus" [icon]="faMinusCircle"></fa-icon></span>
-  </div>
+  <div *ngFor="let status of diagnosticStatus" [ngClass]="status.desc === diagnostico.status ? status.class : 'btn-status'"
+       (click)="setStatus(status.desc)">{{status.desc}}</div>
+  <span><fa-icon class="btn-minus" [icon]="faMinusCircle"></fa-icon></span>
 </section>

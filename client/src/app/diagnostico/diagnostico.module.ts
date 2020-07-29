@@ -2,15 +2,18 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DiagnosticoRoutingModule} from './list/diagnostico-routing.module';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-import { DiagnosticoStatusComponent } from './status/diagnostico-status.component';
+import {DiagnosticoStatusComponent} from './status/diagnostico-status.component';
+import {DiagnosticoListComponent} from './list/diagnostico-list.component';
 
 
 @NgModule({
   declarations: [
-    DiagnosticoStatusComponent
+    DiagnosticoStatusComponent,
+    DiagnosticoListComponent
   ],
   exports: [
-    DiagnosticoStatusComponent
+    DiagnosticoStatusComponent,
+    DiagnosticoListComponent
   ],
   imports: [
     CommonModule,
@@ -18,4 +21,5 @@ import { DiagnosticoStatusComponent } from './status/diagnostico-status.componen
     DiagnosticoRoutingModule
   ]
 })
-export class DiagnosticoModule { }
+export class DiagnosticoModule {
+}
