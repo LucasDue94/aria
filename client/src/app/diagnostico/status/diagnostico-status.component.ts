@@ -1,38 +1,32 @@
-import {Component, OnInit, Renderer2} from '@angular/core';
+import {Component, Input, OnInit, Renderer2} from '@angular/core';
 import {faMinusCircle} from '@fortawesome/free-solid-svg-icons';
 import {EnumStatusCid} from '../../core/cid/enumStatusCid';
+import {Diagnostico} from '../../core/diagnostico/diagnostico';
 
 @Component({
-  selector: 'app-diagnostico-status',
+  selector: 'diagnostico-status',
   templateUrl: './diagnostico-status.component.html',
   styleUrls: ['./diagnostico-status.component.scss']
 })
-export class DiagnosticoStatusComponent implements OnInit {
+export class DiagnosticoStatusComponent {
 
   faMinusCircle = faMinusCircle;
   diagnosticStatus = [
-    {id: 1, status: EnumStatusCid.SUSPEITA},
-    {id: 2, status: EnumStatusCid.CONFIRMADO},
-    {id: 3, status: EnumStatusCid.DESCARTADO}
+    {id: 1, desc: EnumStatusCid.SUSPEITA, class: 'active-status-suspicious'},
+    {id: 2, desc: EnumStatusCid.CONFIRMADO, class: 'active-status-confirm'},
+    {id: 3, desc: EnumStatusCid.DESCARTADO, class: 'active-status-descarded'}
   ];
 
-  constructor(private render: Renderer2) {
+  // TODO trocar pelo @Input()
+  diagnostico = new Diagnostico({
+    cid: {id: 111, diagnostico: 'COVID'},
+    status: EnumStatusCid.SUSPEITA,
+    profissional: {name: 'Patrícia Caldas', crm: '3547'}
+  });
+
+  constructor() {
   }
 
-  ngOnInit() {
-  }
+  setStatus = (status) => this.diagnostico.status = status;
 
-  setStatusColors(event) {
-    const buttonStatus = event.target;
-    switch (buttonStatus.innerText) {
-      case EnumStatusCid.SUSPEITA:
-        this.render.addClass(buttonStatus, 'active-status-suspicious');
-        break;
-      case EnumStatusCid.CONFIRMADO:
-        this.render.addClass(buttonStatus, 'active-status-confirm');
-        break;
-      case EnumStatusCid.DESCARTADO:
-        this.render.addClass(buttonStatus, 'active-status-descarded');
-    }
-  }
 }

@@ -4,6 +4,10 @@ import {EnumDiagnosticoStatus} from './enum/enumDiagnosticoStatus';
 
 export class Diagnostico {
   cid: Cid;
-  status: EnumDiagnosticoStatus;
+  status: EnumDiagnosticoStatus.SUSPEITA;
   profissional: Usuario;
+
+  constructor(obj) {
+    Object.assign(this, obj);
+  }
 }
