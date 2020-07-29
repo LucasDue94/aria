@@ -1,14 +1,8 @@
-<section class="diagnostic-list">
-  <ul class="list">
-    <li class="item" id="{{cid.id}}" *ngFor="let cid of cidsSelected">
-      <div class="item-cid">{{cid.id}} - {{cid.diagnostico}}</div>
-      <div class="items-status">
-            <span id="status-{{cidStatus.status}}" class="btn-status"
-                  (click)="setStatusCid(cidStatus.status, cid, $event)"
-                  *ngFor="let cidStatus of diagnosticStatus"> {{cidStatus.status}}</span>
-      </div>
-      <span (click)="removeCid(cid)"><fa-icon class="btn-minus" [icon]="faMinusCircle"></fa-icon></span>
-      <div class="item-signature"><span>5320 - Patrícia Caldas de Oliveira</span></div>
-    </li>
-  </ul>
+<section class="diagnostic-list-status">
+  <div class="items-status" *ngFor="let cidStatus of diagnosticStatus">
+    <div class="btn-status" (click)="setStatusColors($event)">{{cidStatus.status}}</div>
+  </div>
+  <div class="group-minus">
+    <span><fa-icon class="btn-minus" [icon]="faMinusCircle"></fa-icon></span>
+  </div>
 </section>

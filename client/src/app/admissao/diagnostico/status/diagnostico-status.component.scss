@@ -1,44 +1,60 @@
 @import "src/assets/colors";
 
-.active-status-confirm {
-  background: #149553;
-  color: $white;
-}
-
-.active-status-descarded {
-  background: #C24D4D;
-  color: $white;
-}
-
-.active-status-suspicious {
-  background: #F8A232;
-  color: $white;
-}
-
-.disable-status {
-  background: none;
-  color: $gray-90;
-}
-
-.items-status {
+.diagnostic-list-status {
   display: flex;
-  justify-content: space-between;
-  flex: 5;
+  border: 1px solid black;
+  width: 150px;
+  height: 50px;
+  justify-content: flex-end;
   vertical-align: center;
   align-items: center;
   background: $gray-30;
-  color: $gray-90;
-  padding: 5px;
 
-  & .btn-status {
-    margin-right: 10px;
+  .items-status {
+    width: 25%;
+    color: $gray-90;
     cursor: pointer;
     padding: 5px;
+  }
+
+  .group-minus {
+    padding: 10px;
+    background: $white;
+
+    .btn-status {
+      width: 100%;
+      padding: 5px;
+    }
   }
 }
 
 .btn-minus {
   color: $danger-50;
-  padding: 5px;
+  padding: 10px;
+  margin-left: 10px;
   cursor: pointer;
+  background: $white;
+}
+
+.active-status-confirm {
+  background: #149553;
+  color: $white;
+  padding: 10px;
+}
+
+.active-status-descarded {
+  background: #C24D4D;
+  color: $white;
+  padding: 10px;
+}
+
+.active-status-suspicious {
+  background: #F8A232;
+  color: $white;
+  padding: 10px;
+}
+
+.disable-status {
+  background: none;
+  color: $gray-90;
 }
