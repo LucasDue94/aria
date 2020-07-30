@@ -13,7 +13,6 @@ import {SetorModule} from './setor/setor.module';
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 import {FastSearchModule} from './components/fast-search/fast-search.module';
 import {ErrorComponent} from './components/error/error.component';
-import {ApacheModule} from './apache/apache.module';
 import {SelectModule} from './components/select/select.module';
 import {LoginModule} from './layout/login/login.module';
 import {AuthGuard} from './core/guards/auth.guard';
@@ -40,7 +39,9 @@ import { CollapseComponent } from './components/collapse/collapse.component';
 import {CollapseModule} from './components/collapse/collapse.module';
 import { AdmissaoModule } from './admissao/admissao.module';
 import {DiagnosticoModule} from './diagnostico/diagnostico.module';
-import {PainelCirurgicoModule} from "./painel-cirurgico/painel-cirurgico.module";
+import {PainelCirurgicoModule} from './painel-cirurgico/painel-cirurgico.module';
+import {ApacheModule} from './apache/apache.module';
+import {PlanoTerapeuticoModule} from './plano-terapeutico/plano-terapeutico.module';
 
 @NgModule({
   declarations: [
@@ -85,7 +86,8 @@ import {PainelCirurgicoModule} from "./painel-cirurgico/painel-cirurgico.module"
     TipoIncidenteModule,
     UsuarioModule,
     AdmissaoModule,
-    PainelCirurgicoModule
+    PainelCirurgicoModule,
+    PlanoTerapeuticoModule
 ],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy},

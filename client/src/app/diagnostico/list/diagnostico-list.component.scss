@@ -1,4 +1,5 @@
 @import "src/assets/colors";
+@import "src/assets/device-sizes";
 
 diagnostico-status {
   position: relative;
@@ -18,14 +19,14 @@ diagnostico-status {
     margin: 30px auto;
     border-bottom: 1px solid $gray-50;
 
-    .item-cod-diagnostic {
-      font-weight: bold;
-      width: 60px;
-      margin: 0 5px 0 0;
-    }
-
     .item-description-diagnostic {
-      width: 400px;
+      width: 41.66%;
+      margin: 5px;
+
+      .item-cod-diagnostic {
+        font-weight: bold;
+        margin: 0 5px 0 0;
+      }
     }
 
     .item-signature {
@@ -33,6 +34,18 @@ diagnostico-status {
       width: 100%;
       font-size: 14px;
       font-style: italic;
+      margin: 5px;
+    }
+  }
+}
+
+
+@media only screen and (max-width: $tablet-width) {
+  .container-diagnostic {
+    .row-diagnostic {
+      .item-description-diagnostic {
+          width: 100%;
+      }
     }
   }
 }

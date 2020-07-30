@@ -1,5 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {faExclamationCircle, faPlus} from '@fortawesome/free-solid-svg-icons';
 import {Cid} from '../../core/cid/cid';
 import {CidService} from '../../core/cid/cid.service';
@@ -17,6 +16,7 @@ export class DiagnosticoListComponent implements OnInit {
 
   /*** events*/
   @Output() diagnostic: EventEmitter<any> = new EventEmitter();
+  @Output() sizeListDiagnostic: EventEmitter<any> = new EventEmitter();
 
   /*** icons*/
   faPlus = faPlus;
@@ -38,6 +38,7 @@ export class DiagnosticoListComponent implements OnInit {
     this.cidService.list().subscribe((cidList: Cid[]) => {
       this.cidList = cidList;
     });
+    this.sizeListDiagnostic.emit(this.diagnosticSelectedList.length = 0);
   }
 
   getProfessional() {
@@ -50,6 +51,7 @@ export class DiagnosticoListComponent implements OnInit {
     });
     if (!this.isExistDiagnostic(diagnostic)) {
       this.diagnosticSelectedList.push(diagnostic);
+      this.sizeListDiagnostic.emit(this.diagnosticSelectedList.length);
     } else {
       this.alertService.send({
         message: 'Cid já foi escolhido!',
@@ -67,13 +69,15 @@ export class DiagnosticoListComponent implements OnInit {
   }
 
   isEmptyListDiagnostic() {
-    this.diagnosticSelectedList.length === 0  ? this.fastSearchVisibility = true : this.fastSearchVisibility = false;
+    this.diagnosticSelectedList.length === 0 ? this.fastSearchVisibility = true : this.fastSearchVisibility = false;
   }
+
 
   removeDiagnostic(diagnostic) {
     const index = this.diagnosticSelectedList.indexOf(diagnostic);
     this.diagnosticSelectedList.splice(index, 1);
     this.isEmptyListDiagnostic();
+    this.sizeListDiagnostic.emit(this.diagnosticSelectedList.length);
   }
 
   getVisibilityFastSearch(fastSearchVisibility) {

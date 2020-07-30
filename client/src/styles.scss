@@ -625,14 +625,14 @@ status-card {
 .list-cids {
   .search-container {
     width: 91.66%;
-    margin: 0 auto;
+    margin: 5px auto;
   }
 
   .table {
     .tbody {
       .row {
-        background-color: $gray-40;
-        border-bottom: 1px solid $gray-70;
+        background-color: $gray-30;
+        border-bottom: 1px solid $gray-50;
         border-radius: 0;
         height: 30px;
         box-shadow: none;
@@ -655,6 +655,7 @@ status-card {
   .content-search {
     width: 91.66%;
     margin: 0 auto;
+    padding: 0;
     min-height: 250px;
     max-height: 550px;
 

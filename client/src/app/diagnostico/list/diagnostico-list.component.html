@@ -6,8 +6,7 @@
 </section>
 <div class="container-diagnostic" *ngIf="!fastSearchVisibility">
   <section class="row-diagnostic" *ngFor="let diagnostic of diagnosticSelectedList">
-    <span class="item-cod-diagnostic">{{diagnostic.cid.id}} -</span>
-    <span class="item-description-diagnostic">{{diagnostic.cid.diagnostico}}</span>
+    <p class="item-description-diagnostic"><span class="item-cod-diagnostic">{{diagnostic.cid.id}}</span> - {{diagnostic.cid.diagnostico}}</p>
     <diagnostico-status [diagnostic]="diagnostic" (removedDiagnostic)="removeDiagnostic($event)"></diagnostico-status>
     <div class="item-signature">{{diagnostic.profissional}}</div>
     <div class="button-add" (click)="showListCid()">

@@ -63,19 +63,14 @@
   </article>
   <aria-modal [title]="'Admissão'" [size]="'medium'">
     <section body>
-      <aria-diagnostico
-        [currentStep]="currentStep"
-        (diagnostic)="getDiagnostic($event)"
-        (planTherapeutic)="getPlanTherapeutic($event)"
-        (registroAtendimento)="getAttendance($event)">
-      </aria-diagnostico>
+      <aria-admissao [currentStep]="currentStep" (sizeListDiagnostic)="getSizeListDiagnostic($event)"></aria-admissao>
     </section>
     <section footer>
       <form class="form-footer-group">
         <button class="button button-cancel" (click)="cancel()">Cancelar</button>
-        <button class="button button-next" *ngIf="currentStep > 1" (click)="previousStep()">Voltar</button>
-        <button class="button button-next" *ngIf="currentStep >= 0 && currentStep < 2" (click)="nextStep()">Próximo</button>
-        <button (click)="save()" class="button button-blue" *ngIf="currentStep === 2">Salvar</button>
+        <button class="button button-next" *ngIf="currentStep >= 1" (click)="previousStep()">Voltar</button>
+        <button class="button button-next" *ngIf="currentStep >= 0 && currentStep < 1 && sizeListDiagnostic > 0" (click)="nextStep()">Próximo</button>
+        <button (click)="save()" class="button button-blue" *ngIf="currentStep >= 1">Salvar</button>
       </form>
     </section>
   </aria-modal>

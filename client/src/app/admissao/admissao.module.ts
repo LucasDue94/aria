@@ -6,6 +6,8 @@ import {CoreModule} from '../core/core.module';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {FastSearchModule} from '../components/fast-search/fast-search.module';
 import {DiagnosticoModule} from '../diagnostico/diagnostico.module';
+import {AppModule} from '../app.module';
+import {PlanoTerapeuticoModule} from '../plano-terapeutico/plano-terapeutico.module';
 
 
 @NgModule({
@@ -22,7 +24,8 @@ import {DiagnosticoModule} from '../diagnostico/diagnostico.module';
     FastSearchModule,
     FontAwesomeModule,
     ReactiveFormsModule,
-    DiagnosticoModule
+    DiagnosticoModule,
+    PlanoTerapeuticoModule
   ]
 })
 export class AdmissaoModule {}

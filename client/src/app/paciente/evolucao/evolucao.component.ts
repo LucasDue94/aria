@@ -7,11 +7,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {SpinnerService} from '../../core/spinner/spinner.service';
 import {ErrorService} from '../../core/error/error.service';
 import {TitleService} from '../../core/title/title.service';
-import {faCheck, faExclamationCircle, faSearch} from '@fortawesome/free-solid-svg-icons';
-import {Atendimento} from '../../core/atendimento/atendimento';
+import {faSearch} from '@fortawesome/free-solid-svg-icons';
 import {AtendimentoService} from '../../core/atendimento/atendimento.service';
-import {Planoterapeutico} from '../../core/planoTerapeutico/planoterapeutico';
-import {AtendimentoCid} from '../../core/atendimento/atendimentoCid';
 import {AlertService} from '../../core/alert/alert.service';
 
 @Component({
@@ -21,13 +18,10 @@ import {AlertService} from '../../core/alert/alert.service';
 })
 export class EvolucaoComponent implements OnInit {
 
-  currentStep = 0;
-  paciente: Paciente;
-  registroAtendimento;
   pacienteId;
-  atendimento = new Atendimento();
-  planTherapeutic = new Planoterapeutico({});
-  diagnostic: AtendimentoCid[] = [];
+  currentStep = 0;
+  sizeListDiagnostic;
+  paciente: Paciente;
   faSearch = faSearch;
   evolucao = {
     conteudo: 'It is a long established fact that a reader will be distng \'Content here, content helike).\n' +
@@ -71,42 +65,16 @@ export class EvolucaoComponent implements OnInit {
     return Math.floor(Math.ceil(Math.abs(nascimento.getTime() - (new Date()).getTime()) / (1000 * 3600 * 24)) / 365.25);
   }
 
+  getSizeListDiagnostic(size) {
+    this.sizeListDiagnostic = size;
+  }
+
   nextStep() {
-    let existStatus;
-    this.currentStep = 1;
-    this.diagnostic.forEach(diagnostic => {
-      if (Object.is(diagnostic.status, '')) {
-        this.alertService.send({message: 'Selecione o status do cid!', type: 'warning', icon: faExclamationCircle});
-        existStatus = false;
-      } else {
-        existStatus = true;
-      }
-    });
-    if (existStatus) {
-      this.currentStep += 1;
-    }
+    this.currentStep += 1;
   }
 
   previousStep() {
     this.currentStep -= 1;
-  }
-
-  getPlanTherapeutic(plan) {
-    this.planTherapeutic = plan;
-  }
-
-  getDiagnostic(diagnostic) {
-    this.diagnostic = diagnostic;
-  }
-
-  getAttendance(attendanceRegister) {
-    this.registroAtendimento = attendanceRegister;
-  }
-
-  buildAdmission(plan, diagnostic, attendanceRegister) {
-    this.atendimento.id = attendanceRegister;
-    this.atendimento.atendimentoCid = diagnostic;
-    this.atendimento.planosTerapeutico = plan;
   }
 
   cancel() {
@@ -114,24 +82,5 @@ export class EvolucaoComponent implements OnInit {
   }
 
   save() {
-    this.buildAdmission(this.planTherapeutic, this.diagnostic, this.registroAtendimento);
-    if (!Object.is(this.planTherapeutic, 'INVALID')) {
-      this.atendimentoService.save(this.atendimento).subscribe(atendimento => {
-        if (atendimento.hasOwnProperty('error')) {
-          this.alertService.send({
-            message: 'teste',
-            icon: faExclamationCircle,
-            type: 'Warning'
-          });
-        } else {
-          this.alertService.send({message: 'Admissão realizada com sucesso!', type: 'success', icon: faCheck});
-          setTimeout(() => {
-            this.modalService.close();
-          }, 300);
-        }
-      });
-    } else {
-      this.alertService.send({message: 'Preencha os campos do formulário', type: 'warning', icon: faExclamationCircle});
-    }
   }
 }
