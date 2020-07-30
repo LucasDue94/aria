@@ -8,7 +8,7 @@
   <section class="row-diagnostic" *ngFor="let diagnostic of diagnosticSelectedList">
     <span class="item-cod-diagnostic">{{diagnostic.cid.id}} -</span>
     <span class="item-description-diagnostic">{{diagnostic.cid.diagnostico}}</span>
-    <diagnostico-status [diagnostic]="diagnostic"></diagnostico-status>
+    <diagnostico-status [diagnostic]="diagnostic" (removedDiagnostic)="removeDiagnostic($event)"></diagnostico-status>
     <div class="item-signature">{{diagnostic.profissional}}</div>
     <div class="button-add" (click)="showListCid()">
       <fa-icon class="icon" [icon]="faPlus"></fa-icon>

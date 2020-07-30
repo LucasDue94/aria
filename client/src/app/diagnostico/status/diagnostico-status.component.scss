@@ -4,7 +4,6 @@
   width: 400px;
   position: relative;
   display: flex;
-  border: 1px solid $gray-50;
   vertical-align: center;
   align-items: center;
 
@@ -13,6 +12,18 @@
     width: 25%;
     padding: 10px;
     cursor: pointer;
+    text-align: center;
+    border: 1px solid $gray-50;
+  }
+
+  .btn-status:nth-child(1), .active-status-suspicious:nth-child(1) {
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+  }
+
+  .btn-status:nth-child(3), .active-status-descarded:nth-child(3) {
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
   }
 
   .active-status-confirm {

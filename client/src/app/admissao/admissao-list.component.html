@@ -1,14 +1,5 @@
 <section class="diagnostic" [class.active]="currentStep === 0">
-  <div *ngIf="searchVisibility" class="diagnostic-title">
-    <fa-icon class="icon" [icon]="faClipboardCheck"></fa-icon>
-    - Essa é a primeira evolução desse registro. É importante que você informe o diagnóstico.
-    <hr>
-  </div>
-  <fast-search *ngIf="searchVisibility" (getData)="setCid($event)" (visible)="getVisibilityFastSearch($event)"
-               [service]="cids"
-               [fields]="['id', 'diagnostico']" [widthField]="['1', '11']"
-               [height]="'150px'">
-  </fast-search>
+  <app-diagnostico-list></app-diagnostico-list>
 </section>
 <section class="diagnostic" [class.active]="currentStep === 1">
   <h3 class="diagnostic-list-title">Diagnóstico(s) de Admissão</h3>

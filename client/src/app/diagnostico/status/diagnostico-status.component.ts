@@ -12,7 +12,7 @@ export class DiagnosticoStatusComponent {
 
   /***EVENTS*/
   @Input() diagnostic: Diagnostico;
-  @Output() status = new EventEmitter();
+  @Output() removedDiagnostic = new EventEmitter();
 
   /***ICONS*/
   faMinusCircle = faMinusCircle;
@@ -29,4 +29,5 @@ export class DiagnosticoStatusComponent {
 
   setStatus = (status) => this.diagnostic.status = status;
 
+  removeDiagnostic = () => this.removedDiagnostic.emit(this.diagnostic);
 }
