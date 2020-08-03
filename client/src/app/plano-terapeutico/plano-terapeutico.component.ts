@@ -1,8 +1,7 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {FormBuilder, FormControl, Validators} from '@angular/forms';
-import {Paciente} from '../core/paciente/paciente';
 import {PacienteService} from '../core/paciente/paciente.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-plano-terapeutico',
@@ -12,6 +11,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class PlanoTerapeuticoComponent implements OnInit {
 
   @Output() planTherapeutic = new EventEmitter();
+  @Output() statePlan = new EventEmitter();
   paciente;
   pacienteId;
 
@@ -40,6 +40,9 @@ export class PlanoTerapeuticoComponent implements OnInit {
     this.form.valueChanges.subscribe(plan => {
       this.planTherapeutic.emit(plan);
     });
-  }
 
+    this.form.statusChanges.subscribe(state => {
+      this.statePlan.emit(state);
+    });
+  }
 }

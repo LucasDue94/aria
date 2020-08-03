@@ -11,6 +11,7 @@ export class AdmissaoListComponent {
   @Output() sizeListDiagnostic = new EventEmitter();
   @Output() diagnostic = new EventEmitter();
   @Output() planTherapeutic = new EventEmitter();
+  @Output() statePlan = new EventEmitter();
 
   constructor() {
   }
@@ -21,6 +22,10 @@ export class AdmissaoListComponent {
 
   getPlanTherapeutic(planTherapeutic) {
     this.planTherapeutic.emit(planTherapeutic);
+  }
+
+  getStatePlanTherapeutic(statePlanTherapeutic) {
+    this.statePlan.emit(statePlanTherapeutic);
   }
 
   getDiagnostic(diagnostic) {

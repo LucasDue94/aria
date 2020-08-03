@@ -27,6 +27,7 @@ export class EvolucaoComponent implements OnInit {
   sizeListDiagnostic;
   paciente: Paciente;
   faSearch = faSearch;
+  statePlanTherapeutic;
   evolucao = {
     conteudo: 'It is a long established fact that a reader will be distng \'Content here, content helike).\n' +
       '\n',
@@ -94,6 +95,9 @@ export class EvolucaoComponent implements OnInit {
     this.planTherapeutic = planTherapeutic;
   }
 
+  setStatePlanTherapeutic(statePlanTherapeutic) {
+    this.statePlanTherapeutic = statePlanTherapeutic;
+  }
 
   save() {
     const admission = new Atendimento({
@@ -101,20 +105,22 @@ export class EvolucaoComponent implements OnInit {
       diagnosticos: this.diagnostic,
       planosTerapeutico: [this.planTherapeutic]
     });
-    this.atendimentoService.save(admission).subscribe(atendimento => {
-      if (atendimento.hasOwnProperty('error')) {
-        this.alertService.send({
-          message: 'Não foi possível salvar a admissão!',
-          icon: faExclamation,
-          type: 'warning'
-        });
-      } else {
-        this.modalService.close();
-        setTimeout(() => {
-          this.alertService.send({message: 'Admissão realizada!', icon: faSmile, type: 'success'});
-          this.router.navigate(['/paciente/show', this.pacienteId]);
-        }, 300);
-      }
-    });
+    if (Object.is(this.statePlanTherapeutic, 'VALID')) {
+      this.atendimentoService.save(admission).subscribe(atendimento => {
+          this.modalService.close();
+          setTimeout(() => {
+            this.alertService.send({message: 'Admissão realizada!', icon: faSmile, type: 'success'});
+            this.router.navigate(['/paciente/show', this.pacienteId]);
+          }, 300);
+        }
+      );
+    } else {
+      this.alertService.send({
+        message: 'Por favor preencha todos os campos!',
+        icon: faExclamation,
+        type: 'warning'
+      });
+
+    }
   }
 }
