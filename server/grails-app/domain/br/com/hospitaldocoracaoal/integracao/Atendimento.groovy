@@ -20,7 +20,7 @@ class Atendimento {
             comandas: Comanda,
             consultas: Consulta,
             exames: Exame,
-            atendimentoCid: AtendimentoCid,
+            diagnosticos: Diagnostico,
             registroLeitos: RegistroLeito,
             cirurgias: Cirurgia,
             incidentes: Incidente,
@@ -38,6 +38,7 @@ class Atendimento {
         dataAltaMedica nullable: true
         motivoAlta nullable: true
         ecg nullable: true
+        diagnosticos nullable: true
         planosTerapeutico nullable: true
         balao nullable: true
     }

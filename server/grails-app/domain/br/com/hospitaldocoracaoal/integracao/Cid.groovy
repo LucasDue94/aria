@@ -1,14 +1,13 @@
 package br.com.hospitaldocoracaoal.integracao
 
-import br.com.hospitaldocoracaoal.aria.AtendimentoCid
+import br.com.hospitaldocoracaoal.aria.Diagnostico
 
 class Cid {
-
     String id
-    String diagnostico
+    String descricao
 
     static hasMany = [
-            atendimentoCid: AtendimentoCid
+            diagnosticos: Diagnostico
     ]
     static mapping = {
         id generator: 'assigned'

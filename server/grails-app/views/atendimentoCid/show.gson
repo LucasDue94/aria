@@ -1,7 +1,7 @@
-import br.com.hospitaldocoracaoal.aria.AtendimentoCid
+import br.com.hospitaldocoracaoal.aria.Diagnostico
 
 model {
-	AtendimentoCid atendimentoCid
+	Diagnostico atendimentoCid
 }
 
 json tmpl.atendimentoCid(atendimentoCid)

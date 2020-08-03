@@ -1,0 +1,7 @@
+import br.com.hospitaldocoracaoal.aria.Conselho
+
+model {
+	Conselho conselho
+}
+
+json tmpl.conselho(conselho)

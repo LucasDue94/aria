@@ -12,6 +12,7 @@ export class DiagnosticoStatusComponent {
 
   /***EVENTS*/
   @Input() diagnostic: Diagnostico;
+  @Output() status = new EventEmitter();
   @Output() removedDiagnostic = new EventEmitter();
 
   /***ICONS*/
@@ -27,7 +28,9 @@ export class DiagnosticoStatusComponent {
   constructor() {
   }
 
-  setStatus = (status) => this.diagnostic.status = status;
+  setStatus(status) {
+    this.status.emit( this.diagnostic.status = status);
+  }
 
   removeDiagnostic = () => this.removedDiagnostic.emit(this.diagnostic);
 }

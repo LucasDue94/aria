@@ -1,14 +1,15 @@
 <section class="step-diagnostic">
+  <h2 *ngIf="fastSearchVisibility" class="title">{{title}}</h2>
   <fast-search class="list-cids" *ngIf="fastSearchVisibility" (getData)="setDiagnostic($event)"
                (visible)="getVisibilityFastSearch($event)"
-               [service]="cidsService" [fields]="['id', 'diagnostico']" [widthField]="['1', '11']" [height]="'150px'">
+               [service]="cidsService" [fields]="['id', 'descricao']" [widthField]="['1', '11']" [height]="'150px'">
   </fast-search>
 </section>
 <div class="container-diagnostic" *ngIf="!fastSearchVisibility">
   <section class="row-diagnostic" *ngFor="let diagnostic of diagnosticSelectedList">
-    <p class="item-description-diagnostic"><span class="item-cod-diagnostic">{{diagnostic.cid.id}}</span> - {{diagnostic.cid.diagnostico}}</p>
-    <diagnostico-status [diagnostic]="diagnostic" (removedDiagnostic)="removeDiagnostic($event)"></diagnostico-status>
-    <div class="item-signature">{{diagnostic.profissional}}</div>
+    <p class="item-description-diagnostic"><span class="item-cod-diagnostic">{{diagnostic.cid.id}}</span> - {{diagnostic.cid.descricao}}</p>
+    <diagnostico-status [diagnostic]="diagnostic" (removedDiagnostic)="removeDiagnostic($event)" (status)="getStatusDiagnostic($event)"></diagnostico-status>
+    <div class="item-signature">{{user.getProfessional().nome}}</div>
     <div class="button-add" (click)="showListCid()">
       <fa-icon class="icon" [icon]="faPlus"></fa-icon>
     </div>

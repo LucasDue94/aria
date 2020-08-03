@@ -9,6 +9,8 @@ export class AdmissaoListComponent {
 
   @Input() currentStep = 0;
   @Output() sizeListDiagnostic = new EventEmitter();
+  @Output() diagnostic = new EventEmitter();
+  @Output() planTherapeutic = new EventEmitter();
 
   constructor() {
   }
@@ -17,8 +19,12 @@ export class AdmissaoListComponent {
     this.sizeListDiagnostic.emit(size);
   }
 
-  getPlanTherapeutic(planTerapeutico) {
-    console.log(planTerapeutico);
+  getPlanTherapeutic(planTherapeutic) {
+    this.planTherapeutic.emit(planTherapeutic);
+  }
+
+  getDiagnostic(diagnostic) {
+    this.diagnostic.emit(diagnostic);
   }
 
 }

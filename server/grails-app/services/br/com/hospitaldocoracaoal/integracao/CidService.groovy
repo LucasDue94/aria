@@ -17,7 +17,7 @@ abstract class CidService {
             if (termo != null && !termo.empty) {
                 or {
                     ilike 'id', "%$termo%"
-                    ilike 'diagnostico', "%$termo%"
+                    ilike 'descricao', "%$termo%"
                 }
 
             }

@@ -63,7 +63,7 @@ export class ProntuarioShowComponent implements OnInit {
     let lastRegister: Atendimento;
     this.pacienteService.get(this.pacienteId).subscribe(attendance => {
       lastRegister = attendance.getUltimoRegistro();
-      lastRegister.planosTerapeutico.length === 0 && lastRegister.atendimentoCid.length === 0 ? this.notAdmission = true : this.notAdmission = false;
+      lastRegister.planosTerapeutico.length === 0 && lastRegister.diagnosticos.length === 0 ? this.notAdmission = true : this.notAdmission = false;
     });
   }
 

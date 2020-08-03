@@ -1,7 +1,7 @@
-import br.com.hospitaldocoracaoal.aria.AtendimentoCid
+import br.com.hospitaldocoracaoal.aria.Diagnostico
 
 model {
-	Iterable<AtendimentoCid> atendimentoCidList
+	Iterable<Diagnostico> atendimentoCidList
 }
 
 json tmpl.atendimentoCid(atendimentoCidList ?: [])

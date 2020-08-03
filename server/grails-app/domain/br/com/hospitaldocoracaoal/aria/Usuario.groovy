@@ -21,6 +21,7 @@ class Usuario implements Serializable, Auditable {
     boolean passwordExpired
     String email
     Grupo grupo
+    Conselho numeroConselho
 
     static hasMany = [setores: Setor]
 
@@ -32,5 +33,6 @@ class Usuario implements Serializable, Auditable {
         username nullable: false, blank: false, unique: true
         email nullable: true
         crm nullable: true
+        numeroConselho nullable: true, unique: true
     }
 }

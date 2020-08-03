@@ -1,5 +1,8 @@
 <section class="d-none" [class.active]="currentStep === 0">
-  <app-diagnostico-list (sizeListDiagnostic)="getSizeListDiagnostic($event)"></app-diagnostico-list>
+  <app-diagnostico-list
+    (sizeListDiagnostic)="getSizeListDiagnostic($event)" (diagnostic)="getDiagnostic($event)"
+    [title]="'Essa é a primeira evolução desse registro. É importante que você informe o diagnóstico.'">
+  </app-diagnostico-list>
 </section>
 <section class="d-none" [class.active]="currentStep === 1">
   <app-plano-terapeutico (planTherapeutic)="getPlanTherapeutic($event)"></app-plano-terapeutico>

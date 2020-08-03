@@ -632,7 +632,7 @@ status-card {
     .tbody {
       .row {
         background-color: $gray-30;
-        border-bottom: 1px solid $gray-50;
+        border-bottom: 1px solid $gray-60;
         border-radius: 0;
         height: 30px;
         box-shadow: none;
@@ -666,5 +666,12 @@ status-card {
       box-shadow: none
     }
   }
+}
 
+.title {
+  width: 91.66%;
+  padding: 10px;
+  color: $gray-80;
+  margin: 0 auto;
+  border-bottom: 1px solid $gray-40;
 }

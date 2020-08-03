@@ -4,7 +4,8 @@ model {
     Atendimento atendimento
 }
 
-json g.render(atendimento, [expand: ['motivoAlta', 'ecg', 'balao', 'setor', 'convenio', 'atendimentoCid', 'planosTerapeutico'], excludes: ['paciente'], resolveTemplate: false]) {
+json g.render(atendimento, [expand: ['motivoAlta', 'ecg', 'balao', 'setor', 'convenio', 'diagnosticos', 'planosTerapeutico'], excludes: ['paciente'], resolveTemplate: false]) {
+    /*diagnosticos g.render(atendimento.diagnosticos.profissional, [excludes: ['grupo'], resolveTemplate: false])*/
     paciente g.render(atendimento.paciente, [excludes: 'atendimentos', resolveTemplate: false])
     ultimoNas g.render(atendimento.ultimoNas, [resolveTemplate: false])
     ultimoRegistroLeito g.render(atendimento.ultimoRegistroLeito, [excludes: ['atendimento', 'leito'], resolveTemplate: false]) {
