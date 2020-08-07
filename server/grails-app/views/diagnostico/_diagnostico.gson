@@ -1,0 +1,7 @@
+import br.com.hospitaldocoracaoal.aria.Diagnostico
+
+model {
+	Diagnostico diagnostico
+}
+
+json g.render(diagnostico, [resolveTemplate: false])

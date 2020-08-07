@@ -10,28 +10,29 @@ import {Convenio} from '../convenio/convenio';
 import {RegistroLeito} from '../registroLeito/registroLeito';
 import {AtendimentoCid} from './atendimentoCid';
 import {Planoterapeutico} from '../planoTerapeutico/planoterapeutico';
+import {Diagnostico} from '../diagnostico/diagnostico';
 
 
 export class Atendimento {
-  id: string;
-  dataEntrada: string;
-  dataAlta: string;
-  setor: Setor;
-  atendimentoCid: AtendimentoCid[] = new Array<AtendimentoCid>();
-  planosTerapeutico: Planoterapeutico[] = new Array<Planoterapeutico>();
-  cid: Cid;
-  motivoAlta: MotivoAlta;
-  tipo: string;
-  ecg: Ecg;
-  balao: Balao;
-  paciente: Paciente;
+  id?: string;
+  dataEntrada?: string;
+  dataAlta?: string;
+  setor?: Setor;
+  diagnosticos?: Diagnostico[] = new Array<Diagnostico>();
+  planosTerapeutico?: Planoterapeutico[] = new Array<Planoterapeutico>();
+  cid?: Cid;
+  motivoAlta?: MotivoAlta;
+  tipo?: string;
+  ecg?: Ecg;
+  balao?: Balao;
+  paciente?: Paciente;
   incidentes?: Incidente[] = new Array<Incidente>();
   registroLeitos?: RegistroLeito[] = new Array<RegistroLeito>();
-  ultimoNas: Nas;
-  convenio: Convenio;
-  ultimoRegistroLeito: RegistroLeito;
+  ultimoNas?: Nas;
+  convenio?: Convenio;
+  ultimoRegistroLeito?: RegistroLeito;
 
-  constructor(object?: Atendimento) {
+  constructor(object?: any) {
     if (object) {
       if (object.hasOwnProperty('incidentes')) {
         this.incidentes = object.incidentes.map((obj: any) => {
@@ -47,11 +48,11 @@ export class Atendimento {
         delete object.planosTerapeutico;
       }
 
-      if (object.hasOwnProperty('AtendimentoCid')) {
-        this.atendimentoCid = object['AtendimentoCid'].map((obj: any) => {
+      if (object.hasOwnProperty('Diagnosticos')) {
+        this.diagnosticos = object['Diagnosticos'].map((obj: any) => {
           return new Planoterapeutico(obj);
         });
-        delete object['AtendimentoCid'];
+        delete object['Diagnosticos'];
       }
 
       if (object.hasOwnProperty('registroLeitos')) {

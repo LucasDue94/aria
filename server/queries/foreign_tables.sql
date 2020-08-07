@@ -134,7 +134,7 @@ drop foreign table cid;
 create foreign table cid
     (
         id varchar(9) options (key 'true') not null,
-        diagnostico varchar(250) not null
+        descricao varchar(250) not null
         )
     server wpd
     options (table '(select CID.COD_CID, CID.DIAGNOSTICO from ADMWPD.URCIDCAD CID)', readonly 'true');

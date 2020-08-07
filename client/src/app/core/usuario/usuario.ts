@@ -18,7 +18,11 @@ export class Usuario {
         this[prop] = object[prop];
       }
     }
+  }
 
+  getProfessional() {
+    const temp = JSON.parse(window.localStorage.getItem('aria'));
+    return new Usuario({id: temp.id, nome: temp.nome});
   }
 
 }

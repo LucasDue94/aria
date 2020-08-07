@@ -10,7 +10,7 @@ import grails.validation.ValidationException
 import grails.testing.web.controllers.ControllerUnitTest
 import grails.testing.gorm.DomainUnitTest
 
-class AtendimentoCidControllerSpec extends Specification implements ControllerUnitTest<AtendimentoCidController>, DomainUnitTest<AtendimentoCid> {
+class AtendimentoCidControllerSpec extends Specification implements ControllerUnitTest<AtendimentoCidController>, DomainUnitTest<Diagnostico> {
 
     def populateValidParams(params) {
         assert params != null
@@ -22,7 +22,7 @@ class AtendimentoCidControllerSpec extends Specification implements ControllerUn
 
     void "Test the index action returns the correct response"() {
         given:
-        controller.atendimentoCidService = Mock(AtendimentoCidService) {
+        controller.atendimentoCidService = Mock(DiagnosticoService) {
             1 * list(_) >> []
             1 * count() >> 0
         }
@@ -47,8 +47,8 @@ class AtendimentoCidControllerSpec extends Specification implements ControllerUn
 
     void "Test the save action correctly persists"() {
         given:
-        controller.atendimentoCidService = Mock(AtendimentoCidService) {
-            1 * save(_ as AtendimentoCid)
+        controller.atendimentoCidService = Mock(DiagnosticoService) {
+            1 * save(_ as Diagnostico)
         }
 
         when:
@@ -56,7 +56,7 @@ class AtendimentoCidControllerSpec extends Specification implements ControllerUn
         request.contentType = JSON_CONTENT_TYPE
         request.method = 'POST'
         populateValidParams(params)
-        request.json = new AtendimentoCid(params)
+        request.json = new Diagnostico(params)
         controller.save()
 
         then:
@@ -66,8 +66,8 @@ class AtendimentoCidControllerSpec extends Specification implements ControllerUn
 
     void "Test the save action with an invalid instance"() {
         given:
-        controller.atendimentoCidService = Mock(AtendimentoCidService) {
-            1 * save(_ as AtendimentoCid) >> { AtendimentoCid atendimentoCid ->
+        controller.atendimentoCidService = Mock(DiagnosticoService) {
+            1 * save(_ as Diagnostico) >> { Diagnostico atendimentoCid ->
                 throw new ValidationException("Invalid instance", atendimentoCid.errors)
             }
         }
@@ -76,7 +76,7 @@ class AtendimentoCidControllerSpec extends Specification implements ControllerUn
         request.contentType = JSON_CONTENT_TYPE
         request.method = 'POST'
         populateValidParams(params)
-        request.json = new AtendimentoCid(params)
+        request.json = new Diagnostico(params)
         controller.save()
 
         then:
@@ -86,7 +86,7 @@ class AtendimentoCidControllerSpec extends Specification implements ControllerUn
 
     void "Test the show action with a null id"() {
         given:
-        controller.atendimentoCidService = Mock(AtendimentoCidService) {
+        controller.atendimentoCidService = Mock(DiagnosticoService) {
             1 * get(null) >> null
         }
 
@@ -99,8 +99,8 @@ class AtendimentoCidControllerSpec extends Specification implements ControllerUn
 
     void "Test the show action with a valid id"() {
         given:
-        controller.atendimentoCidService = Mock(AtendimentoCidService) {
-            1 * get(2) >> new AtendimentoCid()
+        controller.atendimentoCidService = Mock(DiagnosticoService) {
+            1 * get(2) >> new Diagnostico()
         }
 
         when:"A domain instance is passed to the show action"
@@ -124,8 +124,8 @@ class AtendimentoCidControllerSpec extends Specification implements ControllerUn
 
     void "Test the update action correctly persists"() {
         given:
-        controller.atendimentoCidService = Mock(AtendimentoCidService) {
-            1 * save(_ as AtendimentoCid)
+        controller.atendimentoCidService = Mock(DiagnosticoService) {
+            1 * save(_ as Diagnostico)
         }
 
         when:
@@ -133,7 +133,7 @@ class AtendimentoCidControllerSpec extends Specification implements ControllerUn
         request.contentType = JSON_CONTENT_TYPE
         request.method = 'PUT'
         populateValidParams(params)
-        def instance = new AtendimentoCid(params)
+        def instance = new Diagnostico(params)
         instance.id = 1
         instance.version = 0
         controller.update(instance)
@@ -145,8 +145,8 @@ class AtendimentoCidControllerSpec extends Specification implements ControllerUn
 
     void "Test the update action with an invalid instance"() {
         given:
-        controller.atendimentoCidService = Mock(AtendimentoCidService) {
-            1 * save(_ as AtendimentoCid) >> { AtendimentoCid atendimentoCid ->
+        controller.atendimentoCidService = Mock(DiagnosticoService) {
+            1 * save(_ as Diagnostico) >> { Diagnostico atendimentoCid ->
                 throw new ValidationException("Invalid instance", atendimentoCid.errors)
             }
         }
@@ -154,7 +154,7 @@ class AtendimentoCidControllerSpec extends Specification implements ControllerUn
         when:
         request.contentType = JSON_CONTENT_TYPE
         request.method = 'PUT'
-        def instance = new AtendimentoCid(params)
+        def instance = new Diagnostico(params)
         instance.id = 1
         instance.version = 0
         controller.update(instance)
@@ -176,7 +176,7 @@ class AtendimentoCidControllerSpec extends Specification implements ControllerUn
 
     void "Test the delete action with an instance"() {
         given:
-        controller.atendimentoCidService = Mock(AtendimentoCidService) {
+        controller.atendimentoCidService = Mock(DiagnosticoService) {
             1 * delete(2)
         }
 

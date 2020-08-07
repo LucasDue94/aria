@@ -1,7 +1,6 @@
 export class Cid {
   id: number;
-  diagnostico: string;
-  codigo: string;
+  descricao: string;
 
   constructor(object?: any) {
     if (object) {

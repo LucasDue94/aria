@@ -1,83 +1,10 @@
-<section class="diagnostic" [class.active]="currentStep === 0">
-  <app-diagnostico-list></app-diagnostico-list>
+<section class="d-none" [class.active]="currentStep === 0">
+  <app-diagnostico-list
+    (sizeListDiagnostic)="getSizeListDiagnostic($event)" (diagnostic)="getDiagnostic($event)"
+    [title]="'Essa é a primeira evolução desse registro. É importante que você informe o diagnóstico.'">
+  </app-diagnostico-list>
 </section>
-<section class="diagnostic" [class.active]="currentStep === 1">
-  <h3 class="diagnostic-list-title">Diagnóstico(s) de Admissão</h3>
-  <section class="diagnostic-list">
-    <ul class="list" #btnCidStatus>
-      <li class="item" id="{{cid.id}}" *ngFor="let cid of cidsSelected">
-        <div class="item-cid">{{cid.id}} - {{cid.diagnostico}}</div>
-        <div class="items-status">
-            <span class="btn-status"
-                  (click)="setStatus(status.description, cid, $event)"
-                  *ngFor="let status of diagnosticStatus"> {{status.description}}</span>
-          <span (click)="removeCid(cid)"><fa-icon class="btn-minus" [icon]="faMinusCircle"></fa-icon></span>
-        </div>
-        <div class="item-signature"><span>5320 - Patrícia Caldas de Oliveira</span></div>
-      </li>
-    </ul>
-  </section>
-  <div class="button-add" (click)="setShowListCid()">
-    <fa-icon class="icon" [icon]="faPlus"></fa-icon>
-  </div>
-</section>
-<section class="diagnostic-plan" [class.active]="currentStep === 2">
-  <div class="diagnostic-title">
-    <fa-icon class="icon" [icon]="faClipboardCheck"></fa-icon>
-    Vamos iniciar o plano terapêutico do paciente.
-    <hr>
-  </div>
-  <form [formGroup]="form" class="form-plan">
-    <div class="form-group-diagnostic">
-      <label for="problema-ativo" class="label-diagnostic">
-        Problema ativo
-        <span class="span-diagnostic">
-          (Sinais, sintomas, situações e condições decorrentes da doença e/ou estado atual)
-        </span>
-      </label>
-      <label class="label-diagnostic-alert-error"
-             [class.label-error-diagnostic]="f.problemaAtivo.errors && (f.problemaAtivo.dirty || f.problemaAtivo.touched)">
-        Campo obrigatório*</label>
-      <textarea id="problema-ativo" class="text-plan" formControlName="problemaAtivo"
-                [class.input-error]="f.problemaAtivo.errors && (f.problemaAtivo.dirty || f.problemaAtivo.touched)"></textarea>
-    </div>
-    <div class="form-group-diagnostic">
-      <label for="resultado-esperado" class="label-diagnostic">
-        Resultado esperado
-        <span class="span-diagnostic">
-          (Resposta esperada para o problema ativo, com prazo determinado. Não descrever a conduta)
-        </span>
-      </label>
-      <label class="label-diagnostic-alert-error"
-             [class.label-error-diagnostic]="f.resultadoEsperado.errors && (f.resultadoEsperado.dirty || f.resultadoEsperado.touched)">
-        Campo obrigatório*</label>
-      <textarea id="resultado-esperado" class="text-plan" formControlName="resultadoEsperado"
-                [class.input-error]="f.resultadoEsperado.errors && (f.resultadoEsperado.dirty || f.resultadoEsperado.touched)">
-      </textarea>
-    </div>
-    <div class="form-group-diagnostic">
-      <label for="conduta" class="label-diagnostic">
-        Conduta
-        <span class="span-diagnostic">
-          (Meios para atingir o resultado esperado)
-        </span>
-      </label>
-      <label class="label-diagnostic-alert-error"
-             [class.label-error-diagnostic]="f.conduta.errors && (f.conduta.dirty || f.conduta.touched)">
-        Campo obrigatório*</label>
-      <textarea id="conduta" class="text-plan" formControlName="conduta"
-                [class.input-error]="f.conduta.errors && (f.conduta.dirty || f.conduta.touched)"></textarea>
-    </div>
-    <div class="form-group-diagnostic">
-      <label for="conduta" class="label-diagnostic">
-        Prazo<span class="span-diagnostic">(dias)</span>
-      </label>
-      <label class="label-diagnostic-alert-error"
-             [class.label-error-diagnostic]="f.prazo.errors && (f.prazo.dirty || f.prazo.touched)">
-        Campo obrigatório*</label>
-      <input type="number" class="input-diagnostic" formControlName="prazo"
-             [class.input-error]="f.prazo.errors && (f.prazo.dirty || f.prazo.touched)">
-    </div>
-  </form>
+<section class="d-none" [class.active]="currentStep === 1">
+  <app-plano-terapeutico (planTherapeutic)="getPlanTherapeutic($event)" (statePlan)="getStatePlanTherapeutic($event)"></app-plano-terapeutico>
 </section>
 

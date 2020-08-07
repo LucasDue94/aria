@@ -1,0 +1,8 @@
+import br.com.hospitaldocoracaoal.aria.Conselho
+
+model {
+	Iterable<Conselho> conselhoList
+}
+
+json tmpl.conselho(conselhoList ?: [])
+

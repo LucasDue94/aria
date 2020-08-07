@@ -1,0 +1,53 @@
+<h2 class="title">Vamos iniciar o plano terapêutico do paciente.</h2>
+<form [formGroup]="form" class="form-plan">
+  <div class="form-group-plan">
+    <label for="problema-ativo" class="form-label-plan">
+      Problema ativo
+      <span class="form-span-plan">
+          (Sinais, sintomas, situações e condições decorrentes da doença e/ou estado atual)
+        </span>
+    </label>
+    <label class="form-label-plan-alert-error"
+           [class.form-label-error-plan]="f.problemaAtivo.errors && (f.problemaAtivo.dirty || f.problemaAtivo.touched)">
+      Campo obrigatório*</label>
+    <textarea id="problema-ativo" class="text-plan" formControlName="problemaAtivo"
+              [class.input-error]="f.problemaAtivo.errors && (f.problemaAtivo.dirty || f.problemaAtivo.touched)"></textarea>
+  </div>
+  <div class="form-group-plan">
+    <label for="resultado-esperado" class="form-label-plan">
+      Resultado esperado
+      <span class="form-span-plan">
+          (Resposta esperada para o problema ativo, com prazo determinado. Não descrever a conduta)
+        </span>
+    </label>
+    <label class="form-label-plan-alert-error"
+           [class.form-label-error-plan]="f.resultadoEsperado.errors && (f.resultadoEsperado.dirty || f.resultadoEsperado.touched)">
+      Campo obrigatório*</label>
+    <textarea id="resultado-esperado" class="text-plan" formControlName="resultadoEsperado"
+              [class.input-error]="f.resultadoEsperado.errors && (f.resultadoEsperado.dirty || f.resultadoEsperado.touched)">
+      </textarea>
+  </div>
+  <div class="form-group-plan">
+    <label for="conduta" class="form-label-plan">
+      Conduta
+      <span class="form-span-plan">
+          (Meios para atingir o resultado esperado)
+        </span>
+    </label>
+    <label class="form-label-plan-alert-error"
+           [class.form-label-error-plan]="f.conduta.errors && (f.conduta.dirty || f.conduta.touched)">
+      Campo obrigatório*</label>
+    <textarea id="conduta" class="text-plan" formControlName="conduta"
+              [class.input-error]="f.conduta.errors && (f.conduta.dirty || f.conduta.touched)"></textarea>
+  </div>
+  <div class="form-group-plan">
+    <label for="conduta" class="form-label-plan">
+      Prazo<span class="form-span-plan">(dias)</span>
+    </label>
+    <label class="form-label-plan-alert-error"
+           [class.form-label-error-plan]="f.prazo.errors && (f.prazo.dirty || f.prazo.touched)">
+      Campo obrigatório*</label>
+    <input type="number" class="input-diagnostic" formControlName="prazo"
+           [class.input-error]="f.prazo.errors && (f.prazo.dirty || f.prazo.touched)">
+  </div>
+</form>

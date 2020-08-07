@@ -1,0 +1,8 @@
+import br.com.hospitaldocoracaoal.aria.Diagnostico
+
+model {
+	Iterable<Diagnostico> diagnosticoList
+}
+
+json tmpl.diagnostico(diagnosticoList ?: [])
+

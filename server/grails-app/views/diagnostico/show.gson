@@ -1,0 +1,7 @@
+import br.com.hospitaldocoracaoal.aria.Diagnostico
+
+model {
+	Diagnostico diagnostico
+}
+
+json tmpl.diagnostico(diagnostico)

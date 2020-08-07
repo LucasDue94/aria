@@ -7,12 +7,10 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {SpinnerService} from '../../core/spinner/spinner.service';
 import {ErrorService} from '../../core/error/error.service';
 import {TitleService} from '../../core/title/title.service';
-import {faCheck, faExclamationCircle, faSearch} from '@fortawesome/free-solid-svg-icons';
-import {Atendimento} from '../../core/atendimento/atendimento';
+import {faExclamation, faSearch, faSmile} from '@fortawesome/free-solid-svg-icons';
 import {AtendimentoService} from '../../core/atendimento/atendimento.service';
-import {Planoterapeutico} from '../../core/planoTerapeutico/planoterapeutico';
-import {AtendimentoCid} from '../../core/atendimento/atendimentoCid';
 import {AlertService} from '../../core/alert/alert.service';
+import {Atendimento} from '../../core/atendimento/atendimento';
 
 @Component({
   selector: 'app-evolucao',
@@ -21,14 +19,15 @@ import {AlertService} from '../../core/alert/alert.service';
 })
 export class EvolucaoComponent implements OnInit {
 
-  currentStep = 0;
-  paciente: Paciente;
-  registroAtendimento;
   pacienteId;
-  atendimento = new Atendimento();
-  planTherapeutic = new Planoterapeutico({});
-  diagnostic: AtendimentoCid[] = [];
+  atendimentoId;
+  currentStep = 0;
+  diagnostic;
+  planTherapeutic;
+  sizeListDiagnostic;
+  paciente: Paciente;
   faSearch = faSearch;
+  statePlanTherapeutic;
   evolucao = {
     conteudo: 'It is a long established fact that a reader will be distng \'Content here, content helike).\n' +
       '\n',
@@ -51,6 +50,7 @@ export class EvolucaoComponent implements OnInit {
     if (this.pacienteId !== undefined) {
       this.spinner.show();
       this.pacienteService.get(this.pacienteId).subscribe(res => {
+        this.atendimentoId = res.getUltimoRegistro().id;
         this.spinner.hide();
         if (!res.hasOwnProperty('error')) {
           this.paciente = res;
@@ -71,67 +71,56 @@ export class EvolucaoComponent implements OnInit {
     return Math.floor(Math.ceil(Math.abs(nascimento.getTime() - (new Date()).getTime()) / (1000 * 3600 * 24)) / 365.25);
   }
 
+  setSizeListDiagnostic(size) {
+    this.sizeListDiagnostic = size;
+  }
+
   nextStep() {
-    let existStatus;
-    this.currentStep = 1;
-    this.diagnostic.forEach(diagnostic => {
-      if (Object.is(diagnostic.status, '')) {
-        this.alertService.send({message: 'Selecione o status do cid!', type: 'warning', icon: faExclamationCircle});
-        existStatus = false;
-      } else {
-        existStatus = true;
-      }
-    });
-    if (existStatus) {
-      this.currentStep += 1;
-    }
+    this.currentStep += 1;
   }
 
   previousStep() {
     this.currentStep -= 1;
   }
 
-  getPlanTherapeutic(plan) {
-    this.planTherapeutic = plan;
-  }
-
-  getDiagnostic(diagnostic) {
-    this.diagnostic = diagnostic;
-  }
-
-  getAttendance(attendanceRegister) {
-    this.registroAtendimento = attendanceRegister;
-  }
-
-  buildAdmission(plan, diagnostic, attendanceRegister) {
-    this.atendimento.id = attendanceRegister;
-    this.atendimento.atendimentoCid = diagnostic;
-    this.atendimento.planosTerapeutico = plan;
-  }
-
   cancel() {
     this.modalService.close();
   }
 
+  setDiagnostic(diagnostic) {
+    this.diagnostic = diagnostic;
+  }
+
+  setPlanTherapeutic(planTherapeutic) {
+    this.planTherapeutic = planTherapeutic;
+  }
+
+  setStatePlanTherapeutic(statePlanTherapeutic) {
+    this.statePlanTherapeutic = statePlanTherapeutic;
+  }
+
   save() {
-    this.buildAdmission(this.planTherapeutic, this.diagnostic, this.registroAtendimento);
-    if (!Object.is(this.planTherapeutic, 'INVALID')) {
-      this.atendimentoService.save(this.atendimento).subscribe(atendimento => {
-        if (atendimento.hasOwnProperty('error')) {
-          this.alertService.send({
-            message: 'teste',
-            icon: faExclamationCircle,
-            type: 'Warning'
-          });
-        } else {
-          this.alertService.send({message: 'Admissão realizada com sucesso!', type: 'success', icon: faCheck});
+    const admission = new Atendimento({
+      id: this.atendimentoId,
+      diagnosticos: this.diagnostic,
+      planosTerapeutico: [this.planTherapeutic]
+    });
+    if (Object.is(this.statePlanTherapeutic, 'VALID')) {
+      this.atendimentoService.save(admission).subscribe(atendimento => {
+          this.modalService.close();
           setTimeout(() => {
-            this.modalService.close();
+            this.alertService.send({message: 'Admissão realizada!', icon: faSmile, type: 'success'});
+            this.router.navigate(['/paciente/show', this.pacienteId]);
           }, 300);
         }
-      });
+      );
     } else {
-      this.alertService.send({message: 'Preencha os campos do formulário', type: 'warning', icon: faExclamationCircle});
+      this.alertService.send({
+        message: 'Por favor preencha todos os campos!',
+        icon: faExclamation,
+        type: 'warning'
+      });
+
     }
   }
 }
