@@ -71,8 +71,8 @@
       <h2>charts e afins</h2>
     </aria-card>
   </article>
-  <aria-modal [title]="'Admissão'" [size]="'medium'">
-    <section body>
+  <aria-modal [modal]="modalAdmissao">
+    <section class="admissao-container" body>
       <aria-admissao [currentStep]="currentStep" (diagnostic)="setDiagnostic($event)"
                      (sizeListDiagnostic)="setSizeListDiagnostic($event)"
                      (planTherapeutic)="setPlanTherapeutic($event)"

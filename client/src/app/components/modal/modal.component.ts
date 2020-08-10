@@ -1,111 +1,149 @@
-import {Component, EventEmitter, HostListener, Input, OnInit, Output, Renderer2, ViewChild} from '@angular/core';
+import {
+  Component,
+  DoCheck,
+  ElementRef,
+  HostListener,
+  Input,
+  KeyValueDiffers,
+  OnChanges,
+  Renderer2,
+  SimpleChanges,
+  ViewChild
+} from '@angular/core';
 import {ModalService} from '../../core/modal/modal.service';
-import {faTimes} from '@fortawesome/free-solid-svg-icons';
+import {Modal} from '../../core/modal/entities/modal';
+import {ModalType} from '../../core/modal/entities/enumerators/modalType.enum';
+import {ModalSize} from '../../core/modal/entities/enumerators/modalSize.enum';
 
 @Component({
   selector: 'aria-modal',
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss']
 })
-export class ModalComponent implements OnInit {
-  @Input() title: string;
-  @Input() message: string;
-  @Input() footer: string;
-  @Input() theme: string; // info, danger, warning
-  @Input() size: string; // small, medium, larger
-  @Input() nextStep: boolean;
-  @Input() backStep: boolean;
-  @Output() clickedElement = new EventEmitter();
-  @ViewChild('modalContainer', {static: false}) modalContainer;
-  @ViewChild('header', {static: false}) header;
-  faTimes = faTimes;
-  status: boolean;
-  width: string;
-  height: string;
 
-  constructor(private modalService: ModalService, private render: Renderer2) {
+/**
+ * @classdesc Modal Component is a class responsible for to render custom-modal.
+ * @property Modal property describes a modal type instance
+ * @property modalContainer property is the main modal container
+ * @property modifiedObject checks changes in modal instance
+ */
+export class ModalComponent implements DoCheck, OnChanges {
+  @Input() modal: Modal;
+  @ViewChild('modalContainer', {read: ElementRef, static: false}) modalContainer: ElementRef;
+  @ViewChild('modalBackground', {read: ElementRef, static: false}) modalBackground: ElementRef;
+  modifiedObject: any;
+  open: boolean;
+  readonly MODAL_INTERNAL_STATUS_PROPERY = 'internalStatus';
+  modalParent: ElementRef;
+  body: Element;
+
+  /**
+   *
+   * @param render is a custom renderer to bypass Angular's templating and make custom UI changes that can't be expressed declaratively.
+   * @param differs is a helper to deal with differences. It will be used to detect changes in the modal instance properties.
+   * @param modalService is a service that is responsible for listening and sending modals' answers.
+   */
+  constructor(private modalService: ModalService, private render: Renderer2, private differs: KeyValueDiffers) {
+    this.modifiedObject = differs.find({}).create();
   }
 
-  ngOnInit() {
-    this.modalService.listen().subscribe(status => {
-      this.status = status;
-      this.handleModal(this.status);
-      this.setSize();
-      this.setTheme();
-    });
-  }
-
-  setTheme() {
-    switch (this.theme) {
-      case 'info':
-        this.render.setStyle(this.header.nativeElement, 'background-color', '#007bff');
-        this.render.setStyle(this.header.nativeElement, 'color', '#FFFFFF');
-        break;
-      case 'warning':
-        this.render.setStyle(this.header.nativeElement, 'background-color', '#d48c00');
-        this.render.setStyle(this.header.nativeElement, 'color', '#FFFFFF');
-        break;
-      case 'danger':
-        this.render.setStyle(this.header.nativeElement, 'background-color', '#c26267');
-        this.render.setStyle(this.header.nativeElement, 'color', '#FFFFFF');
-        break;
-      default :
-        this.render.setStyle(this.header.nativeElement, 'background-color', '#2D9DD1');
-        this.render.setStyle(this.header.nativeElement, 'color', '#FFFFFF');
-        break;
+  /**
+   * @description event used to detect changes in modal controlled by the service.
+   */
+  ngOnChanges(changes: SimpleChanges) {
+    if (this.modal) {
+      if (this.modal.type === ModalType.CONFIRM) {
+        this.handleModal(true);
+      }
     }
   }
 
-  setSize() {
-    switch (this.size) {
-      case 'small':
-        this.width = '30%';
-        this.height = '21%';
-        break;
-      case 'medium':
-        this.width = '55%';
-        this.height = '45%';
-        break;
-      case 'larger':
-        this.width = '80%';
-        this.height = '56%';
-        break;
-      default:
-        this.width = '30%';
-        this.height = '21%';
-        break;
+  /**
+   * @description The method was created to append modal in body or move to origin parent.
+   * @param open is a boolean. If open is true then append in body else append in origin parent.
+   */
+  handleAppend(open: boolean) {
+    if (this.modalContainer) {
+      if (open) {
+        this.modalParent = this.render.parentNode(this.modalBackground.nativeElement);
+        const body = document.getElementsByTagName('body')[0];
+        this.render.appendChild(body, this.modalParent);
+      } else {
+        this.render.appendChild(this.modalParent, this.modalBackground.nativeElement);
+      }
     }
   }
 
+  /**
+   * @description The method was created to apply ou remove blur in modal.
+   * @param useBlur is a boolean. If useBlur is true then apply the blur else remove the blur.
+   */
+  handleBlur(useBlur: boolean) {
+    const appRoot = document.getElementsByTagName('app-root')[0];
+    this.render[useBlur ? 'addClass' : 'removeClass'](appRoot, 'blur');
+  }
+
+  /**
+   * @description event used to detect changes in modal instance properties that are not detected in OnChanges
+   */
+  ngDoCheck() {
+    const changes = this.modifiedObject.diff(this.modal);
+
+    if (changes) {
+      changes.forEachChangedItem(propertyChange => {
+        if (propertyChange.key === this.MODAL_INTERNAL_STATUS_PROPERY) {
+          this.handleModal(propertyChange.currentValue ? propertyChange.currentValue : false);
+        }
+      });
+    }
+  }
+
+  /**
+   * @description The method was created to open or close the modal.
+   * @param open is a boolean. If open is true then open modal else close the modal.
+   */
   handleModal(open: boolean) {
-    const call = open ? 'addClass' : 'removeClass';
-    const parent = this.render.parentNode(this.modalContainer.nativeElement);
-    const root = document.getElementsByTagName('app-root');
-    const backgroundModal = document.getElementById('background-modal');
-    const mainBody = document.getElementById('body-app');
-    this.render[call](parent, 'modal-open');
-    this.render[call](backgroundModal, 'active-background-modal');
-    this.render[call](mainBody, 'blur');
-    this.render.appendChild(root[0], this.modalContainer.nativeElement);
-  }
-
-  @HostListener('document:click', ['$event']) clickout(event) {
-    this.clickedElement.emit(event.target);
-    const backgroundModal = document.getElementById('background-modal');
-    if (event.target == backgroundModal) {
-      this.status = false;
-      this.handleModal(false);
+    const appRoot = document.getElementsByTagName('app-root')[0];
+    this.render[open ? 'addClass' : 'removeClass'](appRoot, 'open-modal');
+    this.open = open;
+    if (this.modal.blur) {
+      this.handleAppend(this.open);
+      this.handleBlur(this.open);
     }
   }
 
-  @HostListener('window:keyup', ['$event']) keyEvent(event: KeyboardEvent) {
-    if (event.key === 'Escape') {
-      this.close();
+  /**
+   * @description This method listens for keyboard events and checks if you clicked 'escape' to close the modal.
+   */
+  @HostListener('document:keydown', ['$event']) handleKeyDown(e: KeyboardEvent) {
+    if (e.key === 'Escape') {
+      if (this.modal) {
+        this.sendAnswer(false);
+        this.modal.close();
+      }
     }
   }
 
-  close = () => {
-    this.status = false;
-    this.handleModal(this.status);
+  /**
+   * @description This method get default modal size.
+   */
+  getDefaultSize = () => this.modal && this.modal.size ? this.modal.size : ModalSize.SMALL;
+
+  /**
+   * @description This method apply modal color theme.
+   */
+  applyTheme = () => this.modal && this.modal.theme ? `${this.modal.theme}-theme` : '';
+
+  /**
+   * @description This method return if type modal is custom.
+   */
+  isCustom = () => this.modal && this.modal.type === ModalType.CUSTOM;
+
+  /**
+   * @description This method returns a boolean with the response to modal calls: confirm, dialog and prompt.
+   */
+  sendAnswer(answer: boolean) {
+    this.modalService.send(answer);
+    this.handleModal(false);
   }
 }
