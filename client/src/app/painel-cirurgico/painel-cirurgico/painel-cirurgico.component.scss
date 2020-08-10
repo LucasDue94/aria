@@ -131,15 +131,20 @@ section:last-child {
   overflow: hidden;
 }
 
+.list-item:not(:last-child) {
+  border-bottom: 1px solid #e5e5e5 !important;
+}
+
 .list-item__graphic {
   margin-left: 0;
   margin-right: 32px;
   width: 24px;
-  height: 24px;
+  //height: 24px;
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
   fill: currentColor;
+  color: rgba(0,0,0,.43);
 }
 
 .list--two-line .list-item__text {
@@ -206,6 +211,11 @@ section:last-child {
 
 .inline-demo-list .list-item__meta {
   color: rgba(0,0,0,.6);
+}
+
+.primary-text {
+  color: #333 !important;
+  margin-left: 3px;
 }
 .list-item__meta:not(.material-icons) {
   font-family: Roboto, sans-serif;
