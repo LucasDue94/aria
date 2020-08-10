@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {TitleService} from "../../core/title/title.service";
-import {
-  faCalendar, faCalendarCheck
-} from '@fortawesome/free-solid-svg-icons';
 import {faClock} from "@fortawesome/free-regular-svg-icons";
+import {faCalendarAlt} from "@fortawesome/free-regular-svg-icons/faCalendarAlt";
 @Component({
   selector: 'app-painel-cirurgico',
   templateUrl: './painel-cirurgico.component.html',
@@ -11,7 +9,7 @@ import {faClock} from "@fortawesome/free-regular-svg-icons";
 })
 export class PainelCirurgicoComponent implements OnInit {
 
-  faCalendar = faCalendar;
+  faCalendar = faCalendarAlt;
   faClock = faClock;
 
   list = [
