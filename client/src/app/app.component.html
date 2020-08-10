@@ -6,11 +6,11 @@
       <fa-icon class="icon-back" (click)="goRoute()" [icon]="faArrowLeft"></fa-icon>
       <h1 class="module-name">{{moduleName}}</h1>
     </nav>
-    <main class="main-container" [class.notLogged]="!isLogged" >
+    <main class="main-container" [class.notLogged]="!isLogged">
       <router-outlet></router-outlet>
       <spinner></spinner>
     </main>
   </section>
 </section>
 <app-alert [alert]="alert"></app-alert>
-<!--<aria-modal></aria-modal>-->
+<aria-modal [modal]="modal"></aria-modal>

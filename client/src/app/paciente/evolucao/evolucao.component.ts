@@ -13,6 +13,7 @@ import {Atendimento} from '../../core/atendimento/atendimento';
 import {Modal} from '../../core/modal/entities/modal';
 import {ModalType} from '../../core/modal/entities/enumerators/modalType.enum';
 import {ModalSize} from '../../core/modal/entities/enumerators/modalSize.enum';
+import {ModalTheme} from "../../core/modal/entities/enumerators/modalTheme.enum";
 
 @Component({
   selector: 'app-evolucao',
@@ -37,7 +38,7 @@ export class EvolucaoComponent implements OnInit {
     crm: '5320',
     data: '01/07/2019 10:13:44'
   };
-  modalAdmissao = new Modal({title: 'Admissão', type: ModalType.CUSTOM, size: ModalSize.MEDIUM});
+  modalAdmissao = new Modal({title: 'Admissão', type: ModalType.CUSTOM, size: ModalSize.SMALL});
 
   constructor(private pacienteService: PacienteService, private atendimentoService: AtendimentoService,
               private location: Location, private route: ActivatedRoute, private titleService: TitleService,
