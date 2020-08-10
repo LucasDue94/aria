@@ -123,4 +123,8 @@ export class EvolucaoComponent implements OnInit {
 
     }
   }
+
+  showPlano() {
+    console.log('plano');
+  }
 }
