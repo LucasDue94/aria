@@ -1,18 +1,24 @@
-<section #modalContainer [ngStyle]="{'display': this.status ? 'flex': 'none', 'height':height, 'width': width}"
-         id="modal-container">
-  <header #header id="modal-header">
-    <section id="modal-title">
-      <ng-content select="[title]"></ng-content>
-      <h1>{{title}}</h1>
+<main class="background-modal" [ngStyle]="{'display': open ? 'flex': 'none '}" #modalBackground>
+  <section [ngStyle]="{ 'height': modal?.height, 'width': modal?.width }"
+           [class]="applyTheme()" [ngClass]="[getDefaultSize(), 'custom-modal-container']" #modalContainer>
+    <header class="custom-modal-header">
+      {{modal?.title}}
+      <ng-content select="[header]"></ng-content>
+    </header>
+    <section class="custom-modal-body">
+      <p class="message">{{modal?.message}}</p>
+      <ng-content select="[body]"></ng-content>
     </section>
-    <fa-icon id="close-modal" (click)="close()" [icon]="faTimes"></fa-icon>
-  </header>
-  <div id="modal-body">
-    {{ message }}
-    <ng-content select="[body]"></ng-content>
-  </div>
-  <footer id="modal-footer">
-    {{ footer }}
-    <ng-content select="[footer]"></ng-content>
-  </footer>
-</section>
+    <footer class="custom-modal-footer" [class.footer-shadow]="isCustom()">
+      <ng-container *ngIf="!isCustom()">
+        <button *ngIf="modal?.useCancel" (click)="sendAnswer(false)"
+                class="btn btn-link cancel-button">Cancel
+        </button>
+        <button (click)="sendAnswer(true)" class="btn ok-button">
+          <em class="mr-1" [class.icon-bin]="modal?.useTrashIcon"></em>{{modal?.confirmationButtonName}}
+        </button>
+      </ng-container>
+      <ng-content select="[footer]"></ng-content>
+    </footer>
+  </section>
+</main>

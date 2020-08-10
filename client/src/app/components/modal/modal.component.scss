@@ -1,83 +1,150 @@
-@import 'src/assets/colors';
+@import "../../../assets/colors";
 
-#modal-container {
-  position: absolute;
-  flex-direction: column;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  min-width: 500px;
-  min-height: 450px;
+.small, .medium, .larger {
+  max-height: 95%;
+  min-height: 250px;
+  min-width: 400px;
+}
+
+.small {
+  width: 40%;
+}
+
+.medium {
+  width: 60%;
+}
+
+.larger {
+  width: 70%;
+}
+
+.background-modal {
+  position: fixed;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
 
   & {
+    z-index: 5000 !important;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+}
+
+.custom-modal-container {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
+  justify-content: space-between;
+
+  & {
+    z-index: 5000;
     border-radius: 5px;
-    background-color: $white;
-    opacity: 1;
-    z-index: 2000;
+    background-color: white;
   }
 
-  @media screen and (max-width: 500px) {
-    width: 95% !important;
-    min-width: auto !important;
-  }
-
-  #modal-header {
-    z-index: 1;
+  .custom-modal-header {
     display: flex;
-    height: 35px;
-    box-shadow: 1px 0 6px $gray-70;
-    padding: 15px;
-    border-radius: 5px 5px 0 0;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px;
 
     & {
-      align-content: space-between;
-      justify-content: space-between;
-      text-align: center;
+      color: white;
+      border-radius: 5px 5px 0 0;
+      background-color: $info;
+      font-size: 28px;
+      font-weight: 300 !important;
+      text-transform: capitalize;
     }
 
-    * {
-      display: flex;
-      align-items: center;
-    }
-
-    #modal-title {
-      font-weight: 200 !important;
+    .close-button {
+      color: rgba(255, 255, 255, 0.5);
       font-size: 22px;
-      margin: 0 auto;
-    }
-
-    #close-modal {
       cursor: pointer;
+      font-weight: 400;
+
+      &:hover {
+        transition: 0.3s;
+        color: rgba(255, 255, 255, 1);
+      }
     }
   }
 
-  #modal-body {
-    z-index: 0;
-    position: relative;
-    min-height: 150px;
-    overflow-y: auto;
-    padding: 10px;
+  .custom-modal-body {
+    display: flex;
     flex: 1;
+    padding: 15px;
+
+    & {
+      overflow: auto;
+    }
+
+    .message {
+      font-size: 20px;
+    }
   }
 
-  #modal-footer {
-    z-index: 1;
+  .custom-modal-footer {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    height: 50px;
-    padding: 0 10px;
+    padding: 20px 10px;
 
     & {
-      background-color: $gray-50;
-      box-shadow: -1px 0 6px $gray-70;
+      border-top: 1px solid #ddd;
       border-radius: 0 0 5px 5px;
+    }
+
+    .ok-button, .cancel-button {
+      min-width: 100px;
+    }
+
+    .ok-button {
+      background-color: $info;
+      color: white;
     }
   }
 
+  .footer-shadow {
+    box-shadow: 0 -1px 30px rgba(0, 0, 0, 0.1);
+  }
 }
 
-.button {
-  height: 35px !important;
-  width: 70px !important;
+.warning-theme {
+  .custom-modal-header, .ok-button {
+    background-color: $warning !important;
+  }
+
+  .cancel-button {
+    color: $warning !important;
+  }
+}
+
+.danger-theme {
+  .custom-modal-header, .ok-button {
+    background-color: $danger !important;
+  }
+
+  .cancel-button {
+    color: $danger !important;
+  }
+}
+
+.info-theme {
+  .custom-modal-header, .ok-button {
+    background-color: $info !important;
+  }
+
+  .cancel-button {
+    color: $info !important;
+  }
+}
+
+.fixed-modal {
+  display: none !important;
 }

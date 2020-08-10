@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {Paciente} from '../../core/paciente/paciente';
-import {ModalService} from '../../core/modal/modal.service';
 import {PacienteService} from '../../core/paciente/paciente.service';
 import {Location} from '@angular/common';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -11,6 +10,10 @@ import {faExclamation, faSearch, faSmile} from '@fortawesome/free-solid-svg-icon
 import {AtendimentoService} from '../../core/atendimento/atendimento.service';
 import {AlertService} from '../../core/alert/alert.service';
 import {Atendimento} from '../../core/atendimento/atendimento';
+import {Modal} from '../../core/modal/entities/modal';
+import {ModalType} from '../../core/modal/entities/enumerators/modalType.enum';
+import {ModalSize} from '../../core/modal/entities/enumerators/modalSize.enum';
+import {ModalTheme} from "../../core/modal/entities/enumerators/modalTheme.enum";
 
 @Component({
   selector: 'app-evolucao',
@@ -35,15 +38,17 @@ export class EvolucaoComponent implements OnInit {
     crm: '5320',
     data: '01/07/2019 10:13:44'
   };
+  modalAdmissao = new Modal({title: 'Admissão', type: ModalType.CUSTOM, size: ModalSize.SMALL});
 
-  constructor(private modalService: ModalService, private pacienteService: PacienteService, private atendimentoService: AtendimentoService,
-              private location: Location, private route: ActivatedRoute, private titleService: TitleService, private alertService: AlertService,
-              private router: Router, private spinner: SpinnerService, private errorService: ErrorService) {
+  constructor(private pacienteService: PacienteService, private atendimentoService: AtendimentoService,
+              private location: Location, private route: ActivatedRoute, private titleService: TitleService,
+              private alertService: AlertService, private router: Router, private spinner: SpinnerService,
+              private errorService: ErrorService) {
   }
 
   ngOnInit(): void {
     setTimeout(() => {
-      this.modalService.open();
+      this.modalAdmissao.open();
     }, 300);
     this.pacienteId = this.route.snapshot.params.id;
     this.titleService.send('Evolução');
@@ -84,7 +89,7 @@ export class EvolucaoComponent implements OnInit {
   }
 
   cancel() {
-    this.modalService.close();
+    this.modalAdmissao.close();
   }
 
   setDiagnostic(diagnostic) {
@@ -107,7 +112,7 @@ export class EvolucaoComponent implements OnInit {
     });
     if (Object.is(this.statePlanTherapeutic, 'VALID')) {
       this.atendimentoService.save(admission).subscribe(atendimento => {
-          this.modalService.close();
+          this.modalAdmissao.close();
           setTimeout(() => {
             this.alertService.send({message: 'Admissão realizada!', icon: faSmile, type: 'success'});
             this.router.navigate(['/paciente/show', this.pacienteId]);
@@ -122,5 +127,9 @@ export class EvolucaoComponent implements OnInit {
       });
 
     }
+  }
+
+  showPlano() {
+    console.log('plano');
   }
 }
