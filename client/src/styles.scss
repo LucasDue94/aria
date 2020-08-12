@@ -92,19 +92,13 @@ paciente-card {
   transform: translate(-50%, -50%);
 }
 
-aria-modal {
-  visibility: hidden;
+.open-modal {
+  overflow: hidden;
 }
 
 .blur {
-  * {
-    overflow-y: hidden;
-    -webkit-filter: blur(1px);
-    -moz-filter: blur(1px);
-    -o-filter: blur(1px);
-    -ms-filter: blur(1px);
-    filter: blur(1px);
-  }
+  filter: blur(3px) grayscale(50%) !important;
+  -webkit-filter: blur(3px) grayscale(50%) !important;
 }
 
 //style swagger editor

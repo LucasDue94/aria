@@ -21,6 +21,7 @@
     "@angular/router": "~8.1.2",
     "@fortawesome/angular-fontawesome": "^0.5.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.28",
+    "@fortawesome/free-regular-svg-icons": "^5.14.0",
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "@ng-select/ng-select": "^3.7.3",
     "angular-highcharts": "^8.0.3",

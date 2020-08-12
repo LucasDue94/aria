@@ -1,1 +1,70 @@
-<p>painel-cirurgico works!</p>
+<section class="container-painel">
+  <div class="main-content-painel-cir">
+
+    <div class="basic-card">
+      <div class="card-wrapper__text-section"><!---->
+        <div class="demo-card__title">Cirurgia 1</div>
+        <div class="demo-card__subhead"> <p><b>Cirurgião: </b>Dr. José Leitão</p></div>
+      </div>
+      <div class="card-wrapper__text-section">
+        <div class="demo-card__supporting-text">
+          <p><b>Paciente: </b>Joaquim Serafino Araújo</p>
+          <p><b>Previsão de término: </b>18:00</p>
+        </div>
+      </div>
+      <br>
+    </div>
+    <div class="basic-card">
+      <div class="card-wrapper__text-section"><!---->
+        <div class="demo-card__title">Cirurgia 2</div>
+        <div class="demo-card__subhead"> <p><b>Cirurgião: </b>Dr. José Leitão</p></div>
+      </div>
+      <div class="card-wrapper__text-section">
+        <div class="demo-card__supporting-text">
+          <p><b>Paciente: </b>MARIANA LOPES SARMENTO FERREIRA RODRIGUES CAVALCANTI ALENCAR</p>
+          <p><b>Previsão de término: </b>18:00</p>
+        </div>
+      </div>
+      <br>
+    </div>
+    <div class="basic-card">
+      <div class="card-wrapper__text-section"><!---->
+        <div class="demo-card__title">Cirurgia 2</div>
+        <div class="demo-card__subhead"> <p><b>Cirurgião: </b>Dr. José Leitão</p></div>
+      </div>
+      <div class="card-wrapper__text-section">
+        <div class="demo-card__supporting-text">
+          <p><b>Paciente: </b>MARIANA LOPES SARMENTO FERREIRA RODRIGUES CAVALCANTI ALENCAR</p>
+          <p><b>Previsão de término: </b>18:00</p>
+        </div>
+      </div>
+      <br>
+    </div>
+    <br>
+
+    <ul class="list list--two-line inline-list">
+      <!----><!---->
+      <li *ngFor="let item of list" class="list-item ripple-upgraded" tabindex="0" style="--ripple-fg-size:285px; --ripple-fg-scale:1.72426; --ripple-fg-translate-start:13.5px, -109.5px; --ripple-fg-translate-end:95.5px, -106.5px;">
+
+        <span class="list-item__graphic" aria-hidden="true">
+          <fa-icon [icon]="faCalendar" size="2x"></fa-icon>
+        </span>
+
+        <span class="list-item__text">
+          <span class="list-item__primary-text">
+            {{item.medico}}
+          </span>
+        <span class="list-item__secondary-text">
+          <span class="primary-text">João Pedro Simões</span> &#8212; {{item.hora}}
+        </span>
+        </span>
+
+<!--        <span aria-hidden="true" class="list-item__meta">&lt;!&ndash;&ndash;&gt;Meta&lt;!&ndash;&ndash;&gt;</span>-->
+
+      </li><!----><!----><!---->
+    </ul>
+
+
+  </div>
+</section>
+
