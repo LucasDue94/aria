@@ -31,7 +31,7 @@ export class EvolucaoComponent implements OnInit {
   paciente: Paciente;
   faSearch = faSearch;
   statePlanTherapeutic;
-  evolucao = {
+  ultimaEvolucao = {
     conteudo: 'It is a long established fact that a reader will be distng \'Content here, content helike).\n' +
       '\n',
     medico: 'Patrícia Caldas de Oliveira',
@@ -39,6 +39,11 @@ export class EvolucaoComponent implements OnInit {
     data: '01/07/2019 10:13:44'
   };
   modalAdmissao = new Modal({title: 'Admissão', type: ModalType.CUSTOM, size: ModalSize.SMALL});
+  modalPlanoTerapeutico = new Modal({
+    title: 'Plano Terapêutico Multiprofissional',
+    type: ModalType.CUSTOM,
+    size: ModalSize.LARGER
+  });
 
   constructor(private pacienteService: PacienteService, private atendimentoService: AtendimentoService,
               private location: Location, private route: ActivatedRoute, private titleService: TitleService,
@@ -68,8 +73,7 @@ export class EvolucaoComponent implements OnInit {
     }
   }
 
-  cutText(text, max) {
-  }
+  cutText = (text, width) => text.length > 120 ? text.slice(0, width) + '...' : text;
 
   getIdade(nasc) {
     const nascimento = new Date(nasc);
@@ -130,6 +134,6 @@ export class EvolucaoComponent implements OnInit {
   }
 
   showPlano() {
-    console.log('plano');
+    this.modalPlanoTerapeutico.open();
   }
 }

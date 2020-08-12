@@ -1,14 +1,14 @@
 import {Component, EventEmitter, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {FormBuilder, FormControl, Validators} from '@angular/forms';
-import {PacienteService} from '../core/paciente/paciente.service';
+import {PacienteService} from '../../core/paciente/paciente.service';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-plano-terapeutico',
-  templateUrl: './plano-terapeutico.component.html',
-  styleUrls: ['./plano-terapeutico.component.scss']
+  templateUrl: './plano-terapeutico-form.component.html',
+  styleUrls: ['./plano-terapeutico-form.component.scss']
 })
-export class PlanoTerapeuticoComponent implements OnInit {
+export class PlanoTerapeuticoFormComponent implements OnInit {
 
   @Output() planTherapeutic = new EventEmitter();
   @Output() statePlan = new EventEmitter();

@@ -1,4 +1,4 @@
-<main #evolucao class="evolucao-container">
+<main class="evolucao-container">
   <article class="resume">
     <aria-card id="paciente-card-info">
       <h2 class="nome">{{paciente?.nome}}</h2>
@@ -47,10 +47,10 @@
       <aria-card>
         <section class="evolucao-card">
           <h2 class="card-title">Evoluções</h2>
-          <p>{{ cutText(evolucao.conteudo, 150) }}</p>
+          <p>{{ cutText(ultimaEvolucao?.conteudo, 150) }}</p>
           <footer class="evolucao-footer">
-            <div>{{ evolucao.data}}</div>
-            <div>{{ evolucao.crm + ' - '}}</div>
+            <div>{{ ultimaEvolucao?.data}}</div>
+            <div>{{ ultimaEvolucao?.crm + ' - '}}</div>
           </footer>
         </section>
       </aria-card>
@@ -89,5 +89,8 @@
         <button (click)="save()" class="button button-blue" *ngIf="currentStep >= 1">Salvar</button>
       </form>
     </section>
+  </aria-modal>
+  <aria-modal [modal]="modalPlanoTerapeutico">
+
   </aria-modal>
 </main>
