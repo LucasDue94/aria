@@ -12,9 +12,9 @@
     <footer class="custom-modal-footer" [class.footer-shadow]="isCustom()">
       <ng-container *ngIf="!isCustom()">
         <button *ngIf="modal?.useCancel" (click)="sendAnswer(false)"
-                class="btn btn-link cancel-button">Cancel
+                class="button cancel-button">Cancel
         </button>
-        <button (click)="sendAnswer(true)" class="btn ok-button">
+        <button (click)="sendAnswer(true)" class="button ok-button">
           <em class="mr-1" [class.icon-bin]="modal?.useTrashIcon"></em>{{modal?.confirmationButtonName}}
         </button>
       </ng-container>
