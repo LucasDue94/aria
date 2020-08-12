@@ -29,7 +29,7 @@
   left: 0;
 
   & {
-    z-index: 5000 !important;
+    z-index: 2000 !important;
     background-color: rgba(0, 0, 0, 0.5);
   }
 }
@@ -104,6 +104,14 @@
       min-width: 100px;
     }
 
+    .cancel-button {
+      background: transparent;
+
+      &:hover {
+        color: $gray-60 !important;
+      }
+    }
+
     .ok-button {
       background-color: $info;
       color: white;
@@ -120,6 +128,12 @@
     background-color: $warning !important;
   }
 
+  .ok-button {
+    &:hover {
+      background-color: rgba($warning, 0.5) !important;
+    }
+  }
+
   .cancel-button {
     color: $warning !important;
   }
@@ -130,6 +144,12 @@
     background-color: $danger !important;
   }
 
+  .ok-button {
+    &:hover {
+      background-color: rgba($danger, 0.5) !important;
+    }
+  }
+
   .cancel-button {
     color: $danger !important;
   }
@@ -138,6 +158,12 @@
 .info-theme {
   .custom-modal-header, .ok-button {
     background-color: $info !important;
+  }
+
+  .ok-button {
+    &:hover {
+      background-color: rgba($info, 0.5) !important;
+    }
   }
 
   .cancel-button {

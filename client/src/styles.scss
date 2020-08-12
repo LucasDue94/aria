@@ -250,7 +250,7 @@ status-card {
   }
 }
 
-.button-cancel {
+.button-gray {
   color: $white;
   background: $gray-80;
   transition: 0.3s;
@@ -262,15 +262,15 @@ status-card {
   }
 }
 
-.button-next {
+.button-info {
   color: $white;
-  background: #42a5f5;
+  background: $info;
   transition: 0.3s;
 
   &:hover {
     cursor: pointer;
     transition: 0.3s;
-    background: #3484c5;
+    background: $info;
   }
 }
 
