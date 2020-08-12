@@ -39,11 +39,17 @@ class Permissao implements Serializable {
             findOrSaveWhere(authority: 'ROLE_APACHE_SHOW', nome: 'Ver Apache', alias: 'apache')
             findOrSaveWhere(authority: 'ROLE_APACHE_UPDATE', nome: 'Atualizar Apache', alias: 'apache')
 
-            // -- APACHE --
-            findOrSaveWhere(authority: 'ROLE_CID_REPORT', nome: 'Ver relatório Cid', alias: 'cid')
-            findOrSaveWhere(authority: 'ROLE_CID_SAVE', nome: 'Salvar Cid', alias: 'cid')
-            findOrSaveWhere(authority: 'ROLE_CID_SHOW', nome: 'Ver Cid', alias: 'cid')
-            findOrSaveWhere(authority: 'ROLE_CID_UPDATE', nome: 'Atualizar Cid', alias: 'cid')
+            // -- DIAGNOSTICO --
+            findOrSaveWhere(authority: 'ROLE_DIAGNOSTICO_REPORT', nome: 'Ver relatório Diagnostico', alias: 'Diagnostico')
+            findOrSaveWhere(authority: 'ROLE_DIAGNOSTICO_SAVE', nome: 'Salvar Diagnostico', alias: 'Diagnostico')
+            findOrSaveWhere(authority: 'ROLE_DIAGNOSTICO_SHOW', nome: 'Ver Diagnostico', alias: 'Diagnostico')
+            findOrSaveWhere(authority: 'ROLE_DIAGNOSTICO_UPDATE', nome: 'Atualizar Diagnostico', alias: 'Diagnostico')
+            findOrSaveWhere(authority: 'ROLE_DIAGNOSTICO_DELETE', nome: 'Excluir Diagnostico', alias: 'Diagnostico')
+
+            // -- CID --
+            findOrSaveWhere(authority: 'ROLE_CID_INDEX', nome: 'LISTA DE CIDs', alias: 'CID')
+            findOrSaveWhere(authority: 'ROLE_CID_SHOW', nome: 'Ver CID', alias: 'CID')
+
 
             // -- GRUPOS DE USUARIOS --
             findOrSaveWhere(authority: 'ROLE_GRUPO_INDEX', nome: 'Listar grupos de usuários', alias: 'grupo')

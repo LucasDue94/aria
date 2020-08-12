@@ -38,12 +38,12 @@
           </section>
           <section *ngIf="paciente?.getLeito()" class="item-info">
             <h3 class="label">Leito</h3>
-            <h4 class="info">{{paciente.getLeito().id}}</h4>
+            <h4 class="info">{{paciente?.getLeito()?.id}}</h4>
           </section>
         </article>
         <div>
-          <button *ngIf="notAdmission" class="btn-admissao" (click)="openModal()">Admissão</button>
-          <button *ngIf="!notAdmission" class="btn-alta" (click)="openModal()">Alta</button>
+          <button *ngIf="admission" class="btn-admissao" (click)="openModal()">Admissão</button>
+          <button *ngIf="!admission" class="btn-alta" (click)="openModal()">Alta</button>
         </div>
       </footer>
     </aria-card>

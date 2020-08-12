@@ -48,11 +48,11 @@ export class Atendimento {
         delete object.planosTerapeutico;
       }
 
-      if (object.hasOwnProperty('Diagnosticos')) {
-        this.diagnosticos = object['Diagnosticos'].map((obj: any) => {
-          return new Planoterapeutico(obj);
+      if (object.hasOwnProperty('diagnosticos')) {
+        this.diagnosticos = object.diagnosticos.map((obj: any) => {
+          return new Diagnostico(obj);
         });
-        delete object['Diagnosticos'];
+        delete object.diagnosticos;
       }
 
       if (object.hasOwnProperty('registroLeitos')) {

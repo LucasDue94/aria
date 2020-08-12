@@ -52,7 +52,7 @@ export class PacienteListComponent implements OnInit {
   }
 
   getIdade(nasc) {
-    let nascimento = new Date(nasc);
+    const nascimento = new Date(nasc);
     return Math.floor(Math.ceil(Math.abs(nascimento.getTime() - (new Date()).getTime()) / (1000 * 3600 * 24)) / 365.25);
   }
 
@@ -65,7 +65,7 @@ export class PacienteListComponent implements OnInit {
       this.params.setorId = paramsCollapse.collapseId;
     }
 
-    if (this.params.setorId != '') {
+    if (this.params.setorId !== '') {
       this.params.termo = '';
     }
 
@@ -102,7 +102,7 @@ export class PacienteListComponent implements OnInit {
       this.params.offset += 15;
       this.params.setorId = '';
       this.params.internos = false;
-      if (params.busca != '') {
+      if (params.busca !== '') {
         this.getRegistros(this.params);
         this.searchEmpty = false;
         this.listLoading = true;

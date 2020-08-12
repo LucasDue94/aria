@@ -1,7 +1,0 @@
-import br.com.hospitaldocoracaoal.aria.Diagnostico
-
-model {
-	Diagnostico atendimentoCid
-}
-
-json tmpl.atendimentoCid(atendimentoCid)

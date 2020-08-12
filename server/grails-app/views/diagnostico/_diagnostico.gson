@@ -4,4 +4,4 @@ model {
 	Diagnostico diagnostico
 }
 
-json g.render(diagnostico, [resolveTemplate: false])
+json g.render(diagnostico, [expand:['cid'], resolveTemplate: false])

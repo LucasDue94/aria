@@ -35,16 +35,28 @@ export class Paciente {
     return sex;
   }
 
+  getResgistrosInternacao() {
+    return this.atendimentos.filter(a => a.tipo === 'I');
+  }
+
   getConvenio(): string {
     return this.atendimentos.length > 0 ? (this.atendimentos[this.atendimentos.length - 1].convenio || {fantasia: ''}).fantasia : '';
   }
 
   getSetor() {
-    return this.atendimentos.length > 0 ? this.atendimentos[this.atendimentos.length - 1].getUltimoRegistroLeito().leito.setor : null;
+    if (this.atendimentos.filter(a => a.registroLeitos.length === 0)) {
+      return this.getResgistrosInternacao().length > 0 ? this.getResgistrosInternacao()[this.getResgistrosInternacao().length - 1].getUltimoRegistroLeito().leito.setor : null;
+    } else {
+      return this.atendimentos.length > 0 ? this.atendimentos[this.atendimentos.length - 1].getUltimoRegistroLeito().leito.setor : null;
+    }
   }
 
   getLeito() {
-    return this.atendimentos.length > 0 ? this.atendimentos[this.atendimentos.length - 1].getUltimoRegistroLeito().leito : null;
+    if (this.atendimentos.filter(a => a.registroLeitos.length === 0)) {
+      return this.getResgistrosInternacao().length > 0 ? this.getResgistrosInternacao()[this.getResgistrosInternacao().length - 1].getUltimoRegistroLeito().leito : null;
+    } else {
+      return this.atendimentos.length > 0 ? this.atendimentos[this.atendimentos.length - 1].getUltimoRegistroLeito().leito : null;
+    }
   }
 
   getUltimoRegistro() {

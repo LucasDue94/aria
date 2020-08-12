@@ -11,6 +11,7 @@ import {faExclamation, faSearch, faSmile} from '@fortawesome/free-solid-svg-icon
 import {AtendimentoService} from '../../core/atendimento/atendimento.service';
 import {AlertService} from '../../core/alert/alert.service';
 import {Atendimento} from '../../core/atendimento/atendimento';
+import {Diagnostico} from '../../core/diagnostico/diagnostico';
 
 @Component({
   selector: 'app-evolucao',
@@ -22,7 +23,7 @@ export class EvolucaoComponent implements OnInit {
   pacienteId;
   atendimentoId;
   currentStep = 0;
-  diagnostic;
+  diagnostic: Diagnostico[];
   planTherapeutic;
   sizeListDiagnostic;
   paciente: Paciente;
@@ -49,14 +50,14 @@ export class EvolucaoComponent implements OnInit {
     this.titleService.send('Evolução');
     if (this.pacienteId !== undefined) {
       this.spinner.show();
-      this.pacienteService.get(this.pacienteId).subscribe(res => {
-        this.atendimentoId = res.getUltimoRegistro().id;
+      this.pacienteService.get(this.pacienteId).subscribe((paciente) => {
+        this.atendimentoId = paciente.getUltimoRegistro().id;
         this.spinner.hide();
-        if (!res.hasOwnProperty('error')) {
-          this.paciente = res;
+        if (!paciente.hasOwnProperty('error')) {
+          this.paciente = paciente;
           this.titleService.send('Evolução - ' + this.paciente.nome);
         } else {
-          this.errorService.sendError(res);
+          this.errorService.sendError(paciente);
           this.location.back();
         }
       });
@@ -105,8 +106,9 @@ export class EvolucaoComponent implements OnInit {
       diagnosticos: this.diagnostic,
       planosTerapeutico: [this.planTherapeutic]
     });
+
     if (Object.is(this.statePlanTherapeutic, 'VALID')) {
-      this.atendimentoService.save(admission).subscribe(atendimento => {
+      this.atendimentoService.save(admission).subscribe(() => {
           this.modalService.close();
           setTimeout(() => {
             this.alertService.send({message: 'Admissão realizada!', icon: faSmile, type: 'success'});
