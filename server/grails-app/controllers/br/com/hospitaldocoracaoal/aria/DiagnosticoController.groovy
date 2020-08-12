@@ -1,11 +1,14 @@
 package br.com.hospitaldocoracaoal.aria
 
-import grails.gorm.transactions.ReadOnly
-import grails.gorm.transactions.Transactional
 import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
+import static org.springframework.http.HttpStatus.CREATED
+import static org.springframework.http.HttpStatus.NOT_FOUND
+import static org.springframework.http.HttpStatus.NO_CONTENT
+import static org.springframework.http.HttpStatus.OK
 
-import static org.springframework.http.HttpStatus.*
+import grails.gorm.transactions.ReadOnly
+import grails.gorm.transactions.Transactional
 
 @ReadOnly
 class DiagnosticoController {
@@ -72,6 +75,7 @@ class DiagnosticoController {
     }
 
     @Transactional
+    @Secured('ROLE_DIAGNOSTICO_DELETE')
     def delete(Long id) {
         if (id == null) {
             render status: NOT_FOUND

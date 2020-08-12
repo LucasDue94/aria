@@ -13,6 +13,6 @@ interface DiagnosticoService {
 
     void delete(Serializable id)
 
-    Diagnostico save(Diagnostico atendimentoCid)
+    Diagnostico save(Diagnostico diagnostico)
 
 }
