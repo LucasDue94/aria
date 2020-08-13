@@ -390,7 +390,8 @@ export class NasFormComponent implements OnInit {
     data: ''
   });
   registroLeito: RegistroLeito;
-
+  pacienteInfoShadow = '0 0 5px #87888A';
+  pacienteBackgroundColor = '#F2F2F2';
   submitted = false;
 
   constructor(private route: ActivatedRoute, private registroLeitoService: RegistroLeitoService,

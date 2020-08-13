@@ -1,16 +1,17 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {NasFormComponent} from "./form/nas-form.component";
+import {NasFormComponent} from './form/nas-form.component';
 import {NasQuestionComponent} from './question/nas-question.component';
 import {NasGroupComponent} from './group/nas-group.component';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CoreModule} from '../core/core.module';
-import {NasPacienteListComponent} from "./list/nas-paciente-list.component";
-import {InfiniteScrollModule} from "ngx-infinite-scroll";
-import {SpinnerModule} from "../components/spinner/spinner.module";
-import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
-import {NasRoutingModule} from "./nas-routing.module";
-import {PacienteModule} from "../paciente/paciente.module";
+import {NasPacienteListComponent} from './list/nas-paciente-list.component';
+import {InfiniteScrollModule} from 'ngx-infinite-scroll';
+import {SpinnerModule} from '../components/spinner/spinner.module';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {NasRoutingModule} from './nas-routing.module';
+import {PacienteModule} from '../paciente/paciente.module';
+import {PacienteInfoModule} from '../paciente/info/paciente-info.module';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import {PacienteModule} from "../paciente/paciente.module";
     InfiniteScrollModule,
     SpinnerModule,
     FontAwesomeModule,
-    NasRoutingModule
+    NasRoutingModule,
+    PacienteInfoModule
   ], exports: [
     NasPacienteListComponent
   ]

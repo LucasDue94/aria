@@ -2,13 +2,15 @@
 @import 'src/assets/device-sizes';
 
 .paciente-info-container {
+  position: relative;
+}
+
+.paciente-info-content {
   transition: 1s;
   display: flex;
   padding: 5px;
-  min-height: 100px;
   margin: 10px;
   flex-wrap: wrap;
-  cursor: pointer;
 
   * {
     &::selection {
@@ -16,20 +18,13 @@
     }
   }
 
-  & {
-    background-color: $gray-30;
-    box-shadow: 0 0 5px $gray-80;
-    border-radius: 3px;
-    transition: 300ms;
-  }
-
-  &:hover {
-    transition: 300ms;
-    background-color: $gray-40;
+  .item-larger {
+    min-width: 250px !important;
   }
 
   .item-info {
-    width: 19% !important;
+    flex: 1;
+    min-width: 100px;
     margin: 5px;
 
     .label {
@@ -47,7 +42,6 @@
 .infoIcon, .minimizeIcon {
   position: absolute;
   right: 20px;
-  top: 10px;
   cursor: pointer;
 }
 
@@ -56,11 +50,13 @@
 }
 
 .minimize {
+  align-self: flex-end;
+  width: auto;
   transition: 1s;
   display: flex;
   padding: 5px;
   margin: 10px;
-  height: 20px;
+  min-height: 40px;
 
   & {
     background-color: $gray-30;

@@ -3,7 +3,8 @@ import {CommonModule} from '@angular/common';
 import {PlanoTerapeuticoFormComponent} from './form/plano-terapeutico-form.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-import { PlanoTerapeuticoShowComponent } from './show/plano-terapeutico-show.component';
+import {PlanoTerapeuticoShowComponent} from './show/plano-terapeutico-show.component';
+import {PacienteInfoModule} from "../paciente/info/paciente-info.module";
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { PlanoTerapeuticoShowComponent } from './show/plano-terapeutico-show.com
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    PacienteInfoModule
   ]
 })
 export class PlanoTerapeuticoModule {
