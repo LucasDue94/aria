@@ -1,13 +1,15 @@
 <main class="paciente-info-container">
-  <fa-icon *ngIf="!minimize && useMinimizeButton" class="minimizeIcon" (click)="minimize = true" [icon]="windowMinimizeIcon"></fa-icon>
+  <h1 *ngIf="useBigName" class="paciente-nome">{{paciente?.nome}}</h1>
+  <fa-icon *ngIf="!minimize && useMinimizeButton" class="minimizeIcon" (click)="minimize = true"
+           [icon]="windowMinimizeIcon"></fa-icon>
   <fa-icon *ngIf="minimize && useMinimizeButton" class="infoIcon" (click)="minimize = false" [icon]="faPlus"></fa-icon>
   <section [ngStyle]="{'background-color': backgroundColor,'box-shadow': shadow}"
            [ngClass]="[minimize ? 'minimize' : 'paciente-info-content']">
-    <section class="item-info item-larger">
+    <section *ngIf="!useBigName" class="item-info">
       <h3 class="label">Paciente</h3>
       <h4 class="info">{{paciente?.nome}}</h4>
     </section>
-    <section *ngIf="paciente?.nomeMae" class="item-info item-larger">
+    <section *ngIf="paciente?.nomeMae" class="item-info">
       <h3 class="label">Mãe</h3>
       <h4 class="info">{{paciente?.nomeMae}}</h4>
     </section>
