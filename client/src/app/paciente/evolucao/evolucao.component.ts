@@ -53,7 +53,7 @@ export class EvolucaoComponent implements OnInit {
 
   ngOnInit(): void {
     setTimeout(() => {
-      // this.modalAdmissao.open();
+      this.modalAdmissao.open();
     }, 300);
     this.pacienteId = this.route.snapshot.params.id;
     this.titleService.send('Evolução');

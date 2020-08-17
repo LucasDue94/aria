@@ -9,7 +9,7 @@ import {Nas} from '../nas/nas';
 import {Convenio} from '../convenio/convenio';
 import {RegistroLeito} from '../registroLeito/registroLeito';
 import {AtendimentoCid} from './atendimentoCid';
-import {Planoterapeutico} from '../planoTerapeutico/planoterapeutico';
+import {PlanoTerapeutico} from '../planoTerapeutico/planoTerapeutico';
 import {Diagnostico} from '../diagnostico/diagnostico';
 
 
@@ -19,7 +19,7 @@ export class Atendimento {
   dataAlta?: string;
   setor?: Setor;
   diagnosticos?: Diagnostico[] = new Array<Diagnostico>();
-  planosTerapeutico?: Planoterapeutico[] = new Array<Planoterapeutico>();
+  planosTerapeutico?: PlanoTerapeutico[] = new Array<PlanoTerapeutico>();
   cid?: Cid;
   motivoAlta?: MotivoAlta;
   tipo?: string;
@@ -43,7 +43,7 @@ export class Atendimento {
 
       if (object.hasOwnProperty('planosTerapeutico')) {
         this.planosTerapeutico = object.planosTerapeutico.map((obj: any) => {
-          return new Planoterapeutico(obj);
+          return new PlanoTerapeutico(obj);
         });
         delete object.planosTerapeutico;
       }
