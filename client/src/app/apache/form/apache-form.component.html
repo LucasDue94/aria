@@ -1,5 +1,5 @@
 <main class="container-apache">
-  <paciente-info [paciente]="registroLeito?.atendimento?.paciente"
+  <paciente-info [shadow]="pacienteInfoShadow" [backgroundColor]="pacienteBackgroundColor" [paciente]="registroLeito?.atendimento?.paciente"
                  [extras]="[{label: 'Registro', value: registroLeito?.atendimento?.id},
                  {label: 'Entrada',value:registroLeito?.dataEntrada | date:'dd/MM/yyyy - HH:mm'},
                  {label: 'Saída', value: (registroLeito?.dataAlta || registroLeito?.atendimento?.dataAlta) | date:'dd/MM/yyyy - HH:mm'},
@@ -128,8 +128,8 @@
       </article>
     </section>
     <footer class="apache-footer">
-      <button (click)="save()" class="button button-blue">Salvar</button>
       <button (click)="clear()" class="button button-gray">Limpar</button>
+      <button (click)="save()" class="button button-blue">Salvar</button>
     </footer>
   </section>
 </main>

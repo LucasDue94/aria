@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {Paciente} from '../../core/paciente/paciente';
 
 @Component({
   selector: 'plano-terapeutico-show',
@@ -7,7 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PlanoTerapeuticoShowComponent implements OnInit {
 
-  constructor() { }
+  @Input() paciente: Paciente;
+
+  constructor() {
+  }
 
   ngOnInit() {
   }

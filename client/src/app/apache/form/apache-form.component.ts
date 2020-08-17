@@ -38,6 +38,8 @@ export class ApacheFormComponent implements OnInit {
   messagePressao = '';
   labelPosition = 'left';
   send = false;
+  pacienteInfoShadow = '0 0 5px #87888A';
+  pacienteBackgroundColor =  '#F2F2F2';
 
   constructor(private spinner: SpinnerService, private alert: AlertService,
               private title: TitleService, private fb: FormBuilder,

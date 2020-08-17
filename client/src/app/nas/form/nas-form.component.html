@@ -1,5 +1,5 @@
 <main class="nas-container">
-  <paciente-info [paciente]="registroLeito?.atendimento?.paciente"></paciente-info>
+  <paciente-info [shadow]="pacienteInfoShadow" [backgroundColor]="pacienteBackgroundColor" [paciente]="registroLeito?.atendimento?.paciente"></paciente-info>
   <header class="main-title">ATIVIDADE BÁSICA</header>
   <form class="container-groups">
     <nas-group *ngFor="let group of form" [groupLabel]="group.name">
