@@ -57,7 +57,7 @@ export class EvolucaoComponent implements OnInit {
 
   ngOnInit(): void {
     setTimeout(() => {
-      // this.modalAdmissao.open();
+      this.modalAdmissao.open();
     }, 300);
     this.pacienteId = this.route.snapshot.params.id;
     this.titleService.send('Evolução');
@@ -74,7 +74,6 @@ export class EvolucaoComponent implements OnInit {
           this.errorService.sendError(paciente);
           this.location.back();
         }
-        this.verifyAdmission(this.atendimento);
       });
     }
   }
@@ -88,14 +87,6 @@ export class EvolucaoComponent implements OnInit {
 
   setSizeListDiagnostic(size) {
     this.sizeListDiagnostic = size;
-  }
-
-  verifyAdmission(atendimento: Atendimento) {
-    if (atendimento.diagnosticos.length === 0 && atendimento.planosTerapeutico.length === 0) {
-      this.hasAdmission = true;
-    } else {
-      this.hasAdmission = false;
-    }
   }
 
   nextStep() {

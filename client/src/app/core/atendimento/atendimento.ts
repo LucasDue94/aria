@@ -18,7 +18,7 @@ export class Atendimento {
   dataAlta?: string;
   setor?: Setor;
   diagnosticos?: Diagnostico[] = new Array<Diagnostico>();
-  planosTerapeutico?: Planoterapeutico[] = new Array<Planoterapeutico>();
+  planoTerapeutico?: Planoterapeutico;
   cid?: Cid;
   motivoAlta?: MotivoAlta;
   tipo?: string;
@@ -40,8 +40,8 @@ export class Atendimento {
         delete object.incidentes;
       }
 
-      if (object.hasOwnProperty('planosTerapeutico')) {
-        this.planosTerapeutico = object.planosTerapeutico.map((obj: any) => {
+      if (object.hasOwnProperty('planoTerapeutico')) {
+        this.planoTerapeutico = object.planoTerapeutico.map((obj: any) => {
           return new Planoterapeutico(obj);
         });
         delete object.planosTerapeutico;

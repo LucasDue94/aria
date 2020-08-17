@@ -3,7 +3,6 @@ import {Admissao} from './admissao';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {Observable, of, Subject} from 'rxjs';
-import {Incidente} from '../incidente/incidente';
 import {catchError} from 'rxjs/operators';
 
 @Injectable({
@@ -19,7 +18,7 @@ export class AdmissaoService {
   save(admissao: Admissao): Observable<Admissao> {
     let subject = new Subject<Admissao>();
     if (admissao.id) {
-      this.http.put<Admissao>(this.baseUrl + 'incidente/' + admissao.id, admissao, {
+      this.http.put<Admissao>(this.baseUrl + 'admissao/' + admissao.id, admissao, {
         responseType: 'json'
       }).pipe(
         catchError(error => of({error}))
@@ -27,7 +26,7 @@ export class AdmissaoService {
         subject.next(json);
       });
     } else {
-      this.http.post<Admissao>(this.baseUrl + 'incidente/',  admissao, {
+      this.http.post<Admissao>(this.baseUrl + 'admissao/',  admissao, {
         responseType: 'json'
       }).pipe(
         catchError(error => of({error}))
