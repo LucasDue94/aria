@@ -1,7 +1,7 @@
 import {Atendimento} from '../atendimento/atendimento';
 
 export class PlanoTerapeutico {
-  id?: number;
+  id: number;
   resultadoEsperado: string;
   conduta: string;
   problemaAtivo: string;
