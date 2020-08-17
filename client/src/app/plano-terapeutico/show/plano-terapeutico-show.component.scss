@@ -13,12 +13,17 @@
 .row {
   align-content: space-between;
   padding: 0 15px;
+  flex-wrap: wrap;
 
   .box {
-    margin: 0 5px;
-    flex: 1;
+    margin: 5px;
+    flex: 3;
     padding: 5px;
-    background-color: $gray-50;
+    min-width: 200px;
+
+    & {
+      background-color: $gray-50;
+    }
 
     .label {
       font-size: 14px;
@@ -31,6 +36,35 @@
   }
 
   #prazo {
-    max-width: 60px;
+    flex-grow: 0 !important;
+    min-width: 60px !important;
   }
+}
+
+.bool-questions {
+  display: flex;
+  flex-direction: row;
+
+  .form-group {
+    justify-content: flex-start;
+
+    .form-control {
+      margin-left: 5px;
+      width: 20px;
+      height: 20px;
+      box-shadow: none;
+    }
+  }
+}
+
+#justificativa-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.select-option{
+  padding: 5px;
 }

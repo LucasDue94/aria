@@ -10,7 +10,7 @@
         <h3 class="label">Sexo</h3>
         <h4 class="info">{{paciente.stringSexo()}}</h4>
       </section>
-      <section *ngIf="paciente?.status == 'internado'" class="item-info">
+      <section *ngIf="paciente?.status" class="item-info">
         <h3 class="label">Registro</h3>
         <h4 class="info">{{paciente.getConvenio()}}</h4>
       </section>

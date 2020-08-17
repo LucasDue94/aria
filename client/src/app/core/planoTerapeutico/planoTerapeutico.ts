@@ -1,18 +1,22 @@
 import {Atendimento} from '../atendimento/atendimento';
 
-export class Planoterapeutico {
+export class PlanoTerapeutico {
   id?: number;
   resultadoEsperado: string;
   conduta: string;
   problemaAtivo: string;
   prazo: number;
   atendimento: Atendimento;
+  atingido = false;
+  inicio: string;
+  fim: string;
 
   constructor(obj?: any) {
-    const object: any = Object.assign(obj);
+    const object = Object.assign(obj);
     for (const prop in object) {
-      this[prop] = object[prop];
+      if (object.hasOwnProperty(prop)) {
+        this[prop] = object[prop];
+      }
     }
   }
-
 }

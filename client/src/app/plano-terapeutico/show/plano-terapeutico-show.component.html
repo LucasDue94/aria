@@ -5,27 +5,48 @@
   <article class="row">
     <section class="box">
       <h3 class="label">Problema ativo</h3>
-      <p class="info">e suffered alteration in some form, by injected humour, or randomised words which don't look even
-        slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything
-        embarrassing hidden in the middle of text. All the Lorem I</p>
+      <p class="info">{{ planoTerapeutico?.problemaAtivo }}</p>
     </section>
     <section class="box">
       <h3 class="label">Resultado esperado</h3>
-      <p class="info"> is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here,
-        content here', making it look like readable English. Many desktop publishing packages and web page editors now
-        use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in
-        their infan</p>
+      <p class="info"> {{ planoTerapeutico?.resultadoEsperado }}</p>
     </section>
     <section class="box">
       <h3 class="label">Conduta</h3>
-      <p class="info"> is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here,
-        content here', making it look like readable English. Many desktop publishing packages and web page editors now
-        use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in
-        their infan</p>
+      <p class="info"> {{ planoTerapeutico?.conduta }}</p>
     </section>
     <section class="box" id="prazo">
       <h3 class="label">Prazo</h3>
-      <p class="info"> 30 dias</p>
+      <p class="info"> {{ planoTerapeutico?.prazo }}</p>
+    </section>
+  </article>
+  <article class="row">
+    <section class="box">
+      <h3 class="label">Médico</h3>
+      <p class="info">Maria da Silva Sauro</p>
+    </section>
+    <section class="box bool-questions">
+      <div class="form-group">
+        <label class="form-label" for="plano-atingido">Sim</label>
+        <input class="form-control" [value]="true" [(ngModel)]="planoTerapeutico.atingido" id="plano-atingido"
+               type="radio"
+               name="atingido">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="plano-nao-atingido">Não</label>
+        <input class="form-control" [value]="false" [(ngModel)]="planoTerapeutico.atingido" id="plano-nao-atingido"
+               type="radio"
+               name="atingido">
+      </div>
+    </section>
+    <section class="box">
+      <div class="form-group"  id="justificativa-container">
+        <label for="justificativa" class="label">Médico</label>
+        <select class="form-control" name="justificativa" id="justificativa">
+          <option class="select-option" *ngFor="let justificativa of justiticativas"
+                  [value]="justificativa.value">{{justificativa.desc}}</option>
+        </select>
+      </div>
     </section>
   </article>
 </main>
