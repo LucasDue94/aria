@@ -78,6 +78,12 @@ class Permissao implements Serializable {
             findOrSaveWhere(authority: 'ROLE_ATENDIMENTO_UPDATE', nome: 'Atualizar Atendimentos', alias: 'atendimento')
             findOrSaveWhere(authority: 'ROLE_ATENDIMENTO_SHOW', nome: 'Ver Atendimento', alias: 'atendimento')
 
+            // -- ADMISSAO --
+            findOrSaveWhere(authority: 'ROLE_ADMISSAO_INDEX', nome: 'Listar Admissao', alias: 'admissao')
+            findOrSaveWhere(authority: 'ROLE_ADMISSAO_SAVE', nome: 'Salvar Admissao', alias: 'admissao')
+            findOrSaveWhere(authority: 'ROLE_ADMISSAO_UPDATE', nome: 'Atualizar Admissao', alias: 'admissao')
+            findOrSaveWhere(authority: 'ROLE_ADMISSAO_SHOW', nome: 'Ver Admissao', alias: 'admissao')
+
             // -- USUARIO --
             findOrSaveWhere(authority: 'ROLE_USUARIO_SHOW', nome: 'Ver usuário', alias: 'usuario')
             findOrSaveWhere(authority: 'ROLE_USUARIO_INDEX', nome: 'Listar usuários', alias: 'usuario')

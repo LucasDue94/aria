@@ -8,7 +8,6 @@ import {Balao} from '../balao/balao';
 import {Nas} from '../nas/nas';
 import {Convenio} from '../convenio/convenio';
 import {RegistroLeito} from '../registroLeito/registroLeito';
-import {AtendimentoCid} from './atendimentoCid';
 import {Planoterapeutico} from '../planoTerapeutico/planoterapeutico';
 import {Diagnostico} from '../diagnostico/diagnostico';
 
