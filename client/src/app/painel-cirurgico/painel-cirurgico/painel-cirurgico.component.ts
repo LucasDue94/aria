@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {TitleService} from "../../core/title/title.service";
-import {faClock} from "@fortawesome/free-regular-svg-icons";
 import {faCalendarAlt} from "@fortawesome/free-regular-svg-icons/faCalendarAlt";
 @Component({
   selector: 'app-painel-cirurgico',
@@ -10,7 +9,6 @@ import {faCalendarAlt} from "@fortawesome/free-regular-svg-icons/faCalendarAlt";
 export class PainelCirurgicoComponent implements OnInit {
 
   faCalendar = faCalendarAlt;
-  faClock = faClock;
 
   list = [
     {medico: 'Marcio Ribeiro Costa', hora: '18:30 - 22:10'},
