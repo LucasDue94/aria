@@ -1,12 +1,12 @@
 import {Atendimento} from '../atendimento/atendimento';
-import {Planoterapeutico} from '../planoTerapeutico/planoterapeutico';
 import {Diagnostico} from '../diagnostico/diagnostico';
+import {PlanoTerapeutico} from '../planoTerapeutico/planoTerapeutico';
 
 export class Admissao {
   id: number;
   data: string;
   atendimento: Atendimento;
-  planoTerapeutico: Planoterapeutico;
+  planoTerapeutico: PlanoTerapeutico;
   diagnosticos: Diagnostico[];
 
   constructor(object?: any) {
