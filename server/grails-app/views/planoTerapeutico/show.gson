@@ -1,0 +1,7 @@
+import br.com.hospitaldocoracaoal.aria.PlanoTerapeutico
+
+model {
+	PlanoTerapeutico planoTerapeutico
+}
+
+json tmpl.planoTerapeutico(planoTerapeutico)

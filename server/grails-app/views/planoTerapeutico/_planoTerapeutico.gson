@@ -1,0 +1,7 @@
+import br.com.hospitaldocoracaoal.aria.PlanoTerapeutico
+
+model {
+	PlanoTerapeutico planoTerapeutico
+}
+
+json g.render(planoTerapeutico, [excludes: ['admissao', 'atendimento'], resolveTemplate: false])

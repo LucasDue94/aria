@@ -1,0 +1,7 @@
+import br.com.hospitaldocoracaoal.aria.Admissao
+
+model {
+    Admissao admissao
+}
+
+json g.render(admissao, [expand: ['planoTerapeutico', 'diagnosticos', 'atendimento'], resolveTemplate: false])

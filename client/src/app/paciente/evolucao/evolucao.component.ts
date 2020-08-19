@@ -14,6 +14,8 @@ import {Modal} from '../../core/modal/entities/modal';
 import {ModalType} from '../../core/modal/entities/enumerators/modalType.enum';
 import {ModalSize} from '../../core/modal/entities/enumerators/modalSize.enum';
 import {Diagnostico} from '../../core/diagnostico/diagnostico';
+import {AdmissaoService} from '../../core/admissao/admissao.service';
+import {Admissao} from '../../core/admissao/admissao';
 
 @Component({
   selector: 'app-evolucao',
@@ -25,7 +27,9 @@ export class EvolucaoComponent implements OnInit {
   pacienteId;
   atendimentoId;
   currentStep = 0;
+  hasAdmission = false;
   diagnostic: Diagnostico[];
+  atendimento: Atendimento;
   planTherapeutic;
   sizeListDiagnostic;
   paciente: Paciente;
@@ -48,7 +52,7 @@ export class EvolucaoComponent implements OnInit {
   constructor(private pacienteService: PacienteService, private atendimentoService: AtendimentoService,
               private location: Location, private route: ActivatedRoute, private titleService: TitleService,
               private alertService: AlertService, private router: Router, private spinner: SpinnerService,
-              private errorService: ErrorService) {
+              private errorService: ErrorService, private admissao: AdmissaoService) {
   }
 
   ngOnInit(): void {
@@ -61,6 +65,7 @@ export class EvolucaoComponent implements OnInit {
       this.spinner.show();
       this.pacienteService.get(this.pacienteId).subscribe((paciente) => {
         this.atendimentoId = paciente.getUltimoRegistro().id;
+        this.atendimento = paciente.getResgistrosInternacao().reduce(atendimento => atendimento);
         this.spinner.hide();
         if (!paciente.hasOwnProperty('error')) {
           this.paciente = paciente;
@@ -109,27 +114,36 @@ export class EvolucaoComponent implements OnInit {
   }
 
   save() {
-    const admission = new Atendimento({
-      id: this.atendimentoId,
-      diagnosticos: this.diagnostic,
-      planosTerapeutico: [this.planTherapeutic]
+    const admission = new Admissao({
+      atendimento: this.atendimentoId,
+      data: new Date(),
+      planoTerapeutico: this.planTherapeutic,
+      diagnosticos: this.diagnostic
     });
     if (Object.is(this.statePlanTherapeutic, 'VALID')) {
-      this.atendimentoService.save(admission).subscribe(() => {
+      this.admissao.save(admission).subscribe(admissao => {
+        if (admissao.hasOwnProperty('error')) {
+          setTimeout(() => {
+            this.alertService.send({
+              message: 'O paciente já foi admitido!',
+              icon: faExclamation,
+              type: 'warning'
+            });
+          });
+        } else {
           this.modalAdmissao.close();
           setTimeout(() => {
             this.alertService.send({message: 'Admissão realizada!', icon: faSmile, type: 'success'});
             this.router.navigate(['/paciente/show', this.pacienteId]);
           }, 300);
         }
-      );
+      });
     } else {
       this.alertService.send({
         message: 'Por favor preencha todos os campos!',
         icon: faExclamation,
         type: 'warning'
       });
-
     }
   }
 
