@@ -1,41 +1,16 @@
 <section class="container-painel">
   <div class="main-content-painel-cir">
 
-    <div class="basic-card">
+    <div *ngFor="let item of list; let i = index" class="basic-card">
       <div class="card-wrapper__text-section"><!---->
-        <div class="demo-card__title">Cirurgia 1</div>
-        <div class="demo-card__subhead"> <p><b>Cirurgião: </b>Dr. José Leitão</p></div>
+        <div class="demo-card__title">Sala {{i + 1}}<span class="title-complement"> &#8212; Dr. José Leitão</span></div>
+<!--        <div class="demo-card__subhead"> <p><b>Cirurgião: </b> Dr. José Leitão</p></div>-->
       </div>
       <div class="card-wrapper__text-section">
         <div class="demo-card__supporting-text">
-          <p><b>Paciente: </b>Joaquim Serafino Araújo</p>
-          <p><b>Previsão de término: </b>18:00</p>
-        </div>
-      </div>
-      <br>
-    </div>
-    <div class="basic-card">
-      <div class="card-wrapper__text-section"><!---->
-        <div class="demo-card__title">Cirurgia 2</div>
-        <div class="demo-card__subhead"> <p><b>Cirurgião: </b>Dr. José Leitão</p></div>
-      </div>
-      <div class="card-wrapper__text-section">
-        <div class="demo-card__supporting-text">
-          <p><b>Paciente: </b>MARIANA LOPES SARMENTO FERREIRA RODRIGUES CAVALCANTI ALENCAR</p>
-          <p><b>Previsão de término: </b>18:00</p>
-        </div>
-      </div>
-      <br>
-    </div>
-    <div class="basic-card">
-      <div class="card-wrapper__text-section"><!---->
-        <div class="demo-card__title">Cirurgia 2</div>
-        <div class="demo-card__subhead"> <p><b>Cirurgião: </b>Dr. José Leitão</p></div>
-      </div>
-      <div class="card-wrapper__text-section">
-        <div class="demo-card__supporting-text">
-          <p><b>Paciente: </b>MARIANA LOPES SARMENTO FERREIRA RODRIGUES CAVALCANTI ALENCAR</p>
-          <p><b>Previsão de término: </b>18:00</p>
+          <p><b>Paciente: </b>mariana lopes sarmento ferreira rodrigues cavalcanti alencar</p>
+          <br>
+          <p class="estimate">Previsão: 18:00</p>
         </div>
       </div>
       <br>
