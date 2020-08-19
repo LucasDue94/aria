@@ -8,9 +8,8 @@ import {Balao} from '../balao/balao';
 import {Nas} from '../nas/nas';
 import {Convenio} from '../convenio/convenio';
 import {RegistroLeito} from '../registroLeito/registroLeito';
-import {AtendimentoCid} from './atendimentoCid';
-import {Planoterapeutico} from '../planoTerapeutico/planoterapeutico';
 import {Diagnostico} from '../diagnostico/diagnostico';
+import {PlanoTerapeutico} from '../planoTerapeutico/planoTerapeutico';
 
 
 export class Atendimento {
@@ -19,7 +18,7 @@ export class Atendimento {
   dataAlta?: string;
   setor?: Setor;
   diagnosticos?: Diagnostico[] = new Array<Diagnostico>();
-  planosTerapeutico?: Planoterapeutico[] = new Array<Planoterapeutico>();
+  planoTerapeutico?: PlanoTerapeutico;
   cid?: Cid;
   motivoAlta?: MotivoAlta;
   tipo?: string;
@@ -41,18 +40,18 @@ export class Atendimento {
         delete object.incidentes;
       }
 
-      if (object.hasOwnProperty('planosTerapeutico')) {
-        this.planosTerapeutico = object.planosTerapeutico.map((obj: any) => {
-          return new Planoterapeutico(obj);
+      if (object.hasOwnProperty('planoTerapeutico')) {
+        this.planoTerapeutico = object.planoTerapeutico.map((obj: any) => {
+          return new PlanoTerapeutico(obj);
         });
         delete object.planosTerapeutico;
       }
 
-      if (object.hasOwnProperty('Diagnosticos')) {
-        this.diagnosticos = object['Diagnosticos'].map((obj: any) => {
-          return new Planoterapeutico(obj);
+      if (object.hasOwnProperty('diagnosticos')) {
+        this.diagnosticos = object.diagnosticos.map((obj: any) => {
+          return new Diagnostico(obj);
         });
-        delete object['Diagnosticos'];
+        delete object.diagnosticos;
       }
 
       if (object.hasOwnProperty('registroLeitos')) {

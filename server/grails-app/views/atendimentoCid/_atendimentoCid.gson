@@ -1,7 +1,0 @@
-import br.com.hospitaldocoracaoal.aria.Diagnostico
-
-model {
-	Diagnostico atendimentoCid
-}
-
-json g.render(atendimentoCid, [expand:['cid'], resolveTemplate: false])

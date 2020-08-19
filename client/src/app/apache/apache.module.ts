@@ -16,6 +16,7 @@ import {SpinnerModule} from '../components/spinner/spinner.module';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {ApacheRoutingModule} from './apache-routing.module';
 import {PacienteModule} from '../paciente/paciente.module';
+import {PacienteInfoModule} from '../paciente/info/paciente-info.module';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import {PacienteModule} from '../paciente/paciente.module';
     CoreModule,
     NgSelectModule,
     PacienteModule,
-    ApacheRoutingModule
+    ApacheRoutingModule,
+    PacienteInfoModule
   ],
   exports: [
     ApachePacienteListComponent

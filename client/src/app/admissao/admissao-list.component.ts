@@ -1,11 +1,11 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'aria-admissao',
   templateUrl: './admissao-list.component.html',
   styleUrls: ['admissao-list.scss']
 })
-export class AdmissaoListComponent {
+export class AdmissaoListComponent implements OnInit{
 
   @Input() currentStep = 0;
   @Output() sizeListDiagnostic = new EventEmitter();
@@ -14,6 +14,9 @@ export class AdmissaoListComponent {
   @Output() statePlan = new EventEmitter();
 
   constructor() {
+  }
+
+  ngOnInit(): void {
   }
 
   getSizeListDiagnostic(size) {

@@ -1,8 +1,0 @@
-import br.com.hospitaldocoracaoal.aria.Diagnostico
-
-model {
-	Iterable<Diagnostico> atendimentoCidList
-}
-
-json tmpl.atendimentoCid(atendimentoCidList ?: [])
-

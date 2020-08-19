@@ -5,7 +5,7 @@
   width: 100%;
   height: calc(100% - 120px);
   position: absolute;
-  overflow-y: scroll;
+  overflow-y: auto;
 
   & .collapse {
     margin: 10px;
