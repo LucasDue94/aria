@@ -13,7 +13,9 @@ import {Atendimento} from '../../core/atendimento/atendimento';
 import {Modal} from '../../core/modal/entities/modal';
 import {ModalType} from '../../core/modal/entities/enumerators/modalType.enum';
 import {ModalSize} from '../../core/modal/entities/enumerators/modalSize.enum';
-import {ModalTheme} from "../../core/modal/entities/enumerators/modalTheme.enum";
+import {Diagnostico} from '../../core/diagnostico/diagnostico';
+import {AdmissaoService} from '../../core/admissao/admissao.service';
+import {Admissao} from '../../core/admissao/admissao';
 
 @Component({
   selector: 'app-evolucao',
@@ -25,13 +27,15 @@ export class EvolucaoComponent implements OnInit {
   pacienteId;
   atendimentoId;
   currentStep = 0;
-  diagnostic;
+  hasAdmission = false;
+  diagnostic: Diagnostico[];
+  atendimento: Atendimento;
   planTherapeutic;
   sizeListDiagnostic;
   paciente: Paciente;
   faSearch = faSearch;
   statePlanTherapeutic;
-  evolucao = {
+  ultimaEvolucao = {
     conteudo: 'It is a long established fact that a reader will be distng \'Content here, content helike).\n' +
       '\n',
     medico: 'Patrícia Caldas de Oliveira',
@@ -39,11 +43,16 @@ export class EvolucaoComponent implements OnInit {
     data: '01/07/2019 10:13:44'
   };
   modalAdmissao = new Modal({title: 'Admissão', type: ModalType.CUSTOM, size: ModalSize.SMALL});
+  modalPlanoTerapeutico = new Modal({
+    title: 'Plano Terapêutico Multiprofissional',
+    type: ModalType.CUSTOM,
+    size: ModalSize.LARGER
+  });
 
   constructor(private pacienteService: PacienteService, private atendimentoService: AtendimentoService,
               private location: Location, private route: ActivatedRoute, private titleService: TitleService,
               private alertService: AlertService, private router: Router, private spinner: SpinnerService,
-              private errorService: ErrorService) {
+              private errorService: ErrorService, private admissao: AdmissaoService) {
   }
 
   ngOnInit(): void {
@@ -54,22 +63,22 @@ export class EvolucaoComponent implements OnInit {
     this.titleService.send('Evolução');
     if (this.pacienteId !== undefined) {
       this.spinner.show();
-      this.pacienteService.get(this.pacienteId).subscribe(res => {
-        this.atendimentoId = res.getUltimoRegistro().id;
+      this.pacienteService.get(this.pacienteId).subscribe((paciente) => {
+        this.atendimentoId = paciente.getUltimoRegistro().id;
+        this.atendimento = paciente.getResgistrosInternacao().reduce(atendimento => atendimento);
         this.spinner.hide();
-        if (!res.hasOwnProperty('error')) {
-          this.paciente = res;
+        if (!paciente.hasOwnProperty('error')) {
+          this.paciente = paciente;
           this.titleService.send('Evolução - ' + this.paciente.nome);
         } else {
-          this.errorService.sendError(res);
+          this.errorService.sendError(paciente);
           this.location.back();
         }
       });
     }
   }
 
-  cutText(text, max) {
-  }
+  cutText = (text, width) => text.length > 120 ? text.slice(0, width) + '...' : text;
 
   getIdade(nasc) {
     const nascimento = new Date(nasc);
@@ -105,31 +114,40 @@ export class EvolucaoComponent implements OnInit {
   }
 
   save() {
-    const admission = new Atendimento({
-      id: this.atendimentoId,
-      diagnosticos: this.diagnostic,
-      planosTerapeutico: [this.planTherapeutic]
+    const admission = new Admissao({
+      atendimento: this.atendimentoId,
+      data: new Date(),
+      planoTerapeutico: this.planTherapeutic,
+      diagnosticos: this.diagnostic
     });
     if (Object.is(this.statePlanTherapeutic, 'VALID')) {
-      this.atendimentoService.save(admission).subscribe(atendimento => {
+      this.admissao.save(admission).subscribe(admissao => {
+        if (admissao.hasOwnProperty('error')) {
+          setTimeout(() => {
+            this.alertService.send({
+              message: 'O paciente já foi admitido!',
+              icon: faExclamation,
+              type: 'warning'
+            });
+          });
+        } else {
           this.modalAdmissao.close();
           setTimeout(() => {
             this.alertService.send({message: 'Admissão realizada!', icon: faSmile, type: 'success'});
             this.router.navigate(['/paciente/show', this.pacienteId]);
           }, 300);
         }
-      );
+      });
     } else {
       this.alertService.send({
         message: 'Por favor preencha todos os campos!',
         icon: faExclamation,
         type: 'warning'
       });
-
     }
   }
 
   showPlano() {
-    console.log('plano');
+    this.modalPlanoTerapeutico.open();
   }
 }

@@ -1,0 +1,8 @@
+import br.com.hospitaldocoracaoal.aria.Admissao
+
+model {
+	Iterable<Admissao> admissaoList
+}
+
+json tmpl.admissao(admissaoList ?: [])
+

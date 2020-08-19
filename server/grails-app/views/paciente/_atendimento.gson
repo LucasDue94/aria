@@ -4,6 +4,6 @@ model {
     Atendimento atendimento
 }
 
-json g.render(atendimento, [expand: ['incidentes', 'convenio', 'atendimentoCid', 'planosTerapeutico'], resolveTemplate: false]) {
+json g.render(atendimento, [expand: ['incidentes', 'convenio'], resolveTemplate: false]) {
     registroLeitos tmpl.'/paciente/registroLeito'(atendimento.sortedRegistroLeitos)
 }

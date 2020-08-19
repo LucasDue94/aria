@@ -17,14 +17,12 @@ class Atendimento {
     Paciente paciente
 
     static hasMany = [
-            comandas: Comanda,
-            consultas: Consulta,
-            exames: Exame,
-            diagnosticos: Diagnostico,
-            registroLeitos: RegistroLeito,
-            cirurgias: Cirurgia,
-            incidentes: Incidente,
-            planosTerapeutico: PlanoTerapeutico
+            comandas         : Comanda,
+            consultas        : Consulta,
+            exames           : Exame,
+            registroLeitos   : RegistroLeito,
+            cirurgias        : Cirurgia,
+            incidentes       : Incidente
     ]
 
     static hasOne = [ecg: Ecg, balao: Balao]
@@ -38,15 +36,13 @@ class Atendimento {
         dataAltaMedica nullable: true
         motivoAlta nullable: true
         ecg nullable: true
-        diagnosticos nullable: true
-        planosTerapeutico nullable: true
         balao nullable: true
     }
 
     static mapping = {
         id generator: 'assigned'
         sort dataEntrada: "desc"
-        version  false
+        version false
     }
 
     static transients = ['ultimoRegistroLeito', 'ultimoNas', 'ultimo', 'sortedRegistroLeitos']
@@ -68,6 +64,7 @@ class Atendimento {
 
         return ultimoNas
     }
+
 
     boolean isUltimo() {
         this == paciente.ultimoAtendimento

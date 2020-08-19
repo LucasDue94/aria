@@ -53,11 +53,10 @@ class AtendimentoController {
             return
         }
 
-        respond atendimento, [status: CREATED, view:"show"]
+        respond atendimento, [status: CREATED, view: "show"]
     }
 
     @Transactional
-    @Secured('ROLE_ATENDIMENTO_SAVE')
     def update(Atendimento atendimento) {
         if (atendimento == null) {
             render status: NOT_FOUND
@@ -76,7 +75,7 @@ class AtendimentoController {
             return
         }
 
-        respond atendimento, [status: OK, view:"show"]
+        respond atendimento, [status: OK, view: "show"]
     }
 
 }

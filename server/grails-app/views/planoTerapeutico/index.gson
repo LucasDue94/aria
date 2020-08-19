@@ -1,0 +1,8 @@
+import br.com.hospitaldocoracaoal.aria.PlanoTerapeutico
+
+model {
+	Iterable<PlanoTerapeutico> planoTerapeuticoList
+}
+
+json tmpl.planoTerapeutico(planoTerapeuticoList ?: [])
+

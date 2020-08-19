@@ -15,7 +15,7 @@
         <div class="empty" *ngIf="atendimentos?.length == 0">
           <p>Não existe paciente internado no setor!</p>
         </div>
-        <div class="row" *ngFor="let atendimento of atendimentos" (click)="showProntuario(atendimento.paciente.id)">
+        <div class="row" *ngFor="let atendimento of atendimentos" (click)="showProntuario(atendimento?.paciente?.id)">
           <span class="td flex-4">{{atendimento.paciente.nome}}</span>
           <span class="td flex-1">{{atendimento.paciente.nascimento}} anos</span>
           <span class="td flex-3">{{atendimento?.ultimoRegistroLeito?.leito?.descricao}}</span>

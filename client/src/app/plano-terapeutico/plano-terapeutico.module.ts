@@ -1,24 +1,28 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {PlanoTerapeuticoComponent} from './plano-terapeutico.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import {PlanoTerapeuticoFormComponent} from './form/plano-terapeutico-form.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-import { PlanoTerapeuticoShowComponent } from './show/plano-terapeutico-show.component';
+import {PlanoTerapeuticoShowComponent} from './show/plano-terapeutico-show.component';
+import {PacienteInfoModule} from "../paciente/info/paciente-info.module";
 
 
 @NgModule({
   declarations: [
-    PlanoTerapeuticoComponent,
+    PlanoTerapeuticoFormComponent,
     PlanoTerapeuticoShowComponent
   ],
   exports: [
-    PlanoTerapeuticoComponent
+    PlanoTerapeuticoFormComponent,
+    PlanoTerapeuticoShowComponent
   ],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    FontAwesomeModule
-  ]
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        FontAwesomeModule,
+        PacienteInfoModule,
+        FormsModule
+    ]
 })
 export class PlanoTerapeuticoModule {
 }

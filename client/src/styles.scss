@@ -63,24 +63,8 @@ paciente-card {
   display: none;
 }
 
-#background-modal {
-  visibility: hidden;
-  position: fixed;
-  top: 0;
-  left: 0;
-
-  & {
-    background-color: $gray-100;
-    opacity: 0.5;
-    z-index: 1900;
-  }
-}
-
-
-.active-background-modal {
-  height: 100%;
+plano-terapeutico-show{
   width: 100%;
-  visibility: visible !important;
 }
 
 .modal-open {
@@ -90,10 +74,6 @@ paciente-card {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-}
-
-.open-modal {
-  overflow: hidden;
 }
 
 .blur {
@@ -250,7 +230,7 @@ status-card {
   }
 }
 
-.button-cancel {
+.button-gray {
   color: $white;
   background: $gray-80;
   transition: 0.3s;
@@ -262,15 +242,15 @@ status-card {
   }
 }
 
-.button-next {
+.button-info {
   color: $white;
-  background: #42a5f5;
+  background: $info;
   transition: 0.3s;
 
   &:hover {
     cursor: pointer;
     transition: 0.3s;
-    background: #3484c5;
+    background: $info;
   }
 }
 

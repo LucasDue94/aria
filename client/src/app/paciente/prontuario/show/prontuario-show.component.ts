@@ -6,7 +6,7 @@ import {SpinnerService} from '../../../core/spinner/spinner.service';
 import {ErrorService} from '../../../core/error/error.service';
 import {Location} from '@angular/common';
 import {Paciente} from '../../../core/paciente/paciente';
-import {Atendimento} from '../../../core/atendimento/atendimento';
+import {RegistroLeito} from '../../../core/registroLeito/registroLeito';
 
 @Component({
   selector: 'prontuario',
@@ -15,8 +15,9 @@ import {Atendimento} from '../../../core/atendimento/atendimento';
 })
 export class ProntuarioShowComponent implements OnInit {
   paciente: Paciente;
+  protuario: RegistroLeito;
   pacienteId;
-  notAdmission;
+  admission;
   evolucao = {
     conteudo: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).\n' +
       '\n',
@@ -32,39 +33,31 @@ export class ProntuarioShowComponent implements OnInit {
 
   ngOnInit(): void {
     this.pacienteId = this.route.snapshot.params.id;
+    this.admission = true;
     if (this.pacienteId !== undefined) {
       this.spinner.show();
-      this.pacienteService.get(this.pacienteId).subscribe(res => {
+      this.pacienteService.get(this.pacienteId).subscribe((paciente) => {
         this.spinner.hide();
-        if (!res.hasOwnProperty('error')) {
-          this.paciente = res;
+        if (!paciente.hasOwnProperty('error')) {
+          this.paciente = paciente;
         } else {
-          this.errorService.sendError(res);
+          this.errorService.sendError(paciente);
           this.location.back();
         }
       });
     }
-    this.getAttendance();
   }
 
   cutText = (text, width) => text.length > 120 ? text.slice(0, width) + '...' : text;
 
   openModal() {
-    if (this.notAdmission) {
+    if (this.admission) {
       this.router.navigate(['/paciente/evolucao/', this.paciente.id]);
     }
   }
 
   click() {
     alert('foon');
-  }
-
-  getAttendance() {
-    let lastRegister: Atendimento;
-    this.pacienteService.get(this.pacienteId).subscribe(attendance => {
-      lastRegister = attendance.getUltimoRegistro();
-      lastRegister.planosTerapeutico.length === 0 && lastRegister.diagnosticos.length === 0 ? this.notAdmission = true : this.notAdmission = false;
-    });
   }
 
   getIdade(nasc) {
