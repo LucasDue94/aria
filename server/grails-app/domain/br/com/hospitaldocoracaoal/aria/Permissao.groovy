@@ -64,6 +64,8 @@ class Permissao implements Serializable {
             findOrSaveWhere(authority: 'ROLE_SETOR_SAVE', nome: 'Salvar setor', alias: 'setor')
             findOrSaveWhere(authority: 'ROLE_SETOR_UPDATE', nome: 'Atualizar setor', alias: 'setor')
             findOrSaveWhere(authority: 'ROLE_SETOR_DELETE', nome: 'Excluir setor', alias: 'setor')
+            findOrSaveWhere(authority: 'ROLE_SETOR_VER_MENU', nome: 'Ver menu setor', alias: 'Ver menu setor')
+
 
             // -- PERFIL --
             findOrSaveWhere(authority: 'ROLE_PERFIL_EPIDEMIOLOGICO_INDEX', nome: 'Listar Perfis Epidemiológicos', alias: 'perfil epidemiológico')

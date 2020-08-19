@@ -15,6 +15,30 @@ export class AdmissaoService {
   constructor(private http: HttpClient) {
   }
 
+  list(): Observable<Admissao[]> {
+    let subject = new Subject<Admissao[]>();
+    this.http.get<Admissao[]>(this.baseUrl + `admissao`)
+      .subscribe((json: any[]) => {
+        subject.next(json.map((propertyName: any) => new Admissao(propertyName)));
+      });
+    return subject.asObservable();
+  }
+
+  get(id: number): Observable<Admissao> {
+    let subject = new Subject<any>();
+    this.http.get<Admissao>(this.baseUrl + `admissao/${id}`)
+      .pipe(
+        catchError(error => of({error})
+        )).subscribe((json: any) => {
+      if (json.hasOwnProperty('error')) {
+        subject.next(json);
+      } else {
+        subject.next(new Admissao(json));
+      }
+    });
+    return subject.asObservable();
+  }
+
   save(admissao: Admissao): Observable<Admissao> {
     let subject = new Subject<Admissao>();
     if (admissao.id) {
@@ -26,7 +50,7 @@ export class AdmissaoService {
         subject.next(json);
       });
     } else {
-      this.http.post<Admissao>(this.baseUrl + 'admissao/',  admissao, {
+      this.http.post<Admissao>(this.baseUrl + 'admissao/', admissao, {
         responseType: 'json'
       }).pipe(
         catchError(error => of({error}))

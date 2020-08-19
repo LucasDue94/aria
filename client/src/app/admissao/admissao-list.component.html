@@ -5,6 +5,6 @@
   </app-diagnostico-list>
 </section>
 <section class="d-none" [class.active]="currentStep === 1">
-  <app-plano-terapeutico (planTherapeutic)="getPlanTherapeutic($event)" (statePlan)="getStatePlanTherapeutic($event)"></app-plano-terapeutico>
+  <app-plano-terapeutico [paciente]="paciente" (planTherapeutic)="getPlanTherapeutic($event)" (statePlan)="getStatePlanTherapeutic($event)"></app-plano-terapeutico>
 </section>
 

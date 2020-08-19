@@ -66,6 +66,9 @@ export class EvolucaoComponent implements OnInit {
       this.pacienteService.get(this.pacienteId).subscribe((paciente) => {
         this.atendimentoId = paciente.getUltimoRegistro().id;
         this.atendimento = paciente.getResgistrosInternacao().reduce(atendimento => atendimento);
+        setTimeout(() => {
+          this.paciente = paciente;
+        }, 1000);
         this.spinner.hide();
         if (!paciente.hasOwnProperty('error')) {
           this.paciente = paciente;

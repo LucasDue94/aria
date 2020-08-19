@@ -19,6 +19,7 @@ export enum EnumPermisson {
   role_setor_save = 'ROLE_SETOR_SAVE',
   role_setor_update = 'ROLE_SETOR_UPDATE',
   role_setor_delete = 'ROLE_SETOR_DELETE',
+  role_setor_ver_menu = 'ROLE_SETOR_VER_MENU',
   role_usuario_update = 'ROLE_USUARIO_UPDATE',
   role_atendimento_show = 'ROLE_ATENDIMENTO_SHOW',
 
