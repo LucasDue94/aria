@@ -5,7 +5,7 @@ import {
   HostListener,
   Input,
   KeyValueDiffers,
-  OnChanges,
+  OnChanges, OnInit,
   Renderer2,
   SimpleChanges,
   ViewChild
@@ -14,6 +14,7 @@ import {ModalService} from '../../core/modal/modal.service';
 import {Modal} from '../../core/modal/entities/modal';
 import {ModalType} from '../../core/modal/entities/enumerators/modalType.enum';
 import {ModalSize} from '../../core/modal/entities/enumerators/modalSize.enum';
+import {NavigationEnd, NavigationStart, Router} from '@angular/router';
 
 @Component({
   selector: 'aria-modal',
@@ -27,7 +28,7 @@ import {ModalSize} from '../../core/modal/entities/enumerators/modalSize.enum';
  * @property modalContainer property is the main modal container
  * @property modifiedObject checks changes in modal instance
  */
-export class ModalComponent implements DoCheck, OnChanges {
+export class ModalComponent implements DoCheck, OnChanges, OnInit {
   @Input() modal: Modal;
   @ViewChild('modalContainer', {read: ElementRef, static: false}) modalContainer: ElementRef;
   @ViewChild('modalBackground', {read: ElementRef, static: false}) modalBackground: ElementRef;
@@ -36,15 +37,36 @@ export class ModalComponent implements DoCheck, OnChanges {
   readonly MODAL_INTERNAL_STATUS_PROPERY = 'internalStatus';
   modalParent: ElementRef;
   body: Element;
+  currentUrl;
+  modalTag;
 
   /**
    *
    * @param render is a custom renderer to bypass Angular's templating and make custom UI changes that can't be expressed declaratively.
    * @param differs is a helper to deal with differences. It will be used to detect changes in the modal instance properties.
    * @param modalService is a service that is responsible for listening and sending modals' answers.
+   * @param router
    */
-  constructor(private modalService: ModalService, private render: Renderer2, private differs: KeyValueDiffers) {
+  constructor(private modalService: ModalService, private render: Renderer2, private differs: KeyValueDiffers,
+              private router: Router) {
     this.modifiedObject = differs.find({}).create();
+    this.router.events.subscribe(e => {
+      if (e instanceof NavigationEnd) {
+        if (this.currentUrl === undefined) {
+          this.currentUrl = e.url;
+        }
+      }
+    });
+  }
+
+  ngOnInit(): void {
+    this.router.events.subscribe(e => {
+      if (e instanceof NavigationStart) {
+        if (this.currentUrl !== e.url) {
+          this.handleModal(false);
+        }
+      }
+    });
   }
 
   /**
@@ -65,11 +87,14 @@ export class ModalComponent implements DoCheck, OnChanges {
   handleAppend(open: boolean) {
     if (this.modalContainer) {
       if (open) {
-        this.modalParent = this.render.parentNode(this.modalBackground.nativeElement);
+        this.modalTag = this.render.parentNode(this.modalBackground.nativeElement);
+        this.modalParent = this.render.parentNode(this.modalTag);
         const body = document.getElementsByTagName('body')[0];
-        this.render.appendChild(body, this.modalParent);
+        this.render.appendChild(body, this.modalTag);
       } else {
-        this.render.appendChild(this.modalParent, this.modalBackground.nativeElement);
+        if (this.modalParent && this.modalTag) {
+          this.render.appendChild(this.modalParent, this.modalTag);
+        }
       }
     }
   }
@@ -106,7 +131,10 @@ export class ModalComponent implements DoCheck, OnChanges {
     const appRoot = document.getElementsByTagName('app-root')[0];
     this.render[open ? 'addClass' : 'removeClass'](appRoot, 'open-modal');
     this.open = open;
-    if (this.modal.blur) {
+    if (open) {
+      this.modalTag = this.render.parentNode(this.modalBackground);
+    }
+    if (this.modal && this.modal.blur) {
       this.handleAppend(this.open);
       this.handleBlur(this.open);
     }
