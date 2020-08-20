@@ -34,7 +34,7 @@ export class MenuComponent implements OnInit {
     }),
     new Menu({
       name: 'Setores',
-      permission: EnumPermisson.role_setor_index,
+      permission: EnumPermisson.role_setor_ver_menu,
       faIcon: faFolderOpen,
       router: ['/setor']
     }),

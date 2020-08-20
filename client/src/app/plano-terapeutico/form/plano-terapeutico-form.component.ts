@@ -1,7 +1,6 @@
-import {Component, EventEmitter, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, Validators} from '@angular/forms';
-import {PacienteService} from '../../core/paciente/paciente.service';
-import {ActivatedRoute} from '@angular/router';
+import {Paciente} from '../../core/paciente/paciente';
 
 @Component({
   selector: 'app-plano-terapeutico',
@@ -12,8 +11,7 @@ export class PlanoTerapeuticoFormComponent implements OnInit {
 
   @Output() planTherapeutic = new EventEmitter();
   @Output() statePlan = new EventEmitter();
-  paciente;
-  pacienteId;
+  @Input() paciente: Paciente;
 
   form = this.formBuilder.group({
     problemaAtivo: new FormControl('', Validators.required),
@@ -23,7 +21,7 @@ export class PlanoTerapeuticoFormComponent implements OnInit {
     atendimento: new FormControl('', Validators.required)
   });
 
-  constructor(private formBuilder: FormBuilder, private pacienteService: PacienteService, private route: ActivatedRoute) {
+  constructor(private formBuilder: FormBuilder) {
   }
 
   get f() {
@@ -31,11 +29,9 @@ export class PlanoTerapeuticoFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.pacienteId = this.route.snapshot.params.id;
-    this.pacienteService.get(this.pacienteId).subscribe(paciente => {
-      this.paciente = paciente;
+    setTimeout(() => {
       this.form.get('atendimento').setValue(this.paciente.getUltimoRegistro().id);
-    });
+    }, 1000);
 
     this.form.valueChanges.subscribe(plan => {
       this.planTherapeutic.emit(plan);

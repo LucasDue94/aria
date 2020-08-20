@@ -179,7 +179,7 @@ class PerfilEpidemiologicoService {
 
                 if (cid != null) {
                     codigo = cid.id
-                    diagnostico = cid.diagnostico
+                    diagnostico = cid.descricao
                 }
 
                 cids << [codigo: codigo, diagnostico: diagnostico, quantidade: 1]

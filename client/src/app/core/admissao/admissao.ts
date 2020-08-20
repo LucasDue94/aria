@@ -12,4 +12,9 @@ export class Admissao {
   constructor(object?: any) {
     Object.assign(this, object);
   }
+
+  getAdmissaoByAtendimento(admissao: Admissao[]) {
+
+  }
+
 }

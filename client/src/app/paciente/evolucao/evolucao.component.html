@@ -41,6 +41,9 @@
             <h4 class="info">{{paciente?.getLeito()?.id}}</h4>
           </section>
         </article>
+        <div>
+          <button class="btn-admissao">Admissão</button>
+        </div>
       </footer>
     </aria-card>
     <article class="paciente-forms">
@@ -75,7 +78,7 @@
     <section class="admissao-container" body>
       <aria-admissao [currentStep]="currentStep" (diagnostic)="setDiagnostic($event)"
                      (sizeListDiagnostic)="setSizeListDiagnostic($event)"
-                     (planTherapeutic)="setPlanTherapeutic($event)"
+                     [paciente]="paciente" (planTherapeutic)="setPlanTherapeutic($event)"
                      (statePlan)="setStatePlanTherapeutic($event)">
       </aria-admissao>
     </section>

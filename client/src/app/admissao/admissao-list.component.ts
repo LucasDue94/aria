@@ -5,18 +5,20 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
   templateUrl: './admissao-list.component.html',
   styleUrls: ['admissao-list.scss']
 })
-export class AdmissaoListComponent implements OnInit{
+export class AdmissaoListComponent implements OnInit {
 
   @Input() currentStep = 0;
   @Output() sizeListDiagnostic = new EventEmitter();
   @Output() diagnostic = new EventEmitter();
   @Output() planTherapeutic = new EventEmitter();
   @Output() statePlan = new EventEmitter();
+  @Input() paciente;
 
   constructor() {
   }
 
   ngOnInit(): void {
+
   }
 
   getSizeListDiagnostic(size) {
