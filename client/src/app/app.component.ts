@@ -49,21 +49,4 @@ export class AppComponent implements OnInit, DoCheck {
   goRoute() {
     this.location.back();
   }
-
-  @HostListener('document:keydown', ['$event']) handleKeyDown(e: KeyboardEvent) {
-    if (e.key === 'F5') {
-      e.preventDefault();
-      this.modalService.open(new Modal({
-        title: 'Atenção',
-        message: 'Há dados que podem ser perdidos. Deseja atualizar a página?',
-        type: ModalType.CONFIRM,
-        theme: ModalTheme.WARNING,
-        size: ModalSize.SMALL
-      })).subscribe((answer) => {
-        if (answer) {
-          window.location.reload();
-        }
-      });
-    }
-  }
 }
