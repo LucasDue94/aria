@@ -84,9 +84,9 @@
     </section>
     <section footer>
       <form class="form-footer-group">
-        <button class="button button-gray" (click)="cancel()">Cancelar</button>
-        <button class="button button-info" *ngIf="currentStep >= 1" (click)="previousStep()">Voltar</button>
-        <button class="button button-info" *ngIf="currentStep >= 0 && currentStep < 1 && sizeListDiagnostic > 0"
+        <button type="button" class="button button-gray" (click)="modalAdmissao.close()">Cancelar</button>
+        <button type="button" class="button button-info" *ngIf="currentStep >= 1" (click)="previousStep()">Voltar</button>
+        <button type="button" class="button button-info" *ngIf="currentStep >= 0 && currentStep < 1 && sizeListDiagnostic > 0"
                 (click)="nextStep()">Próximo
         </button>
         <button (click)="save()" class="button button-blue" *ngIf="currentStep >= 1">Salvar</button>

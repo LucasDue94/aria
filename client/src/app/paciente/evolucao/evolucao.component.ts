@@ -98,10 +98,6 @@ export class EvolucaoComponent implements OnInit {
     this.currentStep -= 1;
   }
 
-  cancel() {
-    this.modalAdmissao.close();
-  }
-
   setDiagnostic(diagnostic) {
     this.diagnostic = diagnostic;
   }
