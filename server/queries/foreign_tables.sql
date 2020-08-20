@@ -1,7 +1,8 @@
 /* -- Ambcor -- */
 CREATE SERVER ambcor_dev FOREIGN DATA WRAPPER postgres_fdw OPTIONS (host 'dev.hcal.lan', dbname 'hamb_dev', port '5432');
 drop server ambcor_dev cascade;
-CREATE USER MAPPING FOR aria SERVER ambcor_dev OPTIONS (user 'aria', password 'aria@123-hcor');
+/*CREATE USER MAPPING FOR aria SERVER ambcor_dev OPTIONS (user 'aria', password 'aria@123-hcor');
+*/CREATE USER MAPPING FOR aria SERVER ambcor OPTIONS (user 'aria', password 'aria@123-hcor');
 /* --/ Ambcor -- */
 
 drop foreign table atendimento;
